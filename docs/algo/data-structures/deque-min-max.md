@@ -94,7 +94,7 @@ Lúc đầu hàng đợi hai đầu của chúng ta rỗng
 ![img](../../uploads/2SI3P7o.png)
 Đối với phần tử đầu tiên vì do hàng đợi rỗng nên ta sẽ đẩy phần tử này vào cuối hàng đợi
 ![img](../../uploads/AiuYFLJ.png)
-Tiếp theo ta sẽ đẩy lần lượt các phần tử có vị trí $2$$;$ $3$ và $4$ vào cuối hàng đợi. 
+Tiếp theo ta sẽ đẩy lần lượt các phần tử có vị trí $2$; $3$ và $4$ vào cuối hàng đợi. 
 ![img](../../uploads/w3AlnmP.png)
 Vì ta chỉ xét các đoạn trong khoảng từ $[i - k + 1 … i]$. Do đó khi ta xét đến phần tử thứ $5$ thì phần tử đầu tiên trong hàng đợi có vị trí $i = 1$ không còn ý nghĩa gì nữa. Vì vậy ta sẽ loại bỏ phần tử đầu tiên ra khỏi hàng đợi.
 Khi ta loại bỏ phần tử đầu tiên ra khỏi hàng đợi thì tất cả các phần tử đứng sau phần tử đó để được đẩy lên $1$ ô và hàng đợi sẽ được đánh số lại.

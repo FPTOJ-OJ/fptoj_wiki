@@ -200,7 +200,7 @@ Gợi ý: Tại mỗi bước, chọn ra trong số các đỉnh chưa thăm mà
 Tới đây bạn sẽ được làm quen với QHĐ 2 chiều.
 
 **Bài toán:**
-Cho một bảng $M * N$, mỗi ô có một lượng táo. Bắt đầu từ ô trái trên, mỗi bước có thể đi sang phải hoặc xuống dưới. Bạn có thể ăn được nhiều nhất bao nhiêu quả táo ?
+Cho một bảng $M \times N$, mỗi ô có một lượng táo. Bắt đầu từ ô trái trên, mỗi bước có thể đi sang phải hoặc xuống dưới. Bạn có thể ăn được nhiều nhất bao nhiêu quả táo ?
 
 Cách giải bài này cũng tương tự như những bài trước.
 
@@ -280,7 +280,7 @@ Những bài sau đây sẽ cần một chút kĩ năng phân tích để có th
 
 **Problem [StarAdventure](http://community.topcoder.com/tc?module=ProblemDetail&rd=5854&pm=2940) – SRM 208 Div 1:**
 
-Cho ma trận M hàng, N cột ($N * M$). Mỗi ô có một lượng táo.
+Cho ma trận M hàng, N cột ($N \times M$). Mỗi ô có một lượng táo.
 Bạn đang ở ô góc trái trên. Bạn chỉ có thể đi xuống hoặc sang phải. Bạn cần tới ô góc phải dưới. Rồi quay lại ô trái trên bằng cách lên hoặc sang trái. Cuối cùng, bạn quay lại ô phải dưới.
 Tìm số táo nhiều nhất mà bạn có thể ăn được.
 Khi đi qua một ô, toàn bộ táo của ô đấy sẽ bị ăn hết.

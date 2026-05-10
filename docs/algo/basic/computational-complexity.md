@@ -247,13 +247,13 @@ Dễ thấy:
 *$\lfloor x \rfloor$ là số nguyên lớn nhất $\le x$ (phần nguyên dưới).*
 *$\lceil x \rceil$ là số nguyên nhỏ nhất $\ge x$ (phần nguyên trên).*
 
-Từ đó, ta có : $\begin{align}
+Từ đó, ta có : $$\begin{align}
 \begin{cases}
 f(1) = 1\\
 f(n)=
 f\left(\left\lfloor\dfrac{n}{2}\right\rfloor\right) + f\left(\left\lceil\dfrac{n}{2}\right\rceil\right)+ \alpha n \, (\alpha \ge 1)
 \end{cases}
-\end{align}$
+\end{align}$$
 
 ĐPT thuật toán này là $f(n) = \boldsymbol{O(n\log n)}$ trong cả *worst case* và *average case*.
 
@@ -264,14 +264,14 @@ Bằng quy nạp, ta có:
 - Với $n = 1$, rõ ràng luôn tồn tại $c''>1$ để $f(1)<c'' \times 1$  
 - Giả sử điều này đúng đến $n = k - 1$ $(k \ge 2)$, ta cần chứng minh đúng với $n = k$:
 - Thật vậy,
-$\begin{align}
+$$\begin{align}
 f(k) &= f\left(\left\lfloor\frac{k}{2}\right\rfloor\right)+f\left(\left\lceil\frac{k}{2}\right\rceil\right) + \alpha k\\
 \Rightarrow f(k) &\le 2f\left(\left\lceil\frac{k}{2}\right\rceil\right) + \alpha k\\
 &\le \left( 2 \left\lceil\frac{k}{2}\right\rceil \times \log_2\left(\left\lceil\frac{k}{2}\right\rceil\right) + c' k \right) + \alpha k\\
 &\le \left( 2 \times\frac{k}{2}\times \log_2\left(\frac{k}{2}\right) + \beta k \right) + (c'+\alpha) k\\
 &= k \log_2 k - k + (c' + \alpha + \beta)\times k\\
 &= k \log_2 k + c''\times k\\
-\end{align}$
+\end{align}$$
 
 Chọn $c = \max\limits_{n \le T}(c'')$, ta được đpcm.
 

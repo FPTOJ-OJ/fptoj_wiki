@@ -810,7 +810,7 @@ Giới hạn: $1 \leq a \leq 10^4$ và $1 \leq b,c \leq 10^{14}$.
 
 Để dễ dàng phân tích ta định nghĩa hàm $f$ như sau:
 
-$$f(x) = (a \cdot x + x \ div \ b) \  mod \ c$$
+$$f(x) = (a \cdot x + x \div b) \bmod c$$
 
 Dãy số của chúng ta sẽ có dạng
 

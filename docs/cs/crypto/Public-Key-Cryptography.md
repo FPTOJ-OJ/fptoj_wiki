@@ -98,7 +98,7 @@ Dựa vào $m$, Alice có thể khôi phục lại mẫu tin ban đầu $M$.
 
 - Chọn 2 số nguyên tố khác nhau $p$ và $q$.
 
-- Tính $n = p * q$. Độ dài của $n$ (tính theo bit) chính là độ dài của khóa. Hiện nay người ta khuyến cáo sử dụng khóa có độ dài tối thiếu 2048 bit.
+- Tính $n = p \times q$. Độ dài của $n$ (tính theo bit) chính là độ dài của khóa. Hiện nay người ta khuyến cáo sử dụng khóa có độ dài tối thiếu 2048 bit.
 
 - Tính $\varphi(n) = \varphi(p)\varphi(q) = (p - 1)(q - 1) = n - (p + q - 1)$. Trong đó $\varphi(n)$ là phi hàm Euler. $\varphi(n) =$ số lượng số nguyên dương nhỏ hơn $n$ mà nguyên tố cùng nhau với $n$.
 

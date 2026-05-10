@@ -263,15 +263,15 @@ Thử tính toán độ phức tạp tại vài mức đầu tiên, ta có:
 <tr>
 <td>work</td>
 <td>$cN$</td>
-<td>$ {3\over 8}cN^3 $</td>
-<td>$ {3^2 \over 8^2}cN^3 $</td>
+<td>$\frac{3}{8}cN^3$</td>
+<td>$\frac{3^2}{8^2}cN^3$</td>
 <td>...</td>
 </tr>
 </tbody>
 </table>
 
 
-Rõ ràng là ta càng đi sâu xuống cây thì tổng độ phức tạp càng giảm. Vậy tốc độ giảm là bao nhiêu? Khi ta đi xuống một mức thì sẽ phải giải số bài toán con gấp ba lần số bài toán ở mức hiện tại. Tuy nhiên, vì mỗi bài toán con chỉ phải giải có kích cỡ giảm một nửa, nên thời gian cần để giải bài toán con giảm còn bằng $1 \over 8$ bài toán cha. Như vậy tổng độ phức tạp giảm theo hệ số $3 \over 8$.
+Rõ ràng là ta càng đi sâu xuống cây thì tổng độ phức tạp càng giảm. Vậy tốc độ giảm là bao nhiêu? Khi ta đi xuống một mức thì sẽ phải giải số bài toán con gấp ba lần số bài toán ở mức hiện tại. Tuy nhiên, vì mỗi bài toán con chỉ phải giải có kích cỡ giảm một nửa, nên thời gian cần để giải bài toán con giảm còn bằng $\frac{1}{8}$ bài toán cha. Như vậy tổng độ phức tạp giảm theo hệ số $\frac{3}{8}$.
 
 Điều này có nghĩa là toàn bộ bảng số ở trên sẽ hình thành một dãy cấp số nhân. Giả sử rằng dãy cấp số nhân đó tăng tới vô cùng. Tổng của dãy sẽ là:
 
@@ -307,18 +307,18 @@ Như trên, thử tính số lệnh cần thực thi ở vài mức đầu tiên
 <tr>
 <td>work</td>
 <td>$cN$</td>
-<td>${5\over 3}cN$</td>
-<td>${5^2 \over 3^2}cN$</td>
+<td>$\frac{5}{3}cN$</td>
+<td>$\frac{5^2}{3^2}cN$</td>
 <td>...</td>
 </tr>
 </tbody>
 </table>
 
-Ta có kết quả ngược với ví dụ 6: khi ta càng đi sâu xuống dưới thì tổng độ phức tạp lại càng tăng lên. Khi ta đi xuống một  mức, sẽ có gấp $5$ lần số bài toán con, mỗi bài toán con sẽ có kích cỡ bằng $1 \over 3$ bài toán cha. Vì thời gian xử lý là tuyến tính với kích cỡ bài toán nên ta có tổng độ phức tạp ở mức sau tăng gấp $5 \over 3 $ mức trước.
+Ta có kết quả ngược với ví dụ 6: khi ta càng đi sâu xuống dưới thì tổng độ phức tạp lại càng tăng lên. Khi ta đi xuống một  mức, sẽ có gấp $5$ lần số bài toán con, mỗi bài toán con sẽ có kích cỡ bằng $\frac{1}{3}$ bài toán cha. Vì thời gian xử lý là tuyến tính với kích cỡ bài toán nên ta có tổng độ phức tạp ở mức sau tăng gấp $\frac{5}{3}$ mức trước.
 
 Vẫn như trên ta hướng tới việc tính tổng độ phức tạp trên cả cây. Lần này việc tính toán sẽ khó hơn vì lượng công việc phải tính nằm ở mức sâu nhất. Ta cần biết độ sâu của cây.
 
-Mức thấp nhất tương ứng bài toán kích cỡ bằng $1$. Tổng quát, kích cỡ bài toán con ở mức $k$ là $N \over 3^k$. Giải phương trình $1 = N \over 3^k$ ta được $k = log_3N$. Lưu ý là ở đây ta viết rõ chỉ cơ số của hàm logarit vì cơ số này quan trọng trong việc phản ánh cấu trúc cây.
+Mức thấp nhất tương ứng bài toán kích cỡ bằng $1$. Tổng quát, kích cỡ bài toán con ở mức $k$ là $\frac{N}{3^k}$. Giải phương trình $1 = \frac{N}{3^k}$ ta được $k = log_3N$. Lưu ý là ở đây ta viết rõ chỉ cơ số của hàm logarit vì cơ số này quan trọng trong việc phản ánh cấu trúc cây.
 
 Như vậy cây đệ quy có $log_3N$ mức. Mỗi mức có $5$ lần số đỉnh so với mức trên nó, nên mức cuối cùng có $5^{log_3N}$ đỉnh. Tổng độ phức tạp ở mức cuối tương ứng là $c5^{log_3N}$.
 

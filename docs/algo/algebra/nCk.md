@@ -323,12 +323,10 @@ int main(){
         $$\dfrac{t^{e_q}}{p^{e_1}} C_n^k \equiv \dfrac{(n_0!)_p}{(k_0!)_p(r_0!)_p} \cdot \dfrac{(n_1!)_p}{(k_1!)_p(r_1!)_p} \ldots \dfrac{(n_d!)_p}{(k_d!)_p(r_d!)_p} \,(\bmod p^q)$$
 
         Trong đó:
-        - $t = \begin{align}
-        \begin{cases}
+        - $t = \begin{cases}
         1 &\text{ nếu } p = 2 \text{ và } q \ge 3\\
         -1&\text{ còn lại}
-        \end{cases}
-        \end{align}$
+        \end{cases}$
         - $e_j = \sum\limits_{i \ge j} \left( \left\lfloor \dfrac{n}{p^i} \right\rfloor - \left\lfloor \dfrac{k}{p^i} \right\rfloor - \left\lfloor \dfrac{r}{p^i} \right\rfloor \right)$
         Bạn đọc có thể thấy, $e_1$ là số mũ của $p$ khi phân tích $C_n^k$ ra thừa số nguyên tố.
         - $\left( n! \right)_p$ là tích tất cả các số từ $1$ đến $n$ và không bao gồm các số chia hết cho $p$ (với $p$ là số nguyên tố).

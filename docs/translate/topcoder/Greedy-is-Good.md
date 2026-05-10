@@ -258,11 +258,11 @@ Return Best
 
 Có $N$ mỏ vàng, mỗi mỏ vàng chứa được tối đa $6$ công nhân. Bằng cách phân bổ các công nhân, công ty sẽ thu được (hoặc mất đi) số tiền như sau:
 
-  - Nếu mỏ vàng có ít nhân công hơn trữ lượng của nó, công ty sẽ thu được $60$$ với mỗi công nhân.
+  - Nếu mỏ vàng có ít nhân công hơn trữ lượng của nó, công ty sẽ thu được $60$ với mỗi công nhân.
 
-  - Nếu mỏ vàng có số công nhân bằng với trữ lượng của nó, công ty sẽ thu được $50$$ cho với mỗi công nhân.
+  - Nếu mỏ vàng có số công nhân bằng với trữ lượng của nó, công ty sẽ thu được $50$ cho với mỗi công nhân.
 
-  - Nếu mỏ vàng có số công nhân nhiều hơn trữ lượng của nó, công ty sẽ được số tiền là $50$ nhân cho trữ lượng mỏ. Với mỗi công nhân bị thừa ra so với sản lượng mỏ, công ty sẽ bị mất đi $20$$.
+  - Nếu mỏ vàng có số công nhân nhiều hơn trữ lượng của nó, công ty sẽ được số tiền là $50$ nhân cho trữ lượng mỏ. Với mỗi công nhân bị thừa ra so với sản lượng mỏ, công ty sẽ bị mất đi $20$.
 
 Dù cho có bị mất tiền đi chăng nữa thì công ty cũng buộc phải phân công đủ các công nhân vào các mỏ.
 

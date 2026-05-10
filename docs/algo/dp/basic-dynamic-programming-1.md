@@ -119,10 +119,10 @@ Ví dụ, trạng thái trong bài này là số cách sắp xếp $n$ chiếc g
 
 Gọi $f[i]$ là cách sắp xếp $i$ chiếc ghế thành một hàng dọc. Khi đó ta có:
 
-\begin{cases}
-f[1] = 3; f[2] = 8 \newline
+$$\begin{cases}
+f[1] = 3; f[2] = 8 \\
 f[i] = 2f[i - 1] + 2f[i - 2], \forall i=3;4;\ldots;n(*)
-\end{cases}
+\end{cases}$$
 
 Công thức $(*)$ được gọi là **công thức truy hồi**.
 

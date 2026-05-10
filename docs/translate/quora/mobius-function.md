@@ -161,7 +161,7 @@ Ta đưa đề bài này về bài toán: tính $G=\sum_{i=1}^{n}\sum_{j=i+1}^{n
 
 1. Viết lại biểu thức trên: 
 
-	$G=\sum_{g}^{maxA}h(g)*cnt[g]$, ở đây $cnt[g]$ là số lượng bộ ba $(i,j,k)$ có $gcd(a_i,a_j,a_k)=1$. $maxA=10^6$
+	$G=\sum_{g}^{maxA}h(g) \cdot cnt[g]$, ở đây $cnt[g]$ là số lượng bộ ba $(i,j,k)$ có $gcd(a_i,a_j,a_k)=1$. $maxA=10^6$
 
 2. Tìm $f(n)$ bằng công thức nghịch đảo Mobius.
 

@@ -208,7 +208,7 @@ $T(c)$ |$49\%$|$74\%$|$86\%$|$93\%$|$97\%$|$\ldots$
 
 Từ bảng trên có thể thấy để có độ chính xác $\ge90\%$ thì ta phải thử ít nhất $4$ lần, và có thể nhiều hơn. Trong khi nếu ta chỉ thử $1$ lần duy nhất thì xác suất phép thử kết luận sai là $>\frac{1}{2}$.
 
-Với $k=4$, số Carmichael nhỏ nhất có $4$ ước nguyên tố là $41041$$= 7 \times 11 \times 13 \times 41$. Tương tự, xét xác suất phép thử cho kết quả đúng với $n$ là số Carmichael dạng này bị chặn bởi $T(c)$. $T(c)$ được cho bởi bảng sau:
+Với $k=4$, số Carmichael nhỏ nhất có $4$ ước nguyên tố là $41041 = 7 \times 11 \times 13 \times 41$. Tương tự, xét xác suất phép thử cho kết quả đúng với $n$ là số Carmichael dạng này bị chặn bởi $T(c)$. $T(c)$ được cho bởi bảng sau:
 
 $c$    |$1$|$2$|$3$|$4$|$5$|$\ldots$
 -------|-|-|-|-|-|-------
