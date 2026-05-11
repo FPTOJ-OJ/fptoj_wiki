@@ -108,6 +108,24 @@ int wager (vector  scores, int wager1, int wager2)
 }
 ```
 
+```python
+def wager(scores, wager1, wager2):
+    best = 0
+    bet = 0
+    for wage in range(scores[0] + 1):
+        odds = 0
+        for I in [-1, 1]:
+            for J in [-1, 1]:
+                for K in [-1, 1]:
+                    if scores[0] + I * wage > scores[1] + J * wager1 and \
+                       scores[0] + I * wage > scores[2] + K * wager2:
+                        odds += 1
+        if odds > best:
+            bet = wage
+            best = odds
+    return bet
+```
+
 Một bài thú vị khác là [PipeCuts (SRM 233, Div 1 – Easy)](http://community.topcoder.com/stat?c=problem_statement&pm=3994&rd=6532), bài này có thể giải bằng cách tương tự như trên.
 
 
@@ -156,6 +174,17 @@ int minPeople (int minOdds, int days) {
 
   return nr;
 }
+```
+
+```python
+def minPeople(minOdds, days):
+    target = 1 - minOdds / 100
+    nr = 1
+    p = 1
+    while p > target:
+        p = p * (1 - nr / days)
+        nr += 1
+    return nr
 ```
 
 Các bài toán về xác suất có thể rất phức tạp và nhiều khi kết quả tạo cảm giác mâu thuẫn với những nhận đinh thông thường của chúng ta (Ví dụ như **Nghịch lí về ngày sinh** ở trên hoặc một ví dụ khác là  [Bài toán Monty Hall](https://en.wikipedia.org/wiki/Monty_Hall_problem)). Để có thể giải nhưng bài toán như vậy một cách thành thạo, ngoài việc nắm chắc các công thức toán học, các bạn cũng cần luyện tập cho mình một lối tư duy, trực giác toán học nhạy bén để tránh đưa ra những nhận định sai lầm về bài toán. Các bạn có thể làm bài [kiểm tra](http://teacherlink.org/content/math/interactive/probability/interactivequiz/question1/home.html) để đánh giá trực giác toán học của mình.
@@ -284,6 +313,18 @@ double probability (int N, int nestings, int target) {
 }
 ```
 
+```python
+def probability(N, nestings, target):
+    A = [1.0 / N] * N
+    for K in range(2, nestings + 1):
+        B = [0.0] * N
+        for I in range(N):
+            for J in range(I):
+                B[J] += A[I] / I
+        A = B[:]
+    return A[target]
+```
+
 Bài tập tương tự:
 
 - [ChessKnight](http://community.topcoder.com/stat?c=problem_statement&pm=3509&rd=6528),
@@ -399,6 +440,45 @@ double cross (string p1a, string p1b, string p2a, string p2b,
 }
 ```
 
+```python
+n = 0
+d = [0] * 200
+power = [0.0] * 200
+
+def detchr(p1a, p1b, p2a, p2b, nr):
+    p1 = 1.0
+    p2 = 1.0
+    if p1a[nr] <= 'Z':
+        p1 -= 0.5
+    if p1b[nr] <= 'Z':
+        p1 -= 0.5
+    if p2a[nr] <= 'Z':
+        p2 -= 0.5
+    if p2b[nr] <= 'Z':
+        p2 -= 0.5
+    p = 1 - p1 * p2
+    if d[nr] != 1:
+        power[nr] = p * detchr(p1a, p1b, p2a, p2b, d[nr])
+    else:
+        power[nr] = p
+    return power[nr]
+
+def cross(p1a, p1b, p2a, p2b, dom, rec, dependencies):
+    global n
+    fitness = 0.0
+    n = len(rec)
+    for i in range(n):
+        d[i] = dependencies[i]
+    for i in range(n):
+        power[i] = -1.0
+    for i in range(n):
+        if power[i] == -1.0:
+            detchr(p1a, p1b, p2a, p2b, i)
+    for i in range(n):
+        fitness += power[i] * dom[i] - (1 - power[i]) * rec[i]
+    return fitness
+```
+
 Bài tương tự: [ProbabilityTree](http://community.topcoder.com/stat?c=problem_statement&pm=2234&rd=4675)
 
 ## Thuật toán ngẫu nhiên
@@ -428,6 +508,17 @@ while (attempt < Max) {
   }
   attempt ++;
 }
+```
+
+```python
+Max = 1000000
+attempt = 0
+while attempt < Max:
+    answer = solve_random()
+    if better(answer, optimum):
+        optimum = answer
+        print(f"Solution {answer} found on step {attempt}")
+    attempt += 1
 ```
 
 ## Bài tập luyện tập

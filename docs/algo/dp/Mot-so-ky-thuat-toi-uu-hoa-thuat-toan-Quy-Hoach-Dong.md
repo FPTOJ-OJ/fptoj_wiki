@@ -115,6 +115,46 @@ int main() {
 }
 ```
 
+```python
+import sys
+input = sys.stdin.readline
+
+a = " " + input().strip()
+b = " " + input().strip()
+m = len(a) - 1
+n = len(b) - 1
+
+nextPos = [[0] * 26 for _ in range(m + 1)]
+for c in range(26):
+    nextPos[m][c] = 0
+    for i in range(m - 1, -1, -1):
+        nextPos[i][c] = i + 1 if ord(a[i + 1]) - ord('A') == c else nextPos[i + 1][c]
+
+maxLength = min(m, n)
+dp = [[-1] * (n + 1) for _ in range(n + 1)]
+dp[0][0] = 0
+
+for i in range(n):
+    for j in range(i + 1):
+        if dp[i][j] >= 0:
+            if dp[i + 1][j] == -1 or dp[i + 1][j] > dp[i][j]:
+                dp[i + 1][j] = dp[i][j]
+            new_value = nextPos[dp[i][j]][ord(b[i + 1]) - ord('A')]
+            if new_value > 0:
+                if dp[i + 1][j + 1] == -1 or dp[i + 1][j + 1] > new_value:
+                    dp[i + 1][j + 1] = new_value
+
+ans = 0
+for j in range(maxLength, 0, -1):
+    for i in range(j, n + 1):
+        if dp[i][j] >= 0:
+            ans = j
+    if ans != 0:
+        break
+
+print(ans)
+```
+
 ### Computer (VNOI Marathon 2010)
 
 Problem Link: [COMPUTER - VNOJ](https://oj.vnoi.info/problem/computer/).
@@ -239,6 +279,49 @@ int main() {
 
 ```
 
+```python
+def solve_one(x, a, y, b, n):
+    def newState(s, val, v):
+        cnt, rem = s
+        rem += val
+        if rem >= v:
+            cnt += 1
+            rem = 0
+        return (cnt, rem)
+
+    def dp(value):
+        F = [[(0, 0)] * (y + 1) for _ in range(x + 1)]
+        for i in range(x + 1):
+            for j in range(y + 1):
+                if F[i][j][0] == n:
+                    return True
+                if i < x:
+                    ns = newState(F[i][j], a, value)
+                    if ns > F[i + 1][j]:
+                        F[i + 1][j] = ns
+                if j < y:
+                    ns = newState(F[i][j], b, value)
+                    if ns > F[i][j + 1]:
+                        F[i][j + 1] = ns
+        return False
+
+    l, r = 0, (a * x + b * y) // n
+    ans = 0
+    while l <= r:
+        mid = (l + r) // 2
+        if dp(mid):
+            ans = mid
+            l = mid + 1
+        else:
+            r = mid - 1
+    return ans
+
+x, a, y, b, n = map(int, input().split())
+print(solve_one(x, a, y, b, n))
+x, a, y, b, n = map(int, input().split())
+print(solve_one(x, a, y, b, n))
+```
+
 ## Bài luyện tập
 
 - [VNOJ - BINPACK](https://oj.vnoi.info/problem/binpack/)
@@ -347,6 +430,19 @@ void solve(int L, int R, int from, int to) {
 }
 ```
 
+```python
+def solve(L, R, fr, to):
+    if L > R:
+        return
+    mid = (L + R) // 2
+    best[mid] = fr
+    for i in range(fr + 1, to + 1):
+        if eval(mid + 1, best[mid]) > eval(mid + 1, i):
+            best[mid] = i
+    solve(L, mid - 1, fr, best[mid])
+    solve(mid + 1, R, best[mid], to)
+```
+
 Đánh giá độ phức tạp thuật toán: vì mỗi lần gọi để quy khoảng $[L,R]$ được chia đôi, nên sẽ có $O(logN)$ tầng, mỗi tầng vòng for chỉ chạy qua $O(N)$ phần tử, vì vậy độ phức tạp của thuật toán là $O(NlogN)$.
 
 ### SEQPART - [Hackerrank](https://www.hackerrank.com/contests/ioi-2014-practice-contest-2/challenges/guardians-lunatics-ioi14)
@@ -446,6 +542,35 @@ int main() {
 
 ```
 
+```python
+L, G = map(int, input().split())
+C = [0] * (L + 1)
+for i in range(1, L + 1):
+    C[i] = int(input())
+
+sum_arr = [0] * (L + 1)
+for i in range(1, L + 1):
+    sum_arr[i] = sum_arr[i - 1] + C[i]
+
+def cost(i, j):
+    return (sum_arr[j] - sum_arr[i - 1]) * (j - i + 1)
+
+INF = 10 ** 18
+F = [[INF] * (L + 1) for _ in range(G + 1)]
+
+for g in range(1, G + 1):
+    for i in range(L + 1):
+        if g == 1:
+            F[g][i] = cost(1, i)
+        else:
+            for k in range(i + 1):
+                new_cost = F[g - 1][k] + cost(k + 1, i)
+                if F[g][i] > new_cost:
+                    F[g][i] = new_cost
+
+print(F[G][L])
+```
+
 Chú ý là ta sử dụng mảng $sum[]$ tiền xử lí $O(L)$ để có thể truy vấn tổng một đoạn (dùng ở hàm $cost()$) trong $O(1)$. Như vậy độ phức tạp của thuật toán này là $O(G  \times L  \times  L)$.
 
 **Thuật toán tối ưu hơn**
@@ -513,6 +638,49 @@ int main() {
     return 0;
 }
 
+```
+
+```python
+import sys
+sys.setrecursionlimit(10000)
+
+L, G = map(int, input().split())
+C = [0] * (L + 1)
+for i in range(1, L + 1):
+    C[i] = int(input())
+
+sum_arr = [0] * (L + 1)
+for i in range(1, L + 1):
+    sum_arr[i] = sum_arr[i - 1] + C[i]
+
+def cost(i, j):
+    if i > j:
+        return 0
+    return (sum_arr[j] - sum_arr[i - 1]) * (j - i + 1)
+
+INF = 10 ** 18
+F = [[INF] * (L + 1) for _ in range(G + 1)]
+P = [[0] * (L + 1) for _ in range(G + 1)]
+
+def solve(g, l, r, optL, optR):
+    if l > r:
+        return
+    mid = (l + r) // 2
+    F[g][mid] = INF
+    for i in range(optL, optR + 1):
+        new_cost = F[g - 1][i] + cost(i + 1, mid)
+        if F[g][mid] > new_cost:
+            F[g][mid] = new_cost
+            P[g][mid] = i
+    solve(g, l, mid - 1, optL, P[g][mid])
+    solve(g, mid + 1, r, P[g][mid], optR)
+
+for i in range(1, L + 1):
+    F[1][i] = cost(1, i)
+for g in range(2, G + 1):
+    solve(g, 1, L, 1, L)
+
+print(F[G][L])
 ```
 
 Chú ý rằng ta không thể đảm bảo rằng $P(g,mid)$ chia đôi đoạn $[optL, optR]$, thực tế một vài hàm $solve()$ sẽ chạy chậm hơn nhiều hàm $solve()$ khác.
@@ -644,6 +812,32 @@ int main() {
 }
 ```
 
+```python
+import sys
+input = sys.stdin.readline
+
+n, k = map(int, input().split())
+a = [0] + list(map(int, input().split()))
+
+INF = float('inf')
+dp = [[INF] * (n + 1) for _ in range(k + 1)]
+dp[1][0] = 0
+for i in range(1, n + 1):
+    dp[1][i] = max(dp[1][i - 1], a[i])
+
+for i in range(2, k + 1):
+    S = []  # stack of (minF, index)
+    for j in range(i, n + 1):
+        minF = dp[i - 1][j - 1]
+        while S and a[S[-1][1]] <= a[j]:
+            minF = min(minF, S[-1][0])
+            S.pop()
+        dp[i][j] = min(dp[i][S[-1][1] if S else 0], minF + a[j])
+        S.append((minF, j))
+
+print(dp[k][n])
+```
+
 Ở bài này ta cũng có thể thay thế stack hoàn toàn bằng cấu trúc dữ liệu Left-Right:
 
 ```cpp
@@ -679,6 +873,39 @@ int main() {
     cout << dp[k][n] << endl;
     return 0;
 }
+```
+
+```python
+import sys
+input = sys.stdin.readline
+
+n, k = map(int, input().split())
+a = [0] + list(map(int, input().split()))
+
+INF = float('inf')
+dp = [[INF] * (n + 1) for _ in range(k + 1)]
+dp[1][0] = 0
+for i in range(1, n + 1):
+    dp[1][i] = max(dp[1][i - 1], a[i])
+
+L_arr = [0] * (n + 1)
+for i in range(1, n + 1):
+    L_arr[i] = i - 1
+    while L_arr[i] and a[L_arr[i]] <= a[i]:
+        L_arr[i] = L_arr[L_arr[i]]
+
+for i in range(2, k + 1):
+    minF = [INF] * (n + 1)
+    minF[i - 1] = INF
+    for j in range(i, n + 1):
+        minF[j] = dp[i - 1][j - 1]
+        t = j - 1
+        while t > L_arr[j]:
+            minF[j] = min(minF[j], minF[t])
+            t = L_arr[t]
+        dp[i][j] = min(dp[i][L_arr[j]], minF[j] + a[j])
+
+print(dp[k][n])
 ```
 
 ### [Đốn cây](https://oj.vnoi.info/problem/vodoncay/) (Đề thi HSG quốc gia năm 2016)
@@ -807,6 +1034,63 @@ int main() {
 }
 ```
 
+```python
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+a = [0] + list(map(int, input().split()))
+
+L_arr = [0] * (n + 1)
+R_arr = [0] * (n + 1)
+
+S = []
+for i in range(1, n + 1):
+    L_arr[i] = i
+    while S and S[-1] > i - a[i]:
+        L_arr[i] = min(L_arr[i], L_arr[S[-1]])
+        S.pop()
+    S.append(i)
+
+S = []
+for i in range(n, 0, -1):
+    R_arr[i] = i
+    while S and S[-1] < i + a[i]:
+        R_arr[i] = max(R_arr[i], R_arr[S[-1]])
+        S.pop()
+    S.append(i)
+
+dp = [0] * (n + 1)
+trace = [0] * (n + 1)
+for i in range(1, n + 1):
+    dp[i] = i
+    trace[i] = -i
+
+S = []
+for i in range(1, n + 1):
+    if dp[i] > dp[L_arr[i] - 1] + 1:
+        dp[i] = dp[L_arr[i] - 1] + 1
+        trace[i] = -L_arr[i]
+    while S and R_arr[S[-1]] < i:
+        S.pop()
+    if S and dp[i] > dp[S[-1] - 1] + 1:
+        dp[i] = dp[S[-1] - 1] + 1
+        trace[i] = S[-1]
+    if not S or dp[S[-1] - 1] > dp[i - 1]:
+        S.append(i)
+
+print(dp[n])
+result = []
+i = n
+while i > 0:
+    if trace[i] < 0:
+        result.append(-i)
+    else:
+        result.append(trace[i])
+    i = abs(trace[i]) - 1
+print(' '.join(map(str, result)))
+```
+
 ## 5. Quản lí đồ thị hàm quy hoạch động (Slope Trick)
 Ở phần này ta hãy xem xét một bài toán cụ thể về ý tưởng quan sát đồ thị của hàm QHĐ để tối ưu độ phức tạp.
 
@@ -881,6 +1165,31 @@ int main() {
     return 0;
 }
 ```
+
+```python
+import heapq
+
+n = int(input())
+a = list(map(int, input().split()))
+
+# Use a max-heap (negate values for min-heap in Python)
+slope_changing_points = []
+answer = 0
+
+for i in range(n):
+    Ai = a[i] - (i + 1)
+    heapq.heappush(slope_changing_points, -Ai)
+    if i == 0:
+        continue
+    opt = -slope_changing_points[0]
+    if Ai < opt:
+        heapq.heappop(slope_changing_points)
+        heapq.heappush(slope_changing_points, -Ai)
+        answer += opt - Ai
+
+print(answer)
+```
+
 ### Đào vàng
 Link: [Topcoder SRM 610 Div1.Level3](http://community.topcoder.com/stat?c=problem_statement&pm=12930)
 
@@ -1121,4 +1430,95 @@ int main() {
     for (int i = 0; i < D - 1; ++i) cin >> event_dj[i];
     cout << getMaximumGold(N, M, event_i, event_j, event_di, event_dj) << endl;
 }
+```
+
+```python
+import sys
+input = sys.stdin.readline
+
+def solve_single(length, pos, rng):
+    H = []
+    n = len(pos)
+
+    H.append([0, length - pos[0]])
+    if pos[0] != 0:
+        H.append([pos[0], length])
+    if pos[0] != length:
+        H.append([length, length - abs(pos[0] - length)])
+
+    def calc_h(P, Q, x):
+        if P[1] == Q[1]:
+            return P[1]
+        diff = P[1] - Q[1]
+        y = min(P[1], Q[1])
+        L = x - P[0]
+        R = Q[0] - x
+        if L == 0:
+            return P[1]
+        if R == 0:
+            return Q[1]
+        if diff < 0:
+            y -= L * diff // (L + R)
+        else:
+            y += R * diff // (L + R)
+        return y
+
+    def eval_h(x):
+        for i in range(len(H) - 1):
+            if H[i][0] <= x <= H[i + 1][0]:
+                return calc_h(H[i], H[i + 1], x)
+        return 0
+
+    for idx in range(1, n):
+        # expand
+        delta = rng[idx - 1]
+        L_idx = 0
+        R_idx = 0
+        for i in range(1, len(H)):
+            if H[i][1] > H[L_idx][1]:
+                L_idx = R_idx = i
+            elif H[i][1] == H[L_idx][1]:
+                R_idx = i
+        if L_idx == R_idx:
+            H.insert(L_idx + 1, H[L_idx][:])
+            R_idx += 1
+        for i in range(L_idx + 1):
+            H[i][0] -= delta
+        for i in range(R_idx, len(H)):
+            H[i][0] += delta
+
+        # mergeHull
+        v = pos[idx]
+        exist = -1
+        for i in range(len(H)):
+            if H[i][0] == v:
+                exist = i
+                break
+        if exist == -1:
+            H.append([v, eval_h(v)])
+            H.sort()
+        for i in range(len(H)):
+            H[i][1] -= abs(H[i][0] - v)
+
+        # incConst
+        for i in range(len(H)):
+            H[i][1] += length
+
+    ans = 0
+    last = 0
+    for x in range(length + 1):
+        while last < len(H) and H[last][0] <= x:
+            last += 1
+        if last == len(H):
+            last -= 1
+        ans = max(ans, calc_h(H[last - 1], H[last], x))
+    return ans
+
+N, M, D = map(int, input().split())
+event_i = list(map(int, input().split()))
+event_j = list(map(int, input().split()))
+event_di = list(map(int, input().split()))
+event_dj = list(map(int, input().split()))
+
+print(solve_single(N, event_i, event_di) + solve_single(M, event_j, event_dj))
 ```

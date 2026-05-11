@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <text x="200" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Floyd-Warshall: All-Pairs Shortest Path</text>
+  <rect x="50" y="40" width="300" height="200" fill="none" stroke="#333" stroke-width="2"/>
+  <line x1="50" y1="80" x2="350" y2="80" stroke="#333" stroke-width="1"/>
+  <line x1="50" y1="120" x2="350" y2="120" stroke="#333" stroke-width="1"/>
+  <line x1="50" y1="160" x2="350" y2="160" stroke="#333" stroke-width="1"/>
+  <line x1="50" y1="200" x2="350" y2="200" stroke="#333" stroke-width="1"/>
+  <line x1="125" y1="40" x2="125" y2="240" stroke="#333" stroke-width="1"/>
+  <line x1="200" y1="40" x2="200" y2="240" stroke="#333" stroke-width="1"/>
+  <line x1="275" y1="40" x2="275" y2="240" stroke="#333" stroke-width="1"/>
+  <text x="87" y="65" text-anchor="middle" font-size="12" fill="#333">A</text>
+  <text x="162" y="65" text-anchor="middle" font-size="12" fill="#333">B</text>
+  <text x="237" y="65" text-anchor="middle" font-size="12" fill="#333">C</text>
+  <text x="312" y="65" text-anchor="middle" font-size="12" fill="#333">D</text>
+  <text x="25" y="65" text-anchor="middle" font-size="12" fill="#333">A</text>
+  <text x="25" y="105" text-anchor="middle" font-size="12" fill="#333">B</text>
+  <text x="25" y="145" text-anchor="middle" font-size="12" fill="#333">C</text>
+  <text x="25" y="185" text-anchor="middle" font-size="12" fill="#333">D</text>
+  <text x="87" y="105" text-anchor="middle" font-size="12" fill="#333">0</text>
+  <text x="162" y="105" text-anchor="middle" font-size="12" fill="#333">3</text>
+  <text x="237" y="105" text-anchor="middle" font-size="12" fill="#333">∞</text>
+  <text x="312" y="105" text-anchor="middle" font-size="12" fill="#333">7</text>
+  <text x="87" y="145" text-anchor="middle" font-size="12" fill="#e91e63">∞</text>
+  <text x="162" y="145" text-anchor="middle" font-size="12" fill="#333">0</text>
+  <text x="237" y="145" text-anchor="middle" font-size="12" fill="#333">2</text>
+  <text x="312" y="145" text-anchor="middle" font-size="12" fill="#333">∞</text>
+  <text x="87" y="185" text-anchor="middle" font-size="12" fill="#333">5</text>
+  <text x="162" y="185" text-anchor="middle" font-size="12" fill="#e91e63">∞</text>
+  <text x="237" y="185" text-anchor="middle" font-size="12" fill="#333">0</text>
+  <text x="312" y="185" text-anchor="middle" font-size="12" fill="#333">1</text>
+  <text x="200" y="270" text-anchor="middle" font-size="12" fill="#666">dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])</text>
+  <text x="200" y="290" text-anchor="middle" font-size="12" fill="#666">for k = 1..N, i = 1..N, j = 1..N</text>
+</svg>

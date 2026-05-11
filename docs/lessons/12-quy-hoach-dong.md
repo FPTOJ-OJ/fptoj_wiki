@@ -80,6 +80,8 @@ def lis(a):
 
 ### 3.2. DP 2 chiều (Knapsack)
 
+![Knapsack DP](../uploads/img/dp-knapsack.png)
+
 ```cpp
 // Cái túi 0/1
 int knapsack(vector<int>& w, vector<int>& v, int W) {
@@ -394,6 +396,129 @@ def knapsack_optimized(w, v, W):
 | "Dãy con tăng" | LIS |
 | "Palindrome" | DP trên xâu |
 | "Đi trên lưới" | DP 2D |
+
+### Mẹo nhận biết bài DP
+
+1. **Có từ "cách" hoặc "đếm":** Gần như chắc chắn là DP đếm
+2. **Có từ "tối ưu" (max, min, ít nhất, nhiều nhất):** Gần như chắc chắn là DP tối ưu
+3. **Bài toán có thể chia thành bài toán con nhỏ hơn:** Dấu hiệu rõ ràng của DP
+4. **Quyết định tại mỗi bước:** "Chọn hoặc không chọn", "đi trái hoặc phải" → DP
+5. **Kết quả của bài toán con không phụ thuộc cách đạt được nó:** Thỏa mãn tính chất tối ưu con
+
+### Cách tiếp cận bài DP mới
+
+1. **Xác định trạng thái:** `dp[i]` hoặc `dp[i][j]` lưu gì?
+2. **Viết công thức truy hồi:** `dp[i]` tính từ đâu?
+3. **Xác định cơ sở:** Giá trị ban đầu?
+4. **Xác định thứ tự tính:** Tính từ cơ sở → đáp án
+5. **Truy vết (nếu cần):** Lưu lại lựa chọn tại mỗi bước
+
+---
+
+## 4.5. Lưu ý / Cạm bẫy
+
+### 4.5.1. Sai thứ tự duyệt (Knapsack tối ưu bộ nhớ)
+
+```cpp
+// SAI: Duyệt xuôi → dùng 1 vật nhiều lần (Unbounded Knapsack)
+for (int i = 0; i < n; i++)
+    for (int j = w[i]; j <= W; j++)  // Xuôi!
+        dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
+
+// ĐÚNG: Duyệt ngược → mỗi vật dùng đúng 1 lần (0/1 Knapsack)
+for (int i = 0; i < n; i++)
+    for (int j = W; j >= w[i]; j--)  // Ngược!
+        dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
+```
+
+**Quy tắc:**
+- 0/1 Knapsack: duyệt **ngược** (từ W về w[i])
+- Unbounded Knapsack: duyệt **xuôi** (từ w[i] đến W)
+
+### 4.5.2. Quên cơ sở (Base Case)
+
+```cpp
+// SAI: Quên khởi tạo dp[0]
+// dp[0] = ? (chưa gán → giá trị rác!)
+
+// ĐÚNG: Luôn khởi tạo cơ sở trước
+dp[0] = 0;  // hoặc dp[0] = 1 tùy bài
+
+// Edit Distance: PHẢI khởi tạo hàng 0 và cột 0
+for (int i = 0; i <= n; i++) dp[i][0] = i;  // Xóa i ký tự
+for (int j = 0; j <= m; j++) dp[0][j] = j;  // Chèn j ký tự
+```
+
+### 4.5.3. Tràn số nguyên (Integer Overflow)
+
+```cpp
+// SAI: dp[i] có thể vượt quá int
+int dp[MAXN];  // int chỉ đến ~2×10^9
+
+// ĐÚNG: Dùng long long khi có thể
+long long dp[MAXN];
+
+// Dấu hiệu cần long long:
+// - Giá trị a[i] đến 10^9, N đến 10^3 → tổng đến 10^12
+// - Đếm số cách với MOD 10^9+7 → vẫn dùng long long để tránh overflow khi nhân
+```
+
+### 4.5.4. Quên modulo khi đếm
+
+```cpp
+// SAI: Kết quả quá lớn → overflow
+dp[i] = dp[i-1] + dp[i-2];
+
+// ĐÚNG: Luôn modulo
+const int MOD = 1e9 + 7;
+dp[i] = (dp[i-1] + dp[i-2]) % MOD;
+
+// Cẩn thận khi trừ:
+dp[i] = (dp[i-1] - dp[i-2] + MOD) % MOD;  // +MOD để tránh số âm!
+```
+
+### 4.5.5. Truy vết sai chỉ số
+
+```cpp
+// SAI: Dùng i-1 nhưng mảng 0-indexed
+if (a[i] == b[j])  // Nếu mảng 0-indexed → đúng
+    dp[i][j] = dp[i-1][j-1] + 1;
+
+// Cẩn thận với mảng 1-indexed:
+// dp[i][j] tương ứng a[i-1], b[j-1] (vì dp khởi tạo từ 1)
+if (a[i-1] == b[j-1])  // PHẢI dùng i-1, j-1
+    dp[i][j] = dp[i-1][j-1] + 1;
+```
+
+### 4.5.6. Space Optimization: Quên rằng chỉ cần hàng trước
+
+```cpp
+// SAI: Dùng toàn bộ mảng 2D khi chỉ cần hàng trước
+vector<vector<int>> dp(n + 1, vector<int>(W + 1));
+
+// ĐÚNG: Chỉ cần 2 hàng (hoặc 1 hàng + duyệt ngược)
+vector<int> prev(W + 1, 0), curr(W + 1, 0);
+for (int i = 1; i <= n; i++) {
+    for (int j = 0; j <= W; j++) {
+        curr[j] = prev[j];
+        if (j >= w[i-1])
+            curr[j] = max(curr[j], prev[j - w[i-1]] + v[i-1]);
+    }
+    swap(prev, curr);  // Hàng hiện tại thành hàng trước
+}
+```
+
+### 4.5.7. Bitmask DP: Sai thứ tự duyệt mask
+
+```cpp
+// SAI: Duyệt mask không đảm bảo submask đã tính
+for (int mask = (1<<n)-1; mask >= 0; mask--)  // Ngược!
+
+// ĐÚNG: Duyệt xuôi (từ 0 đến 2^n - 1)
+for (int mask = 0; mask < (1 << n); mask++) {
+    // Mọi submask của mask đều đã được tính
+}
+```
 
 ---
 

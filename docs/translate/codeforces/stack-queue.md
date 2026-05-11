@@ -43,6 +43,34 @@ class MyQueue {
 }
 ```
 
+```python
+class StateNode:
+    def __init__(self, x=0, y=0, move_count=0):
+        self.xPos = x
+        self.yPos = y
+        self.moveCount = move_count
+
+class MyQueue:
+    def __init__(self):
+        self.queueData = [None] * 2500
+        self.queueFront = 0
+        self.queueBack = 0
+
+    def Enqueue(self, node):
+        self.queueData[self.queueBack] = node
+        self.queueBack += 1
+
+    def Dequeue(self):
+        returnValue = None
+        if self.queueBack > self.queueFront:
+            returnValue = self.queueData[self.queueFront]
+            self.queueFront += 1
+        return returnValue
+
+    def isNotEmpty(self):
+        return self.queueBack > self.queueFront
+```
+
 Khi đó đoạn code chính của bạn sẽ như bên dưới. (Nếu hàng đợi của chúng ta không đến được thêm một trạng thái nào nữa và chúng ta vẫn chưa đến được vị trí đích khi đó không có đường đi từ A đến B. Trong trường hợp này, chúng ta trả về giá trị -1).
 
 ```cpp
@@ -57,6 +85,18 @@ return curState.moveCount;
          queue.Enqueue(MoveState(curState, dir));
    }
 }
+```
+
+```python
+queue = MyQueue()
+queue.Enqueue(initialState)
+while queue.isNotEmpty():
+    curState = queue.Dequeue()
+    if curState == destState:
+        return curState.moveCount
+    for dir in range(3):
+        if CanMove(curState, dir):
+            queue.Enqueue(MoveState(curState, dir))
 ```
 
 

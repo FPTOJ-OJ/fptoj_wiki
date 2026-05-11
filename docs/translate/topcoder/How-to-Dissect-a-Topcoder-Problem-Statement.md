@@ -73,6 +73,13 @@ vector<int> readKnots(vector<string> knots) {
 }
 ```
 
+```python
+class QuipuReader:
+    def readKnots(self, knots):
+        # code
+        pass
+```
+
 Chú ý rằng phần định nghĩa hàm sẽ phụ thuộc vào ngôn ngữ mặc định của bạn.
 
 ### Phần chú giải (Notes)

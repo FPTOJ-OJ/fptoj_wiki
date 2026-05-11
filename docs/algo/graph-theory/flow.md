@@ -14,6 +14,12 @@
 
 Luồng cực đại (Maximum Flow) và Lát cắt cực tiểu/hẹp nhất (Minimum Cut) là những bài toán quan trọng trong lớp các bài toán về đồ thị. Bài viết sau đây sẽ giới thiệu một vài nội dung cơ bản về bài toán luồng cực đại và các thuật toán liên quan.
 
+![Flow Example 1](../../All_Images_Collected/Flow1.png)
+
+![Flow Example 2](../../All_Images_Collected/Flow2.png)
+
+![Flow Example 3](../../All_Images_Collected/Flow3.png)
+
 ## Một số khái niệm sử dụng trong bài viết
 Để hiểu hơn về phần này, bạn đọc nên có sẵn những kiến thức cơ bản về đồ thị, cũng như biểu diễn và duyệt (BFS, DFS, ...) chúng. 
 
@@ -98,6 +104,12 @@ Nếu ta hiểu mạng như một hệ thống ống nước, nó sẽ như sau:
 Luồng này gọi là **luồng cực đại** trên mạng $G$.
 
 *Đề bài VNOI*: [NKFLOW](https://oj.vnoi.info/problem/nkflow)
+
+![Flow Example 4](../../All_Images_Collected/Flow4.png)
+
+![Flow Example 5](../../All_Images_Collected/Flow5.png)
+
+![Flow Example 6](../../All_Images_Collected/Flow6.png)
 
 ## Phương pháp Ford-Fulkerson. Thuật toán Edmonds-Karp.
 <details> 
@@ -308,6 +320,12 @@ Với thuật toán Edmonds-Karp, khi sử dụng BFS, sau $O(EV)$ lần tìm đ
 Bạn có thể tham khảo chứng minh độ phức tạp này tại [đây](https://brilliant.org/wiki/edmonds-karp-algorithm/).
 
 Khi thực hiện giải thuật Edmonds-Karp, các đánh giá ban đầu về độ phức tạp có thể sai lệch nhiều so với thực tế. Mặc dù độ phức tạp của thuật toán là tương đối lớn trong trường hợp tệ nhất, nó vẫn hoạt động hiệu quả trong hầu hết các trường hợp. 
+
+![Flow Example 7](../../All_Images_Collected/Flow7.png)
+
+![Flow Example 8](../../All_Images_Collected/Flow8.png)
+
+![Flow Example 9](../../All_Images_Collected/Flow9.png)
 
 ## Thuật toán Dinic
 Như đã nói ở trên, tuy đánh giá về độ phức tạp của thuật Edmonds-Karp không hề đẹp, nó vẫn chạy đủ nhanh trong thực tế. Tất nhiên, vẫn có những trường hợp thuật này chạy chưa được ổn lắm, điển hình là khi mạng có rất nhiều cạnh, ví dụ có dạng của đồ thị đầy đủ với $\frac{V(V - 1)}{2}$ cạnh thì độ phức tạp của thuật toán sẽ là $O(V^5)$, rất khủng khiếp. Thuật toán Dinic sẽ làm giảm độ phức tạp của thuật đi một chút. 

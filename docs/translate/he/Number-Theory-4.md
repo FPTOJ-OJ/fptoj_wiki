@@ -43,6 +43,21 @@ int phi(int n) {
 }
 ```
 
+```python
+def phi(n):
+    res = n
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            while n % i == 0:
+                n //= i
+            res -= res // i
+        i += 1
+    if n != 1:
+        res -= res // n
+    return res
+```
+
 **Độ phức tạp của thuật toán:** $O(\sqrt{N})$.
 
 ## Công thức
@@ -72,6 +87,23 @@ int eulerPhi(int n) { // = n (1-1/p1) ... (1-1/pn)
     if (n > 1) ans -= ans / n;
     return ans;
 }
+```
+
+```python
+def eulerPhi(n):
+    if n == 0:
+        return 0
+    ans = n
+    x = 2
+    while x * x <= n:
+        if n % x == 0:
+            ans -= ans // x
+            while n % x == 0:
+                n //= x
+        x += 1
+    if n > 1:
+        ans -= ans // n
+    return ans
 ```
 
 Trong trường hợp đặc biệt, $N = p^{k}, \phi(N) = p^{k-1}  \times  (p-1)$.

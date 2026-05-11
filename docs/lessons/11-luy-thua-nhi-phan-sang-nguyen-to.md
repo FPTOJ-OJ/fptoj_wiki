@@ -75,6 +75,8 @@ def power_mod(a, b, mod):
 
 ## 2. Sàng nguyên tố Eratosthenes
 
+![Sieve of Eratosthenes](../All_Images_Collected/sieve_eratosthenes.png)
+
 ### Ẩn dụ: Loại người gian lận
 
 Bạn có 100 người xếp hàng. Bắt đầu từ người số 2: đánh dấu tất cả bội số của 2 (4, 6, 8, ...). Tiếp theo người số 3 chưa bị đánh dấu → đánh dấu bội số của 3 (6, 9, 12, ...). Tiếp tục... Ai không bị đánh dấu → là số nguyên tố!

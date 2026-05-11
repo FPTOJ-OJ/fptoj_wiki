@@ -1,14 +1,12 @@
 site_name: FPTOJ WIKI
 site_url: https://wiki.fptoj.com
 site_description: 'FPTOJ được xây dựng với mục đích chia sẻ kiến thức Tin học đến với tất cả mọi người'
+
 theme:
   name: material
   features:
     - navigation.footer        
-    - navigation.tabs          
-    - navigation.tabs.sticky   
     - navigation.tracking     
-    - toc.integrate 
     - toc.sticky          
     - search.suggest         
     - search.highlight          
@@ -172,21 +170,12 @@ nav:
         - Nhân ma trận (Matrix multiplication): algo/trick/matrix-multiplication.md
         - Meet In The Middle (MITM): algo/trick/mitm.md
         - Rời rạc hoá và ứng dụng: algo/trick/Roi-rac-hoa-va-ung-dung.md
-  - Computer Science (Khoa học máy tính):
-    - Crypto:
-      - Mật mã và Code: cs/crypto/Cipher-Tools.md
-      - Public Key Cryptography: cs/crypto/Public-Key-Cryptography.md
-      - Cipher:
-        - ROT13: cs/crypto/cipher/ROT13.md
-    - Xử lý ảnh:
-      - Seam Carving Algorithm: cs/imageprocessing/Seam-Carving.md
-      - Hướng dẫn cài đặt OpenCV trên Windows: cs/imageprocessing/setup-opencv-windows.md 
+
   - Ngôn Ngữ Lập Trình:
     - Con trỏ trong C/C++: languages/cpp/pointers.md
     - Xâu trong C++: languages/cpp/string.md
     - Hoài niệm về Pascal - Lê Minh Hoàng: others/Pascal-Vi-sao.md
   - Dịch Thuật:
-    - Functional Programming - Phần 1: translate/functional-programming-part-1.md
     - Codeforces:
       - Cài đặt cây phân đoạn hiệu quả (Efficient and easy segment trees): translate/codeforces/Efficient-and-easy-segment-trees.md
       - Bảng băm (Hash Tables): translate/codeforces/hash-table.md
@@ -206,12 +195,6 @@ nav:
       - Số học 7 - Bao hàm - Loại trừ (Inclusion-Exclusion): translate/he/Number-Theory-7.md
       - Số học 1 - Modulo & gcd: translate/he/So-hoc-Phan-1-Modulo-gcd.md
       - Định lý Wilson: translate/he/Wilsons-theorem.md
-    - Máy học (Machine Learning - ML):
-      - 'Machine Learning 101 (1): Làm quen': cs/ml/machine-learning-101.md
-      - PyTorch Là Gì?: translate/PyTorch-la-gi.md
-      - Machine Learning - Classification - phần 1: translate/ml/Machine-Learning-Classification-phan-1.md
-      - Machine Learning - Classification - phần 2: translate/ml/Machine-Learning-Classification-phan-2.md
-      - Machine Learning - Classification - phần 3: translate/ml/Machine-Learning-Classification-phan-3.md
     - Quora:
       - Hàm Mobius: translate/quora/mobius-function.md
     - Topcoder:
@@ -241,12 +224,16 @@ nav:
       - Thuật toán Knuth-Morris-Pratt (KMP): translate/wcipeg/kmp.md
       - Cây (Tree): translate/wcipeg/tree.md
 
-
-
 markdown_extensions:
   - admonition
   - toc:
       permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.details     
   - pymdownx.extra 
@@ -256,22 +243,11 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 
-extra:
-  generator: false  
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/KienPC1234/fptoj_wiki
-      name: "GitHub: KienPC1234/fptoj_wiki"
-      custom_html: |
-        <img src="https://img.shields.io/github/stars/KienPC1234/fptoj_wiki?style=social">
-        <img src="https://img.shields.io/github/forks/KienPC1234/fptoj_wiki?style=social">
-
-
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js
   - js/jquery-3.7.1.min.js
   - js/webjs.js
   
 extra_css:
-  - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
+  - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css

@@ -198,6 +198,19 @@ if (regexec(&reg,str.c_str(),1,matches,0)==0) {
 regfree(&reg);
 ```
 
+```python
+import re
+
+pattern = r"[^tpr]{2,}"
+string = "topcoder"
+
+match = re.search(pattern, string)
+if match:
+    print(f"Match {match.group()} found starting at: {match.start()} and ending at {match.end()}")
+else:
+    print("Match not found.")
+```
+
 
 ### GNU_regex
 
@@ -242,6 +255,19 @@ if (re_search(&buffer,str.c_str(),str.size(),0,str.size(),&regs)!=-1) {
   cout << endl;
 }
 regfree(&buffer);
+```
+
+```python
+import re
+
+pattern = r"([a-z]+).\1"
+string = "top-topcoder|coder"
+
+match = re.search(pattern, string)
+if match:
+    print(f"Match {match.group()} found starting at: {match.start()} and ending at {match.end()}")
+else:
+    print("Match not found.")
 ```
 
 ## Ví dụ trong các cuộc thi SRMs

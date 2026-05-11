@@ -113,6 +113,8 @@ Bước 3: [1, 3, 5, 8]    → chèn 1 vào đầu
 
 **Minh họa:** Sắp xếp [5, 3, 8, 1]
 
+![Merge Sort](../uploads/img/merge-sort.png)
+
 ```
            [5, 3, 8, 1]
           /              \
@@ -139,7 +141,9 @@ Bước 3: [1, 3, 5, 8]    → chèn 1 vào đầu
 2. **Phân hoạch:** Đưa các phần tử < pivot sang trái, > pivot sang phải
 3. **Gọi đệ quy** sắp xếp 2 bên
 
-**Minh họa:** Sắp xếp [5, 3, 8, 1, 9, 2, 7], pivot = 5
+**Minh họa:**
+
+![Quick Sort](../uploads/img/quick-sort.gif)
 
 ```
 [5, 3, 8, 1, 9, 2, 7]  pivot = 5

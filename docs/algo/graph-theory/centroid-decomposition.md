@@ -19,9 +19,11 @@ Thuật toán phân tách trọng tâm có thể hiểu là thuật toán "chia 
 
 Trọng tâm của cây - centroid - là một đỉnh trên cây mà khi bỏ nó ra khỏi cây, mỗi thành phần liên thông còn lại có số đỉnh không quá một nửa số đỉnh của cây ban đầu.
 
+![Centroid Definition](../../All_Images_Collected/centroid-definition.png)
+
 <center>
 
-[/uploads/centroid-decomposition_img1.png](width=300px)
+<img src="/uploads/centroid-decomposition_img1.png" width="300px">
 
 </center>
 
@@ -66,11 +68,31 @@ int findCentroid(int u, int parent) {
 }
 ```
 
+```python
+child = [0] * (N)
+
+def count_child(u, parent):
+    child[u] = 1
+    for v in adj[u]:
+        if v != parent:
+            count_child(v, u)
+            child[u] += child[v]
+
+def find_centroid(u, parent):
+    for v in adj[u]:
+        if v != parent:
+            if child[v] > n // 2:
+                return find_centroid(v, u)
+    return u
+```
+
 Code trên hoạt động với độ phức tạp là $O(n)$ (lưu ý, $n$ là số đỉnh của cây **đang xét**).
 
 Từ định nghĩa hàm $findCentroid(u)$ cũng có thể chứng minh trọng tâm của cây luôn tồn tại. Khi $findCentroid()$ dừng lại tại đỉnh $u$ ($findCentroid(u)$ trả về $u$) ta biết rằng các cây con có gốc là con của $u$ đều đã thỏa mãn điều kiện có số đỉnh không vượt quá $n / 2$. Đồng thời khi $findCentroid(u)$ được gọi ta cũng biết số lượng đỉnh thuộc cây con gốc $u$ không nhỏ hơn $n / 2$, vậy số lượng đỉnh không thuộc cây con gốc $u$ cũng không vượt quá $n / 2$. Vậy khi xóa đỉnh $u$ đi thì mọi cây tạo thành đều có số đỉnh không vượt quá $n/2$.
 
 ## Thuật toán phân tách trọng tâm - Centroid decomposition
+
+![Centroid Tree](../../All_Images_Collected/CentroidTree.png)
 
 ## Bài toán
 
@@ -166,6 +188,50 @@ int main() {
 
 	return 0;
 }
+```
+
+```python
+import sys
+sys.setrecursionlimit(300000)
+input = sys.stdin.readline
+
+N = 200005
+adj = [[] for _ in range(N)]
+child = [0] * N
+del_node = [False] * N
+
+def count_child(u, parent):
+    child[u] = 1
+    for v in adj[u]:
+        if v != parent and not del_node[v]:
+            count_child(v, u)
+            child[u] += child[v]
+
+def find_centroid(u, parent, n):
+    for v in adj[u]:
+        if v != parent and child[v] > n // 2 and not del_node[v]:
+            return find_centroid(v, u, n)
+    return u
+
+def solve(u):
+    count_child(u, 0)
+    n = child[u]
+    root = find_centroid(u, 0, n)
+    # updateAns(root, n) -- implement step 2 here
+    del_node[root] = True
+    ans = 0
+    for v in adj[root]:
+        if not del_node[v]:
+            ans += solve(v)
+    return ans
+
+n, k = map(int, input().split())
+for _ in range(n - 1):
+    u, v = map(int, input().split())
+    adj[u].append(v)
+    adj[v].append(u)
+
+print(solve(1))
 ```
 
 ## Mở rộng
@@ -376,6 +442,103 @@ int main()
 }
 ```
 
+```python
+import sys
+sys.setrecursionlimit(300000)
+input = sys.stdin.readline
+
+def solve():
+    n = int(input())
+    a = [0] + list(input().strip())
+    adj = [[] for _ in range(n + 1)]
+    for _ in range(n - 1):
+        u, v = map(int, input().split())
+        adj[u].append(v)
+        adj[v].append(u)
+
+    BASE = 35711
+    MOD = 10 ** 9 + 7
+    pw = [1] * (n + 1)
+    for i in range(1, n + 1):
+        pw[i] = pw[i - 1] * BASE % MOD
+
+    def check(Len):
+        valid = [True] * (n + 1)
+        child = [0] * (n + 1)
+
+        def countChild(u, p):
+            child[u] = 1
+            for v in adj[u]:
+                if v != p and valid[v]:
+                    countChild(v, u)
+                    child[u] += child[v]
+
+        def dfs(u, p, h, hshdown, hshup, f, b):
+            if h > Len:
+                return False
+            if p:
+                hshdown = (hshdown * BASE + ord(a[u])) % MOD
+            hshup = (hshup + ord(a[u]) * pw[h - 1]) % MOD
+            x = (hshup * pw[Len - h] - hshdown + MOD) % MOD
+            if not p:
+                if h not in f:
+                    f[h] = {}
+                f[h][x] = True
+            if Len - h + 1 in f and x in f[Len - h + 1]:
+                return True
+            for v in adj[u]:
+                if v != p and valid[v]:
+                    if dfs(v, u, h + 1, hshdown, hshup, f, b):
+                        return True
+            b.append((h, x))
+            return False
+
+        def CD(u, sz):
+            countChild(u, 0)
+            half = sz // 2
+            flag = True
+            while flag:
+                flag = False
+                for v in adj[u]:
+                    if valid[v] and child[v] < child[u] and child[v] > half:
+                        u = v
+                        flag = True
+                        break
+            countChild(u, 0)
+            f = {}
+            b = []
+            if dfs(u, 0, 1, 0, 0, f, b):
+                return True
+            valid[u] = False
+            for v in adj[u]:
+                if valid[v] and CD(v, child[v]):
+                    return True
+            return False
+
+        return CD(1, n)
+
+    l, r = 0, (n - 1) // 2
+    while l < r:
+        g = (l + r + 1) // 2
+        if check(g * 2 + 1):
+            l = g
+        else:
+            r = g - 1
+    ans = r * 2 + 1
+
+    l, r = 0, n // 2
+    while l < r:
+        g = (l + r + 1) // 2
+        if check(g * 2):
+            l = g
+        else:
+            r = g - 1
+
+    print(max(ans, r * 2))
+
+solve()
+```
+
 ## [QTREE5](https://www.spoj.com/problems/QTREE5)
 
 ### Tóm tắt đề bài
@@ -508,6 +671,95 @@ int main()
     return 0;
 }
 
+```
+
+```python
+import sys
+from sortedcontainers import SortedList
+sys.setrecursionlimit(300000)
+input = sys.stdin.readline
+
+N = 200005
+oo = 10 ** 9 + 7
+
+adj = [[] for _ in range(N)]
+del_node = [False] * N
+par = [0] * N
+child = [0] * N
+d = [{} for _ in range(N)]
+s = [SortedList() for _ in range(N)]
+
+def countChild(u, p):
+    child[u] = 1
+    for v in adj[u]:
+        if v == p or del_node[v]:
+            continue
+        child[u] += countChild(v, u)
+    return child[u]
+
+def centroid(u, p, m):
+    for v in adj[u]:
+        if v == p or del_node[v]:
+            continue
+        if child[v] > m // 2:
+            return centroid(v, u, m)
+    return u
+
+def calcDist(u, p, root):
+    for v in adj[u]:
+        if v == p or del_node[v]:
+            continue
+        d[v][root] = d[u][root] + 1
+        calcDist(v, u, root)
+
+def cd(u=1):
+    m = countChild(u, 0)
+    u = centroid(u, 0, m)
+    d[u][u] = 0
+    calcDist(u, 0, u)
+    del_node[u] = True
+    for v in adj[u]:
+        if del_node[v]:
+            continue
+        x = cd(v)
+        par[x] = u
+    return u
+
+n = int(input())
+for _ in range(n - 1):
+    u, v = map(int, input().split())
+    adj[u].append(v)
+    adj[v].append(u)
+
+root = cd()
+
+col = [1] * (n + 1)
+q = int(input())
+for _ in range(q):
+    t, u = map(int, input().split())
+    if t == 0:
+        p = u
+        col[u] ^= 1
+        if col[u]:
+            while p:
+                if d[u][p] in s[p]:
+                    s[p].remove(d[u][p])
+                p = par[p]
+        else:
+            while p:
+                s[p].add(d[u][p])
+                p = par[p]
+    else:
+        ans = oo
+        p = u
+        while p:
+            if len(s[p]) > 0:
+                ans = min(ans, d[u][p] + s[p][0])
+            p = par[p]
+        if ans >= oo:
+            print(-1)
+        else:
+            print(ans)
 ```
 
 ## Luyện tập

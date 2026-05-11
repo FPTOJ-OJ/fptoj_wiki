@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg version="1.1" baseProfile="tiny" width="60.71mm" height="55.99mm" viewBox="0 0 6071 5599" preserveAspectRatio="xMidYMid" fill-rule="evenodd" clip-path="url(#presentation_clip_path)" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+ <defs class="ClipPathGroup">
+  <clipPath id="presentation_clip_path" clipPathUnits="userSpaceOnUse">
+   <rect x="0" y="0" width="6071" height="5599"/>
+  </clipPath>
+ </defs>
+ <defs class="TextShapeIndex">
+  
+ </defs>
+ <defs class="TextEmbeddedBitmaps"/>
+ <g>
+  <g id="id2" class="Master_Slide">
+   <g id="bg-id2" class="Background"/>
+   <g id="bo-id2" class="BackgroundObjects"/>
+  </g>
+ </g>
+ <g class="SlideGroup">
+  <g>
+   <g id="id1" class="Slide" clip-path="url(#presentation_clip_path)">
+    <g class="Page">
+     <g class="Group">
+      <g class="com.sun.star.drawing.PolyPolygonShape">
+       <g id="id3">
+        <path fill="rgb(135,206,235)" stroke="none" d="M 1270,4324 L 3034,1269 4798,4324 1270,4324 Z"/>
+        <path fill="none" stroke="rgb(135,206,235)" stroke-width="2540" stroke-linejoin="round" d="M 1270,4324 L 3034,1269 4798,4324 1270,4324 Z"/>
+       </g>
+      </g>
+      <g class="com.sun.star.drawing.EllipseShape">
+       <g id="id4">
+        <path fill="none" stroke="rgb(255,0,0)" stroke-width="71" stroke-linejoin="round" d="M 5868,3708 L 5868,3708 C 5982,3905 6034,4099 6034,4326 6034,4553 5982,4747 5869,4943 5755,5140 5613,5282 5416,5396 5220,5509 5026,5561 4799,5561"/>
+       </g>
+      </g>
+      <g class="com.sun.star.drawing.EllipseShape">
+       <g id="id5">
+        <path fill="none" stroke="rgb(255,0,0)" stroke-width="71" stroke-linejoin="round" d="M 1271,5561 L 1271,5561 C 1044,5561 850,5509 654,5396 457,5282 315,5140 201,4944 88,4747 36,4553 36,4326 36,4099 88,3905 201,3709"/>
+       </g>
+      </g>
+      <g class="com.sun.star.drawing.EllipseShape">
+       <g id="id6">
+        <path fill="none" stroke="rgb(255,0,0)" stroke-width="71" stroke-linejoin="round" d="M 1967,655 L 1967,655 C 2080,458 2222,316 2419,203 2615,89 2809,37 3036,37 3263,37 3457,89 3654,202 3850,316 3992,458 4106,655"/>
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

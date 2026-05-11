@@ -18,3 +18,5 @@ Team Admins VNOI đã quyết tâm xây dựng một **thư viện** VNOI mới 
 - Giới thiệu về các vấn đề trong bộ môn khoa học máy tính thực tiễn, giúp các bạn định hướng học cấp 3 và đại học xong thì mình có thể làm gì;
 - Phỏng vấn những người đi trước về kinh nghiệm học tin cũng như những kinh nghiệm khi đi phỏng vấn ở các công ty lớn như Google, Facebook, Microsoft; 
 - Và còn rất nhiều điều mới mẻ nữa...
+
+*Phiên bản **FPTOJ Wiki** này được fork từ VNOI Wiki gốc, với định hướng tập trung hoàn toàn vào Lập trình thi đấu (Competitive Programming). Dự án được duy trì và phát triển bởi **FPTOJ Wiki <Hà Trí Kiên>**.*

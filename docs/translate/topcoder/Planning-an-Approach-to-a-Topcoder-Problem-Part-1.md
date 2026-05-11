@@ -47,6 +47,11 @@ public String[] calculate(String[] A, String[] B, String[] C, String eval){
 }
 ```
 
+```python
+def calculate(A, B, C, eval):
+    return print(calc(parse(A), parse(B), parse(C), eval))
+```
+
 Cái hay của các tiếp cận này là tạo ra một hệ thống cấp bậc các hàm, hàm trên sẽ dựa vào kết quả của hàm dưới để chạy. Bây giờ công việc đã được chia làm 3 phần: tạo hàm `parse`, hàm `print`, và hàm `calc`. Nếu bạn chia bài toán thành những bài toán con đủ nhỏ, bạn sẽ không phải tốn nhiều thời gian vào việc suy nghĩ cho những bước không đơn giản, bởi vì nó sẽ trở nên atomic (sẽ được đề cập phía dưới). Thay vào đó chúng ta có thể tập trung vào hàm cộng và hàm nhân ma trận hay hàm đọc dữ liệu vào sao cho chính xác.
 
 Cách tiếp cận này có thể ứng dụng khá hiệu quả vào những bài toán đệ quy. Toàn bộ ý tưởng của đệ quy đó là chia vấn đề lớn thành những vấn đề nhỏ hơn nhưng giống chính xác với vấn đề gốc, vậy chúng ta chỉ cần giải được một 1 vấn đề gốc là xong. Cách tiếp cận này cũng được sử dụng rất phổ biến trong [functional programming](https://en.wikipedia.org/wiki/Functional_programming) (một lớp các ngôn ngữ lập trình mà chương trình được xây dựng chỉ từ các hàm). Có khá nhiều bài viết đã bàn sâu về vấn đề này, nhưng ý tưởng cơ bản chính là nếu ta chia nhỏ bài toán một cách đúng đắn, chương trình sẽ tự động gửi tham số qua mỗi lời gọi hàm, không cần thiết lưu trữ dữ liệu giữa các bước. Nhưng có một nhược điểm là sẽ khó debug hơn.

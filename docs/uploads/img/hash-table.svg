@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <text x="200" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Hash Table (Separate Chaining)</text>
+  <rect x="50" y="40" width="80" height="30" fill="#4CAF50" stroke="#333" stroke-width="2"/>
+  <rect x="50" y="80" width="80" height="30" fill="#2196F3" stroke="#333" stroke-width="2"/>
+  <rect x="50" y="120" width="80" height="30" fill="#FF9800" stroke="#333" stroke-width="2"/>
+  <rect x="50" y="160" width="80" height="30" fill="#f44336" stroke="#333" stroke-width="2"/>
+  <rect x="50" y="200" width="80" height="30" fill="#9C27B0" stroke="#333" stroke-width="2"/>
+  <text x="90" y="60" text-anchor="middle" fill="white" font-weight="bold">0</text>
+  <text x="90" y="100" text-anchor="middle" fill="white" font-weight="bold">1</text>
+  <text x="90" y="140" text-anchor="middle" fill="white" font-weight="bold">2</text>
+  <text x="90" y="180" text-anchor="middle" fill="white" font-weight="bold">3</text>
+  <text x="90" y="220" text-anchor="middle" fill="white" font-weight="bold">4</text>
+  <line x1="130" y1="55" x2="170" y2="55" stroke="#333" stroke-width="2"/>
+  <rect x="170" y="40" width="60" height="30" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <text x="200" y="60" text-anchor="middle" font-size="10" fill="#333">cat:3</text>
+  <line x1="230" y1="55" x2="260" y2="55" stroke="#333" stroke-width="2"/>
+  <rect x="260" y="40" width="60" height="30" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <text x="290" y="60" text-anchor="middle" font-size="10" fill="#333">dog:5</text>
+  <line x1="130" y1="95" x2="170" y2="95" stroke="#333" stroke-width="2"/>
+  <rect x="170" y="80" width="60" height="30" fill="#E3F2FD" stroke="#333" stroke-width="1"/>
+  <text x="200" y="100" text-anchor="middle" font-size="10" fill="#333">bird:2</text>
+  <line x1="130" y1="175" x2="170" y2="175" stroke="#333" stroke-width="2"/>
+  <rect x="170" y="160" width="60" height="30" fill="#FFEBEE" stroke="#333" stroke-width="1"/>
+  <text x="200" y="180" text-anchor="middle" font-size="10" fill="#333">fish:1</text>
+  <text x="320" y="130" font-size="12" fill="#e91e63">hash("cat") = 1</text>
+  <text x="320" y="150" font-size="12" fill="#e91e63">hash("dog") = 1</text>
+  <text x="320" y="170" font-size="12" fill="#e91e63">Collision!</text>
+</svg>

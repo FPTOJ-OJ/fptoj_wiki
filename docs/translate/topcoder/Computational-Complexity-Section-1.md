@@ -99,6 +99,13 @@ for (int i = 0; i < N; i++)
         	swap(A[i], A[j]);
 ```
 
+```python
+for i in range(N):
+    for j in range(i + 1, N):
+        if A[i] > A[j]:
+            A[i], A[j] = A[j], A[i]
+```
+
 (Đây thực ra là một cách cài đặt của thuật toán *MinSort*) Giả sử chúng ta được cho một mảng dữ liệu đầu vào (mảng A và số phần tử N), ta có thể tính chính xác số bước chạy của thuật toán trên đầu vào đã cho. Ta thậm chí có thể tính chính xác số lệnh thực thi trong bộ vi xử lý nếu ta muốn (ND: chuyển đoạn mã C++ trên thành mã Assembly). Tuy nhiên, có rất nhiều giá trị mà bộ dữ liệu đầu vào có thể nhận nên việc tính toán số bước như trên với mọi khả năng đầu vào là không thể.
 
 Thực tế trên dẫn ta tới câu hỏi quan trọng hơn: đánh giá quan trọng nhất về độ hiệu quả mà chúng ta cần tới là gì? Thông thường thì đó là tốc độ chạy thuật toán trong **trường hợp xấu nhất** - ta cần tìm ra một đánh giá **cận trên** của tốc độ chạy thuật toán.
@@ -243,6 +250,15 @@ for(int i = 0; i < N; i++) {
     	j++;
     if (A[i] - A[j] == D) return 1;
 }
+```
+
+```python
+j = 0
+for i in range(N):
+    while j < N - 1 and A[i] - A[j] > D:
+        j += 1
+    if A[i] - A[j] == D:
+        return 1
 ```
 
 Thoạt nhìn ta có thể sẽ đánh giá thuật toán trên có cận $O(N^2)$ - vòng lặp trong cùng chạy $N$ lần, mỗi lần tăng biến $j$ tối đa $N$ lần. Phân tích kỹ hơn, ta thấy rằng cận trên có đánh giá tốt hơn là $O(N)$ - thật ra tổng thể số lần chạy câu lệnh $j$++ trong toàn bộ thuật toán không vượt quá $N$ lần.

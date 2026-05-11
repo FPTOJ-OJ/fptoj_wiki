@@ -124,6 +124,14 @@ for (int i = S; i > 0; i = (i - 1) & S); {
 }
 ```
 
+```python
+# xét tất cả các tập con khác rỗng của S
+i = S
+while i > 0:
+    # làm gì đó với i
+    i = (i - 1) & S
+```
+
 ## Chỉ cần một bit sai cũng 0 điểm
 
 Có một số lỗi mà mọi người thường mắc phải khi sử dụng các thao tác bit. Chú ý cẩn thận với code của bạn. 
@@ -217,5 +225,15 @@ for (int i = 0; i < (1 << n); i++)
     pg.push_back(i);
     pgb.push_back(__builtin_popcount(i));
 }
+```
+
+```python
+pg = []
+pgb = []
+for i in range(1 << n):
+    if i & (i << 1):
+        continue
+    pg.append(i)
+    pgb.append(bin(i).count('1'))
 ```
 

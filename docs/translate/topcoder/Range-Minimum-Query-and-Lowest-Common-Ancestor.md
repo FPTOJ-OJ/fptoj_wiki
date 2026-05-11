@@ -93,6 +93,20 @@ void process2(int M[MAXN][LOGMAXN], int A[MAXN], int N)
 }
 ```
 
+```python
+def process2(M, A, N):
+    for i in range(N):
+        M[i][0] = i
+    j = 1
+    while (1 << j) <= N:
+        for i in range(N - (1 << j) + 1):
+            if A[M[i][j - 1]] < A[M[i + (1 << (j - 1))][j - 1]]:
+                M[i][j] = M[i][j - 1]
+            else:
+                M[i][j] = M[i + (1 << (j - 1))][j - 1]
+        j += 1
+```
+
 Để tính $RMQ_A(i,j)$ ta dựa vào 2 đoạn con độ dài $2^k$ phủ hết $[i,j]$, với $k= \lfloor log(j-i+1) \rfloor$:
 
 ![](http://community.topcoder.com/i/education/lca/RMQ_005.gif)
@@ -128,6 +142,19 @@ void initialize(intnode, int b, int e, int M[MAXIND], int A[MAXN], int N)
 }
 ```
 
+```python
+def initialize(node, b, e, M, A, N):
+    if b == e:
+        M[node] = b
+    else:
+        initialize(2 * node, b, (b + e) // 2, M, A, N)
+        initialize(2 * node + 1, (b + e) // 2 + 1, e, M, A, N)
+        if A[M[2 * node]] <= A[M[2 * node + 1]]:
+            M[node] = M[2 * node]
+        else:
+            M[node] = M[2 * node + 1]
+```
+
 Truy vấn:
 
 ```cpp
@@ -158,6 +185,23 @@ int query(int node, int b, int e, int M[MAXIND], int A[MAXN], int i, int j)
     return M[node] = p1;
   return M[node] = p2;
 }
+```
+
+```python
+def query(node, b, e, M, A, i, j):
+    if i > e or j < b:
+        return -1
+    if b >= i and e <= j:
+        return M[node]
+    p1 = query(2 * node, b, (b + e) // 2, M, A, i, j)
+    p2 = query(2 * node + 1, (b + e) // 2 + 1, e, M, A, i, j)
+    if p1 == -1:
+        return p2
+    if p2 == -1:
+        return p1
+    if A[p1] <= A[p2]:
+        return p1
+    return p2
 ```
 
 Mỗi truy vấn sẽ được thực hiện trong $O(logN)$ và thuật toán có độ phức tạp tổng quát là $< O(N),O(logN) >$
@@ -232,6 +276,18 @@ void dfs(int node, int T[MAXN], int N, int P[MAXN], int L[MAXN], int nr)  {
 }
 ```
 
+```python
+def dfs(node, T, N, P, L, nr, children):
+    if L[node] < nr:
+        P[node] = 1
+    elif L[node] % nr == 0:
+        P[node] = T[node]
+    else:
+        P[node] = P[T[node]]
+    for k in children[node]:
+        dfs(k, T, N, P, L, nr, children)
+```
+
 Truy vấn:
 
 ```cpp
@@ -254,6 +310,21 @@ int LCA(int T[MAXN], int P[MAXN], int L[MAXN], int x, int y)
       y = T[y];
     return x;
 }
+```
+
+```python
+def LCA(T, P, L, x, y):
+    while P[x] != P[y]:
+        if L[x] > L[y]:
+            x = P[x]
+        else:
+            y = P[y]
+    while x != y:
+        if L[x] > L[y]:
+            x = T[x]
+        else:
+            y = T[y]
+    return x
 ```
 
 Hàm này sử dụng tối đa $2\sqrt H$ phép toán. Với cách tiếp cận này chúng ta có thuật toán $< O(N),O(\sqrt H) >$, trong trường hợp tệ nhất thì $N=H$ nên độ phức tạp tổng quát của thuật toán là $< O(N),O(\sqrt N) >$.
@@ -286,6 +357,23 @@ void process3(int N, int T[MAXN], int P[MAXN][LOGMAXN])
       if (P[i][j - 1] != -1)
         P[i][j] = P[P[i][j - 1]][j - 1];
 }
+```
+
+```python
+def process3(N, T, P):
+    for i in range(N):
+        j = 0
+        while (1 << j) < N:
+            P[i][j] = -1
+            j += 1
+    for i in range(N):
+        P[i][0] = T[i]
+    j = 1
+    while (1 << j) < N:
+        for i in range(N):
+            if P[i][j - 1] != -1:
+                P[i][j] = P[P[i][j - 1]][j - 1]
+        j += 1
 ```
 
 Bước khởi tạo này tốn $O(NlogN)$ bộ nhớ lẫn thời gian.
@@ -459,6 +547,22 @@ void computeTree(int A[MAXN], int N, int T[MAXN])  {
   // Phần tử đầu tiên trong stack là gốc cây nên nó không có cha
   T[st[0]] = -1;
 }
+```
+
+```python
+def computeTree(A, N, T):
+    st = []
+    for i in range(N):
+        k = len(st) - 1
+        while k >= 0 and A[st[k]] > A[i]:
+            k -= 1
+        if k != -1:
+            T[i] = st[k]
+        if k < len(st) - 1:
+            T[st[k + 1]] = i
+        st = st[:k + 1]
+        st.append(i)
+    T[st[0]] = -1
 ```
 
 ## Thuật toán $< O(N),O(1) >$ cho bài toán RMQ thu hẹp

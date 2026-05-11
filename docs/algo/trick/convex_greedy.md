@@ -9,6 +9,8 @@
 
 ## Giới thiệu
 
+![Convex Hull Trick](../../All_Images_Collected/convex_hull_trick.png)
+
 Mục đích của bài viết này là để giới thiệu cho mọi người về một mô típ đã xuất hiện trong nhiều bài tập trung bình khó tới khó -- tối ưu tổng của một số hàm lồi cho trước. Ý tưởng giải chung của các bài toán này thường là như nhau: tham lam trên chi phí tăng của các hàm lồi này (ta sẽ định nghĩa chi phí tăng ở phần tiếp theo).
 
 *Bài viết này là phần 1 của một chuỗi 2 bài viết; phần 2 của chuỗi bài viết này mình sẽ giới thiệu thuật toán tìm tổng Minkowski của các bao lồi.*
@@ -84,6 +86,22 @@ long long cost_greedy(int k) {
     }
     return ans;
 }
+```
+```python
+import heapq
+
+def cost_greedy(n, k, f):
+    x = [0] * n
+    ans = 0
+    pq = []
+    for i in range(n):
+        heapq.heappush(pq, (f(i, 0) - f(i, 1), i))
+    for _ in range(k):
+        cost, i = heapq.heappop(pq)
+        ans -= cost
+        x[i] += 1
+        heapq.heappush(pq, (f(i, x[i]) - f(i, x[i] + 1), i))
+    return ans
 ```
 
 ## Minh họa tham chi phí tăng

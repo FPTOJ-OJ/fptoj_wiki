@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 180">
+  <text x="250" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Sliding Window Technique</text>
+  <rect x="30" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <rect x="85" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <rect x="140" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <rect x="195" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <rect x="250" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <rect x="305" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <rect x="360" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <rect x="415" y="50" width="50" height="40" fill="#E8F5E9" stroke="#333" stroke-width="1"/>
+  <text x="55" y="75" text-anchor="middle" fill="#333">2</text>
+  <text x="110" y="75" text-anchor="middle" fill="#333">1</text>
+  <text x="165" y="75" text-anchor="middle" fill="#333">5</text>
+  <text x="220" y="75" text-anchor="middle" fill="#333">3</text>
+  <text x="275" y="75" text-anchor="middle" fill="#333">4</text>
+  <text x="330" y="75" text-anchor="middle" fill="#333">2</text>
+  <text x="385" y="75" text-anchor="middle" fill="#333">8</text>
+  <text x="440" y="75" text-anchor="middle" fill="#333">6</text>
+  <rect x="30" y="110" width="160" height="30" fill="#4CAF50" fill-opacity="0.3" stroke="#4CAF50" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="110" y="130" text-anchor="middle" font-size="12" fill="#4CAF50" font-weight="bold">Window k=3, sum=8</text>
+  <rect x="140" y="150" width="160" height="30" fill="#2196F3" fill-opacity="0.3" stroke="#2196F3" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="220" y="170" text-anchor="middle" font-size="12" fill="#2196F3" font-weight="bold">Window k=3, sum=12</text>
+</svg>

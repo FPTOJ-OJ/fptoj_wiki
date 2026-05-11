@@ -148,6 +148,65 @@ vector<Point> convexHull(vector<Point> p, int n) {
 }
 ```
 
+```python
+import math
+
+EPS = 1e-9
+
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+    def __eq__(self, o):
+        return self.x == o.x and self.y == o.y
+    def __ne__(self, o):
+        return not (self == o)
+    def __sub__(self, o):
+        return Point(self.x - o.x, self.y - o.y)
+    def length(self):
+        return math.sqrt(self.x * self.x + self.y * self.y)
+
+def dot(A, B):
+    return A.x * B.x + A.y * B.y
+
+def calcAngle(A, B):
+    return math.acos(dot(A, B) / A.length() / B.length())
+
+def convexHull(p, n):
+    if n <= 2:
+        return p[:]
+    for i in range(1, len(p)):
+        if p[0].x > p[i].x:
+            p[0], p[i] = p[i], p[0]
+    hull = [p[0]]
+    while True:
+        P = hull[-1]
+        P0 = Point(P.x, P.y - 1) if len(hull) == 1 else hull[-2]
+        Q = p[0]
+        angle = calcAngle(P0 - P, Q - P)
+        for i in range(1, n):
+            if Q == P or Q == P0:
+                Q = p[i]
+                angle = calcAngle(P0 - P, Q - P)
+                continue
+            if p[i] == P or p[i] == P0:
+                continue
+            newAngle = calcAngle(P0 - P, p[i] - P)
+            if abs(angle - newAngle) > EPS:
+                if angle < newAngle:
+                    Q = p[i]
+                    angle = newAngle
+            else:
+                if (Q - P).length() > (p[i] - P).length():
+                    Q = p[i]
+                    angle = newAngle
+        hull.append(Q)
+        if hull[0] == hull[-1]:
+            break
+    hull.pop()
+    return hull
+```
+
 ## Thuật toán Graham (Graham scan)
 Thuật toán Graham có độ phức tạp trong trường hợp xấu nhất nhỏ hơn thuật toán bọc gói, song thuật toán Graham lại phức tạp hơn.
 - Đầu tiên, ta xác định một điểm mà chắc chắn thuộc bao lồi. Thông thường, khi cài đặt người ta chọn điểm có tung độ nhỏ nhất (nếu có nhiều điểm như vậy thì chọn điểm trái nhất). Gọi điểm này là điểm $O$.
@@ -219,6 +278,37 @@ vector<Point> convexHull(vector<Point> p, int n) {
     }
     return hull;
 }
+```
+
+```python
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+def cross(A, B, C):
+    return (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
+
+def ccw(A, B, C):
+    S = cross(A, B, C)
+    if S < 0: return -1
+    if S == 0: return 0
+    return 1
+
+def convexHull(p, n):
+    for i in range(1, n):
+        if p[0].y > p[i].y or (p[0].y == p[i].y and p[0].x > p[i].x):
+            p[0], p[i] = p[i], p[0]
+    p[1:] = sorted(p[1:], key=lambda pt: (
+        -1 if ccw(p[0], pt, Point(p[0].x + 1, p[0].y)) > 0 else 1,
+        pt.x, pt.y
+    ))
+    hull = [p[0]]
+    for i in range(1, n):
+        while len(hull) >= 2 and ccw(hull[-2], hull[-1], p[i]) < 0:
+            hull.pop()
+        hull.append(p[i])
+    return hull
 ```
 
 ## Thuật toán chuỗi đơn điệu (Monotone chain algorithm)
@@ -309,6 +399,38 @@ int main() {
         cout << p.x << ' ' << p.y << '\n';
     }
 }
+```
+
+```python
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+def ccw(A, B, C):
+    return (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y) > 0
+
+def convexHull(p, n):
+    p.sort(key=lambda pt: (pt.x, pt.y))
+    hull = [p[0]]
+    for i in range(1, n):
+        while len(hull) >= 2 and ccw(hull[-2], hull[-1], p[i]):
+            hull.pop()
+        hull.append(p[i])
+    for i in range(n - 2, -1, -1):
+        while len(hull) >= 2 and ccw(hull[-2], hull[-1], p[i]):
+            hull.pop()
+        hull.append(p[i])
+    if n > 1:
+        hull.pop()
+    return hull
+
+n = int(input())
+p = [Point(*map(int, input().split())) for _ in range(n)]
+hull = convexHull(p, n)
+print(len(hull))
+for pt in hull:
+    print(pt.x, pt.y)
 ```
 
 ## Xử lí trường hợp suy biến
@@ -485,6 +607,73 @@ int main() {
         cout << (checkInHull(hull, P) ? "YES\n" : "NO\n");
     }
 }
+```
+
+```python
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+    def __eq__(self, o):
+        return self.x == o.x and self.y == o.y
+
+def cross(A, B, C):
+    return (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
+
+def dot(A, B, C):
+    return (B.x - A.x) * (C.x - A.x) + (B.y - A.y) * (C.y - A.y)
+
+def onSegment(A, B, C):
+    return cross(A, B, C) == 0 and dot(C, A, B) <= 0
+
+def cw(A, B, C):
+    return cross(A, B, C) < 0
+
+def ccw(A, B, C):
+    return cross(A, B, C) > 0
+
+def convexHull(p, n):
+    p.sort(key=lambda pt: (pt.x, pt.y))
+    hull = [p[0]]
+    for i in range(1, n):
+        while len(hull) >= 2 and ccw(hull[-2], hull[-1], p[i]):
+            hull.pop()
+        hull.append(p[i])
+    for i in range(n - 2, -1, -1):
+        while len(hull) >= 2 and ccw(hull[-2], hull[-1], p[i]):
+            hull.pop()
+        hull.append(p[i])
+    if n > 1:
+        hull.pop()
+    return hull
+
+def checkInHull(hull, P):
+    n = len(hull)
+    if n == 1:
+        return hull[0] == P
+    if n == 2:
+        return onSegment(hull[0], hull[1], P)
+    if ccw(hull[0], hull[1], P):
+        return False
+    if not cw(hull[n - 1], hull[0], P):
+        return onSegment(hull[n - 1], hull[0], P)
+    lo, hi, x = 2, n - 1, -1
+    while lo <= hi:
+        mid = (lo + hi) >> 1
+        if ccw(hull[0], hull[mid], P):
+            x = mid
+            hi = mid - 1
+        else:
+            lo = mid + 1
+    return not ccw(hull[x - 1], hull[x], P)
+
+n = int(input())
+p = [Point(*map(int, input().split())) for _ in range(n)]
+hull = convexHull(p, n)
+m = int(input())
+for _ in range(m):
+    P = Point(*map(int, input().split()))
+    print("YES" if checkInHull(hull, P) else "NO")
 ```
 
 ## Bài tập áp dụng

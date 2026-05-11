@@ -43,6 +43,13 @@ for (int i = 1; i <= N; i++)
         mu[j] -= mu[i];
 	```
 
+	```python
+mu[1] = 1
+for i in range(1, N + 1):
+    for j in range(2 * i, N + 1, i):
+        mu[j] -= mu[i]
+	```
+
 Vỡi mỗi $f(n)$, ta gọi hàm tổng $S_f(n)$ là tổng các $f(d)$ với $d$ là ước của $n$: $S_f(n)=\sum_{d\|n}{f(d)}$
 
 **Phi hàm Euler** $\phi(n)$ ([Euler totient function](https://vi.wikipedia.org/wiki/Phi_h%C3%A0m_Euler)): số lượng các số tự nhiên nhỏ hơn hoặc bằng $n$ và nguyên tố cùng nhau với $n$ (hay số lượng các số $d: 1 \leq d \leq n,gcd(d,n)=1$). Các bạn cũng có thể sử dụng sàng để tính $phi(n)$:
@@ -52,6 +59,14 @@ for (int i = 2; i <= N; i++)
     if (phi[i] == i)
        for (int j = i; j <= N; j += i) 
            phi[j] -= phi[j]/i;
+```
+
+```python
+phi = list(range(N + 1))
+for i in range(2, N + 1):
+    if phi[i] == i:
+        for j in range(i, N + 1, i):
+            phi[j] -= phi[j] // i
 ```
 
 ## Công thức nghịch đảo Mobius (Möbius inversion formula)
@@ -122,6 +137,12 @@ for (int i = 1; i <= N; i++)
         f[j] += h[i] * mu[j/i];
 	```
 
+	```python
+for i in range(1, N + 1):
+    for j in range(i, N + 1, i):
+        f[j] += h[i] * mu[j // i]
+	```
+
 	Đoạn code trên chạy trong thời gian $O(NlogN)$ vì với mỗi $i$ vòng lặp trong sẽ chạy $N/i$ lần (số bội của $i$), và $O(\sum_{i=1}^{N}N/i)=O(NlogN)$.
 
 4. Viết lại (2) một lần nữa ta được:
@@ -141,6 +162,14 @@ for (int i = 1,j; i <= n; i = j + 1) {
     j = n / (n/i); //vị trí j xa i nhất mà n/i=n/j
     res += n/i*(n/i - 1)/2 * (Sf[j] - Sf[i-1]);//Sf[i]=f[1]+f[2]+f[3]+...+f[i]
 }
+	```
+
+	```python
+i = 1
+while i <= n:
+    j = n // (n // i)
+    res += (n // i) * (n // i - 1) // 2 * (Sf[j] - Sf[i - 1])
+    i = j + 1
 	```
 
 Như vậy thuật toán trên có độ phức tạp $O(NlogN+\sqrt N  \times T)$ với $T$ là số test.

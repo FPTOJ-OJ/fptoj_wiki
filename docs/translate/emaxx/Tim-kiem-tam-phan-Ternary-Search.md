@@ -90,6 +90,19 @@ double max_f(double left, double right) {
 
 ```
 
+```python
+def max_f(left, right):
+    N_ITER = 100
+    for _ in range(N_ITER):
+        x1 = left + (right - left) / 3.0
+        x2 = right - (right - left) / 3.0
+        if f(x1) > f(x2):
+            right = x2
+        else:
+            left = x1
+    return f(left)
+```
+
 
 ## Mở rộng
 

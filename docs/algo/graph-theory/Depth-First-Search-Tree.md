@@ -76,6 +76,24 @@ void dfs(int u, int pre) {
 } 
 ```    
 
+```python
+timeDfs = 0
+
+def dfs(u, pre):
+    global timeDfs
+    timeDfs += 1
+    num[u] = low[u] = timeDfs
+    for v in g[u]:
+        if v == pre:
+            continue
+        if not num[v]:
+            dfs(v, u)
+            low[u] = min(low[u], low[v])
+        else:
+            low[u] = min(low[u], num[v])
+    tail[u] = timeDfs
+```
+
 - **Ví dụ minh họa :**
 
     ![/uploads/Depth-First-Search-Tree_img3.png](/uploads/Depth-First-Search-Tree_img3.png)
@@ -238,6 +256,56 @@ int main() {
     cout << cntJoint << ' ' << bridge;
 } 
 ```
+
+```python
+import sys
+sys.setrecursionlimit(20000)
+input = sys.stdin.readline
+
+maxN = 10010
+n, m = map(int, input().split())
+joint = [False] * maxN
+timeDfs = 0
+bridge = 0
+low = [0] * maxN
+num = [0] * maxN
+g = [[] for _ in range(maxN)]
+
+def dfs(u, pre):
+    global timeDfs, bridge
+    child = 0
+    timeDfs += 1
+    num[u] = low[u] = timeDfs
+    for v in g[u]:
+        if v == pre:
+            continue
+        if not num[v]:
+            dfs(v, u)
+            low[u] = min(low[u], low[v])
+            if low[v] == num[v]:
+                bridge += 1
+            child += 1
+            if u == pre:
+                if child > 1:
+                    joint[u] = True
+            elif low[v] >= num[u]:
+                joint[u] = True
+        else:
+            low[u] = min(low[u], num[v])
+
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+    g[v].append(u)
+
+for i in range(1, n + 1):
+    if not num[i]:
+        dfs(i, i)
+
+cntJoint = sum(1 for i in range(1, n + 1) if joint[i])
+print(cntJoint, bridge)
+```
+
 ### **Đánh giá**
 - Độ phức tạp của bài toán là $O(N + M)$.
 
@@ -477,6 +545,110 @@ int main() {
 }
 ```
 
+```python
+import sys
+import math
+sys.setrecursionlimit(200000)
+input = sys.stdin.readline
+
+maxN = 100010
+n, m = map(int, input().split())
+g = [[] for _ in range(maxN)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+    g[v].append(u)
+
+timeDfs = 0
+low = [0] * maxN
+num = [0] * maxN
+tail = [0] * maxN
+depth = [0] * maxN
+joint = [False] * maxN
+p = [[0] * 20 for _ in range(maxN)]
+
+def dfs(u, pre):
+    global timeDfs
+    child = 0
+    timeDfs += 1
+    num[u] = low[u] = timeDfs
+    for v in g[u]:
+        if v == pre:
+            continue
+        if not num[v]:
+            child += 1
+            p[v][0] = u
+            depth[v] = depth[u] + 1
+            dfs(v, u)
+            low[u] = min(low[u], low[v])
+            if u == pre:
+                if child > 1:
+                    joint[u] = True
+            elif low[v] >= num[u]:
+                joint[u] = True
+        else:
+            low[u] = min(low[u], num[v])
+    tail[u] = timeDfs
+
+depth[1] = 1
+dfs(1, 1)
+
+p[1][0] = 1
+for j in range(1, 20):
+    for i in range(1, n + 1):
+        p[i][j] = p[p[i][j - 1]][j - 1]
+
+def findParent(u, par):
+    for i in range(19, -1, -1):
+        if depth[p[u][i]] > depth[par]:
+            u = p[u][i]
+    return u
+
+def checkInSubtree(u, root):
+    return num[root] <= num[u] and num[u] <= tail[root]
+
+def solve1(a, b, g1, g2):
+    if num[g1] > num[g2]:
+        g1, g2 = g2, g1
+    if low[g2] != num[g2]:
+        return True
+    if checkInSubtree(a, g2) and not checkInSubtree(b, g2):
+        return False
+    if checkInSubtree(b, g2) and not checkInSubtree(a, g2):
+        return False
+    return True
+
+def solve2(a, b, c):
+    if not joint[c]:
+        return True
+    pa = pb = 0
+    if checkInSubtree(a, c):
+        pa = findParent(a, c)
+    if checkInSubtree(b, c):
+        pb = findParent(b, c)
+    if not pa and not pb:
+        return True
+    if pa == pb:
+        return True
+    if not pa and low[pb] < num[c]:
+        return True
+    if not pb and low[pa] < num[c]:
+        return True
+    if pa and pb and low[pa] < num[c] and low[pb] < num[c]:
+        return True
+    return False
+
+q = int(input())
+for _ in range(q):
+    parts = list(map(int, input().split()))
+    if parts[0] == 1:
+        a, b, g1, g2 = parts[1], parts[2], parts[3], parts[4]
+        print("yes" if solve1(a, b, g1, g2) else "no")
+    else:
+        a, b, c = parts[1], parts[2], parts[3]
+        print("yes" if solve2(a, b, c) else "no")
+```
+
 ### **Đánh giá**
 - Độ phức tạp của bài toán là $O(N + M + Q \cdot logN)$
 
@@ -583,6 +755,49 @@ int main() {
     dfs(1, 1);
     cout << bridge;
 }
+```
+
+```python
+import sys
+sys.setrecursionlimit(300000)
+input = sys.stdin.readline
+
+maxN = 200010
+timeDfs = 0
+bridge = 0
+low = [0] * maxN
+num = [0] * maxN
+g = [[] for _ in range(maxN)]
+
+def dfs(u, pre):
+    global timeDfs, bridge
+    timeDfs += 1
+    num[u] = low[u] = timeDfs
+    for v in g[u]:
+        if v == pre:
+            continue
+        if not num[v]:
+            dfs(v, u)
+            low[u] = min(low[u], low[v])
+            if low[v] == num[v]:
+                bridge += 1
+        else:
+            low[u] = min(low[u], num[v])
+
+n = int(input())
+for _ in range(n - 1):
+    a, b = map(int, input().split())
+    g[a].append(b)
+    g[b].append(a)
+
+m = int(input())
+for _ in range(m):
+    a, b = map(int, input().split())
+    g[a].append(b)
+    g[b].append(a)
+
+dfs(1, 1)
+print(bridge)
 ```
 
 ### **Đánh giá**
@@ -741,6 +956,53 @@ int main() {
 
     cout << scc;
 }
+```
+
+```python
+import sys
+sys.setrecursionlimit(20000)
+input = sys.stdin.readline
+
+maxN = 100010
+n, m = map(int, input().split())
+timeDfs = 0
+scc = 0
+low = [0] * maxN
+num = [0] * maxN
+deleted = [False] * maxN
+g = [[] for _ in range(maxN)]
+st = []
+
+def dfs(u):
+    global timeDfs, scc
+    timeDfs += 1
+    num[u] = low[u] = timeDfs
+    st.append(u)
+    for v in g[u]:
+        if deleted[v]:
+            continue
+        if not num[v]:
+            dfs(v)
+            low[u] = min(low[u], low[v])
+        else:
+            low[u] = min(low[u], num[v])
+    if low[u] == num[u]:
+        scc += 1
+        while True:
+            v = st.pop()
+            deleted[v] = True
+            if v == u:
+                break
+
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+
+for i in range(1, n + 1):
+    if not num[i]:
+        dfs(i)
+
+print(scc)
 ```
 
 ### **Đánh giá**
@@ -949,6 +1211,114 @@ int main() {
     fill(f, f + m * n + 1, -1);
     cout << solve(root[getId(1, 1)]);
 }
+```
+
+```python
+import sys
+sys.setrecursionlimit(200000)
+input = sys.stdin.readline
+
+maxN = 100010
+INF = 10 ** 9 + 7
+
+m, n = map(int, input().split())
+a = [''] * maxN
+val = [0] * maxN
+g = [[] for _ in range(maxN)]
+
+def get_id(i, j):
+    return (i - 1) * n + j
+
+def check(i, j):
+    if i < 1 or j < 1 or i > m or j > n:
+        return False
+    return a[get_id(i, j)] != '#'
+
+for i in range(1, m + 1):
+    row = input().strip()
+    for j in range(1, n + 1):
+        u = get_id(i, j)
+        a[u] = row[j - 1]
+        val[u] = int(a[u]) if '0' <= a[u] <= '9' else 0
+
+for i in range(1, m + 1):
+    for j in range(1, n + 1):
+        u = get_id(i, j)
+        if a[u] == '#':
+            continue
+        if check(i, j + 1):
+            g[u].append(get_id(i, j + 1))
+        if check(i + 1, j):
+            g[u].append(get_id(i + 1, j))
+        if a[u] == 'W' and check(i, j - 1):
+            g[u].append(get_id(i, j - 1))
+        if a[u] == 'N' and check(i - 1, j):
+            g[u].append(get_id(i - 1, j))
+
+timeDfs = 0
+scc = 0
+low = [0] * maxN
+num = [0] * maxN
+deleted = [False] * maxN
+root = [0] * maxN
+totalScc = [0] * maxN
+st = []
+
+def dfs(u):
+    global timeDfs, scc
+    timeDfs += 1
+    low[u] = num[u] = timeDfs
+    st.append(u)
+    for v in g[u]:
+        if deleted[v]:
+            continue
+        if not num[v]:
+            dfs(v)
+            low[u] = min(low[u], low[v])
+        else:
+            low[u] = min(low[u], num[v])
+    if num[u] == low[u]:
+        scc += 1
+        while True:
+            v = st.pop()
+            deleted[v] = True
+            totalScc[scc] += val[v]
+            root[v] = scc
+            if v == u:
+                break
+
+for i in range(1, m + 1):
+    for j in range(1, n + 1):
+        u = get_id(i, j)
+        if not num[u] and check(i, j):
+            dfs(u)
+
+h = [[] for _ in range(maxN)]
+for i in range(1, m + 1):
+    for j in range(1, n + 1):
+        if not check(i, j):
+            continue
+        u = get_id(i, j)
+        ru = root[u]
+        for v in g[u]:
+            rv = root[v]
+            if ru != rv:
+                h[ru].append(rv)
+
+f = [-1] * maxN
+
+def solve_dp(u):
+    if not h[u]:
+        return totalScc[u]
+    if f[u] != -1:
+        return f[u]
+    cur = -INF
+    for v in h[u]:
+        cur = max(cur, solve_dp(v) + totalScc[u])
+    f[u] = cur
+    return f[u]
+
+print(solve_dp(root[get_id(1, 1)]))
 ```
 
 ### **Đánh giá**

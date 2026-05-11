@@ -155,6 +155,8 @@ def is_valid(s):
 
 ## 3. Mảng cộng dồn (Prefix Sum)
 
+![Prefix Sum](../uploads/img/prefix-sum.svg)
+
 ### Ẩn dụ: Tổng quãng đường
 
 Bạn đi xe từ điểm A → B → C → D. Thay vì tính lại quãng đường mỗi lần, bạn **ghi nhớ tổng quãng đường từ đầu đến mỗi điểm**:
@@ -328,6 +330,104 @@ for _ in range(q):
 ```
 
 ---
+
+## 5. Lưu ý / Cạm bẫy
+
+### 5.1. Prefix Sum: 1-indexed vs 0-indexed
+
+```cpp
+// CÁCH 1: prefix[0] = 0 (khuyến khích)
+// prefix[i] = tổng a[0..i-1]
+// Tổng [l, r] = prefix[r+1] - prefix[l]
+vector<int> prefix(n + 1, 0);
+for (int i = 0; i < n; i++)
+    prefix[i + 1] = prefix[i] + a[i];
+int sumLR = prefix[r + 1] - prefix[l];
+
+// CÁCH 2: prefix[i] = tổng a[0..i]
+// Tổng [l, r] = prefix[r] - (l > 0 ? prefix[l-1] : 0)
+vector<int> prefix(n);
+prefix[0] = a[0];
+for (int i = 1; i < n; i++)
+    prefix[i] = prefix[i - 1] + a[i];
+int sumLR = prefix[r] - (l > 0 ? prefix[l - 1] : 0);
+```
+
+**Lỗi thường gặp:** Quên `l > 0` ở cách 2 → truy cập `prefix[-1]`!
+
+### 5.2. Overflow khi tính Prefix Sum
+
+```cpp
+// SAI: tổng có thể vượt quá int
+int prefix[MAXN];  // int chỉ đến ~2×10^9
+
+// ĐÚNG: dùng long long
+long long prefix[MAXN];
+```
+
+**Quy tắc:** Nếu `a[i]` có thể đến 10^9 và N đến 10^5 → tổng lớn nhất ~10^14 → PHẢI dùng `long long`!
+
+### 5.3. Difference Array: Quên xét r+1 ra ngoài mảng
+
+```cpp
+// Cập nhật [l, r] += k
+diff[l] += k;
+if (r + 1 < n)      // PHẢI kiểm tra!
+    diff[r + 1] -= k;
+// Nếu quên kiểm tra → truy cập ngoài mảng → Runtime Error!
+```
+
+### 5.4. Difference Array: Quên khôi phục
+
+```cpp
+// Sau khi cập nhật diff[], PHẢI khôi phục mảng gốc:
+a[0] = diff[0];
+for (int i = 1; i < n; i++)
+    a[i] = a[i - 1] + diff[i];
+// Nếu quên khôi phục mà dùng diff[] trực tiếp → KẾT QUẢ SAI!
+```
+
+### 5.5. Stack: Quên kiểm tra rỗng
+
+```cpp
+// SAI: pop khi stack rỗng → Runtime Error!
+st.pop();
+
+// ĐÚNG: kiểm tra trước
+if (!st.empty()) st.pop();
+```
+
+### 5.6. Kadane's Algorithm: Mảng toàn số âm
+
+```cpp
+// Nếu mảng toàn số âm, Kadane's trả về phần tử lớn nhất (vẫn âm)
+// Nếu muốn "đoạn con rỗng có tổng = 0":
+long long maxSubarraySum(vector<int>& a) {
+    long long maxSum = 0, curSum = 0;
+    for (int x : a) {
+        curSum = max(0LL, curSum + x);  // Reset về 0 nếu âm
+        maxSum = max(maxSum, curSum);
+    }
+    return maxSum;
+}
+```
+
+---
+
+## 6. Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [CSES - Static Range Sum Queries](https://cses.fi/problemset/task/1646) | CSES | ⭐ | Prefix Sum |
+| [CSES - Static Range Minimum Queries](https://cses.fi/problemset/task/1647) | CSES | ⭐ | Sparse Table |
+| [CSES - Dynamic Range Sum Queries](https://cses.fi/problemset/task/1648) | CSES | ⭐⭐ | BIT / Segment Tree |
+| [CSES - Forest Queries](https://cses.fi/problemset/task/1652) | CSES | ⭐⭐ | Prefix Sum 2D |
+| [CSES - Salary Queries](https://cses.fi/problemset/task/1144) | CSES | ⭐⭐⭐ | BIT + Coordinate Compression |
+| [LeetCode - Range Sum Query](https://leetcode.com/problems/range-sum-query-immutable/) | LeetCode | ⭐ | Prefix Sum cơ bản |
+| [LeetCode - Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | LeetCode | ⭐⭐ | Prefix Sum + HashMap |
+| [LeetCode - Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | LeetCode | ⭐⭐ | Prefix/Suffix Sum |
+| [Codeforces 816B - Karen and Coffee](https://codeforces.com/problemset/problem/816/B) | CF | ⭐⭐ | Difference Array |
+| [VNOJ - QSUM](https://oj.vnoi.info/problem/qsum) | VNOJ | ⭐⭐ | Prefix Sum |
 
 ---
 

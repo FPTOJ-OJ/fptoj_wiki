@@ -89,6 +89,15 @@ vector<int> getRepresentation(int N) {
 
 ```
 
+```python
+def getRepresentation(N):
+    res = []
+    while N > 0:
+        res.append(N % M)
+        N //= M
+    return res
+```
+
 Đoạn code trên chạy trong thời gian $O(log_M N)$
 
 ## Tính $C_{n_i}^{k_i}$
@@ -111,6 +120,16 @@ for (int i = 0; i < M; ++i) {
 
 ```
 
+```python
+C = [[0] * M for _ in range(M)]
+for i in range(M):
+    for j in range(i + 1):
+        if i == 0 or j == 0:
+            C[i][j] = 1
+        else:
+            C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % M
+```
+
 ### Thuật toán $< O(M),O(logM) >$
 
 Với $M$ nhỏ các bạn có thể tiền xử lý trong $O(M)$ và truy vấn trong $O(logM)$ bằng trick #3 ở [đây](https://www.hackerearth.com/notes/powerful-tricks-with-calculation-modulo/).
@@ -126,6 +145,13 @@ for (int i = 1; i < M; ++i) {
 
 ```
 
+```python
+fact = [0] * M
+fact[0] = 1
+for i in range(1, M):
+    fact[i] = (fact[i - 1] * i) % M
+```
+
 #### Truy vấn
 
 ```cpp
@@ -136,6 +162,13 @@ int C(int N, int K) {
     return (((fact[N] * binpow(fact[N - K], M - 2)) % M) * binpow(fact[K], M - 2)) % M;
 }
 
+```
+
+```python
+def C(N, K):
+    if K > N:
+        return 0
+    return (((fact[N] * binpow(fact[N - K], M - 2)) % M) * binpow(fact[K], M - 2)) % M
 ```
 
 Trong đó hàm `binpow(a,n)` dùng để tính nhanh $a^n$ trong $O(logn)$ bằng chia để trị:
@@ -161,6 +194,17 @@ int binpow(int a, int n) {
 
 ```
 
+```python
+def binpow(a, n):
+    res = 1
+    while n > 0:
+        if n % 2 != 0:
+            res = (res * a) % M
+        a = (a * a) % M
+        n //= 2
+    return res
+```
+
 ## Tính $C_N^K$
 
 ```cpp
@@ -171,6 +215,14 @@ for (int i = 0; i < k.size(); ++i) {
     res = (res * C(n[i], k[i])) % M;
 }
 
+```
+
+```python
+n = getRepresentation(N)
+k = getRepresentation(K)
+res = 1
+for i in range(len(k)):
+    res = (res * C(n[i], k[i])) % M
 ```
 
 ## Trường hợp $M$ không là số nguyên tố

@@ -118,3 +118,31 @@ int solve (int n, int r) {
     return r - sum;
 }
 ```  
+
+```python
+def solve(n, r):
+    total = 0
+    p = []
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            p.append(i)
+            while n % i == 0:
+                n //= i
+        i += 1
+    if n > 1:
+        p.append(n)
+    for msk in range(1, 1 << len(p)):
+        mult = 1
+        bits = 0
+        for i in range(len(p)):
+            if msk & (1 << i):
+                bits += 1
+                mult *= p[i]
+        cur = r // mult
+        if bits % 2 == 1:
+            total += cur
+        else:
+            total -= cur
+    return r - total
+```

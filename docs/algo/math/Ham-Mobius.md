@@ -24,6 +24,14 @@ for (int i = 1; i <= N; i++)
         mu[j] -= mu[i];
 ```
 
+```python
+mu = [0] * (N + 1)
+mu[1] = 1
+for i in range(1, N + 1):
+    for j in range(2 * i, N + 1, i):
+        mu[j] -= mu[i]
+```
+
 
 ## Ứng dụng trong nguyên lý bù trừ
 

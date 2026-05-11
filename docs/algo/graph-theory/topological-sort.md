@@ -17,6 +17,8 @@
 - **Thứ tự Tô-pô** của một đồ thị có hướng là một thứ tự sắp xếp của các đỉnh sao cho với mọi cung từ đỉnh $u$ đến đỉnh $v$ trong đồ thị, $u$ luôn nằm trước $v$.
 - Bài toán xác định **thứ tự Tô-pô** gọi là **Bài toán sắp xếp Tô-pô**.
 
+![Topological Sort Example 1](../../All_Images_Collected/topological_1.png)
+
 ![/uploads/topological_sort_img1.png](/uploads/topological_sort_img1.png)
 
 ## Cảm hứng
@@ -38,6 +40,9 @@
     * Rõ ràng, một $DAG$ chỉ gồm $1$ đỉnh duy nhất luôn có thể được sắp xếp theo thứ tự Tô-pô. Khi đó, danh sách Tô-pô trong trường hợp này chỉ bao gồm chính đỉnh đó. 
     * Giả sử rằng bất kỳ $DAG$ nào có $n$ đỉnh đều có thể được sắp xếp theo thứ tự Tô-pô. Bây giờ hãy xem xét các $DAG$ có $n+1$ đỉnh. Nhớ lại rằng mọi $DAG$ đều có ít nhất một **đỉnh nguồn** (đỉnh không có cung vào). Hãy để **đỉnh nguồn** này làm giá trị đầu tiên trong danh sách Tô-pô, rồi loại bỏ đỉnh này cùng cách cạnh kề với nó ra khỏi đồ thị. Khi đó, ta sẽ có được đồ thị mới gồm $n$ đỉnh là đồ thị con của đồ thị ban đầu. Rõ ràng, các chu trình không thể được tạo ra bằng cách loại bỏ các cạnh và đỉnh. Bằng giả thiết ban đầu, ta có thể sắp xếp đồ thị con này theo thứ tự Tô-pô. Sau đó, ta nối thứ tự Tô-pô của đồ thị con vào cuối danh sách hiện tại để có được danh sách thứ tự Tô-pô của đồ thị $n+1$ đỉnh với **đỉnh nguồn** là giá trị đầu tiên trong danh sách.
     * **Ví dụ minh họa:** Để xác định thứ tự Tô-pô của $DAG$ gồm $7$ đỉnh, ta thêm đỉnh nguồn $0$ vào trong danh sách Tô-pô rồi nối thêm thứ tự Tô-pô của đồ thị con $6$ đỉnh. 
+
+    ![Topological Sort Example 2](../../All_Images_Collected/topological_2.png)
+
     ![/uploads/topological_sort_img2.png](/uploads/topological_sort_img2.png)
     * Bây giờ, với hai đỉnh bất kỳ $u$ và $v$ trong danh sách Tô-pô, giả sử $u$ đứng trước $v$:
         * Nếu $u$ là giá trị đầu tiên trong danh sách (đỉnh nguồn), trong trường hợp đó, rõ ràng là **không thể** tồn tại cạnh nối từ $v \rightarrow u$. 
@@ -87,6 +92,9 @@ Cho đồ thị có hướng không chu trình *(Directed Acyclic Graph - DAG)* 
 ```
 
 **Note**
+
+![Topological Sort Result](../../All_Images_Collected/topological_3.png)
+
 ![/uploads/topological_sort_img3.png](/uploads/topological_sort_img3.png)
 
 ## Thuật toán 1

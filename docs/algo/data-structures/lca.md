@@ -35,6 +35,8 @@ Tất nhiên trong quá trình thay một nút bằng nút tổ tiên của nó,
 
 ## Cách 2 - Euler Tour + Interval Tree
 
+![LCA Euler Tour](../../All_Images_Collected/LCA_Euler.png)
+
 Từ cây đầu vào ta sử dụng thủ tục DFS để xây dựng 2 mảng:
 
 - $prevnum[1..n]$ với $prevnum[i]$ cho ta biết thứ tự gọi thủ tục DFS cho đỉnh $i$.

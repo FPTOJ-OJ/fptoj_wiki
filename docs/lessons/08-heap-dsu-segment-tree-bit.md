@@ -13,14 +13,7 @@ Bệnh viện có bệnh nhân nặng, nhẹ. Ai nặng nhất → khám trướ
 
 Lưu cây nhị phân đầy đủ trong mảng. Nút cha luôn lớn hơn (max-heap) hoặc nhỏ hơn (min-heap) cả 2 con.
 
-```
-Max-Heap:        Lưu trong mảng:
-    9            [9, 7, 8, 3, 5, 6, 2]
-   / \
-  7   8
- / \ / \
-3  5 6  2
-```
+![Max-Heap](../uploads/img/heap.svg)
 
 ### Code C++: Dùng thư viện
 
@@ -202,16 +195,7 @@ Segment Tree giải quyết: mỗi câu hỏi **O(log N)**!
 
 Chia mảng thành các đoạn nhỏ, lưu kết quả truy vấn (tổng, min, max...) cho mỗi đoạn.
 
-```
-Mảng [9, 2, 6, 3, 1, 5, 7]
-
-Cây phân đoạn (lưu MIN):
-            [1]                    ← min(1..7) = 1
-           /    \
-       [2]      [1]               ← min(1..4)=2, min(5..7)=1
-       / \      / \
-     [9] [2]  [6] [3] [1] [5] [7] ← lá
-```
+![Segment Tree](../uploads/img/segment-tree.svg)
 
 ### Code C++
 
@@ -313,6 +297,8 @@ Thay vì lưu tổng từ đầu đến từng điểm (prefix sum), Fenwick Tre
 
 → BIT "cân bằng" giữa 2 loại truy vấn!
 
+![Fenwick Tree](../uploads/img/fenwick-tree.svg)
+
 ### Code C++
 
 ```cpp
@@ -372,6 +358,136 @@ class FenwickTree:
 | Cần code ngắn, dễ cài | **BIT** |
 
 ---
+
+## 5. Lưu ý / Cạm bẫy
+
+### 5.1. DSU: Quên Path Compression
+
+```cpp
+// SAI: Không nén đường đi → O(N) mỗi find
+int find_set(int v) {
+    if (v == parent[v]) return v;
+    return find_set(parent[v]);  // Không lưu lại!
+}
+
+// ĐÚNG: Nén đường đi → O(α(N)) ≈ O(1)
+int find_set(int v) {
+    if (v == parent[v]) return v;
+    return parent[v] = find_set(parent[v]);  // Gán lại!
+}
+```
+
+**Hậu quả:** Nếu quên path compression, DSU chạy O(N) mỗi lần find → TLE với dữ liệu lớn!
+
+### 5.2. DSU: Quên Union by Size/Rank
+
+```cpp
+// SAI: Gộp bừa → cây có thể cao O(N)
+parent[a] = b;
+
+// ĐÚNG: Gộp cây nhỏ vào cây lớn → cây cao tối đa O(log N)
+if (sz[a] < sz[b]) swap(a, b);
+parent[b] = a;
+sz[a] += sz[b];
+```
+
+### 5.3. Segment Tree: Off-by-one trong đoạn cập nhật
+
+```cpp
+// SAI: Dùng [start, end] nhưng query dùng [l, r] nửa kín
+// Phải nhất quán: hoặc [start, end] hoặc [start, end)
+
+// ĐÚNG: Luôn dùng đoạn kín [start, end]
+if (l <= start && end <= r) return tree[node];  // Trong đoạn hoàn toàn
+if (r < start || end < l) return INF;           // Ngoài đoạn
+```
+
+### 5.4. Segment Tree: Quên trường hợp ngoài đoạn
+
+```cpp
+// SAI: Không kiểm tra ngoài đoạn → kết quả sai
+int query(int node, int start, int end, int l, int r) {
+    int mid = (start + end) / 2;
+    return min(query(2*node, start, mid, l, r),
+               query(2*node+1, mid+1, end, l, r));
+    // Nếu [l,r] không giao với [start,mid] → trả về giá trị rác!
+}
+
+// ĐÚNG: Phải kiểm tra
+if (r < start || end < l) return INF;  // Ngoài đoạn
+```
+
+### 5.5. BIT (Fenwick Tree): Luôn 1-indexed
+
+```cpp
+// SAI: Dùng BIT với index 0 → vòng lặp vô hạn!
+update(0, delta);  // i += i & (-i) = 0 + 0 = 0 → lặp mãi!
+
+// ĐÚNG: BIT luôn bắt đầu từ index 1
+// Nếu mảng 0-indexed: cập nhật BIT tại index i+1
+update(i + 1, delta);
+int sum = query(i + 1);  // Tổng a[0..i]
+```
+
+### 5.6. BIT: Quên cập nhật khi thay đổi giá trị
+
+```cpp
+// SAI: Gán giá trị mới mà không trừ giá trị cũ
+bit_update(pos, newVal);  // Chỉ cộng thêm newVal
+
+// ĐÚNG: Phải trừ giá trị cũ
+int oldVal = a[pos];
+a[pos] = newVal;
+bit_update(pos, newVal - oldVal);  // Cộng thêm hiệu
+```
+
+### 5.7. Heap trong Python: Luôn min-heap
+
+```python
+# Python heapq LUÔN là min-heap
+# Muốn max-heap → đảo dấu:
+heapq.heappush(heap, -x)       # Push -x
+max_val = -heapq.heappop(heap)  # Pop và đảo dấu lại
+```
+
+---
+
+## 6. Bài tập luyện tập
+
+### Heap (Hàng đợi ưu tiên)
+
+| Bài | Nền tảng | Độ khó | Ghi chú |
+|-----|----------|--------|---------|
+| [CSES - Concert Tickets](https://cses.fi/problemset/task/1091) | CSES | ⭐⭐ | Multiset / Heap |
+| [CSES - Sliding Median](https://cses.fi/problemset/task/1076) | CSES | ⭐⭐⭐ | 2 Heap |
+| [LeetCode - Kth Largest Element](https://leetcode.com/problems/kth-largest-element-in-an-array/) | LeetCode | ⭐⭐ | Min-Heap size K |
+
+### DSU (Disjoint Set Union)
+
+| Bài | Nền tảng | Độ khó | Ghi chú |
+|-----|----------|--------|---------|
+| [CSES - Road Construction](https://cses.fi/problemset/task/1676) | CSES | ⭐⭐ | DSU cơ bản |
+| [CSES - Road Reparation](https://cses.fi/problemset/task/1675) | CSES | ⭐⭐ | Kruskal + DSU |
+| [CSES - Cycle Finding](https://cses.fi/problemset/task/1678) | CSES | ⭐⭐⭐ | DSU phát hiện chu trình |
+| [LeetCode - Number of Provinces](https://leetcode.com/problems/number-of-provinces/) | LeetCode | ⭐⭐ | Đếm thành phần liên thông |
+
+### Segment Tree
+
+| Bài | Nền tảng | Độ khó | Ghi chú |
+|-----|----------|--------|---------|
+| [CSES - Dynamic Range Sum Queries](https://cses.fi/problemset/task/1648) | CSES | ⭐⭐ | Segment Tree cơ bản |
+| [CSES - Dynamic Range Min Queries](https://cses.fi/problemset/task/1649) | CSES | ⭐⭐ | Segment Tree Min |
+| [CSES - Range Update Queries](https://cses.fi/problemset/task/1651) | CSES | ⭐⭐⭐ | Lazy Propagation |
+| [CSES - Distinct Values Queries](https://cses.fi/problemset/task/1734) | CSES | ⭐⭐⭐ | Segment Tree + Offline |
+
+### BIT (Fenwick Tree)
+
+| Bài | Nền tảng | Độ khó | Ghi chú |
+|-----|----------|--------|---------|
+| [CSES - Dynamic Range Sum Queries](https://cses.fi/problemset/task/1648) | CSES | ⭐⭐ | BIT cơ bản |
+| [CSES - Salary Queries](https://cses.fi/problemset/task/1144) | CSES | ⭐⭐⭐ | BIT + Coordinate Compression |
+| [CSES - Prefix Sum Queries](https://cses.fi/problemset/task/2166) | CSES | ⭐⭐⭐ | BIT nâng cao |
+| [LeetCode - Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | LeetCode | ⭐⭐⭐ | BIT / Segment Tree |
 
 ---
 

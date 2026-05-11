@@ -15,6 +15,8 @@ Vì bài viết nói về cây khung nhỏ nhất, các bạn nên đọc một 
 
 ## Cây khung nhỏ nhất là gì
 
+![MST Before](../../All_Images_Collected/MST_before.png)
+
 ### Định nghĩa
 
 Theo lý thuyết đồ thị, chúng ta đều biết rằng 1 đồ thị được biểu diễn bằng công thức $G = (V, E)$, trong đó đồ thị $G$ của chúng ta bao gồm tập các đỉnh $V$ và tập các cạnh $E$.
@@ -29,6 +31,8 @@ Theo lý thuyết đồ thị, chúng ta đều biết rằng 1 đồ thị đư
 ![img](../../uploads/QqWCZO0.png)
 
 - Một ví dụ về cây khung **nhỏ nhất** trong đồ thị vô hướng có trọng số:
+![MST After](../../All_Images_Collected/MST_after.png)
+
 ![img](../../uploads/egYfsfI.jpg)
 
 

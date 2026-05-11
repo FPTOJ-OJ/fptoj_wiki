@@ -34,6 +34,20 @@ for (int i=0; i<N; i++)                 //  2
   }                                     // 10
 ```
 
+```python
+result = 0
+for i in range(N):
+    for j in range(i, N):
+        for k in range(M):
+            x = 0
+            while x < N:
+                result += 1
+                x += 3
+        for k in range(2 * M):
+            if k % 7 == 4:
+                result += 1
+```
+
 Rõ ràng độ phức tạp của vòng lặp `while` ở dòng 6 là $O(N)$ - số lần lặp không vượt quá $N/3+1$ lần.
 
 Xét vòng lặp `for` ở các dòng 4 - 7. Dễ thấy biến $k$ được tăng lên $M$ lần. Mỗi lần như vậy thì toàn bộ vòng lặp `while` ở dòng 6 lại được thực thi. Như vậy tổng số độ phức tạp của đoạn lệnh từ dòng 4 tới 7 là $O(MN)$ (áp dụng quy tắc 3)
@@ -84,6 +98,25 @@ int main() {
   for (int first=0; first<N; first++)
     try(0,first);
 }
+```
+
+```python
+permutation = [0] * N
+used = [0] * N
+
+def try_perm(which, what):
+    permutation[which] = what
+    used[what] = 1
+    if which == N - 1:
+        outputPermutation()
+    else:
+        for nxt in range(N):
+            if not used[nxt]:
+                try_perm(which + 1, nxt)
+    used[what] = 0
+
+for first in range(N):
+    try_perm(0, first)
 ```
 
 Trong trường hợp này, dễ thấy cận dưới chính là số lượng nghiệm khả dĩ của bài toán. Thuật toán quay lui thường được sử dụng để giải các bài toán khó - khi ta không tìm được thuật toán nào tối ưu hơn. Thường thì không gian nghiệm khá lớn và phân bố đồng đều, thuật toán có thể được cài đặt sao cho độ phức tạp gần với đánh giá cận dưới. Để tìm cận trên ta chỉ việc cộng thêm số lượng phép tính cần thiết trong thực tế.

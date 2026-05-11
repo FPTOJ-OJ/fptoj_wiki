@@ -21,6 +21,15 @@ long long power(long long a, long long b, long long c) {
     return ans;
  }
 ```
+
+```python
+def power(a, b, c):
+    ans = 1
+    for i in range(1, b + 1):
+        ans *= a
+        ans %= c
+    return ans
+```
 Trong mỗi lần lặp, biến $ans$ chứa kết quả được nhân với $a$. Ngoài ra, ta cần đảm bảo $a$ sẽ không vượt quá $c$ trong các lần lặp, vì thế ta lấy phần dư khi chia $ans$ cho $c$ (`ans = ans % c`). Ta làm được vậy là nhờ tính chất $(x.y) \% n = ((x \% n).(y \% n)) \% n$.
 
 Vì vậy trong code trên ta tính $(ans.a)\%c$ bằng cách tính $((ans\%c).(a\%c))\%c$.
@@ -52,6 +61,19 @@ int pow(int a, int b, int MOD) {
         else
             return a * (sqr(pow(a, b/2)) % MOD) % MOD;
 }
+```
+
+```python
+def sqr(x):
+    return x * x
+
+def pow_mod(a, b, MOD):
+    if b == 0:
+        return 1 % MOD
+    elif b % 2 == 0:
+        return sqr(pow_mod(a, b // 2, MOD)) % MOD
+    else:
+        return a * sqr(pow_mod(a, b // 2, MOD)) % MOD
 ```
 
 Giả sử ta có $a=2,b=5,c=5$, khi đó kết quả là $pow(2,5,5)$

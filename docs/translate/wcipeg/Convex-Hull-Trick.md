@@ -329,6 +329,86 @@ int main() {
 }
 ```
 
+```python
+import sys
+sys.setrecursionlimit(200000)
+
+N = 100005
+INF = 10**18
+
+undoLst = []
+lines = [(0, 0)] * N
+top = 0
+
+def eval_line(line, x):
+    return line[0] * x + line[1]
+
+def bad(a, b, c):
+    return (b[1] - a[1]) / (a[0] - b[0]) >= (c[1] - a[1]) / (a[0] - c[0])
+
+def getMin(coord):
+    global top
+    l, r = 0, top - 1
+    ans = eval_line(lines[l], coord)
+    while l < r:
+        mid = (l + r) >> 1
+        x = eval_line(lines[mid], coord)
+        y = eval_line(lines[mid + 1], coord)
+        if x > y:
+            l = mid + 1
+        else:
+            r = mid
+        ans = min(ans, x, y)
+    return ans
+
+def insertLine(newLine):
+    global top
+    l, r, k = 1, top - 1, top
+    while l <= r:
+        mid = (l + r) >> 1
+        if bad(lines[mid - 1], lines[mid], newLine):
+            k = mid
+            r = mid - 1
+        else:
+            l = mid + 1
+    undoLst.append((k, top, lines[k]))
+    top = k + 1
+    lines[k] = newLine
+
+def undo():
+    global top
+    pos, t, overwrite = undoLst.pop()
+    top = t
+    lines[pos] = overwrite
+
+f = [0] * N
+S = [0] * N
+V = [0] * N
+d = [0] * N
+adj = [[] for _ in range(N)]
+
+def dfs(u, par):
+    if u > 1:
+        f[u] = getMin(V[u]) + S[u] + V[u] * d[u]
+    insertLine((-d[u], f[u]))
+    for v, uv in adj[u]:
+        if v == par:
+            continue
+        d[v] = d[u] + uv
+        dfs(v, u)
+    undo()
+
+n = int(input())
+for _ in range(n - 1):
+    u, v, c = map(int, input().split())
+    adj[u].append((v, c))
+    adj[v].append((u, c))
+for i in range(2, n + 1):
+    S[i], V[i] = map(int, input().split())
+dfs(1, 0)
+print(' '.join(str(f[i]) for i in range(2, n + 1)))
+```
+
 ## Biến thể động (Fully Dynamic Variant)
 
 Kĩ thuật này có thể dễ dàng được thực hiện khi các đường thẳng được thêm trước tất cả các truy vấn hay các đường thẳng được thêm vào theo thứ tự giảm dần của hệ số góc. Hoặc với cấu trúc deque chúng ta cũng có thể thêm những đường thẳng có hệ số góc lớn hơn hết các đường thẳng đã có. Nhưng có những lúc sẽ có các bài toán khi chúng ta phải giải quyết các truy vấn và thêm đường thẳng lồng vào nhau với các hệ số góc ngẫu nhiên. Chúng ta không thể sắp xếp lại trước (do bị lồng vào truy vấn) và không thể sắp xếp lại với mỗi lần thêm đường thẳng (vậy sẽ cho ta một độ phức tạp tuyến tính với mỗi truy vấn).

@@ -346,6 +346,32 @@ list<int> euler_walk(int u) {
 }
 ```
 
+```python
+from collections import deque
+
+def euler_walk(u, adj, used_edge):
+    ans = deque()
+    ans.append(u)
+    
+    while adj[u]:
+        v, eid = adj[u].pop()
+        if used_edge[eid]:
+            continue
+        used_edge[eid] = True
+        u = v
+        ans.append(u)
+    
+    result = list(ans)
+    i = 1
+    while i < len(result):
+        sub = euler_walk(result[i], adj, used_edge)
+        sub.pop()
+        result[i:i] = sub
+        i += 1
+    
+    return result
+```
+
 Độ phức tạp thời gian của cách cài đặt trên là $O(m)$ do việc nối hai chu trình được thực hiện trong thời gian $O(1)$ nếu chu trình được biểu diễn bằng danh sách liên kết. Nếu chúng ta biểu diễn chu trình bằng một số cấu trúc phổ biến khác như (chẳng hạn `vector`) thì độ phức tạp thời gian sẽ tăng lên do việc nối chu trình kém hiệu quả.
 
 Độ phức tạp bộ nhớ là tuyến tính dựa vào số đỉnh và số cạnh.
@@ -436,6 +462,66 @@ int main() {
     }
   return 0;
 }
+```
+
+```python
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+def euler_walk(u, adj, used_edge):
+    ans = deque()
+    ans.append(u)
+    while adj[u]:
+        v, eid = adj[u].pop()
+        if used_edge[eid]:
+            continue
+        used_edge[eid] = True
+        u = v
+        ans.append(u)
+    result = list(ans)
+    i = 1
+    while i < len(result):
+        sub = euler_walk(result[i], adj, used_edge)
+        sub.pop()
+        result[i:i] = sub
+        i += 1
+    return result
+
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 2)]
+in_deg = [0] * (n + 2)
+
+for i in range(m):
+    u, v = map(int, input().split())
+    adj[u].append((v, i))
+    in_deg[v] += 1
+
+# Check Euler path existence
+if len(adj[1]) != in_deg[1] + 1 or len(adj[n]) != in_deg[n] - 1:
+    print("IMPOSSIBLE")
+else:
+    ok = True
+    for i in range(2, n):
+        if len(adj[i]) != in_deg[i]:
+            ok = False
+            break
+    if not ok:
+        print("IMPOSSIBLE")
+    else:
+        # Add virtual edge
+        adj[n].append((1, m))
+        used_edge = [False] * (m + 1)
+        ans = euler_walk(1, adj, used_edge)
+        if len(ans) < m + 1:
+            print("IMPOSSIBLE")
+        else:
+            # Find virtual edge and rotate
+            for i in range(len(ans) - 1):
+                if ans[i] == n and ans[i + 1] == 1:
+                    result = ans[i + 1:] + ans[1:i + 1]
+                    print(' '.join(map(str, result)))
+                    break
 ```
 
 ## [VNOI Marathon 08 - Mê cung](https://oj.vnoi.info/problem/pcycle)
@@ -557,6 +643,73 @@ int main() {
 }
 ```
 
+```python
+from collections import deque
+
+def euler_walk(u, adj, used_edge):
+    ans = deque()
+    ans.append(u)
+    while adj[u]:
+        v, eid = adj[u].pop()
+        if used_edge[eid]:
+            continue
+        used_edge[eid] = True
+        u = v
+        ans.append(u)
+    result = list(ans)
+    i = 1
+    while i < len(result):
+        sub = euler_walk(result[i], adj, used_edge)
+        sub.pop()
+        result[i:i] = sub
+        i += 1
+    return result
+
+n, m = map(int, input().split())
+adj = [[] for _ in range(n + 1)]
+w = [0] * m
+deg = [0] * (n + 1)
+edge_id = [[0] * (n + 1) for _ in range(n + 1)]
+
+for i in range(m):
+    u, v, wi = map(int, input().split())
+    adj[u].append((v, i))
+    adj[v].append((u, i))
+    w[i] = wi
+    edge_id[u][v] = i
+    edge_id[v][u] = i
+    deg[u] += 1
+    deg[v] += 1
+
+# Check for odd degree vertices
+odd = False
+for i in range(1, n + 1):
+    if deg[i] % 2 != 0:
+        odd = True
+        break
+
+if odd:
+    print(-1)
+else:
+    used_edge = [False] * m
+    cycle = euler_walk(1, adj, used_edge)
+    if len(cycle) < m + 1:
+        print(-1)
+    else:
+        S = [0] * (m + 1)
+        u = cycle[0]
+        for i in range(1, len(cycle)):
+            v = cycle[i]
+            S[i] = S[i - 1] + w[edge_id[u][v]]
+            u = v
+        k = 0
+        for i in range(1, len(cycle)):
+            if S[i] < S[k]:
+                k = i
+        ans = cycle[k:] + cycle[1:k + 1]
+        print(' '.join(map(str, ans)))
+```
+
 ## [10040 - Ouroboros Snake](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=12&page=show_problem&problem=981)
 
 ### Tóm tắt đề
@@ -671,6 +824,46 @@ int main() {
     }
     return 0;
 }
+```
+
+```python
+def build_graph(n):
+    g = [[] for _ in range(1 << n)]
+    for u in range(1 << n):
+        g[u].append((((u << 1) + 1) & ((1 << n) - 1), 1))
+        g[u].append(((u << 1) & ((1 << n) - 1), 0))
+    return g
+
+def euler_walk(u, g):
+    ans = []
+    while g[u]:
+        v, w = g[u].pop()
+        ans.append((v, w))
+        u = v
+    result = list(ans)
+    i = len(result) - 1
+    while i > 0:
+        sub = euler_walk(result[i - 1][0], g)
+        result[i:i] = sub
+        i -= 1
+    return result
+
+N = 23
+cache = [None] * N
+
+test = int(input())
+for _ in range(test):
+    n, k = map(int, input().split())
+    if cache[n] is None:
+        g = build_graph(n - 1)
+        seq = euler_walk(0, g)
+        cur = 0
+        arr = []
+        for _, w in seq:
+            cur = ((cur << 1) + w) & max((1 << n) - 1, 1)
+            arr.append(cur)
+        cache[n] = arr
+    print(cache[n][k])
 ```
 
 ## [Vietnam TST 2017 - Problem 2 - Day 2](https://oj.vnoi.info/problem/draw)
@@ -848,4 +1041,94 @@ int main() {
 
     return 0;
 }
+```
+
+```python
+import sys
+from collections import defaultdict, deque
+input = sys.stdin.readline
+
+N = 1002
+
+def solve():
+    n = int(input())
+    edges = []
+    graph = defaultdict(list)
+    edge_count = [0]
+    avail = []
+    
+    def add_edge(x1, y1, x2, y2, fake=False):
+        eid = edge_count[0]
+        edge_count[0] += 1
+        graph[(x1, y1)].append((x2, y2, eid, fake))
+        graph[(x2, y2)].append((x1, y1, eid, fake))
+        avail.append(True)
+    
+    def add_line(x1, y1, x2, y2):
+        if x1 > x2:
+            x1, x2 = x2, x1
+        if y1 > y2:
+            y1, y2 = y2, y1
+        if x1 == x2:
+            for i in range(y1, y2):
+                add_edge(N + x1, N + i, N + x2, N + i + 1)
+        else:
+            for i in range(x1, x2):
+                add_edge(N + i, N + y1, N + i + 1, N + y2)
+    
+    for _ in range(n):
+        x, y, u, v = map(int, input().split())
+        add_line(x, y, u, v)
+    
+    # Add fake edges
+    nodes = list(graph.keys())
+    for node in nodes:
+        if len(graph[node]) % 2 != 0:
+            add_edge(node[0], node[1], 0, 0, fake=True)
+    
+    def euler_walk(start):
+        ans = deque()
+        u = start
+        while graph[u]:
+            v, eid, fake = graph[u].pop()
+            if not avail[eid]:
+                continue
+            avail[eid] = False
+            ans.append((u, v, eid, fake))
+            u = v
+        result = list(ans)
+        i = 1
+        while i < len(result):
+            sub = euler_walk(result[i][0])
+            result[i:i] = sub
+            i += 1
+        return result
+    
+    strokes = []
+    visited_nodes = set()
+    for node in list(graph.keys()):
+        if graph[node] and node not in visited_nodes:
+            cycle = euler_walk(node)
+            stroke = []
+            for src, dst, eid, fake in cycle:
+                visited_nodes.add(src)
+                visited_nodes.add(dst)
+                if fake:
+                    if stroke:
+                        strokes.append(stroke)
+                        stroke = []
+                else:
+                    if not stroke:
+                        stroke.append(src)
+                    stroke.append(dst)
+            if stroke:
+                strokes.append(stroke)
+    
+    print(len(strokes))
+    for stroke in strokes:
+        print(len(stroke))
+        for x, y in stroke:
+            print(x - N, y - N)
+
+solve()
 ```

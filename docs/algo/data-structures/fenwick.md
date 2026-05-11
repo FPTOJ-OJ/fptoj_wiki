@@ -11,6 +11,9 @@
 
 
 ## Giới thiệu
+
+![Binary Indexed Tree](../../All_Images_Collected/binary_indexed_tree.png)
+
 Cây chỉ số nhị phân (tên tiếng Anh là Binary Indexed Tree) hay cây Fenwick là một cấu trúc dữ liệu được sử dụng khá phổ biến trong lập trình thi đấu vì có thể cài đặt nhanh, dễ dàng so với các CTDL khác.
 
 ## Bài toán

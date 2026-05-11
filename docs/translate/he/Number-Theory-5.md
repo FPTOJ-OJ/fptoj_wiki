@@ -291,6 +291,21 @@ int main()
 }
 ```
 
+```python
+MOD = 10**9 + 7
+ncr = [[0] * 5005 for _ in range(5005)]
+
+def precompute():
+    for i in range(5001):
+        ncr[i][0] = ncr[i][i] = 1
+        k = i >> 1
+        for j in range(1, k + 1):
+            ncr[i][j] = ncr[i][i - j] = (ncr[i - 1][j] + ncr[i - 1][j - 1]) % MOD
+
+precompute()
+print(ncr[4892][231])
+```
+
 Chương trình trên chỉ tính được $\binom{n}{k}$ với $n$ nhỏ. Bạn có thể tham khảo chương trình sau để tính $\binom{n}{k} \% p$ với $p$ là một số nguyên tố và $n$ lớn.
 
 Chú ý: Code sau sử dụng nghịch đảo modulo, đã được giới thiệu ở bài viết [Số học 4.5](algo/math/modular-inverse)
@@ -357,6 +372,40 @@ int main()
 	cout << com(4892,231) << endl;
 	return 0;
 }
+```
+
+```python
+MOD = 10**9 + 7
+N = 2123456
+
+fac = [0] * N
+ifac = [0] * N
+
+def PowerMod(a, n):
+    ret = 1
+    while n:
+        if n & 1:
+            ret = (ret * a) % MOD
+        a = (a * a) % MOD
+        n //= 2
+    return ret
+
+def precompute():
+    fac[0] = 1
+    for i in range(1, N):
+        fac[i] = (i * fac[i - 1]) % MOD
+    ifac[N - 1] = PowerMod(fac[N - 1], MOD - 2)
+    for i in range(N - 2, -1, -1):
+        ifac[i] = ((i + 1) * ifac[i + 1]) % MOD
+
+def com(n, r):
+    ret = fac[n]
+    ret = (ret * ifac[r]) % MOD
+    ret = (ret * ifac[n - r]) % MOD
+    return ret
+
+precompute()
+print(com(4892, 231))
 ```
 
 ## Một vài dãy số cơ bản (Counting Sequences)

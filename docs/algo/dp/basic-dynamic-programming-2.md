@@ -130,6 +130,32 @@ int main()
 }
 ```
 
+```python
+a = input().strip()
+b = input().strip()
+m = len(a)
+n = len(b)
+
+a = " " + a
+b = " " + b
+
+L = [[0] * (n + 1) for _ in range(m + 1)]
+
+for i in range(m + 1):
+    L[i][0] = i
+for j in range(n + 1):
+    L[0][j] = j
+
+for i in range(1, m + 1):
+    for j in range(1, n + 1):
+        if a[i] == b[j]:
+            L[i][j] = L[i - 1][j - 1]
+        else:
+            L[i][j] = 1 + min(L[i - 1][j - 1], L[i - 1][j], L[i][j - 1])
+
+print(L[m][n])
+```
+
 ## 1.4. Một số bài toán khác
 
 ### 1.4.1. Xâu con chung dài nhất
@@ -239,6 +265,43 @@ int main()
 }
 ```
 
+```python
+import sys
+input = sys.stdin.readline
+
+a = " " + input().strip()
+b = " " + input().strip()
+m = len(a) - 1
+n = len(b) - 1
+
+L = [[0] * (n + 1) for _ in range(m + 1)]
+Tr = [[(0, 0, '')] * (n + 1) for _ in range(m + 1)]
+
+for i in range(1, m + 1):
+    for j in range(1, n + 1):
+        if a[i] == b[j]:
+            L[i][j] = L[i - 1][j - 1] + 1
+            Tr[i][j] = (i - 1, j - 1, a[i])
+        elif L[i - 1][j] > L[i][j - 1]:
+            L[i][j] = L[i - 1][j]
+            Tr[i][j] = (i - 1, j, '')
+        else:
+            L[i][j] = L[i][j - 1]
+            Tr[i][j] = (i, j - 1, '')
+
+ans = ""
+ti, tj = m, n
+while True:
+    pi, pj, c = Tr[ti][tj]
+    if c:
+        ans = c + ans
+    if pi == 0 and pj == 0:
+        break
+    ti, tj = pi, pj
+
+print(ans)
+```
+
 Như vậy độ phức tạp bộ nhớ của bài toán là $\mathcal{O}(mn)$, độ phức tạp thời gian là $\mathcal{O}(mn)$.
 
 Có một phương pháp cài đặt tốt hơn, chỉ với độ phức tạp bộ nhớ $\mathcal{O}(\min(m, n))$ dựa trên nhận xét ở ví dụ đầu: 
@@ -258,6 +321,19 @@ for (int i = 1; i <= m; i++)
             L[j] = max(L[j - 1], P[j]);
     P = L;
 }
+```
+
+```python
+P = [0] * (n + 1)
+L = [0] * (n + 1)
+for i in range(1, m + 1):
+    L[0] = 0
+    for j in range(1, n + 1):
+        if a[i] == b[j]:
+            L[j] = P[j - 1] + 1
+        else:
+            L[j] = max(L[j - 1], P[j])
+    P = L[:]
 ```
 
 
@@ -347,6 +423,28 @@ int main()
 }
 ```
 
+```python
+import sys
+sys.setrecursionlimit(10000)
+
+s = " " + input().strip()
+n = len(s) - 1
+d = [[-1] * (n + 1) for _ in range(n + 1)]
+
+def calc(i, j):
+    if d[i][j] == -1:
+        if i >= j:
+            d[i][j] = 0
+        else:
+            if s[i] == s[j]:
+                d[i][j] = calc(i + 1, j - 1)
+            else:
+                d[i][j] = 1 + min(calc(i, j - 1), calc(i + 1, j))
+    return d[i][j]
+
+print(calc(1, n))
+```
+
 **Nhận xét:** Đây là phương pháp đệ quy có nhớ (*memoization*). Độ phức tạp bộ nhớ của thuật toán là $\mathcal{O}(n^2)$. Có một phương pháp cài đặt tiết kiệm hơn như sau:
 
 Để ý để tính được mảng $L[1..n][j]$ thì ta chỉ cần mảng $L[1..n][j - 1]$. Do đó ta sẽ dùng hai mảng một chiều $P$ và $L$ để lưu giá trị mảng đã tính và cần tính. Ở mỗi vòng lặp ta có $P=L[1..n][j-1],L=L[1..n][j]$. Đáp án bài toán là $L[1]$.
@@ -414,6 +512,27 @@ int main()
     }
     cout << L[w];
 }
+```
+
+```python
+n, w = map(int, input().split())
+a = [0] * (n + 1)
+b = [0] * (n + 1)
+for i in range(1, n + 1):
+    a[i], b[i] = map(int, input().split())
+
+P = [0] * (w + 1)
+L = [0] * (w + 1)
+
+for i in range(1, n + 1):
+    for j in range(1, w + 1):
+        if a[i] > j:
+            L[j] = P[j]
+        else:
+            L[j] = max(P[j], L[j - a[i]] + b[i])
+    P = L[:]
+
+print(L[w])
 ```
 
 Lưu ý rằng đoạn chương trình trên mới chỉ cài đặt y nguyên công thức QHĐ chứ chưa tối ưu. Ví dụ với các $j<A_i$, ta gán $L[j]=P[j]$ nhưng sau đó lại gán $P=L$. Bạn đọc có thể rút gọn đoạn code lại để chương trình tối ưu hơn.
@@ -538,6 +657,50 @@ int main()
 }
 ```
 
+```python
+n, m = map(int, input().split())
+A = [0] + list(map(int, input().split()))
+
+INF = -1
+P = [INF] * (m + 1)
+L = [0] * (m + 1)
+d = [[(0, 0, 0)] * (m + 1) for _ in range(n + 1)]
+
+for i in range(1, n + 1):
+    L[0] = 0
+    for j in range(1, m + 1):
+        if A[i] > j:
+            L[j] = P[j]
+            d[i][j] = (0, i - 1, j)
+        else:
+            if P[j] != INF and L[j - A[i]] != INF:
+                if P[j] < L[j - A[i]] + 1:
+                    L[j] = P[j]
+                    d[i][j] = (0, i - 1, j)
+                else:
+                    L[j] = L[j - A[i]] + 1
+                    d[i][j] = (i, i, j - A[i])
+            elif P[j] != INF:
+                L[j] = P[j]
+                d[i][j] = (0, i - 1, j)
+            elif L[j - A[i]] != INF:
+                L[j] = L[j - A[i]] + 1
+                d[i][j] = (i, i, j - A[i])
+            else:
+                L[j] = INF
+    P = L[:]
+
+print(L[m])
+
+if L[m] != INF:
+    cnt = [0] * (n + 1)
+    coin, ti, tj = d[n][m]
+    while coin != 0 and tj != 0:
+        cnt[coin] += 1
+        coin, ti, tj = d[ti][tj]
+    print(' '.join(str(cnt[i]) for i in range(1, n + 1)))
+```
+
 ## 3. Nhân ma trận
 
 ## 3.1. Mô hình
@@ -606,6 +769,29 @@ int main()
     cout << calc(1, n);
 }
 ```
+
+```python
+import sys
+sys.setrecursionlimit(10000)
+
+n = int(input())
+d = list(map(int, input().split()))
+
+L = [[-1] * (n + 1) for _ in range(n + 1)]
+
+def calc(i, j):
+    if L[i][j] == -1:
+        if i == j:
+            L[i][j] = 0
+        else:
+            L[i][j] = calc(i + 1, j) + d[i - 1] * d[i] * d[j]
+            for k in range(i, j):
+                L[i][j] = min(L[i][j], calc(i, k) + calc(k + 1, j) + d[i - 1] * d[k] * d[j])
+    return L[i][j]
+
+print(calc(1, n))
+```
+
 **Tính theo thứ tự:**
 ```cpp
 ## include <iostream>
@@ -630,6 +816,23 @@ int main()
     cout << L[1][n];
 }
 ```
+
+```python
+n = int(input())
+d = list(map(int, input().split()))
+
+L = [[0] * (n + 1) for _ in range(n + 1)]
+
+for dis in range(1, n):
+    for i in range(1, n - dis + 1):
+        j = i + dis
+        L[i][j] = L[i + 1][j] + d[i - 1] * d[i] * d[j]
+        for k in range(i, j):
+            L[i][j] = min(L[i][j], L[i][k] + L[k + 1][j] + d[i - 1] * d[k] * d[j])
+
+print(L[1][n])
+```
+
 Với hai cách cài đặt trên, độ phức tạp bộ nhớ là $\mathcal{O}(n^2)$, độ phức tạp thời gian là $\mathcal{O}(n^3)$.
 
 ## 3.4. Một số bài toán khác
@@ -698,6 +901,30 @@ int main()
 }
 ```
 
+```python
+import math
+
+def distance(a, b):
+    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+
+n = int(input())
+p = [(0, 0)] * (n + 1)
+for i in range(1, n + 1):
+    x, y = map(float, input().split())
+    p[i] = (x, y)
+
+L = [[0.0] * (n + 1) for _ in range(n + 1)]
+
+for dis in range(3, n):
+    for i in range(1, n - dis + 1):
+        j = i + dis
+        L[i][j] = L[i + 1][j] + distance(p[i + 1], p[j])
+        for k in range(i + 1, j):
+            L[i][j] = min(L[i][j], L[i][k] + L[k][j] + distance(p[i], p[k]) + distance(p[k], p[j]))
+
+print(L[1][n])
+```
+
 ### 3.4.2. Biểu thức số học 
 > *Cho $n$ số thực không âm $A_1,A_2,\ldots,A_n$ được viết thành một hàng ngang theo thứ tự đó. Giữa hai số liên tiếp có một dấu `+` hoặc `*` cho trước. Hãy đặt các dấu ngoặc vào biểu thức để giá trị thu được là lớn nhất.*
 > **Điều kiện:** $1\le n \le 300$.
@@ -757,6 +984,17 @@ for (int i = 1; i <= n; i++)
     P = L;
 }
 cout << L[k];
+```
+
+```python
+P = [0] * (k + 1)
+L = [0] * (k + 1)
+for i in range(1, n + 1):
+    for j in range(1, i + 1):
+        L[j] = max(P[j - 1] + v[i][j], P[j])
+    P = L[:]
+
+print(L[k])
 ```
 
 ## 4.4. Một số bài toán khác

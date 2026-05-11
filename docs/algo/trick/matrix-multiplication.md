@@ -946,7 +946,7 @@ Ta còn có tính chất của dãy $Fibonacci$ như sau:
 - Ta có thể chuyển đổi hai số hạng đầu tiên của dãy $Fibonacci$ để nhận được một dãy mới. 
 - Gọi $f1$, $f2$ là hai dãy mới được tạo thành từ việc chuyển đổi hai số hạng đầu tiên của dãy $Fibonacci$, và dãy $f3$ được xác định như sau $f3 \displaystyle_{\space i} = f1 \displaystyle_{\space i} + f2 \displaystyle_{\space i} \space (i \ge 1)$ thì dãy $f3$ vẫn tuân theo công thức truy hồi $f_n = f_{n-1} + f_{n-2}$.
 
-Sau khi sử dụng các tính chất trên, bài toán trở thành một hoạt động rất cơ bản của [cây phân đoạn](/algo/data-structures/segment-tree-extend.md) *(Cây IT - Interval Tree / Segment Tree)*. Với mỗi nút của cây phân đoạn lưu lại hai giá trị đầu tiên của dãy. *Bạn có thể tham khảo code **không** sử dụng phương pháp nhân ma trận tại [đây](https://ideone.com/zRN7N1) để hiểu rõ hơn về cách cập nhật cây phân đoạn*.
+Sau khi sử dụng các tính chất trên, bài toán trở thành một hoạt động rất cơ bản của [cây phân đoạn](../data-structures/segment-tree-extend.md) *(Cây IT - Interval Tree / Segment Tree)*. Với mỗi nút của cây phân đoạn lưu lại hai giá trị đầu tiên của dãy. *Bạn có thể tham khảo code **không** sử dụng phương pháp nhân ma trận tại [đây](https://ideone.com/zRN7N1) để hiểu rõ hơn về cách cập nhật cây phân đoạn*.
 
 Ở bài viết này, tôi sẽ sử dụng phương pháp **nhân ma trận** kết hợp với cây phân đoạn để giải quyết bài toán. Với mỗi nút của cây sẽ lưu lại ma trận hệ số của dãy $Fibonacci$.
 

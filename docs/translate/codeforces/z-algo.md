@@ -55,6 +55,32 @@ for (int i = 1; i < n; i++)
    }
 ```
 
+```python
+def z_function(S):
+    n = len(S)
+    Z = [0] * n
+    Z[0] = n
+    L, R = 0, 0
+    for i in range(1, n):
+        if i > R:
+            L = R = i
+            while R < n and S[R] == S[R - L]:
+                R += 1
+            Z[i] = R - L
+            R -= 1
+        else:
+            k = i - L
+            if Z[k] < R - i + 1:
+                Z[i] = Z[k]
+            else:
+                L = i
+                while R < n and S[R] == S[R - L]:
+                    R += 1
+                Z[i] = R - L
+                R -= 1
+    return Z
+```
+
 ## Áp dụng
 
 [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr/)

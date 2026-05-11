@@ -43,6 +43,14 @@ long long solve() {
     return cnt;
 }
 ```
+```python
+def solve(i, sum_val, n, x, t):
+    if sum_val > x:
+        return 0
+    if i > n:
+        return 1 if sum_val == x else 0
+    return solve(i + 1, sum_val, n, x, t) + solve(i + 1, sum_val + t[i], n, x, t)
+```
 
 Thuật toán trên có độ phức tạp thời gian là $\mathcal{O}(2^N)$, không đủ nhanh để giải bài toán bởi vì $2^{40}$ khá lớn. Do đó, ta cần tìm một phương án tối ưu hơn.
 
@@ -110,6 +118,39 @@ int main() {
     cout << cnt << '\n';
 }
 ```
+```python
+from bisect import bisect_left, bisect_right
+
+def try_x(i, sum_val, n, x, t, A):
+    if sum_val > x:
+        return
+    if i > n // 2:
+        A.append(sum_val)
+    else:
+        try_x(i + 1, sum_val, n, x, t, A)
+        try_x(i + 1, sum_val + t[i], n, x, t, A)
+
+def try_y(i, sum_val, n, x, t, B):
+    if sum_val > x:
+        return
+    if i > n:
+        B.append(sum_val)
+    else:
+        try_y(i + 1, sum_val, n, x, t, B)
+        try_y(i + 1, sum_val + t[i], n, x, t, B)
+
+n, x = map(int, input().split())
+t = [0] + list(map(int, input().split()))
+A, B = [], []
+try_x(1, 0, n, x, t, A)
+try_y(n // 2 + 1, 0, n, x, t, B)
+
+B.sort()
+cnt = 0
+for s in A:
+    cnt += bisect_right(B, x - s) - bisect_left(B, x - s)
+print(cnt)
+```
 
 #### Cài đặt (sử dụng kỹ thuật hai con trỏ)
 ```cpp
@@ -130,6 +171,21 @@ int main() {
         cnt += j2 - j1;
     }
     cout << cnt << '\n';
+```
+```python
+A.sort(reverse=True)
+B.sort()
+
+cnt = 0
+j1, j2 = 0, 0
+for i in range(len(A)):
+    s = x - A[i]
+    while j1 < len(B) and B[j1] < s:
+        j1 += 1
+    while j2 < len(B) and B[j2] <= s:
+        j2 += 1
+    cnt += j2 - j1
+print(cnt)
 ```
 
 ## Ứng dụng

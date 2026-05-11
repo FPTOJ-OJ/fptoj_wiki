@@ -61,6 +61,13 @@ int gcd(int A, int B) {
 }
 ```
 
+```python
+def gcd(A, B):
+    for i in range(min(A, B), 0, -1):
+        if A % i == 0 and B % i == 0:
+            return i
+```
+
 **Độ phức tạp của thuật toán:** $O(min(A,B))$.
 
 ## Thuật toán Euclid
@@ -72,6 +79,13 @@ int gcd(int A, int B) {
     if (B == 0) return A;
     else return gcd(B, A % B);
 }
+```
+
+```python
+def gcd(A, B):
+    if B == 0:
+        return A
+    return gcd(B, A % B)
 ```
 
 Ví dụ:
@@ -118,6 +132,25 @@ int main() {
     cout << "x, y: " << x <<  ", " << y << endl;
     return 0;
 }
+```
+
+```python
+def extendedEuclid(A, B):
+    global d, x, y
+    if B == 0:
+        d = A
+        x = 1
+        y = 0
+    else:
+        extendedEuclid(B, A % B)
+        temp = x
+        x = y
+        y = temp - (A // B) * y
+
+d, x, y = 0, 0, 0
+extendedEuclid(16, 10)
+print(f"gcd(16, 10) = {d}")
+print(f"x, y: {x}, {y}")
 ```
 
 Kết quả

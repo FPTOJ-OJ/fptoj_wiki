@@ -114,6 +114,31 @@ long f(int n, int x, int Just) {
 cout << f(n, ::p, 0) << endl;
 ```
 
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def f(n, x, just):
+    if x >= p:
+        x = p
+    if just == 2:
+        if n == 0:
+            return 0
+        return f(n - 1, x + 1, 1)
+    else:
+        if n == 0:
+            return 1
+        s = f(n - 1, x + 1, 1) * 2
+        if just == 1:
+            s += f(n - 1, x + 1, 2)
+        if x >= p:
+            s += f(n - 1, 0, 0)
+        s += f(n - 1, x + 1, 0) * (t - 4)
+        return s % M
+
+print(f(n, p, 0))
+```
+
 Ta có các trường hợp:
 
 - Nếu $n=0$ hoặc $n=2 \times k+1$, ta viết như hàm $f$ cũ. Nếu $n \ne 0$, nó sẽ gọi đến một trạng thái khác mà lúc này $n$ chẵn.
@@ -156,6 +181,41 @@ long g(int n, int p, int Just, int p0, int Just0, bool Stop) {
 cout << g(n, ::p, 0, rand()%21, rand()%3, true) << endl;
 ```
 
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def g(n, p, just, p0, just0, stop):
+    if p >= P:
+        p = P
+    if n % 2 == 1 or n == 0:
+        if just == 2:
+            if n == 0:
+                return 0 if stop else int(p == p0 and just == just0)
+            return g(n - 1, p + 1, 1, p0, just0, stop)
+        else:
+            if n == 0:
+                return 1 if stop else int(p == p0 and just == just0)
+            s = g(n - 1, p + 1, 1, p0, just0, stop) * 2
+            if just == 1:
+                s += g(n - 1, p + 1, 2, p0, just0, stop)
+            if p >= P:
+                s += g(n - 1, 0, 0, p0, just0, stop)
+            s += g(n - 1, p + 1, 0, p0, just0, stop) * (t - 4)
+            return s % M
+    else:
+        s = 0
+        for i in range(P + 1):
+            for k in range(3):
+                g1 = g(n // 2, p, just, i, k, False)
+                g2 = g(n // 2, i, k, p0, just0, stop)
+                s += g1 * g2
+        return s % M
+
+import random
+print(g(n, P, 0, random.randint(0, 20), random.randint(0, 2), True))
+```
+
 Chú ý ở code trên, `::p` và `p` là khác nhau. `::p` là biến `p` toàn cục, tức là `p` được nhập từ input. Còn `p` là tham số ở trong hàm `g`. `Rand()%21` và `rand()%3` là hai số mà ta có thể bỏ qua giá trị của chúng (khi nào mà `Stop=true` thì `p0` và `Just0` không có ý nghĩa).
 
 Độ phức tạp ở code trên là $\mathcal{O}(p^3 log^2 n)$. Thực tế, ta có thể không dùng `map`, bằng cách thêm một tham số là `Depth` đại diện cho độ sâu của hàm quy hoạch động. Khi đó, độ phức tạp mất đi một thừa số $log n$, giảm xuống còn $\mathcal{O}(p^3 log n)$. Code trên tôi dùng `map` cho nó dễ hiểu.
@@ -194,4 +254,18 @@ long f(long n) {
          return F[n] = (f(k) * f(k+1) + f(k-1) * f(k)) % M;
      }
 }
+```
+
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def f(n):
+    if n == 0 or n == 1:
+        return 1
+    k = n // 2
+    if n % 2 == 0:  # n = 2*k
+        return (f(k) * f(k) + f(k - 1) * f(k - 1)) % M
+    else:  # n = 2*k + 1
+        return (f(k) * f(k + 1) + f(k - 1) * f(k)) % M
 ```

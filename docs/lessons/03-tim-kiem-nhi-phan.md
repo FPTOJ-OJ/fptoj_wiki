@@ -52,6 +52,8 @@ Khi tính `mid = (lo + hi) / 2` với số nguyên:
    - Nếu `a[mid] > target` → Target nằm bên trái → `hi = mid - 1`
 3. Lặp lại cho đến khi `lo > hi` (không tìm thấy)
 
+![Binary Search](../uploads/img/binary-search.png)
+
 **Minh họa:** Tìm 55 trong mảng [0, 5, 13, 19, 21, 41, 55, 68, 72, 81, 98]
 
 ```
@@ -426,6 +428,21 @@ return lo
 ```
 
 ---
+
+## 6. Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [CSES - Distinct Values](https://cses.fi/problemset/task/1621) | CSES | ⭐ | Binary search cơ bản |
+| [CSES - Factory Machines](https://cses.fi/problemset/task/1620) | CSES | ⭐⭐ | BS on answer |
+| [CSES - Array Division](https://cses.fi/problemset/task/1085) | CSES | ⭐⭐⭐ | Tổng max min |
+| [LeetCode 704 - Binary Search](https://leetcode.com/problems/binary-search/) | LC | ⭐ | BS cơ bản |
+| [LeetCode 34 - Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | LC | ⭐⭐ | lower/upper bound |
+| [LeetCode 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | LC | ⭐⭐ | BS on answer |
+| [LeetCode 1011 - Capacity To Ship](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | LC | ⭐⭐ | BS on answer |
+| [VNOJ - Sort](https://oj.vnoi.info/problem/sort) | VNOJ | ⭐⭐ | BS + sorting |
+| [VNOJ - VOSTR](https://oj.vnoi.info/problem/vostr) | VNOJ | ⭐⭐⭐ | BS trên xâu |
+| [SPOJ - Aggressive Cows](https://www.spoj.com/problems/AGGRCOW/) | SPOJ | ⭐⭐ | Khoảng cách min |
 
 ---
 

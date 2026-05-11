@@ -27,6 +27,8 @@ Còn nếu bạn muốn tìm hiểu sâu hơn về **Segment Tree** thì bạn c
 
 ## Ý tưởng 
 
+![Sum Segment Tree](../../All_Images_Collected/sum-segment-tree.png)
+
 Một trong những ứng dụng phổ biến nhất của **Segment Tree** là giải quyết bài toán [$Range \space Minimum \space Query \space \mathit{(RMQ)}$](translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor). Trong bài toán này, ta được cho một mảng $A$ và $Q$ truy vấn; mỗi truy vấn gồm cặp số $l$ và $r$, yêu cầu tìm phần tử có giá trị nhỏ nhất trong đoạn từ $l$ đến $r$ của mảng $A$. 
 - **Ví dụ:** Ta có mảng $$A = \{9,2,6,3,1,5,7\}$$. Với truy vấn $l = 3$ và $r = 6$, đáp án sẽ là $\min{(6,3,1,5)} = 1$. Sau đó, một truy vấn khác với $l = 1$ và $r = 3$ thì đáp án là $2$; v.v...
 
@@ -103,6 +105,8 @@ Có $2$ cách để xây dựng một cây phân đoạn:
 
 ## Cập nhật
 
+![Segment Tree Update](../../All_Images_Collected/sum-segment-tree-update.png)
+
 Bây giờ ta muốn sửa đổi một phần tử cụ thể trong mảng, giả sử ta muốn thực hiện việc gán $a_i = x$. Và phải cập nhật lại cây phân đoạn, sao cho nó tương ứng với mảng mới đã sửa đổi.
 
 Để làm như vậy, trước tiên ta cần sửa đổi nút lá tương ứng. Các nút lá khác không bị ảnh hưởng, vì mỗi nút lá chỉ được liên kết với một phần tử trong mảng. Nút cha của nút đã sửa đổi cũng bị ảnh hưởng, vì đoạn nó quản lý cũng chứa phần tử đã sửa đổi, và các nút tổ tiên của nó cũng vậy, v.v... cho đến nút gốc. 
@@ -119,6 +123,8 @@ Thao tác cập nhật cây phân đoạn có thể được thực hiện bằn
 Tương tự như thao tác xây dựng cây phân đoạn, cách cập nhật cây phân đoạn "từ dưới lên" cũng có thể thực hiện được.
 
 ## Lấy giá trị
+
+![Segment Tree Query](../../All_Images_Collected/sum-segment-tree-query.png)
 
 Bây giờ, ta cần phải trả lời các truy vấn lấy giá trị. Ví dụ như: cho hai số nguyên $l$ và $r$, hãy xác định phần tử có giá trị nhỏ nhất trong đoạn $[l, r]$ của mảng $A$ với khoảng thời gian là $\mathcal{O}(\log{n})$.
 

@@ -30,21 +30,7 @@ Bạn gõ "app" → điện thoại gợi ý "apple", "application", "appstore".
 
 Mỗi node là 1 ký tự. Đi từ gốc → lá = 1 từ hoàn chỉnh. Các từ có cùng tiền tố **chia sẻ** chung đường đi từ gốc!
 
-```
-Từ điển: ["app", "apple", "bat", "ball"]
-
-        (root)
-       /     \
-      a       b
-      |       |
-      p       a
-      p*      / \
-     / \     t*  l
-    l   -           l*
-    e*                  ← "apple" kết thúc ở đây
-```
-
-Đánh dấu `*` = đây là kết thúc 1 từ hợp lệ.
+![Trie](../uploads/img/trie.png)
 
 ### Tại sao Trie nhanh cho tìm prefix?
 

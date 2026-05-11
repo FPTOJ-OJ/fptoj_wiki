@@ -15,6 +15,22 @@
 
 - Dưới đây là một ví dụ về suffix automaton của chuỗi "acbcbc".
 
+![Suffix Automaton](../../All_Images_Collected/SA.png)
+
+![Suffix Automaton - Step a](../../All_Images_Collected/SAa.png)
+
+![Suffix Automaton - Step aa](../../All_Images_Collected/SAaa.png)
+
+![Suffix Automaton - Step ab](../../All_Images_Collected/SAab.png)
+
+![Suffix Automaton - Step aba](../../All_Images_Collected/SAaba.png)
+
+![Suffix Automaton - Step abb](../../All_Images_Collected/SAabb.png)
+
+![Suffix Automaton - Step abbb](../../All_Images_Collected/SAabbb.png)
+
+![Suffix Automaton Suffix Links](../../All_Images_Collected/SA_suffix_links.png)
+
 ## Bài tập áp dụng
 
 - [CF Round 94 - B](http://codeforces.com/problemset/problem/128/B)

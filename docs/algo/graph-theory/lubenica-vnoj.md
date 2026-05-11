@@ -120,3 +120,70 @@ int main() {
     return 0;
 }
 ```
+
+```python
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(200000)
+
+INF = 10 ** 9 + 11
+
+n = int(input())
+g = [[] for _ in range(n + 1)]
+for _ in range(n - 1):
+    u, v, c = map(int, input().split())
+    g[u].append((v, c))
+    g[v].append((u, c))
+
+LOG = 21
+par = [[0] * LOG for _ in range(n + 1)]
+maxc = [[-INF] * LOG for _ in range(n + 1)]
+minc = [[INF] * LOG for _ in range(n + 1)]
+h = [0] * (n + 1)
+
+def dfs(u, p):
+    par[u][0] = p
+    for v, c in g[u]:
+        if v == p:
+            continue
+        h[v] = h[u] + 1
+        maxc[v][0] = minc[v][0] = c
+        dfs(v, u)
+
+dfs(1, 1)
+
+for i in range(1, LOG):
+    for u in range(1, n + 1):
+        par[u][i] = par[par[u][i - 1]][i - 1]
+        maxc[u][i] = max(maxc[u][i - 1], maxc[par[u][i - 1]][i - 1])
+        minc[u][i] = min(minc[u][i - 1], minc[par[u][i - 1]][i - 1])
+
+def solve(u, v):
+    res_min = INF
+    res_max = -INF
+    if h[u] < h[v]:
+        u, v = v, u
+    depth = h[u] - h[v]
+    for i in range(LOG):
+        if depth & (1 << i):
+            res_max = max(res_max, maxc[u][i])
+            res_min = min(res_min, minc[u][i])
+            u = par[u][i]
+    if u == v:
+        print(res_min, res_max)
+        return
+    for i in range(LOG - 1, -1, -1):
+        if par[u][i] != par[v][i]:
+            res_max = max(res_max, maxc[u][i], maxc[v][i])
+            res_min = min(res_min, minc[u][i], minc[v][i])
+            u = par[u][i]
+            v = par[v][i]
+    res_max = max(res_max, maxc[u][0], maxc[v][0])
+    res_min = min(res_min, minc[u][0], minc[v][0])
+    print(res_min, res_max)
+
+q = int(input())
+for _ in range(q):
+    u, v = map(int, input().split())
+    solve(u, v)
+```

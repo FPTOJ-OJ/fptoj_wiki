@@ -170,6 +170,8 @@ Bạn muốn đi từ A đến B. Có nhiều con đường, mỗi con đường
 
 Bắt đầu từ đỉnh nguồn. Mỗi bước, chọn đỉnh **chưa thăm** có khoảng cách nhỏ nhất, cập nhật khoảng cách các đỉnh kề.
 
+![Dijkstra Animation](../uploads/img/dijkstra.gif)
+
 ```cpp
 vector<long long> dijkstra(int start, int n, vector<vector<pair<int,int>>>& adj) {
     vector<long long> dist(n + 1, LLONG_MAX);
@@ -221,6 +223,8 @@ def dijkstra(start, n, adj):
 ---
 
 ## 3. Sắp Xếp Tô-pô (Topological Sort)
+
+![Topological Sort](../uploads/img/topological-sort.svg)
 
 ### Ẩn dụ: Môn học tiên quyết
 

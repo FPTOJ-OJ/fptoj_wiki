@@ -266,7 +266,92 @@ def is_repeated(s):
 
 ---
 
-## 6. Bài tập luyện tập
+## 6. Lưu ý / Cạm bẫy hay gặp
+
+### Bẫy 1: Off-by-one trong hàm tiền tố
+
+```cpp
+// SAI: Bắt đầu từ i = 0 → ghi đè pi[0], sai logic
+for (int i = 0; i < n; i++) { ... }
+
+// ĐÚNG: Bắt đầu từ i = 1 vì pi[0] luôn = 0
+for (int i = 1; i < n; i++) { ... }
+```
+
+**Lưu ý:** `π[0]` luôn bằng 0 theo định nghĩa. Bắt đầu vòng lặp từ `i = 1`.
+
+### Bẫy 2: Hash collision khi dùng Hash thay KMP
+
+Khi dùng hash để tìm xâu mẫu, có xác suất va chạm (hash collision) → kết quả sai.
+
+```cpp
+// Nên dùng double hash để giảm xác suất va chạm
+const long long MOD1 = 1e9 + 7, MOD2 = 1e9 + 9;
+const long long BASE = 311;
+
+pair<long long, long long> getHash(string s) {
+    long long h1 = 0, h2 = 0;
+    for (char c : s) {
+        h1 = (h1 * BASE + c) % MOD1;
+        h2 = (h2 * BASE + c) % MOD2;
+    }
+    return {h1, h2};
+}
+```
+
+**Khuyến nghị:** Nếu cần chính xác 100%, dùng KMP hoặc Z-algorithm thay vì hash.
+
+### Bẫy 3: Bộ nhớ với xâu lớn
+
+Khi N = 10⁶, mảng `combined = pattern + "#" + text` có độ dài ~2×10⁶. Mảng `pi` cũng cùng kích thước.
+
+```cpp
+// Với N = 10^6, cần ~8MB cho mảng pi (int)
+// Với N = 10^7, cần ~80MB → có thể MLE!
+
+// Giải pháp: Dùng Z-algorithm trên text trực tiếp
+// hoặc chia nhỏ text thành các đoạn
+```
+
+### Bẫy 4: Sai vị trí khi dùng KMP với delimiter
+
+```cpp
+// SAI: Không dùng delimiter → match ngay trong pattern
+string combined = pattern + text;  // Có thể match ở vị trí < m
+
+// ĐÚNG: Dùng ký tự không xuất hiện trong pattern/text
+string combined = pattern + "#" + text;
+```
+
+### Bẫy 5: Quên xử lý overlap matches
+
+Khi cần đếm cả các lần xuất hiện chồng chéo (overlapping):
+
+```
+Text: "aaaa", Pattern: "aa"
+→ Có 3 lần xuất hiện: [0,1], [1,2], [2,3]
+→ Không phải 2 (non-overlapping)!
+```
+
+KMP tự động xử lý overlap vì nhảy theo `π[i-1]`, không nhảy toàn bộ pattern.
+
+### So sánh: KMP vs Hash-based approach
+
+| | KMP | Hash-based |
+|--|-----|-----------|
+| Độ phức tạp | O(N+M) xác định | O(N+M) trung bình |
+| Chính xác | 100% | Có xác suất collision |
+| Bộ nhớ | O(N+M) | O(N) nếu tính rolling hash |
+| Dễ cài đặt | Trung bình | Dễ hơn |
+| Ứng dụng tốt nhất | Tìm exact match | Tìm nhiều pattern khác nhau |
+| Xử lý overlap | Tự nhiên | Cần thêm logic |
+
+**Khi nào dùng KMP:** Cần chính xác 100%, tìm 1 pattern cố định.
+**Khi nào dùng Hash:** Tìm nhiều pattern, cần code ngắn, chấp nhận xác suất nhỏ sai.
+
+---
+
+## 7. Bài tập luyện tập
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|

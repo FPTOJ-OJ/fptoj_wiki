@@ -72,6 +72,23 @@ long long sum(int u) { // tổng các giá trị của cây con gốc u
 }
 ```
 
+```python
+N = 100005
+val = [0] * N
+parent = [0] * N
+adj = [[] for _ in range(N)]
+
+def change(u, x):
+    val[u] = x
+
+def sum_subtree(u):
+    s = val[u]
+    for v in adj[u]:
+        if v != parent[u]:
+            s += sum_subtree(v)
+    return s
+```
+
 Độ phức tạp của thuật toán:
 * Với các truy vấn loại $1$, ta chỉ thay đổi giá trị của đỉnh nên độ phức tạp cho truy vấn này là $O(1)$.
 * Với các truy vấn loại $2$, ta cần duyệt qua tất cả các đỉnh thuộc cây con gốc $u$, trong trường hợp tệ nhất, độ phức tạp cho mỗi truy vấn như thế lên đến $O(n)$.
@@ -196,6 +213,44 @@ int main() {
 }
 ```
 
+```python
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(200000)
+
+n = int(input())
+adj = [[] for _ in range(n + 1)]
+for _ in range(n - 1):
+    u, v = map(int, input().split())
+    adj[u].append(v)
+    adj[v].append(u)
+
+root = 1
+m = 0
+h = [0] * (n + 1)
+st = [0] * (n + 1)
+en = [0] * (n + 1)
+tour = [0] * (2 * n)
+
+def add(u):
+    global m
+    m += 1
+    tour[m] = u
+    en[u] = m
+
+def dfs(u, parent_of_u):
+    h[u] = h[parent_of_u] + 1
+    add(u)
+    st[u] = m
+    for v in adj[u]:
+        if v != parent_of_u:
+            dfs(v, u)
+    if u != root:
+        add(parent_of_u)
+
+dfs(root, 0)
+```
+
 Mỗi khi truy cập một đỉnh bất kỳ, ta thêm đỉnh đó vào đường đi. Trước khi rời khỏi một đỉnh (trở về cha), nếu đỉnh đó khác gốc của cây, ta thêm cha của đỉnh vào đường đi.
 
 Áp dụng code trên vào đồ thị hình $2a$, mảng $tour$ cuối cùng chứa các giá trị: ```1 2 3 2 4 2 1 5 1```, đây chính là đường đi Euler theo định nghĩa ban đầu.
@@ -272,6 +327,17 @@ void dfs(int u, int parent_of_u) {
     en[u] = m;
 }
 ```
+```python
+def dfs(u, parent_of_u):
+    global m
+    m += 1
+    tour[m] = u
+    st[u] = m
+    for v in adj[u]:
+        if v != parent_of_u:
+            dfs(v, u)
+    en[u] = m
+```
 Trong đó, $en[u]$ là vị trí **cuối cùng nhất** của một đỉnh thuộc cây con gốc $u$.
 
 ### Cơ sở
@@ -323,6 +389,31 @@ long long sumSubtree(int u) {
     // tính tống đoạn st[u]..en[u]
     return sumPrefix(en[u]) - sumPrefix(st[u] - 1);
 }
+```
+
+```python
+N = 100005
+bit = [0] * N
+st = [0] * N
+en = [0] * N
+
+def add(i, x):
+    while i <= n:
+        bit[i] += x
+        i += i & (-i)
+
+def sum_prefix(i):
+    ans = 0
+    while i > 0:
+        ans += bit[i]
+        i &= i - 1
+    return ans
+
+def change(u, x):
+    add(st[u], x)
+
+def sum_subtree(u):
+    return sum_prefix(en[u]) - sum_prefix(st[u] - 1)
 ```
 
 ### Cập nhật đường đi - truy vấn đỉnh
@@ -390,6 +481,20 @@ void dfs(int u, int parent_of_u) {
     tour[++m] = u;
     en[u] = m;
 }
+```
+
+```python
+def dfs(u, parent_of_u):
+    global m
+    m += 1
+    tour[m] = u
+    st[u] = m
+    for v in adj[u]:
+        if v != parent_of_u:
+            dfs(v, u)
+    m += 1
+    tour[m] = u
+    en[u] = m
 ```
 
 $st[u]$ là vị trí đầu tiên của đỉnh $u$, $en[u]$ là vị trí thứ hai của đỉnh $u$. Mỗi đỉnh xuất hiện đúng $2$ lần.
@@ -555,6 +660,55 @@ int main() {
     return 0;
 }
 
+```
+
+```python
+import math
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(300000)
+
+n, q = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+for i in range(2, n + 1):
+    p = int(input())
+    g[p].append(i)
+
+K = 20
+N2 = 2 * n + 5
+h = [0] * (n + 1)
+st = [0] * (n + 1)
+R = [[0] * K for _ in range(N2)]
+m = 0
+
+def dfs(u, p):
+    global m
+    h[u] = h[p] + 1
+    m += 1
+    R[m][0] = u
+    st[u] = m
+    for v in g[u]:
+        if v != p:
+            dfs(v, u)
+            m += 1
+            R[m][0] = u
+
+dfs(1, 0)
+
+k = 0
+while (1 << (k + 1)) <= m:
+    for i in range(1, m - (1 << (k + 1)) + 2):
+        R[i][k + 1] = R[i][k] if h[R[i][k]] < h[R[i + (1 << k)][k]] else R[i + (1 << k)][k]
+    k += 1
+
+for _ in range(q):
+    u, v = map(int, input().split())
+    l, r = st[u], st[v]
+    if l > r:
+        l, r = r, l
+    kk = int(math.log2(r - l + 1))
+    ans = R[l][kk] if h[R[l][kk]] < h[R[r - (1 << kk) + 1][kk]] else R[r - (1 << kk) + 1][kk]
+    print(ans)
 ```
 
 ## Luyện tập
