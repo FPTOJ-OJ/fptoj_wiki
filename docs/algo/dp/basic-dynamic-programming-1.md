@@ -1,4 +1,6 @@
 
+> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
+
 Bài viết có tham khảo và bổ sung, chỉnh sửa từ [TopCoder](https://www.topcoder.com/thrive/articles/Dynamic%20Programming:%20From%20Novice%20to%20Advanced) và một số nguồn khác.
 
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội

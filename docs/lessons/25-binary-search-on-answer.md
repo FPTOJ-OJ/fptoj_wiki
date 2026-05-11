@@ -122,6 +122,34 @@ int maxMinDistance(vector<int>& stalls, int cows) {
 }
 ```
 
+### Code Python
+
+```python
+def binary_search_on_answer(lo, hi, check):
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if check(mid):
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo
+
+# Ví dụ: Capacity To Ship Packages
+def ship_within_days(weights, days):
+    def check(capacity):
+        cur, used = 0, 1
+        for w in weights:
+            if cur + w <= capacity:
+                cur += w
+            else:
+                used += 1
+                cur = w
+        return used <= days
+    lo = max(weights)
+    hi = sum(weights)
+    return binary_search_on_answer(lo, hi, check)
+```
+
 ---
 
 ## 5. Bài tập luyện tập

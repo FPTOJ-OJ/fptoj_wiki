@@ -103,7 +103,60 @@ int editDistance(string a, string b) {
 }
 ```
 
-### 3.4. Tối ưu bộ nhớ
+### 3.4. DP trên lưới (Grid DP)
+
+```cpp
+// Đếm số cách đi từ góc trái trên đến góc phải dưới
+// Chỉ được đi sang phải hoặc đi xuống
+int uniquePaths(int n, int m) {
+    vector<vector<int>> dp(n, vector<int>(m, 0));
+    for (int i = 0; i < n; i++) dp[i][0] = 1;
+    for (int j = 0; j < m; j++) dp[0][j] = 1;
+    for (int i = 1; i < n; i++)
+        for (int j = 1; j < m; j++)
+            dp[i][j] = dp[i-1][j] + dp[i][j-1];
+    return dp[n-1][m-1];
+}
+
+// Tổng lớn nhất trên đường đi trong lưới
+int maxPathSum(vector<vector<int>>& grid) {
+    int n = grid.size(), m = grid[0].size();
+    vector<vector<int>> dp(n, vector<int>(m));
+    dp[0][0] = grid[0][0];
+    for (int i = 1; i < n; i++) dp[i][0] = dp[i-1][0] + grid[i][0];
+    for (int j = 1; j < m; j++) dp[0][j] = dp[0][j-1] + grid[0][j];
+    for (int i = 1; i < n; i++)
+        for (int j = 1; j < m; j++)
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1]) + grid[i][j];
+    return dp[n-1][m-1];
+}
+```
+
+### 3.5. DP bitmask (Trạng thái nén)
+
+Khi N ≤ 20 và cần lưu trạng thái "đã chọn những phần tử nào":
+
+```cpp
+// Bài toán: Phân công N người vào N việc sao cho tổng chi phí nhỏ nhất
+// dp[mask] = chi phí nhỏ nhất khi đã phân công các người theo mask
+int assignment(vector<vector<int>>& cost) {
+    int n = cost.size();
+    vector<int> dp(1 << n, INT_MAX);
+    dp[0] = 0;
+    for (int mask = 0; mask < (1 << n); mask++) {
+        int person = __builtin_popcount(mask);  // Người thứ mấy
+        for (int job = 0; job < n; job++) {
+            if (!(mask & (1 << job))) {  // Việc job chưa được giao
+                int newMask = mask | (1 << job);
+                dp[newMask] = min(dp[newMask], dp[mask] + cost[person][job]);
+            }
+        }
+    }
+    return dp[(1 << n) - 1];
+}
+```
+
+### 3.6. Tối ưu bộ nhớ
 
 ```cpp
 // Chỉ cần 1 hàng thay vì 2D
@@ -112,6 +165,87 @@ for (int i = 1; i <= n; i++) {
     for (int j = W; j >= w[i-1]; j--)  // Duyệt NGƯỢC!
         dp[j] = max(dp[j], dp[j - w[i-1]] + v[i-1]);
 }
+```
+
+### Code Python
+
+```python
+import bisect
+
+# ===== 1. Leo cầu thang =====
+def climb_stairs(n):
+    if n <= 2: return n
+    dp = [0] * (n + 1)
+    dp[1], dp[2] = 1, 2
+    for i in range(3, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]
+
+# ===== 2. LIS - Dãy con tăng dài nhất O(N log N) =====
+def lis(a):
+    tail = []
+    for x in a:
+        pos = bisect.bisect_left(tail, x)
+        if pos == len(tail):
+            tail.append(x)
+        else:
+            tail[pos] = x
+    return len(tail)
+
+# ===== 3. Knapsack 0/1 =====
+def knapsack(w, v, W):
+    n = len(w)
+    dp = [[0] * (W + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for j in range(W + 1):
+            dp[i][j] = dp[i-1][j]  # Không lấy
+            if j >= w[i-1]:
+                dp[i][j] = max(dp[i][j], dp[i-1][j - w[i-1]] + v[i-1])
+    return dp[n][W]
+
+# ===== 4. LCS - Xâu con chung nhất =====
+def lcs(a, b):
+    n, m = len(a), len(b)
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if a[i-1] == b[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[n][m]
+
+# ===== 5. Edit Distance =====
+def edit_distance(a, b):
+    n, m = len(a), len(b)
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(n + 1): dp[i][0] = i
+    for j in range(m + 1): dp[0][j] = j
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if a[i-1] == b[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])
+    return dp[n][m]
+
+# ===== 6. Grid DP - Số cách đi =====
+def unique_paths(n, m):
+    dp = [[0] * m for _ in range(n)]
+    for i in range(n): dp[i][0] = 1
+    for j in range(m): dp[0][j] = 1
+    for i in range(1, n):
+        for j in range(1, m):
+            dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    return dp[n-1][m-1]
+
+# ===== 7. Knapsack tối ưu bộ nhớ =====
+def knapsack_optimized(w, v, W):
+    dp = [0] * (W + 1)
+    for i in range(len(w)):
+        for j in range(W, w[i] - 1, -1):  # Duyệt NGƯỢC!
+            dp[j] = max(dp[j], dp[j - w[i]] + v[i])
+    return dp[W]
 ```
 
 ---
@@ -139,8 +273,20 @@ for (int i = 1; i <= n; i++) {
 | [CSES - Longest Common Subsequence](https://cses.fi/problemset/task/3403) | CSES | ⭐⭐ |
 | [Atcoder DP Contest](https://atcoder.jp/contests/dp) | Atcoder | ⭐⭐-⭐⭐⭐ |
 | [LeetCode - DP Study Plan](https://leetcode.com/studyplan/dynamic-programming/) | LeetCode | ⭐⭐-⭐⭐⭐ |
+| [VNOJ - Atcoder DP D - Knapsack 1](https://oj.vnoi.info/problem/atcoder_dp_d) | VNOJ | ⭐⭐ |
+| [VNOJ - Atcoder DP F - LCS](https://oj.vnoi.info/problem/atcoder_dp_f) | VNOJ | ⭐⭐ |
+| [VNOJ - Atcoder DP E - Knapsack 2](https://oj.vnoi.info/problem/atcoder_dp_e) | VNOJ | ⭐⭐⭐ |
+| [VNOJ - LIS](https://oj.vnoi.info/problem/lis) | VNOJ | ⭐⭐ |
 
-## Tài liệu tham khảo
+## 6. Bài viết liên quan
+
+- [Bài 6: Đệ quy và quay lui](06-de-quy-va-quay-lui.md) (Nền tảng cho DP)
+- [Bài 3: Tìm kiếm nhị phân](03-tim-kiem-nhi-phan.md) (Binary Search on Answer)
+- [Bài 5: Phép toán bit](05-phep-toan-bit.md) (DP bitmask)
+- [Bài 15: Deque & Sliding Window](15-deque-sliding-window.md) (Tối ưu DP)
+- [Bài 13: MST, Dijkstra, Topo Sort](13-mst-dijkstra-topo-sort.md) (DP trên DAG)
+
+## 7. Tài liệu tham khảo
 
 - [CP-Algorithms - Introduction to DP](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 - [USACO Guide - Introduction to DP](https://usaco.guide/gold/intro-dp)

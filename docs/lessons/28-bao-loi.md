@@ -85,6 +85,38 @@ double hullArea(vector<Point>& hull) {
 }
 ```
 
+### Code Python
+
+```python
+def cross(O, A, B):
+    return (A[0] - O[0]) * (B[1] - O[1]) - (A[1] - O[1]) * (B[0] - O[0])
+
+def convex_hull(points):
+    points = sorted(points)
+    if len(points) <= 1:
+        return points
+    lower = []
+    for p in points:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
+            lower.pop()
+        lower.append(p)
+    upper = []
+    for p in reversed(points):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
+            upper.pop()
+        upper.append(p)
+    return lower[:-1] + upper[:-1]
+
+def polygon_area(hull):
+    area = 0
+    n = len(hull)
+    for i in range(n):
+        j = (i + 1) % n
+        area += hull[i][0] * hull[j][1]
+        area -= hull[j][0] * hull[i][1]
+    return abs(area) / 2.0
+```
+
 ---
 
 ## 3. Bài tập luyện tập

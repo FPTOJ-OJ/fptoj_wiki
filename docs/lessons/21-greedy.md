@@ -32,7 +32,7 @@ Greedy **không phải lúc nào cũng đúng!** Chỉ đúng khi bài toán có
 - Greedy: 4 + 1 + 1 = 3 tờ ← SAI!
 - Đúng: 3 + 3 = 2 tờ
 
-→ Greedy không phải lúc nào cũng tối ưu!
+→ Greedy không phải lúc nào cũng tối ưu! (Nhưng với hệ tiền tệ chuẩn {1, 5, 10, 50, 100} thì Greedy luôn đúng.)
 
 ---
 
@@ -92,6 +92,62 @@ Mỗi công việc có deadline và lợi nhuận. Hoàn thành tối đa công 
 
 **Greedy:** Sắp xếp theo lợi nhuận giảm dần, chọn thời điểm trễ nhất trước deadline.
 
+```cpp
+int jobSequencing(vector<pair<int,int>>& jobs) {
+    // jobs[i] = {deadline, profit}
+    sort(jobs.begin(), jobs.end(), [](auto& a, auto& b) {
+        return a.second > b.second;  // Profit giảm dần
+    });
+    
+    int maxDeadline = 0;
+    for (auto& [d, p] : jobs)
+        maxDeadline = max(maxDeadline, d);
+    
+    vector<int> slot(maxDeadline + 1, -1);  // slot[t] = job được xếp tại thời điểm t
+    int totalProfit = 0;
+    
+    for (auto& [deadline, profit] : jobs) {
+        // Tìm slot trống gần deadline nhất
+        for (int t = deadline; t >= 1; t--) {
+            if (slot[t] == -1) {
+                slot[t] = profit;
+                totalProfit += profit;
+                break;
+            }
+        }
+    }
+    return totalProfit;
+}
+```
+
+### 3.4. Minimum Number of Platforms (Sân ga)
+
+Cho giờ đến và giờ đi của N chuyến tàu. Tìm số sân ga tối thiểu.
+
+**Greedy:** Sắp xếp cả giờ đến và giờ đi. Duyệt, tăng số sân ga khi tàu đến, giảm khi tàu đi.
+
+```cpp
+int minPlatforms(vector<int>& arrival, vector<int>& departure) {
+    sort(arrival.begin(), arrival.end());
+    sort(departure.begin(), departure.end());
+    
+    int platforms = 0, maxPlatforms = 0;
+    int i = 0, j = 0, n = arrival.size();
+    
+    while (i < n && j < n) {
+        if (arrival[i] <= departure[j]) {
+            platforms++;  // Tàu đến → cần thêm sân ga
+            maxPlatforms = max(maxPlatforms, platforms);
+            i++;
+        } else {
+            platforms--;  // Tàu đi → giải phóng sân ga
+            j++;
+        }
+    }
+    return maxPlatforms;
+}
+```
+
 ---
 
 ## 4. Code Python
@@ -106,11 +162,52 @@ def max_activities(activities):
             count += 1
             last_end = end
     return count
+
+# Fractional Knapsack
+def fractional_knapsack(items, W):
+    items.sort(key=lambda x: x[0]/x[1], reverse=True)
+    total = 0
+    for value, weight in items:
+        if W >= weight:
+            total += value
+            W -= weight
+        else:
+            total += value * (W / weight)
+            break
+    return total
 ```
 
 ---
 
-## 5. So sánh Greedy vs DP vs Quay lui
+## 5. Proof of Greedy - Chứng minh tính đúng đắn
+
+Để chứng minh Greedy đúng, ta thường dùng 2 phương pháp:
+
+### Phương pháp 1: Exchange Argument (Hoán đổi)
+
+1. Giả sử có nghiệm tối ưu O khác với nghiệm Greedy G
+2. Chỉ ra rằng ta có thể **hoán đổi** O để biến nó thành G mà **không giảm chất lượng**
+3. Kết luận: G cũng tối ưu
+
+**Ví dụ: Activity Selection**
+- Giả sử O chọn hoạt động kết thúc lúc t₁, nhưng G chọn hoạt động kết thúc sớm hơn lúc t₀ < t₁
+- Hoán đổi: thay hoạt động t₁ bằng t₀ trong O
+- Kết quả: O mới có cùng số hoạt động, nhưng hoạt động cuối kết thúc sớm hơn → có thể chọn thêm nhiều hơn
+- → G không tệ hơn O
+
+### Phương pháp 2: Greedy Stays Ahead (Greedy luôn dẫn trước)
+
+1. Chứng minh rằng sau mỗi bước, nghiệm Greedy **không tệ hơn** nghiệm tối ưu
+2. Dùng quy nạp: bước đầu tiên Greedy chọn tốt nhất → các bước sau cũng vậy
+
+**Ví dụ: Đổi tiền {1, 5, 10, 50, 100}**
+- Chứng minh: nếu Greedy chọn tờ 100, thì mọi nghiệm tối ưu cũng phải dùng tờ 100
+- Vì nếu không dùng tờ 100, cần ít nhất 10 tờ 10 → nhiều hơn 1 tờ 100
+- → Greedy đúng
+
+---
+
+## 6. So sánh Greedy vs DP vs Quay lui
 
 | | Greedy | DP | Quay lui |
 |--|--------|-----|----------|
@@ -118,20 +215,63 @@ def max_activities(activities):
 | Độ phức tạp | Thường O(N log N) | O(N²) hoặc O(NK) | O(2^N) hoặc O(N!) |
 | Khi nào đúng? | Khi có tính tham lam | Luôn đúng | Luôn đúng |
 | Ví dụ | Activity Selection | Knapsack 0/1 | N-Queens |
+| Code | Ngắn, đơn giản | Trung bình | Dài hơn |
+
+### Khi nào dùng Greedy?
+
+- Bài toán có tính tham lam (chứng minh được)
+- Cần độ phức tạp tốt (O(N log N))
+- Không cần xét tất cả khả năng
+
+### Khi nào KHÔNG dùng Greedy?
+
+- Không chứng minh được tính tham lam
+- Cần nghiệm chính xác tối ưu → dùng DP
+- Bài toán có nhiều ràng buộc phức tạp → dùng DP hoặc Quay lui
 
 ---
 
-## 6. Lưu ý
+## 7. Bài toán Greedy nâng cao
+
+### 7.1. Huffman Coding (Nén dữ liệu)
+
+Mỗi ký tự có tần suất xuất hiện. Mã hóa sao cho tổng độ dài mã là nhỏ nhất.
+
+**Greedy:** Luôn gộp 2 node có tần suất nhỏ nhất.
+
+```cpp
+int huffmanCoding(vector<int>& freq) {
+    priority_queue<int, vector<int>, greater<int>> pq(freq.begin(), freq.end());
+    
+    int totalCost = 0;
+    while (pq.size() > 1) {
+        int a = pq.top(); pq.pop();
+        int b = pq.top(); pq.pop();
+        totalCost += a + b;
+        pq.push(a + b);
+    }
+    return totalCost;
+}
+```
+
+### 7.2. Interval Partitioning (Phân đoạn)
+
+Cho N hoạt động, mỗi hoạt động có bắt đầu và kết thúc. Tìm số phòng tối thiểu.
+
+**Greedy:** Sắp xếp theo bắt đầu, gán phòng trống đầu tiên.
+
+---
+
+## 8. Lưu ý
 
 - **Greedy không phải lúc nào cũng đúng!** Phải chứng minh tính đúng đắn
 - Nếu không chắc Greedy đúng → dùng DP
 - Greedy thường kết hợp với **sắp xếp** trước khi chọn
+- **Proof of Greedy** là kỹ năng quan trọng trong thi đấu
 
 ---
 
----
-
-## Bài tập luyện tập
+## 9. Bài tập luyện tập
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
@@ -140,6 +280,9 @@ def max_activities(activities):
 | [CSES - Stick Lengths](https://cses.fi/problemset/task/1619) | CSES | ⭐⭐ | Median |
 | [LeetCode - Jump Game](https://leetcode.com/problems/jump-game/) | LC | ⭐⭐ | Greedy |
 | [LeetCode - Interval Scheduling](https://leetcode.com/problems/non-overlapping-intervals/) | LC | ⭐⭐ | Activity selection |
+| [VNOJ - Atcoder DP Contest L - Deque](https://oj.vnoi.info/problem/atcoder_dp_l) | VNOJ | ⭐⭐⭐ | Game/Greedy |
+| [VNOJ - NKSGAME](https://oj.vnoi.info/problem/nksgame) | VNOJ | ⭐⭐ | Two pointers |
+| [CSES - Room Allocation](https://cses.fi/problemset/task/1164) | CSES | ⭐⭐ | Interval scheduling |
 
 ## Bài viết liên quan
 

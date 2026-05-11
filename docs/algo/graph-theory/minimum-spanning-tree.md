@@ -1,4 +1,6 @@
 
+> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
+
 **Tác giả**: 
 * Hoàng Việt Cường - Đại học Bách Khoa Hà Nội
 * Phan Thành Long - THPT Chuyên Thái Bình (K17-20)

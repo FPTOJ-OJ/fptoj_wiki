@@ -127,6 +127,10 @@ def floyd_warshall(n, dist):
 | [CSES - Cycle Finding](https://cses.fi/problemset/task/1678) | CSES | ⭐⭐⭐ | Bellman-Ford + chu trình âm |
 | [CSES - Flight Discount](https://cses.fi/problemset/task/1195) | CSES | ⭐⭐⭐ | Dijkstra nâng cao |
 | [SPOJ - NEGGRAPH](https://www.spoj.com/problems/NEGGRAPH/) | SPOJ | ⭐⭐⭐ | Bellman-Ford |
+| [VNOJ - NKPATH](https://oj.vnoi.info/problem/nkpath) | VNOJ | ⭐⭐⭐ | Floyd + DP |
+| [VNOJ - QBMST](https://oj.vnoi.info/problem/qbmst) | VNOJ | ⭐⭐ | MST cơ bản |
+| [VNOJ - DIJKSTRA](https://oj.vnoi.info/problem/dijkstra) | VNOJ | ⭐⭐ | Dijkstra trực tiếp |
+| [VNOJ - TOPOSORT](https://oj.vnoi.info/problem/toposort) | VNOJ | ⭐⭐ | Topo sort |
 
 ## Bài viết liên quan
 

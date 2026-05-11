@@ -78,6 +78,49 @@ bool isValid(string s) {
 }
 ```
 
+### Code Python
+
+```python
+def is_valid(s):
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
+    for c in s:
+        if c in '([{':
+            stack.append(c)
+        else:
+            if not stack or stack[-1] != pairs[c]:
+                return False
+            stack.pop()
+    return len(stack) == 0
+
+def evaluate(s):
+    vals, ops = [], []
+    priority = {'+': 1, '-': 1, '*': 2, '/': 2}
+    def process():
+        r, l = vals.pop(), vals.pop()
+        op = ops.pop()
+        if op == '+': vals.append(l + r)
+        elif op == '-': vals.append(l - r)
+        elif op == '*': vals.append(l * r)
+        elif op == '/': vals.append(l // r)
+    i = 0
+    while i < len(s):
+        if s[i].isdigit():
+            num = 0
+            while i < len(s) and s[i].isdigit():
+                num = num * 10 + int(s[i])
+                i += 1
+            vals.append(num)
+        else:
+            while ops and priority.get(ops[-1], 0) >= priority.get(s[i], 0):
+                process()
+            ops.append(s[i])
+            i += 1
+    while ops:
+        process()
+    return vals[0]
+```
+
 ---
 
 ## 3. Bài tập luyện tập

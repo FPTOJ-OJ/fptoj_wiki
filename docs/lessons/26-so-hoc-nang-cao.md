@@ -100,6 +100,49 @@ long long nPk(int n, int k) {
 }
 ```
 
+### Code Python
+
+```python
+MOD = 10**9 + 7
+
+def power_mod(a, b, mod=MOD):
+    result = 1
+    a %= mod
+    while b > 0:
+        if b & 1:
+            result = result * a % mod
+        a = a * a % mod
+        b >>= 1
+    return result
+
+def euler_phi(n):
+    result = n
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            while n % i == 0:
+                n //= i
+            result -= result // i
+        i += 1
+    if n > 1:
+        result -= result // n
+    return result
+
+def build_factorial(n):
+    fact = [1] * (n + 1)
+    for i in range(1, n + 1):
+        fact[i] = fact[i-1] * i % MOD
+    inv_fact = [1] * (n + 1)
+    inv_fact[n] = power_mod(fact[n], MOD - 2)
+    for i in range(n - 1, -1, -1):
+        inv_fact[i] = inv_fact[i+1] * (i+1) % MOD
+    return fact, inv_fact
+
+def nCk(n, k, fact, inv_fact):
+    if k < 0 or k > n: return 0
+    return fact[n] * inv_fact[k] % MOD * inv_fact[n-k] % MOD
+```
+
 ---
 
 ## 3. Lucas Theorem (khi n rất lớn)

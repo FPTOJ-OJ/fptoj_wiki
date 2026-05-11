@@ -1,4 +1,6 @@
 
+> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
+
 **Tác giả:** 
 - Nguyễn Đức Kiên, Trường Đại học Công nghệ, ĐHQGHN.
 

@@ -1,4 +1,6 @@
 
+> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
+
 **Tác giả**: Lê Khắc Minh Tuệ
 
 **Chỉnh sửa**: Nguyễn *RR* Thành Trung, Phạm Văn Hạnh

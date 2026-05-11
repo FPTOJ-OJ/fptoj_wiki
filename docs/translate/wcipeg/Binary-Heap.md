@@ -1,4 +1,6 @@
 
+> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
+
 **Biên soạn:** Đỗ Việt Anh (lion_it)
 
 **Email:** dovietanh.95@gmail.com

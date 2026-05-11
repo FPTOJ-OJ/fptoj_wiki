@@ -154,6 +154,83 @@ int countComponents(int n) {
 }
 ```
 
+### Code Python
+
+```python
+from collections import deque
+
+# ===== BFS =====
+def bfs(adj, start):
+    n = len(adj)
+    visited = [False] * n
+    dist = [-1] * n
+    parent = [-1] * n
+    
+    q = deque([start])
+    visited[start] = True
+    dist[start] = 0
+    
+    while q:
+        u = q.popleft()
+        for v in adj[u]:
+            if not visited[v]:
+                visited[v] = True
+                dist[v] = dist[u] + 1
+                parent[v] = u
+                q.append(v)
+    return dist, parent
+
+# ===== DFS (đệ quy) =====
+def dfs(adj, u, visited):
+    visited[u] = True
+    for v in adj[u]:
+        if not visited[v]:
+            dfs(adj, v, visited)
+
+# ===== DFS (stack - không đệ quy) =====
+def dfs_iterative(adj, start):
+    n = len(adj)
+    visited = [False] * n
+    stack = [start]
+    while stack:
+        u = stack.pop()
+        if visited[u]: continue
+        visited[u] = True
+        for v in adj[u]:
+            if not visited[v]:
+                stack.append(v)
+
+# ===== Đếm thành phần liên thông =====
+def count_components(n, adj):
+    visited = [False] * n
+    count = 0
+    for i in range(n):
+        if not visited[i]:
+            dfs(adj, i, visited)
+            count += 1
+    return count
+
+# ===== BFS trên lưới (tìm đường ngắn nhất) =====
+def bfs_grid(grid, sx, sy, ex, ey):
+    n, m = len(grid), len(grid[0])
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
+    dist = [[-1] * m for _ in range(n)]
+    q = deque([(sx, sy)])
+    dist[sx][sy] = 0
+    
+    while q:
+        x, y = q.popleft()
+        if x == ex and y == ey:
+            return dist[x][y]
+        for d in range(4):
+            nx, ny = x + dx[d], y + dy[d]
+            if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] != 1 and dist[nx][ny] == -1:
+                dist[nx][ny] = dist[x][y] + 1
+                q.append((nx, ny))
+    return -1  # Không tìm thấy đường
+```
+
 ---
 
 ## 4. So sánh BFS vs DFS
@@ -176,6 +253,9 @@ int countComponents(int n) {
 | [CSES - Message Route](https://cses.fi/problemset/task/1667) | CSES | ⭐⭐ |
 | [CSES - Labyrinth](https://cses.fi/problemset/task/1193) | CSES | ⭐⭐ |
 | [CF - Shortest Path with Obstacles](https://codeforces.com/) | CF | ⭐⭐⭐ |
+| [VNOJ - NKCELL](https://oj.vnoi.info/problem/nkcell) | VNOJ | ⭐⭐ |
+| [VNOJ - VBGRASS](https://oj.vnoi.info/problem/vbgrass) | VNOJ | ⭐⭐ |
+| [VNOJ - NKNUMFIND](https://oj.vnoi.info/problem/nknumfind) | VNOJ | ⭐⭐ |
 
 ## Tài liệu tham khảo
 

@@ -1,3 +1,5 @@
+> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
+
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
 
 **Reviewer:**

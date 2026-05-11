@@ -180,6 +180,9 @@ vector<int> zSearch(string text, string pattern) {
 | [CSES - Finding Borders](https://cses.fi/problemset/task/1732) | CSES | ⭐⭐ | Prefix function |
 | [SPOJ - NHAY](https://www.spoj.com/problems/NHAY/) | SPOJ | ⭐⭐ | KMP/Hash |
 | [CF - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D) | CF | ⭐⭐⭐ | KMP nâng cao |
+| [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr) | VNOJ | ⭐⭐ | Hash/KMP |
+| [VNOJ - PALINY](https://oj.vnoi.info/problem/paliny) | VNOJ | ⭐⭐⭐ | Palindrome + Hash |
+| [VNOJ - NKTEXT](https://oj.vnoi.info/problem/nktext) | VNOJ | ⭐⭐ | Hash xâu |
 
 ## Bài viết liên quan
 

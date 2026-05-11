@@ -73,6 +73,33 @@ int calcGrundy(int state) {
 }
 ```
 
+### Code Python
+
+```python
+def nim_game(piles):
+    xor_sum = 0
+    for x in piles:
+        xor_sum ^= x
+    return xor_sum != 0  # True = người đi trước thắng
+
+def mex(s):
+    s = sorted(set(s))
+    for i in range(len(s)):
+        if s[i] != i:
+            return i
+    return len(s)
+
+def grundy(n, moves):
+    dp = [0] * (n + 1)
+    for i in range(1, n + 1):
+        next_states = []
+        for m in moves:
+            if i >= m:
+                next_states.append(dp[i - m])
+        dp[i] = mex(next_states)
+    return dp[n]
+```
+
 ---
 
 ## 3. Ứng dụng: Trò chơi trên DAG

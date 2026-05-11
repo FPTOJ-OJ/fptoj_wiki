@@ -95,6 +95,15 @@ s = "aaabaab"
 z = [0, 2, 1, 0, 2, 2, 3]
 ```
 
+Giải thích chi tiết:
+- `z[0]=0`: Quy ước, không xét
+- `z[1]=2`: "aa" khớp "aa..." → độ dài 2
+- `z[2]=1`: "a" khớp "a..." → độ dài 1
+- `z[3]=0`: "b" không khớp "a..." → 0
+- `z[4]=2`: "aa" khớp "aa..." → độ dài 2
+- `z[5]=1`: "a" khớp "a..." → độ dài 1
+- `z[6]=3`: "aab" khớp "aab..." → độ dài 3
+
 ### Code C++
 
 ```cpp
@@ -115,9 +124,71 @@ vector<int> zFunction(string s) {
 }
 ```
 
+### Code Python
+
+```python
+def z_function(s):
+    n = len(s)
+    z = [0] * n
+    l, r = 0, 0
+    for i in range(1, n):
+        if i <= r:
+            z[i] = min(r - i + 1, z[i - l])
+        while i + z[i] < n and s[z[i]] == s[i + z[i]]:
+            z[i] += 1
+        if i + z[i] - 1 > r:
+            l, r = i, i + z[i] - 1
+    return z
+```
+
 ---
 
-## 5. So sánh KMP vs Z-algorithm
+## 5. Ứng dụng thực tế
+
+### 5.1. Đếm số lần xuất hiện của mẫu
+
+```cpp
+// Đếm số lần pattern xuất hiện trong text
+int countOccurrences(string text, string pattern) {
+    string combined = pattern + "#" + text;
+    vector<int> pi = prefixFunction(combined);
+    int count = 0;
+    int m = pattern.length();
+    for (int i = m + 1; i < combined.length(); i++)
+        if (pi[i] == m) count++;
+    return count;
+}
+```
+
+### 5.2. Tìm chu kỳ nhỏ nhất của xâu
+
+```cpp
+// Xâu "abcabcabc" có chu kỳ "abc" độ dài 3
+int shortestPeriod(string s) {
+    vector<int> pi = prefixFunction(s);
+    int n = s.length();
+    int period = n - pi[n - 1];
+    if (n % period == 0) return period;
+    return n;  // Không có chu kỳ
+}
+```
+
+### 5.3. Kiểm tra xâu có phải lặp lại không
+
+```cpp
+// "abcabc" = "abc" lặp 2 lần → true
+// "abcabd" → false
+bool isRepeated(string s) {
+    vector<int> pi = prefixFunction(s);
+    int n = s.length();
+    int period = n - pi[n - 1];
+    return (n % period == 0 && period < n);
+}
+```
+
+---
+
+## 6. So sánh KMP vs Z-algorithm
 
 | | KMP | Z-algorithm |
 |--|-----|-------------|
@@ -131,11 +202,21 @@ vector<int> zFunction(string s) {
 
 ## 6. Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó |
-|-----|----------|--------|
-| [CSES - Pattern Positions](https://cses.fi/problemset/task/2107) | CSES | ⭐⭐ |
-| [SPOJ - NHAY](https://www.spoj.com/problems/NHAY/) | SPOJ | ⭐⭐ |
-| [CF - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D) | CF | ⭐⭐⭐ |
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [CSES - Pattern Positions](https://cses.fi/problemset/task/2107) | CSES | ⭐⭐ | KMP tìm vị trí |
+| [SPOJ - NHAY](https://www.spoj.com/problems/NHAY/) | SPOJ | ⭐⭐ | KMP cơ bản |
+| [CF - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D) | CF | ⭐⭐⭐ | KMP nâng cao |
+| [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr) | VNOJ | ⭐⭐ | Tìm xâu con bằng KMP/Hash |
+| [VNOJ - KMP](https://oj.vnoi.info/problem/kmp) | VNOJ | ⭐⭐ | KMP trực tiếp |
+| [VNOJ - NKPALIN](https://oj.vnoi.info/problem/nkpalin) | VNOJ | ⭐⭐⭐ | Palindrome + KMP |
+| [VNOJ - PALINY](https://oj.vnoi.info/problem/paliny) | VNOJ | ⭐⭐⭐ | Palindrome dài nhất |
+
+## 7. Bài viết liên quan
+
+- [Bài 14: Hash xâu & Z-algorithm](14-hash-xau-z-algorithm.md)
+- [Bài 20: Manacher (Palindrome)](20-manacher.md)
+- [Bài 17: Trie](17-trie.md)
 
 ## Tài liệu tham khảo
 
