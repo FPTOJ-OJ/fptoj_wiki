@@ -5,7 +5,7 @@ Người dịch: Bùi Việt Dũng
 
 
 
-Bạn có thể đọc phần 1 về Modulo & GCD [ở đây](translate/he/So-hoc-Phan-1-Modulo-gcd).
+Bạn có thể đọc phần 1 về Modulo & GCD [ở đây](So-hoc-Phan-1-Modulo-gcd.md).
 
 
 ## Số nguyên tố (Prime Numbers)
@@ -72,7 +72,7 @@ def isPrime(n):
 
 Sàng Eratosthenes dùng để tìm các số nguyên tố nhỏ hơn hoặc bằng số nguyên $N$ nào đó. Nó còn có thể được sử dụng để kiểm tra một số nguyên nhỏ hơn hoặc bằng $N$ hay không.
 
-[https://upload.wikimedia.org/wikipedia/commons/b/b8/Animation_Sieb_des_Eratosthenes_%28vi%29.gif](alt=text)
+![Sieve of Eratosthenes Animation](https://upload.wikimedia.org/wikipedia/commons/b/b8/Animation_Sieb_des_Eratosthenes_%28vi%29.gif)
 
 Nguyên lí hoạt động của sàng là vào mỗi lần duyệt, ta chọn một số nguyên tố và loại ra khỏi sàng tất cả các bội của số nguyên tố đó mà lớn hơn số đó. Sau khi duyệt xong, các số còn lại trong sàng đều là số nguyên tố.
 

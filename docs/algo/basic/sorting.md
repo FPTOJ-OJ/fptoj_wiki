@@ -239,7 +239,7 @@ Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
 
 ## Ý tưởng
 
-Ta lưu mảng vào CTDL [Heap](translate/wcipeg/Binary-Heap).
+Ta lưu mảng vào CTDL [Heap](../../translate/wcipeg/Binary-Heap.md).
 
 Ở mỗi bước, ta lấy ra phần tử nhỏ nhất trong heap, cho vào mảng đã sắp xếp.
 

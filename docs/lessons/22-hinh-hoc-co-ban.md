@@ -1,6 +1,6 @@
 # Bài 22: Hình Học Cơ Bản
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Hình học tính toán
 
 ## 1. Điểm và Vector
@@ -37,6 +37,7 @@ A · B = A.x × B.x + A.y × B.y
 ```
 
 **Ứng dụng:**
+
 - Kiểm tra 2 vector có vuông góc không: `dot(A, B) == 0`
 - Chiếu điểm lên đường thẳng: tính góc giữa 2 vector
 - Tìm góc giữa 2 vector: `θ = acos(dot(A, B) / (|A| × |B|))`
@@ -54,11 +55,13 @@ A × B = A.x × B.y - A.y × B.x
 ```
 
 **Ẩn dụ: Quẹo xe**
+
 - Cross > 0: quẹo trái
 - Cross = 0: đi thẳng
 - Cross < 0: quẹo phải
 
 **Ứng dụng:**
+
 - Xác định hướng quay (CCW hay CW)
 - Kiểm tra 3 điểm có thẳng hàng không
 - Kiểm tra 2 đoạn thẳng cắt nhau
@@ -226,6 +229,7 @@ Cho đa giác lồi (hoặc không lồi) và 1 điểm P, kiểm tra P có nằ
 ### Phương pháp: Ray Casting (Tia đếm)
 
 Vẽ 1 tia từ P ra vô cực. Đếm số lần tia cắt cạnh đa giác.
+
 - Nếu **lẻ** → P nằm trong đa giác
 - Nếu **chẵn** → P nằm ngoài đa giác
 
@@ -477,4 +481,4 @@ def segments_intersect(A, B, C, D):
 - [USACO Guide - Geometry](https://usaco.guide/adv/geo)
 - [YouTube - Geometry for CP (Errichto)](https://www.youtube.com/watch?v=OMmPGgKdWQc)
 
-**Bài tiếp theo:** [Floyd-Warshall & Bellman-Ford →](23-floyd-warshall-bellman-ford.md)
+**Bài tiếp theo:** [Stack Nâng Cao →](24-stack-nang-cao.md)

@@ -1,6 +1,6 @@
 # Bài 6: Đệ Quy Và Quay Lui - Thử Mọi Con Đường!
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Đệ quy và thuật toán quay lui
 
 ## 1. Chuyện gì đang xảy ra?
@@ -40,6 +40,7 @@ Mỗi số = tổng 2 số trước: `F(n) = F(n-1) + F(n-2)`
 ### 3.1. Đệ quy (Recursion)
 
 **Nguyên tắc vàng:**
+
 1. **Phải có trường hợp dừng** (base case) → nếu không → đệ quy vô hạn → crash!
 2. **Phần đệ quy phải gọi bài toán nhỏ hơn** → tiến dần về base case
 
@@ -98,6 +99,7 @@ Với {1, 2, 3}, các hoán vị là:
 Xếp 8 quân hậu lên bàn cờ 8×8 sao cho không quân nào ăn được nhau.
 
 **Ý tưởng quay lui:**
+
 - Xếp hậu theo từng hàng
 - Hàng i: thử tất cả các cột
 - Nếu cột j hợp lệ (không cùng cột, không cùng đường chéo) → xếp hậu, gọi đệ quy hàng tiếp
@@ -107,7 +109,38 @@ Xếp 8 quân hậu lên bàn cờ 8×8 sao cho không quân nào ăn được n
 
 ## 4. Bắt tay vào Code nào!
 
-### Code C++
+### Ứng dụng 1: Tính giải thừa đơn giản
+
+Đây là ví dụ đệ quy đơn giản nhất. Bài toán `n!` được chia thành `n × (n-1)!`. Khi n = 0, trả về 1 (base case). Không có base case → tràn stack!
+
+### Ứng dụng 2: Số Fibonacci và vấn đề hiệu năng
+
+Fibonacci là ví dụ điển hình cho thấy đệ quy đơn thuần **có thể rất chậm**: `fib(5)` gọi `fib(4)` và `fib(3)`, nhưng `fib(4)` lại gọi `fib(3)` lần nữa → tính lại kết quả đã biết! Đó là lý do cần **memoization** (bài 6.4).
+
+### Ứng dụng 3: Sinh tất cả hoán vị
+
+Đây là template **quay lui** cơ bản nhất. Các bước:
+1. Chọn 1 số cho vị trí hiện tại (chưa được dùng)
+2. Đánh dấu đã dùng, đệ quy sang vị trí tiếp
+3. **Quay lui**: bỏ đánh dấu để thử lựa chọn khác
+
+Nếu bỏ bước 3 (bỏ `used[num] = false`), các lựa chọn khác sẽ không thể dùng lại `num` → kết quả sai!
+
+### Ứng dụng 4: Bài toán 8 quân hậu (N queens)
+
+Mỗi hàng chỉ có đúng 1 hậu. Ta xếp từng hàng từ trên xuống:
+- Với mỗi cột của hàng hiện tại: kiểm tra xem có an toàn không (không trùng cột, không trùng đường chéo)
+- Nếu an toàn: đặt hậu, đệ quy xuống hàng tiếp
+- Quáy lui: bỏ hậu, thử cột khác
+
+`diag1[row+col]` đại diện đường chéo chính (row+col cố định), `diag2[row-col+n]` đại diện đường chéo phụ (row-col cố định).
+
+### Ứng dụng 5: Tìm tất cả cách chọn số có tổng = Target
+
+Khác với hoán vị, bài này cho phép chọn một cần tử lặp lại. Ta dùng `startIdx` để tránh chọn ngược lại (tìm tổ hợp, không phải hoán vị).
+
+
+### Code C++: Tất cả các ứng dụng trên
 
 ```cpp
 #include <bits/stdc++.h>
@@ -287,8 +320,6 @@ print("5! =", factorial(5))    # 120
 generate_permutation(3)         # 6 hoán vị
 ```
 
----
-
 ## 5. Lưu ý / Cạm bẫy hay gặp
 
 ### Bẫy 1: Quên base case → Stack Overflow!
@@ -423,4 +454,4 @@ def fibo(n):
 - [USACO Guide - Backtracking](https://usaco.guide/bronze/intro-complete)
 - [YouTube - Backtracking (NeetCode)](https://www.youtube.com/watch?v=A80Yzfk-bcU)
 
-**Bài tiếp theo:** [Mảng, Stack, Prefix Sum →](07-mang-stack-prefix-sum.md)
+**Bài tiếp theo:** [Kĩ thuật hai con trỏ →](04-ky-thuat-hai-con-tro.md)

@@ -1,6 +1,6 @@
 # Bài 19: Tổ Hợp & Xác Suất
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cách tính số tổ hợp, Xác suất
 
 ## 1. Tổ hợp C(n, k)
@@ -25,6 +25,7 @@ C(n, k) = C(n-1, k-1) + C(n-1, k)  (tam giác Pascal)
 Đây là công thức truy hồi quan trọng nhất của tổ hợp. Hãy tưởng tượng:
 
 Bạn có n người, muốn chọn k người. Xét **người thứ n** (người cuối cùng):
+
 - **Trường hợp 1:** Chọn người thứ n → cần chọn thêm k-1 người từ n-1 người còn lại → C(n-1, k-1)
 - **Trường hợp 2:** Không chọn người thứ n → cần chọn k người từ n-1 người còn lại → C(n-1, k)
 
@@ -177,6 +178,7 @@ Số cách sắp xếp = n! / (n₁! × n₂! × ... × nₖ!)
 ```
 
 **Ví dụ:** Sắp xếp các ký tự trong "MISSISSIPPI":
+
 - M: 1, I: 4, S: 4, P: 2 → tổng 11
 - Kết quả = 11! / (1! × 4! × 4! × 2!) = 34650
 
@@ -204,6 +206,7 @@ Dãy: 1, 1, 2, 5, 14, 42, 132, 429, ...
 ```
 
 **Ứng dụng của Catalan:**
+
 - Số cách đặt dấu ngoặc đúng: `(()())` có 2 cách cho n=2
 - Số cây nhị phân có n node
 - Số đường đi trên lưới không vượt qua đường chéo
@@ -285,6 +288,7 @@ P(k mặt ngửa) = C(n, k) / 2^n
 ```
 
 **Giải thích:**
+
 - Số cách chọn k đồng xu ra mặt ngửa = C(n, k)
 - Tổng kết quả = 2^n (mỗi đồng xu có 2 trạng thái)
 

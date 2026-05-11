@@ -1,15 +1,22 @@
 # Bài 12: Quy Hoạch Động (DP) - Từ Nhập Môn Đến Thành Thạo!
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Quy hoạch động, Topcoder - DP from Novice to Advanced
 
 ## 1. DP là gì?
+
+**DP** = Đệ quy + Nhớ kết quả!
 
 ### Ẩn dụ: Leo cầu thang nhớ đường
 
 Bạn leo cầu thang, mỗi bước 1 hoặc 2 bậc. Thay vì tính lại từ đầu mỗi lần, bạn **nhớ kết quả** các bậc đã tính → không tính lại!
 
-**DP** = Đệ quy + Nhớ kết quả!
+**Hai cách tiếp cận DP:**
+
+1. **Top-down (Từ trên xuống):** Dùng đệ quy có nhớ (Memoization). Giải bài toán lớn bằng cách gọi đệ quy các bài toán nhỏ hơn và lưu lại kết quả.
+2. **Bottom-up (Từ dưới lên):** Dùng bảng (Tabulation). Giải từ bài toán nhỏ nhất rồi xây dựng dần lên bài toán lớn bằng vòng lặp.
+
+> **Lời khuyên:** Người mới bắt đầu nên luyện tập **Bottom-up** vì nó dễ kiểm soát độ phức tạp và tối ưu bộ nhớ hơn.
 
 ---
 
@@ -432,6 +439,7 @@ for (int i = 0; i < n; i++)
 ```
 
 **Quy tắc:**
+
 - 0/1 Knapsack: duyệt **ngược** (từ W về w[i])
 - Unbounded Knapsack: duyệt **xuôi** (từ w[i] đến W)
 

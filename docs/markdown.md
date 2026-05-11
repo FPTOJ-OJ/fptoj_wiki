@@ -51,7 +51,7 @@ Tables:
 
 Image from /uploads
 
-![alt=text](/uploads/topcoder_translate_tree1.png)
+![alt=text](uploads/topcoder_translate_tree1.png)
 
 Formula: $a^{21} + b_{12} = c$
 

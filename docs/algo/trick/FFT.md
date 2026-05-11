@@ -377,7 +377,7 @@ def inverse_fft_slow(a):
 
 Để khử đệ quy thì ta cần phân tích mối liên hệ giữa các lời gọi đệ quy và xem các phần tử được tính theo thứ tự nào. Hình vẽ sau đây minh họa trường hợp $n = 8$:
 
-[/uploads/fft_tree.png](alt=RecursionTree)
+![RecursionTree](../../uploads/fft_tree.png)
 
 Màu đỏ là các nhóm chẵn và màu xanh là các nhóm lẻ. Các bạn hãy dựa vào tính chẵn lẻ và để ý các số nhị phân $0, 1$ trong hình vẽ để tự viết chương trình FFT khử đệ quy hoặc giải thích tính đúng đắn của đoạn mã sau (đây là hàm FFT đã được dùng để giải bài POST2)
 

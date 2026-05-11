@@ -217,7 +217,7 @@ Thuật toán đơn giản nhất như sau:
   - Ta đi từ $u$ đến $u'$, với $u'$ là tổ tiên của $u$ và $h(u') = h(v)$.
   - Ta đồng thời đi từ $u$ và $v$ lên cha của nó, đến khi 2 đỉnh này trùng nhau (lúc đó cả 2 đỉnh đều ở LCA).
 
-![/uploads/translate_topcoder_lca_rmq.png](/uploads/translate_topcoder_lca_rmq.png)
+![/uploads/translate_topcoder_lca_rmq.png](../../uploads/translate_topcoder_lca_rmq.png)
 
 Ví dụ:
 
@@ -415,7 +415,7 @@ function LCA(N, P[MAXN][MAXLOGN], T[MAXN], h[MAXN], u, v):
 
 Mỗi lần gọi hàm này chỉ tốn tối đa $2logH$ phép toán. Trong trường hợp tệ nhất thì $H=N$ nên độ phức tạp tổng quát của thuật toán này là $< O(NlogN),O(logN) >$.
 
-Bài toán LCA còn có nhiều cách giải thú vị khác. Các bạn có thể tham khảo thêm trong [bài viết này](algo/data-structures/lca).
+Bài toán LCA còn có nhiều cách giải thú vị khác. Các bạn có thể tham khảo thêm trong [bài viết này](../../algo/data-structures/lca.md).
 
 ## Từ LCA đến RMQ
 

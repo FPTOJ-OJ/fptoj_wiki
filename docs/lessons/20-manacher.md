@@ -1,6 +1,6 @@
 # Bài 20: Manacher - Tìm Palindrome Dài Nhất
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Manacher
 
 ## 1. Palindrome là gì?
@@ -20,6 +20,7 @@ Cho xâu S, tìm palindrome con dài nhất.
 ## 2. Vấn đề với cách tiếp cận trực tiếp
 
 Palindrome có 2 loại:
+
 - **Palindrome lẻ:** "aba" (tâm = ký tự 'b')
 - **Palindrome chẵn:** "abba" (tâm = giữa 'b' và 'b')
 
@@ -37,6 +38,7 @@ Chèn `#` giữa các ký tự và thêm `^` ở đầu, `$` ở cuối:
 ```
 
 Sau khi chèn:
+
 - Palindrome chẵn "abba" (4 ký tự) → "#a#b#b#a#" (9 ký tự, bán kính 4)
 - Palindrome lẻ "aba" (3 ký tự) → "#a#b#a#" (7 ký tự, bán kính 3)
 - **Tất cả đều trở thành palindrome lẻ!**
@@ -82,13 +84,16 @@ Nếu P[6] đã biết, ta có thể khởi tạo P[2] = min(R-i, P[6])
 Khi tính P[i]:
 
 **Trường hợp 1: i >= R** (i nằm ngoài palindrome hiện tại)
+
 - Không có thông tin nào reuse được → P[i] = 0, mở rộng từ đầu
 
 **Trường hợp 2: i < R và P[i_mirror] < R - i**
+
 - Palindrome tại i_mirror nằm hoàn toàn trong palindrome tại C
 - → P[i] = P[i_mirror] (đối xứng hoàn toàn)
 
 **Trường hợp 3: i < R và P[i_mirror] >= R - i**
+
 - Palindrome tại i_mirror "tràn" ra ngoài palindrome tại C
 - → P[i] ít nhất = R - i, sau đó cần mở rộng thêm
 

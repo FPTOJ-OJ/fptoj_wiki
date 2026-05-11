@@ -1,6 +1,6 @@
 # Bài 30: Binary Search Tree (BST) - Cây Tìm Kiếm Nhị Phân
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, GeeksforGeeks - BST
 
 ## 1. Chuyện gì đang xảy ra?
@@ -8,6 +8,7 @@
 ### Bài toán
 
 Bạn có tập hợp số, cần thực hiện:
+
 - Thêm số mới
 - Tìm số có tồn tại không
 - Xóa số
@@ -24,7 +25,7 @@ Bạn có tập hợp số, cần thực hiện:
 
 Binary Search Tree là cây nhị phân với tính chất:
 
-> **Mọi nút bên trái < nút cha < mọi nút bên phải**
+> **Mọi nút bên trái < nút cha < mọi nút bên phải**<br>
 
 ```
         8
@@ -62,6 +63,7 @@ Chỉ 4 bước (thay vì duyệt hết 8 số)!
 ### 2.1. Tìm kiếm (Search)
 
 **Ý tưởng:** Tại mỗi nút, so sánh giá trị cần tìm với nút:
+
 - Nhỏ hơn → đi trái
 - Lớn hơn → đi phải
 - Bằng → tìm thấy!
@@ -480,4 +482,4 @@ BST cơ bản không lưu trùng. Nếu chèn trùng → bỏ qua (hoặc đếm
 - [VNOI Wiki - Cấu trúc dữ liệu tổng quan](https://wiki.vnoi.info/algo/data-structures/overview-data-structures)
 - [YouTube - BST (takeuforward)](https://www.youtube.com/watch?v=pYT9F8_LFTM)
 
-**Bài tiếp theo:** [Bài 31: LCA & Binary Lifting →](31-lca-binary-lifting.md)
+**Bài tiếp theo:** [Sparse Table →](29-sparse-table.md)

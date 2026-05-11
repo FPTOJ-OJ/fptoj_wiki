@@ -1,6 +1,6 @@
 # Bài 8: Heap, DSU, Segment Tree, Fenwick Tree - CTDL "xịn"
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Binary Heap, Disjoint Set Union, Segment Tree, Fenwick Tree
 
 !!! warning "Lưu ý"
@@ -272,6 +272,7 @@ def find_top_k(a, k):
 ### 2.1. Bài toán thực tế
 
 Bạn có N người. Các sự kiện xảy ra:
+
 - "A kết bạn với B" → A và B cùng nhóm
 - "C kết bạn với D" → C và D cùng nhóm  
 - "A kết bạn với C" → {A, B} và {C, D} gộp thành {A, B, C, D}
@@ -474,10 +475,12 @@ same_group(4, 7)?
 ### 3.1. Bài toán
 
 Bạn là lớp trưởng. Cả lớp có N học sinh, mỗi người có điểm số. Giáo viên hỏi:
+
 - "Tổng điểm học sinh từ số 5 đến số 12 là bao nhiêu?"
 - "Cập nhật điểm học sinh số 7 thành 10!"
 
 Với mảng thường:
+
 - Mỗi câu hỏi tổng đoạn: O(N) — phải duyệt từ 5 đến 12
 - N câu hỏi: O(N²) — **quá chậm** khi N = 10⁵!
 
@@ -509,6 +512,7 @@ Thay vì lưu từng phần tử, ta chia mảng thành các đoạn:
 ### 3.3. Cấu trúc cây
 
 Segment Tree là **cây nhị phân đầy đủ**:
+
 - **Nút lá:** Lưu giá trị của 1 phần tử (mảng gốc)
 - **Nút trong:** Lưu kết quả gộp (tổng, min, max...) của 2 con
 - **Nút gốc:** Lưu kết quả cho toàn mảng
@@ -545,6 +549,7 @@ Kết quả: 10 + 5 = 15 = 3 + 7 + 1 + 4 ✅
 ```
 
 **3 trường hợp tại mỗi nút:**
+
 1. **Nằm ngoài hoàn toàn** → trả về giá trị "rỗng" (0 cho tổng, +∞ cho min)
 2. **Nằm trong hoàn toàn** → trả về giá trị tại nút (không cần duyệt thêm!)
 3. **Giao một phần** → chia đôi, gọi đệ quy 2 con, gộp kết quả
@@ -722,15 +727,16 @@ Tương tự Segment Tree: cần truy vấn tổng đoạn + cập nhật điể
 
 BIT chia mảng thành các "block" có **độ dài là lũy thừa của 2**, dựa trên **bit thấp nhất** của chỉ số.
 
-**Bit thấp nhất (lowest set bit):**
+**Bit thấp nhất (lowest set bit):** 
+Trong máy tính, số âm được lưu dưới dạng **số bù 2** (đảo bit và cộng 1). Khi bạn thực hiện phép AND giữa `i` và `-i`, kết quả chỉ giữ lại duy nhất 1 bit ở vị trí thấp nhất đang được bật.
 
 ```
 i & (-i)  →  bit thấp nhất của i
 
-i = 12 = 1100₂  → i & (-i) = 0100₂ = 4   → block dài 4
-i = 10 = 1010₂  → i & (-i) = 0010₂ = 2   → block dài 2
-i = 8  = 1000₂  → i & (-i) = 1000₂ = 8   → block dài 8
-i = 7  = 0111₂  → i & (-i) = 0001₂ = 1   → block dài 1
+Ví dụ:
+  i = 12 (1100₂)
+ -i = -12 (bù 2: 0011₂ + 1 = 0100₂)
+  i & (-i) = 1100₂ & 0100₂ = 0100₂ (là 4) → block dài 4
 ```
 
 ### 4.4. BIT hoạt động như thế nào?
@@ -1056,4 +1062,4 @@ def find(self, v):
 - [VNOI Wiki - Fenwick Tree](https://wiki.vnoi.info/algo/data-structures/fenwick)
 - [YouTube - Segment Tree Playlist (takeuforward)](https://www.youtube.com/playlist?list=PLtfqa971vD5GTQjH9U0H6kiq9cQlFFa5k)
 
-**Bài tiếp theo:** [KMP - Tìm xâu siêu nhanh →](09-kmp-tim-xau.md)
+**Bài tiếp theo:** [BFS/DFS trên đồ thị →](10-bfs-dfs-do-thi.md)

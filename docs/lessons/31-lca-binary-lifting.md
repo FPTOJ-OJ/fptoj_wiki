@@ -1,6 +1,6 @@
 # Bài 31: LCA & Binary Lifting - Tổ tiên chung gần nhất
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - LCA, VNOI Wiki
 
 ## 1. Chuyện gì đang xảy ra?
@@ -29,6 +29,7 @@ LCA(4, 4) = 4   (chính nó)
 ### Tại sao LCA quan trọng?
 
 LCA xuất hiện ở **rất nhiều** bài toán cây:
+
 - Khoảng cách giữa 2 đỉnh: `dist(u, v) = depth[u] + depth[v] - 2 * depth[LCA(u, v)]`
 - Đường đi giữa 2 đỉnh trên cây
 - Bài toán cộng trên đường đi trong cây
@@ -369,4 +370,4 @@ Gốc có `up[root][0] = 0` (không có cha). Đảm bảo đỉnh 0 không có 
 - [VNOI Wiki - LCA Binary Lifting](https://wiki.vnoi.info/algo/data-structures/lca-binlift)
 - [YouTube - LCA (takeuforward)](https://www.youtube.com/watch?v=qPxS_rY0OJw)
 
-**Bài tiếp theo:** [Bài 32: Suffix Array →](32-suffix-array.md)
+**Bài tiếp theo:** [Greedy →](21-greedy.md)

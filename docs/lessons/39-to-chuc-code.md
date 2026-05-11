@@ -1,6 +1,6 @@
 # Bài 39: Tổ Chức Code & Chuẩn Bị Nộp Bài
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung:** Kỹ năng tổ chức code, quản lý thư mục, chuẩn bị nộp USB
 
 ## 1. Tại sao phải tổ chức code?

@@ -1,6 +1,6 @@
 # Bài 28: Bao Lồi (Convex Hull)
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Bao lồi, CP-Algorithms
 
 ## 1. Bao lồi là gì?
@@ -52,6 +52,7 @@ cross < 0  →  A→B quay PHẢI (clockwise / CW)
 **Ẩn dụ: Quẹo xe**
 
 Imagine bạn đang lái xe từ O đến A, rồi muốn rẽ đến B:
+
 - `cross > 0`: quẹo trái
 - `cross = 0`: đi thẳng
 - `cross < 0`: quẹo phải
@@ -312,10 +313,12 @@ if (n <= 1) return points;
 ### 5.3. Tọa độ nguyên vs số thực
 
 **Tọa độ nguyên (long long):**
+
 - Dùng `long long` cho cross product → chính xác tuyệt đối
 - Phạm vi: |x|, |y| ≤ 10^9 an toàn (vì cross = O(10^18) vừa trong `long long`)
 
 **Tọa độ số thực (double):**
+
 - Dùng `abs(cross) < epsilon` thay vì `cross == 0`
 - Epsilon thường dùng: `1e-9` hoặc `1e-12`
 - Cẩn thận: so sánh `<= 0` với double có thể sai do sai số
@@ -343,6 +346,7 @@ reverse(hull.begin(), hull.end());
 ### 5.5. Điểm trùng nhau
 
 Nếu tập điểm có nhiều điểm trùng nhau:
+
 - Andrew's Monotone Chain vẫn hoạt động đúng (vì sort sẽ đặt chúng cạnh nhau)
 - Nhưng nếu dùng `cross < 0` thay vì `<= 0`, điểm trùng có thể nằm trên bao lồi → không cần lo
 
@@ -588,6 +592,7 @@ bool pointInHull(const Point& P, const vector<Point>& hull) {
 - [VNOI Wiki - Giải thích trực quan về bao lồi](https://vnoi.info/translate/wcipeg/Bao-lồi)
 - [CP-Algorithms - Convex Hull](https://cp-algorithms.com/geometry/convex-hull.html)
 - [CP-Algorithms - Rotating Calipers](https://cp-algorithms.com/geometry/rotating-calipers.html)
-- [GeeksforGeeks - Convex Hull](https://www.geeksforgeeks.org/dsa/convex-hull-set-1-jarviss-algorithm-or-wrapping/)
 - [USACO Guide - Convex Hull](https://usaco.guide/adv/geo)
 - [YouTube - Convex Hull (Errichto)](https://www.youtube.com/watch?v=B2aDgfbj3kE)
+
+**Bài tiếp theo:** [Kỹ năng thi đấu →](36-ky-nang-thi-dau.md)

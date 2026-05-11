@@ -16,7 +16,7 @@ Bài viết này sẽ giới thiệu ba thuật toán cơ bản của dạng bà
 * Thuật toán Dijkstra.
 * Thuật toán Floyd-Warshall (còn gọi là thuật toán Floyd).
 
-Cần lưu ý rằng, [có một thuật toán thông dụng khác](../../basic/two-pointers#gi%E1%BA%A3i-ph%C3%A1p-3) cũng có tên thường gọi là thuật toán Floyd, dùng để tìm chu trình trong đồ thị có hướng. Bài viết này sẽ chỉ đề cập đến thuật toán tìm đường đi ngắn nhất.
+Cần lưu ý rằng, [có một thuật toán thông dụng khác](../basic/two-pointers.md#giai-phap_2) cũng có tên thường gọi là thuật toán Floyd, dùng để tìm chu trình trong đồ thị có hướng. Bài viết này sẽ chỉ đề cập đến thuật toán tìm đường đi ngắn nhất.
 
 
 

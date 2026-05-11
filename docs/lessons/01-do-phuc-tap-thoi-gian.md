@@ -1,6 +1,6 @@
 # Bài 1: Độ Phức Tạp Thời Gian - Tại Sao Thuật Toán Chạy Chậm Như Rùa?
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Độ phức tạp thời gian, Topcoder - Computational Complexity
 
 ## 1. Chuyện gì đang xảy ra?
@@ -28,6 +28,7 @@ Bạn không cần học đạo hàm hay tích phân để hiểu logarit! Hãy 
 > **Logarit cơ số 2 của N** (viết là log₂N) = **Số lần bạn phải nhân 2 với chính nó để ra N**.
 
 Ví dụ:
+
 - log₂(8) = 3, vì 2 × 2 × 2 = 8 (nhân 3 lần)
 - log₂(16) = 4, vì 2 × 2 × 2 × 2 = 16 (nhân 4 lần)
 - log₂(1.000.000) ≈ 20
@@ -35,6 +36,7 @@ Ví dụ:
 **Vì sao quan trọng?** Khi một thuật toán "chia đôi" vấn đề mỗi bước (như Bình tìm sách), số bước cần thiết chính là log₂N!
 
 **Mẹo nhớ nhanh:**
+
 | N | log₂N (xấp xỉ) |
 |---|---|
 | 1.000 | 10 |
@@ -50,6 +52,7 @@ Thay vì đếm chính xác "thuật toán chạy 1.532.789 bước", ta chỉ c
 **O-lớn** là cách viết tắt để nói: "Khi N đủ lớn, thuật toán này chạy không quá c × (một hàm nào đó) bước".
 
 Ví dụ:
+
 - `f(n) = 2n + 10` → O(n), vì khi n đủ lớn, 10 chả là gì cả, 2n cũng chỉ là "n với hệ số nhỏ"
 - `f(n) = 3n² + 5n + 100` → O(n²), vì khi n đủ lớn, 3n² "nuốt chửng" mọi thứ còn lại
 
@@ -183,6 +186,23 @@ Thoạt nhìn: vòng lặp lồng nhau → O(n²)?
 → Tổng cộng: i chạy n lần + j chạy n lần = O(n) + O(n) = **O(n)**!
 
 > **Bài học:** Không phải cứ thấy vòng lặp lồng là O(n²)! Phải xem xét kĩ biến bên trong chạy bao nhiêu lần **tổng cộng**.
+
+### Độ phức tạp bộ nhớ (Space Complexity)
+
+Bên cạnh thời gian, máy tính còn giới hạn về **bộ nhớ** (thường là 256MB hoặc 512MB).
+
+**Nguyên tắc ước lượng:**
+- Một biến `int` tốn 4 bytes.
+- Mảng `int a[1.000.000]` tốn ~4MB.
+- Mảng `int a[10.000][10.000]` (10⁸ phần tử) tốn ~400MB → **Dễ bị quá giới hạn (MLE)!**
+
+| Độ phức tạp | Giải thích | Ví dụ |
+|-------------|-----------|-------|
+| O(1) | Dùng vài biến đơn lẻ | Tính tổng 2 số |
+| O(N) | Dùng mảng 1 chiều kích thước N | Lưu danh sách học sinh |
+| O(N²) | Dùng mảng 2 chiều N×N | Ma trận kề, bảng DP 2D |
+
+> **Mẹo:** Trong lập trình thi đấu, ưu tiên tiết kiệm bộ nhớ nếu có thể (ví dụ: dùng DP 1D thay vì 2D).
 
 ---
 

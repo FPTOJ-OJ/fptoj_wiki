@@ -32,7 +32,7 @@ Binary Heap được dùng để cài đặt [priority queue](https://en.wikiped
 ## 1.2. Cài đặt
 
 - Trong C++, bạn có thể sử dụng CTDL `priority_queue` hoặc `set`, vì vậy việc tự cài đặt lại là không cần thiết.
-- Với Pascal, bạn có thể tìm hiểu cách cài đặt trong [quyển sách của thầy Lê Minh Hoàng](algo/basic/Tai-Lieu-Thuat-Toan)
+- Với Pascal, bạn có thể tìm hiểu cách cài đặt trong [quyển sách của thầy Lê Minh Hoàng](../../algo/basic/Tai-Lieu-Thuat-Toan.md)
 
 ## 2. Các thao tác trên Binary Heap
 

@@ -1,6 +1,6 @@
 # Bài 2: Thuật Toán Sắp Xếp - Ai Là Vua Tốc Độ?
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán sắp xếp
 
 ## 1. Chuyện gì đang xảy ra?
@@ -47,6 +47,7 @@ a[3], a[7] = a[7], a[3]
 Giả sử bạn có danh sách học sinh kèm điểm: (An, 8), (Bình, 7), (Chi, 8), (Dũng, 6).
 
 Sắp xếp theo điểm tăng dần:
+
 - **Ổn định:** (Dũng, 6), (Bình, 7), **(An, 8)**, **(Chi, 8)** → An vẫn đứng trước Chi (giữ nguyên thứ tự ban đầu).
 - **Không ổn định:** (Dũng, 6), (Bình, 7), **(Chi, 8)**, **(An, 8)** → Chi "chen" lên trước An!
 
@@ -107,6 +108,7 @@ Bước 3: [1, 3, 5, 8]    → chèn 1 vào đầu
 **Ẩn dụ:** Bạn có 2 bộ bài đã sắp xếp. Việc **trộn** 2 bộ này thành 1 bộ hoàn chỉnh rất dễ: chỉ cần so sánh lá đầu mỗi bộ, lấy lá nhỏ hơn!
 
 **Cách hoạt động:**
+
 1. **Chia** mảng thành 2 nửa
 2. **Gọi đệ quy** sắp xếp từng nửa
 3. **Trộn** 2 nửa đã sắp xếp lại
@@ -128,6 +130,7 @@ Bước 3: [1, 3, 5, 8]    → chèn 1 vào đầu
 ```
 
 **Tại sao O(N log N)?**
+
 - Cây đệ quy có **log N** tầng (chia đôi mỗi tầng)
 - Mỗi tầng tốn **O(N)** để trộn
 - Tổng: O(N) × O(log N) = **O(N log N)**
@@ -137,6 +140,7 @@ Bước 3: [1, 3, 5, 8]    → chèn 1 vào đầu
 **Ẩn dụ:** Bạn muốn chia lớp thành 2 nhóm: nhóm cao hơn 1m6 và nhóm thấp hơn 1m6. Bạn chọn 1m6 làm "mốc" (pivot), rồi phân loại.
 
 **Cách hoạt động:**
+
 1. **Chọn pivot** (phần tử mốc)
 2. **Phân hoạch:** Đưa các phần tử < pivot sang trái, > pivot sang phải
 3. **Gọi đệ quy** sắp xếp 2 bên
@@ -154,6 +158,7 @@ Gộp: [1, 2, 3] [5] [7, 8, 9] = [1, 2, 3, 5, 7, 8, 9]
 ```
 
 **Độ phức tạp:**
+
 - Trung bình: **O(N log N)** - rất nhanh!
 - Xấu nhất: O(N²) (khi pivot luôn là max hoặc min) → khắc phục bằng cách **chọn pivot ngẫu nhiên**!
 
@@ -337,6 +342,101 @@ def quick_sort(a):
     return quick_sort(left) + middle + quick_sort(right)
 ```
 
+### Ứng dụng quan trọng: Đếm nghịch thế bằng Merge Sort
+
+**Nghịch thế (inversion)** = cặp (i, j) mà i < j nhưng a[i] > a[j]. Đây là thước đo "mức độ đảo lộn" của một mảng.
+
+**Cách naive:** O(N²) — duyệt mọi cặp. Không đủ nhanh khi N = 10⁵.
+
+**Bằng Merge Sort:** Mỗi khi lấy phần tử từ nửa **phải** trong lúc merge, tất cả phần tử còn lại trong nửa **trái** đều lớn hơn nó và đứng trước nó → đều là nghịch thế!
+
+```cpp
+long long inversions = 0;
+
+void mergeCount(int a[], int left, int mid, int right) {
+    int i = left, j = mid + 1, k = 0;
+    while (i <= mid && j <= right) {
+        if (a[i] <= a[j]) {
+            temp[k++] = a[i++];
+        } else {
+            // a[j] nhỏ hơn tất cả a[i..mid] → tạo (mid-i+1) nghịch thế!
+            inversions += (mid - i + 1);
+            temp[k++] = a[j++];
+        }
+    }
+    while (i <= mid) temp[k++] = a[i++];
+    while (j <= right) temp[k++] = a[j++];
+    for (int i = 0; i < k; i++) a[left + i] = temp[i];
+}
+
+void mergeSortCount(int a[], int left, int right) {
+    if (left >= right) return;
+    int mid = left + (right - left) / 2;
+    mergeSortCount(a, left, mid);
+    mergeSortCount(a, mid + 1, right);
+    mergeCount(a, left, mid, right);
+}
+// Gọi: inversions = 0; mergeSortCount(a, 0, n-1);
+// Kết quả: inversions = số nghịch thế
+```
+```python
+def merge_count(a):
+    if len(a) <= 1:
+        return a, 0
+    
+    mid = len(a) // 2
+    left, inv_left = merge_count(a[:mid])
+    right, inv_right = merge_count(a[mid:])
+    
+    merged = []
+    inv = inv_left + inv_right
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            # left[i..] đều > right[j] → (len(left)-i) nghịch thế
+            inv += len(left) - i
+            merged.append(right[j])
+            j += 1
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged, inv
+
+# Ví dụ: [3, 1, 2] → inversions = 2 (cặp (3,1) và (3,2))
+_, count = merge_count([3, 1, 2])
+print(count)  # 2
+```
+
+### Sắp xếp theo nhiều tiêu chí (Custom Comparator)
+
+Sắp xếp struct/pair theo nhiều điều kiện là kỹ năng bắt buộc trong thi đấu:
+
+```cpp
+struct Student {
+    string name;
+    int score;
+    int age;
+};
+
+vector<Student> students = {{"An", 8, 17}, {"Binh", 7, 18}, {"Chi", 8, 16}};
+
+// Sắp xếp: điểm giảm dần, nếu bằng thì tuổi tăng dần
+sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
+    if (a.score != b.score) return a.score > b.score;  // điểm cao hơn trước
+    return a.age < b.age;                               // tuổi nhỏ hơn trước
+});
+// Kết quả: Chi(8,16), An(8,17), Binh(7,18)
+```
+```python
+students = [("An", 8, 17), ("Binh", 7, 18), ("Chi", 8, 16)]
+
+# Sắp xếp: điểm giảm dần, nếu bằng thì tuổi tăng dần
+students.sort(key=lambda s: (-s[1], s[2]))
+# Kết quả: [('Chi', 8, 16), ('An', 8, 17), ('Binh', 7, 18)]
+```
+
 ---
 
 ## 5. Lưu ý / Cạm bẫy hay gặp
@@ -346,6 +446,7 @@ def quick_sort(a):
 N = 100.000 mà dùng Insertion Sort (O(N²)) → 10¹⁰ phép tính → **TLE ngay!**
 
 **Quy tắc:**
+
 - N ≤ 1.000 → Insertion Sort OK
 - N ≤ 10⁵ → Merge Sort / Quick Sort
 - N ≤ 10⁶ → Dùng `sort()` thư viện

@@ -1,6 +1,6 @@
 # Bài 21: Greedy (Tham Lam) - Chọn Tốt Nhất Mỗi Bước!
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Tham lam
 
 ## 1. Chuyện gì đang xảy ra?
@@ -10,6 +10,7 @@
 Bạn cần đổi 110 đồng bằng ít tờ tiền nhất. Các mệnh giá: 1, 5, 10, 50, 100.
 
 **Greedy:** Mỗi bước chọn mệnh giá **lớn nhất** có thể!
+
 - 110 → lấy 1 tờ 100 → còn 10
 - 10 → lấy 1 tờ 10 → còn 0
 - Tổng: 2 tờ! ✅
@@ -23,12 +24,14 @@ Bạn cần đổi 110 đồng bằng ít tờ tiền nhất. Các mệnh giá: 
 ### Khi nào Greedy đúng?
 
 Greedy **không phải lúc nào cũng đúng!** Chỉ đúng khi bài toán có:
+
 1. **Tính tham lam (Greedy Choice Property):** Lựa chọn tốt nhất cục bộ → tốt nhất toàn cục
 2. **Tính tối ưu con (Optimal Substructure):** Bài toán lớn = bài toán con + lựa chọn
 
 ### Ví dụ Greedy SAI
 
 Đổi tiền với mệnh giá {1, 3, 4}, cần đổi 6:
+
 - Greedy: 4 + 1 + 1 = 3 tờ ← SAI!
 - Đúng: 3 + 3 = 2 tờ
 
@@ -212,6 +215,7 @@ def min_platforms(arrival, departure):
 3. Kết luận: G cũng tối ưu
 
 **Ví dụ: Activity Selection**
+
 - Giả sử O chọn hoạt động kết thúc lúc t₁, nhưng G chọn hoạt động kết thúc sớm hơn lúc t₀ < t₁
 - Hoán đổi: thay hoạt động t₁ bằng t₀ trong O
 - Kết quả: O mới có cùng số hoạt động, nhưng hoạt động cuối kết thúc sớm hơn → có thể chọn thêm nhiều hơn
@@ -223,6 +227,7 @@ def min_platforms(arrival, departure):
 2. Dùng quy nạp: bước đầu tiên Greedy chọn tốt nhất → các bước sau cũng vậy
 
 **Ví dụ: Đổi tiền {1, 5, 10, 50, 100}**
+
 - Chứng minh: nếu Greedy chọn tờ 100, thì mọi nghiệm tối ưu cũng phải dùng tờ 100
 - Vì nếu không dùng tờ 100, cần ít nhất 10 tờ 10 → nhiều hơn 1 tờ 100
 - → Greedy đúng

@@ -1,6 +1,6 @@
 # Bài 34: Queue - Hàng Đợi
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** GeeksforGeeks - Queue, VNOI Wiki
 
 ## 1. Chuyện gì đang xảy ra?
@@ -281,4 +281,4 @@ q.push(start);  // Đánh dấu TRƯỚC khi push!
 - [VNOI Wiki - BFS](https://wiki.vnoi.info/algo/graph-theory/breadth-first-search)
 - [YouTube - BFS (takeuforward)](https://www.youtube.com/watch?v=0dCM6BKJS8E)
 
-**Bài trước:** [Linked List ←](33-linked-list.md) | **Bài tiếp theo:** [Về trang tổng hợp →](index.md)
+**Bài trước:** [Linked List ←](33-linked-list.md) | **Bài tiếp theo:** [Hash Table →](16-hash-table.md)

@@ -18,9 +18,9 @@ Ví dụ: $A = [4, 6, 1, 5, 7, 3]\rightarrow min[2\ldots5] = min(6,1,5,7)=1$
 
 Bài toán $RMQ$ có nhiều cách giải, nhưng $2$ cách phổ biến nhất là:
 - **Sparse Table**: $\mathcal{O}(N\log{N})$ tiền xử lý, $\mathcal{O}(1)$ mỗi truy vấn.
-- [Segment Tree](algo/data-structures/segment-tree-basic): $\mathcal{O}(N)$ tiền xử lý, $\mathcal{O}(\log{N})$ mỗi truy vấn.
+- [Segment Tree](segment-tree-basic.md): $\mathcal{O}(N)$ tiền xử lý, $\mathcal{O}(\log{N})$ mỗi truy vấn.
 
-Sự khác biệt giữa $2$ cách giải này nằm ở chỗ, [Segment Tree](algo/data-structures/segment-tree-basic) có thể xử lý được **hoạt động sửa đổi** xen kẽ với các truy vấn, còn Sparse Table thì không.
+Sự khác biệt giữa $2$ cách giải này nằm ở chỗ, [Segment Tree](segment-tree-basic.md) có thể xử lý được **hoạt động sửa đổi** xen kẽ với các truy vấn, còn Sparse Table thì không.
 
 Nhưng Sparse Table không "phế", sức mạnh của Sparse Table nằm ở khả năng truy vấn trong $\mathcal{O}(1)$ khi các phép toán thoả mãn tính chất [Idempotence](https://en.wikipedia.org/wiki/Idempotence): "một giá trị có thể **xuất hiện nhiều lần** nhưng **không làm thay đổi kết quả** phép toán", ví dụ như $min,max,gcd,lcm,and,or,\ldots$
 
@@ -328,10 +328,10 @@ def querySum(l, r):
 - Độ phức tạp bộ nhớ: $\mathcal{O}(N\log N)$
 
 ### Lưu ý
-Mình biết rằng bài này có cách dễ hơn là dùng [Mảng Cộng Dồn](algo/data-structures/prefix-sum-and-difference-array), nhưng lý do mảng cộng dồn sử dụng được là vì phép cộng có "phép đảo ngược" là phép trừ.
+Mình biết rằng bài này có cách dễ hơn là dùng [Mảng Cộng Dồn](prefix-sum-and-difference-array.md), nhưng lý do mảng cộng dồn sử dụng được là vì phép cộng có "phép đảo ngược" là phép trừ.
 
 Nếu xét phép toán nhân $2$ ma trận **không** vuông:
-- Phép [nhân ma trận](algo/trick/matrix-multiplication) không thoả tính chất Idempotence
+- Phép [nhân ma trận](../trick/matrix-multiplication.md) không thoả tính chất Idempotence
 - Ma trận **không** vuông không có ma trận nghịch đảo nên không có "phép đảo ngược"
 
 Vậy bài toán lúc này không thể dùng mảng cộng dồn, cũng không thể dùng Sparse Table truy vấn $\mathcal{O}(1)$. Do đó, Sparse Table truy vấn $\mathcal{O}(\log N)$ là một giải pháp hợp lý (dù khá tốn bộ nhớ so với Segment Tree).
@@ -422,7 +422,7 @@ void preprocess() {
     }
 }
 ```
-Để truy vấn $min([x\ldots a][y\ldots b])$ trong $\mathcal{O}(1)$ bằng Sparse Table 2D, ta làm tương tự như [Bài Toán RMQ](#Range-Minimum-Queries-RMQ), nhưng tách cả $2$ chiều $M$ và $N$, nghĩa là:
+Để truy vấn $min([x\ldots a][y\ldots b])$ trong $\mathcal{O}(1)$ bằng Sparse Table 2D, ta làm tương tự như [Bài Toán RMQ](#range-minimum-query-rmq), nhưng tách cả $2$ chiều $M$ và $N$, nghĩa là:
 $$\begin{cases}
 k = \log_2(a - x + 1) \\
 l = \log_2(b - y + 1) \\

@@ -604,6 +604,7 @@ Qua ví dụ vừa rồi, ta thấy rằng, vị trí $l$ đối với các giá
 Thật vậy, với mọi $x<l$ thì $sum(x,r)>s \Rightarrow sum(x,r+1)>s$, vì thế giá trị $l$ đối với $r+1$ phải không quá giá trị $l$ đối với $r$.
 
 Hơn nữa vì các phần tử trong dãy $a$ đều có giá trị không quá $s$ cho nên luôn tồn tại vị trí $l \leq r$ sao cho đoạn $[l,r]$ là một đoạn "tốt". 
+
 ## Giải pháp
 
 Với những phân tích như trên, ta có giải quyết bài toán với phương pháp hai con trỏ như sau:
@@ -898,6 +899,7 @@ Ta có thể tính được giá trị này bằng cách xác định
 Ở đây, phần tử bắt đầu chu kỳ là $x_5$ và độ dài chu kỳ là $4$.
 
 Giá trị $n = \mu + \lambda = 5 + 4 = 9$.
+
 
 ## Giải pháp
 

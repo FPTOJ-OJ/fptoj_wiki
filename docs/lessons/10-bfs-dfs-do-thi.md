@@ -1,6 +1,6 @@
 # Bài 10: BFS & DFS - Duyệt Đồ Thị!
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - BFS, Cây DFS và ứng dụng, CP-Algorithms
 
 ## 1. Đồ thị là gì?

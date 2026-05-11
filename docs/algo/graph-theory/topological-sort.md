@@ -19,7 +19,7 @@
 
 ![Topological Sort Example 1](../../All_Images_Collected/topological_1.png)
 
-![/uploads/topological_sort_img1.png](/uploads/topological_sort_img1.png)
+![/uploads/topological_sort_img1.png](../../uploads/topological_sort_img1.png)
 
 ## Cảm hứng
 
@@ -43,7 +43,7 @@
 
     ![Topological Sort Example 2](../../All_Images_Collected/topological_2.png)
 
-    ![/uploads/topological_sort_img2.png](/uploads/topological_sort_img2.png)
+    ![/uploads/topological_sort_img2.png](../../uploads/topological_sort_img2.png)
     * Bây giờ, với hai đỉnh bất kỳ $u$ và $v$ trong danh sách Tô-pô, giả sử $u$ đứng trước $v$:
         * Nếu $u$ là giá trị đầu tiên trong danh sách (đỉnh nguồn), trong trường hợp đó, rõ ràng là **không thể** tồn tại cạnh nối từ $v \rightarrow u$. 
         * Nếu cả hai đỉnh $u$ và $v$ đều không phải là giá trị đầu tiên trong danh sách, dù trong trường hợp nào thì chúng đều được sắp xếp đúng vì chúng thuộc phần đồ thị con được sắp xếp theo thứ tự Tô-pô. 
@@ -95,7 +95,7 @@ Cho đồ thị có hướng không chu trình *(Directed Acyclic Graph - DAG)* 
 
 ![Topological Sort Result](../../All_Images_Collected/topological_3.png)
 
-![/uploads/topological_sort_img3.png](/uploads/topological_sort_img3.png)
+![/uploads/topological_sort_img3.png](../../uploads/topological_sort_img3.png)
 
 ## Thuật toán 1
 
@@ -210,7 +210,7 @@ else:
 **Mô tả quá trình**
 - Thứ tự Tô-pô **không phải** là duy nhất. Quá trình sau chỉ mô tả lại quá trình xác định $1$ thứ tự Tô-pô theo như code mẫu.
 
-[/uploads/topological_sort_gif1.gif](/uploads/topological_sort_gif1.gif)
+[/uploads/topological_sort_gif1.gif](../../uploads/topological_sort_gif1.gif)
 
 - Sau khi xác định được thứ tự Tô-pô của đồ thị là `topo = {1; 6; 7; 2; 4; 5; 3}`. Ta đánh số lại các đỉnh. Khi đó ta sẽ có mảng `ans = {1; 4; 7; 5; 6; 2; 3}`.
 
@@ -231,13 +231,13 @@ else:
 - Đối với **thuật toán 2**, quá trình tìm kiếm theo chiều sâu sẽ trả ra **danh sách nghịch đảo thứ tự Tô-pô**. Đơn giản hơn, nó chính là danh sách Tô-pô bị đảo ngược lại.
 - Điều này tương đương với việc nếu tồn tại cung $u \rightarrow v$ thì $u$ có **số thứ tự cao hơn** $v$ trong **danh sách nghịch đảo Tô-pô**.
 - **Ví dụ minh họa:**
-![/uploads/topological_sort_img4.png](/uploads/topological_sort_img4.png)
+![/uploads/topological_sort_img4.png](../../uploads/topological_sort_img4.png)
 - **Chứng minh:** Hãy xem xét **cây *DFS*** của đồ thị *(tìm hiểu thêm về cây $DFS$ tại [đây](Depth-First-Search-Tree.md))*:
     * Nếu $u$ là tổ tiên của $v$ trong cây $DFS$, thì quá trình duyệt xong cây con gốc $v$ sẽ kết thúc sớm hơn quá trình duyệt xong cây con gốc $u$. Do đó, $u$ sẽ có số thứ tự cao hơn $v$ trong danh sách.
     * Nếu $u$ là tổ tiên của $v$ trong cây $DFS$ và tồn tại cung nối từ $1$ đỉnh thuộc cây con gốc $v$ đến đỉnh $u$ thì đồ thị có chu trình (không phải là *DAG*) nên sẽ không tồn tại thứ tự Tô-pô.
     * Nếu $u$ **không phải** là tổ tiên của $v$ và $v$ cũng **không phải** là tổ tiên của $u$ trong cây $DFS$ thì khi đó, $2$ đỉnh $u$ và $v$ sẽ nằm trên $2$ nhánh khác nhau của cây $DFS$. Do đó cung nối từ nhánh chứa đỉnh $u$ đến nhánh chứa đỉnh $v$ là **cung chéo** và đỉnh $u$ sẽ được duyệt sau $v$ nên sẽ có số thứ tự cao hơn $v$ trong danh sách.
         * **Ví dụ minh họa:** Bắt đầu duyệt $DFS$ từ đỉnh $S$. Các "cạnh nét liền" là cung của cây $DFS$. Các "cạnh nét đứt" **không phải** là cung của cây $DFS$. Với cung chéo $u \rightarrow v$, đỉnh $v$ chắc chắn sẽ được duyệt trước $u$. Vì nếu $u$ được duyệt trước $v$ thì đỉnh $u$ sẽ là **tổ tiên** của đỉnh $v$ và cung $u \rightarrow v$ sẽ không còn là cung chéo nữa, khi đó ta xét giống như ở trường hợp đầu tiên.
-        ![/uploads/topological_sort_img5.png](/uploads/topological_sort_img5.png)
+        ![/uploads/topological_sort_img5.png](../../uploads/topological_sort_img5.png)
 - Từ những nhận xét trên, ta có thuật toán để tìm ra một thứ tự Tô-pô như sau:
     * Xuất phát từ một điểm chưa được duyệt, ta bắt đầu duyệt $DFS$ trên đồ thị xuất phát từ điểm đó.
     * Dùng một mảng để lưu trạng thái của mỗi đỉnh. Có $3$ trạng thái:
@@ -344,7 +344,7 @@ print(' '.join(map(str, ans[1:])))
 **Mô tả quá trình**
 - Thứ tự Tô-pô **không phải** là duy nhất. Quá trình sau chỉ mô tả lại quá trình xác định $1$ thứ tự Tô-pô theo như code mẫu.
 
-[/uploads/topological_sort_gif2.gif](/uploads/topological_sort_gif2.gif)
+[/uploads/topological_sort_gif2.gif](../../uploads/topological_sort_gif2.gif)
 
 - Sau khi xác định được thứ tự Tô-pô của đồ thị là `topo = {7; 6; 1; 4; 5; 2; 3}`. Ta đánh số lại các đỉnh. Khi đó ta sẽ có mảng `ans = {3; 6; 7; 4; 5; 2; 1}`.
 

@@ -375,7 +375,7 @@ Cho đồ thị có hướng $n$ đỉnh ($n\le100$) và **bậc ngoài** của 
 Giới hạn thời gian là rất lớn (12 giây).
 
 ### Ý tưởng
-Tương tự [Bài toán 2](#Bài-toán-2), ta có thể ứng dụng "middle" như sau:
+Tương tự [Bài toán 2](#bai-toan-2), ta có thể ứng dụng "middle" như sau:
 - Đặt đỉnh thứ $5$ trong đường đi là $u$.
 - Với mỗi $u$:
 	- Ta có tập $A$ gồm các đường đi độ dài $4$ ứng với $4$ đỉnh $1,2,3,4$ thoả mãn các màu là phân biệt và khác màu của $u$ (bằng DFS hoặc 4 vòng for từ $u$ **trong đồ thị ngược**)

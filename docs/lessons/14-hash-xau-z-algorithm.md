@@ -1,6 +1,6 @@
 # Bài 14: Hash Xâu & Z-Algorithm
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Hash, Z-function
 
 ## 1. Hash Xâu - So Sánh Xâu Siêu Nhanh!

@@ -14,7 +14,7 @@ Cho dãy $A_1,A_2,..., A_n$. Hãy tìm một dãy con tăng có nhiều phần t
 - Các phần tử trong dãy kết quả chỉ xuất hiện 1 lần. Vì vậy phương pháp làm là ta sẽ dùng vòng `For` duyệt qua các phần tử $A$ trong dãy, khác với các bài toán của mô hình 4 (đặc trưng là bài toán đổi tiền), các phần tử trong dãy có thể được chọn nhiều lần nên ta thực hiện bằng phương pháp cho giá trị cần quy đổi tăng dần từng đơn vị.
 - Thứ tự của các phần tử được chọn phải được giữ nguyên so với dãy ban đầu.
 
-Đặc trưng này có thể mất đi trong một số bài toán khác tùy vào yêu cầu cụ thể. Chẳng hạn bài: [Tam giác bao nhau](#1-dãy-con-đơn-điệu-dài-nhất_1-4-một-số-bài-toán-khác_dãy-tam-giác-bao-nhau).
+Đặc trưng này có thể mất đi trong một số bài toán khác tùy vào yêu cầu cụ thể. Chẳng hạn bài: [Tam giác bao nhau](#day-tam-giac-bao-nhau).
 
 ## 1.2. Công thức QHĐ
 
@@ -46,7 +46,7 @@ for i:= 1 to n do
 
 Như vậy độ phức tạp bộ nhớ của bài toán là $O(n)$, độ phức tạp thời gian là $O(n^2)$.
 
-Có một số phương pháp cài đặt tốt hơn so với phương pháp trên, cho chi phí thời gian là $O(nlogn)$, một trong những cách đó là dùng [Segment Tree](algo/data-structures/segment-tree-extend).
+Có một số phương pháp cài đặt tốt hơn so với phương pháp trên, cho chi phí thời gian là $O(nlogn)$, một trong những cách đó là dùng [Segment Tree](../data-structures/segment-tree-extend.md).
 
 ## 1.4. Một số bài toán khác
 
@@ -391,7 +391,7 @@ Bài toán này có một công thức QHĐ như sau:
   - $L(i,j)=L(i+1,j-1)$ nếu $S_i=S_j$
   - $L(i,j)=max(L(i+1,j), L(i,j-1))$ nếu $S_i \ne S_j$
 
-Bạn đọc dễ dàng có thể kiểm chứng công thức đó. Ta có thể cài đặt trực tiếp công thức đó bằng phương pháp đệ quy có nhớ. Tuy nhiên khi đó độ phức tạp bộ nhớ là $O(n^2)$. Có một phương pháp cài đặt tiết kiệm hơn, có thể tham khảo ở [bài viết của Nguyễn Hoành Tiến](algo/dp/palindrome-problems)
+Bạn đọc dễ dàng có thể kiểm chứng công thức đó. Ta có thể cài đặt trực tiếp công thức đó bằng phương pháp đệ quy có nhớ. Tuy nhiên khi đó độ phức tạp bộ nhớ là $O(n^2)$. Có một phương pháp cài đặt tiết kiệm hơn, có thể tham khảo ở [bài viết của Nguyễn Hoành Tiến](palindrome-problems.md)
 
 Ta có thuật toán đơn giản hơn như sau:
 

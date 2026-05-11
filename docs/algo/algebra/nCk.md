@@ -114,11 +114,11 @@ Dưới đây là một số cách sử dụng để tính $C_n^k$ theo modulo $
 
 |                                     Cách                                      |   Tiền xử lý    |        Truy vấn        |  Bộ nhớ  |   Độ khó   |                  Giới hạn                  |
 |:-----------------------------------------------------------------------------:|:---------------:|:----------------------:|:--------:|:----------:|:------------------------------------------:|
-|          [Sử dụng công thức truy hồi](#Sử-dụng-công-thức-truy-hồi1)           |    $O(n^2)$     |         $O(1)$         | $O(n^2)$ |   Cơ bản   |         $M$ bất kỳ, $n \sim 5000$          |
-|                  [Sử dụng định nghĩa](#Sử-dụng-định-nghĩa1)                   | $O(n + \log M)$ |         $O(1)$         |  $O(n)$  |   Cơ bản   |    $M$ nguyên tố, $n < M, n \sim 10^6$     |
-|                [Sử dụng định lý Lucas](#Sử-dụng-định-lý-Lucas)                |     $O(M)$      | $O\big(\log_M(n)\big)$ |  $O(M)$  | Trung bình |        $M$ nguyên tố, $M \sim 10^6$        |
-|        [Sử dụng định lý Lucas mở rộng](#Sử-dụng-định-lý-Lucas-mở-rộng)        |     $O(M)$      | $O\big(\log_p(n)\big)$ |  $O(M)$  | Trung bình | $M = p^q$ với $p$ nguyên tố, $M \sim 10^6$ |
-| [Sử dụng định lý thặng dư Trung Hoa](#Sử-dụng-định-lý-thặng-dư-Trung-Hoa) |                 |                        |          | Trung bình |                 $M$ bất kỳ                 |
+|          [Sử dụng công thức truy hồi](#su-dung-cong-thuc-truy-hoi)           |    $O(n^2)$     |         $O(1)$         | $O(n^2)$ |   Cơ bản   |         $M$ bất kỳ, $n \sim 5000$          |
+|                  [Sử dụng định nghĩa](#su-dung-inh-nghia)                   | $O(n + \log M)$ |         $O(1)$         |  $O(n)$  |   Cơ bản   |    $M$ nguyên tố, $n < M, n \sim 10^6$     |
+|                [Sử dụng định lý Lucas](#su-dung-inh-ly-lucas)                |     $O(M)$      | $O\big(\log_M(n)\big)$ |  $O(M)$  | Trung bình |        $M$ nguyên tố, $M \sim 10^6$        |
+|        [Sử dụng định lý Lucas mở rộng](#su-dung-inh-ly-lucas-mo-rong)        |     $O(M)$      | $O\big(\log_p(n)\big)$ |  $O(M)$  | Trung bình | $M = p^q$ với $p$ nguyên tố, $M \sim 10^6$ |
+| [Sử dụng định lý thặng dư Trung Hoa](#su-dung-inh-ly-thang-du-trung-hoa) |                 |                        |          | Trung bình |                 $M$ bất kỳ                 |
 
 Ngoài ra còn có hai cách tính dựa trên cách tính giai thừa modulo $M$ khá hiệu quả. Tham khảo thêm tại [đây](https://hackmd.io/vEuqGacrS-iS9SCBJ_5anQ?view). Dưới đây là đánh giá về hai cách đó:
 
@@ -619,7 +619,7 @@ def calc(N, K, R):
 **Tóm tắt:** Tính $C_n^k \bmod 142857$ với $0 \le k \le n \le 10^{9}$
 
 **Lời giải:**
-- Giả sử bằng những cách trên, bạn đã tính được $C_n^k$ modulo là số nguyên tố ([ĐL Lucas](#Định-lý-Lucas)) hoặc lũy thừa của chúng ([ĐL Lucas mở rộng](#Định-lý-Lucas-mở-rộng)). Tiếp theo ta sẽ sử dụng CRT xử lý các phần còn lại.
+- Giả sử bằng những cách trên, bạn đã tính được $C_n^k$ modulo là số nguyên tố ([ĐL Lucas](#su-dung-inh-ly-lucas)) hoặc lũy thừa của chúng ([ĐL Lucas mở rộng](#su-dung-inh-ly-lucas-mo-rong)). Tiếp theo ta sẽ sử dụng CRT xử lý các phần còn lại.
 - Đầu tiên, ta sẽ phân tích modulo $142857 = 3^3 \cdot 11 \cdot 13 \cdot 17$
     ```cpp
     int n_primes = 4;

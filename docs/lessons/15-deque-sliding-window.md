@@ -1,6 +1,6 @@
 # Bài 15: Deque & Sliding Window
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Deque, Hàng đợi hai đầu
 
 ## 1. Chuyện gì đang xảy ra?
@@ -53,6 +53,7 @@ Bài toán sliding window yêu cầu tìm max/min trong mỗi cửa sổ. Nếu 
 Giả sử deque đang lưu các chỉ số có giá trị giảm dần: `[i1, i2, i3]` với `a[i1] > a[i2] > a[i3]`.
 
 Khi thêm phần tử mới `a[i]`:
+
 - Nếu `a[i3] <= a[i]`: thì `a[i3]` **không bao giờ là max** nữa vì:
   - `a[i]` lớn hơn `a[i3]`
   - `a[i]` vào cửa sổ **sau** `a[i3]` nên sẽ tồn tại **lâu hơn** `a[i3]`
@@ -296,6 +297,7 @@ Cho mảng A, với mỗi phần tử A[i], tìm chỉ số **j > i** sao cho A[
 ### Ý tưởng: Dùng deque/stack đơn điệu giảm
 
 Duyệt từ **phải sang trái**, giữ deque có giá trị **giảm dần**. Với mỗi A[i]:
+
 - Loại bỏ các phần tử đầu deque có giá trị <= A[i] (vì chúng nhỏ hơn, không phải "next greater")
 - Phần tử đầu deque (nếu có) là next greater element của A[i]
 - Thêm A[i] vào đầu deque
@@ -472,4 +474,4 @@ def largest_rectangle_area(heights):
 - [YouTube - Deque Sliding Window](https://www.youtube.com/watch?v=5VjQD62gOYA)
 - [VNOI Wiki - Deque](https://wiki.vnoi.info/algo/data-structures/deque-min-max)
 
-**Bài tiếp theo:** [Hash Table →](16-hash-table.md)
+**Bài tiếp theo:** [Trie →](17-trie.md)

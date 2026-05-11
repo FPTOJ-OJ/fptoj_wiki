@@ -1,21 +1,8 @@
 # Bài 26: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Số học, HackerEarth Number Theory Series, CP-Algorithms
 
-## Mục lục
-
-1. [Euler's Totient Function](#1-đếm-số-nguyên-tố-cùng-nhau---euler-totient)
-2. [Tính tổ hợp với modulo](#2-tính-tổ-hợp-với-modulo)
-3. [Lucas Theorem](#3-lucas-theorem-khi-n-rất-lớn)
-4. [Chinese Remainder Theorem (CRT)](#4-chinese-remainder-theorem-crt)
-5. [Möbius Function](#5-hàm-möbius)
-6. [Pollard's Rho - Phân tích thừa số lớn](#6-pollards-rho---phân-tích-thừa-số-lớn)
-7. [Lưu ý & Cạm bẫy](#7-lưu-ý--cạm-bẫy)
-8. [Ứng dụng thực tế](#8-ứng-dụng-thực-tế)
-9. [Bài tập luyện tập](#9-bài-tập-luyện-tập)
-
----
 
 ## 1. Đếm số nguyên tố cùng nhau - Euler Totient
 
@@ -31,6 +18,7 @@
 ```
 
 **Tại sao quan trọng?** Euler's Totient xuất hiện ở nhiều nơi:
+
 - Tính modular inverse qua Euler's theorem
 - Đếm số cặp nguyên tố cùng nhau
 - RSA cryptography (mã hóa RSA dựa trên φ(n))
@@ -48,6 +36,7 @@ Cho `N = p1^a1 × p2^a2 × ... × pk^ak` (phân tích thừa số nguyên tố),
 **Chứng minh trực giác:** Dùng nguyên lý bao hàm - loại trừ (inclusion-exclusion). Trong N số từ 1..N, loại bỏ bội của p1, p2, ..., rồi cộng lại phần bị trừ trùng.
 
 **Tính chất quan trọng:**
+
 - `φ(p) = p - 1` với p nguyên tố
 - `φ(p^k) = p^k - p^(k-1) = p^(k-1) × (p - 1)`
 - `φ(m × n) = φ(m) × φ(n)` nếu `GCD(m, n) = 1` (hàm nhân tính)
@@ -742,6 +731,7 @@ long long countCoprimePairs(int n, int m) {
 ### 8.4 RSA Cryptography (tóm tắt)
 
 RSA sử dụng Euler's Totient:
+
 1. Chọn 2 số nguyên tố lớn `p`, `q`. Tính `n = p × q`, `φ(n) = (p-1)(q-1)`.
 2. Chọn `e` sao cho `GCD(e, φ(n)) = 1`. Khóa công khai: `(e, n)`.
 3. Tính `d = e^(-1) mod φ(n)`. Khóa bí mật: `(d, n)`.

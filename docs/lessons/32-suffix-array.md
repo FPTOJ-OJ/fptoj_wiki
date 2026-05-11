@@ -1,6 +1,6 @@
 # Bài 32: Suffix Array - Mảng Hậu Tố
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Suffix Array, VNOI Wiki
 
 ## 1. Chuyện gì đang xảy ra?
@@ -8,6 +8,7 @@
 ### Bài toán
 
 Cho xâu S. Có nhiều câu hỏi:
+
 - Tìm tất cả vị trí xuất hiện của pattern P trong S
 - Đếm số xâu con khác nhau
 - Tìm xâu con chung dài nhất của 2 xâu
@@ -297,4 +298,4 @@ Số xâu con khác nhau = N * (N+1) / 2 - tổng(LCP)
 - [VNOI Wiki - Suffix Array](https://wiki.vnoi.info/algo/data-structures/suffix-array)
 - [YouTube - Suffix Array (takeuforward)](https://www.youtube.com/watch?v=0bL1GPeT5FQ)
 
-**Bài tiếp theo:** [Bài 33: Linked List chi tiết →](33-linked-list.md)
+**Bài tiếp theo:** [Euclid & Modular Inverse →](18-euclid-modular-inverse.md)

@@ -4,6 +4,7 @@ site_description: 'FPTOJ được xây dựng với mục đích chia sẻ kiế
 
 theme:
   name: material
+  custom_dir: overrides
   features:
     - navigation.footer        
     - navigation.tracking     
@@ -12,6 +13,7 @@ theme:
     - search.highlight          
     - content.code.copy         
     - content.code.annotate   
+    - content.code.language    
     - content.tabs.link        
     - header.autohide         
 
@@ -44,45 +46,54 @@ nav:
       - Test Markdown: markdown.md
   - Bài Học:
       - Tổng hợp bài học: lessons/index.md
-      - Độ phức tạp thời gian: lessons/01-do-phuc-tap-thoi-gian.md
-      - Thuật toán sắp xếp: lessons/02-thuat-toan-sap-xep.md
-      - Tìm kiếm nhị phân: lessons/03-tim-kiem-nhi-phan.md
-      - Kĩ thuật hai con trỏ: lessons/04-ky-thuat-hai-con-tro.md
-      - Phép toán bit: lessons/05-phep-toan-bit.md
-      - Đệ quy và quay lui: lessons/06-de-quy-va-quay-lui.md
-      - Mảng, Stack, Prefix Sum: lessons/07-mang-stack-prefix-sum.md
-      - Heap, DSU, Segment Tree, BIT: lessons/08-heap-dsu-segment-tree-bit.md
-      - KMP - Tìm xâu: lessons/09-kmp-tim-xau.md
-      - BFS/DFS trên đồ thị: lessons/10-bfs-dfs-do-thi.md
-      - Lũy thừa nhị phân & Sàng nguyên tố: lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md
-      - Quy hoạch động: lessons/12-quy-hoach-dong.md
-      - MST, Dijkstra, Topo Sort: lessons/13-mst-dijkstra-topo-sort.md
-      - Hash xâu & Z-algorithm: lessons/14-hash-xau-z-algorithm.md
-      - Deque & Sliding Window: lessons/15-deque-sliding-window.md
-      - Hash Table: lessons/16-hash-table.md
-      - Trie: lessons/17-trie.md
-      - Euclid & Modular Inverse: lessons/18-euclid-modular-inverse.md
-      - Tổ hợp & Xác suất: lessons/19-to-hop-xac-suat.md
-      - Manacher: lessons/20-manacher.md
-      - Greedy: lessons/21-greedy.md
-      - Hình học cơ bản: lessons/22-hinh-hoc-co-ban.md
-      - Floyd-Warshall & Bellman-Ford: lessons/23-floyd-warshall-bellman-ford.md
-      - Stack nâng cao: lessons/24-stack-nang-cao.md
-      - Binary Search on Answer: lessons/25-binary-search-on-answer.md
-      - Số học nâng cao: lessons/26-so-hoc-nang-cao.md
-      - Lý thuyết trò chơi: lessons/27-ly-thuyet-tro-choi.md
-      - Bao lồi: lessons/28-bao-loi.md
-      - Sparse Table (RMQ): lessons/29-sparse-table.md
-      - Binary Search Tree (BST): lessons/30-bst.md
-      - LCA & Binary Lifting: lessons/31-lca-binary-lifting.md
-      - Suffix Array: lessons/32-suffix-array.md
-      - Linked List chi tiết: lessons/33-linked-list.md
-      - Queue cơ bản: lessons/34-queue.md
-      - Setup môi trường thi đấu: lessons/35-setup-moi-truong.md
-      - Kỹ năng thi đấu: lessons/36-ky-nang-thi-dau.md
-      - Sinh testcase & Stress test: lessons/37-sinh-testcase.md
-      - Debug & Mẹo thi đấu: lessons/38-debug-meo.md
-      - Tổ chức code & Nộp bài: lessons/39-to-chuc-code.md
+      - "⭐ Nhóm 1 — Nhập môn (Bài 1-6)":
+          - Setup môi trường thi đấu: lessons/35-setup-moi-truong.md
+          - Độ phức tạp thời gian: lessons/01-do-phuc-tap-thoi-gian.md
+          - Thuật toán sắp xếp: lessons/02-thuat-toan-sap-xep.md
+          - Tìm kiếm nhị phân: lessons/03-tim-kiem-nhi-phan.md
+          - Phép toán bit: lessons/05-phep-toan-bit.md
+          - Đệ quy và quay lui: lessons/06-de-quy-va-quay-lui.md
+      - "⭐⭐ Nhóm 2 — Kỹ thuật cơ bản":
+          - Kĩ thuật hai con trỏ: lessons/04-ky-thuat-hai-con-tro.md
+          - Mảng, Stack, Prefix Sum: lessons/07-mang-stack-prefix-sum.md
+          - Lũy thừa nhị phân & Sàng nguyên tố: lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md
+      - "⭐⭐ Nhóm 3 — Cấu trúc dữ liệu cơ bản":
+          - Linked List chi tiết: lessons/33-linked-list.md
+          - Queue cơ bản: lessons/34-queue.md
+          - Hash Table: lessons/16-hash-table.md
+          - Deque & Sliding Window: lessons/15-deque-sliding-window.md
+          - Trie: lessons/17-trie.md
+          - Heap, DSU, Segment Tree, BIT: lessons/08-heap-dsu-segment-tree-bit.md
+      - "⭐⭐⭐ Nhóm 4 — Thuật toán đồ thị":
+          - BFS/DFS trên đồ thị: lessons/10-bfs-dfs-do-thi.md
+          - MST, Dijkstra, Topo Sort: lessons/13-mst-dijkstra-topo-sort.md
+          - Floyd-Warshall & Bellman-Ford: lessons/23-floyd-warshall-bellman-ford.md
+          - LCA & Binary Lifting: lessons/31-lca-binary-lifting.md
+      - "⭐⭐⭐ Nhóm 5 — Quy hoạch động & Tham lam":
+          - Greedy: lessons/21-greedy.md
+          - Quy hoạch động: lessons/12-quy-hoach-dong.md
+          - Binary Search on Answer: lessons/25-binary-search-on-answer.md
+      - "⭐⭐⭐ Nhóm 6 — Xử lý xâu":
+          - KMP - Tìm xâu: lessons/09-kmp-tim-xau.md
+          - Hash xâu & Z-algorithm: lessons/14-hash-xau-z-algorithm.md
+          - Manacher: lessons/20-manacher.md
+          - Suffix Array: lessons/32-suffix-array.md
+      - "⭐⭐⭐ Nhóm 7 — Toán & Số học":
+          - Euclid & Modular Inverse: lessons/18-euclid-modular-inverse.md
+          - Tổ hợp & Xác suất: lessons/19-to-hop-xac-suat.md
+          - Số học nâng cao: lessons/26-so-hoc-nang-cao.md
+          - Lý thuyết trò chơi: lessons/27-ly-thuyet-tro-choi.md
+      - "⭐⭐⭐⭐ Nhóm 8 — Hình học & Nâng cao":
+          - Hình học cơ bản: lessons/22-hinh-hoc-co-ban.md
+          - Stack nâng cao: lessons/24-stack-nang-cao.md
+          - Binary Search Tree (BST): lessons/30-bst.md
+          - Sparse Table (RMQ): lessons/29-sparse-table.md
+          - Bao lồi: lessons/28-bao-loi.md
+      - "🏆 Nhóm 9 — Kỹ năng thi đấu":
+          - Kỹ năng thi đấu: lessons/36-ky-nang-thi-dau.md
+          - Sinh testcase & Stress test: lessons/37-sinh-testcase.md
+          - Debug & Mẹo thi đấu: lessons/38-debug-meo.md
+          - Tổ chức code & Nộp bài: lessons/39-to-chuc-code.md
   - Thuật Toán:
       - Cơ Bản:
         - Đệ quy và Thuật toán quay lui: algo/basic/backtracking.md
@@ -253,6 +264,16 @@ markdown_extensions:
       base_path: "docs"
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  giscus:
+    repo: KienPC1234/fptoj_wiki
+    repo_id: R_kgDOOEBMFA
+    category: General
+    category_id: DIC_kwDOOEBMFM4C8yFI
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js

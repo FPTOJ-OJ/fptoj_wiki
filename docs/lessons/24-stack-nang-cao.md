@@ -1,6 +1,6 @@
 # Bài 24: Stack Nâng Cao - Expression Parsing & Ứng Dụng
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Stack, CP-Algorithms
 
 ## 1. Stack trong xử lý biểu thức
@@ -27,10 +27,12 @@ Khi gặp `2 * 3 +`, chưa thể tính ngay vì chưa biết `+` có bị "thế
 ### Thuật toán: Hai stack (Shunting-yard đơn giản hóa)
 
 Duyệt biểu thức từ trái sang phải, dùng **2 stack**:
+
 - `val` (stack giá trị): lưu các toán hạng
 - `ops` (stack toán tử): lưu các toán tử đang chờ xử lý
 
 **Quy tắc:**
+
 1. Gặp **toán hạng** (số) → đẩy vào `val`
 2. Gặp **toán tử** → trước khi đẩy, xử lý hết các toán tử trong `ops` có **độ ưu tiên ≥** toán tử hiện tại
 3. Duyệt xong → xử lý hết toán tử còn lại trong `ops`
@@ -195,6 +197,7 @@ Kết quả: 9 ✅ (không phải 7 nếu tính 1+2*3)
 ### Bài toán: Kiểm tra `(()[{}])` có hợp lệ không?
 
 **Quy tắc hợp lệ:**
+
 1. Mỗi ngoặc mở phải có ngoặc đóng tương ứng
 2. Ngoặc đóng phải đúng loại với ngoặc mở gần nhất
 3. Stack rỗng khi duyệt hết → hợp lệ
@@ -356,6 +359,7 @@ int largestRectangleArea(vector<int>& heights) {
 ```
 
 **Giải thích width:**
+
 - `st.top()` là index của cột bên trái đầu tiên có chiều cao nhỏ hơn
 - `i` là index của cột bên phải đầu tiên có chiều cao nhỏ hơn
 - `width = i - st.top() - 1` là khoảng cách giữa 2 cột "biên"
@@ -521,6 +525,7 @@ public:
 Cho biểu thức hậu tố `"2 3 4 * +"` → tính kết quả.
 
 **Thuật toán:** Duyệt từ trái sang phải:
+
 - Gặp số → push vào stack
 - Gặp toán tử → pop 2 số, tính toán, push kết quả lại
 
@@ -605,5 +610,6 @@ int evalRPN(vector<string>& tokens) {
 
 - [VNOI Wiki - Stack](https://wiki.vnoi.info/algo/data-structures/Stack)
 - [GeeksforGeeks - Stack Data Structure](https://www.geeksforgeeks.org/dsa/stack-data-structure/)
-- [CP-Algorithms - Expression Parsing](https://cp-algorithms.com/string/expression_parsing.html)
 - [CP-Algorithms - Nearest Smaller Element](https://cp-algorithms.com/data_structures/stack_queue_modification.html)
+
+**Bài tiếp theo:** [Binary Search Tree →](30-bst.md)

@@ -1,6 +1,6 @@
 # Bài 33: Linked List - Danh Sách Liên Kết Chi Tiết
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** GeeksforGeeks - Linked List, CP-Algorithms
 
 ## 1. Chuyện gì đang xảy ra?
@@ -8,6 +8,7 @@
 ### Bài toán: Quản lý danh sách thay đổi liên tục
 
 Bạn có danh sách bài hát. Người dùng có thể:
+
 - Thêm bài vào giữa danh sách
 - Xóa bài ở bất kỳ vị trí nào
 - Di chuyển bài từ vị trí này sang vị trí khác
@@ -34,6 +35,7 @@ Bạn có danh sách bài hát. Người dùng có thể:
 ### Cấu trúc
 
 Mỗi node gồm:
+
 - `data`: giá trị lưu trữ
 - `next`: con trỏ trỏ đến node tiếp theo
 
@@ -327,6 +329,7 @@ struct Queue {
 ### 4.3. Linked List trong LRU Cache
 
 LRU Cache (Least Recently Used) dùng Doubly Linked List + Hash Map:
+
 - Duyệt và xóa bất kỳ node: O(1)
 - Đưa node lên đầu: O(1)
 

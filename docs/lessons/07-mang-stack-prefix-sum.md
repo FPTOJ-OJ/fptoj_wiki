@@ -1,6 +1,6 @@
 # Bài 7: Mảng, Danh Sách Liên Kết và Stack
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Mảng và danh sách liên kết, Stack, Mảng cộng dồn và mảng hiệu
 
 ## 1. Mảng vs Danh sách liên kết
@@ -97,6 +97,14 @@ bool isValid(string s) {
 
 ### Ứng dụng 2: Stack đơn điệu - Tìm phần tử lớn hơn bên trái
 
+**Bài toán:** Với mỗi phần tử a[i], tìm phần tử lớn hơn **gần nhất** ở bên trái của nó.
+
+**Tại sao Stack đơn điệu hoạt động?**
+- Ta duy trì stack luôn giảm dần từ dưới lên trên
+- Khi xét `a[i]`, mọi phần tử trên stack nhỏ hơn `a[i]` **sẽ không bao giờ là đáp án** cho bất kỳ `a[j]` nào (j ≥ i), vì `a[i]` to hơn mà lại gần hơn → an tâm pop ra!
+- Phần tử đầu stack sau khi pop là phần tử lớn hơn gần nhất
+- Độ phức tạp: O(N) vì mỗi phần tử push/pop tối đa 1 lần!
+
 ```cpp
 // Với mỗi phần tử, tìm phần tử lớn hơn gần nhất bên trái
 vector<int> findGreater(vector<int>& a) {
@@ -139,7 +147,7 @@ def find_greater(a):
 # Độ phức tạp: O(N) - mỗi phần tử push/pop tối đa 1 lần!
 ```
 
-### Code Python
+### Code Python: Kiểm tra dãy ngoặc đúng
 
 ```python
 # Kiểm tra dãy ngoặc đúng
@@ -163,6 +171,7 @@ def is_valid(s):
 ### Ẩn dụ: Tổng quãng đường
 
 Bạn đi xe từ điểm A → B → C → D. Thay vì tính lại quãng đường mỗi lần, bạn **ghi nhớ tổng quãng đường từ đầu đến mỗi điểm**:
+
 - Đến A: 5km
 - Đến B: 5+3 = 8km  
 - Đến C: 8+7 = 15km
@@ -208,7 +217,70 @@ def range_sum(prefix, l, r):
     return prefix[r + 1] - prefix[l]
 ```
 
+### Ứng dụng: Prefix Sum 2D (Tổng hình chữ nhật)
+
+Ngoài mảng 1 chiều, prefix sum có thể mở rộng sang 2 chiều, giúp tính tổng bất kỳ hình chữ nhật con trong lưới trong O(1).
+
+**Công thức:**
+```
+prefix2D[i][j] = tổng hình chữ nhật từ (0,0) đến (i-1, j-1)
+
+prefix2D[i][j] = a[i-1][j-1]
+              + prefix2D[i-1][j]
+              + prefix2D[i][j-1]
+              - prefix2D[i-1][j-1]  ← bắt đầu (i-1,j-1) bị đếm 2 lần
+
+Tổng hình chữ nhật từ (r1,c1) đến (r2,c2):
+= prefix2D[r2+1][c2+1] - prefix2D[r1][c2+1]
+                       - prefix2D[r2+1][c1]
+                       + prefix2D[r1][c1]
+```
+
+```cpp
+// Xây dựng prefix sum 2D
+int a[MAXN][MAXN], prefix[MAXN][MAXN];
+
+void build2D(int n, int m) {
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= m; j++)
+            // Công thức bao gồm - loại trừ (inclusion-exclusion)
+            prefix[i][j] = a[i][j]
+                         + prefix[i-1][j]
+                         + prefix[i][j-1]
+                         - prefix[i-1][j-1];
+}
+
+// Tổng hình chữ nhật (r1,c1) → (r2,c2) - O(1)
+int query2D(int r1, int c1, int r2, int c2) {
+    return prefix[r2][c2]
+         - prefix[r1-1][c2]
+         - prefix[r2][c1-1]
+         + prefix[r1-1][c1-1];
+}
+```
+```python
+def build_2d(a, n, m):
+    prefix = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            prefix[i][j] = (a[i-1][j-1]
+                           + prefix[i-1][j]
+                           + prefix[i][j-1]
+                           - prefix[i-1][j-1])
+    return prefix
+
+def query_2d(prefix, r1, c1, r2, c2):
+    return (prefix[r2][c2]
+          - prefix[r1-1][c2]
+          - prefix[r2][c1-1]
+          + prefix[r1-1][c1-1])
+```
+
+**Ứng dụng:** Đếm ô màu đen trong hình chữ nhật con của lưới, tính tổng pixel trong xử lý ảnh (integral image).
+
 ### Ứng dụng: Tìm đoạn con có tổng lớn nhất (Kadane's Algorithm)
+
+**Ý tưởng:** Với mỗi vị trí i, hỏi "nếu buộc phải đến i, đoạn tốt nhất bắt đầu từ đâu?". Nếu `curSum < 0` thì bố mọi thứ trước, bắt đầu lại từ a[i].
 
 ```cpp
 long long maxSubarraySum(vector<int>& a) {

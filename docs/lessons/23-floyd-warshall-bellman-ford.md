@@ -1,6 +1,6 @@
 # Bài 23: Floyd-Warshall & Bellman-Ford
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Các thuật toán về tìm đường đi ngắn nhất
 
 ## 1. Bellman-Ford - Đường đi ngắn nhất có trọng số ÂM

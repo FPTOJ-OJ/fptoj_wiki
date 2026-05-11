@@ -1,6 +1,6 @@
 # Bài 25: Binary Search on Answer - Tìm Kiếm Trên Đáp Án!
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Tìm kiếm nhị phân
 
 ## 1. Đây là gì?
@@ -360,3 +360,5 @@ int maximizeMinimum(int lo, int hi) {
 - [Topcoder - Binary Search](https://www.topcoder.com/thrive/articles/Binary%20Search)
 - [USACO Guide - Binary Search on Answer](https://usaco.guide/silver/binary-search)
 - [YouTube - Binary Search on Answer (takeuforward)](https://www.youtube.com/watch?v=MHf6awe89xw)
+
+**Bài tiếp theo:** [KMP - Tìm xâu →](09-kmp-tim-xau.md)

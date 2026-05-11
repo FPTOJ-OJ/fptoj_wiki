@@ -1,24 +1,10 @@
 # Bài 27: Lý Thuyết Trò Chơi - Ai Thắng?
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms, Errichto
 
 ---
 
-## Mục lục
-
-1. [Tổng quan](#1-tổng-quan)
-2. [Trò chơi Nim](#2-trò-chơi-nim)
-3. [P-position và N-position](#3-p-position-và-n-position)
-4. [Grundy Number (Sprague-Grundy)](#4-grundy-number-sprague-grundy)
-5. [Tính Grundy số từng bước - Ví dụ chi tiết](#5-tính-grundy-số-từng-bước---ví-dụ-chi-tiết)
-6. [Tổng hợp trò chơi (Game Sum)](#6-tổng-hợp-trò-chơi-game-sum)
-7. [Ứng dụng thực tế](#7-ứng-dụng-thực-tế)
-8. [Lưu ý / Cạm bẫy](#8-lưu-ý--cạm-bẫy)
-9. [Bài tập luyện tập](#9-bài-tập-luyện-tập)
-10. [Tài liệu tham khảo](#10-tài-liệu-tham-khảo)
-
----
 
 ## 1. Tổng quan
 
@@ -31,7 +17,7 @@ Trong competitive programming, "lý thuyết trò chơi" đề cập đến mộ
 - Trò chơi **không có yếu tố ngẫu nhiên** (deterministic)
 - Trò chơi **kết thúc hữu hạn** (không ai thắng)
 
-> **Câu hỏi cốt lõi:** Cho trạng thái ban đầu, người đi trước thắng hay người đi sau thắng?
+> **Câu hỏi cốt lõi:** Cho trạng thái ban đầu, người đi trước thắng hay người đi sau thắng?<br>
 
 ### Tư duy cốt lõi: "Người thông minh không bao giờ thua"
 
@@ -52,7 +38,7 @@ Có **N đống đá**, mỗi đống có `a[i]` viên. Hai người luân phiê
 
 Đây là câu hỏi mà nhiều người học lần đầu thắc mắc. Hãy nghĩ đơn giản:
 
-> **XOR là phép toán "không nhớ"** - nó phát hiện sự bất đối xứng giữa các đống.
+> **XOR là phép toán "không nhớ"** - nó phát hiện sự bất đối xứng giữa các đống.<br>
 
 **Ví dụ trực quan:**
 
@@ -135,7 +121,7 @@ def first_player_wins(piles):
 | **P-position** | **P**revious player wins (người **vừa đi** thắng) | Grundy = 0 |
 | **N-position** | **N**ext player wins (người **sắp đi** thắng) | Grundy ≠ 0 |
 
-> **Mẹo nhớ:** P = "Previous" = người đi trước **thua** (vì người vừa đi = người đi trước thắng). N = "Next" = người sắp đi **thắng**.
+> **Mẹo nhớ:** P = "Previous" = người đi trước **thua** (vì người vừa đi = người đi trước thắng). N = "Next" = người sắp đi **thắng**.<br>
 
 ### Quy tắc chuyển trạng thái
 
@@ -169,7 +155,7 @@ Grundy(state) = MEX{ Grundy(next_state) | next_state là trạng thái có thể
 MEX(S) = giá trị nguyên không âm nhỏ nhất KHÔNG có trong tập S
 ```
 
-> **MEX là gì?** Nếu S = {0, 1, 3} thì MEX(S) = 2 (vì 0 có, 1 có, 2 không có → MEX = 2).
+> **MEX là gì?** Nếu S = {0, 1, 3} thì MEX(S) = 2 (vì 0 có, 1 có, 2 không có → MEX = 2).<br>
 
 ### Tại sao Grundy hoạt động?
 
@@ -372,6 +358,7 @@ Kết quả = Grundy₁ ⊕ Grundy₂ ⊕ ... ⊕ Grundyₖ
 ### 7.1 Wythoff's Game
 
 **Luật:** Có 2 đống đá. Mỗi lượt có thể:
+
 - Lấy ≥ 1 viên từ **1 đống** bất kỳ, HOẶC
 - Lấy **số lượng bằng nhau** từ **cả 2 đống**
 
@@ -489,6 +476,7 @@ Misère play (lấy cuối cùng THUA):  Khác hoàn toàn!
 ```
 
 Với Misère Nim (chỉ 1 viên/đống > 1):
+
 - Nếu tất cả đống ≤ 1: thắng khi XOR = 0 (ngược lại normal play)
 - Nếu có đống > 1: thắng khi XOR ≠ 0 (giống normal play)
 

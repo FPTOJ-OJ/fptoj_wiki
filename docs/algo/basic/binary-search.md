@@ -2,6 +2,7 @@
 **Nguồn**: [Topcoder](https://www.topcoder.com/thrive/articles/Binary%20Search)
 
 **Người dịch**:
+
 - Nguyễn Nhật Minh Khôi - VNU University of Science. Biên soạn lại từ bản dịch của Vũ Thị Thiên Anh
 
 **Reviewer**: Hoàng Xuân Nhật, Trần Quang Lộc
@@ -16,7 +17,7 @@ Mở đầu, ta sẽ đến với bài toán sử dụng tìm kiếm nhị phân
 ### Ví dụ
 Đầu tiên, ta sẽ xét một ví dụ để thấy được tư tưởng của thuật toán.
 Cho $A = [0, 5, 13, 19, 2, 41, 55, 68, 72, 81, 98]$ và $x = 55$, thuật toán sẽ diễn ra như hình dưới:
-![/uploads/binary_search_first_example.png](/uploads/binary_search_first_example.png)
+![/uploads/binary_search_first_example.png](../../uploads/binary_search_first_example.png)
 
 Ở lượt tìm đầu tiên, không gian tìm kiếm là tập hợp $S = \{1,\ldots,11\}$ gồm tất cả các chỉ số của mảng. Bắt đầu với việc chọn [phần tử trung vị](https://vi.wikipedia.org/wiki/S%E1%BB%91_trung_v%E1%BB%8B) của không gian tìm kiếm hiện tại (chính là $6$), ta nhận xét $A[6]=41 < 55 = x$. Do theo đề bài mảng $A$ được sắp xếp tăng dần, ta biết được tất cả các phần tử có chỉ số $1,\ldots,6$ đều nhỏ hơn giá trị cần tìm $x$. Do đó, chúng *chắc chắn không thể là kết quả*, khi đó không gian tìm kiếm có thể thu hẹp lại $S = \{7,\ldots,11\}$, tức *giảm đi một nửa.*
 
@@ -26,12 +27,14 @@ Tương tự, ở lượt tìm thứ hai, ta xét phần tử trung vị của k
 
 ### Tổng quát hóa bài toán
 
-Từ ví dụ trên, ta có thể dễ dàng hiểu được ý tưởng của thuật toán tìm kiếm nhị phân. Đúng như tên gọi, thuật toán sẽ liên tục chia không gian tìm kiếm thành hai nửa và loại một nửa đi. Thuật toán có thể trình bày như sau: 
+Từ ví dụ trên, ta có thể dễ dàng hiểu được ý tưởng của thuật toán tìm kiếm nhị phân. Đúng như tên gọi, thuật toán sẽ liên tục chia không gian tìm kiếm thành hai nửa và loại một nửa đi. Thuật toán có thể trình bày như sau:
+
 1. Ta duy trì một không gian tìm kiếm $S$ là một dãy con các giá trị có thể là kết quả (ở đây là chỉ số các phần tử trong $A$). Ban đầu, không gian tìm kiếm là toàn bộ các chỉ số của mảng $S=\{1,\ldots,n\}$ với $n$ là chỉ số phần tử cuối cùng của $A$. 
 2. Ở mỗi bước, thuật toán so sánh giá trị cần tìm với phần tử có chỉ số là trung vị trong không gian tìm kiếm. Dựa trên sự so sánh đó, cộng thêm việc ta biết dãy $A$ có thứ tự, ta có thể loại một nửa số phần tử của $S$. Lặp đi lặp lại quá trình này, cuối cùng ta sẽ được một không gian tìm kiếm bao gồm một phần tử duy nhất.
 3. Khi đó, nếu phần tử duy nhất đó bằng với giá trị cần tìm $x$ thì đó là nghiệm của bài toán, nếu không thì bài toán vô nghiệm. 
 
 Ở đây có hai lưu ý khi cài đặt thuật toán:
+
 - Do không gian tìm kiếm luôn là một đoạn liên tục các giá trị nguyên, ta không cần lưu tất cả phần tử của không gian khi tìm kiếm mà chỉ cần duy trì hai biến `low` và `high` tượng trưng cho phần tử *đầu* và *cuối* của đoạn.
 - Ta có thể tối ưu thuật toán hơn bằng việc *dừng sớm* nếu trong quá trình so sánh gặp một phần tử trung vị thỏa yêu cầu đề bài chứ không cần đợi đến khi không gian tìm kiếm chỉ còn một phần tử.
 
@@ -111,7 +114,7 @@ Sự tương đương ở đây có thể chứng minh bằng [phương pháp ph
 Nếu ta tính giá trị $P(x)$ cho từng phần tử trong $S$ ban đầu, ta sẽ được một dãy liên tiếp các giá trị $\texttt{false}$ liền kề một dãy liên tiếp các giá trị $\texttt{true}$ (từ nay gọi là dãy $P(S)$). Dễ thấy ta có thể áp dụng tìm kiếm nhị phân trên dãy $P(S)$ mới này để tìm giá trị $x$ *nhỏ nhất* thỏa mãn $P(x) = \texttt{true}$ (hoặc cũng có thể làm cách tìm giá trị $x$ *lớn nhất* mà $P(x) = \texttt{false}$, tuy nhiên ở đây ta không chọn cách này).
 > Với ví dụ đầu bài, như đã nói $P(x) = boolean(A[x] \geq 55)$. Dễ thấy $P$ thỏa mãn tính chất đầu tiên, do $A$ được sắp tăng dần nên nếu $A[x] \geq 55$ thì chắc chắn các phần tử $y$ sau $x$ đều thỏa $A[y] \geq A[x] \geq 55$. Tương tự ta cũng suy ra được, nếu $A[x] < 55$ thì chắc chắn các phần tử $y$ trước $x$ đều thỏa $A[y] \leq A[x] < 55$.
 Áp dụng hàm $P(x) = boolean(A[x] \geq 55)$ cho từng phần tử của $S=\{1,\ldots,11\}$ ta có hình sau
-> ![/uploads/binary_search_apply_P_to_A.png](/uploads/binary_search_apply_P_to_A.png)
+> ![/uploads/binary_search_apply_P_to_A.png](../../uploads/binary_search_apply_P_to_A.png)
 
 Chú ý rằng ta thấy có thể dễ dàng xây dựng định lý chính dựa trên một hàm kiểm tra $P$ ngược lại, tức $P(S)$ sẽ là một dãy $\texttt{true}$ liên tiếp theo sau bởi $\texttt{false}$ liên tiếp. Tuy nhiên, ở đây ta sẽ chỉ xét một trường hợp để bài viết ngắn gọn hơn, trường hợp còn lại có thể làm tương tự.
 
@@ -124,6 +127,7 @@ Ví dụ điển hình cho việc áp dụng định lý là với bài toán *T
 ### Cài đặt thuật toán tổng quát
 
 Trước khi cài đặt thuật toán, ta phải trả lời những câu hỏi sau:
+
 1. Dãy $P(S)$ của bạn có dạng $\texttt{false}-\texttt{true}$ ($\texttt{false}$ liên tiếp rồi $\texttt{true}$ liên tiếp) hay $\texttt{true}-\texttt{false}$ (ngược lại)? Ở cài đặt phía dưới sẽ **mặc định dãy $P(S)$ có dạng $\texttt{false}-\texttt{true}$**, vì vậy nếu dãy $P(S)$ của bạn có dạng $\texttt{true}-\texttt{false}$, hãy đảo hàm $P(x)$ của bạn ngược lại.
 2. Bài của bạn có luôn có nghiệm không? Nếu không hãy kiểm tra trước khi tìm kiếm nhị phân để tiết kiệm chi phí tính toán.
 3. Mục tiêu của bạn là tìm phần tử $\texttt{false}$ lớn nhất hay tìm phần tử $\texttt{true}$ nhỏ nhất? Ở đây sẽ trình bày cả hai cách.
@@ -414,6 +418,7 @@ def binary_search(lo, hi):
     return lo + (hi - lo) / 2
 ```
 Ta thường không tìm được giá trị mục tiêu một cách chính xác mà chỉ có thể xấp xỉ kết quả, đó là lý do có hàm điều kiện dừng `isTerminated`. Thông thường có 2 cách quyết định khi nào dừng vòng lặp:
+
 1. **Dừng sau một số vòng lặp cố định (fixed)**: thông thường khi làm bài tập trên TopCoder, chỉ cần lặp khoảng 100 lần là đủ (nhiều khi là thừa) để đạt được độ chính xác mong muốn cho những bài dạng thế này.
 2. **Sai số tuyệt đối (absolute error)**: dừng khi $hi - lo \leq \epsilon$ ($\epsilon$ thường rất nhỏ, khoảng $10^{-8}$). Cách này được sử dụng nếu thời gian chặt và bạn phải tiết kiệm số lần lặp. 
 

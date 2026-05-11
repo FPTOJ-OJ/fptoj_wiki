@@ -9,7 +9,7 @@ Sau đây là các câu hỏi…
 
 ## Tại sao phải học Tin học?
 
-Về cơ duyên đến với Tin học của mình, bạn có thể tham khảo [bài viết trước](algo/basic/hoc-tin-the-nao-1). Hy vọng các bạn sẽ tìm thấy điểm chung nào đó. Một điều mình muốn nói thêm là Tin học hiện nay giống như một môn Toán thứ hai vậy. Nếu sau cuộc cách mạng công nghiệp, nhân loại bắt đầu gắn động cơ vào bất cứ mọi thứ xung quanh, thì đến cuộc cách mạng máy tính hiện tại, con người bắt đầu dùng máy tính vào mọi việc có thể. Một công việc trong thế giới hiện đại khó mà có thể vận hành hiệu quả mà không cần dùng đến máy tính. Vì thế, một con người trong thế giới hiện đại khó mà có thể thành công mà không có kỹ năng sử dụng công cụ này. Bạn bè của mình làm nhiều ngành khác nhau, từ toán học, hoá học, vật lý, đến kiểm toán. Họ đều phải chí ít phải có kỹ năng lập trình để phục vụ cho công việc của mình.
+Về cơ duyên đến với Tin học của mình, bạn có thể tham khảo [bài viết trước](hoc-tin-the-nao-1.md). Hy vọng các bạn sẽ tìm thấy điểm chung nào đó. Một điều mình muốn nói thêm là Tin học hiện nay giống như một môn Toán thứ hai vậy. Nếu sau cuộc cách mạng công nghiệp, nhân loại bắt đầu gắn động cơ vào bất cứ mọi thứ xung quanh, thì đến cuộc cách mạng máy tính hiện tại, con người bắt đầu dùng máy tính vào mọi việc có thể. Một công việc trong thế giới hiện đại khó mà có thể vận hành hiệu quả mà không cần dùng đến máy tính. Vì thế, một con người trong thế giới hiện đại khó mà có thể thành công mà không có kỹ năng sử dụng công cụ này. Bạn bè của mình làm nhiều ngành khác nhau, từ toán học, hoá học, vật lý, đến kiểm toán. Họ đều phải chí ít phải có kỹ năng lập trình để phục vụ cho công việc của mình.
 
 ## Học Tin học như thế nào cho đúng?
 
@@ -37,7 +37,7 @@ Trên Windows, [Free Pascal](http://www.freepascal.org/) là sự lựa chọn t
 
 Tuy nhiên, mình khuyên là các bạn nên từ bỏ Windows và chuyển sang một hệ điều khác dựa trên nền tảng Unix như là [Ubuntu](http://www.ubuntu.com/). Hiện tại thì màn hình lập trình của mình trông giống như thế này:
 
-![/uploads/algo_basic_hoc_tin_the_nao_ubuntu.png](/uploads/algo_basic_hoc_tin_the_nao_ubuntu.png)
+![/uploads/algo_basic_hoc_tin_the_nao_ubuntu.png](../../uploads/algo_basic_hoc_tin_the_nao_ubuntu.png)
 
 Ở cửa sổ trái mình sử dụng **vim**, chỉ đơn thuần là một chương trình soạn thảo văn bản (text editor) của Ubuntu. Ở cửa sổ phải mình sử dụng **terminal**, nói nôm na là nơi bạn có thể điều khiển máy tính bằng các câu lệnh thay vì dùng chuột (giống như là MS-DOS thời xa xưa). Lưu ý là hai công cụ này đều có sẵn trong Ubuntu, bạn không cần phải cài đặt gì cả. Trong hình, mình có cài thêm một số Plugins cho vim để thêm màu mè, màn hình đen, hiển thị dòng cột (cảm ơn bạn mình là RR!). Mình cũng cài thêm theme Macbook cho máy nên màn hình trông giống MacOS mặc dù thật ra nó vẫn là Ubuntu.
 

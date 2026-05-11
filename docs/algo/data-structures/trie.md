@@ -26,7 +26,7 @@ Hãy xem xét một ví dụ sau:
 
 <center>
     
-![/uploads/trie_img1.png](/uploads/trie_img1.png)
+![/uploads/trie_img1.png](../../uploads/trie_img1.png)
 </center>
 
 Trong một trie, mỗi cạnh được biểu diễn bằng một kí tự, mỗi đỉnh và đường đi từ gốc đến đỉnh đó biểu diễn một xâu gồm các kí tự thuộc các cạnh trên đường đi đó. Ví dụ, đỉnh $5$ biểu diễn xâu `ab`, đỉnh $10$ biểu diễn xâu `caa`.
@@ -283,7 +283,7 @@ Lưu ý rằng các ứng dụng của trie xâu (liệt kê bên dưới) đề
 
 <center>
     
-![/uploads/trie_img2.png](/uploads/trie_img2.png)
+![/uploads/trie_img2.png](../../uploads/trie_img2.png)
 </center>
 
 ```cpp
@@ -511,7 +511,7 @@ Ta sẽ lần lượt xây đáp án bằng các đi xuống từ gốc của tr
 
 <center>
 
-![/uploads/trie_img3.png](/uploads/trie_img3.png)
+![/uploads/trie_img3.png](../../uploads/trie_img3.png)
 </center>
 
 ```cpp
@@ -567,7 +567,7 @@ Nhìn thấy bài toán tìm $x_i \oplus v$ lớn nhất ngay lập tức gợi 
 
 Để $GCD(x_i, v)$ chia hết cho $k_i$, dễ nhận thấy cả $x_i$ và $v$ đều phải chia hết cho $k_i$. Do vậy, ta sẽ tạo $10^5$ trie, với trie thứ $i$ là các số trong mảng $a$ chia hết cho $i$. Để $x_i + v \le s_i$ thì dĩ nhiên $v \le s_i - x_i$, ta lưu với mỗi đỉnh trong trie số bé nhất trong cây con của đỉnh đó là bao nhiêu. 
 
-Vậy để giải quyết một truy vấn, ta sẽ tìm giá trị XOR lớn nhất trên trie thứ $k_i$ (cách giải đã trình bày ở [trên](#Xử-lí-truy-vấn-tìm-XOR-lớn-nhất-với-giá-trị-được-cho)) và chỉ đi vào một đỉnh con nếu như giá trị bé nhất của cây con đó bé hơn hoặc bằng $s_i - x_i$.
+Vậy để giải quyết một truy vấn, ta sẽ tìm giá trị XOR lớn nhất trên trie thứ $k_i$ (cách giải đã trình bày ở [trên](#xu-li-truy-van-tim-xor-lon-nhat-voi-gia-tri-uoc-cho)) và chỉ đi vào một đỉnh con nếu như giá trị bé nhất của cây con đó bé hơn hoặc bằng $s_i - x_i$.
 
 <details>
 <summary>Code mẫu</summary>
@@ -681,7 +681,7 @@ Giả dụ ta đã có một trie nhị phân của dãy số $a_1, a_2, \ldots,
 
 <center>
     
-![/uploads/trie_img4.png](/uploads/trie_img4.png)
+![/uploads/trie_img4.png](../../uploads/trie_img4.png)
 </center>
 
 Vậy phần còn lại phải xử lí là kết hợp thuật tìm MEX trên với việc cả mảng đang bị XOR bởi số $z$. Dễ nhận thấy là, nếu bit thứ $k$ của $z$ được bật, thì nó tương tự việc hai cây con trái và phải của đỉnh đang xét được đổi chỗ cho nhau. Vì vậy thuật toán cuối cùng tương tự với thuật toán tìm MEX trên, thêm việc xét bit thứ $k$ của $z$ mà ta sẽ xét cây con trái trước (nếu bit đó là $0$) hay cây con phải trước (nếu bit đó là $1$).

@@ -144,12 +144,14 @@ pip install networkx     # Đồ thị (ít dùng khi thi)
 ### 5.1. Code::Blocks (Khuyến nghị cho người mới)
 
 **Ưu điểm:**
+
 - All-in-one: editor + compiler + debugger trong 1 phần mềm
 - Không cần cài thêm gì (đã có sẵn MinGW nếu tải phiên bản `codeblocks-xx.xx-mingw-setup`)
 - Giao diện đơn giản, dễ dùng
 - Phổ biến trong các trường học Việt Nam
 
 **Cài đặt:**
+
 1. Vào [https://www.codeblocks.org/downloads/binaries/](https://www.codeblocks.org/downloads/binaries/)
 2. Tải phiên bản **`codeblocks-20.03mingw-setup.exe`** (có sẵn MinGW!)
 3. Cài đặt bình thường
@@ -157,18 +159,21 @@ pip install networkx     # Đồ thị (ít dùng khi thi)
 5. Nhấn F9 để compile + chạy
 
 **Cấu hình:**
+
 - Settings → Compiler → chọn "GNU GCC Compiler"
 - Settings → Compiler → Compiler flags → tick `-std=c++17` và `-O2`
 
 ### 5.2. Thonny (Khuyến nghị cho người mới học Python)
 
 **Ưu điểm:**
+
 - Giao diện cực kỳ đơn giản, designed cho người mới
 - Có sẵn Python (không cần cài riêng)
 - Debug từng bước dễ dàng
 - Phù hợp cho học sinh cấp 2, cấp 3 mới bắt đầu
 
 **Cài đặt:**
+
 1. Vào [https://thonny.org/](https://thonny.org/)
 2. Tải phiên bản cho Windows
 3. Cài đặt (Python đi kèm)
@@ -179,12 +184,14 @@ pip install networkx     # Đồ thị (ít dùng khi thi)
 ### 5.3. VS Code (Khuyến nghị cho người đã quen)
 
 **Ưu điểm:**
+
 - Hỗ trợ C++, Python, và hầu hết ngôn ngữ khác
 - Extensions phong phú (IntelliSense, debugging, snippets)
 - Terminal tích hợp
 - Miễn phí, cross-platform
 
 **Cài đặt:**
+
 1. Tải VS Code từ [https://code.visualstudio.com/](https://code.visualstudio.com/)
 2. Cài đặt các extensions:
 
@@ -207,15 +214,18 @@ pip install networkx     # Đồ thị (ít dùng khi thi)
 ### 5.4. Dev-C++ (Phổ biến trong trường VN)
 
 **Ưu điểm:**
+
 - Nhẹ, cài nhanh
 - Có sẵn MinGW
 - Phổ biến trong các kỳ thi HSG tỉnh
 
 **Nhược điểm:**
+
 - Đã ngừng phát triển (phiên bản gốc)
 - Giao diện cũ
 
 **Cài đặt:**
+
 1. Tải từ [https://sourceforge.net/projects/orwelldevcpp/](https://sourceforge.net/projects/orwelldevcpp/)
 2. Hoặc tải Embarcadero Dev-C++ (phiên bản mới hơn): [https://github.com/Embarcadero/Dev-Cpp](https://github.com/Embarcadero/Dev-Cpp)
 3. Cài đặt, mở Dev-C++ → File → New → Source File → viết code → F11 compile + chạy
@@ -223,6 +233,7 @@ pip install networkx     # Đồ thị (ít dùng khi thi)
 ### 5.5. Sublime Text (Editor nhẹ, nhanh)
 
 **Ưu điểm:**
+
 - Rất nhẹ, mở nhanh
 - Gõ code mượt
 - Hỗ trợ snippet
@@ -230,6 +241,7 @@ pip install networkx     # Đồ thị (ít dùng khi thi)
 **Nhược điểm:** Không có built-in compiler, cần cấu hình thêm.
 
 **Cài đặt:**
+
 1. Tải từ [https://www.sublimetext.com/download](https://www.sublimetext.com/download)
 2. Cài Package Control: `Ctrl+Shift+P` → gõ "Install Package Control"
 3. Cài thêm package: C++ Snippets, Python Snippets
@@ -237,12 +249,14 @@ pip install networkx     # Đồ thị (ít dùng khi thi)
 ### 5.6. CP Editor (Editor chuyên cho competitive programming)
 
 **Ưu điểm:**
+
 - Tự động compile + chạy test case
 - Tích hợp với competitive programming (Codeforces, AtCoder)
 - Stress test built-in
 - Template tự động
 
 **Cài đặt:**
+
 1. Tải từ [https://cpeditor.org/](https://cpeditor.org/)
 2. Cài đặt, cấu hình compiler path
 3. Tạo bài mới → viết code → nhấn Run để chạy tất cả test case
@@ -620,4 +634,4 @@ Hãy setup template và thử submit bài đơn giản:
 - [Codeforces - Good Contest Templates](https://codeforces.com/blog/entry/75429)
 - [USACO Guide - Contest Strategy](https://usaco.guide/general/contests)
 
-**Bài tiếp theo:** [Kỹ năng thi đấu →](36-ky-nang-thi-dau.md)
+**Bài tiếp theo:** [Độ phức tạp thời gian →](01-do-phuc-tap-thoi-gian.md)

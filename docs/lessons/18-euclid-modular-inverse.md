@@ -1,6 +1,6 @@
 # Bài 18: Euclid & Modular Inverse - Số Học Cơ Bản
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Euclid, Nghịch đảo modulo
 
 ## 1. GCD - Ước Chung Lớn Nhất
@@ -154,6 +154,7 @@ print(g, x, y)  # 5 1 -2
 Trong toán học thường: `a / b = a × (1/b)`. Nhưng trong modulo, không có "chia"! Ta cần tìm số `x` sao cho `b × x ≡ 1 (mod M)` → `x` là nghịch đảo modulo của `b`.
 
 **Ví dụ:** Trong mod 7:
+
 - 3 × 5 = 15 ≡ 1 (mod 7) → 5 là nghịch đảo của 3 (mod 7)
 - Vậy `a / 3 (mod 7)` = `a × 5 (mod 7)`
 

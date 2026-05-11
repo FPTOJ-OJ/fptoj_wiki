@@ -1,6 +1,6 @@
 # Bài 29: Sparse Table - Truy vấn Min/Max O(1)
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Sparse Table, VNOI Wiki
 
 ## 1. Chuyện gì đang xảy ra?
@@ -42,6 +42,7 @@ min[2, 7] = min(min[2, 5], min[4, 7]) = min(đoạn 4, đoạn 4)
 Với đoạn [l, r] có độ dài `len = r - l + 1`, ta tìm `k = floor(log2(len))`.
 
 Hai đoạn:
+
 - `[l, l + 2^k - 1]` — bắt đầu từ l, dài 2^k
 - `[r - 2^k + 1, r]` — kết thúc tại r, dài 2^k
 
@@ -290,4 +291,4 @@ Với N = 10⁶, log₂(N) ≈ 20 → bộ nhớ ≈ 10⁶ × 20 × 4 bytes ≈ 
 - [YouTube - Sparse Table (takeuforward)](https://www.youtube.com/watch?v=0jWeUdxJmK4)
 - [VNOI Wiki - Range Minimum Query](https://wiki.vnoi.info/algo/data-structures/rmq)
 
-**Bài tiếp theo:** [Bài 30: Binary Search Tree →](30-bst.md)
+**Bài tiếp theo:** [Bao lồi →](28-bao-loi.md)

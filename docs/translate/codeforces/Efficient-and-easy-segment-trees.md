@@ -3,7 +3,7 @@
 
 
 
-Hầu hết các bạn tham gia vào các cuộc thi lập trình đều khá quen thuộc với cây phân đoạn, chẳng hạn qua [bài viết này](algo/data-structures/segment-tree-extend). Nếu chưa, bạn nên xem bài viết này trước, để so sánh cách thực hiện và chọn được cách tốt nhất cho mình.
+Hầu hết các bạn tham gia vào các cuộc thi lập trình đều khá quen thuộc với cây phân đoạn, chẳng hạn qua [bài viết này](../../algo/data-structures/segment-tree-extend.md). Nếu chưa, bạn nên xem bài viết này trước, để so sánh cách thực hiện và chọn được cách tốt nhất cho mình.
 
 ## Cập nhật từng phần tử riêng lẻ (single element modifications)
 

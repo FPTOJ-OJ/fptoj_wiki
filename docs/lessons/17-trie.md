@@ -1,6 +1,6 @@
 # Bài 17: Trie - Cây Tìm Kiếm Tiền Tố
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Trie
 
 ## 1. Chuyện gì đang xảy ra?
@@ -35,6 +35,7 @@ Mỗi node là 1 ký tự. Đi từ gốc → lá = 1 từ hoàn chỉnh. Các t
 ### Tại sao Trie nhanh cho tìm prefix?
 
 Khi tìm tất cả từ bắt đầu bằng "app":
+
 1. Đi theo đường a → p → p (3 bước = O(L))
 2. Từ node "pp", duyệt tất cả nhánh con → tìm được "app", "apple"
 
@@ -391,4 +392,4 @@ def autocomplete(trie, prefix):
 - [USACO Guide - Trie](https://usaco.gold/adv/trie)
 - [YouTube - Trie Data Structure (takeuforward)](https://www.youtube.com/watch?v=AXjmTQ8LEoI)
 
-**Bài tiếp theo:** [Euclid & Modular Inverse →](18-euclid-modular-inverse.md)
+**Bài tiếp theo:** [Heap, DSU, Segment Tree, BIT →](08-heap-dsu-segment-tree-bit.md)

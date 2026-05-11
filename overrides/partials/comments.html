@@ -1,0 +1,45 @@
+<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+<script>
+  var giscus = document.createElement("script")
+  giscus.src = "https://giscus.app/client.js"
+  giscus.setAttribute("data-repo", "{{ config.extra.giscus.repo }}")
+  giscus.setAttribute("data-repo-id", "{{ config.extra.giscus.repo_id }}")
+  giscus.setAttribute("data-category", "{{ config.extra.giscus.category }}")
+  giscus.setAttribute("data-category-id", "{{ config.extra.giscus.category_id }}")
+  giscus.setAttribute("data-mapping", "pathname")
+  giscus.setAttribute("data-strict", "0")
+  giscus.setAttribute("data-reactions-enabled", "1")
+  giscus.setAttribute("data-emit-metadata", "0")
+  giscus.setAttribute("data-input-position", "bottom")
+  giscus.setAttribute("data-lang", "vi")
+  giscus.setAttribute("crossorigin", "anonymous")
+  giscus.async = true
+
+  // Xác định theme ban đầu
+  var palette = __md_get("__palette")
+  if (palette && typeof palette.color === "object") {
+    var theme = palette.color.scheme === "slate" ? "dark" : "light"
+    giscus.setAttribute("data-theme", theme)
+  } else {
+    giscus.setAttribute("data-theme", "light")
+  }
+
+  // Chèn script vào sau tiêu đề bình luận
+  document.getElementById("__comments").after(giscus)
+
+  // Lắng nghe sự kiện đổi theme để cập nhật Giscus ngay lập tức
+  var ref = document.querySelector("[data-md-color-scheme]")
+  new MutationObserver(function() {
+    var palette = __md_get("__palette")
+    var theme = (palette && palette.color && palette.color.scheme === "slate") ? "dark" : "light"
+    
+    // Gửi thông điệp tới giscus iframe để đổi theme
+    var frame = document.querySelector(".giscus-frame")
+    if (frame) {
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme } } },
+        "https://giscus.app"
+      )
+    }
+  }).observe(ref, { attributes: true, attributeFilter: ["data-md-color-scheme"] })
+</script>

@@ -1,6 +1,6 @@
 # Bài 13: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây khung nhỏ nhất, Đường đi ngắn nhất, Sắp xếp Tô-pô
 
 ## 1. MST - Cây Khung Nhỏ Nhất
