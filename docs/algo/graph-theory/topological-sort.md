@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Nguồn:** [wcipeg](http://wcipeg.com/wiki/Topological_sort)
 
 **Biên soạn:**
@@ -164,6 +162,42 @@ main() {
     for (int i = 1; i <= n; ++i) cout << ans[i] << ' ';
 }
 ```
+```python
+from collections import deque
+
+n, m = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+indegree = [0] * (n + 1)
+
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+    indegree[v] += 1
+
+list_source = deque()
+for u in range(1, n + 1):
+    if indegree[u] == 0:
+        list_source.append(u)
+
+topo = []
+while list_source:
+    u = list_source.popleft()
+    topo.append(u)
+    for v in g[u]:
+        indegree[v] -= 1
+        if indegree[v] == 0:
+            list_source.append(v)
+
+if len(topo) < n:
+    print("Error: graph contains a cycle")
+else:
+    ans = [0] * (n + 1)
+    cnt = 0
+    for x in topo:
+        cnt += 1
+        ans[x] = cnt
+    print(' '.join(map(str, ans[1:])))
+```
 
 **Mô tả quá trình**
 - Thứ tự Tô-pô **không phải** là duy nhất. Quá trình sau chỉ mô tả lại quá trình xác định $1$ thứ tự Tô-pô theo như code mẫu.
@@ -261,6 +295,42 @@ main() {
 
     for (int i = 1; i <= n; ++i) cout << ans[i] << ' ';
 }
+```
+```python
+import sys
+sys.setrecursionlimit(10**6)
+
+def dfs(u, g, visit, topo):
+    visit[u] = 1
+    for v in g[u]:
+        if visit[v] == 1:
+            print("Error: graph contains a cycle")
+            sys.exit(0)
+        if visit[v] == 0:
+            dfs(v, g, visit, topo)
+    topo.append(u)
+    visit[u] = 2
+
+n, m = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+
+visit = [0] * (n + 1)
+topo = []
+for i in range(1, n + 1):
+    if visit[i] == 0:
+        dfs(i, g, visit, topo)
+
+topo.reverse()
+ans = [0] * (n + 1)
+cnt = 0
+for x in topo:
+    cnt += 1
+    ans[x] = cnt
+
+print(' '.join(map(str, ans[1:])))
 ```
 
 **Mô tả quá trình**
@@ -374,6 +444,39 @@ main() {
     }
     cout << ans;
 }
+```
+```python
+import sys
+sys.setrecursionlimit(10**6)
+
+def dfs(u, g, visit, rev_topo):
+    visit[u] = 1
+    for v in g[u]:
+        if visit[v] == 0:
+            dfs(v, g, visit, rev_topo)
+    rev_topo.append(u)
+    visit[u] = 2
+
+n, m = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+
+visit = [0] * (n + 1)
+rev_topo = []
+for i in range(1, n + 1):
+    if visit[i] == 0:
+        dfs(i, g, visit, rev_topo)
+
+dp = [0] * (n + 1)
+ans = 0
+for u in rev_topo:
+    for v in g[u]:
+        dp[u] = max(dp[u], dp[v] + 1)
+    ans = max(ans, dp[u])
+
+print(ans)
 ```
 
 ### Đánh giá
@@ -523,6 +626,55 @@ main() {
     }
 }
 ```
+```python
+import sys
+sys.setrecursionlimit(10**6)
+
+def print_impossible():
+    print("Impossible")
+    sys.exit(0)
+
+def dfs(u, g, visit, topo):
+    visit[u] = 1
+    for v in g[u]:
+        if visit[v] == 1:
+            print_impossible()
+        if visit[v] == 0:
+            dfs(v, g, visit, topo)
+    topo.append(u)
+    visit[u] = 2
+
+def solve(x, y, g):
+    for i in range(min(len(x), len(y))):
+        if x[i] != y[i]:
+            g[ord(x[i]) - ord('a')].append(ord(y[i]) - ord('a'))
+            return
+    if len(x) > len(y):
+        print_impossible()
+
+n = int(input())
+s = []
+for i in range(n):
+    s.append(input().strip())
+    if i > 0:
+        solve(s[i - 1], s[i], [[] for _ in range(26)])
+
+g = [[] for _ in range(26)]
+s = []
+for i in range(n):
+    s.append(input().strip())
+    if i > 0:
+        solve(s[i - 1], s[i], g)
+
+visit = [0] * 26
+topo = []
+for i in range(26):
+    if visit[i] == 0:
+        dfs(i, g, visit, topo)
+
+topo.reverse()
+print(''.join(chr(x + ord('a')) for x in topo))
+```
 
 ### Đánh giá
 
@@ -556,3 +708,5 @@ main() {
 [CSES - Longest Flight Route](https://cses.fi/problemset/task/1680)
 
 [CSES - Game Routes](https://cses.fi/problemset/task/1681)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

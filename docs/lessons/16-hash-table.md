@@ -42,6 +42,14 @@ int simpleHash(string s, int tableSize) {
     return hash;
 }
 ```
+```python
+# Ví dụ hàm băm đơn giản cho xâu
+def simple_hash(s, table_size):
+    h = 0
+    for c in s:
+        h = (h * 31 + ord(c)) % table_size
+    return h
+```
 
 ### Xử lý xung đột (Collision)
 
@@ -200,6 +208,19 @@ vector<int> twoSum(vector<int>& a, int target) {
 }
 ```
 
+### Code Python - Two Sum
+
+```python
+def two_sum(a, target):
+    pos = {}
+    for i, x in enumerate(a):
+        complement = target - x
+        if complement in pos:
+            return [pos[complement], i]
+        pos[x] = i
+    return []
+```
+
 ### 4.3. Group Anagrams (Nhóm các từ đảo chữ)
 
 Cho danh sách từ, nhóm các từ là đảo chữ của nhau (cùng chữ cái, khác thứ tự).
@@ -251,6 +272,15 @@ bool hasDuplicate(vector<int>& a) {
     }
     return false;
 }
+```
+```python
+# Kiểm tra mảng có phần tử trùng không
+def has_duplicate(a):
+    seen = set()
+    for x in a:
+        if x in seen: return True
+        seen.add(x)
+    return False
 ```
 
 ### 4.5. Tổng hợp
@@ -311,6 +341,41 @@ struct HashTable {
         }
     }
 };
+```
+
+### Code Python - Hash Table thủ công
+
+```python
+class HashTable:
+    SIZE = 10007
+    
+    def __init__(self):
+        self.table = [[] for _ in range(self.SIZE)]
+    
+    def _hash(self, key):
+        h = 0
+        for c in key:
+            h = (h * 31 + ord(c)) % self.SIZE
+        return h
+    
+    def insert(self, key, value):
+        idx = self._hash(key)
+        for i, (k, v) in enumerate(self.table[idx]):
+            if k == key:
+                self.table[idx][i] = (key, value)
+                return
+        self.table[idx].append((key, value))
+    
+    def get(self, key):
+        idx = self._hash(key)
+        for k, v in self.table[idx]:
+            if k == key:
+                return v
+        return -1
+    
+    def erase(self, key):
+        idx = self._hash(key)
+        self.table[idx] = [(k, v) for k, v in self.table[idx] if k != key]
 ```
 
 ---

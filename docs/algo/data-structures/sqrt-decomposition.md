@@ -70,6 +70,20 @@ void preprocess()
 }
 ```
 
+```python
+import math
+
+BLOCK_SIZE = 320
+N = 100002
+
+cnt = [[0] * N for _ in range(N // BLOCK_SIZE + 2)]
+a = [0] * N
+
+def preprocess():
+    for i in range(n):
+        cnt[i // BLOCK_SIZE][a[i]] += 1
+```
+
 Sau khi đã tiền xử lý, hàm trả lời truy vấn có thể cài đặt như sau. Lưu ý, ta phải xét riêng trường hợp cả hai đầu của truy vấn nằm trong cùng một đoạn. Trong code bên dưới, tác giả dùng [hàm count](https://www.cplusplus.com/reference/algorithm/count/) của thư viện C++ STL.
 
 ```cpp
@@ -94,6 +108,29 @@ int query(int l, int r, int k)
 }
 ```
 
+```python
+def query(l, r, k):
+    blockL = (l + BLOCK_SIZE - 1) // BLOCK_SIZE
+    blockR = r // BLOCK_SIZE
+    if blockL >= blockR:
+        return a[l:r+1].count(k)
+    
+    s = 0
+    for i in range(blockL, blockR):
+        s += cnt[i][k]
+    
+    lim = blockL * BLOCK_SIZE
+    for i in range(l, lim):
+        if a[i] == k:
+            s += 1
+    
+    for i in range(blockR * BLOCK_SIZE, r + 1):
+        if a[i] == k:
+            s += 1
+    
+    return s
+```
+
 Thao tác cập nhật một phần tử có thể thêm vào như sau (với $u$ là vị trí cần cập nhật, và $v$ là giá trị mới):
 
 ```cpp
@@ -104,6 +141,14 @@ void update(int u, int v)
     a[u] = v;
     ++cnt[block][a[u]];
 }
+```
+
+```python
+def update(u, v):
+    block = u // BLOCK_SIZE
+    cnt[block][a[u]] -= 1
+    a[u] = v
+    cnt[block][a[u]] += 1
 ```
 
 ## Bài toán 2

@@ -82,6 +82,27 @@ int get(int id, int l, int r, int u, int v) {
 }
 ```
 
+```python
+def update(id, l, r, i, v):
+    if i < l or r < i:
+        return
+    if l == r:
+        ST[id] = v
+        return
+    mid = (l + r) // 2
+    update(id * 2, l, mid, i, v)
+    update(id * 2 + 1, mid + 1, r, i, v)
+    ST[id] = max(ST[id * 2], ST[id * 2 + 1])
+
+def get(id, l, r, u, v):
+    if v < l or r < u:
+        return -float('inf')
+    if u <= l and r <= v:
+        return ST[id]
+    mid = (l + r) // 2
+    return max(get(id * 2, l, mid, u, v), get(id * 2 + 1, mid + 1, r, u, v))
+```
+
 ## Phân tích thời gian chạy
 
 Mỗi thao tác truy vấn trên cây ST có độ phức tạp $O(\log{N})$. Để chứng minh điều này, ta xét 2 loại thao tác trên cây ST:
@@ -298,6 +319,17 @@ void build(int id, int l, int r) {
 }
 ```
 
+```python
+def build(id, l, r):
+    if l == r:
+        st[id] = 1
+        return
+    mid = (l + r) // 2
+    build(id * 2, l, mid)
+    build(id * 2 + 1, mid + 1, r)
+    st[id] = st[id * 2] + st[id * 2 + 1]
+```
+
 Một hàm cập nhật khi ta muốn gán lại một vị trí bằng 0:
 
 ```cpp
@@ -318,6 +350,19 @@ void update(int id, int l, int r, int u) {
 }
 ```
 
+```python
+def update(id, l, r, u):
+    if u < l or r < u:
+        return
+    if l == r:
+        st[id] = 0
+        return
+    mid = (l + r) // 2
+    update(id * 2, l, mid, u)
+    update(id * 2 + 1, mid + 1, r, u)
+    st[id] = st[id * 2] + st[id * 2 + 1]
+```
+
 Và cuối cùng là thực hiện truy vấn lấy tổng một đoạn:
 
 ```cpp
@@ -334,6 +379,16 @@ int get(int id, int l, int r, int u, int v) {
     return get(id*2, l, mid, u, v)
         + get(id*2+1, mid+1, r, u, v);
 }
+```
+
+```python
+def get(id, l, r, u, v):
+    if v < l or r < u:
+        return 0
+    if u <= l and r <= v:
+        return st[id]
+    mid = (l + r) // 2
+    return get(id * 2, l, mid, u, v) + get(id * 2 + 1, mid + 1, r, u, v)
 ```
 
 
@@ -402,6 +457,16 @@ void down(int id) {
 
 ```
 
+```python
+def down(id):
+    t = nodes[id]['lazy']
+    nodes[id * 2]['lazy'] += t
+    nodes[id * 2]['val'] += t
+    nodes[id * 2 + 1]['lazy'] += t
+    nodes[id * 2 + 1]['val'] += t
+    nodes[id]['lazy'] = 0
+```
+
 Hàm cập nhật:
 
 ```cpp
@@ -427,6 +492,21 @@ void update(int id, int l, int r, int u, int v, int val) {
 }
 ```
 
+```python
+def update(id, l, r, u, v, val):
+    if v < l or r < u:
+        return
+    if u <= l and r <= v:
+        nodes[id]['val'] += val
+        nodes[id]['lazy'] += val
+        return
+    mid = (l + r) // 2
+    down(id)
+    update(id * 2, l, mid, u, v, val)
+    update(id * 2 + 1, mid + 1, r, u, v, val)
+    nodes[id]['val'] = max(nodes[id * 2]['val'], nodes[id * 2 + 1]['val'])
+```
+
 Hàm lấy giá trị lớn nhất:
 
 ```cpp
@@ -445,6 +525,17 @@ int get(int id, int l, int r, int u, int v) {
     // Trong các bài toán tổng quát, giá trị ở nút id có thể bị thay đổi (do ta đẩy lazy propagation
     // xuống các con). Khi đó, ta cần cập nhật lại thông tin của nút id dựa trên thông tin của các con.
 }
+```
+
+```python
+def get(id, l, r, u, v):
+    if v < l or r < u:
+        return -float('inf')
+    if u <= l and r <= v:
+        return nodes[id]['val']
+    mid = (l + r) // 2
+    down(id)
+    return max(get(id * 2, l, mid, u, v), get(id * 2 + 1, mid + 1, r, u, v))
 ```
 
 Đến đây các bạn đã nắm được kiến thức cơ bản về Segment Tree. Những phần tiếp theo nói về các kiến thức nâng cao - các mở rộng của ST. Bạn nên làm nhiều bài luyện tập (tham khảo ở cuối bài) trước khi nghiên cứu tiếp.
@@ -801,6 +892,18 @@ int query(int root, int l, int r, int k) {
 //cout << query(1, 1, n, k);
 ```
 
+```python
+def query(root, l, r, k):
+    if st[root] > k:
+        return -1
+    if l == r:
+        return l
+    mid = (l + r) // 2
+    if st[root * 2] <= k:
+        return query(root * 2, l, mid, k)
+    return query(root * 2 + 1, mid + 1, r, k)
+```
+
 Hàm trên có độ phức tạp là $O(\log{n})$, bởi vì mỗi lần đệ quy chỉ gọi ra một hàm khác (từ một nút chỉ đi qua một nút khác), và số lần gọi đệ quy chính bằng độ cao của Segment tree.
 Tới đây ta đã xong **bài toán 2**. 
 
@@ -829,6 +932,23 @@ int query(int root, int l, int r, int lowerbound, int k) {
     return res;
 }
 //cout << query(1, 1, n, l, k);
+```
+
+```python
+def query(root, l, r, lowerbound, k):
+    if st[root] > k:
+        return -1
+    if r < lowerbound:
+        return -1
+    if l == r:
+        return l
+    mid = (l + r) // 2
+    res = -1
+    if st[root * 2] <= k:
+        res = query(root * 2, l, mid, lowerbound, k)
+    if res == -1:
+        res = query(root * 2, mid + 1, r, lowerbound, k)
+    return res
 ```
 Code này có một chút lạ, khác so với code ở **bài toán 2** một chút, ở **bài toán 2**, thì mỗi lần đệ quy chỉ thăm duy nhất một con trái hoặc phải, nhưng ở code mới này thì một lần đệ quy có thể phải thăm cả $2$ con, lý do là vì có thể một cây con nó có *min* không vượt quá $k$, nhưng vị trí đạt *min* nó có thể nhỏ hơn $lowerbound$, vì thế ta phải tìm ở cây con khác. 
 

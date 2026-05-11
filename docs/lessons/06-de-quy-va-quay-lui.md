@@ -305,6 +305,16 @@ int factorial(int n) {
     return factorial(n - 1) * n;
 }
 ```
+```python
+# SAI: không có base case → đệ quy vô hạn!
+def factorial(n):
+    return factorial(n - 1) * n
+
+# ĐÚNG: phải có base case
+def factorial(n):
+    if n == 0: return 1    # ← Base case!
+    return factorial(n - 1) * n
+```
 
 ### Bẫy 2: Quên "quay lui" → Sai kết quả!
 
@@ -318,6 +328,17 @@ backtrack(pos + 1);
 used[num] = true;
 backtrack(pos + 1);
 used[num] = false;  // ← QUAY LUI!
+```
+```python
+# SAI: quên khôi phục trạng thái
+used[num] = True
+backtrack(pos + 1)
+# Quên used[num] = False! → Lần sau không dùng được num nữa!
+
+# ĐÚNG:
+used[num] = True
+backtrack(pos + 1)
+used[num] = False   # ← QUAY LUI!
 ```
 
 ### Bẫy 3: Đệ quy quá sâu → Stack Overflow
@@ -342,6 +363,28 @@ int fibo(int n) {
     if (memo[n] != -1) return memo[n];  // Đã tính rồi → lấy ra
     return memo[n] = fibo(n-1) + fibo(n-2);  // Tính và lưu
 }
+```
+```python
+# SAI: O(2^N) - rất chậm!
+def fibo(n):
+    if n <= 1: return n
+    return fibo(n-1) + fibo(n-2)   # Tính lại cùng 1 giá trị nhiều lần!
+
+# ĐÚNG: dùng memoization - O(N)
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fibo(n):
+    if n <= 1: return n
+    return fibo(n-1) + fibo(n-2)
+
+# Hoặc tự cài memo:
+memo = {}
+def fibo(n):
+    if n <= 1: return n
+    if n in memo: return memo[n]
+    memo[n] = fibo(n-1) + fibo(n-2)
+    return memo[n]
 ```
 
 ### Mẹo thi cử: Khi nào dùng Quay lui?

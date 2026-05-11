@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Tác giả:** Nguyễn Hà Duy - THPT Chuyên Hà Nội - Amsterdam
 
 **Reviewer:** Hoàng Xuân Nhật
@@ -49,6 +47,26 @@ int peek() // trả về giá trị của phần tử ở đỉnh Stack
 }
 ```
 
+```python
+MAXN = 100002
+
+st = [0] * MAXN
+top = 0
+
+def push(x):  # thêm x vào cuối Stack
+    global top
+    top += 1
+    st[top] = x
+
+def pop():  # loại bỏ phần tử ở cuối Stack
+    global top
+    assert top > 0  # đảm bảo Stack đang chứa ít nhất 1 phần tử
+    top -= 1
+
+def peek():  # trả về giá trị của phần tử ở đỉnh Stack
+    return st[top]
+```
+
 ## Sử dụng thư viện chuẩn
 
 Thư viện chuẩn của C++ cho phép ta sử dụng Stack qua kiểu dữ liệu `stack` trong header cùng tên. Các thao tác chính trên `stack` là:
@@ -78,6 +96,15 @@ int main()
     cout << st.top() << endl; // In ra 5
     return 0;
 }
+```
+
+```python
+st = []
+st.append(5)   # thêm 5 vào stack
+st.append(10)  # thêm 10 vào stack
+print(st[-1])  # In ra 10
+st.pop()       # loại bỏ phần tử ở cuối
+print(st[-1])  # In ra 5
 ```
 ![img](../../uploads/Fm9OL7a.png)
 
@@ -356,6 +383,25 @@ bool solve(string s)
 }
 ```
 
+```python
+st = []
+matches = []  # lưu các cặp dấu ngoặc tương ứng
+
+def solve(s):
+    n = len(s)
+    for i in range(n):
+        if s[i] == '(':  # chỉ đẩy dấu ngoặc mở vào Stack
+            st.append(i)
+        else:
+            if not st:
+                return False  # dãy không phải là dãy ngoặc đúng
+            matches.append((st[-1], i))  # tìm thấy một cặp tương ứng
+            st.pop()
+    if st:
+        return False  # nếu Stack không rỗng thì dãy không đúng
+    return True
+```
+
 ### Mở rộng
 Bài toán 2 có thể được mở rộng thêm: dãy có thể có cả ngoặc vuông và ngoặc nhọn. Rõ ràng, ta có thể xử lý các loại ngoặc như cách ta làm với bài toán 2. Lưu ý duy nhất là ta cần phải kiểm soát thêm cả kiểu loại của dấu.
 
@@ -482,6 +528,19 @@ for (int i = 1; i <= n; ++i)
 }
 ```
 
+```python
+st = []
+
+for i in range(1, n + 1):
+    while st and a[st[-1]] <= a[i]:
+        st.pop()
+    ans = -1
+    if st:
+        ans = st[-1]
+    print(ans, end=' ')
+    st.append(i)
+```
+
 #### Đánh giá độ phức tạp
 
 Độ phức tạp bộ nhớ của lời giải là \\(O(n)\\) do sử dụng Stack và một mảng chứa \\(n\\) phần tử.
@@ -550,3 +609,5 @@ for (int k = 1; k <= n; ++k)
 * [280B - Codeforces](https://codeforces.com/problemset/problem/280/B)
 * [1132G - Codeforces](https://codeforces.com/problemset/problem/1132/G)
 * Tham khảo thêm tại: [VNOI Problem List](https://vnoi.info/problems/list/)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

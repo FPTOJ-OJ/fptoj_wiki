@@ -46,6 +46,22 @@ else {
     cout << x << endl;
 }
 ```
+```python
+def extended_euclidean(a, m):
+    if m == 0:
+        return a, 1, 0
+    g, x1, y1 = extended_euclidean(m, a % m)
+    x = y1
+    y = x1 - (a // m) * y1
+    return g, x, y
+
+g, x, y = extended_euclidean(a, m)
+if g != 1:
+    print("No solution!")
+else:
+    x = (x % m + m) % m
+    print(x)
+```
 
 ## Tính nghịch đảo modulo bằng a^b % c
 
@@ -74,6 +90,12 @@ Trong trường hợp $m$ là số nguyên tố, ta cũng có thể tính tất 
 r[1] = 1;
 for(int i = 2; i < m; ++i)
     r[i] = (m - (m/i) * r[m%i] % m) % m;
+```
+```python
+r = [0] * m
+r[1] = 1
+for i in range(2, m):
+    r[i] = (m - (m // i) * r[m % i] % m) % m
 ```
 
 **Chứng minh:**

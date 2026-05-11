@@ -69,6 +69,15 @@ for (int i = K; i <= N; ++i) {
 }
 ```
 
+```python
+INF = 10**9 + 7
+for i in range(K, N + 1):
+    min_range = INF
+    for j in range(i, i - K - 1, -1):
+        min_range = min(min_range, A[j])
+    print(min_range)
+```
+
 Tuy nhiên cách làm này không đem lại hiệu quả cao. **Độ phức tạp:** $O(k \cdot (N - k))$
 
 Mỗi lần gán $minRange = min(minRange, A[j])$ thì mấu chốt là những vị trí mà $minRange$ thay đổi. Vậy nên ta sẽ chỉ lưu lại những vị trí có thể làm thay đổi $minRange$. Ta thấy rằng các vị trí lưu vào tăng dần về cả giá trị cũng như vị trí.
@@ -162,6 +171,30 @@ for (int i = 1; i <= N; ++i) {
 }
 ```
 
+```python
+from collections import deque
+
+dq = deque()
+
+# Duyệt lần lượt các phần tử từ 1 đến N
+for i in range(1, N + 1):
+    # Loại bỏ các phần tử có giá trị lớn hơn hoặc bằng A[i]
+    while dq and A[dq[-1]] >= A[i]:
+        dq.pop()
+    
+    # Đẩy phần tử i vào queue
+    dq.append(i)
+    
+    # Nếu phần tử đầu tiên trong deque nằm ngoài khoảng tính
+    # thì ta sẽ loại bỏ ra khỏi deque
+    if dq[0] + k <= i:
+        dq.popleft()
+    
+    # minRange[i] là giá trị nhỏ nhất trong đoạn [i – k + 1 … i]
+    if i >= k:
+        minRange[i] = A[dq[0]]
+```
+
 ## **Đánh giá**
 Tất cả các thao tác cơ bản trên deque **(pop_back(), pop_front() và push_back())** có thể dễ dàng được thực hiện với thời gian chạy là $O(1)$.
 Mỗi phần tử vào deque đúng $1$ lần và bị loại bỏ đúng $1$ lần nên độ phức tạp của thuật toán này khi xây dựng là $O(N)$ trong mỗi lần tìm $min$ trong đoạn tịnh tiến.
@@ -243,6 +276,16 @@ for (int i = 1; i <= N + 1; ++i)
         dp[i] = min(dp[i], dp[j] + A[i]);
 cout << ans - dp[N + 1] << '\n';
 ```
+
+```python
+INF = 10**18
+dp = [0] + [INF] * (N + 1)
+ans = sum(A[1:N+1])
+for i in range(1, N + 2):
+    for j in range(max(0, i - K), i):
+        dp[i] = min(dp[i], dp[j] + A[i])
+print(ans - dp[N + 1])
+```
 **Độ phức tạp:** $O(N \cdot K)$
 **Nhận xét:** 
 Ta cập nhật giá trị $dp[i]$ bởi đoạn các giá trị $dp[j]$ liên tục. Do đó ta có thể dễ dàng cài đặt bằng cây phân đoạn với độ phức tạp: $O(N \cdot log_{2}N)$
@@ -265,6 +308,23 @@ for (int i = 1; i <= N + 1; ++i) {
     dq.push_back(i);
 }
 cout << ans - dp[N + 1] << '\n';
+```
+
+```python
+from collections import deque
+
+dq = deque()
+dq.append(0)
+ans = 0
+for i in range(1, N + 2):
+    while dq and dq[0] < i - K:
+        dq.popleft()
+    dp[i] = dp[dq[0]] + A[i]
+    ans += A[i]
+    while dq and dp[dq[-1]] >= dp[i]:
+        dq.pop()
+    dq.append(i)
+print(ans - dp[N + 1])
 ```
 
 ## **Bài toán 3**
@@ -368,6 +428,18 @@ for (int k = 1; k <= N; ++k) {
 }
 ```
 
+```python
+from collections import deque
+
+# L[k]: Xa nhất về bên trái nhận H[k] là max
+dq = deque()
+for k in range(1, N + 1):
+    while dq and H[dq[0]] <= H[k]:
+        dq.popleft()
+    L[k] = dq[0] + 1 if dq else k
+    dq.appendleft(k)
+```
+
 **Xây dựng mảng R**
 ```cpp
 /* R[k]: Xa nhất về bên phải nhận H[k] là max */
@@ -378,6 +450,18 @@ for (int k = N; k >= 1; --k) {
     else R[k] = k;
     dq.push_front(k);
 }
+```
+
+```python
+from collections import deque
+
+# R[k]: Xa nhất về bên phải nhận H[k] là max
+dq = deque()
+for k in range(N, 0, -1):
+    while dq and H[dq[0]] <= H[k]:
+        dq.popleft()
+    R[k] = dq[0] - 1 if dq else k
+    dq.appendleft(k)
 ```
 
 **Xây dựng mảng l**
@@ -392,6 +476,18 @@ for (int k = 1; k <= N; ++k) {
 }
 ```
 
+```python
+from collections import deque
+
+# l[k]: Xa nhất về bên trái nhận H[k] là min
+dq = deque()
+for k in range(1, N + 1):
+    while dq and H[dq[0]] >= H[k]:
+        dq.popleft()
+    l[k] = dq[0] + 1 if dq else k
+    dq.appendleft(k)
+```
+
 **Xây dựng mảng r**
 ```cpp
     /* r[k]: Xa nhất về bên phải nhận H[k] là min */
@@ -402,6 +498,18 @@ for (int k = 1; k <= N; ++k) {
         else r[k] = k;
         dq.push_front(k);
     }
+```
+
+```python
+from collections import deque
+
+# r[k]: Xa nhất về bên phải nhận H[k] là min
+dq = deque()
+for k in range(N, 0, -1):
+    while dq and H[dq[0]] >= H[k]:
+        dq.popleft()
+    r[k] = dq[0] - 1 if dq else k
+    dq.appendleft(k)
 ```
 
 **Xây dựng đồ thị**
@@ -417,6 +525,17 @@ for (int k = 1; k <= N; ++k) {
         G[l[k] - 1].push_back(r[k] + 1);
     }
 }
+```
+
+```python
+for i in range(1, N + 1):
+    G[i].append(i + 1)
+for k in range(1, N + 1):
+    if H[k] < min(H[L[k] - 1], H[R[k] + 1]):
+        G[L[k] - 1].append(R[k] + 1)
+for k in range(1, N + 1):
+    if max(H[l[k] - 1], H[r[k] + 1]) < H[k]:
+        G[l[k] - 1].append(r[k] + 1)
 ```
 
 ## **Đánh giá**

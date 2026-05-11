@@ -42,6 +42,16 @@ for (int i = 1; i <= k; i++) res = res / i;
 for (int i = 1; i <= n-k; i++) res = res / i;
 ```
 
+```python
+res = 1
+for i in range(1, n + 1):
+    res = res * i
+for i in range(1, k + 1):
+    res = res // i
+for i in range(1, n - k + 1):
+    res = res // i
+```
+
 - Mở rộng hơn, ta có thể biến đổi một chút như sau:
 
 $$C_n^k = \dfrac{n}{1} \cdot \dfrac{n - 1}{2} \ldots \dfrac{n - k + 1}{k} = \dfrac{C_{n-1}^{k-1} \cdot (n - k + 1)}{k}$$
@@ -52,6 +62,12 @@ Vì $C_n^k$ là số nguyên, nên bạn yên tâm rằng $C_{n-1}^{k-1} \cdot (
 long long res = 1;
 for (int i = 1; i <= k; i++)
     res = res * (n - i + 1) / i;
+```
+
+```python
+res = 1
+for i in range(1, k + 1):
+    res = res * (n - i + 1) // i
 ```
 
 - Hai cách tiếp cận trên rất tự nhiên, dễ nghĩ, dễ thực hiện nhưng lại có một trở ngại: giá trị của $n!$ có thể rất lớn (khi $n = 20$ thì $n! \approx 2.42\times10^{18}$)
@@ -76,6 +92,13 @@ for (int i = 0; i <= n; i++){
         C[i][k] = C[i - 1][k - 1] + C[i - 1][k];
     }
 }
+```
+
+```python
+for i in range(n + 1):
+    C[i][0] = 1
+    for j in range(1, i + 1):
+        C[i][j] = C[i - 1][j - 1] + C[i - 1][j]
 ```
 
 Độ phức tạp không gian: $O(n^2)$
@@ -117,6 +140,13 @@ for (int i = 0; i <= n; i++){
         C[i][k] = (C[i - 1][k - 1] + C[i - 1][k]) % MOD;
     }
 }
+```
+
+```python
+for i in range(n + 1):
+    C[i][0] = 1 % MOD
+    for j in range(1, i + 1):
+        C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % MOD
 ```
 
 Độ phức tạp không gian: $O(n^2)$
@@ -218,6 +248,46 @@ int main(){
 }
 ```
 
+```python
+MOD = 10**9 + 7
+N = 10**6
+fact = [0] * (N + 5)
+ifact = [0] * (N + 5)
+
+# Hàm lũy thừa nhanh
+def binpow(a, b):
+    ans = 1
+    while b > 0:
+        if b % 2:
+            ans = ans * a % MOD
+        a = a * a % MOD
+        b //= 2
+    return ans
+
+# Chuẩn bị
+def prepare():
+    # Tính fact[]
+    fact[0] = 1
+    for i in range(1, N + 1):
+        fact[i] = fact[i - 1] * i % MOD
+    # Tính ifact[]
+    ifact[N] = binpow(fact[N], MOD - 2)
+    for i in range(N - 1, 0, -1):
+        ifact[i] = ifact[i + 1] * (i + 1) % MOD
+
+# Hàm tính nCk
+def C(n, k):
+    if k > n:
+        return 0
+    return (fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD
+
+prepare()
+q = int(input())
+for _ in range(q):
+    n, k = map(int, input().split())
+    print(C(n, k))
+```
+
 Độ phức tạp không gian: $O(n)$
 Độ phức tạp thời gian:
 - Tiền xử lý: $O(n + \log M)$
@@ -240,6 +310,21 @@ int comb(long long n, long long k){
     }
     return res;
 }
+```
+
+```python
+def C(n, k):  # hàm tính Ckn sử dụng định nghĩa bên trên
+    pass
+
+def comb(n, k):
+    if k > n:
+        return 0
+    res = 1
+    while n > 0:
+        res = res * C(n % MOD, k % MOD) % MOD
+        n //= MOD
+        k //= MOD
+    return res
 ```
 
 <details>
@@ -300,6 +385,54 @@ int main(){
     
 }
 ```
+
+```python
+MOD = 10**6 + 3
+fact = [0] * (MOD + 5)
+ifact = [0] * (MOD + 5)
+
+# Hàm lũy thừa nhanh
+def binpow(a, b):
+    ans = 1
+    while b > 0:
+        if b % 2:
+            ans = ans * a % MOD
+        a = a * a % MOD
+        b //= 2
+    return ans
+
+# Chuẩn bị
+def prepare():
+    fact[0] = 1
+    for i in range(1, MOD):
+        fact[i] = fact[i - 1] * i % MOD
+    ifact[MOD - 1] = binpow(fact[MOD - 1], MOD - 2)
+    for i in range(MOD - 2, -1, -1):
+        ifact[i] = ifact[i + 1] * (i + 1) % MOD
+
+# Hàm tính nCk với n < M
+def C(n, k):
+    if k > n:
+        return 0
+    return (fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD
+
+# Hàm tính nCk với n có thể lớn hơn M
+def comb(n, k):
+    if k > n:
+        return 0
+    res = 1
+    while n > 0:
+        res = res * C(n % MOD, k % MOD) % MOD
+        n //= MOD
+        k //= MOD
+    return res
+
+prepare()
+q = int(input())
+for _ in range(q):
+    n, k = map(int, input().split())
+    print(comb(n, k))
+```
 </details>
 
 Độ phức tạp không gian: $O(M)$
@@ -341,6 +474,12 @@ const int MOD = 27;
 const int prime = 3;
 long long fact[MOD], ifact[MOD];
 ```
+```python
+MOD = 27
+prime = 3
+fact = [0] * MOD
+ifact = [0] * MOD
+```
 - Chú ý rằng ở bước chuẩn bị, $\text{fact}[i]$ sử dụng để lưu $\left( i! \right)_p$ (*Xem phần mô tả mở rộng định lý Lucas*) thay vì $i!$ và ta cần sử dụng định lý Euler thay cho định lý Fermat nhỏ.
 ```cpp
 void init(){
@@ -360,6 +499,22 @@ void init(){
             ifact[i - 1] = ifact[i];
     }
 }
+```
+```python
+def init():
+    fact[0] = 1
+    for i in range(1, MOD):
+        if i % prime != 0:
+            fact[i] = (fact[i - 1] * i) % MOD
+        else:
+            fact[i] = fact[i - 1]
+    phi = MOD // prime * (prime - 1) - 1
+    ifact[MOD - 1] = binpow(fact[MOD - 1], phi, MOD)
+    for i in range(MOD - 1, 0, -1):
+        if i % prime != 0:
+            ifact[i - 1] = (ifact[i] * i) % MOD
+        else:
+            ifact[i - 1] = ifact[i]
 ```
 - Tiếp theo ta sử dụng công thức bên trên
 ```cpp
@@ -391,6 +546,33 @@ long long calc(long long N, long long K, long long R) {
         res = (MOD - res) % MOD;
     return res;
 }
+```
+```python
+def C_mod(N, K, R):
+    return (fact[N] * ifact[R] % MOD) * ifact[K] % MOD
+
+def count_carry(n, k, r, p, t):
+    res = 0
+    while n >= t:
+        res += (n // t) - (k // t) - (r // t)
+        t *= p
+    return res
+
+def calc(N, K, R):
+    if K > N:
+        return 0
+    res = 1
+    vp = count_carry(N, K, R, prime, prime)
+    vp2 = count_carry(N, K, R, prime, MOD)
+    while N > 0:
+        res = (res * C_mod(N % MOD, K % MOD, R % MOD)) % MOD
+        N //= prime
+        K //= prime
+        R //= prime
+    res = res * binpow(prime, vp, MOD) % MOD
+    if (vp2 % 2 == 1) and (prime != 2 or MOD <= 4):
+        res = (MOD - res) % MOD
+    return res
 ```
 
 Độ phức tạp không gian: $O(M)$
@@ -446,6 +628,14 @@ long long calc(long long N, long long K, long long R) {
     int rem[n_primes];
     vector<long long> fact[n_primes], ifact[n_primes];
     ```
+    ```python
+    n_primes = 4
+    primes = [3, 11, 13, 37]
+    primes_pw = [27, 11, 13, 37]
+    rem = [0] * n_primes
+    fact = [[] for _ in range(n_primes)]
+    ifact = [[] for _ in range(n_primes)]
+    ```
 
 - Ta chuẩn bị sẵn một mảng tính $M_i N_i$ trong công thức $a = \sum a_i M_i N_i$ để tiện cho việc truy vấn.
     ```cpp
@@ -460,6 +650,16 @@ long long calc(long long N, long long K, long long R) {
         }
     }
     ```
+    ```python
+    def prepare():
+        for i in range(n_primes):
+            # M_i
+            tmp = MOD // primes_pw[i]
+            # giá trị phi Euler của primes_pw[i]
+            phi = primes_pw[i] // primes[i] * (primes[i] - 1)
+            # M_i * M_i^(-1)
+            rem[i] = tmp * binpow(tmp, phi - 1, primes_pw[i]) % MOD
+    ```
 - Cuối cùng tính ra kết quả cuối cùng sử dụng CRT
     ```cpp
     long long CRT(long long N, long long K) {
@@ -472,9 +672,17 @@ long long calc(long long N, long long K, long long R) {
         return res;
     }
     ```
+    ```python
+    def CRT(N, K):
+        res = 0
+        for i in range(n_primes):
+            ans = C(N, K, MOD) * rem[i] % MOD
+            res = (res + ans) % MOD
+        return res
+    ```
 
 <details>
-<summary> Bạn đọc tham khảo code nộp AC bài nCr ở đây </summary>
+<summary> Bạn đọc tham khảo thêm code nộp AC bài nCr ở đây </summary>
 ```cpp
 ## include <bits/stdc++.h>
 const int MOD = 142857;
@@ -600,6 +808,91 @@ int main()
     cin >> t;
     solve();
 }
+```
+
+```python
+MOD = 142857
+
+primes = [3, 11, 13, 37]
+primes_pw = [27, 11, 13, 37]
+phi = [18, 10, 12, 36]
+rem = [0] * 4
+fact = [[] for _ in range(4)]
+ifact = [[] for _ in range(4)]
+
+def binpow(a, n, mod):
+    res = 1
+    while n > 0:
+        if n & 1:
+            res = res * a % mod
+        a = a * a % mod
+        n >>= 1
+    return res
+
+def init(x):
+    fact[x] = [0] * primes_pw[x]
+    ifact[x] = [0] * primes_pw[x]
+    fact[x][0] = 1
+    for i in range(1, primes_pw[x]):
+        if i % primes[x] != 0:
+            fact[x][i] = (fact[x][i - 1] * i) % primes_pw[x]
+        else:
+            fact[x][i] = fact[x][i - 1]
+    ifact[x][primes_pw[x] - 1] = binpow(fact[x][primes_pw[x] - 1],
+                                         primes_pw[x] // primes[x] * (primes[x] - 1) - 1,
+                                         primes_pw[x])
+    for i in range(primes_pw[x] - 1, 0, -1):
+        if i % primes[x] != 0:
+            ifact[x][i - 1] = (ifact[x][i] * i) % primes_pw[x]
+        else:
+            ifact[x][i - 1] = ifact[x][i]
+
+def C_mod(N, K, R, i):
+    return (fact[i][N] * ifact[i][R] % primes_pw[i]) * ifact[i][K] % primes_pw[i]
+
+def count_carry(n, k, r, p, t):
+    res = 0
+    while n >= t:
+        res += (n // t - k // t - r // t)
+        t *= p
+    return res
+
+def calc(N, K, R, ord_pr):
+    if K > N:
+        return 0
+    prime = primes[ord_pr]
+    mod = primes_pw[ord_pr]
+    res = 1
+    vp = count_carry(N, K, R, prime, prime)
+    vp2 = count_carry(N, K, R, prime, mod)
+    while N > 0:
+        res = (res * C_mod(N % mod, K % mod, R % mod, ord_pr)) % mod
+        N //= prime
+        K //= prime
+        R //= prime
+    res = res * binpow(prime, vp, mod) % mod
+    if (vp2 & 1) and (prime != 2 or mod <= 4):
+        res = (mod - res) % mod
+    return res
+
+def CRT_func(N, K):
+    res = 0
+    for i in range(4):
+        ans = calc(N, K, N - K, i) * rem[i] % MOD
+        res = (res + ans) % MOD
+    return res
+
+def solve():
+    for i in range(4):
+        init(i)
+        tmp = MOD // primes_pw[i]
+        rem[i] = tmp * binpow(tmp, phi[i] - 1, primes_pw[i]) % MOD
+    t = int(input())
+    for _ in range(t):
+        N, K = map(int, input().split())
+        print(CRT_func(N, K))
+
+solve()
 ```
 </details>
 

@@ -51,6 +51,30 @@ long long solve() {
 }
 ```
 
+``` python
+cnt = 0
+
+def Try(i, total):
+    global cnt
+    # tiếp tục quay lui với tập có total > x là không cần thiết
+    if total > x:
+        return
+    if i > n:
+        if total == x:
+            cnt += 1
+    else:
+        # không lấy phần tử thứ i
+        Try(i + 1, total)
+        # lấy phần tử thứ i
+        Try(i + 1, total + t[i])
+
+def solve():
+    global cnt
+    cnt = 0
+    Try(1, 0)
+    return cnt
+```
+
 Thuật toán trên có độ phức tạp thời gian là $\mathcal{O}(2^N)$, không đủ nhanh để giải bài toán bởi vì $2^{40}$ khá lớn. Do đó, ta cần tìm một phương án tối ưu hơn.
 
 ### Thuật toán tối ưu: kỹ thuật MITM
@@ -118,6 +142,46 @@ int main() {
 }
 ```
 
+``` python
+from bisect import bisect_left, bisect_right
+
+n, x = map(int, input().split())
+t = [0] + list(map(int, input().split()))
+A, B = [], []
+
+def TryX(i, total):
+    if total > x:
+        return
+    if i > n // 2:
+        A.append(total)
+    else:
+        TryX(i + 1, total)
+        TryX(i + 1, total + t[i])
+
+def TryY(i, total):
+    if total > x:
+        return
+    if i > n:
+        B.append(total)
+    else:
+        TryY(i + 1, total)
+        TryY(i + 1, total + t[i])
+
+# Quay lui 2 tập X và Y
+TryX(1, 0)
+TryY(n // 2 + 1, 0)
+
+# Sắp xếp mảng B
+B.sort()
+
+# Lặp qua mảng A và tìm kiếm nhị phân:
+# - Đếm số lượng phần tử trong B có giá trị bằng x - A[i]
+cnt = 0
+for s in A:
+    cnt += bisect_right(B, x - s) - bisect_left(B, x - s)
+print(cnt)
+```
+
 #### Cài đặt (sử dụng kỹ thuật hai con trỏ)
 ```cpp
     // Quay lui 2 tập X và Y
@@ -137,6 +201,28 @@ int main() {
         cnt += j2 - j1;
     }
     cout << cnt << '\n';
+```
+
+``` python
+    # Quay lui 2 tập X và Y
+    TryX(1, 0)
+    TryY(n // 2 + 1, 0)
+
+    # Sắp xếp mảng A và B
+    A.sort(reverse=True)
+    B.sort()
+
+    # Sử dụng kỹ thuật 2 con trỏ
+    cnt = 0
+    j1, j2 = 0, 0
+    for i in range(len(A)):
+        s = x - A[i]  # cần đếm lượng B[j] thoả B[j] = s
+        while j1 < len(B) and B[j1] < s:
+            j1 += 1
+        while j2 < len(B) and B[j2] <= s:
+            j2 += 1
+        cnt += j2 - j1
+    print(cnt)
 ```
 
 ## Ứng dụng
@@ -221,6 +307,56 @@ int main() {
 }
 ```
 
+``` python
+from bisect import bisect_right
+
+n, m = map(int, input().split())
+w = [0] * (n + 1)
+v = [0] * (n + 1)
+for i in range(1, n + 1):
+    w[i], v[i] = map(int, input().split())
+
+sumWA = []
+sumVA = []
+
+B = []
+
+def TryX(i, sumW, sumV):
+    if sumW > m:
+        return
+    if i > n // 2:
+        sumWA.append(sumW)
+        sumVA.append(sumV)
+        return
+    TryX(i + 1, sumW, sumV)
+    TryX(i + 1, sumW + w[i], sumV + v[i])
+
+def TryY(i, sumW, sumV):
+    if sumW > m:
+        return
+    if i > n:
+        B.append((sumW, sumV))
+        return
+    TryY(i + 1, sumW, sumV)
+    TryY(i + 1, sumW + w[i], sumV + v[i])
+
+TryX(1, 0, 0)
+TryY(n // 2 + 1, 0, 0)
+B.sort()
+
+sumWB = [0]
+maxSumVB = [0]
+for i in range(len(B)):
+    sumWB.append(B[i][0])
+    maxSumVB.append(max(maxSumVB[-1], B[i][1]))
+
+maxValue = 0
+for i in range(len(sumWA)):
+    j = bisect_right(sumWB, m - sumWA[i]) - 1
+    maxValue = max(maxValue, sumVA[i] + maxSumVB[j])
+print(maxValue)
+```
+
 ## Bài toán 2
 Cho mảng $a$ gồm $n$ số nguyên, đếm số lượng dãy con tăng có độ dài $3$.
 
@@ -250,6 +386,14 @@ for (int j = 0; j < n; ++j) {
 }
 ```
 
+``` python
+answer = 0
+for j in range(n):
+    smaller = sum(1 for i in range(j) if a[i] < a[j])
+    bigger = sum(1 for k in range(j + 1, n) if a[k] > a[j])
+    answer += smaller * bigger
+```
+
 ## Bài toán 3: [CSES - Sum of Four Values](https://cses.fi/problemset/task/1642/)
 <!-- (MITM kiểu prep) -->
 Cho mảng $a$ gồm $n$ số nguyên và số nguyên $x$. Ta cần tìm $4$ vị trí **phân biệt** sao cho tổng giá trị ở $4$ vị trí đó bằng $x$.
@@ -268,6 +412,15 @@ for (int i = 1; i <= n; ++i)
         for (int k = j + 1; k <= n; ++k)
             for (int l = k + 1; l <= n; ++l)
                 if (a[i] + a[j] + a[k] + a[l] == x) { ... }
+```
+
+``` python
+for i in range(1, n + 1):
+    for j in range(i + 1, n + 1):
+        for k in range(j + 1, n + 1):
+            for l in range(k + 1, n + 1):
+                if a[i] + a[j] + a[k] + a[l] == x:
+                    ...
 ```
 Ta có nhận xét: trong vòng lặp thứ $2$ (biến $j$), ta đang giải bài toán: tìm $2$ vị trí phân biệt **lớn hơn** $j$ sao cho tổng giá trị của $2$ vị trí đó bằng $x-a_i-a_j$.
 
@@ -312,6 +465,31 @@ int main() {
 
     cout << "IMPOSSIBLE";
 }
+```
+
+``` python
+n, x = map(int, input().split())
+a = [0] + list(map(int, input().split()))
+
+# preprocess
+mp = {}
+for i in range(1, n + 1):
+    for j in range(i + 1, n + 1):
+        mp[a[i] + a[j]] = (i, j)
+
+# solve
+for i in range(1, n + 1):
+    for j in range(i + 1, n + 1):
+        # thay vì 2 vòng for, bây giờ ta chỉ cần
+        # truy vấn trên dict
+        X = x - a[i] - a[j]
+        if X in mp:
+            arr = mp[X]
+            if j < arr[0]:
+                print(i, j, arr[0], arr[1])
+                exit()
+
+print("IMPOSSIBLE")
 ```
 
 #### Phân tích
@@ -482,6 +660,126 @@ int main() {
     readData();
     solve();
 }
+```
+
+``` python
+import sys
+from collections import defaultdict
+
+N = 102
+n = 0
+c = [0] * N
+g = [[[] for _ in range(N)] for _ in range(2)]
+
+cntbit = [0] * 16
+def init():
+    for msk in range(1, 16):
+        cntbit[msk] = cntbit[msk >> 1] + (msk & 1)
+
+def read_data():
+    global n
+    n = int(input())
+    artist = {}
+    for i in range(1, n + 1):
+        parts = input().split()
+        name = parts[0]
+        if name in artist:
+            c[i] = artist[name]
+        else:
+            artist[name] = len(artist) + 1
+            c[i] = artist[name]
+        k = int(parts[1])
+        for j in range(k):
+            to = int(parts[2 + j])
+            g[0][i].append(to)
+            g[1][to].append(i)
+
+def get_ans(res):
+    s = set(c[u] for u in res)
+    for v0 in g[0][res[-1]]:
+        if c[v0] in s:
+            continue
+        s.add(c[v0])
+        for v1 in g[0][v0]:
+            if c[v1] in s:
+                continue
+            s.add(c[v1])
+            for v2 in g[0][v1]:
+                if c[v2] in s:
+                    continue
+                s.add(c[v2])
+                for v3 in g[0][v2]:
+                    if c[v3] in s:
+                        continue
+                    return res + [v0, v1, v2, v3]
+                s.discard(c[v2])
+            s.discard(c[v1])
+        s.discard(c[v0])
+    return []
+
+cnt = defaultdict(int)
+
+def get_hash(a, msk):
+    hsh = 0
+    for i in range(4):
+        if msk >> i & 1:
+            hsh = hsh * N + c[a[i]]
+    return hsh
+
+def solve_node(u):
+    sav = [0]
+
+    for v0 in g[0][u]:
+        if c[v0] == c[u]:
+            continue
+        for v1 in g[0][v0]:
+            if c[v1] == c[v0] or c[v1] == c[u]:
+                continue
+            for v2 in g[0][v1]:
+                if c[v2] == c[v1] or c[v2] == c[v0] or c[v2] == c[u]:
+                    continue
+                for v3 in g[0][v2]:
+                    if c[v3] == c[v2] or c[v3] == c[v1] or c[v3] == c[v0] or c[v3] == c[u]:
+                        continue
+                    a = sorted([c[v0], c[v1], c[v2], c[v3]])
+                    for msk in range(16):
+                        hsh = get_hash(a, msk)
+                        cnt[hsh] += 1
+                        sav.append(hsh)
+
+    for v0 in g[1][u]:
+        if c[v0] == c[u]:
+            continue
+        for v1 in g[1][v0]:
+            if c[v1] == c[v0] or c[v1] == c[u]:
+                continue
+            for v2 in g[1][v1]:
+                if c[v2] == c[v1] or c[v2] == c[v0] or c[v2] == c[u]:
+                    continue
+                for v3 in g[1][v2]:
+                    if c[v3] == c[v2] or c[v3] == c[v1] or c[v3] == c[v0] or c[v3] == c[u]:
+                        continue
+                    a = sorted([c[v0], c[v1], c[v2], c[v3]])
+                    total = 0
+                    for msk in range(16):
+                        hsh = get_hash(a, msk)
+                        total += cnt[hsh] * (-1 if cntbit[msk] & 1 else 1)
+                    if total > 0:
+                        res = [v3, v2, v1, v0, u]
+                        return get_ans(res)
+
+    for x in sav:
+        cnt[x] = 0
+    return []
+
+init()
+read_data()
+for i in range(1, n + 1):
+    vec = solve_node(i)
+    if vec:
+        print(*vec)
+        sys.exit()
+print("fail")
 ```
 
 ## Bài tập áp dụng khác

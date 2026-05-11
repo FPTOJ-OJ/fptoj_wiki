@@ -34,6 +34,14 @@ void preprocess() {
 }
 ```
 
+```python
+lg2 = [0] * N
+def preprocess():
+    lg2[1] = 0
+    for i in range(2, N):
+        lg2[i] = lg2[i // 2] + 1
+```
+
 ## Bài toán
 
 Cho một cây gồm $N$ đỉnh có gốc tại đỉnh $1$. Có $Q$ truy vấn, mỗi truy vấn gồm $1$ cặp số $(u, v)$ và ta cần tìm LCA của $u$ và $v$, tức là tìm một đỉnh $w$ xa gốc nhất nằm trên đường đi từ $u$ và $v$ đến gốc. Đặc biệt, nếu $u$ là tổ tiên của $v$, thì $u$ là LCA của $u$ và $v$.
@@ -94,6 +102,36 @@ int lca(int u, int v) {
 
     return u;
 }
+```
+
+```python
+g = [[] for _ in range(N)]  # g[u]: tập các đỉnh kề với u
+par = [0] * N               # par[u] = p nếu cha của u là p
+h = [0] * N
+
+def dfs(u):
+    for v in g[u]:
+        if v == par[u]:
+            continue
+        h[v] = h[u] + 1
+        par[v] = u
+        dfs(v)
+
+def lca(u, v):
+    # Không mất tính tổng quát, xét h[u] >= h[v]
+    if h[u] < h[v]:
+        u, v = v, u
+
+    # cho u nhảy lên cha đến khi h[u] = h[v]
+    while h[u] > h[v]:
+        u = par[u]
+
+    # cho u và v nhảy lên cha đến khi u trùng v
+    while u != v:
+        u = par[u]
+        v = par[v]
+
+    return u
 ```
 
 ### Phân tích:
@@ -255,6 +293,24 @@ int ancestor_k(int u, int k) {
 }
 ```
 
+```python
+up = [[0] * 17 for _ in range(N)]
+
+def preprocess():
+    for u in range(1, n + 1):
+        up[u][0] = par[u]
+    for j in range(1, 17):
+        for u in range(1, n + 1):
+            up[u][j] = up[up[u][j - 1]][j - 1]
+
+def ancestor_k(u, k):
+    for j in range(16, -1, -1):
+        if k >= (1 << j):
+            u = up[u][j]
+            k -= 1 << j
+    return u
+```
+
 ### Thuật toán tối ưu 3
 Nhận xét: Ta luôn có thể tách một số nguyên dương thành tổng các lũy thừa phân biệt của 2 (hệ nhị phân). Ví dụ: $25 = 2^4 + 2^3 + 2^0 = 11001_2$.
 
@@ -403,6 +459,32 @@ int lca(int u, int v) {
             u = up[u][j], v = up[v][j];
     return up[u][0];
 }
+```
+
+```python
+import math
+
+h = [0] * N
+up = [[0] * 20 for _ in range(N)]
+
+def lca(u, v):
+    if h[u] != h[v]:
+        if h[u] < h[v]:
+            u, v = v, u
+        # Tìm tổ tiên u' của u sao cho h(u') = h(v)
+        k = h[u] - h[v]
+        for j in range(k.bit_length()):
+            if (k >> j) & 1:  # Nếu bit thứ j của k là 1
+                u = up[u][j]
+    if u == v:
+        return u
+    # Tìm lca(u, v)
+    k = int(math.log2(h[u]))
+    for j in range(k, -1, -1):
+        if up[u][j] != up[v][j]:  # Nếu tổ tiên thứ 2^j của u và v khác nhau
+            u = up[u][j]
+            v = up[v][j]
+    return up[u][0]
 ```
 
 ## Phân tích:

@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Tác giả:** 
 - Lê Minh Hoàng - Phổ thông Năng khiếu, ĐHQG-HCM
 
@@ -244,6 +242,33 @@ double linePointDist(pii A, pii B, pii C, bool isSegment) {
     return dist;
 }
 ```
+```python
+import math
+
+def dot(A, B, C):
+    AB = (B[0] - A[0], B[1] - A[1])
+    AC = (C[0] - A[0], C[1] - A[1])
+    return AB[0] * AC[0] + AB[1] * AC[1]
+
+def cross(A, B, C):
+    AB = (B[0] - A[0], B[1] - A[1])
+    AC = (C[0] - A[0], C[1] - A[1])
+    return AB[0] * AC[1] - AB[1] * AC[0]
+
+def distance(A, B):
+    dx = A[0] - B[0]
+    dy = A[1] - B[1]
+    return math.sqrt(dx * dx + dy * dy)
+
+def line_point_dist(A, B, C, is_segment):
+    dist = abs(cross(A, B, C)) / distance(A, B)
+    if is_segment:
+        if dot(B, A, C) < 0:
+            return distance(B, C)
+        if dot(A, B, C) < 0:
+            return distance(A, C)
+    return dist
+```
 
 Đoạn code trên là cách mà mọi người thường dùng và có lẽ khá là dài, bên dưới là viết lại có sử dụng struct trong C++.
 
@@ -293,3 +318,5 @@ Bên dưới là một số bài tập có liên quan đến bài viết này, m
 - **Codeforces Gym - 100168G**: tính khoảng cách từ 1 điểm đến 1 đường thẳng đi qua 2 điểm
 - **Codeforces Gym - 100168H**: tính khoảng cách từ 1 điểm đến 1 tia
 - **Codeforces Gym - 100168I**: tính khoảng cách từ 1 điểm đến 1 đoạn thẳng
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

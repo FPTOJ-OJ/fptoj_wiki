@@ -39,10 +39,20 @@ long long lcm(long long a, long long b) {
 // C++17 có std::gcd() và std::lcm() trong <numeric>
 ```
 
-### Code Python
+### Code Python - GCD & LCM
 
 ```python
 import math
+
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def lcm(a, b):
+    return a // gcd(a, b) * b
+
+# Hoặc dùng built-in
 g = math.gcd(12, 8)    # 4
 l = math.lcm(12, 8)    # 24
 ```
@@ -232,33 +242,35 @@ long long modDivide(long long a, long long b, long long mod) {
 }
 ```
 
-### Code Python
+### Code Python - Power Mod & Modular Inverse
 
 ```python
 MOD = 10**9 + 7
 
-# Nghịch đảo modulo (Python 3.8+)
-# Dùng Fermat: a^(-1) = a^(MOD-2) mod MOD
-inv = pow(5, MOD - 2, MOD)  # 5^(-1) mod MOD
+def power_mod(a, b, mod):
+    result = 1
+    a %= mod
+    while b > 0:
+        if b & 1:
+            result = result * a % mod
+        a = a * a % mod
+        b >>= 1
+    return result
 
-# Hoặc dùng built-in (Python 3.8+)
-inv = pow(5, -1, MOD)
+# Nghịch đảo modulo (Fermat, khi MOD là số nguyên tố)
+def mod_inverse(a, mod):
+    return power_mod(a, mod - 2, mod)
 
-# Phép chia modulo
-result = (a * pow(b, MOD - 2, MOD)) % MOD
-
-# Extended Euclid
-def extended_gcd(a, b):
-    if b == 0:
-        return a, 1, 0
-    g, x1, y1 = extended_gcd(b, a % b)
-    return g, y1, x1 - (a // b) * y1
-
+# Nghịch đảo modulo (Extended Euclid, tổng quát)
 def mod_inverse_ext(a, mod):
     g, x, y = extended_gcd(a, mod)
     if g != 1:
         return -1
     return (x % mod + mod) % mod
+
+# Phép chia modulo
+def mod_divide(a, b, mod):
+    return a * mod_inverse(b, mod) % mod
 ```
 
 ---
@@ -312,6 +324,29 @@ long long nCk(int n, int k) {
     if (k < 0 || k > n) return 0;
     return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
 }
+```
+
+### Code Python - Precompute Factorial & nCk
+
+```python
+MOD = 10**9 + 7
+
+def build_factorial(n):
+    fact = [1] * (n + 1)
+    for i in range(1, n + 1):
+        fact[i] = fact[i - 1] * i % MOD
+    
+    inv_fact = [1] * (n + 1)
+    inv_fact[n] = pow(fact[n], MOD - 2, MOD)
+    for i in range(n - 1, -1, -1):
+        inv_fact[i] = inv_fact[i + 1] * (i + 1) % MOD
+    
+    return fact, inv_fact
+
+def nCk(n, k, fact, inv_fact):
+    if k < 0 or k > n:
+        return 0
+    return fact[n] * inv_fact[k] % MOD * inv_fact[n - k] % MOD
 ```
 
 ---

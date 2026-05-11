@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Nguồn**: [Topcoder](https://www.topcoder.com/thrive/articles/Binary%20Search)
 
 **Người dịch**:
@@ -55,6 +53,22 @@ int binary_search(int A[], int sizeA, int target) {
     return -1;
 }    	
 ```
+
+``` python
+def binary_search(A, sizeA, target):
+    lo, hi = 1, sizeA
+    while lo <= hi:
+        mid = lo + (hi - lo) // 2
+        if A[mid] == target:
+            return mid
+        elif A[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    # không tìm thấy giá trị target trong mảng A
+    return -1
+```
+
 ### Độ phức tạp thuật toán
 Ở mỗi bước, kích thước không gian tìm kiếm bị giảm đi một nửa. Ta dễ thấy rằng độ phức tạp của thuật toán là $O(\log(N))$ với $N$ là số phần tử ban đầu của không gian tìm kiếm.
 
@@ -139,6 +153,25 @@ int binary_search(int lo, int hi) {
    return lo; // lo là giá trị x nhỏ nhất mà P(x) = true
 }
 ```
+
+``` python
+def P(x):
+    # Logic của hàm P ở đây
+    return True  # thay giá trị này bằng giá trị đúng logic.
+
+def binary_search(lo, hi):
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if P(mid):
+            hi = mid
+        else:
+            lo = mid + 1
+
+    if not P(lo):
+        return -1  # P(x) = false với mọi x thuộc S, bài toán vô nghiệm.
+
+    return lo  # lo là giá trị x nhỏ nhất mà P(x) = true
+```
 Hai dòng quan trọng là $hi = mid$ và $lo = mid+1$, chúng giúp ta thu hẹp không gian tìm kiếm dần. 
 
 Khi $P(mid) = \texttt{true}$, ta có thể bỏ nửa sau của không gian tìm kiếm vì đã biết phần tử trong đó luôn hợp lệ. Tuy nhiên ta vẫn phải giữ $mid$ trong không gian tìm kiếm mới vì nó có thể là phần tử đầu tiên mà $P = \texttt{true}$. Do đó không gian tìm kiếm mới sẽ là $S=\{lo, mid\}$, ta gán $hi = mid$.
@@ -167,6 +200,25 @@ int binary_search(int lo, int hi) {
   	
    return lo; // lo là giá trị x lớn nhất mà P(x) = false
 }
+```
+
+``` python
+def P(x):
+    # Logic của hàm P ở đây
+    return True  # thay giá trị này bằng giá trị đúng logic.
+
+def binary_search(lo, hi):
+    while lo < hi:
+        mid = lo + (hi - lo + 1) // 2
+        if P(mid):
+            hi = mid - 1
+        else:
+            lo = mid
+
+    if P(lo):
+        return -1  # P(x) = true với mọi x thuộc S, bài toán vô nghiệm.
+
+    return lo  # lo là giá trị x lớn nhất mà P(x) = false
 ```
 
 Bạn sẽ thắc mắc rằng tại sao cách tính $mid$ lại có một tí khác biệt so với thuật toán đầu tiên. Để hiểu được tại sao ta phải làm thế, ta sẽ xét trường hợp sau:  trong quá trình tìm kiếm, nếu tại một thời diểm nào đó mà dãy $P(S)$ tạo ra bởi các phần tử của không gian tìm kiếm có dạng như sau
@@ -205,6 +257,24 @@ int binary_search(int lo, int hi) {
   	
    return lo; // lo là giá trị x nhỏ nhất mà P(x) = true
 }
+```
+
+``` python
+def P(x):
+    # Logic của hàm P ở đây
+    return True  # thay giá trị này bằng giá trị đúng logic.
+
+# nhớ rằng ta phải truyền hi lớn hơn một đơn vị
+# so với đoạn tìm kiếm thực sự
+def binary_search(lo, hi):
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if P(mid):
+            hi = mid
+        else:
+            lo = mid + 1
+
+    return lo  # lo là giá trị x nhỏ nhất mà P(x) = true
 ```
 Cách cài đặt này còn có một ưu điểm khác, đó là trong C++ và rất nhiều ngôn ngữ lập trình khác thì mảng bắt đầu từ $0$, vì vậy nếu cần tìm một phần tử nào đó trong mảng thì với cài đặt bằng nửa khoảng tham số truyền vào sẽ rất đẹp, đó là `binary_search(0, N)` với $N$ là số phần tử của mảng. Toàn bộ thư viện STL, `lower_bound`, `upper_bound` đều nhận nửa khoảng, và thực tế nguyên lý của các hàm đó cũng như trên: không tìm ra đáp án thì trả về `iterator end`.
 
@@ -256,6 +326,36 @@ int shipWithinDays(const vector<int>& weights, int days) {
 }
 ```
 
+``` python
+# hàm kiểm tra P
+def check(capacity, weights, days):
+    current_weight = 0
+    days -= 1
+    for w in weights:
+        if current_weight + w <= capacity:
+            current_weight += w
+        else:
+            days -= 1
+            current_weight = w
+    return days >= 0
+
+# hàm tìm kiếm nhị phân
+def ship_within_days(weights, days):
+    lo, hi = 0, 0
+    for w in weights:
+        lo = max(lo, w)
+        hi += w
+
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if check(mid, weights, days):
+            hi = mid
+        else:
+            lo = mid + 1
+
+    return lo
+```
+
 Hàm tìm kiếm nhị phân chính là hàm `shipWithinDays` và hàm kiểm tra là hàm `check`.
 Có một lưu ý về việc chọn cận dưới và cận trên. Cận trên có thể là bất cứ số nguyên nào đủ lớn, ở đây chọn là tổng của tất cả các gói hàng (cho trường hợp tệ nhất cần vận chuyển trong đúng một ngày). Tuy nhiên cận dưới phải bằng ít nhất là khối lượng của gói hàng nặng nhất để tránh trường hợp gói hàng quá lớn để chuyển trong một ngày.
 
@@ -274,7 +374,7 @@ bool P(double x) {
 
 bool isTerminated(double lo, double hi) {
     // trả về kết quả của việc kiểm tra
-    // lo và hi có thỏa điều kiện dừng chưa 
+    // lo và hi thỏa điều kiện dừng chưa 
 }
 
 double binary_search(double lo, double hi) {
@@ -291,6 +391,28 @@ double binary_search(double lo, double hi) {
 }
    
  ```
+
+``` python
+def P(x):
+    # Logic của hàm P ở đây
+    return True  # thay giá trị này bằng giá trị đúng logic.
+
+def is_terminated(lo, hi):
+    # trả về kết quả của việc kiểm tra
+    # lo và hi thỏa điều kiện dừng chưa
+    pass
+
+def binary_search(lo, hi):
+    while not is_terminated(lo, hi):
+        mid = lo + (hi - lo) / 2
+        if P(mid):
+            hi = mid
+        else:
+            lo = mid
+    # trung bình cộng lo và hi xấp xỉ
+    # ranh giới giữa false và true
+    return lo + (hi - lo) / 2
+```
 Ta thường không tìm được giá trị mục tiêu một cách chính xác mà chỉ có thể xấp xỉ kết quả, đó là lý do có hàm điều kiện dừng `isTerminated`. Thông thường có 2 cách quyết định khi nào dừng vòng lặp:
 1. **Dừng sau một số vòng lặp cố định (fixed)**: thông thường khi làm bài tập trên TopCoder, chỉ cần lặp khoảng 100 lần là đủ (nhiều khi là thừa) để đạt được độ chính xác mong muốn cho những bài dạng thế này.
 2. **Sai số tuyệt đối (absolute error)**: dừng khi $hi - lo \leq \epsilon$ ($\epsilon$ thường rất nhỏ, khoảng $10^{-8}$). Cách này được sử dụng nếu thời gian chặt và bạn phải tiết kiệm số lần lặp. 
@@ -308,6 +430,5 @@ Ta thường không tìm được giá trị mục tiêu một cách chính xác
 - [c11cave](https://oj.vnoi.info/problem/c11cave)
 - [Increase and Copy](https://codeforces.com/problemset/problem/1426/C)
 - [Prime Matrix](https://codeforces.com/problemset/problem/271/B)
-
-
-
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

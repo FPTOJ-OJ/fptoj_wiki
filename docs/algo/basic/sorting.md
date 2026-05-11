@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 ## Giới thiệu
 
 Ứng dụng về sắp xếp có ở khắp mọi nơi:
@@ -65,6 +63,13 @@ for (int i = 0; i < n; i++)
 		}
 ```
 
+``` python
+for i in range(n):
+    for j in range(n - 1):
+        if a[j] > a[j + 1]:
+            a[j], a[j + 1] = a[j + 1], a[j]
+```
+
 ## Minh họa
 
 Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
@@ -103,6 +108,20 @@ for (int i = 1; i < n; i++) {
 		data[k] = data[k-1];
 	data[j] = tmp;
 }
+```
+
+``` python
+for i in range(1, n):
+    # Tìm vị trí phù hợp cho i
+    j = i
+    while j > 0 and data[i] < data[j - 1]:
+        j -= 1
+
+    # Đưa i về đúng vị trí
+    tmp = data[i]
+    for k in range(i, j, -1):
+        data[k] = data[k - 1]
+    data[j] = tmp
 ```
 
 ## Minh họa
@@ -175,6 +194,38 @@ void mergeSort(int data[MAXN], int left, int right) {
 }
 ```
 
+``` python
+def merge_sort(data, left, right):
+    if left >= right:
+        return
+    mid = (left + right) // 2
+    # Sắp xếp 2 phần
+    merge_sort(data, left, mid)
+    merge_sort(data, mid + 1, right)
+
+    # Trộn 2 phần đã sắp xếp lại
+    i, j = left, mid + 1
+    temp = []
+
+    while i <= mid or j <= right:
+        if i > mid:
+            temp.append(data[j])
+            j += 1
+        elif j > right:
+            temp.append(data[i])
+            i += 1
+        elif data[i] < data[j]:
+            temp.append(data[i])
+            i += 1
+        else:
+            temp.append(data[j])
+            j += 1
+
+    # copy mảng temp về mảng data
+    for k in range(len(temp)):
+        data[left + k] = temp[k]
+```
+
 ## Minh họa
 
 Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
@@ -214,6 +265,20 @@ for (int i = 0; i < n; i++) {
 	// lấy phần tử nhỏ nhất và cho vào mảng đã sắp xếp
 	a[i] = h.pop();
 }
+```
+
+``` python
+import heapq
+
+h = []
+for i in range(n):
+    # thêm phần tử vào heap
+    heapq.heappush(h, data[i])
+
+a = []
+for i in range(n):
+    # lấy phần tử nhỏ nhất và cho vào mảng đã sắp xếp
+    a.append(heapq.heappop(h))
 ```
 
 ## Sắp xếp nhanh (QuickSort)
@@ -258,6 +323,29 @@ void quickSort(int a[], int left, int right) {
 }
 ```
 
+``` python
+import random
+
+def quick_sort(a, left, right):
+    i, j = left, right
+    pivot = a[left + random.randint(0, right - left)]
+    # chia dãy thành 2 phần
+    while i <= j:
+        while a[i] < pivot:
+            i += 1
+        while a[j] > pivot:
+            j -= 1
+        if i <= j:
+            a[i], a[j] = a[j], a[i]
+            i += 1
+            j -= 1
+    # Gọi đệ quy để sắp xếp các nửa
+    if left < j:
+        quick_sort(a, left, j)
+    if i < right:
+        quick_sort(a, i, right)
+```
+
 ## Minh họa
 
 Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
@@ -298,3 +386,5 @@ Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
 - [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/sorting/)
 - [VisuAlgo](http://visualgo.net/sorting)
 - [Wikipedia](http://en.wikipedia.org/wiki)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

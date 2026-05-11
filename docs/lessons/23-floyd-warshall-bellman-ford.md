@@ -38,6 +38,22 @@ bool bellmanFord(int n, int start, vector<tuple<int,int,int>>& edges,
 }
 ```
 
+### Code Python
+
+```python
+def bellman_ford(n, start, edges):
+    dist = [float('inf')] * (n + 1)
+    dist[start] = 0
+    for _ in range(n - 1):
+        for u, v, w in edges:
+            if dist[u] != float('inf') and dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+    for u, v, w in edges:
+        if dist[u] != float('inf') and dist[u] + w < dist[v]:
+            return True, dist
+    return False, dist
+```
+
 ---
 
 ## 2. Floyd-Warshall - Đường đi ngắn nhất MỌI CẶP

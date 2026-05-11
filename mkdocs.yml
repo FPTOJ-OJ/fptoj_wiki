@@ -44,6 +44,36 @@ nav:
       - Home: index.md
       - Giới thiệu: about.md
       - Test Markdown: markdown.md
+  - Bài Học:
+      - Tổng hợp bài học: lessons/index.md
+      - Độ phức tạp thời gian: lessons/01-do-phuc-tap-thoi-gian.md
+      - Thuật toán sắp xếp: lessons/02-thuat-toan-sap-xep.md
+      - Tìm kiếm nhị phân: lessons/03-tim-kiem-nhi-phan.md
+      - Kĩ thuật hai con trỏ: lessons/04-ky-thuat-hai-con-tro.md
+      - Phép toán bit: lessons/05-phep-toan-bit.md
+      - Đệ quy và quay lui: lessons/06-de-quy-va-quay-lui.md
+      - Mảng, Stack, Prefix Sum: lessons/07-mang-stack-prefix-sum.md
+      - Heap, DSU, Segment Tree, BIT: lessons/08-heap-dsu-segment-tree-bit.md
+      - KMP - Tìm xâu: lessons/09-kmp-tim-xau.md
+      - BFS/DFS trên đồ thị: lessons/10-bfs-dfs-do-thi.md
+      - Lũy thừa nhị phân & Sàng nguyên tố: lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md
+      - Quy hoạch động: lessons/12-quy-hoach-dong.md
+      - MST, Dijkstra, Topo Sort: lessons/13-mst-dijkstra-topo-sort.md
+      - Hash xâu & Z-algorithm: lessons/14-hash-xau-z-algorithm.md
+      - Deque & Sliding Window: lessons/15-deque-sliding-window.md
+      - Hash Table: lessons/16-hash-table.md
+      - Trie: lessons/17-trie.md
+      - Euclid & Modular Inverse: lessons/18-euclid-modular-inverse.md
+      - Tổ hợp & Xác suất: lessons/19-to-hop-xac-suat.md
+      - Manacher: lessons/20-manacher.md
+      - Greedy: lessons/21-greedy.md
+      - Hình học cơ bản: lessons/22-hinh-hoc-co-ban.md
+      - Floyd-Warshall & Bellman-Ford: lessons/23-floyd-warshall-bellman-ford.md
+      - Stack nâng cao: lessons/24-stack-nang-cao.md
+      - Binary Search on Answer: lessons/25-binary-search-on-answer.md
+      - Số học nâng cao: lessons/26-so-hoc-nang-cao.md
+      - Lý thuyết trò chơi: lessons/27-ly-thuyet-tro-choi.md
+      - Bao lồi: lessons/28-bao-loi.md
   - Thuật Toán:
       - Cơ Bản:
         - Đệ quy và Thuật toán quay lui: algo/basic/backtracking.md
@@ -238,7 +268,6 @@ extra:
 
 
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js
   - https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js
   - js/jquery-3.7.1.min.js

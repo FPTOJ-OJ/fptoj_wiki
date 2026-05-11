@@ -54,6 +54,29 @@ void merge(int x, int y) {
 }
 ```
 
+```python
+# par[i] = x nếu viên sỏi i và viên sỏi x nằm trong cùng một hộp
+# Nếu par[i] < 0 thì viên sỏi i nằm trong hộp i, và -par[i] chính là số sỏi trong hộp đó.
+# Ban đầu, khởi tạo par[i] = -1 với mọi i.
+
+def root(v):
+    # Cho 1 số v, tìm hộp chứa viên sỏi v
+    if par[v] < 0:
+        return v
+    par[v] = root(par[v])  # Path Compression
+    return par[v]
+
+def merge(x, y):
+    # Gộp 2 hộp chứa viên sỏi x và y vào cùng 1 hộp
+    x, y = root(x), root(y)
+    if x == y:
+        return  # 2 viên sỏi x và y đã thuộc cùng 1 hộp
+    if par[y] < par[x]:
+        x, y = y, x  # Union-by-rank
+    par[x] += par[y]
+    par[y] = x
+```
+
 ## Cài đặt Disjoint set với Mảng & Vector
 
 Ta lưu vị trí các viên sỏi trong một **vector** (hoặc **mảng**) và mỗi khi có truy vấn yêu cầu **nhập** hai hộp, ta bỏ các viên sỏi ở hộp có ít viên sỏi hơn vào hộp còn lại.

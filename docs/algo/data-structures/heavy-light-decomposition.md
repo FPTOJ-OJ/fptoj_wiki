@@ -104,6 +104,18 @@ void Dfs(int s, int p = -1) {
     }
 }
 ```
+
+```python
+def Dfs(s, p=-1):
+    Sz[s] = 1
+    for u in AdjList[s]:
+        if u == p:
+            continue
+        Par[u] = s
+        Depth[u] = Depth[s] + 1
+        Dfs(u, s)
+        Sz[s] += Sz[u]
+```
 mảng $Sz, Depth$ và $Par$ lần luợt lưu kích thuớc cây con, độ sâu và cha (tổ tiên trực tiếp) của các đỉnh trên cây
 mảng $AdjList$ là mảng vector để lưu lại thông tin về đồ thị. $AdjList[s]$ là vector gồm các đỉnh kề với $s$.
 
@@ -134,6 +146,28 @@ void Hld(int s, int p = -1) {
         }
     }
 }
+```
+
+```python
+def Hld(s, p=-1):
+    global CurChain, CurPos
+    if not ChainHead[CurChain]:
+        ChainHead[CurChain] = s
+    ChainID[s] = CurChain
+    Pos[s] = CurPos
+    Arr[CurPos] = s
+    CurPos += 1
+    nxt = 0
+    for u in AdjList[s]:
+        if u != p:
+            if nxt == 0 or Sz[u] > Sz[nxt]:
+                nxt = u
+    if nxt:
+        Hld(nxt, s)
+    for u in AdjList[s]:
+        if u != p and u != nxt:
+            CurChain += 1
+            Hld(u, s)
 ```
 $nxt$ là biến dùng để lưu lại đỉnh con "nặng nhất".
 $Arr$ là mảng dùng để lưu lại các chuỗi. 
@@ -167,6 +201,18 @@ int LCA(int u, int v) {
     if(Depth[u] < Depth[v]) return u;
     return v;
 }
+```
+
+```python
+def LCA(u, v):
+    while ChainID[u] != ChainID[v]:
+        if ChainID[u] > ChainID[v]:
+            u = Par[ChainHead[ChainID[u]]]
+        else:
+            v = Par[ChainHead[ChainID[v]]]
+    if Depth[u] < Depth[v]:
+        return u
+    return v
 ```
 
 #### Segment tree

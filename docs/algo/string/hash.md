@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Tác giả**: Lê Khắc Minh Tuệ
 
 **Chỉnh sửa**: Nguyễn *RR* Thành Trung, Phạm Văn Hạnh
@@ -161,6 +159,44 @@ int main() {
     		printf("%d ", i);
 }
 ```
+```python
+import sys
+
+def solve():
+    T, P = input().split()
+    lenT, lenP = len(T), len(P)
+    base = 31
+    MOD = 1000000003
+
+    T = " " + T
+    P = " " + P
+
+    POW = [0] * (lenT + 1)
+    hashT = [0] * (lenT + 1)
+    POW[0] = 1
+
+    for i in range(1, lenT + 1):
+        POW[i] = (POW[i - 1] * base) % MOD
+
+    for i in range(1, lenT + 1):
+        hashT[i] = (hashT[i - 1] * base + ord(T[i]) - ord('a') + 1) % MOD
+
+    hashP = 0
+    for i in range(1, lenP + 1):
+        hashP = (hashP * base + ord(P[i]) - ord('a') + 1) % MOD
+
+    def getHashT(i, j):
+        return (hashT[j] - hashT[i - 1] * POW[j - i + 1] + MOD * MOD) % MOD
+
+    result = []
+    for i in range(1, lenT - lenP + 2):
+        if hashP == getHashT(i, i + lenP - 1):
+            result.append(i)
+
+    print(" ".join(map(str, result)))
+
+solve()
+```
 
 ## Đánh giá
 
@@ -313,3 +349,5 @@ Nhược điểm của thuật toán Hash là tính chính xác. Mặc dù rất
 - [Wikipedia - KMP](http://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)
 - [Wikipedia - Rabin Karp](http://en.wikipedia.org/wiki/Rabin-Karp_string_search_algorithm)
 - [Wikipedia - Alphabetical Order](http://en.wikipedia.org/wiki/Alphabetical_order)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

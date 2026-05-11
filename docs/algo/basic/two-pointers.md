@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Tác giả:** Phan Đình Khôi - Đại học Bách Khoa Đà Nẵng
 
 **Reviewer:** Nguyễn Khánh
@@ -223,6 +221,20 @@ while (i <= n || j <= m){
 for (auto it: c)
     cout << it << " ";
 ```
+
+``` python
+i, j = 1, 1
+c = []
+while i <= n or j <= m:
+    if j == m + 1 or (i <= n and a[i] <= b[j]):
+        c.append(a[i])
+        i += 1
+    else:
+        c.append(b[j])
+        j += 1
+print(*c)
+```
+
 **Độ phức tạp**
 
 Vị trí con trỏ $i$ luôn tăng và tăng quá không quá $n$ lần, vị trí con trỏ $j$ cũng luôn tăng và tăng không quá $m$ lần. 
@@ -431,6 +443,20 @@ while (i < j) {
 }
 cout << "No solution";
 ```
+
+``` python
+i, j = 1, N
+while i < j:
+    if a[i] + a[j] == x:
+        print(i, j)
+        exit()
+    if a[i] + a[j] < x:
+        i += 1
+    else:
+        j -= 1
+print("No solution")
+```
+
 **Độ phức tạp**
 
 Vị trí con trỏ $i$ luôn tăng, vị trí con trỏ $j$ thì luôn giảm. 
@@ -777,6 +803,19 @@ for (int l = 1, r = 1; r <= n; r++) {
 }
 cout << ans;
 ```
+
+``` python
+ans, sum_val = 0, 0
+l = 1
+for r in range(1, n + 1):
+    sum_val += a[r]
+    while sum_val > s:
+        sum_val -= a[l]
+        l += 1
+    ans = max(ans, r - l + 1)
+print(ans)
+```
+
 **Độ phức tạp**
 
 Vị trí con trỏ $r$ luôn tăng, vị trí con trỏ $l$ luôn tăng và luôn tăng không giá trị $r$. 
@@ -958,6 +997,15 @@ while (true) {
       break;
 }
 ```
+
+``` python
+tortoise, hare = 1, 1
+while True:
+    tortoise = f(tortoise)
+    hare = f(f(hare))
+    if tortoise == hare:
+        break
+```
 ### Tìm $\mu$
 
 Khởi tạo một con trỏ mới $p=x_0$, con trỏ này được tịnh tiến giống như con trỏ $tortoise$.
@@ -991,6 +1039,14 @@ while (p != tortoise) {
     mu++;
 }
 ```
+
+``` python
+mu, p = 0, 1
+while p != tortoise:
+    p = f(p)
+    tortoise = f(tortoise)
+    mu += 1
+```
 ### Tìm $\lambda$
 
 Bây giờ cả hai con trỏ $tortoise$ và $p$ đang có giá trị là $x_{\mu}$.
@@ -1007,6 +1063,15 @@ while (true) {
     if (tortoise == p)
       break;
 }
+```
+
+``` python
+lam = 0
+while True:
+    lam += 1
+    p = f(p)
+    if tortoise == p:
+        break
 ```
 Để hiểu rõ hơn, ta hãy cùng xem qua một số ví dụ sau đây:
 
@@ -1051,3 +1116,5 @@ Kết luận: độ phức tạp của bài toán là $O(\mu + \lambda)$. (trong
 [CODEFORCES - Pseudo-Random Number Generator](https://codeforces.com/gym/102501/problem/H)
 
 [CODEFORCES - Cooperative Game](https://codeforces.com/contest/1137/problem/D)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

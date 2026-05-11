@@ -63,6 +63,46 @@ long long kruskal(int n, vector<Edge>& edges) {
 }
 ```
 
+### Code Python - Kruskal
+
+```python
+class DSU:
+    def __init__(self, n):
+        self.parent = list(range(n + 1))
+        self.sz = [1] * (n + 1)
+    
+    def find(self, v):
+        if v == self.parent[v]:
+            return v
+        self.parent[v] = self.find(self.parent[v])
+        return self.parent[v]
+    
+    def unite(self, a, b):
+        a, b = self.find(a), self.find(b)
+        if a == b:
+            return False
+        if self.sz[a] < self.sz[b]:
+            a, b = b, a
+        self.parent[b] = a
+        self.sz[a] += self.sz[b]
+        return True
+
+def kruskal(n, edges):
+    edges.sort(key=lambda e: e[2])  # Sắp xếp theo trọng số
+    dsu = DSU(n)
+    mst_weight = 0
+    edges_used = 0
+    
+    for u, v, w in edges:
+        if dsu.unite(u, v):
+            mst_weight += w
+            edges_used += 1
+            if edges_used == n - 1:
+                break
+    
+    return mst_weight if edges_used == n - 1 else -1
+```
+
 ### Thuật toán Prim
 
 **Ý tưởng:** Bắt đầu từ đỉnh任意. Mỗi bước, chọn cạnh nhỏ nhất nối đỉnh đã thăm với đỉnh chưa thăm.
@@ -90,6 +130,32 @@ long long prim(int n, vector<vector<pair<int,int>>>& adj) {
     }
     return (count == n) ? mst_weight : -1;
 }
+```
+
+### Code Python - Prim
+
+```python
+import heapq
+
+def prim(n, adj):
+    visited = [False] * (n + 1)
+    pq = [(0, 1)]  # (trọng số, đỉnh)
+    mst_weight = 0
+    count = 0
+    
+    while pq and count < n:
+        w, u = heapq.heappop(pq)
+        if visited[u]:
+            continue
+        visited[u] = True
+        mst_weight += w
+        count += 1
+        
+        for v, weight in adj[u]:
+            if not visited[v]:
+                heapq.heappush(pq, (weight, v))
+    
+    return mst_weight if count == n else -1
 ```
 
 ---
@@ -127,6 +193,27 @@ vector<long long> dijkstra(int start, int n, vector<vector<pair<int,int>>>& adj)
     }
     return dist;
 }
+```
+
+### Code Python - Dijkstra
+
+```python
+import heapq
+
+def dijkstra(start, n, adj):
+    dist = [float('inf')] * (n + 1)
+    dist[start] = 0
+    pq = [(0, start)]
+    
+    while pq:
+        d, u = heapq.heappop(pq)
+        if d > dist[u]:
+            continue
+        for v, w in adj[u]:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                heapq.heappush(pq, (dist[v], v))
+    return dist
 ```
 
 **Độ phức tạp:** O((V + E) log V) với priority_queue.
@@ -172,9 +259,34 @@ vector<int> topoSort(int n, vector<vector<int>>& adj) {
 }
 ```
 
+### Code Python - Topo Sort
+
+```python
+from collections import deque
+
+def topo_sort(n, adj):
+    in_degree = [0] * (n + 1)
+    for u in range(1, n + 1):
+        for v in adj[u]:
+            in_degree[v] += 1
+    
+    q = deque([i for i in range(1, n + 1) if in_degree[i] == 0])
+    result = []
+    
+    while q:
+        u = q.popleft()
+        result.append(u)
+        for v in adj[u]:
+            in_degree[v] -= 1
+            if in_degree[v] == 0:
+                q.append(v)
+    
+    return result if len(result) == n else []
+```
+
 ---
 
-## 4. Code Python
+## 4. Code Python (Tổng hợp)
 
 ```python
 import heapq

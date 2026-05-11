@@ -47,6 +47,27 @@ int main() {
 }
 ```
 
+### Code Python: Dùng thư viện
+
+```python
+import heapq
+
+# Min-Heap (mặc định trong Python)
+minHeap = []
+heapq.heappush(minHeap, 5)    # Thêm - O(log N)
+heapq.heappush(minHeap, 10)
+heapq.heappush(minHeap, 3)
+print(minHeap[0])              # 3 (phần tử nhỏ nhất) - O(1)
+heapq.heappop(minHeap)         # Xóa phần tử nhỏ nhất - O(log N)
+
+# Max-Heap (đảo dấu)
+maxHeap = []
+heapq.heappush(maxHeap, -5)
+heapq.heappush(maxHeap, -10)
+heapq.heappush(maxHeap, -3)
+print(-maxHeap[0])             # 10 (phần tử lớn nhất)
+```
+
 ### Ứng dụng: Tìm K phần tử lớn nhất
 
 ```cpp
@@ -65,6 +86,20 @@ vector<int> findTopK(vector<int>& a, int k) {
     }
     return result;
 }
+```
+
+### Code Python: Tìm K phần tử lớn nhất
+
+```python
+import heapq
+
+def find_top_k(a, k):
+    minHeap = []
+    for x in a:
+        heapq.heappush(minHeap, x)
+        if len(minHeap) > k:
+            heapq.heappop(minHeap)  # Loại phần tử nhỏ nhất
+    return sorted(minHeap, reverse=True)
 ```
 
 ---
@@ -219,6 +254,47 @@ void update(int node, int start, int end, int pos, int val) {
 }
 ```
 
+### Code Python
+
+```python
+import sys
+
+class SegmentTree:
+    def __init__(self, a):
+        self.n = len(a)
+        self.tree = [0] * (4 * self.n)
+        self._build(1, 0, self.n - 1, a)
+
+    def _build(self, node, start, end, a):
+        if start == end:
+            self.tree[node] = a[start]
+            return
+        mid = (start + end) // 2
+        self._build(2 * node, start, mid, a)
+        self._build(2 * node + 1, mid + 1, end, a)
+        self.tree[node] = min(self.tree[2 * node], self.tree[2 * node + 1])
+
+    def query(self, node, start, end, l, r):
+        if r < start or end < l:
+            return sys.maxsize  # Ngoài đoạn
+        if l <= start and end <= r:
+            return self.tree[node]  # Trong đoạn hoàn toàn
+        mid = (start + end) // 2
+        return min(self.query(2 * node, start, mid, l, r),
+                   self.query(2 * node + 1, mid + 1, end, l, r))
+
+    def update(self, node, start, end, pos, val):
+        if start == end:
+            self.tree[node] = val
+            return
+        mid = (start + end) // 2
+        if pos <= mid:
+            self.update(2 * node, start, mid, pos, val)
+        else:
+            self.update(2 * node + 1, mid + 1, end, pos, val)
+        self.tree[node] = min(self.tree[2 * node], self.tree[2 * node + 1])
+```
+
 ---
 
 ## 4. Fenwick Tree (BIT - Binary Indexed Tree)
@@ -260,6 +336,30 @@ int query(int i) {
 int rangeSum(int l, int r) {
     return query(r) - query(l - 1);
 }
+```
+
+### Code Python
+
+```python
+class FenwickTree:
+    def __init__(self, n):
+        self.n = n
+        self.bit = [0] * (n + 1)
+
+    def update(self, i, delta):
+        while i <= self.n:
+            self.bit[i] += delta
+            i += i & (-i)  # i & (-i) = bit thấp nhất
+
+    def query(self, i):
+        s = 0
+        while i > 0:
+            s += self.bit[i]
+            i -= i & (-i)
+        return s
+
+    def range_sum(self, l, r):
+        return self.query(r) - self.query(l - 1)
 ```
 
 ### Khi nào dùng cái nào?

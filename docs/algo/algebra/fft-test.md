@@ -339,6 +339,29 @@ void fft(vector<cd> &a, bool invert) {
 }
 ```
 
+```python
+import cmath
+
+def fft(a, invert):
+    n = len(a)
+    if n == 1:
+        return
+    a0 = a[0::2]
+    a1 = a[1::2]
+    fft(a0, invert)
+    fft(a1, invert)
+    ang = 2 * cmath.pi / n * (-1 if invert else 1)
+    wn = cmath.exp(1j * ang)
+    w = 1
+    for i in range(n // 2):
+        a[i] = a0[i] + w * a1[i]
+        a[i + n // 2] = a0[i] - w * a1[i]
+        if invert:
+            a[i] /= 2
+            a[i + n // 2] /= 2
+        w *= wn
+```
+
 Dưới đây là cài đặt để tính tích chập của hai dãy số:
 ```cpp
 vector<int> conv(const vector<int> &a, const vector<int> &b) {
@@ -357,6 +380,26 @@ vector<int> conv(const vector<int> &a, const vector<int> &b) {
         res[i] = int(real(fa[i]) + 0.5);
     return res;
 }
+```
+
+```python
+def conv(a, b):
+    if not a or not b:
+        return []
+    fa = list(map(complex, a))
+    fb = list(map(complex, b))
+    n = 1
+    while n < len(a) + len(b) - 1:
+        n <<= 1
+    fa += [0j] * (n - len(fa))
+    fb += [0j] * (n - len(fb))
+    fft(fa, False)
+    fft(fb, False)
+    for i in range(n):
+        fa[i] *= fb[i]
+    fft(fa, True)
+    res = [int(fa[i].real + 0.5) for i in range(n)]
+    return res
 ```
 
 #### Cài đặt khử đệ quy
@@ -403,6 +446,35 @@ void fft(vector<cd> &a, bool invert) {
 }
 ```
 
+```python
+import cmath
+
+def fft(a, invert):
+    n = len(a)
+    L = n.bit_length() - 1
+    rev = [0] * n
+    for i in range(n):
+        rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (L - 1))
+        if i < rev[i]:
+            a[i], a[rev[i]] = a[rev[i]], a[i]
+    length = 2
+    while length <= n:
+        ang = 2 * cmath.pi / length * (-1 if invert else 1)
+        wlen = cmath.exp(1j * ang)
+        for i in range(0, n, length):
+            w = 1
+            for j in range(length // 2):
+                u = a[i + j]
+                v = a[i + j + length // 2] * w
+                a[i + j] = u + v
+                a[i + j + length // 2] = u - v
+                w *= wlen
+        length <<= 1
+    if invert:
+        for i in range(n):
+            a[i] /= n
+```
+
 #### Vấn đề về độ chính xác
 Ở cài đặt phía trên ta có viết ```w *= wlen``` để tính luỹ thừa của căn đơn vị. Việc nhân nhiều lần sẽ ảnh hưởng rất lớn đến độ chính xác của thuật toán vì ta đang thực hiện tính toán trên số thực.
 
@@ -422,6 +494,15 @@ for (int k = 2; k < n; k *= 2) {
     }
 }
 ```
+```python
+root = [0j] * n
+root[1] = 1
+for k in range(2, n, 2):
+    z = cmath.exp(1j * cmath.pi / k * (1 if invert else -1))
+    for j in range(k // 2, k):
+        root[2 * j] = root[j]
+        root[2 * j + 1] = root[j] * z
+```
 
 Sau khi có mảng $root$ ta có thể sửa cài đặt FFT như sau:
 ```cpp
@@ -432,6 +513,16 @@ for (int k = 1; k < n; k *= 2)
             a[i + j + k] = a[i + j] - z;
             a[i + j] += z;
         }
+```
+```python
+k = 1
+while k < n:
+    for i in range(0, n, 2 * k):
+        for j in range(k):
+            z = root[j + k] * a[i + j + k]
+            a[i + j + k] = a[i + j] - z
+            a[i + j] += z
+    k *= 2
 ```
 
 Thử nghiệm với $n=2^{20}$, sai số chỉ rơi vào khoảng $5.5511\cdot 10^{-16}$. 
@@ -476,6 +567,32 @@ vector<int> conv(const vector<int> &a, const vector<int> &b) {
         res[i] = int(imag(out[i]) / 4 + 0.5);
     return res;
 }
+```
+
+```python
+import cmath
+
+def conv(a, b):
+    if not a or not b:
+        return []
+    n = 1
+    while n < len(a) + len(b) - 1:
+        n <<= 1
+    inp = [0j] * n
+    for i in range(len(a)):
+        inp[i] = complex(a[i], 0)
+    for i in range(len(b)):
+        inp[i] = complex(inp[i].real, b[i])
+    fft(inp, False)
+    for i in range(n):
+        inp[i] *= inp[i]
+    out = [0j] * n
+    for i in range(n):
+        j = -i & (n - 1)
+        out[i] = inp[i] - inp[j].conjugate()
+    fft(out, True)
+    res = [int(out[i].imag / 4 + 0.5) for i in range(n)]
+    return res
 ```
 
 ## 3. Thuật toán NTT
@@ -545,6 +662,45 @@ void fft(vector<int> & a, bool invert) {
 }
 ```
 
+```python
+MOD = 998244353
+ROOT = 15311432
+ROOT_1 = 469870224
+ROOT_PW = 1 << 23
+
+def inverse(a, m):
+    return pow(a, m - 2, m)
+
+def ntt(a, invert):
+    n = len(a)
+    L = n.bit_length() - 1
+    rev = [0] * n
+    for i in range(n):
+        rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (L - 1))
+        if i < rev[i]:
+            a[i], a[rev[i]] = a[rev[i]], a[i]
+    length = 2
+    while length <= n:
+        wlen = ROOT_1 if invert else ROOT
+        i = length
+        while i < ROOT_PW:
+            wlen = wlen * wlen % MOD
+            i <<= 1
+        for i in range(0, n, length):
+            w = 1
+            for j in range(length // 2):
+                u = a[i + j]
+                v = a[i + j + length // 2] * w % MOD
+                a[i + j] = (u + v) if (u + v < MOD) else (u + v - MOD)
+                a[i + j + length // 2] = (u - v) if (u - v >= 0) else (u - v + MOD)
+                w = w * wlen % MOD
+        length <<= 1
+    if invert:
+        n_1 = inverse(n, MOD)
+        for i in range(n):
+            a[i] = a[i] * n_1 % MOD
+```
+
 ### Nhân đa thức với modulo bất kì
 
 Có thể thấy rằng thuật toán NTT chỉ hoạt động với nếu căn đơn vị tồn tại. Với các modulo không thoả mãn ta có hai cách sau:
@@ -602,6 +758,45 @@ vector<int> convMod(const vector<int> &a, const vector<int> &b, int M) {
     }
     return res;
 }
+```
+
+```python
+import cmath
+import math
+
+def conv_mod(a, b, M):
+    if not a or not b:
+        return []
+    res_len = len(a) + len(b) - 1
+    B = res_len.bit_length()
+    n = 1 << B
+    cut = int(math.sqrt(M))
+
+    L = [0j] * n
+    R = [0j] * n
+    for i in range(len(a)):
+        L[i] = complex(a[i] // cut, a[i] % cut)
+    for i in range(len(b)):
+        R[i] = complex(b[i] // cut, b[i] % cut)
+    fft(L, False)
+    fft(R, False)
+
+    outl = [0j] * n
+    outs = [0j] * n
+    for i in range(n):
+        j = -i & (n - 1)
+        outl[i] = (L[i] + R[j].conjugate()) * R[i] / 2.0
+        outs[i] = (L[i] - R[j].conjugate()) * R[i] / (2.0j)
+    fft(outl, True)
+    fft(outs, True)
+
+    res = [0] * res_len
+    for i in range(res_len):
+        av = int(outl[i].real + 0.5)
+        cv = int(outs[i].imag + 0.5)
+        bv = int(outl[i].imag + 0.5) + int(outs[i].real + 0.5)
+        res[i] = ((av % M * cut + bv) % M * cut + cv) % M
+    return res
 ```
 
 ## 4. Bài tập tham khảo

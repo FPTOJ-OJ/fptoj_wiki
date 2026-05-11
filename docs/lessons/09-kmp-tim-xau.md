@@ -51,6 +51,22 @@ vector<int> prefixFunction(string s) {
 }
 ```
 
+### Code Python: Tính hàm tiền tố
+
+```python
+def prefix_function(s):
+    n = len(s)
+    pi = [0] * n
+    for i in range(1, n):
+        j = pi[i - 1]
+        while j > 0 and s[i] != s[j]:
+            j = pi[j - 1]  # Nhảy cóc! Không quay về 0
+        if s[i] == s[j]:
+            j += 1
+        pi[i] = j
+    return pi
+```
+
 ---
 
 ## 3. KMP - Tìm xâu mẫu
@@ -80,6 +96,20 @@ vector<int> kmpSearch(string text, string pattern) {
     }
     return positions;
 }
+```
+
+### Code Python: KMP tìm xâu mẫu
+
+```python
+def kmp_search(text, pattern):
+    combined = pattern + "#" + text
+    pi = prefix_function(combined)
+    positions = []
+    m = len(pattern)
+    for i in range(m + 1, len(combined)):
+        if pi[i] == m:
+            positions.append(i - 2 * m)
+    return positions
 ```
 
 ---
@@ -160,6 +190,20 @@ int countOccurrences(string text, string pattern) {
 }
 ```
 
+### Code Python: Đếm số lần xuất hiện
+
+```python
+def count_occurrences(text, pattern):
+    combined = pattern + "#" + text
+    pi = prefix_function(combined)
+    count = 0
+    m = len(pattern)
+    for i in range(m + 1, len(combined)):
+        if pi[i] == m:
+            count += 1
+    return count
+```
+
 ### 5.2. Tìm chu kỳ nhỏ nhất của xâu
 
 ```cpp
@@ -173,6 +217,18 @@ int shortestPeriod(string s) {
 }
 ```
 
+### Code Python: Tìm chu kỳ nhỏ nhất
+
+```python
+def shortest_period(s):
+    pi = prefix_function(s)
+    n = len(s)
+    period = n - pi[n - 1]
+    if n % period == 0:
+        return period
+    return n  # Không có chu kỳ
+```
+
 ### 5.3. Kiểm tra xâu có phải lặp lại không
 
 ```cpp
@@ -184,6 +240,16 @@ bool isRepeated(string s) {
     int period = n - pi[n - 1];
     return (n % period == 0 && period < n);
 }
+```
+
+### Code Python: Kiểm tra xâu lặp lại
+
+```python
+def is_repeated(s):
+    pi = prefix_function(s)
+    n = len(s)
+    period = n - pi[n - 1]
+    return n % period == 0 and period < n
 ```
 
 ---

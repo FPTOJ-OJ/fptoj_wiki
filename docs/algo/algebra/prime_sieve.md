@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Người viết:**
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 
@@ -44,6 +42,16 @@ void sieve(int n){
     }
 }
 ```
+```python
+def sieve(n):
+    is_prime = [True] * (n + 1)
+    is_prime[0] = is_prime[1] = False
+    for i in range(2, n + 1):
+        if is_prime[i]:
+            for j in range(i * 2, n + 1, i):
+                is_prime[j] = False
+    return is_prime
+```
 Độ phức tạp thời gian là $O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right)$ với $p$ là số nguyên tố $\le  n$. 
 Đến đây, bạn đọc có thể tham khảo [Định lý Merten 2](https://en.wikipedia.org/wiki/Mertens%27_theorems#Proof) để rút gọn độ phức tạp:
 $$O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right) = O( n \log (\log n))$$
@@ -78,6 +86,18 @@ void Eratosthenes(int n){
     }
 }
 ```
+```python
+def eratosthenes(n):
+    is_prime = [True] * (n + 1)
+    is_prime[0] = is_prime[1] = False
+    i = 2
+    while i * i <= n:
+        if is_prime[i]:
+            for j in range(i * i, n + 1, i):
+                is_prime[j] = False
+        i += 1
+    return is_prime
+```
 **Độ phức tạp thời gian sau khi cải tiến vẫn là $\boldsymbol{O(n \log \log n)}$.** Tuy nhiên, số phép tính đã giảm đi đáng kể.
 
 **Lưu ý:**
@@ -87,6 +107,11 @@ void Eratosthenes(int n){
 ```cpp
     int nsqrt = sqrt(n);
     for (int i = 2; i <= nsqrt; i++) 
+```
+
+```python
+    nsqrt = int(n ** 0.5)
+    for i in range(2, nsqrt + 1):
 ```
 
 Dưới đây là hình minh họa cho cải tiến trên. *Nguồn: [Wikipedia](https://vi.wikipedia.org/wiki/S%C3%A0ng_Eratosthenes)*
@@ -122,6 +147,21 @@ void sieve(int n){
     }
 }
 ```
+```python
+def sieve(n):
+    min_prime = [0] * (n + 1)
+    i = 2
+    while i * i <= n:
+        if min_prime[i] == 0:  # nếu i là số nguyên tố
+            for j in range(i * i, n + 1, i):
+                if min_prime[j] == 0:
+                    min_prime[j] = i
+        i += 1
+    for i in range(2, n + 1):
+        if min_prime[i] == 0:
+            min_prime[i] = i
+    return min_prime
+```
 Bây giờ ta có thể phân tích một số ra thừa số nguyên tố:
 ```cpp
 vector<int> factorize(int n) {
@@ -132,6 +172,14 @@ vector<int> factorize(int n) {
     }
     return res;
 }
+```
+```python
+def factorize(n, min_prime):
+    res = []
+    while n != 1:
+        res.append(min_prime[n])
+        n //= min_prime[n]
+    return res
 ```
 Mỗi lần ta chia $n$ cho ước nguyên tố nhỏ nhất $\text{min_prime}[n]$ đến khi nào $n$ giảm về $1$. Trong trường hợp xấu nhất thì mỗi lần chia $\text{min_prime}[n]$ đều bằng $2$. Vì vậy, hàm phân tích trên **độ phức tạp thời gian** trường hợp xấu nhất là $\boldsymbol{O(\log n)}$. 
 
@@ -171,6 +219,19 @@ vector<long long> factorize(long long n) {
     return res;
 }
 ```
+```python
+def factorize(n):
+    res = []
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            res.append(i)
+            n //= i
+        i += 1
+    if n > 1:
+        res.append(n)
+    return res
+```
 
 Đến đây, ta dễ dàng tìm được một cách cải tiến thuật toán này: ta chỉ cần xét các số nguyên tố trong đoạn $\left[ 2;\sqrt{n} \right]$. Thật vậy, nếu $n$ không chia hết cho số nguyên tố $p$ thì chắc chắn $n$ sẽ không chia hết cho bội của $p$.
 
@@ -190,6 +251,21 @@ vector<long long> factorize(long long n) {
     if (n > 1) res.push_back(n);
     return res;
 }
+```
+```python
+primes = []
+
+def factorize(n):
+    res = []
+    for p in primes:
+        if p * p > n:
+            break
+        while n % p == 0:
+            res.append(p)
+            n //= p
+    if n > 1:
+        res.append(n)
+    return res
 ```
 <!-- https://ideone.com/sKDrOw -->
 
@@ -233,6 +309,29 @@ vector<bool> sieve(long long L, long long R) {
     return isPrime;
 }
 ```
+```python
+import math
+
+def sieve(L, R):
+    sqrtR = int(math.sqrt(R))
+    mark = [False] * (sqrtR + 1)
+    primes = []
+    # sinh ra các số nguyên tố <= sqrt(R)
+    for i in range(2, sqrtR + 1):
+        if not mark[i]:
+            primes.append(i)
+            for j in range(i * i, sqrtR + 1, i):
+                mark[j] = True
+
+    is_prime = [True] * (R - L + 1)
+    for p in primes:
+        start = max(p * p, ((L + p - 1) // p) * p)
+        for j in range(start, R + 1, p):
+            is_prime[j - L] = False
+    if L == 1:
+        is_prime[0] = False
+    return is_prime
+```
 
 **Độ phức tạp thời gian: $\boldsymbol{O \left( N \log \log (R) + \sqrt R \log \log \sqrt R \right)}$**
 
@@ -268,6 +367,26 @@ void sieve(int L, int R){
         }
     }
 }
+```
+```python
+def sieve(L, R):
+    is_prime = [True] * (R - L + 1)
+    # x là số nguyên tố khi và chỉ khi is_prime[x - L] == True
+
+    i = 2
+    while i * i <= R:
+        start = max(i * i, ((L + i - 1) // i) * i)
+        for j in range(start, R + 1, i):
+            is_prime[j - L] = False
+        i += 1
+
+    if 1 >= L:  # Xét riêng trường hợp số 1
+        is_prime[1 - L] = False
+
+    for x in range(L, R + 1):
+        if is_prime[x - L]:
+            pass  # x là số nguyên tố
+    return is_prime
 ```
 **Độ phức tạp thời gian** sẽ tệ hơn : $\boldsymbol{O(N \log (R) + \sqrt R)}$. 
 Tuy nhiên, ta lại được lợi thế hơn về **độ phức tạp không gian: $\boldsymbol{O \left( N \right)}$**.
@@ -327,6 +446,20 @@ int main(){
 }
 
 ```
+```python
+maxn = 10**6
+f = list(range(maxn + 1))
+
+for i in range(2, maxn + 1):
+    if f[i] == i:
+        for j in range(i, maxn + 1, i):
+            f[j] = f[j] // i * (i - 1)
+
+ntest = int(input())
+for _ in range(ntest):
+    n = int(input())
+    print(f[n])
+```
 </details>
 
 ## Một số cải tiến của sàng nguyên tố Eratosthenes
@@ -366,6 +499,20 @@ void sieve_odd(int n){
     }
 }
 ```
+```python
+def sieve_odd(n):
+    is_prime = [True] * (n // 2 + 1)
+    # is_prime[t] = True nghĩa là 2*t+1 là số nguyên tố
+    is_prime[0] = False
+    t = 1
+    while t * t <= n // 4:
+        i = 2 * t + 1
+        if is_prime[t]:
+            for j in range(i * i, n + 1, i * 2):
+                is_prime[j // 2] = False
+        t += 1
+    return is_prime
+```
 **Độ phức tạp thời gian: $\boldsymbol{O\left(\dfrac{n}{2} \cdot \log \log n\right)}$**
 
 **Độ phức tạp không gian: $\boldsymbol{O\left(\dfrac{n}{2}\right)}$**
@@ -390,6 +537,18 @@ void sieve_bitset(int n){
         }
     }
 }
+```
+```python
+def sieve_bitset(n):
+    is_prime = bytearray(b'\x01') * (n + 1)
+    is_prime[0] = is_prime[1] = 0
+    i = 2
+    while i * i <= n:
+        if is_prime[i]:
+            for j in range(i * i, n + 1, i):
+                is_prime[j] = 0
+        i += 1
+    return is_prime
 ```
 **Độ phức tạp thời gian: $\boldsymbol{O(n \log \log n)}$**
 
@@ -416,6 +575,21 @@ void sieve_bits(int n){
         }
     }
 }
+```
+```python
+def sieve_bits(n):
+    prime_bits = bytearray((n >> 3) + 5)
+    def doc(k):
+        return prime_bits[k >> 3] & (1 << (k & 7))
+    def set_bit(k):
+        prime_bits[k >> 3] |= (1 << (k & 7))
+    set_bit(0)
+    set_bit(1)
+    for i in range(2, int(n ** 0.5) + 1):
+        if not doc(i):
+            for j in range(i * i, n + 1, i):
+                set_bit(j)
+    return prime_bits
 ```
 **Độ phức tạp thời gian: $\boldsymbol{O(n \log \log n)}$**
 
@@ -462,6 +636,22 @@ void linear_sieve(int n){
     }
 }
 ```
+```python
+def linear_sieve(n):
+    min_prime = [0] * (n + 1)
+    primes = []
+    for i in range(2, n + 1):
+        if min_prime[i] == 0:
+            min_prime[i] = i
+            primes.append(i)
+        for p in primes:
+            if i * p > n:
+                break
+            min_prime[i * p] = p
+            if p == min_prime[i]:
+                break
+    return min_prime, primes
+```
 **Độ phức tạp thời gian: $\boldsymbol{O(n)}$**
 
 **Độ phức tạp không gian: $\boldsymbol{O(n)}$**
@@ -494,6 +684,15 @@ Xét code sàng Erathosenes sau:
                 is_prime[j] = false;
         }
     }
+```
+
+```python
+    i = 2
+    while i * i <= n:
+        if is_prime[i]:
+            for j in range(i * i, n + 1, i):
+                is_prime[j] = False
+        i += 1
 ```
 
 Vì vòng lặp `j` bắt đầu từ `i * i` nên ta không cần phải giữ lại toàn bộ mảng `is_prime[1...n]` trong suốt quá trình sàng. Khi đó: 
@@ -541,6 +740,42 @@ void segmented_sieve(int n) {
     }
     cout << result << '\n'; // In ra số số nguyên tố tìm được
 }
+```
+```python
+import math
+
+def segmented_sieve(n):
+    S = 10000
+
+    nsqrt = int(math.sqrt(n))
+    is_prime_small = [True] * (nsqrt + 2)
+    primes = []
+    for i in range(2, nsqrt + 1):
+        if is_prime_small[i]:
+            primes.append(i)
+            for j in range(i * i, nsqrt + 1, i):
+                is_prime_small[j] = False
+
+    result = 0
+    k = 0
+    while k * S <= n:
+        block = [True] * S
+        start = k * S
+        for p in primes:
+            start_idx = (start + p - 1) // p
+            j = max(start_idx, p) * p - start
+            while j < S:
+                block[j] = False
+                j += p
+        if k == 0:
+            block[0] = block[1] = False
+        i = 0
+        while i < S and start + i <= n:
+            if block[i]:
+                result += 1
+            i += 1
+        k += 1
+    print(result)
 ```
 **Độ phức tạp thời gian: $\boldsymbol{O \left( n \log \log n +  \dfrac{n \cdot \pi(\sqrt n)}{S} \right)}$**
 
@@ -618,6 +853,45 @@ void sieve_with_wheel(int n){
     }
 }
 ```
+```python
+def sieve_with_wheel(n):
+    wheel_size = 2 * 3 * 5
+    num_offsets = 8
+    wheel_offsets = [1, 7, 11, 13, 17, 19, 23, 29]
+    num_in_offsets = [0] * wheel_size
+
+    for i in range(num_offsets):
+        num_in_offsets[wheel_offsets[i]] = i + 1
+
+    def pos(v):
+        return v // wheel_size * num_offsets + num_in_offsets[v % wheel_size] - 1
+
+    is_prime = [True] * (pos(n) + num_offsets + 10)
+    is_prime[0] = False
+
+    # Sàng
+    i = 0
+    while i * i <= n:
+        for j in range(num_offsets):
+            u = i + wheel_offsets[j]
+            if is_prime[pos(u)]:
+                v = u * u
+                while v <= n:
+                    if num_in_offsets[v % wheel_size]:
+                        is_prime[pos(v)] = False
+                    v += u
+        i += wheel_size
+
+    primes = []
+    i = 0
+    while i <= n:
+        for j in range(num_offsets):
+            u = i + wheel_offsets[j]
+            if u <= n and is_prime[pos(u)]:
+                primes.append(u)
+        i += wheel_size
+    return primes
+```
 **Độ phức tạp thời gian: $\boldsymbol{O\left(\dfrac{4}{15} n \log \log n \right)}$**
 
 **Độ phức tạp không gian: $\boldsymbol{O\left(\dfrac{4}{15} n \right)}$**
@@ -667,6 +941,41 @@ void block_sieve_odd() {
                 sum_primes += (low + i) * 2 + 1;
     };
 }
+```
+
+```python
+import math
+
+MAX = 10**6
+
+def block_sieve_odd():
+    sum_primes = 2
+    S = round(math.sqrt(MAX))
+    sieve = [True] * (S + 1)
+    cp = []
+    for i in range(3, S, 2):
+        if not sieve[i]:
+            continue
+        cp.append([i, (i * i - 1) // 2])
+        for j in range(i * i, S + 1, 2 * i):
+            sieve[j] = False
+    high = (MAX - 1) // 2
+    low = 0
+    while low <= high:
+        block = [True] * S
+        for item in cp:
+            p, idx = item[0], item[1]
+            while idx < S:
+                block[idx] = False
+                idx += p
+            item[1] = idx - S
+        if low == 0:
+            block[0] = False
+        for i in range(min(S, high - low + 1)):
+            if block[i]:
+                sum_primes += (low + i) * 2 + 1
+        low += S
+    return sum_primes
 ```
 
 </details>
@@ -777,6 +1086,87 @@ void sieve() {
 }
 ```
 
+```python
+# Source: RR Code (Python equivalent is complex and slow for large inputs)
+# This is a simplified Python translation of the wheel + segmented sieve
+# For competitive programming, prefer the C++ version for performance
+
+WHEEL = 3 * 5 * 7 * 11 * 13
+N_SMALL_PRIMES = 6536
+SIEVE_SPAN = WHEEL * 64
+SIEVE_SIZE = SIEVE_SPAN // 128 + 1
+MAX = 10**9
+
+ONES = [1 << i for i in range(64)]
+small_primes = [0] * N_SMALL_PRIMES
+si = [0] * SIEVE_SIZE
+pattern = [0] * WHEEL
+
+def mark(s, o):
+    s[o >> 6] |= ONES[o & 63]
+
+def test_bit(s, o):
+    return (s[o >> 6] & ONES[o & 63]) == 0
+
+def update_sieve(offset):
+    for i in range(0, SIEVE_SIZE, WHEEL):
+        k = min(WHEEL, SIEVE_SIZE - i)
+        for j in range(k):
+            si[i + j] = pattern[j]
+    if offset == 0:
+        si[0] |= ONES[0]
+        si[0] &= ~(ONES[1] | ONES[2] | ONES[3] | ONES[5] | ONES[6])
+    for i in range(N_SMALL_PRIMES):
+        j = small_primes[i] * small_primes[i]
+        if j > offset + SIEVE_SPAN - 1:
+            break
+        if j > offset:
+            j = (j - offset) >> 1
+        else:
+            j = small_primes[i] - offset % small_primes[i]
+            if (j & 1) == 0:
+                j += small_primes[i]
+            j >>= 1
+        while j < SIEVE_SPAN // 2:
+            mark(si, j)
+            j += small_primes[i]
+
+def sieve():
+    for i in range(3, 256, 2):
+        if test_bit(si, i >> 1):
+            for j in range(i * i // 2, 32768, i):
+                mark(si, j)
+    m = 0
+    for i in range(8, 32768):
+        if test_bit(si, i):
+            small_primes[m] = i * 2 + 1
+            m += 1
+    for i in range(1, WHEEL * 64, 3):
+        mark(pattern, i)
+    for i in range(2, WHEEL * 64, 5):
+        mark(pattern, i)
+    for i in range(3, WHEEL * 64, 7):
+        mark(pattern, i)
+    for i in range(5, WHEEL * 64, 11):
+        mark(pattern, i)
+    for i in range(6, WHEEL * 64, 13):
+        mark(pattern, i)
+    sum_primes = 2
+    for offset in range(0, MAX, SIEVE_SPAN):
+        update_sieve(offset)
+        for j in range(SIEVE_SIZE):
+            x = (~si[j]) & ((1 << 64) - 1)
+            while x:
+                ctz = (x & -x).bit_length() - 1
+                p = offset + (j << 7) + (ctz << 1) + 1
+                if p > offset + SIEVE_SPAN - 1:
+                    break
+                if p <= MAX:
+                    sum_primes += p
+                x ^= (-x & x)
+    return sum_primes
+```
+
 </details>
 
 <details>
@@ -858,6 +1248,67 @@ void sieve()
     }
 }
 ```
+
+```python
+# Source: RR Code (Python equivalent)
+# Note: This is a simplified translation. For competitive programming, use C++.
+
+import math
+
+def sieve():
+    lim = 10**9
+    sum_primes = 0
+
+    sqrt_val = int(math.sqrt(lim))
+    sieve_size = max(sqrt_val, 1 << 15)
+    segment_size = sieve_size * 16
+
+    is_prime = bytearray(b'\x01') * (sqrt_val + 1)
+    seg_prime = []
+    seg_multi = []
+
+    for i in range(3, sqrt_val + 1, 2):
+        if is_prime[i]:
+            for j in range(i * i, sqrt_val + 1, i):
+                is_prime[j] = 0
+
+    reset = [0] * 16
+    for i in range(8):
+        reset[2 * i] = reset[2 * i + 1] = ~(1 << i) & 0xFF
+
+    s = 3
+    low = 0
+    while low <= lim:
+        mark = bytearray(b'\xff') * sieve_size
+        high = min(low + segment_size - 1, lim)
+        cur_sieve_size = (high - low) // 16 + 1
+
+        while s * s <= high:
+            if is_prime[s]:
+                seg_prime.append(s)
+                seg_multi.append(s * s - low)
+            s += 2
+
+        for i in range(len(seg_prime)):
+            j = seg_multi[i]
+            k = seg_prime[i] * 2
+            while j < cur_sieve_size:
+                mark[j >> 4] &= reset[j % 16]
+                j += k
+            seg_multi[i] = j - segment_size
+
+        if high == lim:
+            bits = (0xFF << ((lim % 16) + 1) // 2) & 0xFF
+            mark[cur_sieve_size - 1] &= ~bits & 0xFF
+
+        for n in range(cur_sieve_size):
+            for i in range(8):
+                if mark[n] & (1 << i):
+                    p = low + n * 16 + i * 2 + 1
+                    sum_primes += p if p > 1 else 2
+        low += segment_size
+    return sum_primes
+```
 </details>
 
 So sánh *độ dài code* và *thời gian chạy* với $n = 10^9$ của một số sàng nguyên tố (*Nguồn: [Code cùng RR](https://www.facebook.com/photo/?fbid=483129447247239&set=pcb.483147020578815)*)
@@ -937,4 +1388,5 @@ Bài viết được tổng hợp từ các nguồn dưới đây:
 * [Bài viết của Code cùng RR](https://www.facebook.com/story.php?story_fbid=pfbid0hmSeE2VMD69pvCfz7SufxBUr9kGSscEvKhvc4U8LreRsANv98C1iL3JYZMUrxhcCl&id=100066505638866&sfnsn=mo&mibextid=RUbZ1f)
 * [Bài viết 2 của Code cùng RR](https://www.facebook.com/story.php?story_fbid=pfbid02i8JQsWk96W5PmQh2dN8WnLWBcij8K4oqVmfc2cjnaJiEMELvStejCNeuGwddd8yzl&id=100066505638866&sfnsn=mo&mibextid=RUbZ1f)
 * [Wikipedia](https://vi.wikipedia.org/wiki/Trang_Ch%C3%ADnh)
-
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

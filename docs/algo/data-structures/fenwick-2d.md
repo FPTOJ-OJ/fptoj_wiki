@@ -60,6 +60,20 @@ int query(int u, int v){
 
 ```
 
+```python
+A = [[0] * M for _ in range(N)]
+
+def add(u, v, x):
+    A[u][v] += x
+
+def query(u, v):
+    s = 0
+    for i in range(1, u + 1):
+        for j in range(1, v + 1):
+            s += A[i][j]
+    return s
+```
+
 ### Phân tích
 
 * Độ phức tạp khi cập nhật: $O(1)$
@@ -149,6 +163,44 @@ Ta khai báo BIT 2 chiều dưới dạng một mảng $N \times M$ , trong đó
 
 ```cpp
 int BIT[N][M];
+
+void add(int u, int v, int x){
+    for(int i = u; i <= n; i += i&(-i)){
+        for(int j = v; j <= m; j += j&(-j))BIT[i][j]+=x;
+    }
+}
+
+int query(int u, int v){
+    int sum = 0;
+    for(int i = u; i > 0; i -= i&(-i)){
+        for(int j = v; j > 0; j -= j&(-j))sum += BIT[i][j];
+    }
+    return sum;
+}
+```
+
+```python
+BIT = [[0] * M for _ in range(N)]
+
+def add(u, v, x):
+    i = u
+    while i <= n:
+        j = v
+        while j <= m:
+            BIT[i][j] += x
+            j += j & (-j)
+        i += i & (-i)
+
+def query(u, v):
+    s = 0
+    i = u
+    while i > 0:
+        j = v
+        while j > 0:
+            s += BIT[i][j]
+            j -= j & (-j)
+        i -= i & (-i)
+    return s
 ```
 
 Hàm để update:
@@ -159,6 +211,30 @@ void add(int u, int v, int x){
         for(int j = v; j <= m; j += j&(-j))BIT[i][j]+=x;
     }
 }
+
+void rectAdd(int a, int b, int u, int v, int x){
+    add(a, b, x);
+    add(u+1, v+1, x);
+    add(u+1, b, -x);
+    add(a, v+1, -x);
+}
+```
+
+```python
+def add(u, v, x):
+    i = u
+    while i <= n:
+        j = v
+        while j <= m:
+            BIT[i][j] += x
+            j += j & (-j)
+        i += i & (-i)
+
+def rectAdd(a, b, u, v, x):
+    add(a, b, x)
+    add(u + 1, v + 1, x)
+    add(u + 1, b, -x)
+    add(a, v + 1, -x)
 ```
 
 Hàm để truy vấn:
@@ -281,6 +357,29 @@ void rectAdd(int a, int b, int u, int v, int x){
     add(u + 1, v + 1, x);
 }
 ```
+
+```python
+# BIT[0..3] = {D[i][j]; i*D[i][j]; j*D[i][j]; i*j*D[i][j]}
+BIT = [[[0] * M for _ in range(N)] for _ in range(4)]
+
+def add(u, v, x):
+    i = u
+    while i <= n:
+        j = v
+        while j <= m:
+            BIT[0][i][j] += x
+            BIT[1][i][j] += u * x
+            BIT[2][i][j] += v * x
+            BIT[3][i][j] += u * v * x
+            j += j & (-j)
+        i += i & (-i)
+
+def rectAdd(a, b, u, v, x):
+    add(a, b, x)
+    add(a, v + 1, -x)
+    add(u + 1, b, -x)
+    add(u + 1, v + 1, x)
+```
 Khi truy vấn, ta lấy tửng hệ số nhân lên rồi cộng trừ để ra kết quả
 
 ```cpp
@@ -295,6 +394,20 @@ int query(int u, int v){
     }
     return a[0]*(u + 1)*(v + 1) - a[1]*(v + 1) - a[2]*(u + 1) + a[3];
 }
+```
+
+```python
+def query(u, v):
+    a = [0, 0, 0, 0]
+    for ty in range(4):
+        i = u
+        while i > 0:
+            j = v
+            while j > 0:
+                a[ty] += BIT[ty][i][j]
+                j -= j & (-j)
+            i -= i & (-i)
+    return a[0] * (u + 1) * (v + 1) - a[1] * (v + 1) - a[2] * (u + 1) + a[3]
 ```
 
 ## Kĩ thuật nén BIT 2 chiều
@@ -327,6 +440,21 @@ void fakeQuery(int u, int v){
 }
 ```
 
+```python
+pos = [[] for _ in range(N)]
+BIT = [[] for _ in range(N)]
+
+def fakeAdd(u, v, x):
+    while u <= n:
+        pos[u].append(v)
+        u += u & (-u)
+
+def fakeQuery(u, v):
+    while u <= n:
+        pos[u].append(v)
+        u += u & (-u)
+```
+
 Sau khi lưu các vị trí cần thiết, ta tiến hành rời rạc hóa trên từng BIT.
 
 ```cpp
@@ -338,6 +466,14 @@ void compress(){
         BIT[i].assign(pos[i].size(), 0);
     }
 }
+```
+
+```python
+def compress():
+    for i in range(1, n + 1):
+        pos[i].append(0)
+        pos[i] = sorted(set(pos[i]))
+        BIT[i] = [0] * len(pos[i])
 ```
 
 Khi đã rời rạc hóa xong, ta thực hiện các truy vấn như thường. Lưu ý lúc này mảng `pos` chỉ để ánh xạ lại index trên mảng đã được rời rạc hóa. 
@@ -361,6 +497,30 @@ void query(int u, int v){
     return sum;
 }
 
+```
+
+```python
+import bisect
+
+def add(u, v, x):
+    i = u
+    while i <= n:
+        j = bisect.bisect_left(pos[i], v)
+        while j < len(BIT[i]):
+            BIT[i][j] += x
+            j += j & (-j)
+        i += i & (-i)
+
+def query(u, v):
+    s = 0
+    i = u
+    while i > 0:
+        j = bisect.bisect_left(pos[i], v)
+        while j > 0:
+            s += BIT[i][j]
+            j -= j & (-j)
+        i -= i & (-i)
+    return s
 ```
 
 ## Bài tập áp dụng

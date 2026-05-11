@@ -20,6 +20,17 @@ adj[1].push_back(2);  // đỉnh 1 nối với đỉnh 2
 adj[2].push_back(1);  // đồ thị vô hướng → thêm cả chiều ngược
 ```
 
+### Code Python
+
+```python
+from collections import defaultdict
+
+# Danh sách kề (phổ biến nhất)
+adj = defaultdict(list)
+adj[1].append(2)  # đỉnh 1 nối với đỉnh 2
+adj[2].append(1)  # đồ thị vô hướng → thêm cả chiều ngược
+```
+
 ---
 
 ## 2. BFS - Duyệt theo chiều rộng
@@ -68,6 +79,41 @@ vector<int> getPath(int target) {
 }
 ```
 
+### Code Python: BFS
+
+```python
+from collections import deque
+
+def bfs(adj, start):
+    n = len(adj)
+    visited = [False] * n
+    dist = [-1] * n
+    parent = [-1] * n
+
+    q = deque([start])
+    visited[start] = True
+    dist[start] = 0
+
+    while q:
+        u = q.popleft()
+        for v in adj[u]:
+            if not visited[v]:
+                visited[v] = True
+                dist[v] = dist[u] + 1
+                parent[v] = u
+                q.append(v)
+    return dist, parent
+
+def get_path(parent, target):
+    path = []
+    v = target
+    while v != -1:
+        path.append(v)
+        v = parent[v]
+    path.reverse()
+    return path
+```
+
 ### Ứng dụng: Tìm đường ngắn nhất trong lưới
 
 ```cpp
@@ -99,6 +145,31 @@ int bfsGrid(vector<vector<int>>& grid, int sx, int sy, int ex, int ey) {
     }
     return -1;
 }
+```
+
+### Code Python: BFS trên lưới
+
+```python
+from collections import deque
+
+def bfs_grid(grid, sx, sy, ex, ey):
+    n, m = len(grid), len(grid[0])
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
+    dist = [[-1] * m for _ in range(n)]
+    q = deque([(sx, sy)])
+    dist[sx][sy] = 0
+
+    while q:
+        x, y = q.popleft()
+        if x == ex and y == ey:
+            return dist[x][y]
+        for d in range(4):
+            nx, ny = x + dx[d], y + dy[d]
+            if 0 <= nx < n and 0 <= ny < m and grid[nx][ny] != 1 and dist[nx][ny] == -1:
+                dist[nx][ny] = dist[x][y] + 1
+                q.append((nx, ny))
+    return -1
 ```
 
 ---
@@ -139,6 +210,31 @@ void dfsIterative(int start) {
 }
 ```
 
+### Code Python: DFS
+
+```python
+# Cách 1: Đệ quy (đơn giản)
+def dfs(adj, u, visited):
+    visited[u] = True
+    for v in adj[u]:
+        if not visited[v]:
+            dfs(adj, v, visited)
+
+# Cách 2: Stack (không đệ quy)
+def dfs_iterative(adj, start):
+    n = len(adj)
+    visited = [False] * n
+    stack = [start]
+    while stack:
+        u = stack.pop()
+        if visited[u]:
+            continue
+        visited[u] = True
+        for v in adj[u]:
+            if not visited[v]:
+                stack.append(v)
+```
+
 ### Ứng dụng: Đếm thành phần liên thông
 
 ```cpp
@@ -152,6 +248,19 @@ int countComponents(int n) {
     }
     return count;
 }
+```
+
+### Code Python: Đếm thành phần liên thông
+
+```python
+def count_components(n, adj):
+    visited = [False] * n
+    count = 0
+    for i in range(n):
+        if not visited[i]:
+            dfs(adj, i, visited)
+            count += 1
+    return count
 ```
 
 ### Code Python

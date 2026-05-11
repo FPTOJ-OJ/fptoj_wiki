@@ -70,6 +70,20 @@ void buildPascal(int n) {
 // C(n, k) đã lưu trong mảng C[n][k]
 ```
 
+### Code Python
+
+```python
+MOD = 10**9 + 7
+
+def build_pascal(n):
+    C = [[0] * (n + 1) for _ in range(n + 1)]
+    for i in range(n + 1):
+        C[i][0] = C[i][i] = 1
+        for j in range(1, i):
+            C[i][j] = (C[i-1][j-1] + C[i-1][j]) % MOD
+    return C
+```
+
 **Ưu điểm:** Đơn giản, dễ hiểu
 **Nhược điểm:** O(N²) bộ nhớ, chỉ N ≤ 5000
 
@@ -211,6 +225,21 @@ long long catalanFast(int n) {
 }
 ```
 
+### Code Python
+
+```python
+def build_catalan(n):
+    catalan = [0] * (n + 1)
+    catalan[0] = catalan[1] = 1
+    for i in range(2, n + 1):
+        for j in range(i):
+            catalan[i] = (catalan[i] + catalan[j] * catalan[i-1-j]) % MOD
+    return catalan
+
+def catalan_fast(n, fact, inv_fact):
+    return nCk(2*n, n, fact, inv_fact) * pow(n+1, MOD-2, MOD) % MOD
+```
+
 ---
 
 ## 4. Xác suất cơ bản
@@ -236,6 +265,17 @@ P(không A) = 1 - P(A)
 // Tính modulo: P = 6 × modInverse(36) % MOD
 ```
 
+### Code Python
+
+```python
+# Xác suất được tổng = 7 khi tung 2 xúc xắc
+# Kết quả thuận lợi: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6
+# Tổng kết quả: 6 × 6 = 36
+# P = 6/36 = 1/6
+
+# Tính modulo: P = 6 * pow(36, MOD-2, MOD) % MOD
+```
+
 ### Bài toán xác suất phổ biến
 
 **Bài toán:** Tung n đồng xu, xác suất được đúng k mặt ngửa?
@@ -258,6 +298,18 @@ P(k mặt ngửa) = C(n, k) / 2^n
 // Kỳ vọng = Σ (giá trị × xác suất)
 // Ví dụ: Kỳ vọng khi tung 1 xúc xắc
 // E = 1×1/6 + 2×1/6 + 3×1/6 + 4×1/6 + 5×1/6 + 6×1/6 = 3.5
+```
+
+### Code Python
+
+```python
+# Kỳ vọng số lần tung xúc xắc cho đến khi được 6
+# P(được 6) = 1/6 mỗi lần
+# E = 1/P = 6 (trung bình cần 6 lần)
+
+# Kỳ vọng = Σ (giá trị × xác suất)
+# Ví dụ: Kỳ vọng khi tung 1 xúc xắc
+# E = 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6 = 3.5
 ```
 
 ---
@@ -291,6 +343,20 @@ double probMoreThanHalf(int n) {
         result += dp[n][j];
     return result;
 }
+```
+
+### Code Python
+
+```python
+def prob_more_than_half(n):
+    dp = [[0.0] * (n + 1) for _ in range(n + 1)]
+    dp[0][0] = 1.0
+    for i in range(1, n + 1):
+        for j in range(i + 1):
+            dp[i][j] = dp[i-1][j] * 0.5
+            if j > 0:
+                dp[i][j] += dp[i-1][j-1] * 0.5
+    return sum(dp[n][n//2 + 1:])
 ```
 
 ---

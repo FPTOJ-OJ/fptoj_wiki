@@ -314,6 +314,23 @@ while (lo < hi) {
         lo = mid + 1;  // ← Loại bỏ mid
 }
 ```
+```python
+# SAI: Có thể lặp vô hạn khi lo = hi - 1
+while lo < hi:
+    mid = lo + (hi - lo) // 2
+    if P(mid):
+        hi = mid
+    else:
+        lo = mid        # ← SAI! Phải là lo = mid + 1
+
+# ĐÚNG:
+while lo < hi:
+    mid = lo + (hi - lo) // 2
+    if P(mid):
+        hi = mid
+    else:
+        lo = mid + 1    # ← Loại bỏ mid
+```
 
 ### Bẫy 2: Tràn số khi tính mid
 
@@ -323,6 +340,10 @@ int mid = (lo + hi) / 2;
 
 // ĐÚNG:
 int mid = lo + (hi - lo) / 2;
+```
+```python
+# Python không tràn số, nhưng nên dùng cách đúng để nhất quán
+mid = lo + (hi - lo) // 2
 ```
 
 ### Bẫy 3: Sai cận khi tìm "false cuối cùng"
@@ -337,6 +358,14 @@ while (lo < hi) {
     else
         lo = mid;
 }
+```
+```python
+while lo < hi:
+    mid = lo + (hi - lo + 1) // 2       # ← +1 để làm tròn lên!
+    if P(mid):
+        hi = mid - 1
+    else:
+        lo = mid
 ```
 
 **Lý do:** Nếu dùng `mid = lo + (hi - lo) / 2` và chỉ còn 2 phần tử [false, true], mid sẽ = lo, vòng lặp sẽ lặp vô hạn!
@@ -356,6 +385,23 @@ while (hi - lo > 1e-9) {
     else
         lo = mid;
 }
+```
+```python
+# Dừng khi khoảng đủ nhỏ (epsilon = 1e-9)
+while hi - lo > 1e-9:
+    mid = (lo + hi) / 2.0
+    if P(mid):
+        hi = mid
+    else:
+        lo = mid
+
+# Hoặc lặp đúng 100 lần (đủ chính xác cho hầu hết bài toán)
+for _ in range(100):
+    mid = (lo + hi) / 2.0
+    if P(mid):
+        hi = mid
+    else:
+        lo = mid
 ```
 
 Hoặc lặp đúng 100 lần (đủ chính xác cho hầu hết bài toán).

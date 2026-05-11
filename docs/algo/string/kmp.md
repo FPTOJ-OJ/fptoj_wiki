@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Người viết:** Trịnh Quang Anh - University of Melbourne
 
 **Review bởi:**
@@ -52,6 +50,17 @@ vector<int> prefix_function(string s) {
 }
 ```
 
+```python
+def prefix_function(s):
+    n = len(s)
+    pi = [0] * n
+    for i in range(n):
+        for k in range(i + 1):
+            if s[:k] == s[i - k + 1:i + 1]:
+                pi[i] = k
+    return pi
+```
+
 Do có $O(n^2)$ cặp $(i, k)$ và so sánh hai xâu bằng `s.substr()` mất $O(n)$, độ phức tạp của thuật toán này là $O(n^3)$.
 
 ## Thuật toán tối ưu để tìm hàm tiền tố
@@ -84,6 +93,18 @@ vector<int> prefix_function(string s) {
         pi[i] = k; 
     return pi;
 }
+```
+
+```python
+def prefix_function(s):
+    n = len(s)
+    pi = [0] * n
+    for i in range(1, n):
+        k = pi[i - 1] + 1
+        while k > 0 and s[:k] != s[i - k + 1:i + 1]:
+            k -= 1
+        pi[i] = k
+    return pi
 ```
 
 Tuy nhiên, chúng ta có thể làm tốt hơn. 
@@ -156,6 +177,19 @@ vector<int> prefix_function(string s) {
     return pi;
 } 
 ```
+```python
+def prefix_function(s):
+    n = len(s)
+    pi = [0] * n
+    for i in range(1, n):
+        j = pi[i - 1]
+        while j > 0 and s[i] != s[j]:
+            j = pi[j - 1]
+        if s[i] == s[j]:
+            j += 1
+        pi[i] = j
+    return pi
+```
 Code có độ phức tạp $O(n)$ và sử dụng $O(n)$ bộ nhớ.
 
 Một điểm đáng lưu ý nữa là đây là một thuật toán **online**: Ta có thể đọc lần lượt từng chữ cái của xâu $s$, mỗi chữ cái mới vào có thể được xử lý ngay lập tức để tính được $\pi[i]$. Nói cách khác, nếu đề bài yêu cầu tính hàm tiền tố nhưng có thêm truy vấn "thêm một chữ cái vào cuối xâu" thì ta vẫn có thể làm như bình thường. 
@@ -189,6 +223,19 @@ for (int i = 0; i < m; i++) {
         ans++; 
 }
 ```
+```python
+pi = prefix_function(s)
+ans = 0  # Số lần s xuất hiện trong t
+j = 0    # Hàm tiền tố ở vị trí đang xét của xâu t
+
+for i in range(m):
+    while j > 0 and t[i] != s[j]:
+        j = pi[j - 1]
+    if t[i] == s[j]:
+        j += 1
+    if j == n:
+        ans += 1
+```
 Code trên lưu cả hai xâu $s$, $t$ nên vẫn dùng $O(n + m)$ bộ nhớ, nhưng có thể giảm xuống còn $O(n)$ bộ nhớ nếu ta đọc lần lượt từng ký tự của $t$ rồi tính luôn $\pi$ thay vì lưu cả xâu rồi mới tính.
 
 Tổng kết lại, thuật toán KMP giải quyết được bài toán so khớp chuỗi trong thời gian $O(n + m)$ và sử dụng $O(n)$ bộ nhớ.
@@ -220,6 +267,16 @@ for (int i = 0; i < n; i++) {
     }
 }
 ```
+```python
+ans = [0] * n
+for i in range(n):
+    j = i
+    while pi[j]:
+        ans[j] += 1
+        if not pi[j]:
+            break
+        j = pi[j] - 1
+```
 Thuật toán trên có độ phức tạp lớn do mỗi tiền tố ta phải duyệt qua nhiều lần. Để khắc phục điều này, ta sẽ dùng ý tưởng tương tự như mảng cộng dồn. 
 
 Để ý rằng nếu ta xét đồ thị cho $n + 1$ đỉnh $0, 1, 2, \dots, n$, trong đó đỉnh $i ~ (i \leq 1)$ ứng với tiền tố thứ $i$, và có các cạnh nối từ $i + 1$ đến $\pi[i]$ với mọi $i$ từ $0$ đến $n - 1$, thì đồ thị này là một cây có hướng. 
@@ -241,6 +298,12 @@ vector<int> ans(n, 1);
 for (int i = n - 1; i > 0; i--)
     if (pi[i])
         ans[pi[i] - 1] += ans[i];
+```
+```python
+ans = [1] * n
+for i in range(n - 1, 0, -1):
+    if pi[i]:
+        ans[pi[i] - 1] += ans[i]
 ```
 
 Để giải quyết phiên bản thứ 2, ta chỉ cần áp dụng kỹ thuật được sử dụng ở thuật toán KMP: **nối hai xâu để tạo xâu mới $s + \text{#} + t$ và xây dựng hàm tiền tố cho xâu này**. Sau đó, tìm $ans$ tương tự như phiên bản 1, đáp án là $ans$ của các vị trí $i$ thuộc về xâu $t$ ($i \ge n + 1$). 
@@ -335,6 +398,22 @@ void compute_automaton(string s, vector<vector<int> >& aut) {
     }
 }
 ```
+```python
+def compute_automaton(s):
+    s += '#'
+    n = len(s)
+    pi = prefix_function(s)
+    aut = [[0] * 26 for _ in range(n)]
+    for i in range(n):
+        for c in range(26):
+            j = i
+            while j > 0 and chr(ord('a') + c) != s[j]:
+                j = pi[j - 1]
+            if chr(ord('a') + c) == s[j]:
+                j += 1
+            aut[i][c] = j
+    return aut
+```
 
 Đối với bảng chữ cái tiếng Anh không hoa (26 chữ cái), độ phức tạp của thuật toán trên là $O(n^2 * 26)$. 
 
@@ -355,6 +434,20 @@ void compute_automaton(string s, vector<vector<int> >& aut) {
         }
     }
 }
+```
+```python
+def compute_automaton(s):
+    s += '#'
+    n = len(s)
+    pi = prefix_function(s)
+    aut = [[0] * 26 for _ in range(n)]
+    for i in range(n):
+        for c in range(26):
+            if i > 0 and chr(ord('a') + c) != s[i]:
+                aut[i][c] = aut[pi[i - 1]][c]
+            else:
+                aut[i][c] = i + (1 if chr(ord('a') + c) == s[i] else 0)
+    return aut
 ```
 
 Vậy thì tại sao xây một automaton như vậy lại hữu ích? 
@@ -424,3 +517,5 @@ Test code KMP: [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr)
 * [AtCoder Beginner Contest 257 - Prefix Concatenation](https://atcoder.jp/contests/abc257/editorial/4203)
 * [NOI 2014 Problem 4 - Zoo](https://dmoj.ca/problem/noi14p4)
 * [LightOJ - Unlucky Strings](https://lightoj.com/problem/unlucky-strings)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

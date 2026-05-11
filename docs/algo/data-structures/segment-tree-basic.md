@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Nguồn:** [wcipeg](http://wcipeg.com/wiki/Segment_tree), [cp-algorithms](https://cp-algorithms.com/data_structures/segment_tree.html), [Tất tần tật về Cây Phân Đoạn (Segment Tree) - VNOI](algo/data-structures/segment-tree-extend)
 
 **Tác giả:** 
@@ -255,6 +253,62 @@ int main() {
         else cout << get(1, 1, n, x, y) << '\n'; // In ra giá trị nhỏ nhất trong đoạn [x, y]
     }
 }
+```
+
+```python
+import sys
+input = sys.stdin.readline
+
+INF = 10**9 + 7
+MAXN = 100007
+
+a = [0] * MAXN
+st = [0] * (4 * MAXN)
+
+def build(id, l, r):
+    if l == r:
+        st[id] = a[l]
+        return
+    mid = (l + r) // 2
+    build(2 * id, l, mid)
+    build(2 * id + 1, mid + 1, r)
+    st[id] = min(st[2 * id], st[2 * id + 1])
+
+def update(id, l, r, i, val):
+    if l > i or r < i:
+        return
+    if l == r:
+        st[id] = val
+        return
+    mid = (l + r) // 2
+    update(2 * id, l, mid, i, val)
+    update(2 * id + 1, mid + 1, r, i, val)
+    st[id] = min(st[2 * id], st[2 * id + 1])
+
+def get(id, l, r, u, v):
+    if l > v or r < u:
+        return INF
+    if l >= u and r <= v:
+        return st[id]
+    mid = (l + r) // 2
+    get1 = get(2 * id, l, mid, u, v)
+    get2 = get(2 * id + 1, mid + 1, r, u, v)
+    return min(get1, get2)
+
+n = int(input())
+arr = list(map(int, input().split()))
+for i in range(1, n + 1):
+    a[i] = arr[i - 1]
+build(1, 1, n)
+
+q = int(input())
+for _ in range(q):
+    parts = list(map(int, input().split()))
+    typ, x, y = parts[0], parts[1], parts[2]
+    if typ == 1:
+        update(1, 1, n, x, y)
+    else:
+        print(get(1, 1, n, x, y))
 ```
 
 ## Đánh giá
@@ -1076,3 +1130,5 @@ int main() {
 - [Codeforces - Segment Tree Problems](https://codeforces.com/blog/entry/22616)
 - [Codeforces - ITMO Academy: pilot course](https://codeforces.com/edu/course/2)
 - [Codeforces - 1371F Raging Thunder](https://codeforces.com/problemset/problem/1371/F)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Tác giả:** 
 - Trần Hoài An - THPT Hoàng Lê Kha, Tây Ninh
 
@@ -129,6 +127,19 @@ void bellmanFord(int n, int S, vector<Edge> &e, vector<long long> &D, vector<int
     }
 }
 ```
+```python
+def bellman_ford(n, S, edges):
+    INF = 10**18
+    D = [INF] * n
+    trace = [-1] * n
+    D[S] = 0
+    for _ in range(n - 1):
+        for u, v, w in edges:
+            if D[u] != INF and D[v] > D[u] + w:
+                D[v] = D[u] + w
+                trace[v] = u
+    return D, trace
+```
 
 ## Tìm lại đường đi ngắn nhất
 Thao tác tìm đường đi ngắn nhất từ $S$ đến $u$ khá đơn giản, ta sẽ bắt đầu từ đỉnh $u$, sau đó truy vết theo mảng $trace$ ngược về $S$.
@@ -147,6 +158,17 @@ vector<int> trace_path(vector<int> &trace, int S, int u) {
     return path;
 }
 
+```
+```python
+def trace_path(trace, S, u):
+    if u != S and trace[u] == -1:
+        return []
+    path = []
+    while u != -1:
+        path.append(u)
+        u = trace[u]
+    path.reverse()
+    return path
 ```
 
 ## Các trường hợp có chu trình âm
@@ -361,6 +383,29 @@ void dijkstra(int n, int S, vector<vector<Edge>> E, vector<long long> &D, vector
     }
 }
 ```
+```python
+def dijkstra(n, S, E):
+    INF = 10**18
+    D = [INF] * n
+    trace = [-1] * n
+    P = [False] * n
+    D[S] = 0
+
+    for _ in range(n):
+        u_best = -1
+        best = INF
+        for u in range(n):
+            if D[u] < best and not P[u]:
+                u_best = u
+                best = D[u]
+        u = u_best
+        P[u] = True
+        for v, w in E[u]:
+            if D[v] > D[u] + w:
+                D[v] = D[u] + w
+                trace[v] = u
+    return D, trace
+```
 ## Cải tiến đối với đồ thị thưa
 
 * Nhận xét rằng bước đầu tiên: "Tìm đỉnh $u$ có $D_u$ nhỏ nhất và $P_u = false$", có thể được cải tiến. Ta có thể sử dụng cấu trúc dữ liệu [Heap](https://vnoi.info/wiki/translate/wcipeg/Binary-Heap.md) (cụ thể là Min Heap) hoặc cây nhị phân tìm kiếm để cải tiến bước này.
@@ -425,6 +470,30 @@ void dijkstraSparse(int n, int s, vector<vector<Edge>> &E, vector<long long> &D,
     }
 }
 ```
+```python
+import heapq
+
+def dijkstra_sparse(n, s, E):
+    INF = 10**18
+    D = [INF] * n
+    trace = [-1] * n
+    P = [False] * n
+
+    D[s] = 0
+    h = [(0, s)]
+
+    while h:
+        dist_u, u = heapq.heappop(h)
+        if P[u]:
+            continue
+        P[u] = True
+        for v, w in E[u]:
+            if D[v] > D[u] + w:
+                D[v] = D[u] + w
+                heapq.heappush(h, (D[v], v))
+                trace[v] = u
+    return D, trace
+```
 
 ## Tìm lại đường đi ngắn nhất
 Cũng giống như thuật toán Bellman-Ford, để tìm lại đường đi ngắn nhất từ $S$ về $u$, ta sẽ bắt đầu từ đỉnh $u$, sau đó truy vết theo mảng $trace$ ngược về $S$.
@@ -443,6 +512,17 @@ vector<int> trace_path(vector<int> &trace, int S, int u) {
     return path;
 }
 
+```
+```python
+def trace_path(trace, S, u):
+    if u != S and trace[u] == -1:
+        return []
+    path = []
+    while u != -1:
+        path.append(u)
+        u = trace[u]
+    path.reverse()
+    return path
 ```
 
 
@@ -541,6 +621,19 @@ void floydWarshall(int n, vector<vector<long long>> &w, vector<vector<long long>
     }
 }
 ```
+```python
+def floyd_warshall(n, w):
+    D = [row[:] for row in w]
+    trace = [[u for v in range(n)] for u in range(n)]
+
+    for k in range(n):
+        for u in range(n):
+            for v in range(n):
+                if D[u][v] > D[u][k] + D[k][v]:
+                    D[u][v] = D[u][k] + D[k][v]
+                    trace[u][v] = trace[k][v]
+    return D, trace
+```
 
 ## Tìm lại đường đi ngắn nhất
 Giống như hai thuật toán Bellman-Ford và Dijkstra, để tìm đường đi từ $u$ đến $v$, ta sẽ bắt đầu từ $v$, truy ngược về $u$ theo mảng trace đã tìm được.
@@ -559,6 +652,16 @@ vector<int> trace_path(vector<vector<int>> &trace, int u, int v) {
     return path;
 }
 
+```
+```python
+def trace_path(trace, u, v):
+    path = []
+    while v != u:
+        path.append(v)
+        v = trace[u][v]
+    path.append(u)
+    path.reverse()
+    return path
 ```
 ## 4. Lưu ý
 
@@ -608,3 +711,5 @@ Thuật toán Floyd-Warshall:
 - [Kattis - allpairspath](https://open.kattis.com/problems/allpairspath) (trọng số có thể âm)
 - [Codeforces - Greg and Graph](https://codeforces.com/problemset/problem/295/B)
 - [Các bài theo tag trên VNOJ](https://oj.vnoi.info/problems/?type=56&point_start=&point_end=)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

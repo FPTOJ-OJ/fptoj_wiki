@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Tác giả**: 
 * Hoàng Việt Cường - Đại học Bách Khoa Hà Nội
 * Phan Thành Long - THPT Chuyên Thái Bình (K17-20)
@@ -184,6 +182,41 @@ int main() {
     cout << totalWeight << '\n';
 }
 ```
+```python
+class Dsu:
+    def __init__(self, n):
+        self.par = list(range(n + 1))
+
+    def find(self, u):
+        if self.par[u] == u:
+            return u
+        self.par[u] = self.find(self.par[u])
+        return self.par[u]
+
+    def join(self, u, v):
+        u = self.find(u)
+        v = self.find(v)
+        if u == v:
+            return False
+        self.par[v] = u
+        return True
+
+n, m = map(int, input().split())
+edges = []
+for _ in range(m):
+    u, v, c = map(int, input().split())
+    edges.append((c, u, v))
+
+edges.sort()
+dsu = Dsu(n)
+total_weight = 0
+
+for c, u, v in edges:
+    if dsu.join(u, v):
+        total_weight += c
+
+print(total_weight)
+```
 #### Chứng minh tính đúng đắn của thuật toán:
 Ta phải chứng minh hai điều: 
 1. đầu ra của thuật toán là một cây khung
@@ -323,6 +356,37 @@ int main() {
 
     cout << prim(1) << '\n';
 }
+```
+```python
+import heapq
+
+def prim(n, g, s):
+    INF = 10**9
+    dis = [INF] * (n + 1)
+    dis[s] = 0
+    h = [(0, s)]
+    ret = 0
+
+    while h:
+        cur_dis, u = heapq.heappop(h)
+        if cur_dis != dis[u]:
+            continue
+        ret += dis[u]
+        dis[u] = -INF
+        for v, c in g[u]:
+            if dis[v] > c:
+                dis[v] = c
+                heapq.heappush(h, (dis[v], v))
+    return ret
+
+n, m = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v, c = map(int, input().split())
+    g[u].append((v, c))
+    g[v].append((u, c))
+
+print(prim(n, g, 1))
 ```
 Đánh giá độ phức tạp thuật toán: 
 - Ta duyệt tổng cộng $n$ lần, mỗi lần lấy 1 đỉnh ra khỏi heap mất $O(\log{n})$ và cập nhật trọng số của tất cả các đỉnh kề với đỉnh đó, tổng số lần cập nhật là $m$ lần, mỗi lần cập nhật ta mất độ phức tạp $O(\log{n})$. 
@@ -741,3 +805,5 @@ Các bạn có thể thử sức với một số bài tập sau:
 * [VMST](https://vn.spoj.com/problems/VMST/)
 * [C11WATER](https://codeforces.com/group/FLVn1Sc504/contest/274809/problem/B)
 * [CHEER](https://codeforces.com/group/FLVn1Sc504/contest/274809/problem/M)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

@@ -85,6 +85,20 @@ double fractionalKnapsack(vector<pair<double,double>>& items, double W) {
     return totalValue;
 }
 ```
+```python
+def fractional_knapsack(items, W):
+    # items = [(value, weight), ...]
+    items.sort(key=lambda x: x[0] / x[1], reverse=True)
+    total_value = 0
+    for value, weight in items:
+        if W >= weight:
+            total_value += value
+            W -= weight
+        else:
+            total_value += value * (W / weight)
+            break
+    return total_value
+```
 
 ### 3.3. Job Sequencing (Xếp lịch công việc)
 
@@ -120,6 +134,23 @@ int jobSequencing(vector<pair<int,int>>& jobs) {
 }
 ```
 
+### Code Python
+
+```python
+def job_sequencing(jobs):
+    jobs.sort(key=lambda x: x[1], reverse=True)
+    max_deadline = max(d for d, p in jobs)
+    slot = [-1] * (max_deadline + 1)
+    total_profit = 0
+    for deadline, profit in jobs:
+        for t in range(deadline, 0, -1):
+            if slot[t] == -1:
+                slot[t] = profit
+                total_profit += profit
+                break
+    return total_profit
+```
+
 ### 3.4. Minimum Number of Platforms (Sân ga)
 
 Cho giờ đến và giờ đi của N chuyến tàu. Tìm số sân ga tối thiểu.
@@ -146,6 +177,26 @@ int minPlatforms(vector<int>& arrival, vector<int>& departure) {
     }
     return maxPlatforms;
 }
+```
+
+### Code Python
+
+```python
+def min_platforms(arrival, departure):
+    arrival.sort()
+    departure.sort()
+    platforms = max_platforms = 0
+    i = j = 0
+    n = len(arrival)
+    while i < n and j < n:
+        if arrival[i] <= departure[j]:
+            platforms += 1
+            max_platforms = max(max_platforms, platforms)
+            i += 1
+        else:
+            platforms -= 1
+            j += 1
+    return max_platforms
 ```
 
 ---
@@ -252,6 +303,22 @@ int huffmanCoding(vector<int>& freq) {
     }
     return totalCost;
 }
+```
+
+### Code Python
+
+```python
+import heapq
+
+def huffman_coding(freq):
+    heapq.heapify(freq)
+    total_cost = 0
+    while len(freq) > 1:
+        a = heapq.heappop(freq)
+        b = heapq.heappop(freq)
+        total_cost += a + b
+        heapq.heappush(freq, a + b)
+    return total_cost
 ```
 
 ### 7.2. Interval Partitioning (Phân đoạn)

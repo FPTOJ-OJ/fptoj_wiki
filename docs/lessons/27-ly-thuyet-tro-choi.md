@@ -27,6 +27,15 @@ bool firstPlayerWins(vector<int>& piles) {
 }
 ```
 
+```python
+# Kiểm tra người đi trước có thắng không
+def first_player_wins(piles):
+    xor_sum = 0
+    for x in piles:
+        xor_sum ^= x
+    return xor_sum != 0
+```
+
 ---
 
 ## 2. Grundy Number (Sprague-Grundy)

@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 ## Biến, con trỏ
 
 Cấu trúc dữ liệu đơn giản nhất chính là các biến (variable). Chúng nắm giữ duy nhất một giá trị, hơn nữa, phạm vi sử dụng có giới hạn. Khi nhiều giá trị cần lưu trữ, [mảng](#mảng-arrays) (arrays) được sử dụng.
@@ -76,12 +74,27 @@ struct ListNode {
 ListNode* firstNode;
 ```
 
+```python
+class ListNode:
+    def __init__(self, data=0):
+        self.data = data  # dữ liệu được lưu ở nút của linked list
+        self.next_node = None  # con trỏ trỏ tới phần tử tiếp theo của linked list
+
+first_node = None
+```
+
 Bạn có thể chèn một nút mới vào bằng cách chèn chúng vào đầu danh sách. Thao tác này có độ phức tạp là $\mathcal{O}(1)$.
 
 ```cpp
 ListNode* newNode = new ListNode();
 newNode->nextNode = firstNode;
 firstNode = newNode;
+```
+
+```python
+new_node = ListNode()
+new_node.next_node = first_node
+first_node = new_node
 ```
 
 Duyệt qua toàn bộ danh sách liên kết rất đơn giản như sau:
@@ -92,6 +105,13 @@ while (curNode != NULL) {
    cout << curNode->data << endl;
    curNode = curNode->nextNode;
 }
+```
+
+```python
+cur_node = first_node
+while cur_node is not None:
+    print(cur_node.data)
+    cur_node = cur_node.next_node
 ```
 
 Ngoài ra, ta cũng có thể lưu thêm con trỏ trỏ vào phần tử cuối của danh sách. Khi đó độ phức tạp để thêm 1 phần tử vào cuối danh sách là $\mathcal{O}(1)$.
@@ -106,3 +126,5 @@ Ngoài ra, ta cũng có thể lưu thêm con trỏ trỏ vào phần tử cuối
 
 - [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/data-structures/)
 - [Wikipedia](https://en.wikipedia.org/wiki/Linked_list)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

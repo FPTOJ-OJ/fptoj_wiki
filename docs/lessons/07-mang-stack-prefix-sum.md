@@ -117,6 +117,24 @@ vector<int> findGreater(vector<int>& a) {
 }
 // Độ phức tạp: O(N) - mỗi phần tử push/pop tối đa 1 lần!
 ```
+```python
+# Với mỗi phần tử, tìm phần tử lớn hơn gần nhất bên trái
+def find_greater(a):
+    st = []
+    result = [-1] * len(a)
+    
+    for i in range(len(a)):
+        # Loại bỏ các phần tử nhỏ hơn hoặc bằng
+        while st and st[-1] <= a[i]:
+            st.pop()
+        
+        if st:
+            result[i] = st[-1]      # Phần tử lớn hơn gần nhất
+        
+        st.append(a[i])             # Thêm phần tử hiện tại
+    return result
+# Độ phức tạp: O(N) - mỗi phần tử push/pop tối đa 1 lần!
+```
 
 ### Code Python
 
@@ -172,6 +190,18 @@ int rangeSum(vector<int>& prefix, int l, int r) {
     return prefix[r + 1] - prefix[l];
 }
 ```
+```python
+# Dựng mảng cộng dồn
+def build_prefix_sum(a):
+    prefix = [0] * (len(a) + 1)
+    for i in range(len(a)):
+        prefix[i + 1] = prefix[i] + a[i]
+    return prefix
+
+# Tính tổng đoạn [l, r] - O(1)
+def range_sum(prefix, l, r):
+    return prefix[r + 1] - prefix[l]
+```
 
 ### Ứng dụng: Tìm đoạn con có tổng lớn nhất (Kadane's Algorithm)
 
@@ -184,6 +214,14 @@ long long maxSubarraySum(vector<int>& a) {
     }
     return maxSum;
 }
+```
+```python
+def max_subarray_sum(a):
+    max_sum = cur_sum = a[0]
+    for i in range(1, len(a)):
+        cur_sum = max(a[i], cur_sum + a[i])
+        max_sum = max(max_sum, cur_sum)
+    return max_sum
 ```
 
 ---
@@ -214,6 +252,21 @@ vector<int> restoreArray(vector<int>& diff) {
         a[i] = a[i - 1] + diff[i];
     return a;
 }
+```
+```python
+# Cập nhật đoạn [l, r] thêm k - O(1)
+def update(diff, l, r, k):
+    diff[l] += k
+    if r + 1 < len(diff):
+        diff[r + 1] -= k
+
+# Khôi phục mảng gốc từ mảng hiệu - O(N)
+def restore_array(diff):
+    a = [0] * len(diff)
+    a[0] = diff[0]
+    for i in range(1, len(diff)):
+        a[i] = a[i - 1] + diff[i]
+    return a
 ```
 
 ### Bài tập minh họa: Karen and Coffee (Codeforces 816B)
@@ -247,6 +300,31 @@ int main() {
         cout << prefix[r] - prefix[l - 1] << endl;
     }
 }
+```
+```python
+import sys
+input = sys.stdin.readline
+
+n, k, q = map(int, input().split())
+diff = [0] * 200002
+
+# Xử lý n truy vấn cập nhật - O(1) mỗi truy vấn
+for _ in range(n):
+    l, r = map(int, input().split())
+    diff[l] += 1
+    diff[r + 1] -= 1
+
+# Khôi phục mảng và tính mảng cộng dồn
+a = [0] * 200002
+prefix = [0] * 200002
+for i in range(1, 200001):
+    a[i] = a[i - 1] + diff[i]
+    prefix[i] = prefix[i - 1] + (1 if a[i] >= k else 0)
+
+# Trả lời q câu hỏi - O(1) mỗi câu
+for _ in range(q):
+    l, r = map(int, input().split())
+    print(prefix[r] - prefix[l - 1])
 ```
 
 ---

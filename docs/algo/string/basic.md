@@ -115,6 +115,30 @@ int manacher(string s) {
 	return res;
 }
 ```
+```python
+def manacher(s):
+    DUMMY = '.'
+    n = len(s) * 2 - 1
+    f = [0] * n
+    a = [DUMMY] * n
+    for i in range(0, n, 2):
+        a[i] = s[i // 2]
+
+    l, r, res = 0, -1, 0
+    for i in range(n):
+        j = (0 if i > r else min(f[l + r - i], r - i)) + 1
+        while i - j >= 0 and i + j < n and a[i - j] == a[i + j]:
+            j += 1
+        j -= 1
+        f[i] = j
+        if i + j > r:
+            r = i + j
+            l = i - j
+        length = (f[i] + i % 2) // 2 * 2 + 1 - i % 2
+        if length > res:
+            res = length
+    return res
+```
 
 ### Minimal string rotation
 
@@ -158,6 +182,32 @@ int minmove(string s) {
 	return x;
 }
 ```
+```python
+def minmove(s):
+    n = len(s)
+    x, y = 0, 1
+    while y < n:
+        i, u = x, x
+        j, v = y, y
+        while s[i] == s[j]:
+            u += 1
+            v += 1
+            i += 1
+            j += 1
+            if i == n:
+                i = 0
+            if j == n:
+                j = 0
+            if i == x:
+                break
+        if s[i] <= s[j]:
+            y = v
+        else:
+            x = y
+            if u > y:
+                y = u
+    return x
+```
 
 ### Lyndon Decomposition
 
@@ -187,4 +237,22 @@ void lyndon(string s) {
 	}
 	cout << endl;
 }
+```
+```python
+def lyndon(s):
+    n = len(s)
+    i = 0
+    result = []
+    while i < n:
+        j, k = i + 1, i
+        while j < n and s[k] <= s[j]:
+            if s[k] < s[j]:
+                k = i
+            else:
+                k += 1
+            j += 1
+        while i <= k:
+            result.append(s[i:j - k + i])
+            i += j - k
+    print(' '.join(result))
 ```

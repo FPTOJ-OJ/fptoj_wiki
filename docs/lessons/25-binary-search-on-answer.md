@@ -47,6 +47,17 @@ int binarySearchOnAnswer(int lo, int hi) {
 }
 ```
 
+```python
+def binary_search_on_answer(lo, hi, check):
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if check(mid):
+            hi = mid       # mid thỏa mãn → thử nhỏ hơn
+        else:
+            lo = mid + 1   # mid không thỏa → cần lớn hơn
+    return lo
+```
+
 ---
 
 ## 4. Các bài toán kinh điển
@@ -75,6 +86,28 @@ int shipWithinDays(vector<int>& weights, int days) {
 }
 ```
 
+```python
+def ship_within_days(weights, days):
+    def check(capacity):
+        cur, used = 0, 1
+        for w in weights:
+            if cur + w <= capacity:
+                cur += w
+            else:
+                used += 1
+                cur = w
+        return used <= days
+
+    lo, hi = max(weights), sum(weights)
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if check(mid):
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo
+```
+
 ### 4.2. Koko Eating Bananas (Leetcode 875)
 
 ```cpp
@@ -94,6 +127,24 @@ int minEatingSpeed(vector<int>& piles, int h) {
     }
     return lo;
 }
+```
+
+```python
+import math
+
+def min_eating_speed(piles, h):
+    def check(speed):
+        hours = sum(math.ceil(p / speed) for p in piles)
+        return hours <= h
+
+    lo, hi = 1, max(piles)
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if check(mid):
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo
 ```
 
 ### 4.3. Aggressive Cows (SPOJ)

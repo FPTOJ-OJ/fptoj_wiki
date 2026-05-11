@@ -273,6 +273,20 @@ while (i < j) {
         j--;
 }
 ```
+```python
+# SAI: có thể lặp vô hạn
+while i < j:
+    if a[i] + a[j] < x:
+        i += 1
+    # Quên else → j không bao giờ giảm!
+
+# ĐÚNG:
+while i < j:
+    if a[i] + a[j] < x:
+        i += 1
+    else:
+        j -= 1
+```
 
 ### Bẫy 3: Tràn số khi tính tổng
 
@@ -282,6 +296,10 @@ int sum = a[i] + a[j];
 
 // ĐÚNG: dùng long long
 long long sum = (long long)a[i] + a[j];
+```
+```python
+# Python tự động xử lý số lớn, không cần lo tràn số
+s = a[i] + a[j]
 ```
 
 ### Bẫy 4: Đoạn con dài nhất - dùng long long cho tổng

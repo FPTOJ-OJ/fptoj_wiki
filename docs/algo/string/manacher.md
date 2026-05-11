@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Người viết:** Phạm Hoàng Hiệp - University of Georgia
 
 **Review bởi:**
@@ -107,6 +105,38 @@ signed main() {
     }
     cout << D_odd[N] * 2 + 1;
 }
+```
+```python
+def calc_d_odd(S, N):
+    D_odd = [0] * (N + 1)
+    for i in range(1, N + 1):
+        D_odd[i] = 0
+        while (i - D_odd[i] - 1 > 0 and i + D_odd[i] + 1 <= N
+               and S[i - D_odd[i] - 1] == S[i + D_odd[i] + 1]):
+            D_odd[i] += 1
+    return D_odd
+
+def calc_d_even(S, N):
+    D_even = [0] * (N + 1)
+    for i in range(1, N):
+        j = i + 1
+        D_even[i] = 0
+        while (i - D_even[i] > 0 and j + D_even[i] <= N
+               and S[i - D_even[i]] == S[j + D_even[i]]):
+            D_even[i] += 1
+    return D_even
+
+S = input().strip()
+N = len(S)
+S = ' ' + S  # for 1-base
+D_odd = calc_d_odd(S, N)
+D_even = calc_d_even(S, N)
+result = []
+for i in range(1, N):
+    result.append(D_odd[i] * 2 + 1)
+    result.append(D_even[i] * 2)
+result.append(D_odd[N] * 2 + 1)
+print(' '.join(map(str, result)))
 ```
 
 ## Thuật toán Manacher
@@ -220,6 +250,52 @@ signed main() {
     }
     cout << D_odd[N] * 2 + 1;
 }
+```
+```python
+def calc_d_odd(S, N):
+    D_odd = [0] * (N + 1)
+    L, R = 1, 0
+    for i in range(1, N + 1):
+        if i > R:
+            D_odd[i] = 0
+        else:
+            D_odd[i] = min(R - i, D_odd[L + (R - i)])
+        while (i - D_odd[i] - 1 > 0 and i + D_odd[i] + 1 <= N
+               and S[i - D_odd[i] - 1] == S[i + D_odd[i] + 1]):
+            D_odd[i] += 1
+        if i + D_odd[i] > R:
+            R = i + D_odd[i]
+            L = i - D_odd[i]
+    return D_odd
+
+def calc_d_even(S, N):
+    D_even = [0] * (N + 1)
+    L, R = 1, 0
+    for i in range(1, N):
+        j = i + 1
+        if j > R:
+            D_even[i] = 0
+        else:
+            D_even[i] = min(R - j + 1, D_even[L + (R - j)])
+        while (i - D_even[i] > 0 and j + D_even[i] <= N
+               and S[i - D_even[i]] == S[j + D_even[i]]):
+            D_even[i] += 1
+        if i + D_even[i] > R:
+            R = i + D_even[i]
+            L = j - D_even[i]
+    return D_even
+
+S = input().strip()
+N = len(S)
+S = ' ' + S  # for 1-base
+D_odd = calc_d_odd(S, N)
+D_even = calc_d_even(S, N)
+result = []
+for i in range(1, N):
+    result.append(D_odd[i] * 2 + 1)
+    result.append(D_even[i] * 2)
+result.append(D_odd[N] * 2 + 1)
+print(' '.join(map(str, result)))
 ```
 
 ## Ví dụ
@@ -338,6 +414,87 @@ signed main() {
     cout << Ans;
 }
 ```
+```python
+import sys
+input = sys.stdin.readline
+
+def solve():
+    N, M = map(int, input().split())
+    c = [''] * (N + 1)
+    for i in range(1, N + 1):
+        c[i] = ' ' + input().strip()
+
+    Cnt = [[0] * 26 for _ in range(N + 1)]
+    Cnt_Odd = [0] * (N + 1)
+    Ok = [False] * (N + 1)
+    Ans = 0
+
+    def equal(row1, row2):
+        if not Ok[row1] or not Ok[row2]:
+            return False
+        return Cnt[row1] == Cnt[row2]
+
+    def calc_d_odd():
+        nonlocal Ans
+        D_odd = [0] * (N + 1)
+        L, R = 1, 0
+        for i in range(1, N + 1):
+            if i > R:
+                D_odd[i] = 0
+            else:
+                D_odd[i] = min(R - i, D_odd[L + (R - i)])
+            if Ok[i]:
+                while (i - D_odd[i] - 1 > 0 and i + D_odd[i] + 1 <= N
+                       and equal(i - D_odd[i] - 1, i + D_odd[i] + 1)):
+                    D_odd[i] += 1
+            Ans += D_odd[i] + int(Ok[i])
+            if i + D_odd[i] > R:
+                R = i + D_odd[i]
+                L = i - D_odd[i]
+        return D_odd
+
+    def calc_d_even():
+        nonlocal Ans
+        D_even = [0] * (N + 1)
+        L, R = 1, 0
+        for i in range(1, N):
+            j = i + 1
+            if j > R:
+                D_even[i] = 0
+            else:
+                D_even[i] = min(R - j + 1, D_even[L + (R - j)])
+            while (i - D_even[i] > 0 and j + D_even[i] <= N
+                   and equal(i - D_even[i], j + D_even[i])):
+                D_even[i] += 1
+            Ans += D_even[i]
+            if i + D_even[i] > R:
+                R = i + D_even[i]
+                L = j - D_even[i]
+        return D_even
+
+    for c1 in range(1, M + 1):
+        for c2 in range(c1, M + 1):
+            for i in range(1, N + 1):
+                t = ord(c[i][c2]) - ord('a')
+                Cnt[i][t] += 1
+                if Cnt[i][t] & 1:
+                    Cnt_Odd[i] += 1
+                else:
+                    Cnt_Odd[i] -= 1
+                if Cnt_Odd[i] > ((c2 - c1 + 1) & 1):
+                    Ok[i] = False
+                else:
+                    Ok[i] = True
+            calc_d_odd()
+            calc_d_even()
+        for i in range(1, N + 1):
+            Cnt[i] = [0] * 26
+            Cnt_Odd[i] = 0
+
+    print(Ans)
+
+solve()
+```
 
 ## Nhận xét về thuật toán
 - Thuật toán Manacher là thuật toán có ý tưởng khá đơn giản: tận dụng các dữ liệu có sẵn để giảm độ phức tạp khi tính toán trên xâu.
@@ -353,5 +510,5 @@ signed main() {
 - [CF Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)
 - [SPOJ Number of Palindromes](https://www.spoj.com/problems/NUMOFPAL/)
 - [Kattis Palindromes](https://open.kattis.com/problems/palindromes)
-
-
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

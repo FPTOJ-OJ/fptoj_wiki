@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Tác giả:** 
 - Bùi Nguyễn Đức Tân - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
 - Lê Minh Hoàng - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
@@ -42,6 +40,20 @@ int getSum(int p) {
 }
 ```
 
+```python
+N = 200003
+a = [0] * N
+
+def update(u, x):
+    a[u] = a[u] + x
+
+def getSum(p):
+    ans = 0
+    for i in range(1, p + 1):
+        ans = ans + a[i]
+    return ans
+```
+
 ### Phân tích
 - Độ phức tạp khi update: $\mathcal{O}(1)$.
 - Độ phức tạp khi truy vấn: $\mathcal{O}(p) = \mathcal{O}(N)$. <!--đpt tương đương với số ptu của mảng-->
@@ -74,6 +86,22 @@ void update(int u, int x) {
 int getSum(int p) {
     return sum[p];
 }
+```
+
+```python
+sum_arr = [0] * N
+
+def preprocess():
+    sum_arr[1] = a[1]
+    for i in range(2, n + 1):
+        sum_arr[i] = sum_arr[i - 1] + a[i]
+
+def update(u, x):
+    for i in range(u, n + 1):
+        sum_arr[i] = sum_arr[i] + x
+
+def getSum(p):
+    return sum_arr[p]
 ```
 ### Phân tích
 - Độ phức tạp tiền xử lý: $\mathcal{O}(N)$
@@ -114,6 +142,10 @@ Mặc dù có bản chất là cây, tính chất ở trên cho phép chúng ta 
 int bit[N];
 ```
 
+```python
+bit = [0] * N
+```
+
 ### Thao tác tìm tổng
 
 Để tìm tổng các phần tử trong đoạn $[1 \ldots n]$, ta sẽ lần lượt đi qua tất cả bit của $n$ theo giá trị tăng dần. Mỗi lần đi qua $n$, ta sẽ cộng $bit[n]$ vào kết quả hiện tại, rồi trừ đi bit nhỏ nhất của $n$ khỏi chính nó; quá trình lặp lại cho đến khi $n = 0$.
@@ -131,6 +163,15 @@ int getSum(int p) {
 }
 ```
 
+```python
+def getSum(p):
+    idx, ans = p, 0
+    while idx > 0:
+        ans += bit[idx]
+        idx -= (idx & (-idx))
+    return ans
+```
+
 Độ phức tạp khi truy vấn tổng: $\mathcal{O}(\log n)$.
 
 ### Thao tác cập nhật
@@ -145,6 +186,14 @@ void update(int u, int v) {
         idx += (idx & (-idx));
     }
 }
+```
+
+```python
+def update(u, v):
+    idx = u
+    while idx <= n:
+        bit[idx] += v
+        idx += (idx & (-idx))
 ```
 
 Chứng minh tính đúng đắn của thuật trên như sau: mỗi khi ta cộng thêm 1 lượng bằng với $2^k$ ($k$ là bit nhỏ nhất của $u$) thì đoạn dịch qua phải một lượng $2^k$ thành $[l + 2^k, r + 2^k]$ (do bit nhỏ nhất lúc này vẫn có thể tính là $2^k$). Đồng thời lúc đó, bit nhỏ nhất tăng ít nhất 2 lần do $2^k$ (mới cộng thêm) + $2^k$ (có sẵn trong u) tạo thành $2^{k+1}$ làm cho biên trái dịch trái ít nhất $2^k$ lần thành $[l, r + 2^k]$ (nếu có sẵn $2^{k+1}$ trong $u$ thì tiếp tục gộp lại làm bit nhỏ nhất tăng lên là $2^{k+2}$, ...), do đó biên trái luôn được giữ <= biên $l$ ban đầu.
@@ -184,6 +233,15 @@ for (int i = 2; i <= n; ++i) {
     diff[i] = a[i] - a[i - 1]; 
     // lấy phần tử thứ i trừ cho phần tử trước nó
 }
+```
+
+```python
+diff = [0] * (N + 1)
+
+diff[1] = a[1]
+for i in range(2, n + 1):
+    diff[i] = a[i] - a[i - 1]
+    # lấy phần tử thứ i trừ cho phần tử trước nó
 ```
 <!-- t có thêm comment -->
 
@@ -227,6 +285,25 @@ int get(int u) {
     return ans;
 }
 
+```
+
+```python
+def updatePoint(u, v):
+    idx = u
+    while idx <= n:
+        bit[idx] += v
+        idx += (idx & (-idx))
+
+def updateRange(l, r, v):
+    updatePoint(l, v)
+    updatePoint(r + 1, -v)
+
+def get(u):
+    idx, ans = u, 0
+    while idx > 0:
+        ans += bit[idx]
+        idx -= (idx & (-idx))
+    return ans
 ```
 ## Truy vấn trên đoạn
 ![img](../../uploads/K4d4qmh.png)
@@ -296,6 +373,36 @@ int rangeSum(int l, int r) {
 }
 ```
 
+```python
+bit1 = [0] * N
+bit2 = [0] * N
+
+def updatePoint(b, u, v):
+    idx = u
+    while idx <= n:
+        b[idx] += v
+        idx += (idx & (-idx))
+
+def updateRange(l, r, v):
+    updatePoint(bit1, l, (n - l + 1) * v)
+    updatePoint(bit1, r + 1, -(n - r) * v)
+    updatePoint(bit2, l, v)
+    updatePoint(bit2, r + 1, -v)
+
+def getSumOnBIT(b, u):
+    idx, ans = u, 0
+    while idx > 0:
+        ans += b[idx]
+        idx -= (idx & (-idx))
+    return ans
+
+def prefixSum(u):
+    return getSumOnBIT(bit1, u) - getSumOnBIT(bit2, u) * (n - u)
+
+def rangeSum(l, r):
+    return prefixSum(r) - prefixSum(l - 1)
+```
+
 ## Bài tập áp dụng
 - [LQDOJ - Query-Sum](https://lqdoj.edu.vn/problem/querysum)
 - [LQDOJ - Query-Sum 2](https://lqdoj.edu.vn/problem/querysum2)
@@ -307,3 +414,5 @@ int rangeSum(int l, int r) {
 - [VNOJ - INCVN](https://oj.vnoi.info/problem/incvn)
 
 VNOI Online Judge có phân loại riêng các bài tập về BIT, các bạn có thể tham khảo tại [đây](https://oj.vnoi.info/problems/?type=14&point_start=&point_end=).
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

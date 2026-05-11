@@ -200,6 +200,28 @@ vector<int> slidingWindowMin(vector<int>& a, int k) {
 }
 ```
 
+### Code Python - Sliding Window Min
+
+```python
+from collections import deque
+
+def sliding_window_min(a, k):
+    dq = deque()
+    result = []
+    
+    for i in range(len(a)):
+        while dq and dq[0] <= i - k:
+            dq.popleft()
+        while dq and a[dq[-1]] >= a[i]:
+            dq.pop()
+        dq.append(i)
+        
+        if i >= k - 1:
+            result.append(a[dq[0]])
+    
+    return result
+```
+
 ### Kết hợp cả min và max
 
 Nhiều bài toán cần tìm **cả min và max** trong mỗi cửa sổ (ví dụ: chênh lệch max-min ≤ K). Dùng **hai deque** cùng lúc!
@@ -228,6 +250,37 @@ bool hasGoodSubarray(vector<int>& a, int k, int threshold) {
     }
     return false;
 }
+```
+
+### Code Python - Kết hợp Min và Max
+
+```python
+from collections import deque
+
+def has_good_subarray(a, k, threshold):
+    max_dq = deque()
+    min_dq = deque()
+    
+    for i in range(len(a)):
+        while max_dq and max_dq[0] <= i - k:
+            max_dq.popleft()
+        while min_dq and min_dq[0] <= i - k:
+            min_dq.popleft()
+        
+        while max_dq and a[max_dq[-1]] <= a[i]:
+            max_dq.pop()
+        while min_dq and a[min_dq[-1]] >= a[i]:
+            min_dq.pop()
+        
+        max_dq.append(i)
+        min_dq.append(i)
+        
+        if i >= k - 1:
+            window_max = a[max_dq[0]]
+            window_min = a[min_dq[0]]
+            if window_max - window_min <= threshold:
+                return True
+    return False
 ```
 
 ---
@@ -317,6 +370,24 @@ vector<int> nextSmallerElement(vector<int>& a) {
 }
 ```
 
+### Code Python - Next Smaller Element
+
+```python
+def next_smaller_element(a):
+    n = len(a)
+    nse = [-1] * n
+    dq = []
+    
+    for i in range(n - 1, -1, -1):
+        while dq and a[dq[-1]] >= a[i]:
+            dq.pop()
+        if dq:
+            nse[i] = dq[-1]
+        dq.append(i)
+    
+    return nse
+```
+
 ---
 
 ## 7. Ứng dụng: Largest Rectangle in Histogram
@@ -341,6 +412,25 @@ int largestRectangleArea(vector<int>& heights) {
     }
     return maxArea;
 }
+```
+
+### Code Python - Largest Rectangle in Histogram
+
+```python
+def largest_rectangle_area(heights):
+    n = len(heights)
+    st = []
+    max_area = 0
+    
+    for i in range(n + 1):
+        h = 0 if i == n else heights[i]
+        while st and h < heights[st[-1]]:
+            height = heights[st.pop()]
+            width = i if not st else i - st[-1] - 1
+            max_area = max(max_area, height * width)
+        st.append(i)
+    
+    return max_area
 ```
 
 ---

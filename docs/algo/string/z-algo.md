@@ -1,4 +1,3 @@
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
 
 **Người viết**: Nguyễn Nhật Minh Khôi - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 
@@ -170,3 +169,5 @@ Tính đúng đắn của thuật toán đã được chứng minh ở phần *C
 - [LA 6439 - Pasti Pas!](https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&category=588&page=show_problem&problem=4450)
 - [Codechef - Chef and Strings](https://www.codechef.com/problems/CHSTR)
 - [Codeforces - Prefixes and Suffixes](http://codeforces.com/problemset/problem/432/D) -->
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

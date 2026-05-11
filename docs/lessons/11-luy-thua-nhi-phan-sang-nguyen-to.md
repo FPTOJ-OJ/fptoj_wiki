@@ -155,6 +155,14 @@ result = result * a % MOD;
 result = (__int128)result * a % MOD;
 ```
 
+### Code Python
+
+```python
+# Python không bị tràn số nguyên (bigint tự động)
+# Nhưng vẫn cần modulo để giữ số nhỏ
+result = result * a % MOD  # An toàn trong Python!
+```
+
 ### Bẫy 2: Sàng nguyên tố với N lớn
 
 N = 10⁷ → sàng OK. N = 10⁸ → có thể thiếu bộ nhớ!

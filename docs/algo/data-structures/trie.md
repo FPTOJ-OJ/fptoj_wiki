@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Nguời viết:** 
 - Ngô Nhật Quang - HUS High School for Gifted Students
 
@@ -133,6 +131,62 @@ struct Trie{
                                         // kết thúc tại đỉnh này hay không
     }
 };
+```
+
+```python
+class Trie:
+    def __init__(self, max_nodes):
+        self.max_nodes = max_nodes
+        self.child = [[-1] * 26 for _ in range(max_nodes)]
+        self.exist = [0] * max_nodes
+        self.cnt = [0] * max_nodes
+        self.cur = 0
+
+    def new_node(self):
+        self.cur += 1
+        self.child[self.cur] = [-1] * 26
+        self.exist[self.cur] = 0
+        self.cnt[self.cur] = 0
+        return self.cur
+
+    def add_string(self, s):
+        pos = 0
+        for ch in s:
+            c = ord(ch) - ord('a')
+            if self.child[pos][c] == -1:
+                self.child[pos][c] = self.new_node()
+            pos = self.child[pos][c]
+            self.cnt[pos] += 1
+        self.exist[pos] += 1
+
+    def _delete_string_recursive(self, pos, s, i):
+        if i != len(s):
+            c = ord(s[i]) - ord('a')
+            is_child_deleted = self._delete_string_recursive(self.child[pos][c], s, i + 1)
+            if is_child_deleted:
+                self.child[pos][c] = -1
+        else:
+            self.exist[pos] -= 1
+
+        if pos != 0:
+            self.cnt[pos] -= 1
+            if self.cnt[pos] == 0:
+                return True
+        return False
+
+    def delete_string(self, s):
+        if not self.find_string(s):
+            return
+        self._delete_string_recursive(0, s, 0)
+
+    def find_string(self, s):
+        pos = 0
+        for ch in s:
+            c = ord(ch) - ord('a')
+            if self.child[pos][c] == -1:
+                return False
+            pos = self.child[pos][c]
+        return self.exist[pos] != 0
 ```
 
 ## Cài đặt bằng con trỏ
@@ -295,6 +349,57 @@ struct Trie{
 };
 ```
 
+```python
+class BinaryTrie:
+    def __init__(self, max_nodes, lg):
+        self.max_nodes = max_nodes
+        self.LG = lg
+        self.child = [[-1, -1] for _ in range(max_nodes)]
+        self.exist = [0] * max_nodes
+        self.cnt = [0] * max_nodes
+        self.cur = 0
+
+    def new_node(self):
+        self.cur += 1
+        self.child[self.cur] = [-1, -1]
+        self.exist[self.cur] = 0
+        self.cnt[self.cur] = 0
+        return self.cur
+
+    def add_number(self, x):
+        pos = 0
+        for i in range(self.LG, -1, -1):
+            c = (x >> i) & 1
+            if self.child[pos][c] == -1:
+                self.child[pos][c] = self.new_node()
+            pos = self.child[pos][c]
+            self.cnt[pos] += 1
+        self.exist[pos] += 1
+
+    def delete_number(self, x):
+        if not self.find_number(x):
+            return
+        pos = 0
+        for i in range(self.LG, -1, -1):
+            c = (x >> i) & 1
+            tmp = self.child[pos][c]
+            self.cnt[tmp] -= 1
+            if self.cnt[tmp] == 0:
+                self.child[pos][c] = -1
+                return
+            pos = tmp
+        self.exist[pos] -= 1
+
+    def find_number(self, x):
+        pos = 0
+        for i in range(self.LG, -1, -1):
+            c = 1 if (x & (1 << i)) else 0
+            if self.child[pos][c] == -1:
+                return False
+            pos = self.child[pos][c]
+        return self.exist[pos] != 0
+```
+
 ## Ứng dụng
 
 Trie tuy trông đơn giản nhưng nó có rất nhiều ứng dụng khác nhau, xử lí các thao tác trên các danh sách số nguyên và danh sách xâu.
@@ -425,6 +530,19 @@ int query(int x) {
     }
     return res;
 }
+```
+
+```python
+def query(x):
+    pos, res = 0, 0
+    for i in range(LG, -1, -1):
+        c = (x >> i) & 1
+        if nodes[pos].child[c ^ 1] != -1:
+            res += (1 << i)
+            pos = nodes[pos].child[c ^ 1]
+        else:
+            pos = nodes[pos].child[c]
+    return res
 ```
 
 ## Áp dụng
@@ -1106,3 +1224,5 @@ signed main() {
 [Hackerrank - The Black Box](https://www.hackerrank.com/contests/w8/challenges/black-box-1/problem) (Khó)
 
 [CCO 2017 - Vera and Modern Art](https://dmoj.ca/problem/cco17p3) (Khó)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

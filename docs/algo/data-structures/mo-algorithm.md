@@ -64,6 +64,17 @@ bool cmp(Query A, Query B) // so sánh 2 truy vấn
 
 ```
 
+```python
+import math
+
+S = int(math.sqrt(N))
+
+def cmp_query(A, B):
+    if A.l // S != B.l // S:
+        return A.l // S < B.l // S
+    return A.r < B.r
+```
+
 **Giải thích**:
 
 - Ta chia dãy thành các block (nhóm) độ dài $S = \sqrt{N}$.

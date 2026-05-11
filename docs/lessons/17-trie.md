@@ -349,6 +349,26 @@ vector<string> autocomplete(Trie& trie, string prefix) {
 }
 ```
 
+### Code Python - Autocomplete
+
+```python
+def find_all_with_prefix(node, prefix, result):
+    if node.is_end:
+        result.append(prefix)
+    for c, child in node.children.items():
+        find_all_with_prefix(child, prefix + c, result)
+
+def autocomplete(trie, prefix):
+    cur = trie.root
+    for c in prefix:
+        if c not in cur.children:
+            return []
+        cur = cur.children[c]
+    result = []
+    find_all_with_prefix(cur, prefix, result)
+    return result
+```
+
 ---
 
 ## 6. Lưu ý

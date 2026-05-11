@@ -126,6 +126,36 @@ int main() {
 }
 
 ```
+```python
+MN = 10**6 + 11
+sieve = [0] * MN
+pk = [(-1, 0)] * MN
+ndiv = [0] * MN
+
+for i in range(2, 1001):
+    if sieve[i] == 0:
+        for j in range(i * i, 1000001, i):
+            sieve[j] = i
+
+ndiv[1] = 1
+
+for i in range(2, 1000001):
+    if sieve[i] == 0:
+        pk[i] = (i, 1)
+        ndiv[i] = 2
+    else:
+        p = sieve[i]
+        if pk[i // p][0] == p:
+            pk[i] = (p, pk[i // p][1] + 1)
+            ndiv[i] = pk[i][1] + 1
+        else:
+            pk[i] = (-1, 0)
+            u, v = i, 1
+            while u % p == 0:
+                u //= p
+                v *= p
+            ndiv[i] = ndiv[u] * ndiv[v]
+```
 
 ## 3. Ứng dụng 2
 
@@ -167,6 +197,22 @@ for (int i = 2; i*i <= n; i++) {
 if (n > 1) {  // giá trị hiện tại của n là số nguyên tố
   res = res * 2;
 }
+```
+```python
+n = int(input())
+res = 1
+i = 2
+while i * i <= n:
+    if n % i == 0:
+        k = 0
+        while n % i == 0:
+            n //= i
+            k += 1
+        res *= (k + 1)
+    i += 1
+if n > 1:
+    res *= 2
+print(res)
 ```
 
 

@@ -1,4 +1,3 @@
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
 
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
 
@@ -39,6 +38,17 @@ bool primeCheck(int n)
     return true;
 }
 ```
+
+```python
+def prime_check(n):
+    if n < 2:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+```
+
 Độ phức tạp thuật toán: $\mathcal{O}\left(n\right)$.
 
 ## 1.2. Ngây thơ 2
@@ -59,6 +69,18 @@ bool primeCheck(int n)
 }
 ```
 
+```python
+def prime_check(n):
+    if n < 2:
+        return False
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            return False
+        i += 1
+    return True
+```
+
 Độ phức tạp thuật toán: $\mathcal{O}\left(\sqrt{n}\right)$.
 
 Ta có thể mở rộng thuật toán trên thành thuật toán phân tích một số nguyên dương ra thừa số nguyên tố:
@@ -77,6 +99,20 @@ void primeFactorization(int n)
 }
 ```
 
+```python
+def prime_factorization(n):
+    res = []
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            n //= i
+            res.append(i)
+        i += 1
+    if n > 1:
+        res.append(n)
+    return res
+```
+
 ## 1.3. Ngây thơ 2.5
 
 Để ý nếu số nguyên tố $n$ lẻ thì $n$ không chia hết cho một số chẵn bất kì. Do đó nếu $n>2$, ta chỉ cần xét các số $i$ lẻ thuộc đoạn $\left[2,\left[\sqrt{n}\right]\right]$. Tương tự, nếu $n>3$ thì ta chỉ cần xét $i$ là các số không chia hết cho $3$. Từ hai nhận xét trên, nếu $n>3$ thì ta chỉ cần xét các số $i$ sao cho $i$ chia $6$ dư $1$ hoặc $5$.
@@ -93,6 +129,20 @@ bool primeCheck(int n)
             return false;
     return true;
 }
+```
+
+```python
+def prime_check(n):
+    if n == 2 or n == 3:
+        return True
+    if n < 3 or n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
 ```
 **Chú ý:** Có thể sử dụng nhiều số nguyên tố đầu tiên để tối ưu thuật toán hơn. Về lý thuyết, nếu $k$ là số số nguyên tố được dùng càng lớn thì vòng lặp chạy càng nhanh. Tuy nhiên, với $k=50$, độ phức tạp vòng lặp `for` là $\mathcal{O}\left(\frac{\sqrt{n}}{10}\right)$. Và kể cả với $k=6.10^5$ thì độ phức tạp thuật của vòng lặp `for` vẫn là $\mathcal{O}\left(\frac{\sqrt{n}}{30}\right)$.
 
@@ -136,6 +186,19 @@ int binaryPower(long long a, int k, int n)
 }
 ```
 
+```python
+# Tính a^k (mod n)
+def binary_power(a, k, n):
+    a = a % n
+    res = 1
+    while k > 0:
+        if k & 1:
+            res = (res * a) % n
+        a = (a * a) % n
+        k //= 2
+    return res
+```
+
 Cài đặt phép thử Fermat:
 
 ```cpp
@@ -153,6 +216,20 @@ bool isProbablyPrime(int n)
     }
     return true;
 }
+```
+
+```python
+import random
+
+def is_probably_prime(n):
+    if n < 7:
+        return n in (2, 3, 5)
+    REPEAT_NUM = 5
+    for _ in range(REPEAT_NUM):
+        a = random.randint(2, n - 2)
+        if binary_power(a, n - 1, n) != 1:
+            return False
+    return True
 ```
 
 Độ phức tạp phép thử là $\mathcal{O}\left(c\log{n}\right)$ với $c$ là số cơ số $a$ được thử.
@@ -189,6 +266,30 @@ long long binaryPow(long long a, long long k, long long n)
     }
     return res;
 }
+```
+
+```python
+# Tính a * b mod n
+def binary_mul(a, b, n):
+    a = a % n
+    res = 0
+    while b > 0:
+        if b & 1:
+            res = (res + a) % n
+        a = (2 * a) % n
+        b //= 2
+    return res
+
+# Tính a^b mod n
+def binary_pow(a, k, n):
+    a = a % n
+    res = 1
+    while k > 0:
+        if k & 1:
+            res = binary_mul(res, a, n)
+        a = binary_mul(a, a, n)
+        k //= 2
+    return res
 ```
 
 Khi đó độ phức tạp thuật toán là $\mathcal{O}\left(c\log^2{n}\right)$.
@@ -323,6 +424,51 @@ bool RabinMiller(long long n)
     return true;
 }
 ```
+
+```python
+import random
+
+# Tính a^k mod n
+def binary_power(a, k, n):
+    a = a % n
+    res = 1
+    while k > 0:
+        if k & 1:
+            res = (res * a) % n
+        a = (a * a) % n
+        k //= 2
+    return res
+
+# Kiểm tra điều kiện thuật toán với a cố định
+def test(a, n, k, m):
+    mod = binary_power(a, m, n)
+    if mod == 1 or mod == n - 1:
+        return True
+    for _ in range(1, k):
+        mod = (mod * mod) % n
+        if mod == n - 1:
+            return True
+    return False
+
+def rabin_miller(n):
+    if n in (2, 3, 5, 7):
+        return True
+    if n < 11:
+        return False
+
+    # Tính m và k
+    k, m = 0, n - 1
+    while m % 2 == 0:
+        m //= 2
+        k += 1
+
+    REPEAT_TIME = 3
+    for _ in range(REPEAT_TIME):
+        a = random.randint(2, n - 2)
+        if not test(a, n, k, m):
+            return False
+    return True
+```
 Độ phức tạp là $\mathcal{O}\left(c\log{n}\right)$.
 
 ## 3.3. Thuật toán đơn định (Deterministic)
@@ -359,6 +505,25 @@ bool MillerRabin(long long n)
 }
 ```
 
+```python
+def miller_rabin(n):
+    if n in (2, 3, 5, 7):
+        return True
+    if n < 11:
+        return False
+
+    k, m = 0, n - 1
+    while m % 2 == 0:
+        m //= 2
+        k += 1
+
+    check_set = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+    for a in check_set:
+        if not test(a, n, k, m):
+            return False
+    return True
+```
+
 ## 4. Bài tập luyện tập:
 
 * [**SPOJ - Prime Or Not**](https://www.spoj.com/problems/PON/)
@@ -369,3 +534,5 @@ bool MillerRabin(long long n)
 * [Wikipedia - Primality Miller-Rabin test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test)
 * [Wikipedia - Primality test](https://en.wikipedia.org/wiki/Primality_test)
 * [Wikipedia - Carmichael numbers](https://en.wikipedia.org/wiki/Carmichael_number)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

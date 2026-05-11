@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Người viết:**
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 
@@ -99,6 +97,15 @@ int sum = 0;
 for (int i = 0; i < n; i++) sum += i;
 for (int j = 0; j < n; j++) sum += j;
 ```
+
+``` python
+sum = 0
+for i in range(n):
+    sum += i
+for j in range(n):
+    sum += j
+```
+
 Hai vòng có tổng cộng $n \times 2$ phép cộng, nên ĐPT sẽ là $\boldsymbol{O(n)}$    
 
 **Ví dụ 2:** 
@@ -112,6 +119,16 @@ for (int i = 0; i < n; i++){
     }
 }
 ```
+
+``` python
+sum = 0
+for i in range(n):
+    j = 0
+    while j < n:
+        sum += j
+        j += 1
+```
+
 Hai vòng lặp lồng nhau, mỗi vòng lặp có ĐPT $O(n)$ nên ĐPT sẽ là $\boldsymbol{O(n^2)}$    
 
 **Ví dụ 3:** 
@@ -123,6 +140,14 @@ for (int i = 0; i < n; i++){
     }
 }
 ```
+
+``` python
+sum = 0
+for i in range(n):
+    for j in range(i):
+        sum += j
+```
+
 Vòng `i` lặp `n` lần, vòng `j` lặp tổng cộng $1 + 2 + \ldots + n = \dfrac{n \times (n + 1)}{2}$ lần, nên ĐPT chung vẫn sẽ là $\boldsymbol{O(n^2)}$ dù số phép tính đã được giảm đi khá nhiều.    
 
 ## Hai con trỏ
@@ -139,6 +164,17 @@ for (int i = 0; i < n; i++) {
     }
 }
 cout << "Khong ton tai";
+```
+
+``` python
+j = 0
+for i in range(n):
+    while j < n - 1 and a[i] - a[j] > d:
+        j += 1
+    if a[i] - a[j] == d:
+        print("Ton tai!")
+        exit()
+print("Khong ton tai")
 ```
 
 Thoạt nhìn, nó khá giống với vòng lặp lồng ở **Ví dụ i.2.** và cho ra ĐPT $O(n^2)$ nhưng thực chất, ĐPT nhỏ hơn vậy.
@@ -168,6 +204,21 @@ int binary_search(int a[], int sizeA, int target) {
     // không tìm thấy giá trị target trong mảng A
     return -1;
 } 
+```
+
+``` python
+def binary_search(a, sizeA, target):
+    lo, hi = 1, sizeA
+    while lo <= hi:
+        mid = lo + (hi - lo) // 2
+        if a[mid] == target:
+            return mid
+        elif a[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    # không tìm thấy giá trị target trong mảng A
+    return -1
 ```
 
 Ở mỗi bước, kích thước của mảng cần tìm kiếm bị giảm đi một nửa. Sau $\lceil \log_2 n \rceil$ bước, thì số phần tử của mảng là $1$ và dừng tìm kiếm.
@@ -209,6 +260,30 @@ int main()
     cin >> n;
     backtrack(1);
 }
+```
+
+``` python
+n = int(input())
+a = [0] * (n + 1)
+used = [False] * (n + 1)
+
+def print_perm():
+    for i in range(1, n + 1):
+        print(a[i], end='')
+    print()
+
+def backtrack(i):
+    if i == n + 1:
+        print_perm()
+        return
+    for j in range(1, n + 1):
+        if not used[j]:
+            a[i] = j
+            used[j] = True
+            backtrack(i + 1)
+            used[j] = False
+
+backtrack(1)
 ```
 
 **Phân tích:**
@@ -290,6 +365,13 @@ for (int i = 1; i <= n; i++){
     }
 }
 ```
+
+``` python
+cnt = 0
+for i in range(1, n + 1):
+    for j in range(i, n + 1, i):
+        cnt += 1
+```
  **Giải:** 
 Rõ ràng, với mỗi biến $i$, vòng lặp $j$ sẽ chạy $\left\lfloor\dfrac{n}{i}\right\rfloor$ lần.
 Vì thế độ phức tạp sẽ là $O\left( n \times \left(\dfrac{1}{1} + \dfrac{1}{2} +\ldots+\dfrac{1}{n} \right) \right) = O\left(n \cdot \sum\limits_{i = 1}^{n} \dfrac{1}{i}\right)$.
@@ -321,6 +403,16 @@ for (int i = 2; i <= n; i++) if (is_prime[i]){
         is_prime[j] = false;
     }
 }
+```
+
+``` python
+is_prime = [True] * (n + 1)
+for i in range(2, int(n**0.5) + 1):
+    is_prime[i] = True
+for i in range(2, n + 1):
+    if is_prime[i]:
+        for j in range(i * 2, n + 1, i):
+            is_prime[j] = False
 ```
 **Giải:**
 Tương tự bài trên, nhưng chỉ khi biến $i$ là số nguyên tố thì biến $j$ sẽ chạy $n/i$ lần, ngược lại biến $j$ không phải chạy 1 vòng nào.
@@ -358,3 +450,5 @@ Và đặc biệt khi sử dụng các hàm trong thư viện sẵn có hay các
 Với lập trình viên, *độ phức tạp thời gian* là một công cụ hữu ích để ước chừng thời gian thực thi của một thuật toán, hay so sánh giữa các thuật toán với nhau.
 Trong các kỳ thi lập trình, kích cỡ của tập dữ liệu thường được cho trước trong đề bài. Dựa vào điều đó, thí sinh có thể ước chừng *độ phức tạp* rồi tìm ra thuật toán phù hợp. Hoặc là khi đã nghĩ ra một vài thuật toán thì liệu thuật toán nào đáng để cài đặt? Nên chọn những thuật toán nào để cài đặt?
 ĐPT BigO - phân tích dựa trên tiệm cận là một công cụ mạnh mẽ. Nhưng Big O bỏ qua các hằng số, và đôi khi các hằng số lại quan trọng. Vì thế phải sử dụng nó một cách khôn khéo nhất để đạt hiệu quả cao trong lập trình.
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

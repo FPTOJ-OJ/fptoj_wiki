@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Người viết**:
 - Nguyễn Đức Kiên, Trường Đại học Công nghệ, ĐHQGHN.
 
@@ -62,6 +60,13 @@ void factorial(int n)
 }
 ```
 
+``` python
+def factorial(n):
+    if n == 0:
+        return 1  # trường hợp cơ sở
+    return factorial(n - 1) * n  # phần đệ quy
+```
+
 Nếu bạn chưa quen với cú pháp đệ quy như vậy thì có thể hiểu hàm trên tương đương với hàm `factorial_2()` trong đoạn code sau với $n = 2$:
 ``` cpp
 //n = 0
@@ -81,6 +86,20 @@ void factorial_2()
 {   
     return factorial_1() * 2;    
 }
+```
+
+``` python
+# n = 0
+def factorial_0():
+    return 1
+
+# n = 1
+def factorial_1():
+    return factorial_0() * 1
+
+# n = 2
+def factorial_2():
+    return factorial_1() * 2
 ```
 
 ## Tính số Fibonacci
@@ -106,6 +125,15 @@ void fibo(int n)
     if (n == 1) return 1;    //trường hợp cơ sở
     return fibo(n - 2) + fibo(n - 1);    //phần đệ quy
 }
+```
+
+``` python
+def fibo(n):
+    if n == 0:
+        return 0  # trường hợp cơ sở
+    if n == 1:
+        return 1  # trường hợp cơ sở
+    return fibo(n - 2) + fibo(n - 1)  # phần đệ quy
 ```
 
 Cần chú ý rằng ở chương trình này cần có tới 2 trường hợp cơ sở, vì đó cũng là hai trường hợp không thể áp dụng công thức truy hồi.
@@ -150,6 +178,20 @@ void backtrack(int pos)
         <xoá bỏ giá trị i khỏi tập đang xét>
     }
 }
+```
+
+``` python
+def backtrack(pos):
+    # Trường hợp cơ sở
+    if pos_is_last_position:
+        # output/lưu lại tập hợp đã dựng nếu thoả mãn
+        return
+
+    # Phần đệ quy
+    for i in all_possible_values_at_pos:
+        # thêm giá trị i vào tập đang xét
+        backtrack(pos + 1)
+        # xoá bỏ giá trị i khỏi tập đang xét
 ```
 
 Việc thêm giá trị mới vào tập đang xét rồi cuối cùng xoá bỏ nó ra khỏi tập giải thích cho tên gọi "quay lui" của thuật toán. Đó là việc khôi phục lại trạng thái cũ của tập hợp sau khi kết thúc việc gọi đệ quy.
@@ -197,6 +239,23 @@ int main()
     return 0;
 }
 ```
+
+``` python
+n = int(input())
+cur_string = ""
+
+def gen_string(pos):
+    global cur_string
+    if pos > n:
+        print(cur_string)
+        return
+    for i in '01':
+        cur_string += i        # thêm ký tự mới vào dãy
+        gen_string(pos + 1)
+        cur_string = cur_string[:-1]  # bỏ ký tự này đi
+
+gen_string(1)
+```
 Chú ý rằng, cách sinh này cũng chưa phải là tốt nhất nếu xét về độ dài của code. Sử dụng các phép toán trên bit của C++ sẽ giúp liệt kê tất cả các dãy trên với một đoạn code đơn giản hơn nhiều mà thời gian chạy vẫn không chậm hơn (tất nhiên là không cần sử dụng đệ quy).
 
 ## Sinh tổ hợp (tập hợp con)
@@ -242,6 +301,26 @@ int main()
 
     return 0;
 }
+```
+
+``` python
+n, k = map(int, input().split())
+cur_subset = []
+
+def print_subset():
+    print(*cur_subset)
+
+def gen_subset(pos):
+    last_num = cur_subset[-1] if cur_subset else 0  # số cuối cùng được chọn
+    for i in range(last_num + 1, n + 1):
+        cur_subset.append(i)
+        if len(cur_subset) == k:
+            print_subset()
+        else:
+            gen_subset(pos + 1)
+        cur_subset.pop()
+
+gen_subset(1)
 ```
 
 **Mở rộng:** Vẫn đề bài trên nhưng giờ bỏ đi điều kiện "Hai tập con là hoán vị của nhau chỉ tính là một." thì chúng ta sẽ làm như thế nào? (gợi ý: lúc này thay vì có mọi số lớn hơn số liền trước, ta chỉ cần các số trong tập hợp khác nhau là đủ)
@@ -302,6 +381,37 @@ int main()
 
     return 0;
 }
+```
+
+``` python
+n, S = map(int, input().split())
+a = [0] + list(map(int, input().split()))
+cur_money_sum = 0
+cur_money_set = []
+
+def print_money_set():
+    print(*[a[i] for i in cur_money_set])
+
+def gen_money_set(pos):
+    global cur_money_sum
+    last_index = cur_money_set[-1] if cur_money_set else 1
+    for i in range(last_index, n + 1):
+        # Lấy thêm 1 tờ tiền mới vào tập hợp
+        cur_money_set.append(i)
+        cur_money_sum += a[i]
+
+        # Gọi đệ quy
+        if cur_money_sum >= S:
+            if cur_money_sum == S:
+                print_money_set()
+        else:
+            gen_money_set(pos + 1)
+
+        # Bỏ tờ tiền này ra khỏi tập hợp
+        cur_money_set.pop()
+        cur_money_sum -= a[i]
+
+gen_money_set(1)
 ```
 
 Nếu bạn đọc để ý kỹ thì chúng ta không sử dụng tham số `pos` trong hàm `genMoneySet` vào mục đích gì cả. Có thể bỏ tham số này đi, và chúng ta có một hàm đệ quy không tham số. Tham số này ở đây chỉ giúp chúng ta hiểu hàm này hơn thôi.
@@ -405,6 +515,60 @@ int main()
 }
 ```
 
+``` python
+n = int(input())
+
+# mảng đánh dấu cột, đường chéo phụ và đường chéo chính
+is_in_col = [False] * 13
+is_in_diag1 = [False] * 26
+is_in_diag2 = [False] * 26
+
+cur_queens_x = []
+cur_queens_y = []
+
+def print_queens_set():
+    result = []
+    for i in range(n):
+        result.append(f"({cur_queens_x[i]}, {cur_queens_y[i]})")
+    print(", ".join(result))
+
+def gen_queens_set(cur_row):
+    for cur_col in range(1, n + 1):
+        # Xác định đường chéo phụ và chính hiện tại
+        cur_diag1 = cur_row + cur_col
+        cur_diag2 = cur_row - cur_col + 13  # +13 để tránh chỉ số âm
+
+        # Kiểm tra toạ độ mới xem có thoả mãn không
+        if is_in_col[cur_col]:
+            continue
+        if is_in_diag1[cur_diag1]:
+            continue
+        if is_in_diag2[cur_diag2]:
+            continue
+
+        # Thêm nó vào tập hợp hiện tại nếu thoả mãn
+        cur_queens_x.append(cur_row)
+        cur_queens_y.append(cur_col)
+        is_in_col[cur_col] = True
+        is_in_diag1[cur_diag1] = True
+        is_in_diag2[cur_diag2] = True
+
+        # Gọi đệ quy thêm quân tiếp theo hoặc in kết quả
+        if len(cur_queens_x) == n:
+            print_queens_set()
+        else:
+            gen_queens_set(cur_row + 1)
+
+        # Xoá quân vừa thêm vào khỏi tập hợp
+        cur_queens_x.pop()
+        cur_queens_y.pop()
+        is_in_col[cur_col] = False
+        is_in_diag1[cur_diag1] = False
+        is_in_diag2[cur_diag2] = False
+
+gen_queens_set(1)
+```
+
 Nếu bạn thực hiện thuật toán một cách chính xác, với $n = 8$ bạn sẽ thu được $92$ cách xếp thoả mãn. $92$ cách có vẻ nhiều, nhưng nếu không code, liệu bạn có xếp được không? :)).
 
 ## Kỹ thuật Nhánh cận
@@ -464,6 +628,34 @@ int main()
 }
 ```
 
+``` python
+n, S = map(int, input().split())
+a = [0] + list(map(int, input().split()))
+cur_money_sum = 0
+cur_money_set = []
+best_set = []
+
+def gen_money_set(pos):
+    global cur_money_sum
+    last_index = cur_money_set[-1] if cur_money_set else 1
+    for i in range(last_index, n + 1):
+        cur_money_set.append(i)
+        cur_money_sum += a[i]
+
+        if cur_money_sum >= S:
+            if cur_money_sum == S:
+                best_set.clear()
+                best_set.extend(cur_money_set)
+        elif not best_set or len(cur_money_set) < len(best_set):
+            gen_money_set(pos + 1)
+
+        cur_money_set.pop()
+        cur_money_sum -= a[i]
+
+gen_money_set(1)
+print(*[a[i] for i in best_set])
+```
+
 ## Chú ý thêm
 ## Vì sao lại dùng đệ quy?
 Ưu điểm mà chúng ta thấy ngay được của việc sử dụng đệ quy là viết code ngắn gọn hơn. Lấy ví dụ, khi tính số Fibonacci mà không sử dụng đệ quy, ta sẽ phải tạo hai biến nhớ cho số gần thứ nhì và gần nhất, cộng chúng lại, lưu vào biến mới rồi cập nhật hai biết nhớ; hoặc có thể sử dụng mảng rồi cập nhật lại sao mỗi lần tính. Chúng đều làm cho đoạn code trở nên dài hơn một chút so với việc dùng đệ quy ở trên. Nhưng ở những bài toán lớn hơn, ví dụ như những bài toán sinh dãy ở trên, việc không sử dụng đệ quy sẽ làm bài lời giải của chúng ta cồng kềnh hơn rất nhiều.
@@ -485,6 +677,14 @@ void recursive(int x)
         recursive(x + 1);
 }
 ```
+
+``` python
+def recursive(x):
+    if x > n:
+        return
+    for i in range(1, m + 1):
+        recursive(x + 1)
+```
 Hàm trên được gọi đệ quy $n$ lần, mỗi lần phải thực hiện $m$ lần vòng lặp nên độ phức tạp sẽ là $O(m^n)$.
 
 Có thể thấy, các thuật toán đệ quy có thể có độ phức tạp rất lớn, nhiều khi lên tới hàm mũ, tuy vậy lại có lúc nhỏ cỡ $log$ như hàm tính ƯCLN. Do vậy, việc xác định số lần bị gọi của hàm đệ quy rất quan trọng. 
@@ -502,4 +702,6 @@ Ngoài ra, trong một số bài toán yêu cầu tính toán ta cũng có thể
 - [Weird Rooks](https://community.topcoder.com/stat?c=problem_statement&pm=3998&rd=6533)
 - Giải Sudoku: Hãy thử vào [sudoku.com](https://sudoku.com), tìm một bảng Sudoku bất kì rồi thử viết một chương trình sử dụng đệ quy quay lui để giải nó. 
 ## Tài liệu tham khảo
-- Lê Minh Hoàng (2003), *Giải thuật và lập trình* 
+- Lê Minh Hoàng (2003), *Giải thuật và lập trình*
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

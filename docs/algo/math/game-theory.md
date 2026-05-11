@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 Người viết: Nguyễn Nhật Minh Khôi
 
 Reviewer chính: Trần Quang Lộc, Hồ Ngọc Vĩnh Phát
@@ -483,5 +481,5 @@ g(x'_i) &= g(x_i)
 Điều này là mâu thuẫn với giả thuyết ban đầu là ta chọn trò chơi thành phần $i$ để di chuyển trạng thái (khi đó $x'_i \neq x_i$).
 
 Với hai ý được chứng minh này, ta đã chứng minh được định lý 2. $\square$
-
-
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

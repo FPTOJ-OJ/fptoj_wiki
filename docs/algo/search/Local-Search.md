@@ -53,6 +53,30 @@ void solve() {
 }
 
 ```
+```python
+import math
+
+def solve(a, n):
+    used = [False] * (n + 1)
+    id_arr = [0] * (n + 1)
+    used[1] = True
+    id_arr[1] = 1
+
+    for i in range(2, n + 1):
+        best_dist = 1e6
+        save = -1
+        for j in range(1, n + 1):
+            dx = a[id_arr[i - 1]][0] - a[j][0]
+            dy = a[id_arr[i - 1]][1] - a[j][1]
+            cur_dist = math.sqrt(dx * dx + dy * dy)
+            if not used[j] and cur_dist < best_dist:
+                best_dist = cur_dist
+                save = j
+        id_arr[i] = save
+        used[save] = True
+
+    return id_arr
+```
 
 Dưới đây là kết quả khi mình chạy với một bộ test được sinh random gồm 50 đỉnh:
 
@@ -89,6 +113,32 @@ void optimize() {
         if (stop) break;
     }
 }
+```
+```python
+import math
+
+def optimize(a, id_arr, n):
+    def dist(i, j):
+        dx = a[id_arr[i]][0] - a[id_arr[j]][0]
+        dy = a[id_arr[i]][1] - a[id_arr[j]][1]
+        return math.sqrt(dx * dx + dy * dy)
+
+    while True:
+        stop = True
+        for u in range(2, n + 1):
+            for v in range(n - 1, u, -1):
+                t1 = dist(u - 1, u) + dist(v, v + 1)
+                t2 = dist(u - 1, v) + dist(u, v + 1)
+                if t1 > t2:
+                    i, j = u, v
+                    while i <= j:
+                        id_arr[i], id_arr[j] = id_arr[j], id_arr[i]
+                        i += 1
+                        j -= 1
+                    stop = False
+        if stop:
+            break
+    return id_arr
 ```
 
 Minh họa cho test trên (chú ý rằng mình cài đặt sai và không xét cạnh nối từ đỉnh cuối đến đỉnh 1, nên còn một cặp cạnh cắt nhau ^_^):

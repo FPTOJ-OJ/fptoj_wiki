@@ -131,6 +131,13 @@ bool areCollinear(Point A, Point B, Point C) {
 }
 ```
 
+### Code Python
+
+```python
+def are_collinear(A, B, C):
+    return cross((B[0]-A[0], B[1]-A[1]), (C[0]-A[0], C[1]-A[1])) == 0
+```
+
 ### 3.2. Xác định hướng quay (CCW)
 
 Cho 3 điểm A, B, C. Hỏi từ A→B→C quay theo hướng nào?
@@ -143,6 +150,16 @@ int orientation(Point A, Point B, Point C) {
     if (val < 0) return -1;  // CW (phải)
     return 0;                // Thẳng hàng
 }
+```
+
+### Code Python
+
+```python
+def orientation(A, B, C):
+    val = cross((B[0]-A[0], B[1]-A[1]), (C[0]-A[0], C[1]-A[1]))
+    if val > 0: return 1
+    if val < 0: return -1
+    return 0
 ```
 
 ### 3.3. Kiểm tra 2 đoạn thẳng cắt nhau
@@ -175,6 +192,27 @@ bool onSegment(Point A, Point B, Point P) {
     return min(A.x, B.x) <= P.x && P.x <= max(A.x, B.x) &&
            min(A.y, B.y) <= P.y && P.y <= max(A.y, B.y);
 }
+```
+```python
+def segments_intersect(A, B, C, D):
+    d1 = cross((B[0]-A[0], B[1]-A[1]), (C[0]-A[0], C[1]-A[1]))
+    d2 = cross((B[0]-A[0], B[1]-A[1]), (D[0]-A[0], D[1]-A[1]))
+    d3 = cross((D[0]-C[0], D[1]-C[1]), (A[0]-C[0], A[1]-C[1]))
+    d4 = cross((D[0]-C[0], D[1]-C[1]), (B[0]-C[0], B[1]-C[1]))
+    
+    if ((d1 > 0 and d2 < 0) or (d1 < 0 and d2 > 0)) and \
+       ((d3 > 0 and d4 < 0) or (d3 < 0 and d4 > 0)):
+        return True
+    
+    def on_segment(P, Q, R):
+        return min(P[0], Q[0]) <= R[0] <= max(P[0], Q[0]) and \
+               min(P[1], Q[1]) <= R[1] <= max(P[1], Q[1])
+    
+    if d1 == 0 and on_segment(A, B, C): return True
+    if d2 == 0 and on_segment(A, B, D): return True
+    if d3 == 0 and on_segment(C, D, A): return True
+    if d4 == 0 and on_segment(C, D, B): return True
+    return False
 ```
 
 ---
@@ -210,6 +248,21 @@ bool pointInPolygon(Point P, vector<Point>& polygon) {
 }
 ```
 
+### Code Python
+
+```python
+def point_in_polygon(P, polygon):
+    n = len(polygon)
+    inside = False
+    for i in range(n):
+        j = (i - 1) % n
+        A, B = polygon[i], polygon[j]
+        if ((A[1] > P[1]) != (B[1] > P[1])) and \
+           (P[0] < (B[0] - A[0]) * (P[1] - A[1]) / (B[1] - A[1]) + A[0]):
+            inside = not inside
+    return inside
+```
+
 ### Cho đa giác lồi - Dùng cross product nhanh hơn
 
 Nếu đa giác lồi, ta có thể kiểm tra P nằm cùng "phía" với tất cả cạnh:
@@ -224,6 +277,19 @@ bool pointInConvexPolygon(Point P, vector<Point>& polygon) {
     }
     return true;
 }
+```
+
+### Code Python
+
+```python
+def point_in_convex_polygon(P, polygon):
+    n = len(polygon)
+    for i in range(n):
+        j = (i + 1) % n
+        if cross((polygon[j][0]-polygon[i][0], polygon[j][1]-polygon[i][1]),
+                 (P[0]-polygon[i][0], P[1]-polygon[i][1])) < 0:
+            return False
+    return True
 ```
 
 ---
@@ -268,6 +334,17 @@ double triangleAreaHeron(double a, double b, double c) {
 }
 ```
 
+### Code Python
+
+```python
+def triangle_area(A, B, C):
+    return abs(cross((B[0]-A[0], B[1]-A[1]), (C[0]-A[0], C[1]-A[1]))) / 2.0
+
+def triangle_area_heron(a, b, c):
+    s = (a + b + c) / 2
+    return math.sqrt(s * (s-a) * (s-b) * (s-c))
+```
+
 ---
 
 ## 6. Khoảng cách trong hình học
@@ -280,6 +357,13 @@ Cho đường thẳng đi qua A và B, khoảng cách từ P đến đường th
 double distPointToLine(Point P, Point A, Point B) {
     return abs(cross(B - A, P - A)) / distance(A, B);
 }
+```
+
+### Code Python
+
+```python
+def dist_point_to_line(P, A, B):
+    return abs(cross((B[0]-A[0], B[1]-A[1]), (P[0]-A[0], P[1]-A[1]))) / distance(A, B)
 ```
 
 ### Khoảng cách từ điểm đến đoạn thẳng
@@ -296,6 +380,17 @@ double distPointToSegment(Point P, Point A, Point B) {
     Point projection = A + (B - A) * t;
     return distance(P, projection);
 }
+```
+
+### Code Python
+
+```python
+def dist_point_to_segment(P, A, B):
+    d2 = (A[0]-B[0])**2 + (A[1]-B[1])**2
+    if d2 == 0: return distance(P, A)
+    t = max(0, min(1, dot((P[0]-A[0], P[1]-A[1]), (B[0]-A[0], B[1]-A[1])) / d2))
+    projection = (A[0] + (B[0]-A[0])*t, A[1] + (B[1]-A[1])*t)
+    return distance(P, projection)
 ```
 
 ---

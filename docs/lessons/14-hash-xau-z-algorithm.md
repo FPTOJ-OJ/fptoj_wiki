@@ -152,6 +152,33 @@ vector<int> zSearch(string text, string pattern) {
 }
 ```
 
+### Code Python - Z-Algorithm
+
+```python
+def z_function(s):
+    n = len(s)
+    z = [0] * n
+    l, r = 0, 0
+    for i in range(1, n):
+        if i <= r:
+            z[i] = min(r - i + 1, z[i - l])
+        while i + z[i] < n and s[z[i]] == s[i + z[i]]:
+            z[i] += 1
+        if i + z[i] - 1 > r:
+            l, r = i, i + z[i] - 1
+    return z
+
+def z_search(text, pattern):
+    combined = pattern + "$" + text
+    z = z_function(combined)
+    m = len(pattern)
+    positions = []
+    for i in range(m + 1, len(combined)):
+        if z[i] == m:
+            positions.append(i - m - 1)
+    return positions
+```
+
 ---
 
 ## 3. So sánh 3 thuật toán tìm xâu mẫu

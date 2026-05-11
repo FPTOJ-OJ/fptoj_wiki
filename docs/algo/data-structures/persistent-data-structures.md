@@ -110,6 +110,54 @@ int get(int nodeId, int l, int r, int u, int v) {
 
 ```
 
+```python
+class PersistentSegTree:
+    def __init__(self, max_nodes):
+        self.left = [0] * max_nodes
+        self.right = [0] * max_nodes
+        self.ln = [0] * max_nodes
+        self.nNode = 0
+        self.ver = []
+
+    def _refine(self, cur):
+        self.ln[cur] = max(self.ln[self.left[cur]], self.ln[self.right[cur]])
+
+    def update(self, l, r, u, x, oldId):
+        if l == r:
+            self.nNode += 1
+            self.ln[self.nNode] = x
+            return self.nNode
+
+        mid = (l + r) >> 1
+        self.nNode += 1
+        cur = self.nNode
+
+        if u <= mid:
+            self.left[cur] = self.update(l, mid, u, x, self.left[oldId])
+            self.right[cur] = self.right[oldId]
+            self._refine(cur)
+        else:
+            self.left[cur] = self.left[oldId]
+            self.right[cur] = self.update(mid + 1, r, u, x, self.right[oldId])
+            self._refine(cur)
+
+        return cur
+
+    def get(self, nodeId, l, r, u, v):
+        if v < l or r < u:
+            return -1
+        if u <= l and r <= v:
+            return self.ln[nodeId]
+        mid = (l + r) >> 1
+        return max(self.get(self.left[nodeId], l, mid, u, v),
+                   self.get(self.right[nodeId], mid + 1, r, u, v))
+
+# When update:
+#   pst.ver.append(pst.update(1, n, u, x, pst.ver[-1]))
+# When query:
+#   res = pst.get(pst.ver[t], 1, n, u, v)
+```
+
 Giải thích:
 
 - Ban đầu, ta có một mảng it, lưu tất cả các nút sẽ được sinh ra của IT. Mỗi nút gồm có

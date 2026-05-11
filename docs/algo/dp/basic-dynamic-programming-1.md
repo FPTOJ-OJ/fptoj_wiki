@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 Bài viết có tham khảo và bổ sung, chỉnh sửa từ [TopCoder](https://www.topcoder.com/thrive/articles/Dynamic%20Programming:%20From%20Novice%20to%20Advanced) và một số nguồn khác.
 
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
@@ -55,6 +53,14 @@ int solve(int n)
     return 2 * solve(n - 1) + 2 * solve(n - 2);
 }
 ```
+```python
+def solve(n):
+    if n == 1:
+        return 3
+    if n == 2:
+        return 8
+    return 2 * solve(n - 1) + 2 * solve(n - 2)
+```
 Thuật toán trên có độ phức tạp lũy thừa nên chỉ áp dụng được với $n$ nhỏ $(n < 45)$, không đủ nhanh so với yêu cầu bài toán.
 
 ### Tối ưu thuật toán đệ quy
@@ -96,6 +102,20 @@ int solve(int n)
         return d[n];
     }
 }
+```
+```python
+d = [0] * 100010
+
+def solve(n):
+    if n == 1:
+        return 3
+    elif n == 2:
+        return 8
+    elif d[n] != 0:
+        return d[n]
+    else:
+        d[n] = 2 * solve(n - 1) + 2 * solve(n - 2)
+        return d[n]
 ```
 Thuật toán trên có độ phức tạp $O(n)$.
 
@@ -149,6 +169,15 @@ int main()
     cout << f[n];
     return 0;
 }
+```
+```python
+n = int(input())
+f = [0] * (n + 1)
+f[1] = 3
+f[2] = 8
+for i in range(3, n + 1):
+    f[i] = 2 * f[i - 1] + 2 * f[i - 2]
+print(f[n])
 ```
 Độ phức tạp của thuật toán trên là $O(n)$, nhưng cách thực hiện đơn giản hơn đệ quy có nhớ.
 
@@ -231,6 +260,22 @@ int main()
     cout << f[S];
 }
 ```
+```python
+n, S = map(int, input().split())
+v = list(map(int, input().split()))
+f = [-1] * (S + 1)
+f[0] = 0
+
+for i in range(1, S + 1):
+    for j in range(n):
+        if v[j] <= i and f[i - v[j]] != -1:
+            if f[i] != -1:
+                f[i] = min(f[i], f[i - v[j]] + 1)
+            else:
+                f[i] = f[i - v[j]] + 1
+
+print(f[S])
+```
 **Nhận xét:** Đôi khi, trạng thái trong bài QHĐ chính là yêu cầu của bài toán.
 
 ## Tìm độ dài dãy con không giảm dài nhất
@@ -274,6 +319,18 @@ int main()
         mx = max(mx, f[i]);
     cout << mx;
 }
+```
+```python
+n = int(input())
+a = list(map(int, input().split()))
+f = [1] * n
+
+for i in range(1, n):
+    for j in range(i):
+        if a[j] <= a[i]:
+            f[i] = max(f[i], f[j] + 1)
+
+print(max(f))
 ```
 
 **Ví dụ minh họa:** 
@@ -334,6 +391,31 @@ int main()
     for (auto i = seq.rbegin(); i != seq.rend(); i++)
         cout << (*i) << ' ';
 }
+```
+```python
+n = int(input())
+a = [0] + list(map(int, input().split()))
+f = [0] * (n + 1)
+d = [0] * (n + 1)
+
+for i in range(1, n + 1):
+    f[i] = 1
+    for j in range(1, i):
+        if a[j] <= a[i] and f[i] < f[j] + 1:
+            f[i] = f[j] + 1
+            d[i] = j
+
+t = 1
+for i in range(1, n + 1):
+    if f[i] > f[t]:
+        t = i
+
+seq = []
+while t:
+    seq.append(a[t])
+    t = d[t]
+
+print(' '.join(map(str, reversed(seq))))
 ```
 ### Bố trí phòng họp (mất tính thứ tự so với dãy ban đầu)
 
@@ -410,6 +492,35 @@ int main()
         cout << (*i) << ' ';
 }
 ```
+```python
+n = int(input())
+meetings = []
+for i in range(1, n + 1):
+    a, b = map(int, input().split())
+    meetings.append((a, b, i))
+
+meetings.sort()
+f = [1] * (n + 1)
+d = [0] * (n + 1)
+
+for i in range(1, n + 1):
+    for j in range(1, i):
+        if meetings[j - 1][1] <= meetings[i - 1][0] and f[i] < f[j] + 1:
+            f[i] = f[j] + 1
+            d[i] = j
+
+t = 1
+for i in range(1, n + 1):
+    if f[i] > f[t]:
+        t = i
+
+seq = []
+while t:
+    seq.append(meetings[t - 1][2])
+    t = d[t]
+
+print(' '.join(map(str, reversed(seq))))
+```
 
 
 ### Cho thuê máy
@@ -458,6 +569,26 @@ int main()
     }
     // ... truy vết
 }
+```
+```python
+n = int(input())
+items = []
+for i in range(1, n + 1):
+    a, b, c = map(int, input().split())
+    items.append((a, b, c, i))
+
+items.sort()
+f = [0] * (n + 1)
+d = [0] * (n + 1)
+
+for i in range(1, n + 1):
+    f[i] = items[i - 1][2]
+    for j in range(1, i):
+        if items[j - 1][1] <= items[i - 1][0] and f[i] < f[j] + items[i - 1][2]:
+            f[i] = f[j] + items[i - 1][2]
+            d[i] = j
+
+# Truy vết tương tự bài bố trí phòng họp
 ```
 
 ### Dãy tam giác bao nhau
@@ -529,6 +660,21 @@ int main()
     cout << mx;
 }
 ```
+```python
+n, U, L = map(int, input().split())
+a = [0] + list(map(int, input().split()))
+P = [1] * (n + 1)
+Q = [1] * (n + 1)
+
+for i in range(1, n + 1):
+    for j in range(1, i - L + 1):
+        if a[i] - U <= a[j] < a[i]:
+            Q[i] = max(Q[i], P[j] + 1)
+        if a[i] < a[j] <= a[i] + U:
+            P[i] = max(P[i], Q[j] + 1)
+
+print(max(max(P[1:]), max(Q[1:])))
+```
 
 ### Dãy số WAVIO
 
@@ -591,6 +737,22 @@ int main()
     cout << f[m][n];
 }
 ```
+```python
+n, m = map(int, input().split())
+a = [[0] * (n + 1) for _ in range(m + 1)]
+f = [[0] * (n + 1) for _ in range(m + 1)]
+
+for i in range(1, m + 1):
+    row = list(map(int, input().split()))
+    for j in range(1, n + 1):
+        a[i][j] = row[j - 1]
+
+for i in range(1, m + 1):
+    for j in range(1, n + 1):
+        f[i][j] = max(f[i - 1][j], f[i][j - 1]) + a[i][j]
+
+print(f[m][n])
+```
 
 ### Ví dụ khác
 
@@ -634,6 +796,16 @@ for (int i = 1; i <= n; i++)
         else
             L[i][j] = L[i - 1][j];
 ```
+```python
+L = [[0] * (W + 1) for _ in range(n + 1)]
+
+for i in range(1, n + 1):
+    for j in range(1, W + 1):
+        if A[i] <= j:
+            L[i][j] = max(L[i - 1][j - A[i]] + B[i], L[i - 1][j])
+        else:
+            L[i][j] = L[i - 1][j]
+```
 
 ## 2.4. Một số bài toán khác
 
@@ -661,6 +833,14 @@ for (int i = 1; i <= n; i++)
     for (int t = S; t >= a[i]; t--)
         if (L[t - a[i]] == 1)
             L[t] = 1;
+```
+```python
+L = [0] * (S + 1)
+L[0] = 1
+for i in range(n):
+    for t in range(S, a[i] - 1, -1):
+        if L[t - a[i]] == 1:
+            L[t] = 1
 ```
 
 Dễ thấy độ phức tạp bộ nhớ của cách cài đặt trên là $O(m)$, độ phức tạp thời gian là $O(nm)$, với $m$ là tổng của $n$ số.
@@ -717,6 +897,28 @@ int main()
     cout << mx << ' ' << t - mx;
 }
 ```
+```python
+n = int(input())
+a = list(map(int, input().split()))
+t = sum(a)
+L = [[False] * (t // 2 + 1) for _ in range(n + 1)]
+
+for i in range(n + 1):
+    L[i][0] = True
+
+for i in range(1, n + 1):
+    for j in range(1, t // 2 + 1):
+        L[i][j] = L[i - 1][j]
+        if a[i - 1] <= j:
+            L[i][j] = L[i][j] or L[i - 1][j - a[i - 1]]
+
+mx = 0
+for i in range(1, t // 2 + 1):
+    if L[n][i]:
+        mx = i
+
+print(mx, t - mx)
+```
 
 ### Market (Olympic Balkan 2000)
 
@@ -771,3 +973,5 @@ Dễ thấy mảnh đất thứ $i$ có $A_i$ cây ôliu và dải đất thứ 
 Quy hoạch động là phương pháp tự nhiên và có thể áp dụng được trong rất nhiều bài toán. Khi gặp một bài toán, hãy để ý xem nó có được giải trong thời gian đa thức không. Nếu có, hãy thử xác định trạng thái của nó và mối liên hệ giữa các trạng thái. Đôi khi ta cần phân tích một chút để đưa bài toán về QHĐ như các ví dụ ở trên.
 
 Chúc các bạn học tập tốt!
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

@@ -114,6 +114,14 @@ for (int i = 0; i < n; i++) sum += i;   // O(n)
 for (int j = 0; j < n; j++) sum += j;   // O(n)
 // Tổng: O(n) + O(n) = O(2n) = O(n)
 ```
+```python
+s = 0
+for i in range(n):      # O(n)
+    s += i
+for j in range(n):      # O(n)
+    s += j
+# Tổng: O(n) + O(n) = O(2n) = O(n)
+```
 
 **Ví dụ 2: Hai vòng lặp lồng nhau**
 ```cpp
@@ -124,6 +132,13 @@ for (int i = 0; i < n; i++) {       // n lần
     }
 }
 // Tổng: O(n) × O(n) = O(n²)
+```
+```python
+s = 0
+for i in range(n):          # n lần
+    for j in range(n):      # n lần
+        s += j
+# Tổng: O(n) × O(n) = O(n²)
 ```
 
 **Ví dụ 3: Vòng trong chạy ít hơn**
@@ -136,6 +151,13 @@ for (int i = 0; i < n; i++) {       // n lần
 }
 // Tổng: n(n-1)/2 = O(n²)  ← Vẫn là O(n²) vì bỏ hệ số!
 ```
+```python
+s = 0
+for i in range(n):          # n lần
+    for j in range(i):      # 0 + 1 + 2 + ... + (n-1) = n(n-1)/2 lần
+        s += j
+# Tổng: n(n-1)/2 = O(n²)  ← Vẫn là O(n²) vì bỏ hệ số!
+```
 
 ### Kĩ thuật Hai con trỏ - Kẻ lừa đảo!
 
@@ -146,6 +168,12 @@ for (int i = 0; i < n; i++) {              // i chạy từ 0 đến n
     while (j < n && a[i] - a[j] > d)       // j cũng chỉ chạy từ 0 đến n
         j++;
 }
+```
+```python
+j = 0
+for i in range(n):                          # i chạy từ 0 đến n
+    while j < n and a[i] - a[j] > d:        # j cũng chỉ chạy từ 0 đến n
+        j += 1
 ```
 
 Thoạt nhìn: vòng lặp lồng nhau → O(n²)?
@@ -215,6 +243,23 @@ int binary_search(int a[], int n, int target) {
 }
 // Mỗi bước giảm một nửa → O(log N)
 ```
+```python
+def binary_search(a, target):
+    """Tìm kiếm nhị phân: tìm xem 'target' có trong mảng đã sắp xếp không"""
+    lo, hi = 0, len(a) - 1         # Giới hạn tìm kiếm: từ đầu đến cuối mảng
+    
+    while lo <= hi:                 # Khi còn khoảng để tìm
+        mid = lo + (hi - lo) // 2   # Chọn vị trí giữa (tránh tràn số!)
+        
+        if a[mid] == target:
+            return mid              # Tìm thấy!
+        elif a[mid] < target:
+            lo = mid + 1            # Target nằm bên phải → bỏ nửa trái
+        else:
+            hi = mid - 1            # Target nằm bên trái → bỏ nửa phải
+    return -1                       # Không tìm thấy
+# Mỗi bước giảm một nửa → O(log N)
+```
 
 ### Code Python
 
@@ -261,6 +306,16 @@ for (int i = 0; i < n; i++) sum++;
 for (int i = 0; i < n; i++)
     for (int k = 0; k < 1000; k++) sum++;
 ```
+```python
+# Cách 1: O(n), hằng số nhỏ
+for i in range(n):
+    s += 1
+
+# Cách 2: O(n), hằng số lớn (gấp 1000 lần!)
+for i in range(n):
+    for k in range(1000):
+        s += 1
+```
 
 Cả hai đều O(n), nhưng cách 2 chậm gấp 1000 lần!
 
@@ -272,6 +327,13 @@ int mid = (lo + hi) / 2;
 
 // ĐÚNG: tránh tràn số
 int mid = lo + (hi - lo) / 2;
+```
+```python
+# SAI: Python không tràn số nhưng vẫn nên dùng cách đúng để nhất quán
+mid = (lo + hi) // 2
+
+# ĐÚNG: tránh tràn số (thói quen tốt)
+mid = lo + (hi - lo) // 2
 ```
 
 ### Bẫy 4: O(1) ≠ "chạy nhanh"
@@ -289,6 +351,11 @@ for (int i = 1; i <= n; i++) {
         // ...
     }
 }
+```
+```python
+for i in range(1, n + 1):
+    for j in range(i, n + 1, i):       # step = i, không phải 1
+        pass
 ```
 
 Vòng trong chạy n/1 + n/2 + n/3 + ... + n/n = n × (1 + 1/2 + 1/3 + ... + 1/n) ≈ n × log N

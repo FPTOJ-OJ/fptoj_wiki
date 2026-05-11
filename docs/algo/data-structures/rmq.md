@@ -57,6 +57,14 @@ int queryMin(int l, int r) {
 }
 ```
 
+```python
+def queryMin(l, r):
+    mi = float('inf')
+    for i in range(l, r + 1):
+        mi = min(mi, a[i])
+    return mi
+```
+
 #### Phân tích
 - Độ phức tạp truy vấn: $\mathcal{O}(r - l + 1) = \mathcal{O}(N)$
 - Có $Q$ truy vấn, vì thế tổng độ phức tạp là $\mathcal{O}(Q \cdot N)$
@@ -225,6 +233,25 @@ int queryMin(int l, int r) {
 }
 ```
 
+```python
+import math
+
+# LG là số lớn nhất thoả 2^LG < N
+LG = 16
+st = [[0] * N for _ in range(LG + 1)]
+
+def preprocess():
+    for i in range(1, n + 1):
+        st[0][i] = a[i]
+    for j in range(1, LG + 1):
+        for i in range(1, n + 1 - (1 << j) + 1):
+            st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))])
+
+def queryMin(l, r):
+    k = int(math.log2(r - l + 1))
+    return min(st[k][l], st[k][r - (1 << k) + 1])
+```
+
 - Độ phức tạp tiền xử lý: $\mathcal{O}(N \log N)$
 - Độ phức tạp truy vấn: $\mathcal{O}(1)$
 - Có $Q$ truy vấn, vì thế tổng độ phức tạp thời gian là $\mathcal{O}(N\log N + Q)$
@@ -269,6 +296,30 @@ int querySum(int l, int r) {
         }
     return sum;
 }
+```
+
+```python
+# LG là số lớn nhất thoả 2^LG < N
+LG = 16
+st = [[0] * N for _ in range(LG + 1)]
+
+def preprocess():
+    for i in range(1, n + 1):
+        st[0][i] = a[i]
+    for j in range(1, LG + 1):
+        for i in range(1, n + 1 - (1 << j) + 1):
+            st[j][i] = st[j - 1][i] + st[j - 1][i + (1 << (j - 1))]
+
+def querySum(l, r):
+    length = r - l + 1
+    s = 0
+    j = 0
+    while (1 << j) <= length:
+        if (length >> j) & 1:
+            s += st[j][l]
+            l += (1 << j)
+        j += 1
+    return s
 ```
 
 - Độ phức tạp tiền xử lý: $\mathcal{O}(N \log N)$

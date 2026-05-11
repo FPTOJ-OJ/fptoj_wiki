@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 ## Tư tưởng
 
 Bảng băm là một CTDL thường được sử dụng như một từ điển: mỗi phần tử trong bảng băm là một cặp (khóa, giá trị). Nếu so sánh với mảng, khóa được xem như chỉ số của mảng, còn giá trị giống như giá trị mà ta lưu tại chỉ số tương ứng. Bảng băm không như các loại từ điển thông thường - ta có thể tìm được giá trị thông qua khóa của nó.
@@ -101,6 +99,32 @@ private:
 };
 ```
 
+```python
+P = 10**6 + 3
+
+class HashTable:
+    def __init__(self):
+        self.h = [[] for _ in range(P)]
+
+    def _get_hash(self, key):
+        # Cho 1 key, tra lai Hash value la key % P
+        return key % P
+
+    def insert(self, key, value):
+        hkey = self._get_hash(key)
+        for k, v in self.h[hkey]:
+            if k == key:
+                return  # key đã tồn tại trong Hash table, ta bỏ qua
+        self.h[hkey].append((key, value))
+
+    def find(self, key):
+        hkey = self._get_hash(key)
+        for k, v in self.h[hkey]:
+            if k == key:
+                return v  # tồn tại key trong Hash table, return value
+        return 0  # Không tìm thấy
+```
+
 ## Kết luận
 
 Trong phát triển ứng dụng, bảng hash thuận tiện để lưu trữ dữ liệu tham khảo, chẳng hạn như chữ viết tắt tên đầy đủ của các tổ chức. Trong giải quyết bài toán, bảng hash thật sự hữu ích để tiếp cận hướng giải quyết chia để trị cho bài toán cái túi (knapsack-type).
@@ -111,3 +135,5 @@ Giả sử, chúng ta được yêu cầu tìm một số lượng ống nhỏ n
 
 - [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/data-structures/)
 - [Wikipedia](https://en.wikipedia.org/wiki/Hash_table)
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

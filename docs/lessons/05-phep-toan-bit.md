@@ -103,6 +103,11 @@ for (int mask = 0; mask < (1 << n); mask++) {
     // mask là mỗi tập con của {0, 1, ..., n-1}
 }
 ```
+```python
+for mask in range(1 << n):
+    # mask là mỗi tập con của {0, 1, ..., n-1}
+    pass
+```
 
 Với n phần tử → có 2^n tập con.
 
@@ -203,6 +208,10 @@ long long x = 1 << 40;
 // ĐÚNG: dùng 1LL
 long long x = 1LL << 40;
 ```
+```python
+# Python tự động xử lý số lớn, không cần lo tràn
+x = 1 << 40
+```
 
 ### Bẫy 2: Thứ tự ưu tiên toán tử
 
@@ -213,6 +222,13 @@ if (mask & (1 << i) == 0) ...  // Được hiểu là: mask & ((1 << i) == 0)
 // ĐÚNG: dùng ngoặc
 if ((mask & (1 << i)) == 0) ...
 ```
+```python
+# SAI: & có ưu tiên thấp hơn ==
+if mask & (1 << i) == 0: ...    # Được hiểu là: mask & ((1 << i) == 0)
+
+# ĐÚNG: dùng ngoặc
+if (mask & (1 << i)) == 0: ...
+```
 
 ### Bẫy 3: NOT (~) trên int
 
@@ -222,6 +238,13 @@ int mask = 0b101;
 
 // ĐÚNG: chỉ đảo n bit đầu
 int not_mask = mask ^ ((1 << n) - 1);
+```
+```python
+mask = 0b101
+# Python: ~mask cũng đảo tất cả bit (dùng bù 2), nhưng không ảnh hưởng khi dùng với bitmask
+
+# ĐÚNG: chỉ đảo n bit đầu
+not_mask = mask ^ ((1 << n) - 1)
 ```
 
 ### Mẹo thi cử

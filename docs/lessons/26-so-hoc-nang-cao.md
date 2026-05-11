@@ -51,6 +51,31 @@ vector<int> eulerSieve(int n) {
 }
 ```
 
+```python
+# Tính φ(n) - O(sqrt(n))
+def euler_phi(n):
+    result = n
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            while n % i == 0:
+                n //= i
+            result -= result // i
+        i += 1
+    if n > 1:
+        result -= result // n
+    return result
+
+# Sàng Euler - tính φ cho tất cả số từ 1 đến N - O(N log log N)
+def euler_sieve(n):
+    phi = list(range(n + 1))
+    for i in range(2, n + 1):
+        if phi[i] == i:  # i là nguyên tố
+            for j in range(i, n + 1, i):
+                phi[j] -= phi[j] // i
+    return phi
+```
+
 ---
 
 ## 2. Tính tổ hợp với modulo

@@ -55,6 +55,18 @@ else {
     double y = (A1 * C2 - A2 * C1) / det;
 }
 ```
+```python
+det = A1 * B2 - A2 * B1
+if det == 0:
+    # Lines are parallel or coincident
+    if A1 * C2 == A2 * C1:
+        pass  # Lines are coincident
+    else:
+        pass  # Lines are parallel
+else:
+    x = (B2 * C1 - B1 * C2) / det
+    y = (A1 * C2 - A2 * C1) / det
+```
 
 Để biết được công thức ở đoạn code trên từ đâu ra, ta nhân phương trình thứ nhất với $B_2$, và nhân phương trình thứ hai với $B_1$:
 

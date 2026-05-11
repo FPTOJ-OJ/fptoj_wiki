@@ -32,6 +32,15 @@ a[7] = temp;
 // Cách 2: dùng hàm có sẵn (C++)
 swap(a[3], a[7]);
 ```
+```python
+# Cách 1: dùng biến tạm
+temp = a[3]
+a[3] = a[7]
+a[7] = temp
+
+# Cách 2: Pythonic - đổi chỗ trực tiếp
+a[3], a[7] = a[7], a[3]
+```
 
 ### Sắp xếp ổn định (Stable Sort) là gì?
 
@@ -355,6 +364,13 @@ if (a[i] == a[j]) ...
 
 // ĐÚNG: so sánh với sai số nhỏ (epsilon)
 if (abs(a[i] - a[j]) < 1e-9) ...
+```
+```python
+# SAI: so sánh float bằng == không chính xác
+if a[i] == a[j]: ...
+
+# ĐÚNG: so sánh với sai số nhỏ (epsilon)
+if abs(a[i] - a[j]) < 1e-9: ...
 ```
 
 ### Mẹo thi cử: Khi nào dùng thuật toán nào?

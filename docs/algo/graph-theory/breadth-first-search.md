@@ -1,6 +1,4 @@
 
-> *Bài viết này đã được biên soạn lại thành bài học dễ hiểu tại thư mục `lessons/`. Đã bổ sung bởi Hà Trí Kiên.*
-
 **Nguồn:** [CP-Algorithms](https://cp-algorithms.com/graph/breadth-first-search.html), [Giải thuật và lập trình - Lê Minh Hoàng](algo/basic/Tai-Lieu-Thuat-Toan)
 
 **Biên soạn:**
@@ -108,6 +106,27 @@ void bfs(int s) { // Với s là đỉnh xuất phát (đỉnh nguồn)
     }
 }
 ```
+```python
+from collections import deque
+
+def bfs(s, n, g):
+    d = [0] * (n + 1)
+    par = [-1] * (n + 1)
+    visit = [False] * (n + 1)
+
+    q = deque()
+    q.append(s)
+    visit[s] = True
+    while q:
+        u = q.popleft()
+        for v in g[u]:
+            if not visit[v]:
+                d[v] = d[u] + 1
+                par[v] = u
+                visit[v] = True
+                q.append(v)
+    return d, par
+```
 
 ### **Truy vết**
 
@@ -124,6 +143,18 @@ else {
     cout << "Path: ";
     for (auto v : path) cout << v << ' ';
 }
+```
+```python
+if not visit[u]:
+    print("No path!")
+else:
+    path = []
+    v = u
+    while v != -1:
+        path.append(v)
+        v = par[v]
+    path.reverse()
+    print("Path:", ' '.join(map(str, path)))
 ```
 
 ## Các đặc tính của thuật toán
@@ -262,6 +293,36 @@ int main() {
         if (!visit[i]) bfs(i);
     cout << components;
 }
+```
+```python
+from collections import deque
+
+def bfs(s, g, visit):
+    q = deque()
+    q.append(s)
+    visit[s] = True
+    while q:
+        u = q.popleft()
+        for v in g[u]:
+            if not visit[v]:
+                visit[v] = True
+                q.append(v)
+
+n, m = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+    g[v].append(u)
+
+visit = [False] * (n + 1)
+components = 0
+for i in range(1, n + 1):
+    if not visit[i]:
+        components += 1
+        bfs(i, g, visit)
+
+print(components)
 ```
 
 ### **Đánh giá**
@@ -404,6 +465,62 @@ int main() {
     }
 }
 ```
+```python
+from collections import deque
+
+moveX = [0, 0, 1, -1]
+moveY = [1, -1, 0, 0]
+
+def bfs(sx, sy, n, m, a, visit):
+    size_slicks = 1
+    q = deque()
+    q.append((sx, sy))
+    visit[sx][sy] = True
+    while q:
+        x, y = q.popleft()
+        for i in range(4):
+            u = x + moveX[i]
+            v = y + moveY[i]
+            if u > n or u < 1:
+                continue
+            if v > m or v < 1:
+                continue
+            if a[u][v] and not visit[u][v]:
+                size_slicks += 1
+                visit[u][v] = True
+                q.append((u, v))
+    return size_slicks
+
+while True:
+    n, m = map(int, input().split())
+    if n == 0 and m == 0:
+        break
+    a = [[False] * (m + 1) for _ in range(n + 1)]
+    visit = [[False] * (m + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        row = list(map(int, input().split()))
+        for j in range(1, m + 1):
+            a[i][j] = bool(row[j - 1])
+
+    slicks = []
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if a[i][j] and not visit[i][j]:
+                slicks.append(bfs(i, j, n, m, a, visit))
+
+    print(len(slicks))
+    slicks.sort()
+    slicks.append(10**9)
+    number = 0
+    pre = slicks[0]
+    for v in slicks:
+        if v != pre:
+            print(pre, number)
+            pre = v
+            number = 1
+        else:
+            number += 1
+```
 
 ### **Đánh giá**
 
@@ -532,6 +649,52 @@ int main() {
     cout << d[tx][ty];
 }
 ```
+```python
+from collections import deque
+
+moveX = [0, 0, 1, -1]
+moveY = [1, -1, 0, 0]
+
+def bfs(sx, sy, r, c, a):
+    d = [[0] * (c + 1) for _ in range(r + 1)]
+    visit = [[False] * (c + 1) for _ in range(r + 1)]
+    q = deque()
+    q.append((sx, sy))
+    visit[sx][sy] = True
+    while q:
+        x, y = q.popleft()
+        if a[x][y] == 'B':
+            return d
+        for i in range(4):
+            u = x + moveX[i]
+            v = y + moveY[i]
+            if u > r or u < 1:
+                continue
+            if v > c or v < 1:
+                continue
+            if a[u][v] == '*':
+                continue
+            if not visit[u][v]:
+                d[u][v] = d[x][y] + 1
+                visit[u][v] = True
+                q.append((u, v))
+    return d
+
+r, c = map(int, input().split())
+a = [[''] * (c + 1) for _ in range(r + 1)]
+sx = sy = tx = ty = 0
+for i in range(1, r + 1):
+    row = input().strip()
+    for j in range(1, c + 1):
+        a[i][j] = row[j - 1]
+        if a[i][j] == 'C':
+            sx, sy = i, j
+        if a[i][j] == 'B':
+            tx, ty = i, j
+
+d = bfs(sx, sy, r, c, a)
+print(d[tx][ty])
+```
 
 ### **Đánh giá**
 
@@ -628,6 +791,35 @@ int main() {
     else cout << "use the stairs";  
 }
 ```
+```python
+from collections import deque
+
+def bfs(f, s, g, u, d):
+    number = [0] * (f + 1)
+    visit = [False] * (f + 1)
+    q = deque()
+    q.append(s)
+    visit[s] = True
+    while q:
+        x = q.popleft()
+        if x == g:
+            return number[g]
+        for y in [x + u, x - d]:
+            if y > f or y < 1:
+                continue
+            if not visit[y]:
+                visit[y] = True
+                number[y] = number[x] + 1
+                q.append(y)
+    return -1
+
+f, s, g, u, d = map(int, input().split())
+ans = bfs(f, s, g, u, d)
+if ans != -1:
+    print(ans)
+else:
+    print("use the stairs")
+```
 
 ### **Đánh giá**
 
@@ -718,6 +910,44 @@ int main() {
     
     for (auto v : path) cout << v << ' ';
 }
+```
+```python
+from collections import deque
+
+def bfs(s, n, g):
+    par = [-1] * (n + 1)
+    visit = [False] * (n + 1)
+    q = deque()
+    q.append(s)
+    visit[s] = True
+    while q:
+        u = q.popleft()
+        for v in g[u]:
+            if not visit[v]:
+                par[v] = u
+                visit[v] = True
+                q.append(v)
+    return par
+
+n, m, s, t = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append(v)
+
+for i in range(1, n + 1):
+    g[i].sort()
+
+par = bfs(s, n, g)
+
+path = []
+v = t
+while v != -1:
+    path.append(v)
+    v = par[v]
+path.reverse()
+
+print(' '.join(map(str, path)))
 ```
 
 ### **Đánh giá**
@@ -862,6 +1092,41 @@ int main() {
     }
 } 
 ```
+```python
+from collections import deque
+
+def bfs(s, n, g):
+    d = [0] * (n + 1)
+    visit = [False] * (n + 1)
+    q = deque()
+    q.append(s)
+    visit[s] = True
+    while q:
+        u = q.popleft()
+        for v in g[u]:
+            if v == s:
+                return d[u] + 1
+            if not visit[v]:
+                d[v] = d[u] + 1
+                visit[v] = True
+                q.append(v)
+    return 0
+
+n = int(input())
+g = [[] for _ in range(n + 1)]
+for i in range(1, n + 1):
+    row = list(map(int, input().split()))
+    for j in range(1, n + 1):
+        if row[j - 1]:
+            g[i].append(j)
+
+for i in range(1, n + 1):
+    ans = bfs(i, n, g)
+    if ans:
+        print(ans)
+    else:
+        print("NO WAY")
+```
 
 ### **Đánh giá**
 
@@ -966,6 +1231,39 @@ int main() {
     bfs(1);
     cout << d[n];
 }
+```
+```python
+from collections import deque
+
+def bfs(s, n, g):
+    INF = 10**9
+    d = [INF] * (n + 1)
+    q = deque()
+    q.append(s)
+    d[s] = 0
+    while q:
+        u = q.popleft()
+        if u == n:
+            return d
+        for w, v in g[u]:
+            if d[v] > d[u] + w:
+                d[v] = d[u] + w
+                if w:
+                    q.append(v)
+                else:
+                    q.appendleft(v)
+    d[n] = -1
+    return d
+
+n, m = map(int, input().split())
+g = [[] for _ in range(n + 1)]
+for _ in range(m):
+    u, v = map(int, input().split())
+    g[u].append((0, v))
+    g[v].append((1, u))
+
+d = bfs(1, n, g)
+print(d[n])
 ```
 
 ### **Đánh giá**
@@ -1119,3 +1417,5 @@ Ta cũng có thể sử dụng  thuật toán tìm kiếm theo chiều sâu *(De
 **Độ phức tạp**
 
 Độ phức tạp của thuật toán là $O(t \times (n + l))$. Với $t$ là số lượng bộ test.
+---
+> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
