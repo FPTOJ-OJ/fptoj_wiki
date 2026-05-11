@@ -482,4 +482,4 @@ g(x'_i) &= g(x_i)
 
 Với hai ý được chứng minh này, ta đã chứng minh được định lý 2. $\square$
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

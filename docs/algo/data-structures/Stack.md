@@ -610,4 +610,4 @@ for (int k = 1; k <= n; ++k)
 * [1132G - Codeforces](https://codeforces.com/problemset/problem/1132/G)
 * Tham khảo thêm tại: [VNOI Problem List](https://vnoi.info/problems/list/)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

@@ -511,4 +511,4 @@ solve()
 - [SPOJ Number of Palindromes](https://www.spoj.com/problems/NUMOFPAL/)
 - [Kattis Palindromes](https://open.kattis.com/problems/palindromes)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

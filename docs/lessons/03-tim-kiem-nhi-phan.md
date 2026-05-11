@@ -419,7 +419,7 @@ Bài toán có thể dùng Binary Search khi:
 ```
 lo = cận dưới, hi = cận trên
 while (lo < hi):
-    mid = (lo + hi) / 2
+    mid = lo + (hi - lo) // 2
     if P(mid) hợp lệ:
         hi = mid
     else:

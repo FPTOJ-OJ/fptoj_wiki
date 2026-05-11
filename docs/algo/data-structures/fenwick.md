@@ -418,4 +418,4 @@ def rangeSum(l, r):
 
 VNOI Online Judge có phân loại riêng các bài tập về BIT, các bạn có thể tham khảo tại [đây](https://oj.vnoi.info/problems/?type=14&point_start=&point_end=).
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

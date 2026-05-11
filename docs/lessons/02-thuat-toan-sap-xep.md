@@ -215,7 +215,7 @@ void merge(int a[], int left, int mid, int right) {
 void mergeSort(int a[], int left, int right) {
     if (left >= right) return;      // Mảng 1 phần tử → đã sắp xếp
     
-    int mid = (left + right) / 2;   // Chia đôi
+    int mid = left + (right - left) / 2;   // Chia đôi (tránh tràn số)
     mergeSort(a, left, mid);        // Sắp xếp nửa trái
     mergeSort(a, mid + 1, right);   // Sắp xếp nửa phải
     merge(a, left, mid, right);     // Trộn 2 nửa
@@ -248,7 +248,7 @@ void quickSort(int a[], int left, int right) {
 int main() {
     int n;
     cin >> n;
-    int a[n];
+    vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
     
     // Chọn 1 trong 3 cách:
@@ -270,14 +270,14 @@ using namespace std;
 int main() {
     int n;
     cin >> n;
-    int a[n];
+    vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
     
     // Sắp xếp tăng dần - O(N log N)
-    sort(a, a + n);
+    sort(a.begin(), a.end());
     
     // Sắp xếp giảm dần
-    sort(a, a + n, greater<int>());
+    sort(a.begin(), a.end(), greater<int>());
     
     // Sắp xếp mảng vector
     vector<int> v = {5, 3, 8, 1, 9};

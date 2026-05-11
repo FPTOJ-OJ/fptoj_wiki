@@ -170,4 +170,4 @@ Tính đúng đắn của thuật toán đã được chứng minh ở phần *C
 - [Codechef - Chef and Strings](https://www.codechef.com/problems/CHSTR)
 - [Codeforces - Prefixes and Suffixes](http://codeforces.com/problemset/problem/432/D) -->
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

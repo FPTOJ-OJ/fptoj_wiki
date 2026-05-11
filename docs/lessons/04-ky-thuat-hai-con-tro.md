@@ -255,6 +255,8 @@ print(longest_subarray(b, 20))    # 4
 
 Hai con trỏ **chỉ hoạt động** khi mảng có tính đơn điệu (sắp xếp hoặc không có giá trị âm tùy bài).
 
+**Lưu ý quan trọng:** Kỹ thuật sliding window (đoạn con dài nhất có tổng ≤ S) chỉ hoạt động đúng khi mảng **không có phần tử âm**. Nếu mảng có số âm, tổng không đơn điệu khi thu hẹp đoạn → phải dùng prefix sum + map thay vì hai con trỏ.
+
 ### Bẫy 2: Lặp vô hạn
 
 ```cpp

@@ -68,7 +68,7 @@ int main() {
     string text = "aabcabaab";
     string pattern = "ab";
     auto pos = rabinKarp(text, pattern);
-    for (int p : pos) cout << p << " ";  // 1 4 7
+    for (int p : pos) cout << p << " ";  // 2 5 7
 }
 ```
 
@@ -190,12 +190,105 @@ def z_search(text, pattern):
 | Hash | O(N + M) | Linh hoạt, dễ code |
 | Z-algorithm | O(N + M) | Không cần hash, không lo collision |
 
-### Bẫy hay gặp với Hash
+## 4. Giải thích chi tiết: Hash tiền tố hoạt động thế nào?
 
-- **Hash collision:** 2 xâu khác nhau nhưng hash giống nhau → dùng 2 hash (2 MOD khác nhau) để giảm xác suất sai
-- **Quên `+ MOD` khi trừ:** `(a - b) % MOD` có thể âm → phải `((a - b) % MOD + MOD) % MOD`
+### Tại sao hash đoạn [l, r] tính được O(1)?
 
----
+Giống như prefix sum, ta tính hash **tiền tố** trước:
+
+```
+hashT[i] = hash của S[0..i-1] (i ký tự đầu)
+
+hashT[0] = 0
+hashT[1] = hash("a")
+hashT[2] = hash("ab")
+hashT[3] = hash("abc")
+...
+```
+
+Hash đoạn [l, r] = hashT[r+1] - hashT[l] × BASE^(r-l+1)
+
+```
+Ví dụ: S = "abcab", tính hash đoạn [2, 4] = "cab"
+
+hashT[5] = hash("abcab")
+hashT[2] = hash("ab")
+
+hash("cab") = hashT[5] - hashT[2] × BASE³
+            = hash("abcab") - hash("ab") × BASE³
+```
+
+**Tại sao nhân BASE³?** Vì hashT[l] đang ở bậc "thấp" hơn so với vị trí thực trong hashT[r+1]. Cần nhân lên để "cân bằng" trước khi trừ.
+
+### Hash collision — Tại sao nguy hiểm?
+
+2 xâu khác nhau có thể **trùng hash** (cùng giá trị số). Xác suất thấp nhưng **không phải 0**!
+
+```
+"abc" → hash = 12345
+"xyz" → hash = 12345  ← trùng! (hiếm nhưng xảy ra)
+```
+
+**Giải pháp:** Dùng **2 hash** với 2 MOD khác nhau:
+
+```cpp
+// Hash 1: MOD1 = 10^9 + 7
+// Hash 2: MOD2 = 10^9 + 9
+// Chỉ khi CẢ HAI hash giống nhau mới coi là trùng
+// Xác suất sai: ~1/(10^9 × 10^9) ≈ 0
+```
+
+## 5. Bẫy hay gặp với Hash
+
+### 5.1. Hash collision — Sai kết quả
+
+```cpp
+// SAI: Chỉ dùng 1 hash → có thể bị hack
+if (hash1 == hash2)  // Có thể collision!
+
+// ĐÚNG: Dùng 2 hash
+if (hash1a == hash2a && hash1b == hash2b)  // An toàn
+```
+
+### 5.2. Quên `+ MOD` khi trừ
+
+```cpp
+// SAI: (a - b) % MOD có thể ÂM nếu a < b
+long long curHash = (hashT[i+m] - hashT[i] * power[m]) % MOD;
+
+// ĐÚNG: Luôn + MOD rồi % MOD
+long long curHash = (hashT[i+m] - hashT[i] * power[m] % MOD + MOD) % MOD;
+```
+
+### 5.3. Chọn BASE không tốt
+
+```cpp
+// SAI: BASE = 1 → hash = tổng mã ASCII → collision cao!
+// SAI: BASE = 256 → overflow nếu không modulo
+
+// ĐÚNG: BASE = 31 hoặc 131 (số nguyên tố, không quá nhỏ)
+const long long BASE = 31;
+```
+
+### 5.4. Quên modulo khi nhân
+
+```cpp
+// SAI: a * a có thể tràn long long trước khi modulo
+result = (result * a) % MOD;
+
+// ĐÚNG: Dùng __int128 hoặc cast
+result = (__int128)result * a % MOD;
+```
+
+### 5.5. Z-function: Quên ký tự phân tách
+
+```cpp
+// SAI: Không có "$" → Z[i] có thể match sai
+string combined = pattern + text;
+
+// ĐÚNG: Phải có ký tự phân tách
+string combined = pattern + "$" + text;  // "$" không xuất hiện trong pattern/text
+```
 
 ---
 
@@ -225,4 +318,4 @@ def z_search(text, pattern):
 - [GeeksforGeeks - Rabin-Karp Algorithm](https://www.geeksforgeeks.org/dsa/rabin-karp-algorithm-for-pattern-searching/)
 - [YouTube - String Hashing (Errichto)](https://www.youtube.com/watch?v=6GFMKq5vKWM)
 
-**Bạn đã hoàn thành toàn bộ 23 bài học CP!**
+**Bài tiếp theo:** [Deque & Sliding Window →](15-deque-sliding-window.md)

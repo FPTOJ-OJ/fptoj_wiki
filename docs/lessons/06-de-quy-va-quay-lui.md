@@ -358,6 +358,7 @@ int fibo(int n) {
 
 // ĐÚNG: dùng memoization - O(N)
 int memo[100];
+// Nhớ khởi tạo: memset(memo, -1, sizeof(memo)) trước khi dùng!
 int fibo(int n) {
     if (n <= 1) return n;
     if (memo[n] != -1) return memo[n];  // Đã tính rồi → lấy ra
@@ -405,10 +406,10 @@ def fibo(n):
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
 | [CSES - Creating Strings](https://cses.fi/problemset/task/1622) | CSES | ⭐⭐ | Sinh hoán vị |
-| [CSES - Apple Division](https://cses.fi/problemset/task/1623) | CSES | ⭐⭐ | Quay lưng chia tập |
+| [CSES - Apple Division](https://cses.fi/problemset/task/1623) | CSES | ⭐⭐ | Quay lui chia tập |
 | [LeetCode - Permutations](https://leetcode.com/problems/permutations/) | LC | ⭐⭐ | Sinh hoán vị |
 | [LeetCode - N-Queens](https://leetcode.com/problems/n-queens/) | LC | ⭐⭐⭐ | Xếp hậu |
-| [LeetCode - Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) | LC | ⭐⭐⭐ | Quay lưng giải Sudoku |
+| [LeetCode - Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) | LC | ⭐⭐⭐ | Quay lui giải Sudoku |
 
 ## Bài viết liên quan
 

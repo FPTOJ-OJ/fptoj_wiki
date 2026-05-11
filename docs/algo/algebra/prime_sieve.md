@@ -1392,4 +1392,4 @@ Bài viết được tổng hợp từ các nguồn dưới đây:
 * [Bài viết 2 của Code cùng RR](https://www.facebook.com/story.php?story_fbid=pfbid02i8JQsWk96W5PmQh2dN8WnLWBcij8K4oqVmfc2cjnaJiEMELvStejCNeuGwddd8yzl&id=100066505638866&sfnsn=mo&mibextid=RUbZ1f)
 * [Wikipedia](https://vi.wikipedia.org/wiki/Trang_Ch%C3%ADnh)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

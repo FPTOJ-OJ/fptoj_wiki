@@ -535,4 +535,4 @@ def miller_rabin(n):
 * [Wikipedia - Primality test](https://en.wikipedia.org/wiki/Primality_test)
 * [Wikipedia - Carmichael numbers](https://en.wikipedia.org/wiki/Carmichael_number)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

@@ -319,4 +319,4 @@ Bên dưới là một số bài tập có liên quan đến bài viết này, m
 - **Codeforces Gym - 100168H**: tính khoảng cách từ 1 điểm đến 1 tia
 - **Codeforces Gym - 100168I**: tính khoảng cách từ 1 điểm đến 1 đoạn thẳng
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

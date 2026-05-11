@@ -127,7 +127,7 @@ def distance(A, B):
 
 ```cpp
 bool areCollinear(Point A, Point B, Point C) {
-    return cross(B - A, C - A) == 0;  // (hoặc abs(cross(...)) < epsilon)
+    return abs(cross(B - A, C - A)) < 1e-9;
 }
 ```
 
@@ -135,7 +135,7 @@ bool areCollinear(Point A, Point B, Point C) {
 
 ```python
 def are_collinear(A, B, C):
-    return cross((B[0]-A[0], B[1]-A[1]), (C[0]-A[0], C[1]-A[1])) == 0
+    return abs(cross((B[0]-A[0], B[1]-A[1]), (C[0]-A[0], C[1]-A[1]))) < 1e-9
 ```
 
 ### 3.2. Xác định hướng quay (CCW)
@@ -165,6 +165,12 @@ def orientation(A, B, C):
 ### 3.3. Kiểm tra 2 đoạn thẳng cắt nhau
 
 ```cpp
+// Kiểm tra điểm P có nằm trên đoạn AB không (khi A, B, P thẳng hàng)
+bool onSegment(Point A, Point B, Point P) {
+    return min(A.x, B.x) <= P.x && P.x <= max(A.x, B.x) &&
+           min(A.y, B.y) <= P.y && P.y <= max(A.y, B.y);
+}
+
 // Kiểm tra đoạn AB cắt đoạn CD không
 bool segmentsIntersect(Point A, Point B, Point C, Point D) {
     double d1 = cross(B - A, C - A);
@@ -185,12 +191,6 @@ bool segmentsIntersect(Point A, Point B, Point C, Point D) {
     if (d4 == 0 && onSegment(C, D, B)) return true;
     
     return false;
-}
-
-// Kiểm tra điểm P có nằm trên đoạn AB không (khi A, B, P thẳng hàng)
-bool onSegment(Point A, Point B, Point P) {
-    return min(A.x, B.x) <= P.x && P.x <= max(A.x, B.x) &&
-           min(A.y, B.y) <= P.y && P.y <= max(A.y, B.y);
 }
 ```
 ```python

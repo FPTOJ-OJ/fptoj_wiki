@@ -387,4 +387,4 @@ Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
 - [VisuAlgo](http://visualgo.net/sorting)
 - [Wikipedia](http://en.wikipedia.org/wiki)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

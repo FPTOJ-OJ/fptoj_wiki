@@ -974,4 +974,4 @@ Quy hoạch động là phương pháp tự nhiên và có thể áp dụng đư
 
 Chúc các bạn học tập tốt!
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

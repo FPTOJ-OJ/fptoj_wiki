@@ -431,4 +431,4 @@ Ta thường không tìm được giá trị mục tiêu một cách chính xác
 - [Increase and Copy](https://codeforces.com/problemset/problem/1426/C)
 - [Prime Matrix](https://codeforces.com/problemset/problem/271/B)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

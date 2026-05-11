@@ -29,6 +29,7 @@ Thay vì đếm theo 10 (thập phân), ta đếm theo 2 (nhị phân):
 | 3 | 011 | 2¹ + 2⁰ = 3 |
 | 4 | 100 | 2² = 4 |
 | 5 | 101 | 2² + 2⁰ = 5 |
+| 6 | 110 | 2² + 2¹ = 6 |
 | 7 | 111 | 2² + 2¹ + 2⁰ = 7 |
 | 8 | 1000 | 2³ = 8 |
 
@@ -241,7 +242,8 @@ int not_mask = mask ^ ((1 << n) - 1);
 ```
 ```python
 mask = 0b101
-# Python: ~mask cũng đảo tất cả bit (dùng bù 2), nhưng không ảnh hưởng khi dùng với bitmask
+# Python: ~mask = -(mask+1) do bù 2, KHÔNG dùng được như C++!
+# Ví dụ: ~0b101 = -6, không phải 0b...010
 
 # ĐÚNG: chỉ đảo n bit đầu
 not_mask = mask ^ ((1 << n) - 1)

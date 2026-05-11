@@ -122,7 +122,7 @@ def kmp_search(text, pattern):
 
 ```
 s = "aaabaab"
-z = [0, 2, 1, 0, 2, 2, 3]
+z = [0, 2, 1, 0, 2, 1, 0]
 ```
 
 Giải thích chi tiết:
@@ -132,7 +132,7 @@ Giải thích chi tiết:
 - `z[3]=0`: "b" không khớp "a..." → 0
 - `z[4]=2`: "aa" khớp "aa..." → độ dài 2
 - `z[5]=1`: "a" khớp "a..." → độ dài 1
-- `z[6]=3`: "aab" khớp "aab..." → độ dài 3
+- `z[6]=0`: "b" không khớp "a..." → 0
 
 ### Code C++
 
@@ -266,7 +266,7 @@ def is_repeated(s):
 
 ---
 
-## 6. Lưu ý / Cạm bẫy hay gặp
+## 7. Lưu ý / Cạm bẫy hay gặp
 
 ### Bẫy 1: Off-by-one trong hàm tiền tố
 
@@ -363,7 +363,7 @@ KMP tự động xử lý overlap vì nhảy theo `π[i-1]`, không nhảy toàn
 | [VNOJ - NKPALIN](https://oj.vnoi.info/problem/nkpalin) | VNOJ | ⭐⭐⭐ | Palindrome + KMP |
 | [VNOJ - PALINY](https://oj.vnoi.info/problem/paliny) | VNOJ | ⭐⭐⭐ | Palindrome dài nhất |
 
-## 7. Bài viết liên quan
+## 8. Bài viết liên quan
 
 - [Bài 14: Hash xâu & Z-algorithm](14-hash-xau-z-algorithm.md)
 - [Bài 20: Manacher (Palindrome)](20-manacher.md)

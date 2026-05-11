@@ -388,7 +388,7 @@ fact[i] = fact[i-1] * i % MOD;
 ### Bẫy 3: Tam giác Pascal tốn bộ nhớ
 
 ```cpp
-// C[5001][5001] → ~100MB bộ nhớ → có thể MLE!
+// C[5001][5001] → ~200MB bộ nhớ → có thể MLE!
 long long C[5001][5001];
 
 // Giải pháp: Chỉ dùng khi N ≤ 5000

@@ -515,14 +515,14 @@ Có thể có rất nhiều nước đi, nhưng TẤT CẢ đều dẫn đến N
 **Sai lầm 2: Grundy không phải "số viên đá còn lại"**
 
 ```
-Grundy là chỉ số抽象 (abstract index), không phải số lượng cụ thể.
+Grundy là chỉ số trừu tượng (abstract index), không phải số lượng cụ thể.
 Grundy = 3 không có nghĩa là "còn 3 viên đá".
 ```
 
 **Sai lầm 3: Quên tính MEX đúng cách**
 
 ```
-MEX({0, 1, 3}) = 2  ←很多人 quên 2
+MEX({0, 1, 3}) = 2  ← nhiều người quên 2
 MEX({1, 2, 3}) = 0  ← 0 không có trong tập!
 MEX({}) = 0          ← tập rỗng → MEX = 0
 ```

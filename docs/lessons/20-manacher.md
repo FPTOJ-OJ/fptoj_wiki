@@ -165,7 +165,7 @@ int main() {
 
 ```python
 def manacher(s):
-    t = '#'.join('^{}$'.format(s))
+    t = '^#' + '#'.join(s) + '#$'
     n = len(t)
     p = [0] * n
     c, r = 0, 0

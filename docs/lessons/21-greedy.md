@@ -201,36 +201,7 @@ def min_platforms(arrival, departure):
 
 ---
 
-## 4. Code Python
-
-```python
-# Activity Selection
-def max_activities(activities):
-    activities.sort(key=lambda x: x[1])  # Sắp xếp theo thời gian kết thúc
-    count, last_end = 0, -1
-    for start, end in activities:
-        if start >= last_end:
-            count += 1
-            last_end = end
-    return count
-
-# Fractional Knapsack
-def fractional_knapsack(items, W):
-    items.sort(key=lambda x: x[0]/x[1], reverse=True)
-    total = 0
-    for value, weight in items:
-        if W >= weight:
-            total += value
-            W -= weight
-        else:
-            total += value * (W / weight)
-            break
-    return total
-```
-
----
-
-## 5. Proof of Greedy - Chứng minh tính đúng đắn
+## 4. Proof of Greedy - Chứng minh tính đúng đắn
 
 Để chứng minh Greedy đúng, ta thường dùng 2 phương pháp:
 
@@ -258,7 +229,7 @@ def fractional_knapsack(items, W):
 
 ---
 
-## 6. So sánh Greedy vs DP vs Quay lui
+## 5. So sánh Greedy vs DP vs Quay lui
 
 | | Greedy | DP | Quay lui |
 |--|--------|-----|----------|
@@ -282,9 +253,9 @@ def fractional_knapsack(items, W):
 
 ---
 
-## 7. Bài toán Greedy nâng cao
+## 6. Bài toán Greedy nâng cao
 
-### 7.1. Huffman Coding (Nén dữ liệu)
+### 6.1. Huffman Coding (Nén dữ liệu)
 
 Mỗi ký tự có tần suất xuất hiện. Mã hóa sao cho tổng độ dài mã là nhỏ nhất.
 
@@ -321,7 +292,7 @@ def huffman_coding(freq):
     return total_cost
 ```
 
-### 7.2. Interval Partitioning (Phân đoạn)
+### 6.2. Interval Partitioning (Phân đoạn)
 
 Cho N hoạt động, mỗi hoạt động có bắt đầu và kết thúc. Tìm số phòng tối thiểu.
 
@@ -329,7 +300,7 @@ Cho N hoạt động, mỗi hoạt động có bắt đầu và kết thúc. Tì
 
 ---
 
-## 8. Lưu ý
+## 7. Lưu ý
 
 - **Greedy không phải lúc nào cũng đúng!** Phải chứng minh tính đúng đắn
 - Nếu không chắc Greedy đúng → dùng DP
@@ -338,7 +309,7 @@ Cho N hoạt động, mỗi hoạt động có bắt đầu và kết thúc. Tì
 
 ---
 
-## 9. Bài tập luyện tập
+## 8. Bài tập luyện tập
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|

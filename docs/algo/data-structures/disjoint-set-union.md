@@ -856,4 +856,4 @@ signed main() {
 - [Codeforces 570D](https://codeforces.com/contest/570/problem/D)
 - [IOI 2011 - Race](https://oj.vnoi.info/problem/lqdrace)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

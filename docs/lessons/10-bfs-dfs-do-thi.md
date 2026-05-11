@@ -189,11 +189,11 @@ def get_path(parent, target):
              3 --- 5
 
 BFS từ đỉnh 1:
-Bước 1: Queue = [1]           → thăm 1
-Bước 2: Queue = [2, 3]        → thăm 2, 3 (kề 1)
-Bước 3: Queue = [3, 4, 5]     → thăm 4, 5 (kề 2)
-Bước 4: Queue = [4, 5]        → thăm 5 (kề 3, đã thăm)
-Bước 5: Queue = [5]           → thăm 5 (đã thăm, bỏ qua)
+Bước 1: Queue = [1]           → lấy 1 ra, thêm kề 2,3
+Bước 2: Queue = [2, 3]        → lấy 2 ra, thêm kề 4,5 (3 đã ở queue)
+Bước 3: Queue = [3, 4, 5]     → lấy 3 ra, kề 5 đã thăm → bỏ qua
+Bước 4: Queue = [4, 5]        → lấy 4 ra, không kề mới
+Bước 5: Queue = [5]           → lấy 5 ra, không kề mới
 Bước 6: Queue = []            → xong!
 
 Thứ tự thăm: 1 → 2 → 3 → 4 → 5
@@ -476,6 +476,8 @@ def has_cycle_undirected(adj, u, parent, visited):
             return True  # Thăm lại đỉnh khác cha → có chu trình
     return False
 ```
+
+**Lưu ý:** Hàm trên chỉ kiểm tra 1 thành phần liên thông. Với đồ thị không liên thông, cần gọi từ mọi đỉnh chưa thăm.
 
 **Đồ thị có hướng:**
 

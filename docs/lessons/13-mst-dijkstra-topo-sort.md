@@ -105,7 +105,7 @@ def kruskal(n, edges):
 
 ### Thuật toán Prim
 
-**Ý tưởng:** Bắt đầu từ đỉnh任意. Mỗi bước, chọn cạnh nhỏ nhất nối đỉnh đã thăm với đỉnh chưa thăm.
+**Ý tưởng:** Bắt đầu từ đỉnh bất kỳ. Mỗi bước, chọn cạnh nhỏ nhất nối đỉnh đã thăm với đỉnh chưa thăm.
 
 ```cpp
 long long prim(int n, vector<vector<pair<int,int>>>& adj) {
@@ -220,6 +220,49 @@ def dijkstra(start, n, adj):
 
 **Độ phức tạp:** O((V + E) log V) với priority_queue.
 
+### Minh họa chạy chi tiết Dijkstra
+
+```
+Đồ thị:   1 --1--> 2 --2--> 4
+          |                 ↑
+          4                 |
+          ↓                 1
+          3 --------3------→
+
+Adjacency list:
+  1: [(2, 1), (3, 4)]
+  2: [(4, 2)]
+  3: [(4, 1)]
+
+Dijkstra từ đỉnh 1:
+
+Khởi tạo: dist = [∞, 0, ∞, ∞]  (dist[1]=0, còn lại ∞)
+          pq = [(0, 1)]
+
+Bước 1: Pop (0, 1). Duyệt kề:
+  2: dist[1]+1=1 < ∞ → dist[2]=1, push (1, 2)
+  3: dist[1]+4=4 < ∞ → dist[3]=4, push (4, 3)
+  dist = [∞, 0, 1, 4, ∞]
+  pq = [(1, 2), (4, 3)]
+
+Bước 2: Pop (1, 2). Duyệt kề:
+  4: dist[2]+2=3 < ∞ → dist[4]=3, push (3, 4)
+  dist = [∞, 0, 1, 4, 3]
+  pq = [(3, 4), (4, 3)]
+
+Bước 3: Pop (3, 4). 4 không có đỉnh kề chưa thăm.
+  pq = [(4, 3)]
+
+Bước 4: Pop (4, 3). Duyệt kề:
+  4: dist[3]+1=5 > dist[4]=3 → KHÔNG cập nhật!
+  pq = []
+
+Kết quả: dist = [∞, 0, 1, 4, 3]
+  Đường ngắn nhất 1→4: 1→2→4, độ dài = 3 ✅
+```
+
+**Lưu ý quan trọng:** Tại bước 4, đỉnh 3 cố gắng cập nhật dist[4] nhưng bị bỏ qua vì đã có đường ngắn hơn (3 < 5). Đây chính là lý do Dijkstra chỉ hoạt động đúng với trọng số không âm!
+
 ---
 
 ## 3. Sắp Xếp Tô-pô (Topological Sort)
@@ -290,51 +333,7 @@ def topo_sort(n, adj):
 
 ---
 
-## 4. Code Python (Tổng hợp)
-
-```python
-import heapq
-
-# ===== Dijkstra =====
-def dijkstra(start, n, adj):
-    dist = [float('inf')] * (n + 1)
-    dist[start] = 0
-    pq = [(0, start)]
-    
-    while pq:
-        d, u = heapq.heappop(pq)
-        if d > dist[u]: continue
-        for v, w in adj[u]:
-            if dist[u] + w < dist[v]:
-                dist[v] = dist[u] + w
-                heapq.heappush(pq, (dist[v], v))
-    return dist
-
-# ===== Topo Sort =====
-from collections import deque
-def topo_sort(n, adj):
-    in_degree = [0] * (n + 1)
-    for u in range(1, n + 1):
-        for v in adj[u]:
-            in_degree[v] += 1
-    
-    q = deque([i for i in range(1, n + 1) if in_degree[i] == 0])
-    result = []
-    
-    while q:
-        u = q.popleft()
-        result.append(u)
-        for v in adj[u]:
-            in_degree[v] -= 1
-            if in_degree[v] == 0:
-                q.append(v)
-    
-    return result if len(result) == n else []
-```
-
----
-
-## 5. Lưu ý
+## 4. Lưu ý
 
 | Thuật toán | Khi nào dùng | Độ phức tạp |
 |-----------|---------------|-------------|
@@ -347,9 +346,48 @@ def topo_sort(n, adj):
 
 ### Bẫy hay gặp
 
-- **Dijkstra không dùng được** khi có trọng số âm → dùng Bellman-Ford!
-- **Topo Sort** chỉ áp dụng cho DAG (không có chu trình)
-- **MST** chỉ áp dụng cho đồ thị **liên thông**
+**Bẫy 1: Dijkstra với trọng số âm**
+
+```cpp
+// SAI: Dijkstra KHÔNG hoạt động đúng với trọng số âm!
+// Ví dụ: A --(-5)--> B --(1)--> C
+// Dijkstra: dist[B] = -5, nhưng đã pop B trước khi cập nhật
+// → Kết quả sai nếu có đường tốt hơn qua C
+
+// ĐÚNG: Dùng Bellman-Ford cho đồ thị có trọng số âm
+```
+
+**Bẫy 2: Topo Sort trên đồ thị có chu trình**
+
+```cpp
+// Nếu result.size() < n → đồ thị có chu trình!
+if (result.size() != n) return {};  // Báo lỗi
+
+// Bẫy: Quên kiểm tra → kết quả sai mà không biết
+```
+
+**Bẫy 3: MST trên đồ thị không liên thông**
+
+```cpp
+// Kruskal: edges_used < n-1 → không liên thông → không có MST!
+return (edges_used == n - 1) ? mst_weight : -1;
+
+// Bẫy: Quên kiểm tra → trả về MST "một phần" mà không biết
+```
+
+**Bẫy 4: Prim với đồ thị có cạnh trùng**
+
+```cpp
+// Nếu có nhiều cạnh giữa 2 đỉnh, Prim vẫn đúng (chọn nhỏ nhất)
+// Nhưng Kruskal cũng đúng (DSU bỏ qua cạnh tạo chu trình)
+```
+
+**Bẫy 5: Quên `visited` trong Prim**
+
+```cpp
+// SAI: Không kiểm tra visited → đỉnh bị xử lý nhiều lần
+if (visited[u]) continue;  // ← PHẢI CÓ DÒNG NÀY
+```
 
 ---
 

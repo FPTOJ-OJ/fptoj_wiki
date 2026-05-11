@@ -136,4 +136,4 @@ Giả sử, chúng ta được yêu cầu tìm một số lượng ống nhỏ n
 - [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/data-structures/)
 - [Wikipedia](https://en.wikipedia.org/wiki/Hash_table)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

@@ -127,4 +127,4 @@ Ngoài ra, ta cũng có thể lưu thêm con trỏ trỏ vào phần tử cuối
 - [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/data-structures/)
 - [Wikipedia](https://en.wikipedia.org/wiki/Linked_list)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

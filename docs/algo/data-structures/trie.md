@@ -1225,4 +1225,4 @@ signed main() {
 
 [CCO 2017 - Vera and Modern Art](https://dmoj.ca/problem/cco17p3) (Khó)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

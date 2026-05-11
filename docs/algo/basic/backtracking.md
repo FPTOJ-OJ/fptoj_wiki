@@ -704,4 +704,4 @@ Ngoài ra, trong một số bài toán yêu cầu tính toán ta cũng có thể
 ## Tài liệu tham khảo
 - Lê Minh Hoàng (2003), *Giải thuật và lập trình*
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

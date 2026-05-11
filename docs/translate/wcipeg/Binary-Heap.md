@@ -121,4 +121,4 @@ Binary Heap được dùng để cài đặt [priority queue](https://en.wikiped
 
 * **TC1** cần thêm điểu kiện tập nhãn phải là một [totally ordered set](http://wcipeg.com/wiki/Partial_order#Total_order) (2 giá trị bất kì trong tập đều có thể so sánh được và có tính chất bắc cầu trong các phép so sánh, ví dụ như tập số thực $\mathbb{R}$)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

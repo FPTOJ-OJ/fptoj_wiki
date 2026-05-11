@@ -507,6 +507,37 @@ long long mulMod(long long a, long long b, long long mod) {
     return (__int128)a * b % mod;
 }
 
+// Miller-Rabin kiểm tra nguyên tố - O(k log^2 n)
+bool millerRabin(long long n) {
+    if (n < 2) return false;
+    if (n == 2 || n == 3) return true;
+    if (n % 2 == 0) return false;
+
+    // Viết n-1 = 2^r * d
+    long long d = n - 1;
+    int r = 0;
+    while (d % 2 == 0) { d /= 2; r++; }
+
+    // Các cơ sở đủ cho n < 2^64
+    vector<long long> bases = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+    for (long long a : bases) {
+        if (a >= n) continue;
+        long long x = powerMod(a, d, n);
+        if (x == 1 || x == n - 1) continue;
+        bool composite = true;
+        for (int i = 0; i < r - 1; i++) {
+            x = mulMod(x, x, n);
+            if (x == n - 1) { composite = false; break; }
+        }
+        if (composite) return false;
+    }
+    return true;
+}
+
+bool isPrime(long long n) {
+    return millerRabin(n);
+}
+
 long long pollardRho(long long n) {
     if (n % 2 == 0) return 2;
     long long x = rand() % (n - 2) + 2;
@@ -754,13 +785,13 @@ RSA sử dụng Euler's Totient:
 |-----|----------|--------|--------|
 | [SPOJ - FACT0](https://www.spoj.com/problems/FACT0/) | SPOJ | ⭐⭐ | Phân tích thừa số |
 | [SPOJ - FACT1](https://www.spoj.com/problems/FACT1/) | SPOJ | ⭐⭐⭐ | Phân tích số lớn |
-| [CF - Almost Everywhere](https://codeforces.com/) | CF | ⭐⭐⭐ | Phân tích + đếm |
+| [CF - Almost Everywhere Zero](https://codeforces.com/problemset/problem/1105/D) | CF | ⭐⭐⭐ | Phân tích + đếm |
 
 ### 9.5 Tổng hợp & Nâng cao
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
-| [CF - Yet Another Number Theory](https://codeforces.com/) | CF | ⭐⭐⭐ | Tổng hợp số học |
+| [CF - Yet Another Number Theory Problem](https://codeforces.com/problemset/problem/1436/D) | CF | ⭐⭐⭐ | Tổng hợp số học |
 | [CSES - NIM Game I](https://cses.fi/problemset/task/1730) | CSES | ⭐⭐ | Game theory + GCD |
 | [SPOJ - GCDEX2](https://www.spoj.com/problems/GCDEX2/) | SPOJ | ⭐⭐⭐⭐ | GCD nâng cao |
 

@@ -350,4 +350,4 @@ Nhược điểm của thuật toán Hash là tính chính xác. Mặc dù rất
 - [Wikipedia - Rabin Karp](http://en.wikipedia.org/wiki/Rabin-Karp_string_search_algorithm)
 - [Wikipedia - Alphabetical Order](http://en.wikipedia.org/wiki/Alphabetical_order)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

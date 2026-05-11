@@ -810,4 +810,4 @@ Các bạn có thể thử sức với một số bài tập sau:
 * [C11WATER](https://codeforces.com/group/FLVn1Sc504/contest/274809/problem/B)
 * [CHEER](https://codeforces.com/group/FLVn1Sc504/contest/274809/problem/M)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

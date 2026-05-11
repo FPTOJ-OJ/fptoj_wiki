@@ -712,4 +712,4 @@ Thuật toán Floyd-Warshall:
 - [Codeforces - Greg and Graph](https://codeforces.com/problemset/problem/295/B)
 - [Các bài theo tag trên VNOJ](https://oj.vnoi.info/problems/?type=56&point_start=&point_end=)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

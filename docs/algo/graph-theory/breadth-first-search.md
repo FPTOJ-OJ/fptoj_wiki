@@ -1418,4 +1418,4 @@ Ta cũng có thể sử dụng  thuật toán tìm kiếm theo chiều sâu *(De
 
 Độ phức tạp của thuật toán là $O(t \times (n + l))$. Với $t$ là số lượng bộ test.
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

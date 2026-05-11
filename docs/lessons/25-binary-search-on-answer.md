@@ -176,6 +176,29 @@ int maxMinDistance(vector<int>& stalls, int cows) {
 ### Code Python
 
 ```python
+def aggressive_cows(n, c, stalls):
+    stalls.sort()
+    lo, hi = 1, stalls[-1] - stalls[0]
+    
+    def can_place(gap):
+        count = 1
+        last = stalls[0]
+        for i in range(1, n):
+            if stalls[i] - last >= gap:
+                count += 1
+                last = stalls[i]
+        return count >= c
+    
+    while lo < hi:
+        mid = lo + (hi - lo + 1) // 2
+        if can_place(mid):
+            lo = mid
+        else:
+            hi = mid - 1
+    return lo
+```
+
+```python
 def binary_search_on_answer(lo, hi, check):
     while lo < hi:
         mid = lo + (hi - lo) // 2

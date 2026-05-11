@@ -75,11 +75,39 @@ def power_mod(a, b, mod):
 
 ## 2. Sàng nguyên tố Eratosthenes
 
-![Sieve of Eratosthenes](../All_Images_Collected/sieve_eratosthenes.png)
+![Sieve of Eratosthenes](../uploads/img/sieve_eratosthenes.png)
 
 ### Ẩn dụ: Loại người gian lận
 
 Bạn có 100 người xếp hàng. Bắt đầu từ người số 2: đánh dấu tất cả bội số của 2 (4, 6, 8, ...). Tiếp theo người số 3 chưa bị đánh dấu → đánh dấu bội số của 3 (6, 9, 12, ...). Tiếp tục... Ai không bị đánh dấu → là số nguyên tố!
+
+### Bước chạy chi tiết: Sàng với N = 30
+
+```
+Ban đầu: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+         tất cả đều là "nguyên tố" (chưa bị loại)
+
+i=2 (nguyên tố): Loại bội số của 2: 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30
+  Còn lại: [2, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29]
+
+i=3 (nguyên tố): Loại bội số của 3: 9, 15, 21, 27
+  (6, 12, 18, 24, 30 đã bị loại ở i=2)
+  Còn lại: [2, 3, 5, 7, 11, 13, 17, 19, 23, 25, 29]
+
+i=4 (đã bị loại) → bỏ qua
+
+i=5 (nguyên tố): Loại bội số của 5: 25
+  (10, 15, 20, 30 đã bị loại trước)
+  Còn lại: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+
+i=6 → √30 ≈ 5.47 → DỪNG! (vì 6 > √30)
+
+Kết quả: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29] — 10 số nguyên tố ≤ 30 ✅
+```
+
+**Tại sao chỉ duyệt đến √N?**
+
+Nếu N có ước số > √N thì N cũng có ước số < √N (vì ước × ước = N). Nên chỉ cần kiểm tra đến √N là đủ!
 
 ### Code C++
 

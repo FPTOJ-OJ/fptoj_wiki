@@ -593,7 +593,6 @@ int evalRPN(vector<string>& tokens) {
 | [LeetCode - Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) | LeetCode | ⭐⭐⭐⭐ | Biểu thức không ngoặc |
 | [LeetCode - Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) | LeetCode | ⭐⭐⭐⭐ | Stack + DP |
 | [SPOJ - MAXRECT](https://www.spoj.com/problems/MAXRECT/) | SPOJ | ⭐⭐⭐⭐ | Largest Rectangle 2D |
-| [LeetCode - Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) (follow-up O(N)) | LeetCode | ⭐⭐⭐⭐⭐ | Stack tối ưu |
 
 ---
 

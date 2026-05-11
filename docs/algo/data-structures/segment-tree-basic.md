@@ -1137,4 +1137,4 @@ int main() {
 - [Codeforces - ITMO Academy: pilot course](https://codeforces.com/edu/course/2)
 - [Codeforces - 1371F Raging Thunder](https://codeforces.com/problemset/problem/1371/F)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

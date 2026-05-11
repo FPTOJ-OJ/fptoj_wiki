@@ -16,7 +16,7 @@
 | Truy cập phần tử thứ i | **O(1)** | O(N) |
 | Thêm/xóa ở đầu | O(N) | **O(1)** |
 | Thêm/xóa ở cuối | O(1) | O(1) (nếu biết con trỏ cuối) |
-| Thêm/xóa ở giữa | O(N) | O(1) (nếu biết vị trí) |
+| Thêm/xóa ở giữa | O(N) | O(1) (nếu đã có con trỏ đến node) |
 
 ### Code C++: Danh sách liên kết đơn giản
 
@@ -117,6 +117,9 @@ vector<int> findGreater(vector<int>& a) {
 }
 // Độ phức tạp: O(N) - mỗi phần tử push/pop tối đa 1 lần!
 ```
+
+### Code Python
+
 ```python
 # Với mỗi phần tử, tìm phần tử lớn hơn gần nhất bên trái
 def find_greater(a):

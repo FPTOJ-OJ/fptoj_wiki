@@ -121,7 +121,7 @@ def floyd_warshall(n, dist):
     for k in range(1, n + 1):
         for i in range(1, n + 1):
             for j in range(1, n + 1):
-                if dist[i][k] < float('inf') and dist[k][j] < float('inf'):
+                if dist[i][k] != float('inf') and dist[k][j] != float('inf'):
                     dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
 ```
 

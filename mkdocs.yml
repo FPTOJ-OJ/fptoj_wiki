@@ -72,6 +72,17 @@ nav:
       - Số học nâng cao: lessons/26-so-hoc-nang-cao.md
       - Lý thuyết trò chơi: lessons/27-ly-thuyet-tro-choi.md
       - Bao lồi: lessons/28-bao-loi.md
+      - Sparse Table (RMQ): lessons/29-sparse-table.md
+      - Binary Search Tree (BST): lessons/30-bst.md
+      - LCA & Binary Lifting: lessons/31-lca-binary-lifting.md
+      - Suffix Array: lessons/32-suffix-array.md
+      - Linked List chi tiết: lessons/33-linked-list.md
+      - Queue cơ bản: lessons/34-queue.md
+      - Setup môi trường thi đấu: lessons/35-setup-moi-truong.md
+      - Kỹ năng thi đấu: lessons/36-ky-nang-thi-dau.md
+      - Sinh testcase & Stress test: lessons/37-sinh-testcase.md
+      - Debug & Mẹo thi đấu: lessons/38-debug-meo.md
+      - Tổ chức code & Nộp bài: lessons/39-to-chuc-code.md
   - Thuật Toán:
       - Cơ Bản:
         - Đệ quy và Thuật toán quay lui: algo/basic/backtracking.md

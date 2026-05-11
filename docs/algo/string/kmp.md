@@ -518,4 +518,4 @@ Test code KMP: [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr)
 * [NOI 2014 Problem 4 - Zoo](https://dmoj.ca/problem/noi14p4)
 * [LightOJ - Unlucky Strings](https://lightoj.com/problem/unlucky-strings)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

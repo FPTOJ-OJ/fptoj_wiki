@@ -1117,4 +1117,4 @@ Kết luận: độ phức tạp của bài toán là $O(\mu + \lambda)$. (trong
 
 [CODEFORCES - Cooperative Game](https://codeforces.com/contest/1137/problem/D)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

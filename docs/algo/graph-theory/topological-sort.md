@@ -717,4 +717,4 @@ print(''.join(chr(x + ord('a')) for x in topo))
 
 [CSES - Game Routes](https://cses.fi/problemset/task/1681)
 ---
-> :books: **Xem thêm:** [Tổng hợp bài học](../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
+> :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.
