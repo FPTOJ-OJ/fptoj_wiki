@@ -38,29 +38,33 @@ Mảng $D(A)$ được gọi là **mảng hiệu** của $A$, có tên tiếng A
 
 Để dựng mảng cộng dồn, ta có thể áp dụng định nghĩa ở trên để dựng trực tiếp mảng:
 
-```c++
-vector<int> buildPrefixSum(const vector<int>& a, int C = 0) {
-    int n = (int)a.size();
-    vector<int> prefixSum(n + 1);
+=== "C++"
 
-    prefixSum[0] = C;
+    ```c++
+    vector<int> buildPrefixSum(const vector<int>& a, int C = 0) {
+        int n = (int)a.size();
+        vector<int> prefixSum(n + 1);
 
-    for (int i = 0; i < n; i++)
-        prefixSum[i + 1] = prefixSum[i] + a[i];
+        prefixSum[0] = C;
 
-    return prefixSum;
-}
-```
+        for (int i = 0; i < n; i++)
+            prefixSum[i + 1] = prefixSum[i] + a[i];
 
-```python
-def build_prefix_sum(a, C=0):
-    n = len(a)
-    prefix_sum = [0] * (n + 1)
-    prefix_sum[0] = C
-    for i in range(n):
-        prefix_sum[i + 1] = prefix_sum[i] + a[i]
-    return prefix_sum
-```
+        return prefixSum;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def build_prefix_sum(a, C=0):
+        n = len(a)
+        prefix_sum = [0] * (n + 1)
+        prefix_sum[0] = C
+        for i in range(n):
+            prefix_sum[i + 1] = prefix_sum[i] + a[i]
+        return prefix_sum
+    ```
 
 <!-- giải thích lại partial_sum -->
 
@@ -106,27 +110,31 @@ Trong cả hai cách trên, độ phức tạp của quá trình dựng là $\ma
 
 Tương tự, ta cũng có thể áp dụng định nghĩa để dựng trực tiếp mảng hiệu:
 
-```cpp
-vector<int> buildDifferenceArray(const vector<int>& a) {
-    int n = (int)a.size();
+=== "C++"
 
-    vector<int> differenceArray(n - 1);
+    ```cpp
+    vector<int> buildDifferenceArray(const vector<int>& a) {
+        int n = (int)a.size();
 
-    for (int i = 0; i < n - 1; i++)
-        differenceArray[i] = a[i + 1] - a[i];
+        vector<int> differenceArray(n - 1);
 
-    return differenceArray;
-}
-```
+        for (int i = 0; i < n - 1; i++)
+            differenceArray[i] = a[i + 1] - a[i];
 
-```python
-def build_difference_array(a):
-    n = len(a)
-    difference_array = [0] * (n - 1)
-    for i in range(n - 1):
-        difference_array[i] = a[i + 1] - a[i]
-    return difference_array
-```
+        return differenceArray;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def build_difference_array(a):
+        n = len(a)
+        difference_array = [0] * (n - 1)
+        for i in range(n - 1):
+            difference_array[i] = a[i + 1] - a[i]
+        return difference_array
+    ```
 
 Ngoài ra, thư viện C++ STL cũng cung cấp hàm `adjacent_difference` để phục vụ quá trình dựng mảng cộng dồn, cú pháp của hàm như sau:
 
@@ -351,29 +359,33 @@ $$
 
 Code dưới đây dựng mảng cộng dồn hai chiều:
 
-```cpp
-vector< vector<int> > build2DPrefixSum(const vector< vector<int> >& a) {
-    int m = (int)a.size(), n = (int)a[0].size();
+=== "C++"
 
-    vector< vector<int> > prefixSum(m + 1, vector<int> (n + 1, 0));
+    ```cpp
+    vector< vector<int> > build2DPrefixSum(const vector< vector<int> >& a) {
+        int m = (int)a.size(), n = (int)a[0].size();
 
-    for (int i = 1; i <= m; i++)
-        for (int j = 1; j <= n; j++)
-            prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i - 1][j - 1] + a[i - 1][j - 1]; // ta truy cập a(i - 1, j - 1) do mảng A là 0-indexed
-    return prefixSum;
-}
-```
+        vector< vector<int> > prefixSum(m + 1, vector<int> (n + 1, 0));
 
-```python
-def build_2d_prefix_sum(a):
-    m, n = len(a), len(a[0])
-    prefix_sum = [[0] * (n + 1) for _ in range(m + 1)]
-    for i in range(1, m + 1):
-        for j in range(1, n + 1):
-            prefix_sum[i][j] = (prefix_sum[i - 1][j] + prefix_sum[i][j - 1]
-                                - prefix_sum[i - 1][j - 1] + a[i - 1][j - 1])
-    return prefix_sum
-```
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++)
+                prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i - 1][j - 1] + a[i - 1][j - 1]; // ta truy cập a(i - 1, j - 1) do mảng A là 0-indexed
+        return prefixSum;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def build_2d_prefix_sum(a):
+        m, n = len(a), len(a[0])
+        prefix_sum = [[0] * (n + 1) for _ in range(m + 1)]
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                prefix_sum[i][j] = (prefix_sum[i - 1][j] + prefix_sum[i][j - 1]
+                                    - prefix_sum[i - 1][j - 1] + a[i - 1][j - 1])
+        return prefix_sum
+    ```
 
 Để tính tổng của toàn bộ các phần tử nằm trong hình chữ nhật có góc trái trên là $(x_1, y_1)$ và góc phải dưới $(x_2, y_2)$, ta biến đổi tương tự để thu được công thức tính sau:
 
@@ -464,39 +476,43 @@ Từ các quan sát trên, ta có thể dựng mảng hiệu của $A$ bằng ha
 
 Code dưới đây dựng mảng hiệu 2 chiều $D$ theo $A$ theo cách thứ nhất:
 
-```cpp
-vector< vector<int> > build2DDifferenceArray(const vector< vector<int> >& a) {
-    int m = (int)a.size(), n = (int)a[0].size();
-    vector< vector<int> > differenceArray(m, vector<int>(n, 0));
+=== "C++"
 
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            differenceArray[i][j] = a[i][j];
-            if (i > 0) differenceArray[i][j] -= a[i - 1][j];
-            if (j > 0) differenceArray[i][j] -= a[i][j - 1];
-            if (i > 0 && j > 0) differenceArray[i][j] += a[i - 1][j - 1];
+    ```cpp
+    vector< vector<int> > build2DDifferenceArray(const vector< vector<int> >& a) {
+        int m = (int)a.size(), n = (int)a[0].size();
+        vector< vector<int> > differenceArray(m, vector<int>(n, 0));
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                differenceArray[i][j] = a[i][j];
+                if (i > 0) differenceArray[i][j] -= a[i - 1][j];
+                if (j > 0) differenceArray[i][j] -= a[i][j - 1];
+                if (i > 0 && j > 0) differenceArray[i][j] += a[i - 1][j - 1];
+            }
         }
+
+        return differenceArray;
     }
+    ```
 
-    return differenceArray;
-}
-```
+=== "Python"
 
-```python
-def build_2d_difference_array(a):
-    m, n = len(a), len(a[0])
-    difference_array = [[0] * n for _ in range(m)]
-    for i in range(m):
-        for j in range(n):
-            difference_array[i][j] = a[i][j]
-            if i > 0:
-                difference_array[i][j] -= a[i - 1][j]
-            if j > 0:
-                difference_array[i][j] -= a[i][j - 1]
-            if i > 0 and j > 0:
-                difference_array[i][j] += a[i - 1][j - 1]
-    return difference_array
-```
+    ```python
+    def build_2d_difference_array(a):
+        m, n = len(a), len(a[0])
+        difference_array = [[0] * n for _ in range(m)]
+        for i in range(m):
+            for j in range(n):
+                difference_array[i][j] = a[i][j]
+                if i > 0:
+                    difference_array[i][j] -= a[i - 1][j]
+                if j > 0:
+                    difference_array[i][j] -= a[i][j - 1]
+                if i > 0 and j > 0:
+                    difference_array[i][j] += a[i - 1][j - 1]
+        return difference_array
+    ```
 
 Quay lại bài toán cũ trong không gian 1 chiều: làm thế nào để ta tăng thêm một lượng $k$ lên toàn bộ phần tử trong lưới $[r_1, r_2] \times [c_1, c_2]$ một cách hiệu quả? Khi ta tính $D_{hàng}$ cho từng hàng của $A$, ta nhận thấy chỉ giá trị của phần tử ở biên trái (tại $c_1$) và biên phải (tại $c_2 + 1$). Tiếp tục tính $D_{cột}$ cho từng cột của mảng $D_{hàng}(A)$, quan sát tương tự cho thấy chỉ phần tử tại $r_1$ và $r_2 + 1$ sẽ bị tác động bởi thao tác cập nhật này.
 

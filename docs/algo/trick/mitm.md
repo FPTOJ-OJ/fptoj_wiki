@@ -19,38 +19,43 @@ Giới hạn:
 Ta duyệt qua tất cả các tập con có thể có rồi cập nhật kết quả bằng đệ quy (một cách khác để duyệt qua các tập con là sử dụng bitmask <insert bài bitmask>).
 
 #### Cài đặt
-```cpp
-long long cnt;
-// quay lui đến phần tử thứ i
-// trong i-1 phần tử đầu, tổng các t[i] trong tập là sum
-void Try(int i, int sum) {
-    // tiếp tục quay lui với tập có sum > x là không cần thiết
-    if (sum > x) return;
- 
-    if (i > n) {
-        if (sum == x) ++cnt;
+=== "C++"
+
+    ```cpp
+    long long cnt;
+    // quay lui đến phần tử thứ i
+    // trong i-1 phần tử đầu, tổng các t[i] trong tập là sum
+    void Try(int i, int sum) {
+        // tiếp tục quay lui với tập có sum > x là không cần thiết
+        if (sum > x) return;
+     
+        if (i > n) {
+            if (sum == x) ++cnt;
+        }
+        else {
+            // không lấy phần tử thứ i
+            Try(i + 1, sum);
+            // lấy phần tử thứ i
+            Try(i + 1, sum + t[i]);
+        }
     }
-    else {
-        // không lấy phần tử thứ i
-        Try(i + 1, sum);
-        // lấy phần tử thứ i
-        Try(i + 1, sum + t[i]);
+    long long solve() {
+        cnt = 0;
+        Try(1, 0);
+        return cnt;
     }
-}
-long long solve() {
-    cnt = 0;
-    Try(1, 0);
-    return cnt;
-}
-```
-```python
-def solve(i, sum_val, n, x, t):
-    if sum_val > x:
-        return 0
-    if i > n:
-        return 1 if sum_val == x else 0
-    return solve(i + 1, sum_val, n, x, t) + solve(i + 1, sum_val + t[i], n, x, t)
-```
+    ```
+
+=== "Python"
+
+    ```python
+    def solve(i, sum_val, n, x, t):
+        if sum_val > x:
+            return 0
+        if i > n:
+            return 1 if sum_val == x else 0
+        return solve(i + 1, sum_val, n, x, t) + solve(i + 1, sum_val + t[i], n, x, t)
+    ```
 
 Thuật toán trên có độ phức tạp thời gian là $\mathcal{O}(2^N)$, không đủ nhanh để giải bài toán bởi vì $2^{40}$ khá lớn. Do đó, ta cần tìm một phương án tối ưu hơn.
 
@@ -70,123 +75,133 @@ Kỹ thuật MITM được mô tả như sau:
 Độ phức tạp là $\mathcal{O}(\text{sort algorithm})+\mathcal{O}(2^K)$
 
 #### Cài đặt (sử dụng tìm kiếm nhị phân)
-```cpp
-## include <bits/stdc++.h>
-using namespace std;
-const int N = 40 + 2;
-int n, x;
-int t[N];
-vector<int> A, B;
+=== "C++"
 
-void TryX(int i, int sum) {
-    if (sum > x) return;
+    ```cpp
+    ## include <bits/stdc++.h>
+    using namespace std;
+    const int N = 40 + 2;
+    int n, x;
+    int t[N];
+    vector<int> A, B;
 
-    if (i > n / 2) A.push_back(sum);
-    else {
-        TryX(i + 1, sum);
-        TryX(i + 1, sum + t[i]);
+    void TryX(int i, int sum) {
+        if (sum > x) return;
+
+        if (i > n / 2) A.push_back(sum);
+        else {
+            TryX(i + 1, sum);
+            TryX(i + 1, sum + t[i]);
+        }
     }
-}
-void TryY(int i, int sum) {
-    if (sum > x) return;
+    void TryY(int i, int sum) {
+        if (sum > x) return;
 
-    if (i > n) B.push_back(sum);
-    else {
-        TryY(i + 1, sum);
-        TryY(i + 1, sum + t[i]);
+        if (i > n) B.push_back(sum);
+        else {
+            TryY(i + 1, sum);
+            TryY(i + 1, sum + t[i]);
+        }
     }
-}
 
-int main() {
-    cin >> n >> x;
-    for (int i = 1; i <= n; ++i) cin >> t[i];
+    int main() {
+        cin >> n >> x;
+        for (int i = 1; i <= n; ++i) cin >> t[i];
 
-    // Quay lui 2 tập X và Y
-    TryX(1, 0);
-    TryY(n / 2 + 1, 0);
+        // Quay lui 2 tập X và Y
+        TryX(1, 0);
+        TryY(n / 2 + 1, 0);
 
-    // Sắp xếp mảng B
-    sort(B.begin(), B.end());
+        // Sắp xếp mảng B
+        sort(B.begin(), B.end());
 
-    // Lặp qua mảng A và tìm kiếm nhị phân:
-    // - Đếm số lượng phần tử trong B có giá trị bằng x - A[i]
-    long long cnt = 0;
-    for (int sum : A) {
-        cnt += upper_bound(B.begin(), B.end(), x - sum)
-             - lower_bound(B.begin(), B.end(), x - sum);
+        // Lặp qua mảng A và tìm kiếm nhị phân:
+        // - Đếm số lượng phần tử trong B có giá trị bằng x - A[i]
+        long long cnt = 0;
+        for (int sum : A) {
+            cnt += upper_bound(B.begin(), B.end(), x - sum)
+                 - lower_bound(B.begin(), B.end(), x - sum);
+        }
+        cout << cnt << '\n';
     }
-    cout << cnt << '\n';
-}
-```
-```python
-from bisect import bisect_left, bisect_right
+    ```
 
-def try_x(i, sum_val, n, x, t, A):
-    if sum_val > x:
-        return
-    if i > n // 2:
-        A.append(sum_val)
-    else:
-        try_x(i + 1, sum_val, n, x, t, A)
-        try_x(i + 1, sum_val + t[i], n, x, t, A)
+=== "Python"
 
-def try_y(i, sum_val, n, x, t, B):
-    if sum_val > x:
-        return
-    if i > n:
-        B.append(sum_val)
-    else:
-        try_y(i + 1, sum_val, n, x, t, B)
-        try_y(i + 1, sum_val + t[i], n, x, t, B)
+    ```python
+    from bisect import bisect_left, bisect_right
 
-n, x = map(int, input().split())
-t = [0] + list(map(int, input().split()))
-A, B = [], []
-try_x(1, 0, n, x, t, A)
-try_y(n // 2 + 1, 0, n, x, t, B)
+    def try_x(i, sum_val, n, x, t, A):
+        if sum_val > x:
+            return
+        if i > n // 2:
+            A.append(sum_val)
+        else:
+            try_x(i + 1, sum_val, n, x, t, A)
+            try_x(i + 1, sum_val + t[i], n, x, t, A)
 
-B.sort()
-cnt = 0
-for s in A:
-    cnt += bisect_right(B, x - s) - bisect_left(B, x - s)
-print(cnt)
-```
+    def try_y(i, sum_val, n, x, t, B):
+        if sum_val > x:
+            return
+        if i > n:
+            B.append(sum_val)
+        else:
+            try_y(i + 1, sum_val, n, x, t, B)
+            try_y(i + 1, sum_val + t[i], n, x, t, B)
+
+    n, x = map(int, input().split())
+    t = [0] + list(map(int, input().split()))
+    A, B = [], []
+    try_x(1, 0, n, x, t, A)
+    try_y(n // 2 + 1, 0, n, x, t, B)
+
+    B.sort()
+    cnt = 0
+    for s in A:
+        cnt += bisect_right(B, x - s) - bisect_left(B, x - s)
+    print(cnt)
+    ```
 
 #### Cài đặt (sử dụng kỹ thuật hai con trỏ)
-```cpp
-    // Quay lui 2 tập X và Y
-    TryX(1, 0);
-    TryY(n / 2 + 1, 0);
+=== "C++"
 
-    // Sắp xếp mảng A và B
-    sort(A.begin(), A.end(), greater<int>());
-    sort(B.begin(), B.end());
+    ```cpp
+        // Quay lui 2 tập X và Y
+        TryX(1, 0);
+        TryY(n / 2 + 1, 0);
 
-    // Sử dụng kỹ thuật 2 con trỏ
-    long long cnt = 0;
-    for (int i = 0, j1 = 0, j2 = 0; i < A.size(); ++i) {
-        int s = x - A[i]; // cần đếm lượng B[j] thoả B[j] = s
-        while (j1 < B.size() && B[j1] < s) ++j1;
-        while (j2 < B.size() && B[j2] <= s) ++j2;
-        cnt += j2 - j1;
-    }
-    cout << cnt << '\n';
-```
-```python
-A.sort(reverse=True)
-B.sort()
+        // Sắp xếp mảng A và B
+        sort(A.begin(), A.end(), greater<int>());
+        sort(B.begin(), B.end());
 
-cnt = 0
-j1, j2 = 0, 0
-for i in range(len(A)):
-    s = x - A[i]
-    while j1 < len(B) and B[j1] < s:
-        j1 += 1
-    while j2 < len(B) and B[j2] <= s:
-        j2 += 1
-    cnt += j2 - j1
-print(cnt)
-```
+        // Sử dụng kỹ thuật 2 con trỏ
+        long long cnt = 0;
+        for (int i = 0, j1 = 0, j2 = 0; i < A.size(); ++i) {
+            int s = x - A[i]; // cần đếm lượng B[j] thoả B[j] = s
+            while (j1 < B.size() && B[j1] < s) ++j1;
+            while (j2 < B.size() && B[j2] <= s) ++j2;
+            cnt += j2 - j1;
+        }
+        cout << cnt << '\n';
+    ```
+
+=== "Python"
+
+    ```python
+    A.sort(reverse=True)
+    B.sort()
+
+    cnt = 0
+    j1, j2 = 0, 0
+    for i in range(len(A)):
+        s = x - A[i]
+        while j1 < len(B) and B[j1] < s:
+            j1 += 1
+        while j2 < len(B) and B[j2] <= s:
+            j2 += 1
+        cnt += j2 - j1
+    print(cnt)
+    ```
 
 ## Ứng dụng
 

@@ -38,40 +38,42 @@ Nếu code dài, không biết bug ở đâu:
 5. Lặp lại cho đến khi tìm ra
 ```
 
-### 2.3. Debug macro trong C++
+### 2.3. Debug macro
 
-```cpp
-// ===== Debug macro =====
-#define debug(x) cerr << #x << " = " << (x) << endl;
-#define debugv(v) { cerr << #v << " = [ "; for (auto x : v) cerr << x << " "; cerr << "]\n"; }
-#define debug2d(m) { cerr << #m << ":\n"; for (auto& row : m) { for (auto x : row) cerr << x << " "; cerr << endl; } }
+=== "C++"
 
-// Cách dùng:
-int n = 5;
-debug(n);           // In: n = 5
+    ```cpp
+    // ===== Debug macro =====
+    #define debug(x) cerr << #x << " = " << (x) << endl;
+    #define debugv(v) { cerr << #v << " = [ "; for (auto x : v) cerr << x << " "; cerr << "]\n"; }
+    #define debug2d(m) { cerr << #m << ":\n"; for (auto& row : m) { for (auto x : row) cerr << x << " "; cerr << endl; } }
+    
+    // Cách dùng:
+    int n = 5;
+    debug(n);           // In: n = 5
+    
+    vector<int> a = {1, 2, 3};
+    debugv(a);          // In: a = [ 1 2 3 ]
+    
+    vector<vector<int>> mat = {{1, 2}, {3, 4}};
+    debug2d(mat);       // In: mat: 1 2 \n 3 4
+    ```
 
-vector<int> a = {1, 2, 3};
-debugv(a);          // In: a = [ 1 2 3 ]
+=== "Python"
 
-vector<vector<int>> mat = {{1, 2}, {3, 4}};
-debug2d(mat);       // In: mat: 1 2 \n 3 4
-```
-
-### 2.4. Debug trong Python
-
-```python
-# In biến
-print(f"n = {n}")
-print(f"arr = {arr}")
-print(f"result = {result}")
-
-# In mảng 2 chiều
-for i, row in enumerate(matrix):
-    print(f"row[{i}] = {row}")
-
-# Dừng tại breakpoint
-import pdb; pdb.set_trace()  # Debugger interactive
-```
+    ```python
+    # In biến
+    print(f"n = {n}")
+    print(f"arr = {arr}")
+    print(f"result = {result}")
+    
+    # In mảng 2 chiều
+    for i, row in enumerate(matrix):
+        print(f"row[{i}] = {row}")
+    
+    # Dừng tại breakpoint
+    import pdb; pdb.set_trace()  # Debugger interactive
+    ```
 
 ---
 
@@ -235,24 +237,28 @@ input = sys.stdin.readline
 
 ### 6.2. Mẹo code ngắn
 
-```cpp
-// Shortcuts
-#define ll long long
-#define pb push_back
-#define all(x) (x).begin(), (x).end()
+=== "C++"
 
-// One-liner
-sort(all(v));
-int n = v.size();
-auto it = lower_bound(all(v), x);
-```
+    ```cpp
+    // Shortcuts
+    #define ll long long
+    #define pb push_back
+    #define all(x) (x).begin(), (x).end()
+    
+    // One-liner
+    sort(all(v));
+    int n = v.size();
+    auto it = lower_bound(all(v), x);
+    ```
 
-```python
-# Python one-liners
-sorted_arr = sorted(arr)
-n = len(arr)
-idx = bisect_left(arr, x)
-```
+=== "Python"
+
+    ```python
+    # Python one-liners
+    sorted_arr = sorted(arr)
+    n = len(arr)
+    idx = bisect_left(arr, x)
+    ```
 
 ### 6.3. Mẹo xử lý modulo
 

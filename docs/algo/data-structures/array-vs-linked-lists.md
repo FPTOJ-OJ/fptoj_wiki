@@ -66,53 +66,65 @@ Với thiết kế như ban đầu, một danh sách liên kết thích hợp đ
 
 Sau đây là cài đặt kiểu dữ liệu danh sách liên kết thông thường:
 
-```cpp
-struct ListNode {
-    int data; // dữ liệu được lưu ở nút của linked list
-    ListNode* nextNode; // con trỏ trỏ tới phần tử tiếp theo của linked list.
-};
-ListNode* firstNode;
-```
+=== "C++"
 
-```python
-class ListNode:
-    def __init__(self, data=0):
-        self.data = data  # dữ liệu được lưu ở nút của linked list
-        self.next_node = None  # con trỏ trỏ tới phần tử tiếp theo của linked list
+    ```cpp
+    struct ListNode {
+        int data; // dữ liệu được lưu ở nút của linked list
+        ListNode* nextNode; // con trỏ trỏ tới phần tử tiếp theo của linked list.
+    };
+    ListNode* firstNode;
+    ```
 
-first_node = None
-```
+=== "Python"
+
+    ```python
+    class ListNode:
+        def __init__(self, data=0):
+            self.data = data  # dữ liệu được lưu ở nút của linked list
+            self.next_node = None  # con trỏ trỏ tới phần tử tiếp theo của linked list
+
+    first_node = None
+    ```
 
 Bạn có thể chèn một nút mới vào bằng cách chèn chúng vào đầu danh sách. Thao tác này có độ phức tạp là $\mathcal{O}(1)$.
 
-```cpp
-ListNode* newNode = new ListNode();
-newNode->nextNode = firstNode;
-firstNode = newNode;
-```
+=== "C++"
 
-```python
-new_node = ListNode()
-new_node.next_node = first_node
-first_node = new_node
-```
+    ```cpp
+    ListNode* newNode = new ListNode();
+    newNode->nextNode = firstNode;
+    firstNode = newNode;
+    ```
+
+=== "Python"
+
+    ```python
+    new_node = ListNode()
+    new_node.next_node = first_node
+    first_node = new_node
+    ```
 
 Duyệt qua toàn bộ danh sách liên kết rất đơn giản như sau:
 
-```cpp
-ListNode* curNode = firstNode;
-while (curNode != NULL) {
-   cout << curNode->data << endl;
-   curNode = curNode->nextNode;
-}
-```
+=== "C++"
 
-```python
-cur_node = first_node
-while cur_node is not None:
-    print(cur_node.data)
-    cur_node = cur_node.next_node
-```
+    ```cpp
+    ListNode* curNode = firstNode;
+    while (curNode != NULL) {
+       cout << curNode->data << endl;
+       curNode = curNode->nextNode;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    cur_node = first_node
+    while cur_node is not None:
+        print(cur_node.data)
+        cur_node = cur_node.next_node
+    ```
 
 Ngoài ra, ta cũng có thể lưu thêm con trỏ trỏ vào phần tử cuối của danh sách. Khi đó độ phức tạp để thêm 1 phần tử vào cuối danh sách là $\mathcal{O}(1)$.
 

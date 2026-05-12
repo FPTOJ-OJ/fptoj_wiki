@@ -79,131 +79,130 @@ Bước 1: [2].next = [3].next (= [5])
 Kết quả: [0] → [1] → [2] → [5] → NULL
 (node [3] bị "mất liên kết", bộ nhớ cần giải phóng)
 ```
+=== "C++"
 
-### Code C++ — Singly Linked List
-
-```cpp
-struct Node {
-    int data;
-    Node* next;
-    Node(int val) : data(val), next(nullptr) {}
-};
-
-struct LinkedList {
-    Node* head = nullptr;
+    ```cpp
+    struct Node {
+        int data;
+        Node* next;
+        Node(int val) : data(val), next(nullptr) {}
+    };
     
-    // Thêm vào đầu — O(1)
-    void pushFront(int val) {
-        Node* newNode = new Node(val);
-        newNode->next = head;
-        head = newNode;
-    }
-    
-    // Thêm vào cuối — O(N) nếu không có tail
-    void pushBack(int val) {
-        Node* newNode = new Node(val);
-        if (head == nullptr) {
+    struct LinkedList {
+        Node* head = nullptr;
+        
+        // Thêm vào đầu — O(1)
+        void pushFront(int val) {
+            Node* newNode = new Node(val);
+            newNode->next = head;
             head = newNode;
-            return;
-        }
-        Node* cur = head;
-        while (cur->next != nullptr)
-            cur = cur->next;
-        cur->next = newNode;
-    }
-    
-    // Thêm sau node có giá trị key — O(N)
-    void insertAfter(int key, int val) {
-        Node* cur = head;
-        while (cur != nullptr && cur->data != key)
-            cur = cur->next;
-        if (cur == nullptr) return;  // Không tìm thấy
-        
-        Node* newNode = new Node(val);
-        newNode->next = cur->next;
-        cur->next = newNode;
-    }
-    
-    // Xóa node có giá trị key — O(N)
-    void remove(int key) {
-        if (head == nullptr) return;
-        
-        if (head->data == key) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-            return;
         }
         
-        Node* cur = head;
-        while (cur->next != nullptr && cur->next->data != key)
-            cur = cur->next;
+        // Thêm vào cuối — O(N) nếu không có tail
+        void pushBack(int val) {
+            Node* newNode = new Node(val);
+            if (head == nullptr) {
+                head = newNode;
+                return;
+            }
+            Node* cur = head;
+            while (cur->next != nullptr)
+                cur = cur->next;
+            cur->next = newNode;
+        }
         
-        if (cur->next != nullptr) {
-            Node* temp = cur->next;
-            cur->next = cur->next->next;
-            delete temp;
+        // Thêm sau node có giá trị key — O(N)
+        void insertAfter(int key, int val) {
+            Node* cur = head;
+            while (cur != nullptr && cur->data != key)
+                cur = cur->next;
+            if (cur == nullptr) return;  // Không tìm thấy
+            
+            Node* newNode = new Node(val);
+            newNode->next = cur->next;
+            cur->next = newNode;
         }
-    }
-    
-    // Duyệt — O(N)
-    void print() {
-        Node* cur = head;
-        while (cur != nullptr) {
-            cout << cur->data << " → ";
-            cur = cur->next;
+        
+        // Xóa node có giá trị key — O(N)
+        void remove(int key) {
+            if (head == nullptr) return;
+            
+            if (head->data == key) {
+                Node* temp = head;
+                head = head->next;
+                delete temp;
+                return;
+            }
+            
+            Node* cur = head;
+            while (cur->next != nullptr && cur->next->data != key)
+                cur = cur->next;
+            
+            if (cur->next != nullptr) {
+                Node* temp = cur->next;
+                cur->next = cur->next->next;
+                delete temp;
+            }
         }
-        cout << "NULL\n";
-    }
-};
-```
+        
+        // Duyệt — O(N)
+        void print() {
+            Node* cur = head;
+            while (cur != nullptr) {
+                cout << cur->data << " → ";
+                cur = cur->next;
+            }
+            cout << "NULL\n";
+        }
+    };
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-class LinkedList:
-    def __init__(self):
-        self.head = None
+    ```python
+    class Node:
+        def __init__(self, data):
+            self.data = data
+            self.next = None
     
-    def push_front(self, val):
-        new_node = Node(val)
-        new_node.next = self.head
-        self.head = new_node
-    
-    def push_back(self, val):
-        new_node = Node(val)
-        if not self.head:
+    class LinkedList:
+        def __init__(self):
+            self.head = None
+        
+        def push_front(self, val):
+            new_node = Node(val)
+            new_node.next = self.head
             self.head = new_node
-            return
-        cur = self.head
-        while cur.next:
-            cur = cur.next
-        cur.next = new_node
-    
-    def remove(self, key):
-        if not self.head: return
-        if self.head.data == key:
-            self.head = self.head.next
-            return
-        cur = self.head
-        while cur.next and cur.next.data != key:
-            cur = cur.next
-        if cur.next:
-            cur.next = cur.next.next
-    
-    def print_list(self):
-        cur = self.head
-        parts = []
-        while cur:
-            parts.append(str(cur.data))
-            cur = cur.next
-        print(" → ".join(parts) + " → NULL")
-```
+        
+        def push_back(self, val):
+            new_node = Node(val)
+            if not self.head:
+                self.head = new_node
+                return
+            cur = self.head
+            while cur.next:
+                cur = cur.next
+            cur.next = new_node
+        
+        def remove(self, key):
+            if not self.head: return
+            if self.head.data == key:
+                self.head = self.head.next
+                return
+            cur = self.head
+            while cur.next and cur.next.data != key:
+                cur = cur.next
+            if cur.next:
+                cur.next = cur.next.next
+        
+        def print_list(self):
+            cur = self.head
+            parts = []
+            while cur:
+                parts.append(str(cur.data))
+                cur = cur.next
+            print(" → ".join(parts) + " → NULL")
+    ```
 
 ---
 

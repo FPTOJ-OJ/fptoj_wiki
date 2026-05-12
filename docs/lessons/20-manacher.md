@@ -101,91 +101,93 @@ Khi tính P[i]:
 
 ## 5. Code C++ - Chi tiết từng bước
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-// Bước 1: Chèn ký tự đặc biệt
-// "aba" → "^#a#b#a#$"
-// Thêm ^ và $ để tránh kiểm tra biên
-string preprocess(string s) {
-    string t = "^";
-    for (char c : s) {
-        t += '#';
-        t += c;
-    }
-    t += "#$";
-    return t;
-}
-
-// Manacher - O(N)
-pair<int,int> manacher(string s) {
-    string t = preprocess(s);
-    int n = t.length();
-    vector<int> P(n, 0);  // P[i] = bán kính palindrome tại tâm i
-    int C = 0, R = 0;     // C = tâm palindrome hiện tại, R = biên phải
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
     
-    // Duyệt từ 1 đến n-2 (bỏ qua ^ và $)
-    for (int i = 1; i < n - 1; i++) {
-        int i_mirror = 2 * C - i;  // Điểm đối xứng qua C
-        
-        // Khởi tạo P[i] từ thông tin đã có
-        if (i < R)
-            P[i] = min(R - i, P[i_mirror]);
-        
-        // Mở rộng palindrome tại tâm i
-        // So sánh 2 ký tự ở 2 bên: t[i + P[i] + 1] và t[i - P[i] - 1]
-        while (t[i + P[i] + 1] == t[i - P[i] - 1])
-            P[i]++;
-        
-        // Cập nhật C và R nếu palindrome tại i mở rộng ra ngoài
-        if (i + P[i] > R) {
-            C = i;
-            R = i + P[i];
+    // Bước 1: Chèn ký tự đặc biệt
+    // "aba" → "^#a#b#a#$"
+    // Thêm ^ và $ để tránh kiểm tra biên
+    string preprocess(string s) {
+        string t = "^";
+        for (char c : s) {
+            t += '#';
+            t += c;
         }
+        t += "#$";
+        return t;
     }
     
-    // Tìm palindrome dài nhất
-    int maxLen = 0, center = 0;
-    for (int i = 1; i < n - 1; i++) {
-        if (P[i] > maxLen) {
-            maxLen = P[i];
-            center = i;
+    // Manacher - O(N)
+    pair<int,int> manacher(string s) {
+        string t = preprocess(s);
+        int n = t.length();
+        vector<int> P(n, 0);  // P[i] = bán kính palindrome tại tâm i
+        int C = 0, R = 0;     // C = tâm palindrome hiện tại, R = biên phải
+        
+        // Duyệt từ 1 đến n-2 (bỏ qua ^ và $)
+        for (int i = 1; i < n - 1; i++) {
+            int i_mirror = 2 * C - i;  // Điểm đối xứng qua C
+            
+            // Khởi tạo P[i] từ thông tin đã có
+            if (i < R)
+                P[i] = min(R - i, P[i_mirror]);
+            
+            // Mở rộng palindrome tại tâm i
+            // So sánh 2 ký tự ở 2 bên: t[i + P[i] + 1] và t[i - P[i] - 1]
+            while (t[i + P[i] + 1] == t[i - P[i] - 1])
+                P[i]++;
+            
+            // Cập nhật C và R nếu palindrome tại i mở rộng ra ngoài
+            if (i + P[i] > R) {
+                C = i;
+                R = i + P[i];
+            }
         }
+        
+        // Tìm palindrome dài nhất
+        int maxLen = 0, center = 0;
+        for (int i = 1; i < n - 1; i++) {
+            if (P[i] > maxLen) {
+                maxLen = P[i];
+                center = i;
+            }
+        }
+        
+        // Chuyển từ chỉ số trong xâu đã chèn về xâu gốc
+        int start = (center - maxLen) / 2;  // Vị trí bắt đầu trong xâu gốc
+        return {start, maxLen};
     }
     
-    // Chuyển từ chỉ số trong xâu đã chèn về xâu gốc
-    int start = (center - maxLen) / 2;  // Vị trí bắt đầu trong xâu gốc
-    return {start, maxLen};
-}
+    int main() {
+        string s = "babad";
+        auto [start, len] = manacher(s);
+        cout << s.substr(start, len) << endl;  // "bab" hoặc "aba"
+    }
+    ```
 
-int main() {
-    string s = "babad";
-    auto [start, len] = manacher(s);
-    cout << s.substr(start, len) << endl;  // "bab" hoặc "aba"
-}
-```
+=== "Python"
 
-### Code Python
-
-```python
-def manacher(s):
-    t = '^#' + '#'.join(s) + '#$'
-    n = len(t)
-    p = [0] * n
-    c, r = 0, 0
-    for i in range(1, n - 1):
-        if i < r:
-            p[i] = min(r - i, p[2 * c - i])
-        while t[i + p[i] + 1] == t[i - p[i] - 1]:
-            p[i] += 1
-        if i + p[i] > r:
-            c, r = i, i + p[i]
-    max_len = max(p)
-    center = p.index(max_len)
-    start = (center - max_len) // 2
-    return s[start:start + max_len]
-```
+    ```python
+    def manacher(s):
+        t = '^#' + '#'.join(s) + '#$'
+        n = len(t)
+        p = [0] * n
+        c, r = 0, 0
+        for i in range(1, n - 1):
+            if i < r:
+                p[i] = min(r - i, p[2 * c - i])
+            while t[i + p[i] + 1] == t[i - p[i] - 1]:
+                p[i] += 1
+            if i + p[i] > r:
+                c, r = i, i + p[i]
+        max_len = max(p)
+        center = p.index(max_len)
+        start = (center - max_len) // 2
+        return s[start:start + max_len]
+    ```
 
 ---
 

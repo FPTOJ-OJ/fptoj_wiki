@@ -195,111 +195,113 @@ Sau vòng lặp: u, v ở depth = 5+1 = 6 (con trực tiếp của LCA)
 
 ## 4. Code hoàn chỉnh
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-const int MAXN = 200005;
-const int LOG = 20;
-
-vector<int> adj[MAXN];
-int depth[MAXN], up[MAXN][LOG];
-
-void dfs(int v, int p) {
-    depth[v] = depth[p] + 1;
-    up[v][0] = p;
-    for (int k = 1; k < LOG; k++)
-        up[v][k] = up[up[v][k-1]][k-1];
-    for (int u : adj[v])
-        if (u != p) dfs(u, v);
-}
-
-int lca(int u, int v) {
-    if (depth[u] < depth[v]) swap(u, v);
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
     
-    // Đưa u lên cùng depth với v
-    int diff = depth[u] - depth[v];
-    for (int k = 0; k < LOG; k++)
-        if (diff & (1 << k))
-            u = up[u][k];
+    const int MAXN = 200005;
+    const int LOG = 20;
     
-    if (u == v) return u;
+    vector<int> adj[MAXN];
+    int depth[MAXN], up[MAXN][LOG];
     
-    // Tìm LCA
-    for (int k = LOG - 1; k >= 0; k--)
-        if (up[u][k] != up[v][k]) {
-            u = up[u][k];
-            v = up[v][k];
+    void dfs(int v, int p) {
+        depth[v] = depth[p] + 1;
+        up[v][0] = p;
+        for (int k = 1; k < LOG; k++)
+            up[v][k] = up[up[v][k-1]][k-1];
+        for (int u : adj[v])
+            if (u != p) dfs(u, v);
+    }
+    
+    int lca(int u, int v) {
+        if (depth[u] < depth[v]) swap(u, v);
+        
+        // Đưa u lên cùng depth với v
+        int diff = depth[u] - depth[v];
+        for (int k = 0; k < LOG; k++)
+            if (diff & (1 << k))
+                u = up[u][k];
+        
+        if (u == v) return u;
+        
+        // Tìm LCA
+        for (int k = LOG - 1; k >= 0; k--)
+            if (up[u][k] != up[v][k]) {
+                u = up[u][k];
+                v = up[v][k];
+            }
+        return up[u][0];
+    }
+    
+    int main() {
+        ios::sync_with_stdio(false); cin.tie(0);
+        int n, q;
+        cin >> n >> q;
+        
+        for (int i = 2; i <= n; i++) {
+            int p; cin >> p;
+            adj[p].push_back(i);
+            adj[i].push_back(p);
         }
-    return up[u][0];
-}
-
-int main() {
-    ios::sync_with_stdio(false); cin.tie(0);
-    int n, q;
-    cin >> n >> q;
-    
-    for (int i = 2; i <= n; i++) {
-        int p; cin >> p;
-        adj[p].push_back(i);
-        adj[i].push_back(p);
+        
+        depth[0] = -1;  // Để depth[root] = 0
+        dfs(1, 0);
+        
+        while (q--) {
+            int u, v; cin >> u >> v;
+            cout << lca(u, v) << "\n";
+        }
     }
-    
-    depth[0] = -1;  // Để depth[root] = 0
-    dfs(1, 0);
-    
-    while (q--) {
-        int u, v; cin >> u >> v;
-        cout << lca(u, v) << "\n";
-    }
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-import sys
-sys.setrecursionlimit(300000)
-input = sys.stdin.readline
-
-class LCA:
-    def __init__(self, n, root, adj):
-        self.LOG = n.bit_length()
-        self.adj = adj
-        self.depth = [0] * (n + 1)
-        self.up = [[0] * self.LOG for _ in range(n + 1)]
-        self._dfs(root, 0)
+    ```python
+    import sys
+    sys.setrecursionlimit(300000)
+    input = sys.stdin.readline
     
-    def _dfs(self, v, p):
-        self.depth[v] = self.depth[p] + 1
-        self.up[v][0] = p
-        for k in range(1, self.LOG):
-            self.up[v][k] = self.up[self.up[v][k-1]][k-1]
-        for u in self.adj[v]:
-            if u != p:
-                self._dfs(u, v)
-    
-    def get_lca(self, u, v):
-        if self.depth[u] < self.depth[v]:
-            u, v = v, u
+    class LCA:
+        def __init__(self, n, root, adj):
+            self.LOG = n.bit_length()
+            self.adj = adj
+            self.depth = [0] * (n + 1)
+            self.up = [[0] * self.LOG for _ in range(n + 1)]
+            self._dfs(root, 0)
         
-        diff = self.depth[u] - self.depth[v]
-        for k in range(self.LOG):
-            if diff & (1 << k):
-                u = self.up[u][k]
+        def _dfs(self, v, p):
+            self.depth[v] = self.depth[p] + 1
+            self.up[v][0] = p
+            for k in range(1, self.LOG):
+                self.up[v][k] = self.up[self.up[v][k-1]][k-1]
+            for u in self.adj[v]:
+                if u != p:
+                    self._dfs(u, v)
         
-        if u == v: return u
+        def get_lca(self, u, v):
+            if self.depth[u] < self.depth[v]:
+                u, v = v, u
+            
+            diff = self.depth[u] - self.depth[v]
+            for k in range(self.LOG):
+                if diff & (1 << k):
+                    u = self.up[u][k]
+            
+            if u == v: return u
+            
+            for k in range(self.LOG - 1, -1, -1):
+                if self.up[u][k] != self.up[v][k]:
+                    u = self.up[u][k]
+                    v = self.up[v][k]
+            return self.up[u][0]
         
-        for k in range(self.LOG - 1, -1, -1):
-            if self.up[u][k] != self.up[v][k]:
-                u = self.up[u][k]
-                v = self.up[v][k]
-        return self.up[u][0]
-    
-    def distance(self, u, v):
-        l = self.get_lca(u, v)
-        return self.depth[u] + self.depth[v] - 2 * self.depth[l]
-```
+        def distance(self, u, v):
+            l = self.get_lca(u, v)
+            return self.depth[u] + self.depth[v] - 2 * self.depth[l]
+    ```
 
 ---
 

@@ -23,7 +23,7 @@ Bạn đang lạc trong mê cung. Cách duy nhất: **thử từng ngã rẽ**. 
 
 ### Giai thừa (!) - Ví dụ đệ quy kinh điển
 
-5! = 5 × 4 × 3 × 2 × 1 = 120
+$5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$
 
 Cách đệ quy: `5! = 5 × 4!` → `4! = 4 × 3!` → ... → `1! = 1` (dừng!)
 
@@ -31,7 +31,7 @@ Cách đệ quy: `5! = 5 × 4!` → `4! = 4 × 3!` → ... → `1! = 1` (dừng!
 
 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 
-Mỗi số = tổng 2 số trước: `F(n) = F(n-1) + F(n-2)`
+Mỗi số = tổng 2 số trước: $F(n) = F(n-1) + F(n-2)$
 
 ---
 
@@ -84,14 +84,24 @@ Với {1, 2, 3}, các hoán vị là:
 123, 132, 213, 231, 312, 321 → Tổng: 3! = 6 hoán vị
 
 **Cây quay lui:**
-```
-                    []
-            /       |       \
-        [1]        [2]      [3]
-       /   \      /   \    /   \
-     [1,2] [1,3] [2,1] [2,3] [3,1] [3,2]
-       |     |     |     |     |     |
-   [1,2,3] ...   ...   ...   ... [3,2,1]
+
+```mermaid
+graph TD
+    root["[]"] --> n1["[1]"]
+    root["[]"] --> n2["[2]"]
+    root["[]"] --> n3["[3]"]
+    n1 --> n12["[1,2]"]
+    n1 --> n13["[1,3]"]
+    n2 --> n21["[2,1]"]
+    n2 --> n23["[2,3]"]
+    n3 --> n31["[3,1]"]
+    n3 --> n32["[3,2]"]
+    n12 --> n123["[1,2,3]"]
+    n13 --> n132["[1,3,2]"]
+    n21 --> n213["[2,1,3]"]
+    n23 --> n231["[2,3,1]"]
+    n31 --> n312["[3,1,2]"]
+    n32 --> n321["[3,2,1]"]
 ```
 
 ### 3.4. Ví dụ: Bài toán 8 quân hậu
@@ -104,6 +114,11 @@ Xếp 8 quân hậu lên bàn cờ 8×8 sao cho không quân nào ăn được n
 - Hàng i: thử tất cả các cột
 - Nếu cột j hợp lệ (không cùng cột, không cùng đường chéo) → xếp hậu, gọi đệ quy hàng tiếp
 - Nếu không hợp lệ → thử cột khác
+
+!!! tip "Thử tương tác"
+    - [N-Queens Problem](https://algorithm-visualizer.org/backtracking/n-queens-problem)
+    - [Knight's Tour](https://algorithm-visualizer.org/backtracking/knights-tour-problem)
+    - [Sum of Subsets](https://algorithm-visualizer.org/backtracking/sum-of-subsets)
 
 ---
 
@@ -140,237 +155,249 @@ Mỗi hàng chỉ có đúng 1 hậu. Ta xếp từng hàng từ trên xuống:
 Khác với hoán vị, bài này cho phép chọn một cần tử lặp lại. Ta dùng `startIdx` để tránh chọn ngược lại (tìm tổ hợp, không phải hoán vị).
 
 
-### Code C++: Tất cả các ứng dụng trên
+### Code: Đệ quy và Quay lui
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-// ===== 1. Tính giai thừa - Đệ quy đơn giản =====
-long long factorial(int n) {
-    if (n == 0) return 1;              // Base case
-    return factorial(n - 1) * n;        // Đệ quy
-}
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
 
-// ===== 2. Số Fibonacci =====
-long long fibo(int n) {
-    if (n == 0) return 0;              // Base case 1
-    if (n == 1) return 1;              // Base case 2
-    return fibo(n - 1) + fibo(n - 2);  // Đệ quy
-}
-
-// ===== 3. Sinh tất cả hoán vị =====
-int n;
-int permutation[20];    // Hoán vị hiện tại
-bool used[20];           // Đánh dấu số đã dùng
-
-void generatePermutation(int pos) {
-    if (pos > n) {
-        // In hoán vị
-        for (int i = 1; i <= n; i++)
-            cout << permutation[i] << " ";
-        cout << "\n";
-        return;                         // Dừng đệ quy
+    // ===== 1. Tính giai thừa - Đệ quy đơn giản =====
+    long long factorial(int n) {
+        if (n == 0) return 1;              // Base case
+        return factorial(n - 1) * n;        // Đệ quy
     }
-    
-    for (int num = 1; num <= n; num++) {
-        if (!used[num]) {               // Nếu num chưa dùng
-            permutation[pos] = num;     // Thêm vào
-            used[num] = true;           // Đánh dấu đã dùng
-            
-            generatePermutation(pos + 1);  // Đệ quy
-            
-            used[num] = false;          // QUAY LUI: bỏ đánh dấu
+
+    // ===== 2. Số Fibonacci =====
+    long long fibo(int n) {
+        if (n == 0) return 0;              // Base case 1
+        if (n == 1) return 1;              // Base case 2
+        return fibo(n - 1) + fibo(n - 2);  // Đệ quy
+    }
+
+    // ===== 3. Sinh tất cả hoán vị =====
+    int n;
+    int permutation[20];    // Hoán vị hiện tại
+    bool used[20];           // Đánh dấu số đã dùng
+
+    void generatePermutation(int pos) {
+        if (pos > n) {
+            // In hoán vị
+            for (int i = 1; i <= n; i++)
+                cout << permutation[i] << " ";
+            cout << "\n";
+            return;                         // Dừng đệ quy
+        }
+        
+        for (int num = 1; num <= n; num++) {
+            if (!used[num]) {               // Nếu num chưa dùng
+                permutation[pos] = num;     // Thêm vào
+                used[num] = true;           // Đánh dấu đã dùng
+                
+                generatePermutation(pos + 1);  // Đệ quy
+                
+                used[num] = false;          // QUAY LUI: bỏ đánh dấu
+            }
         }
     }
-}
 
-// ===== 4. Bài toán 8 quân hậu =====
-int queenCount;
-bool colUsed[20], diag1[40], diag2[40];
-int queenPos[20];  // queenPos[i] = cột của hậu ở hàng i
+    // ===== 4. Bài toán 8 quân hậu =====
+    int queenCount;
+    bool colUsed[20], diag1[40], diag2[40];
+    int queenPos[20];  // queenPos[i] = cột của hậu ở hàng i
 
-void solveQueens(int row) {
-    if (row > queenCount) {
-        // In kết quả
-        for (int i = 1; i <= queenCount; i++)
-            cout << queenPos[i] << " ";
-        cout << "\n";
-        return;
-    }
-    
-    for (int col = 1; col <= queenCount; col++) {
-        int d1 = row + col;             // Đường chéo chính
-        int d2 = row - col + 20;        // Đường chéo phụ (+20 để tránh âm)
+    void solveQueens(int row) {
+        if (row > queenCount) {
+            // In kết quả
+            for (int i = 1; i <= queenCount; i++)
+                cout << queenPos[i] << " ";
+            cout << "\n";
+            return;
+        }
         
-        if (colUsed[col] || diag1[d1] || diag2[d2])
-            continue;                    // Không hợp lệ → thử cột khác
-        
-        // Đặt hậu
-        queenPos[row] = col;
-        colUsed[col] = diag1[d1] = diag2[d2] = true;
-        
-        solveQueens(row + 1);           // Đệ quy hàng tiếp
-        
-        // QUAY LUI
-        colUsed[col] = diag1[d1] = diag2[d2] = false;
-    }
-}
-
-// ===== 5. Bài toán phân tích số =====
-int coins[15], coinCount;
-long long target;
-vector<int> currentSet;
-
-void findWays(int startIdx, long long currentSum) {
-    if (currentSum == target) {
-        // In cách chọn
-        for (int x : currentSet) cout << x << " ";
-        cout << "\n";
-        return;
-    }
-    
-    for (int i = startIdx; i < coinCount; i++) {
-        if (currentSum + coins[i] <= target) {
-            currentSet.push_back(coins[i]);        // Thêm
-            findWays(i, currentSum + coins[i]);     // Đệ quy
-            currentSet.pop_back();                  // QUAY LUI
+        for (int col = 1; col <= queenCount; col++) {
+            int d1 = row + col;             // Đường chéo chính
+            int d2 = row - col + 20;        // Đường chéo phụ (+20 để tránh âm)
+            
+            if (colUsed[col] || diag1[d1] || diag2[d2])
+                continue;                    // Không hợp lệ → thử cột khác
+            
+            // Đặt hậu
+            queenPos[row] = col;
+            colUsed[col] = diag1[d1] = diag2[d2] = true;
+            
+            solveQueens(row + 1);           // Đệ quy hàng tiếp
+            
+            // QUAY LUI
+            colUsed[col] = diag1[d1] = diag2[d2] = false;
         }
     }
-}
 
-int main() {
-    // Test giai thừa
-    cout << "5! = " << factorial(5) << endl;  // 120
-    
-    // Test sinh hoán vị
-    n = 3;
-    memset(used, false, sizeof(used));
-    generatePermutation(1);
-    
-    return 0;
-}
-```
+    // ===== 5. Bài toán phân tích số =====
+    int coins[15], coinCount;
+    long long target;
+    vector<int> currentSet;
 
-### Code Python
-
-```python
-# ===== 1. Giai thừa =====
-def factorial(n):
-    if n == 0: return 1              # Base case
-    return factorial(n - 1) * n      # Đệ quy
-
-# ===== 2. Fibonacci =====
-def fibo(n):
-    if n == 0: return 0
-    if n == 1: return 1
-    return fibo(n - 1) + fibo(n - 2)
-
-# ===== 3. Sinh hoán vị =====
-def generate_permutation(n):
-    used = [False] * (n + 1)
-    permutation = []
-    
-    def backtrack():
-        if len(permutation) == n:
-            print(*permutation)
-            return
+    void findWays(int startIdx, long long currentSum) {
+        if (currentSum == target) {
+            // In cách chọn
+            for (int x : currentSet) cout << x << " ";
+            cout << "\n";
+            return;
+        }
         
-        for num in range(1, n + 1):
-            if not used[num]:
-                permutation.append(num)    # Thêm
-                used[num] = True
-                backtrack()                # Đệ quy
-                permutation.pop()          # QUAY LUI
-                used[num] = False
-    
-    backtrack()
+        for (int i = startIdx; i < coinCount; i++) {
+            if (currentSum + coins[i] <= target) {
+                currentSet.push_back(coins[i]);        // Thêm
+                findWays(i, currentSum + coins[i]);     // Đệ quy
+                currentSet.pop_back();                  // QUAY LUI
+            }
+        }
+    }
 
-# ===== 4. Bài toán N quân hậu =====
-def solve_n_queens(n):
-    col_used = [False] * n
-    diag1 = [False] * (2 * n)
-    diag2 = [False] * (2 * n)
-    queens = []
-    
-    def backtrack(row):
-        if row == n:
-            print(queens)
-            return
+    int main() {
+        // Test giai thừa
+        cout << "5! = " << factorial(5) << endl;  // 120
         
-        for col in range(n):
-            d1 = row + col
-            d2 = row - col + n
-            
-            if col_used[col] or diag1[d1] or diag2[d2]:
-                continue
-            
-            queens.append(col)
-            col_used[col] = diag1[d1] = diag2[d2] = True
-            
-            backtrack(row + 1)
-            
-            queens.pop()
-            col_used[col] = diag1[d1] = diag2[d2] = False
-    
-    backtrack()
+        // Test sinh hoán vị
+        n = 3;
+        memset(used, false, sizeof(used));
+        generatePermutation(1);
+        
+        return 0;
+    }
+    ```
 
-# Test
-print("5! =", factorial(5))    # 120
-generate_permutation(3)         # 6 hoán vị
-```
+=== "Python"
+
+    ```python
+    # ===== 1. Giai thừa =====
+    def factorial(n):
+        if n == 0: return 1              # Base case
+        return factorial(n - 1) * n      # Đệ quy
+
+    # ===== 2. Fibonacci =====
+    def fibo(n):
+        if n == 0: return 0
+        if n == 1: return 1
+        return fibo(n - 1) + fibo(n - 2)
+
+    # ===== 3. Sinh hoán vị =====
+    def generate_permutation(n):
+        used = [False] * (n + 1)
+        permutation = []
+        
+        def backtrack():
+            if len(permutation) == n:
+                print(*permutation)
+                return
+            
+            for num in range(1, n + 1):
+                if not used[num]:
+                    permutation.append(num)    # Thêm
+                    used[num] = True
+                    backtrack()                # Đệ quy
+                    permutation.pop()          # QUAY LUI
+                    used[num] = False
+        
+        backtrack()
+
+    # ===== 4. Bài toán N quân hậu =====
+    def solve_n_queens(n):
+        col_used = [False] * n
+        diag1 = [False] * (2 * n)
+        diag2 = [False] * (2 * n)
+        queens = []
+        
+        def backtrack(row):
+            if row == n:
+                print(queens)
+                return
+            
+            for col in range(n):
+                d1 = row + col
+                d2 = row - col + n
+                
+                if col_used[col] or diag1[d1] or diag2[d2]:
+                    continue
+                
+                queens.append(col)
+                col_used[col] = diag1[d1] = diag2[d2] = True
+                
+                backtrack(row + 1)
+                
+                queens.pop()
+                col_used[col] = diag1[d1] = diag2[d2] = False
+        
+        backtrack()
+
+    # Test
+    print("5! =", factorial(5))    # 120
+    generate_permutation(3)         # 6 hoán vị
+    ```
 
 ## 5. Lưu ý / Cạm bẫy hay gặp
 
 ### Bẫy 1: Quên base case → Stack Overflow!
 
-```cpp
-// SAI: không có base case → đệ quy vô hạn!
-int factorial(int n) {
-    return factorial(n - 1) * n;
-}
+=== "C++"
 
-// ĐÚNG: phải có base case
-int factorial(int n) {
-    if (n == 0) return 1;  // ← Base case!
-    return factorial(n - 1) * n;
-}
-```
-```python
-# SAI: không có base case → đệ quy vô hạn!
-def factorial(n):
-    return factorial(n - 1) * n
+    ```cpp
+    // SAI: không có base case → đệ quy vô hạn!
+    int factorial(int n) {
+        return factorial(n - 1) * n;
+    }
 
-# ĐÚNG: phải có base case
-def factorial(n):
-    if n == 0: return 1    # ← Base case!
-    return factorial(n - 1) * n
-```
+    // ĐÚNG: phải có base case
+    int factorial(int n) {
+        if (n == 0) return 1;  // ← Base case!
+        return factorial(n - 1) * n;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # SAI: không có base case → đệ quy vô hạn!
+    def factorial(n):
+        return factorial(n - 1) * n
+
+    # ĐÚNG: phải có base case
+    def factorial(n):
+        if n == 0: return 1    # ← Base case!
+        return factorial(n - 1) * n
+    ```
 
 ### Bẫy 2: Quên "quay lui" → Sai kết quả!
 
-```cpp
-// SAI: quên khôi phục trạng thái
-used[num] = true;
-backtrack(pos + 1);
-// Quên used[num] = false! → Lần sau không dùng được num nữa!
+=== "C++"
 
-// ĐÚNG:
-used[num] = true;
-backtrack(pos + 1);
-used[num] = false;  // ← QUAY LUI!
-```
-```python
-# SAI: quên khôi phục trạng thái
-used[num] = True
-backtrack(pos + 1)
-# Quên used[num] = False! → Lần sau không dùng được num nữa!
+    ```cpp
+    // SAI: quên khôi phục trạng thái
+    used[num] = true;
+    backtrack(pos + 1);
+    // Quên used[num] = false! → Lần sau không dùng được num nữa!
 
-# ĐÚNG:
-used[num] = True
-backtrack(pos + 1)
-used[num] = False   # ← QUAY LUI!
-```
+    // ĐÚNG:
+    used[num] = true;
+    backtrack(pos + 1);
+    used[num] = false;  // ← QUAY LUI!
+    ```
+
+=== "Python"
+
+    ```python
+    # SAI: quên khôi phục trạng thái
+    used[num] = True
+    backtrack(pos + 1)
+    # Quên used[num] = False! → Lần sau không dùng được num nữa!
+
+    # ĐÚNG:
+    used[num] = True
+    backtrack(pos + 1)
+    used[num] = False   # ← QUAY LUI!
+    ```
 
 ### Bẫy 3: Đệ quy quá sâu → Stack Overflow
 
@@ -380,44 +407,49 @@ Nếu N lớn (ví dụ N = 100.000), đệ quy có thể tràn stack → chươ
 
 ### Bẫy 4: Đệ quy Fibonacci không nhớ → Cực chậm!
 
-```cpp
-// SAI: O(2^N) - rất chậm!
-int fibo(int n) {
-    if (n <= 1) return n;
-    return fibo(n-1) + fibo(n-2);  // Tính lại cùng 1 giá trị nhiều lần!
-}
+=== "C++"
 
-// ĐÚNG: dùng memoization - O(N)
-int memo[100];
-// Nhớ khởi tạo: memset(memo, -1, sizeof(memo)) trước khi dùng!
-int fibo(int n) {
-    if (n <= 1) return n;
-    if (memo[n] != -1) return memo[n];  // Đã tính rồi → lấy ra
-    return memo[n] = fibo(n-1) + fibo(n-2);  // Tính và lưu
-}
-```
-```python
-# SAI: O(2^N) - rất chậm!
-def fibo(n):
-    if n <= 1: return n
-    return fibo(n-1) + fibo(n-2)   # Tính lại cùng 1 giá trị nhiều lần!
+    ```cpp
+    // SAI: O(2^N) - rất chậm!
+    int fibo(int n) {
+        if (n <= 1) return n;
+        return fibo(n-1) + fibo(n-2);  // Tính lại cùng 1 giá trị nhiều lần!
+    }
 
-# ĐÚNG: dùng memoization - O(N)
-from functools import lru_cache
+    // ĐÚNG: dùng memoization - O(N)
+    int memo[100];
+    // Nhớ khởi tạo: memset(memo, -1, sizeof(memo)) trước khi dùng!
+    int fibo(int n) {
+        if (n <= 1) return n;
+        if (memo[n] != -1) return memo[n];  // Đã tính rồi → lấy ra
+        return memo[n] = fibo(n-1) + fibo(n-2);  // Tính và lưu
+    }
+    ```
 
-@lru_cache(maxsize=None)
-def fibo(n):
-    if n <= 1: return n
-    return fibo(n-1) + fibo(n-2)
+=== "Python"
 
-# Hoặc tự cài memo:
-memo = {}
-def fibo(n):
-    if n <= 1: return n
-    if n in memo: return memo[n]
-    memo[n] = fibo(n-1) + fibo(n-2)
-    return memo[n]
-```
+    ```python
+    # SAI: O(2^N) - rất chậm!
+    def fibo(n):
+        if n <= 1: return n
+        return fibo(n-1) + fibo(n-2)   # Tính lại cùng 1 giá trị nhiều lần!
+
+    # ĐÚNG: dùng memoization - O(N)
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def fibo(n):
+        if n <= 1: return n
+        return fibo(n-1) + fibo(n-2)
+
+    # Hoặc tự cài memo:
+    memo = {}
+    def fibo(n):
+        if n <= 1: return n
+        if n in memo: return memo[n]
+        memo[n] = fibo(n-1) + fibo(n-2)
+        return memo[n]
+    ```
 
 ### Mẹo thi cử: Khi nào dùng Quay lui?
 

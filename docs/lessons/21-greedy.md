@@ -37,6 +37,11 @@ Greedy **không phải lúc nào cũng đúng!** Chỉ đúng khi bài toán có
 
 → Greedy không phải lúc nào cũng tối ưu! (Nhưng với hệ tiền tệ chuẩn {1, 5, 10, 50, 100} thì Greedy luôn đúng.)
 
+!!! tip "Thử tương tích"
+    - [Job Scheduling](https://algorithm-visualizer.org/greedy/job-scheduling-problem)
+    - [Kruskal's MST](https://algorithm-visualizer.org/greedy/kruskals-minimum-spanning-tree)
+    - [Dijkstra's Shortest Path](https://algorithm-visualizer.org/greedy/dijkstras-shortest-path)
+
 ---
 
 ## 3. Các bài toán Greedy kinh điển
@@ -69,39 +74,44 @@ Có N đồ vật, mỗi vật có trọng lượng w[i] và giá trị v[i]. T�
 
 **Greedy:** Sắp xếp theo tỷ lệ giá trị/trọng lượng giảm dần, lấy hết vật nào được trước.
 
-```cpp
-double fractionalKnapsack(vector<pair<double,double>>& items, double W) {
-    sort(items.begin(), items.end(), [](auto& a, auto& b) {
-        return a.first / a.second > b.first / b.second;  // Tỷ lệ giảm dần
-    });
-    
-    double totalValue = 0;
-    for (auto& [value, weight] : items) {
-        if (W >= weight) {
-            totalValue += value;
-            W -= weight;
-        } else {
-            totalValue += value * (W / weight);
-            break;
+=== "C++"
+
+    ```cpp
+    double fractionalKnapsack(vector<pair<double,double>>& items, double W) {
+        sort(items.begin(), items.end(), [](auto& a, auto& b) {
+            return a.first / a.second > b.first / b.second;  // Tỷ lệ giảm dần
+        });
+        
+        double totalValue = 0;
+        for (auto& [value, weight] : items) {
+            if (W >= weight) {
+                totalValue += value;
+                W -= weight;
+            } else {
+                totalValue += value * (W / weight);
+                break;
+            }
         }
+        return totalValue;
     }
-    return totalValue;
-}
-```
-```python
-def fractional_knapsack(items, W):
-    # items = [(value, weight), ...]
-    items.sort(key=lambda x: x[0] / x[1], reverse=True)
-    total_value = 0
-    for value, weight in items:
-        if W >= weight:
-            total_value += value
-            W -= weight
-        else:
-            total_value += value * (W / weight)
-            break
-    return total_value
-```
+    ```
+
+=== "Python"
+
+    ```python
+    def fractional_knapsack(items, W):
+        # items = [(value, weight), ...]
+        items.sort(key=lambda x: x[0] / x[1], reverse=True)
+        total_value = 0
+        for value, weight in items:
+            if W >= weight:
+                total_value += value
+                W -= weight
+            else:
+                total_value += value * (W / weight)
+                break
+        return total_value
+    ```
 
 ### 3.3. Job Sequencing (Xếp lịch công việc)
 
@@ -109,50 +119,52 @@ Mỗi công việc có deadline và lợi nhuận. Hoàn thành tối đa công 
 
 **Greedy:** Sắp xếp theo lợi nhuận giảm dần, chọn thời điểm trễ nhất trước deadline.
 
-```cpp
-int jobSequencing(vector<pair<int,int>>& jobs) {
-    // jobs[i] = {deadline, profit}
-    sort(jobs.begin(), jobs.end(), [](auto& a, auto& b) {
-        return a.second > b.second;  // Profit giảm dần
-    });
-    
-    int maxDeadline = 0;
-    for (auto& [d, p] : jobs)
-        maxDeadline = max(maxDeadline, d);
-    
-    vector<int> slot(maxDeadline + 1, -1);  // slot[t] = job được xếp tại thời điểm t
-    int totalProfit = 0;
-    
-    for (auto& [deadline, profit] : jobs) {
-        // Tìm slot trống gần deadline nhất
-        for (int t = deadline; t >= 1; t--) {
-            if (slot[t] == -1) {
-                slot[t] = profit;
-                totalProfit += profit;
-                break;
+=== "C++"
+
+    ```cpp
+    int jobSequencing(vector<pair<int,int>>& jobs) {
+        // jobs[i] = {deadline, profit}
+        sort(jobs.begin(), jobs.end(), [](auto& a, auto& b) {
+            return a.second > b.second;  // Profit giảm dần
+        });
+        
+        int maxDeadline = 0;
+        for (auto& [d, p] : jobs)
+            maxDeadline = max(maxDeadline, d);
+        
+        vector<int> slot(maxDeadline + 1, -1);  // slot[t] = job được xếp tại thời điểm t
+        int totalProfit = 0;
+        
+        for (auto& [deadline, profit] : jobs) {
+            // Tìm slot trống gần deadline nhất
+            for (int t = deadline; t >= 1; t--) {
+                if (slot[t] == -1) {
+                    slot[t] = profit;
+                    totalProfit += profit;
+                    break;
+                }
             }
         }
+        return totalProfit;
     }
-    return totalProfit;
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-def job_sequencing(jobs):
-    jobs.sort(key=lambda x: x[1], reverse=True)
-    max_deadline = max(d for d, p in jobs)
-    slot = [-1] * (max_deadline + 1)
-    total_profit = 0
-    for deadline, profit in jobs:
-        for t in range(deadline, 0, -1):
-            if slot[t] == -1:
-                slot[t] = profit
-                total_profit += profit
-                break
-    return total_profit
-```
+    ```python
+    def job_sequencing(jobs):
+        jobs.sort(key=lambda x: x[1], reverse=True)
+        max_deadline = max(d for d, p in jobs)
+        slot = [-1] * (max_deadline + 1)
+        total_profit = 0
+        for deadline, profit in jobs:
+            for t in range(deadline, 0, -1):
+                if slot[t] == -1:
+                    slot[t] = profit
+                    total_profit += profit
+                    break
+        return total_profit
+    ```
 
 ### 3.4. Minimum Number of Platforms (Sân ga)
 
@@ -160,47 +172,49 @@ Cho giờ đến và giờ đi của N chuyến tàu. Tìm số sân ga tối th
 
 **Greedy:** Sắp xếp cả giờ đến và giờ đi. Duyệt, tăng số sân ga khi tàu đến, giảm khi tàu đi.
 
-```cpp
-int minPlatforms(vector<int>& arrival, vector<int>& departure) {
-    sort(arrival.begin(), arrival.end());
-    sort(departure.begin(), departure.end());
-    
-    int platforms = 0, maxPlatforms = 0;
-    int i = 0, j = 0, n = arrival.size();
-    
-    while (i < n && j < n) {
-        if (arrival[i] <= departure[j]) {
-            platforms++;  // Tàu đến → cần thêm sân ga
-            maxPlatforms = max(maxPlatforms, platforms);
-            i++;
-        } else {
-            platforms--;  // Tàu đi → giải phóng sân ga
-            j++;
+=== "C++"
+
+    ```cpp
+    int minPlatforms(vector<int>& arrival, vector<int>& departure) {
+        sort(arrival.begin(), arrival.end());
+        sort(departure.begin(), departure.end());
+        
+        int platforms = 0, maxPlatforms = 0;
+        int i = 0, j = 0, n = arrival.size();
+        
+        while (i < n && j < n) {
+            if (arrival[i] <= departure[j]) {
+                platforms++;  // Tàu đến → cần thêm sân ga
+                maxPlatforms = max(maxPlatforms, platforms);
+                i++;
+            } else {
+                platforms--;  // Tàu đi → giải phóng sân ga
+                j++;
+            }
         }
+        return maxPlatforms;
     }
-    return maxPlatforms;
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-def min_platforms(arrival, departure):
-    arrival.sort()
-    departure.sort()
-    platforms = max_platforms = 0
-    i = j = 0
-    n = len(arrival)
-    while i < n and j < n:
-        if arrival[i] <= departure[j]:
-            platforms += 1
-            max_platforms = max(max_platforms, platforms)
-            i += 1
-        else:
-            platforms -= 1
-            j += 1
-    return max_platforms
-```
+    ```python
+    def min_platforms(arrival, departure):
+        arrival.sort()
+        departure.sort()
+        platforms = max_platforms = 0
+        i = j = 0
+        n = len(arrival)
+        while i < n and j < n:
+            if arrival[i] <= departure[j]:
+                platforms += 1
+                max_platforms = max(max_platforms, platforms)
+                i += 1
+            else:
+                platforms -= 1
+                j += 1
+        return max_platforms
+    ```
 
 ---
 
@@ -266,36 +280,38 @@ Mỗi ký tự có tần suất xuất hiện. Mã hóa sao cho tổng độ dà
 
 **Greedy:** Luôn gộp 2 node có tần suất nhỏ nhất.
 
-```cpp
-int huffmanCoding(vector<int>& freq) {
-    priority_queue<int, vector<int>, greater<int>> pq(freq.begin(), freq.end());
-    
-    int totalCost = 0;
-    while (pq.size() > 1) {
-        int a = pq.top(); pq.pop();
-        int b = pq.top(); pq.pop();
-        totalCost += a + b;
-        pq.push(a + b);
+=== "C++"
+
+    ```cpp
+    int huffmanCoding(vector<int>& freq) {
+        priority_queue<int, vector<int>, greater<int>> pq(freq.begin(), freq.end());
+        
+        int totalCost = 0;
+        while (pq.size() > 1) {
+            int a = pq.top(); pq.pop();
+            int b = pq.top(); pq.pop();
+            totalCost += a + b;
+            pq.push(a + b);
+        }
+        return totalCost;
     }
-    return totalCost;
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-import heapq
-
-def huffman_coding(freq):
-    heapq.heapify(freq)
-    total_cost = 0
-    while len(freq) > 1:
-        a = heapq.heappop(freq)
-        b = heapq.heappop(freq)
-        total_cost += a + b
-        heapq.heappush(freq, a + b)
-    return total_cost
-```
+    ```python
+    import heapq
+    
+    def huffman_coding(freq):
+        heapq.heapify(freq)
+        total_cost = 0
+        while len(freq) > 1:
+            a = heapq.heappop(freq)
+            b = heapq.heappop(freq)
+            total_cost += a + b
+            heapq.heappush(freq, a + b)
+        return total_cost
+    ```
 
 ### 6.2. Interval Partitioning (Phân đoạn)
 

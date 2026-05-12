@@ -51,6 +51,9 @@ Hậu tố      Chỉ số   Sắp xếp
 Suffix Array (SA): [6, 5, 3, 1, 0, 4, 2]
 ```
 
+![Suffix Array - VisuAlgo](../uploads/img/gif/suffixarray.gif)
+*Minh họa Suffix Array (Nguồn: VisuAlgo)*
+
 ### Tại sao cần ký tự $ (terminator)?
 
 `$` nhỏ hơn mọi ký tự khác → đảm bảo hậu tố ngắn hơn luôn đứng trước hậu tố dài hơn có cùng prefix.
@@ -110,66 +113,65 @@ Bước 2 (k=2): Sắp xếp theo 2 ký tự (rank[i], rank[i+1])
 Bước 4 (k=4): Sắp xếp theo 4 ký tự
   ...tiếp tục cho đến k >= N
 ```
+=== "C++"
 
-### 2.3. Code Doubling — O(N log² N)
-
-```cpp
-vector<int> buildSA(string s) {
-    int n = s.size();
-    vector<int> sa(n), rank(n), tmp(n);
-    
-    // Khởi tạo: rank = mã ASCII
-    for (int i = 0; i < n; i++) {
-        sa[i] = i;
-        rank[i] = s[i];
+    ```cpp
+    vector<int> buildSA(string s) {
+        int n = s.size();
+        vector<int> sa(n), rank(n), tmp(n);
+        
+        // Khởi tạo: rank = mã ASCII
+        for (int i = 0; i < n; i++) {
+            sa[i] = i;
+            rank[i] = s[i];
+        }
+        
+        for (int k = 1; k < n; k <<= 1) {
+            // Sắp xếp theo (rank[i], rank[i+k])
+            auto cmp = [&](int a, int b) {
+                if (rank[a] != rank[b]) return rank[a] < rank[b];
+                int ra = (a + k < n) ? rank[a + k] : -1;
+                int rb = (b + k < n) ? rank[b + k] : -1;
+                return ra < rb;
+            };
+            sort(sa.begin(), sa.end(), cmp);
+            
+            // Cập nhật rank mới
+            tmp[sa[0]] = 0;
+            for (int i = 1; i < n; i++)
+                tmp[sa[i]] = tmp[sa[i-1]] + (cmp(sa[i-1], sa[i]) ? 1 : 0);
+            rank = tmp;
+            
+            if (rank[sa[n-1]] == n - 1) break;  // Đã sắp xếp xong
+        }
+        return sa;
     }
-    
-    for (int k = 1; k < n; k <<= 1) {
-        // Sắp xếp theo (rank[i], rank[i+k])
-        auto cmp = [&](int a, int b) {
-            if (rank[a] != rank[b]) return rank[a] < rank[b];
-            int ra = (a + k < n) ? rank[a + k] : -1;
-            int rb = (b + k < n) ? rank[b + k] : -1;
-            return ra < rb;
-        };
-        sort(sa.begin(), sa.end(), cmp);
-        
-        // Cập nhật rank mới
-        tmp[sa[0]] = 0;
-        for (int i = 1; i < n; i++)
-            tmp[sa[i]] = tmp[sa[i-1]] + (cmp(sa[i-1], sa[i]) ? 1 : 0);
-        rank = tmp;
-        
-        if (rank[sa[n-1]] == n - 1) break;  // Đã sắp xếp xong
-    }
-    return sa;
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-def build_sa(s):
-    n = len(s)
-    sa = list(range(n))
-    rank = [ord(c) for c in s]
-    tmp = [0] * n
-    
-    k = 1
-    while k < n:
-        sa.sort(key=lambda x: (rank[x], rank[x + k] if x + k < n else -1))
+    ```python
+    def build_sa(s):
+        n = len(s)
+        sa = list(range(n))
+        rank = [ord(c) for c in s]
+        tmp = [0] * n
         
-        tmp[sa[0]] = 0
-        for i in range(1, n):
-            tmp[sa[i]] = tmp[sa[i-1]] + (1 if (rank[sa[i-1]], rank[sa[i-1]+k] if sa[i-1]+k < n else -1) < (rank[sa[i]], rank[sa[i]+k] if sa[i]+k < n else -1) else 0)
-        rank = tmp[:]
+        k = 1
+        while k < n:
+            sa.sort(key=lambda x: (rank[x], rank[x + k] if x + k < n else -1))
+            
+            tmp[sa[0]] = 0
+            for i in range(1, n):
+                tmp[sa[i]] = tmp[sa[i-1]] + (1 if (rank[sa[i-1]], rank[sa[i-1]+k] if sa[i-1]+k < n else -1) < (rank[sa[i]], rank[sa[i]+k] if sa[i]+k < n else -1) else 0)
+            rank = tmp[:]
+            
+            if rank[sa[-1]] == n - 1:
+                break
+            k <<= 1
         
-        if rank[sa[-1]] == n - 1:
-            break
-        k <<= 1
-    
-    return sa
-```
+        return sa
+    ```
 
 ---
 

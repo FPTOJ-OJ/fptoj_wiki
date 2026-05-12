@@ -22,24 +22,30 @@ Có rất nhiều phương pháp để kiểm tra một số nguyên có phải 
 
 Ta sẽ duyệt hết tất cả các số từ 1 đến $N$ và đếm số ước của $N$. Nếu số ước của $N$ là 2 thì $N$ là số nguyên tố, nếu không thì $N$ không là số nguyên tố.
 
-```cpp
-bool isPrime(int n) {
-    for (int i = 2; i < n; i++)
-        if (n % i == 0) {
-            // n chia hết cho số khác 1 và chính nó.
-            return false;
-        }
-    return n > 1;
-}
-```
+=== "C++"
 
-```python
-def isPrime(n):
-    for i in range(2, n):
-        if n % i == 0:
-            return False
-    return n > 1
-```
+    ```cpp
+    // Kiểm tra tính nguyên tố bằng cách duyệt tất cả các số từ 2 đến n-1
+    bool isPrime(int n) {
+        for (int i = 2; i < n; i++)
+            if (n % i == 0) {
+                // n chia hết cho số khác 1 và chính nó.
+                return false;
+            }
+        return n > 1;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Kiểm tra tính nguyên tố bằng cách duyệt tất cả các số từ 2 đến n-1
+    def isPrime(n):
+        for i in range(2, n):
+            if n % i == 0:
+                return False
+        return n > 1
+    ```
 
 **Độ phức tạp của thuật toán:** Độ phức tạp của thuật toán là $O(N)$ do ta phải duyệt hết các số từ 1 đến $N$.
 
@@ -47,23 +53,29 @@ def isPrime(n):
 
 Xét hai số nguyên dương $N$ và $D$ thỏa mãn $N$ chia hết cho $D$ và $D$ nhỏ hơn $\sqrt{N}$. Khi đó $\frac{N}{D}$ phải lớn hơn $\sqrt{N}$. $N$ cũng chia hết cho $\frac{N}{D}$. Vì thế, nếu $N$ có ước nhỏ hơn $\sqrt{N}$ thì $N$ cũng có ước lớn hơn $\sqrt{N}$. Do đó, ta chỉ cần duyệt đến $\sqrt{N}$.
 
-```cpp
-bool isPrime(int n) {
-    for (int i = 2; i*i <= n; i++)
-        if (n % i == 0) return false;
-    return n > 1;
-}
-```
+=== "C++"
 
-```python
-def isPrime(n):
-    i = 2
-    while i * i <= n:
-        if n % i == 0:
-            return False
-        i += 1
-    return n > 1
-```
+    ```cpp
+    // Kiểm tra tính nguyên tố chỉ cần duyệt đến căn n
+    bool isPrime(int n) {
+        for (int i = 2; i*i <= n; i++)
+            if (n % i == 0) return false;
+        return n > 1;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Kiểm tra tính nguyên tố chỉ cần duyệt đến căn n
+    def isPrime(n):
+        i = 2
+        while i * i <= n:
+            if n % i == 0:
+                return False
+            i += 1
+        return n > 1
+    ```
 
 **Độ phức tạp của thuật toán:** Độ phức tạp của thuật toán là $O(\sqrt{N})$ do ta phải duyệt từ 1 đến $\sqrt{N}$.
 
@@ -84,35 +96,42 @@ Nguyên lí hoạt động của sàng là vào mỗi lần duyệt, ta chọn m
 
    - Đánh dấu các bội lớn hơn nó là số nguyên tố.
 
-```cpp
-void sieve(int N) {
-    bool isPrime[N+1];
-    for(int i = 0; i <= N;++i) {
-        isPrime[i] = true;
-    }
-    isPrime[0] = false;
-    isPrime[1] = false;
-    for(int i = 2; i * i <= N; ++i) {
-         if(isPrime[i] == true) {
-             // Mark all the multiples of i as composite numbers
-             for(int j = i * i; j <= N; j += i)
-                 isPrime[j] = false;
+=== "C++"
+
+    ```cpp
+    // Sàng Eratosthenes: đánh dấu các hợp số
+    void sieve(int N) {
+        bool isPrime[N+1];
+        for(int i = 0; i <= N;++i) {
+            isPrime[i] = true;
+        }
+        isPrime[0] = false;
+        isPrime[1] = false;
+        for(int i = 2; i * i <= N; ++i) {
+             if(isPrime[i] == true) {
+                 // Đánh dấu tất cả bội của i là hợp số
+                 for(int j = i * i; j <= N; j += i)
+                     isPrime[j] = false;
+            }
         }
     }
-}
-```
+    ```
 
-```python
-def sieve(N):
-    isPrime = [True] * (N + 1)
-    isPrime[0] = False
-    isPrime[1] = False
-    for i in range(2, int(N**0.5) + 1):
-        if isPrime[i]:
-            for j in range(i * i, N + 1, i):
-                isPrime[j] = False
-    return isPrime
-```
+=== "Python"
+
+    ```python
+    # Sàng Eratosthenes: đánh dấu các hợp số
+    def sieve(N):
+        isPrime = [True] * (N + 1)
+        isPrime[0] = False
+        isPrime[1] = False
+        for i in range(2, int(N**0.5) + 1):
+            if isPrime[i]:
+                # Đánh dấu tất cả bội của i là hợp số
+                for j in range(i * i, N + 1, i):
+                    isPrime[j] = False
+        return isPrime
+    ```
 
 Code trên được dùng để tìm các số nguyên tố nhỏ hơn hoặc bằng $N$.
 
@@ -133,89 +152,107 @@ Cách cài đặt:
 
 Đầu tiên hãy xem xét thuật toán phân tích ra thừa số nguyên tố trong $O(\sqrt{N})$.
 
-```cpp
-vector<int> factorize(int n) {
-    vector<int> res;
-    for (int i = 2; i * i <= n; ++i) {
-        while (n % i == 0) {
-            res.push_back(i);
-            n /= i;
-        }
-    }
-    if (n != 1) {
-        res.push_back(n);
-    }
-    return res;
-}
-```
+=== "C++"
 
-```python
-def factorize(n):
-    res = []
-    i = 2
-    while i * i <= n:
-        while n % i == 0:
-            res.append(i)
-            n //= i
-        i += 1
-    if n != 1:
-        res.append(n)
-    return res
-```
+    ```cpp
+    // Phân tích thừa số nguyên tố trong O(sqrt(N))
+    vector<int> factorize(int n) {
+        vector<int> res;
+        for (int i = 2; i * i <= n; ++i) {
+            while (n % i == 0) {
+                res.push_back(i);
+                n /= i;
+            }
+        }
+        if (n != 1) {
+            res.push_back(n);
+        }
+        return res;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Phân tích thừa số nguyên tố trong O(sqrt(N))
+    def factorize(n):
+        res = []
+        i = 2
+        while i * i <= n:
+            while n % i == 0:
+                res.append(i)
+                n //= i
+            i += 1
+        if n != 1:
+            res.append(n)
+        return res
+    ```
 
 Tại mỗi bước ta phải tìm số nguyên tố nhỏ nhất mà $N$ chia hết cho số đó. Do đó, ta phải biến đổi sàng Eratosthenes để tìm được số mình mong muốn trong $O(1)$.
 
-```cpp
-int minPrime[n + 1];
-for (int i = 2; i * i <= n; ++i) {
-    if (minPrime[i] == 0) { //if i is prime
-        for (int j = i * i; j <= n; j += i) {
-            if (minPrime[j] == 0) {
-                minPrime[j] = i;
+=== "C++"
+
+    ```cpp
+    // Sàng tìm ước nguyên tố nhỏ nhất của mỗi số
+    int minPrime[n + 1];
+    for (int i = 2; i * i <= n; ++i) {
+        if (minPrime[i] == 0) { // nếu i là số nguyên tố
+            for (int j = i * i; j <= n; j += i) {
+                if (minPrime[j] == 0) {
+                    minPrime[j] = i;
+                }
             }
         }
     }
-}
-for (int i = 2; i <= n; ++i) {
-    if (minPrime[i] == 0) {
-        minPrime[i] = i;
+    for (int i = 2; i <= n; ++i) {
+        if (minPrime[i] == 0) {
+            minPrime[i] = i;
+        }
     }
-}
-```
+    ```
 
-```python
-minPrime = [0] * (n + 1)
-for i in range(2, int(n**0.5) + 1):
-    if minPrime[i] == 0:
-        for j in range(i * i, n + 1, i):
-            if minPrime[j] == 0:
-                minPrime[j] = i
-for i in range(2, n + 1):
-    if minPrime[i] == 0:
-        minPrime[i] = i
-```
+=== "Python"
+
+    ```python
+    # Sàng tìm ước nguyên tố nhỏ nhất của mỗi số
+    minPrime = [0] * (n + 1)
+    for i in range(2, int(n**0.5) + 1):
+        if minPrime[i] == 0:  # nếu i là số nguyên tố
+            for j in range(i * i, n + 1, i):
+                if minPrime[j] == 0:
+                    minPrime[j] = i
+    for i in range(2, n + 1):
+        if minPrime[i] == 0:
+            minPrime[i] = i
+    ```
 
 Bây giờ ta có thể phân tích một số ra thừa số nguyên tố trong $O(\log{N})$.
 
-```cpp
-vector<int> factorize(int n) {
-    vector<int> res;
-    while (n != 1) {
-        res.push_back(minPrime[n]);
-        n /= minPrime[n];
-    }
-    return res;
-}
-```
+=== "C++"
 
-```python
-def factorize(n):
-    res = []
-    while n != 1:
-        res.append(minPrime[n])
-        n //= minPrime[n]
-    return res
-```
+    ```cpp
+    // Phân tích thừa số nguyên tố trong O(log N) dùng sàng minPrime
+    vector<int> factorize(int n) {
+        vector<int> res;
+        while (n != 1) {
+            res.push_back(minPrime[n]);
+            n /= minPrime[n];
+        }
+        return res;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Phân tích thừa số nguyên tố trong O(log N) dùng sàng minPrime
+    def factorize(n):
+        res = []
+        while n != 1:
+            res.append(minPrime[n])
+            n //= minPrime[n]
+        return res
+    ```
 
 Điều kiện sử dụng phương pháp này là ta phải tạo được mảng có độ dài $N$ phần tử.
 
@@ -231,69 +268,81 @@ Phương pháp này rất hữu ích khi ta phải phân tich nhiều số nhỏ
 
 **Cài đặt:**
 
-```cpp
-vector<bool> isPrime(R - L + 1, true);  // x là số nguyên tố khi và chỉ khi isPrime[x - l] == true
+=== "C++"
 
-for (long long i = 2; i * i <= R; ++i) {
-    for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
-        isPrime[j - L] = false;
+    ```cpp
+    // Sàng Eratosthenes trên đoạn [L, R]
+    vector<bool> isPrime(R - L + 1, true);  // x là số nguyên tố khi và chỉ khi isPrime[x - l] == true
+
+    for (long long i = 2; i * i <= R; ++i) {
+        for (long long j = max(i * i, (L + i - 1) / i * i); j <= R; j += i) {
+            isPrime[j - L] = false;
+        }
     }
-}
 
-if (1 >= L) {  // Xét riêng trường hợp số 1
-    isPrime[1 - L] = false;
-}
-
-for (long long x = L; x <= R; ++x) {
-    if (isPrime[x - L]) {
-        // i là số nguyên tố
+    if (1 >= L) {  // Xét riêng trường hợp số 1
+        isPrime[1 - L] = false;
     }
-}
-```
 
-```python
-isPrime = [True] * (R - L + 1)
+    for (long long x = L; x <= R; ++x) {
+        if (isPrime[x - L]) {
+            // x là số nguyên tố
+        }
+    }
+    ```
 
-i = 2
-while i * i <= R:
-    j = max(i * i, ((L + i - 1) // i) * i)
-    while j <= R:
-        isPrime[j - L] = False
-        j += i
-    i += 1
+=== "Python"
 
-if 1 >= L:
-    isPrime[1 - L] = False
+    ```python
+    # Sàng Eratosthenes trên đoạn [L, R]
+    isPrime = [True] * (R - L + 1)
 
-for x in range(L, R + 1):
-    if isPrime[x - L]:
-        pass  # x là số nguyên tố
-```
+    i = 2
+    while i * i <= R:
+        j = max(i * i, ((L + i - 1) // i) * i)
+        while j <= R:
+            isPrime[j - L] = False
+            j += i
+        i += 1
+
+    if 1 >= L:  # Xét riêng trường hợp số 1
+        isPrime[1 - L] = False
+
+    for x in range(L, R + 1):
+        if isPrime[x - L]:
+            pass  # x là số nguyên tố
+    ```
 
 Độ phức tạp của thuật toán là $O(\sqrt{R}*k)$ với $k$ là hằng số.
 
 **Lưu ý:** Nếu bạn chỉ cần kiểm tra tính nguyên tố của một hay một vài số thì ta không nhất thiết phải xây dựng sàng. Ta có thể sử dụng hàm sau để kiểm tra tính nguyên tố của một số.
 
-```cpp
-bool isPrime(int n) {
-    for (int i = 2; i * i <= n; ++i) {
-        if (n % i == 0) {
-            return false;
-        }
-    }
-    return true;
-}
-```
+=== "C++"
 
-```python
-def isPrime(n):
-    i = 2
-    while i * i <= n:
-        if n % i == 0:
-            return False
-        i += 1
-    return True
-```
+    ```cpp
+    // Kiểm tra tính nguyên tố của một số
+    bool isPrime(int n) {
+        for (int i = 2; i * i <= n; ++i) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Kiểm tra tính nguyên tố của một số
+    def isPrime(n):
+        i = 2
+        while i * i <= n:
+            if n % i == 0:
+                return False
+            i += 1
+        return True
+    ```
 
 ## Bài tập áp dụng:
 

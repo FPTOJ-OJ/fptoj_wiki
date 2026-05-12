@@ -106,193 +106,195 @@ Mỗi bước giảm một nửa không gian tìm kiếm → **O(log N)**
 
 ## 4. Bắt tay vào Code nào!
 
-### Code C++: Binary Search cơ bản
+### Code: Binary Search
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++ (cơ bản)"
 
-// ===== Tìm kiếm nhị phân cơ bản =====
-// Tìm xem 'target' có trong mảng đã sắp xếp không
-int binarySearch(int a[], int n, int target) {
-    int lo = 0, hi = n - 1;
-    
-    while (lo <= hi) {
-        int mid = lo + (hi - lo) / 2;  // Tránh tràn số!
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    // ===== Tìm kiếm nhị phân cơ bản =====
+    // Tìm xem 'target' có trong mảng đã sắp xếp không
+    int binarySearch(int a[], int n, int target) {
+        int lo = 0, hi = n - 1;
         
-        if (a[mid] == target)
-            return mid;                 // Tìm thấy!
-        else if (a[mid] < target)
-            lo = mid + 1;              // Tìm bên phải
-        else
-            hi = mid - 1;              // Tìm bên trái
-    }
-    return -1;  // Không tìm thấy
-}
-
-int main() {
-    int a[] = {0, 5, 13, 19, 21, 41, 55, 68, 72, 81, 98};
-    int n = 11;
-    
-    cout << binarySearch(a, n, 55) << endl;  // Output: 6
-    cout << binarySearch(a, n, 100) << endl; // Output: -1
-    return 0;
-}
-```
-
-### Code C++: Binary Search tổng quát (quan trọng nhất!)
-
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
-
-// ===== Template Binary Search tổng quát =====
-// Tìm giá trị x nhỏ nhất mà P(x) = true
-// Điều kiện: dãy P(x) có dạng [false, false, ..., true, true, ...]
-
-bool P(int x) {
-    // Hàm kiểm tra: viết logic bài toán ở đây
-    // Trả về true nếu x là "hợp lệ"
-    return true;  // Thay bằng logic thực
-}
-
-int binarySearch(int lo, int hi) {
-    while (lo < hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (P(mid))
-            hi = mid;       // mid có thể là kết quả → giữ lại
-        else
-            lo = mid + 1;   // mid không hợp lệ → bỏ cả mid
-    }
-    
-    // Kiểm tra xem có nghiệm không
-    if (!P(lo)) return -1;
-    return lo;
-}
-
-// ===== Ví dụ: Tìm căn bậc 2 của số N =====
-// Tìm x lớn nhất sao cho x*x <= N
-bool isGood(long long x, long long N) {
-    return x * x <= N;  // true nếu x^2 <= N
-}
-
-int sqrtBinarySearch(long long N) {
-    long long lo = 0, hi = N;
-    while (lo < hi) {
-        long long mid = lo + (hi - lo + 1) / 2;  // +1 để tránh lặp vô hạn
-        if (isGood(mid, N))
-            lo = mid;       // mid hợp lệ → giữ lại
-        else
-            hi = mid - 1;   // mid quá lớn → bỏ
-    }
-    return lo;
-}
-
-// ===== Ví dụ: Bài toán vận chuyển (Leetcode 1011) =====
-bool canShip(vector<int>& weights, int capacity, int days) {
-    int currentWeight = 0;
-    int daysUsed = 1;
-    
-    for (int w : weights) {
-        if (currentWeight + w <= capacity) {
-            currentWeight += w;     // Chuyển trong ngày hiện tại
-        } else {
-            daysUsed++;             // Cần thêm ngày mới
-            currentWeight = w;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;  // Tránh tràn số!
+            
+            if (a[mid] == target)
+                return mid;                 // Tìm thấy!
+            else if (a[mid] < target)
+                lo = mid + 1;              // Tìm bên phải
+            else
+                hi = mid - 1;              // Tìm bên trái
         }
+        return -1;  // Không tìm thấy
     }
-    return daysUsed <= days;  // true nếu chuyển xong trong 'days' ngày
-}
 
-int shipWithinDays(vector<int>& weights, int days) {
-    int lo = 0, hi = 0;
-    for (int w : weights) {
-        lo = max(lo, w);    // Cận dưới: gói nặng nhất
-        hi += w;             // Cận trên: tổng tất cả
+    int main() {
+        int a[] = {0, 5, 13, 19, 21, 41, 55, 68, 72, 81, 98};
+        int n = 11;
+        
+        cout << binarySearch(a, n, 55) << endl;  // Output: 6
+        cout << binarySearch(a, n, 100) << endl; // Output: -1
+        return 0;
     }
-    
-    while (lo < hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (canShip(weights, mid, days))
-            hi = mid;        // Chuyển được → thử capacity nhỏ hơn
-        else
-            lo = mid + 1;    // Chuyển không được → cần capacity lớn hơn
+    ```
+
+=== "C++ (tổng quát)"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    // ===== Template Binary Search tổng quát =====
+    // Tìm giá trị x nhỏ nhất mà P(x) = true
+    // Điều kiện: dãy P(x) có dạng [false, false, ..., true, true, ...]
+
+    bool P(int x) {
+        // Hàm kiểm tra: viết logic bài toán ở đây
+        // Trả về true nếu x là "hợp lệ"
+        return true;  // Thay bằng logic thực
     }
-    return lo;
-}
-```
 
-### Code C++: Dùng thư viện STL
+    int binarySearch(int lo, int hi) {
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (P(mid))
+                hi = mid;       // mid có thể là kết quả → giữ lại
+            else
+                lo = mid + 1;   // mid không hợp lệ → bỏ cả mid
+        }
+        
+        // Kiểm tra xem có nghiệm không
+        if (!P(lo)) return -1;
+        return lo;
+    }
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+    // ===== Ví dụ: Tìm căn bậc 2 của số N =====
+    // Tìm x lớn nhất sao cho x*x <= N
+    bool isGood(long long x, long long N) {
+        return x * x <= N;  // true nếu x^2 <= N
+    }
 
-int main() {
-    vector<int> a = {1, 3, 5, 7, 9, 11, 13};
-    
-    // 1. binary_search: Kiểm tra xem phần tử có tồn tại không
-    bool found = binary_search(a.begin(), a.end(), 7);  // true
-    
-    // 2. lower_bound: Tìm vị trí ĐẦU TIÊN mà giá trị >= x
-    auto it1 = lower_bound(a.begin(), a.end(), 6);
-    // it1 trỏ đến phần tử 7 (vị trí đầu tiên >= 6)
-    
-    // 3. upper_bound: Tìm vị trí ĐẦU TIÊN mà giá trị > x
-    auto it2 = upper_bound(a.begin(), a.end(), 7);
-    // it2 trỏ đến phần tử 9 (vị trí đầu tiên > 7)
-    
-    // Đếm số phần tử bằng x:
-    // upper_bound - lower_bound
-    
-    return 0;
-}
-```
+    int sqrtBinarySearch(long long N) {
+        long long lo = 0, hi = N;
+        while (lo < hi) {
+            long long mid = lo + (hi - lo + 1) / 2;  // +1 để tránh lặp vô hạn
+            if (isGood(mid, N))
+                lo = mid;       // mid hợp lệ → giữ lại
+            else
+                hi = mid - 1;   // mid quá lớn → bỏ
+        }
+        return lo;
+    }
 
-### Code Python
+    // ===== Ví dụ: Bài toán vận chuyển (Leetcode 1011) =====
+    bool canShip(vector<int>& weights, int capacity, int days) {
+        int currentWeight = 0;
+        int daysUsed = 1;
+        
+        for (int w : weights) {
+            if (currentWeight + w <= capacity) {
+                currentWeight += w;     // Chuyển trong ngày hiện tại
+            } else {
+                daysUsed++;             // Cần thêm ngày mới
+                currentWeight = w;
+            }
+        }
+        return daysUsed <= days;  // true nếu chuyển xong trong 'days' ngày
+    }
 
-```python
-# ===== Binary Search cơ bản =====
-def binary_search(a, target):
-    lo, hi = 0, len(a) - 1
-    while lo <= hi:
-        mid = lo + (hi - lo) // 2  # Tránh tràn số
-        if a[mid] == target:
-            return mid          # Tìm thấy!
-        elif a[mid] < target:
-            lo = mid + 1        # Tìm bên phải
-        else:
-            hi = mid - 1        # Tìm bên trái
-    return -1                   # Không tìm thấy
+    int shipWithinDays(vector<int>& weights, int days) {
+        int lo = 0, hi = 0;
+        for (int w : weights) {
+            lo = max(lo, w);    // Cận dưới: gói nặng nhất
+            hi += w;             // Cận trên: tổng tất cả
+        }
+        
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (canShip(weights, mid, days))
+                hi = mid;        // Chuyển được → thử capacity nhỏ hơn
+            else
+                lo = mid + 1;    // Chuyển không được → cần capacity lớn hơn
+        }
+        return lo;
+    }
+    ```
 
-# ===== Binary Search tổng quát =====
-def binary_search_general(lo, hi, P):
-    """Tìm x nhỏ nhất mà P(x) = true"""
-    while lo < hi:
-        mid = lo + (hi - lo) // 2
-        if P(mid):
-            hi = mid            # mid hợp lệ → giữ lại
-        else:
-            lo = mid + 1        # mid không hợp lệ → bỏ
-    return lo if P(lo) else -1
+=== "C++ (thư viện STL)"
 
-# ===== Ví dụ: Tìm căn bậc 2 =====
-def sqrt_binary(n):
-    lo, hi = 0, n
-    while lo < hi:
-        mid = lo + (hi - lo + 1) // 2
-        if mid * mid <= n:
-            lo = mid
-        else:
-            hi = mid - 1
-    return lo
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
 
-# ===== Dùng thư viện Python =====
-import bisect
-a = [1, 3, 5, 7, 9, 11, 13]
-pos = bisect.bisect_left(a, 7)   # Tìm vị trí đầu tiên >= 7
-pos2 = bisect.bisect_right(a, 7) # Tìm vị trí đầu tiên > 7
-```
+    int main() {
+        vector<int> a = {1, 3, 5, 7, 9, 11, 13};
+        
+        // 1. binary_search: Kiểm tra xem phần tử có tồn tại không
+        bool found = binary_search(a.begin(), a.end(), 7);  // true
+        
+        // 2. lower_bound: Tìm vị trí ĐẦU TIÊN mà giá trị >= x
+        auto it1 = lower_bound(a.begin(), a.end(), 6);
+        // it1 trỏ đến phần tử 7 (vị trí đầu tiên >= 6)
+        
+        // 3. upper_bound: Tìm vị trí ĐẦU TIÊN mà giá trị > x
+        auto it2 = upper_bound(a.begin(), a.end(), 7);
+        // it2 trỏ đến phần tử 9 (vị trí đầu tiên > 7)
+        
+        // Đếm số phần tử bằng x:
+        // upper_bound - lower_bound
+        
+        return 0;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # ===== Binary Search cơ bản =====
+    def binary_search(a, target):
+        lo, hi = 0, len(a) - 1
+        while lo <= hi:
+            mid = lo + (hi - lo) // 2  # Tránh tràn số
+            if a[mid] == target:
+                return mid          # Tìm thấy!
+            elif a[mid] < target:
+                lo = mid + 1        # Tìm bên phải
+            else:
+                hi = mid - 1        # Tìm bên trái
+        return -1                   # Không tìm thấy
+
+    # ===== Binary Search tổng quát =====
+    def binary_search_general(lo, hi, P):
+        """Tìm x nhỏ nhất mà P(x) = true"""
+        while lo < hi:
+            mid = lo + (hi - lo) // 2
+            if P(mid):
+                hi = mid            # mid hợp lệ → giữ lại
+            else:
+                lo = mid + 1        # mid không hợp lệ → bỏ
+        return lo if P(lo) else -1
+
+    # ===== Ví dụ: Tìm căn bậc 2 =====
+    def sqrt_binary(n):
+        lo, hi = 0, n
+        while lo < hi:
+            mid = lo + (hi - lo + 1) // 2
+            if mid * mid <= n:
+                lo = mid
+            else:
+                hi = mid - 1
+        return lo
+
+    # ===== Dùng thư viện Python =====
+    import bisect
+    a = [1, 3, 5, 7, 9, 11, 13]
+    pos = bisect.bisect_left(a, 7)   # Tìm vị trí đầu tiên >= 7
+    pos2 = bisect.bisect_right(a, 7) # Tìm vị trí đầu tiên > 7
+    ```
 
 ---
 
@@ -300,78 +302,93 @@ pos2 = bisect.bisect_right(a, 7) # Tìm vị trí đầu tiên > 7
 
 ### Bẫy 1: Lặp vô hạn!
 
-```cpp
-// SAI: Có thể lặp vô hạn khi lo = hi - 1
-while (lo < hi) {
-    int mid = lo + (hi - lo) / 2;
-    if (P(mid))
-        hi = mid;
-    else
-        lo = mid;   // ← SAI! Phải là lo = mid + 1
-}
+=== "C++"
 
-// ĐÚNG:
-while (lo < hi) {
-    int mid = lo + (hi - lo) / 2;
-    if (P(mid))
-        hi = mid;
-    else
-        lo = mid + 1;  // ← Loại bỏ mid
-}
-```
-```python
-# SAI: Có thể lặp vô hạn khi lo = hi - 1
-while lo < hi:
-    mid = lo + (hi - lo) // 2
-    if P(mid):
-        hi = mid
-    else:
-        lo = mid        # ← SAI! Phải là lo = mid + 1
+    ```cpp
+    // SAI: Có thể lặp vô hạn khi lo = hi - 1
+    while (lo < hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (P(mid))
+            hi = mid;
+        else
+            lo = mid;   // ← SAI! Phải là lo = mid + 1
+    }
 
-# ĐÚNG:
-while lo < hi:
-    mid = lo + (hi - lo) // 2
-    if P(mid):
-        hi = mid
-    else:
-        lo = mid + 1    # ← Loại bỏ mid
-```
+    // ĐÚNG:
+    while (lo < hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (P(mid))
+            hi = mid;
+        else
+            lo = mid + 1;  // ← Loại bỏ mid
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # SAI: Có thể lặp vô hạn khi lo = hi - 1
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if P(mid):
+            hi = mid
+        else:
+            lo = mid        # ← SAI! Phải là lo = mid + 1
+
+    # ĐÚNG:
+    while lo < hi:
+        mid = lo + (hi - lo) // 2
+        if P(mid):
+            hi = mid
+        else:
+            lo = mid + 1    # ← Loại bỏ mid
+    ```
 
 ### Bẫy 2: Tràn số khi tính mid
 
-```cpp
-// SAI: (lo + hi) có thể tràn số nguyên
-int mid = (lo + hi) / 2;
+=== "C++"
 
-// ĐÚNG:
-int mid = lo + (hi - lo) / 2;
-```
-```python
-# Python không tràn số, nhưng nên dùng cách đúng để nhất quán
-mid = lo + (hi - lo) // 2
-```
+    ```cpp
+    // SAI: (lo + hi) có thể tràn số nguyên
+    int mid = (lo + hi) / 2;
+
+    // ĐÚNG:
+    int mid = lo + (hi - lo) / 2;
+    ```
+
+=== "Python"
+
+    ```python
+    # Python không tràn số, nhưng nên dùng cách đúng để nhất quán
+    mid = lo + (hi - lo) // 2
+    ```
 
 ### Bẫy 3: Sai cận khi tìm "false cuối cùng"
 
 Khi tìm `x` lớn nhất mà `P(x) = false`:
 
-```cpp
-while (lo < hi) {
-    int mid = lo + (hi - lo + 1) / 2;  // ← +1 để làm tròn lên!
-    if (P(mid))
-        hi = mid - 1;
-    else
-        lo = mid;
-}
-```
-```python
-while lo < hi:
-    mid = lo + (hi - lo + 1) // 2       # ← +1 để làm tròn lên!
-    if P(mid):
-        hi = mid - 1
-    else:
-        lo = mid
-```
+=== "C++"
+
+    ```cpp
+    while (lo < hi) {
+        int mid = lo + (hi - lo + 1) / 2;  // ← +1 để làm tròn lên!
+        if (P(mid))
+            hi = mid - 1;
+        else
+            lo = mid;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    while lo < hi:
+        mid = lo + (hi - lo + 1) // 2       # ← +1 để làm tròn lên!
+        if P(mid):
+            hi = mid - 1
+        else:
+            lo = mid
+    ```
 
 **Lý do:** Nếu dùng `mid = lo + (hi - lo) / 2` và chỉ còn 2 phần tử [false, true], mid sẽ = lo, vòng lặp sẽ lặp vô hạn!
 
@@ -381,33 +398,38 @@ Binary Search **chỉ hoạt động** trên dữ liệu đã sắp xếp! Nếu
 
 ### Bẫy 5: Binary Search trên số thực
 
-```cpp
-// Dừng khi khoảng đủ nhỏ (epsilon = 1e-9)
-while (hi - lo > 1e-9) {
-    double mid = (lo + hi) / 2.0;
-    if (P(mid))
-        hi = mid;
-    else
-        lo = mid;
-}
-```
-```python
-# Dừng khi khoảng đủ nhỏ (epsilon = 1e-9)
-while hi - lo > 1e-9:
-    mid = (lo + hi) / 2.0
-    if P(mid):
-        hi = mid
-    else:
-        lo = mid
+=== "C++"
 
-# Hoặc lặp đúng 100 lần (đủ chính xác cho hầu hết bài toán)
-for _ in range(100):
-    mid = (lo + hi) / 2.0
-    if P(mid):
-        hi = mid
-    else:
-        lo = mid
-```
+    ```cpp
+    // Dừng khi khoảng đủ nhỏ (epsilon = 1e-9)
+    while (hi - lo > 1e-9) {
+        double mid = (lo + hi) / 2.0;
+        if (P(mid))
+            hi = mid;
+        else
+            lo = mid;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Dừng khi khoảng đủ nhỏ (epsilon = 1e-9)
+    while hi - lo > 1e-9:
+        mid = (lo + hi) / 2.0
+        if P(mid):
+            hi = mid
+        else:
+            lo = mid
+
+    # Hoặc lặp đúng 100 lần (đủ chính xác cho hầu hết bài toán)
+    for _ in range(100):
+        mid = (lo + hi) / 2.0
+        if P(mid):
+            hi = mid
+        else:
+            lo = mid
+    ```
 
 Hoặc lặp đúng 100 lần (đủ chính xác cho hầu hết bài toán).
 
@@ -444,7 +466,7 @@ return lo
 | [LeetCode 34 - Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | LC | ⭐⭐ | lower/upper bound |
 | [LeetCode 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | LC | ⭐⭐ | BS on answer |
 | [LeetCode 1011 - Capacity To Ship](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | LC | ⭐⭐ | BS on answer |
-| [VNOJ - Sort](https://oj.vnoi.info/problem/sort) | VNOJ | ⭐⭐ | BS + sorting |
+| [VNOJ - Sort](https://oj.vnoi.info/problem/fc082_sort) | VNOJ | ⭐⭐ | BS + sorting |
 | [VNOJ - VOSTR](https://oj.vnoi.info/problem/vostr) | VNOJ | ⭐⭐⭐ | BS trên xâu |
 | [SPOJ - Aggressive Cows](https://www.spoj.com/problems/AGGRCOW/) | SPOJ | ⭐⭐ | Khoảng cách min |
 

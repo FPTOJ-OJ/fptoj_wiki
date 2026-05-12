@@ -50,38 +50,42 @@ Với cách cài đặt này, ta sẽ lưu một mảng `parent` với `parent[v
 
 Để tìm kí hiệu của một tập hợp có chứa phần tử `v` (hay `find_set(v)`), ta đơn giản nhảy lên các tổ tiên của đỉnh `v` cho đến khi ta đến gốc của cây. Thao tác này có thể dễ dàng được cài đặt bằng đệ quy.
 
-```cpp
-void make_set(int v) {
-    parent[v] = v; // Tạo ra cây mới có gốc là đỉnh v
-}
+=== "C++"
 
-int find_set(int v) {
-    if (v == parent[v]) return v; // Trả về đỉnh v nếu như đỉnh v là gốc của cây
-    return find_set(parent[v]); // Đệ quy lên cha của đỉnh v
-}
+    ```cpp
+    void make_set(int v) {
+        parent[v] = v; // Tạo ra cây mới có gốc là đỉnh v
+    }
+    
+    int find_set(int v) {
+        if (v == parent[v]) return v; // Trả về đỉnh v nếu như đỉnh v là gốc của cây
+        return find_set(parent[v]); // Đệ quy lên cha của đỉnh v
+    }
+    
+    void union_sets(int a, int b) {
+        a = find_set(a); // Tìm gốc của cây có chứa đỉnh a
+        b = find_set(b); // Tìm gốc của cây có chứa đỉnh b
+        if (a != b) parent[b] = a; // Gộp hai cây nếu như hai phần tử ở hai cây khác nhau
+    }
+    ```
 
-void union_sets(int a, int b) {
-    a = find_set(a); // Tìm gốc của cây có chứa đỉnh a
-    b = find_set(b); // Tìm gốc của cây có chứa đỉnh b
-    if (a != b) parent[b] = a; // Gộp hai cây nếu như hai phần tử ở hai cây khác nhau
-}
-```
+=== "Python"
 
-```python
-def make_set(v):
-    parent[v] = v  # Tạo ra cây mới có gốc là đỉnh v
-
-def find_set(v):
-    if v == parent[v]:
-        return v  # Trả về đỉnh v nếu như đỉnh v là gốc của cây
-    return find_set(parent[v])  # Đệ quy lên cha của đỉnh v
-
-def union_sets(a, b):
-    a = find_set(a)  # Tìm gốc của cây có chứa đỉnh a
-    b = find_set(b)  # Tìm gốc của cây có chứa đỉnh b
-    if a != b:
-        parent[b] = a  # Gộp hai cây nếu như hai phần tử ở hai cây khác nhau
-```
+    ```python
+    def make_set(v):
+        parent[v] = v  # Tạo ra cây mới có gốc là đỉnh v
+    
+    def find_set(v):
+        if v == parent[v]:
+            return v  # Trả về đỉnh v nếu như đỉnh v là gốc của cây
+        return find_set(parent[v])  # Đệ quy lên cha của đỉnh v
+    
+    def union_sets(a, b):
+        a = find_set(a)  # Tìm gốc của cây có chứa đỉnh a
+        b = find_set(b)  # Tìm gốc của cây có chứa đỉnh b
+        if a != b:
+            parent[b] = a  # Gộp hai cây nếu như hai phần tử ở hai cây khác nhau
+    ```
 
 Như đã nói, đây là cách cài đặt ngây thơ, ta có thể dễ dàng tạo ra một ví dụ sao cho khi sử dụng cách cài đặt này, cây sẽ trở thành một đoạn thẳng gồm $n$ phần tử. Trong trường hợp này, độ phức tạp của thao tác `find_set` sẽ là $\mathcal{O}(n)$.
 
@@ -96,71 +100,79 @@ Có khá nhiều cách để xét điều này, nhưng hai cách được sử d
 Giả dụ mỗi cây có một giá trị. Ở cách thứ nhất, giá trị đó là kích cỡ của cây, và ở cách thứ hai, giá trị đó là độ cao của cây. Ở cả hai cách này, ta sẽ luôn đặt gốc của cây có giá trị cao hơn là cha của gốc của cây có giá trị thấp hơn.
 
 Thao tác `union_sets` được tối ưu gộp theo kích cỡ:
-```cpp
-void make_set(int v) {
-    parent[v] = v;
-    sz[v] = 1; // Ban đầu tập hợp chứa v có kích cỡ là 1
-}
+=== "C++"
 
-void union_sets(int a, int b) {
-    a = find_set(a);
-    b = find_set(b);
-    if (a != b) {
-        if (sz[a] < sz[b]) swap(a, b); // Đặt biến a là gốc của cây có kích cỡ lớn hơn
-        parent[b] = a;
-        sz[a] += sz[b]; // Cập nhật kích cỡ của cây mới gộp lại
-    } 
-}
-```
+    ```cpp
+    void make_set(int v) {
+        parent[v] = v;
+        sz[v] = 1; // Ban đầu tập hợp chứa v có kích cỡ là 1
+    }
+    
+    void union_sets(int a, int b) {
+        a = find_set(a);
+        b = find_set(b);
+        if (a != b) {
+            if (sz[a] < sz[b]) swap(a, b); // Đặt biến a là gốc của cây có kích cỡ lớn hơn
+            parent[b] = a;
+            sz[a] += sz[b]; // Cập nhật kích cỡ của cây mới gộp lại
+        } 
+    }
+    ```
 
-```python
-def make_set(v):
-    parent[v] = v
-    sz[v] = 1  # Ban đầu tập hợp chứa v có kích cỡ là 1
+=== "Python"
 
-def union_sets(a, b):
-    a = find_set(a)
-    b = find_set(b)
-    if a != b:
-        if sz[a] < sz[b]:
-            a, b = b, a  # Đặt biến a là gốc của cây có kích cỡ lớn hơn
-        parent[b] = a
-        sz[a] += sz[b]  # Cập nhật kích cỡ của cây mới gộp lại
-```
+    ```python
+    def make_set(v):
+        parent[v] = v
+        sz[v] = 1  # Ban đầu tập hợp chứa v có kích cỡ là 1
+    
+    def union_sets(a, b):
+        a = find_set(a)
+        b = find_set(b)
+        if a != b:
+            if sz[a] < sz[b]:
+                a, b = b, a  # Đặt biến a là gốc của cây có kích cỡ lớn hơn
+            parent[b] = a
+            sz[a] += sz[b]  # Cập nhật kích cỡ của cây mới gộp lại
+    ```
 
 Thao tác `union_sets` được tối ưu gộp theo độ cao:
-```cpp
-void make_set(int v) {
-    parent[v] = v;
-    rank[v] = 0; // Gốc của cây có độ cao là 0
-}
+=== "C++"
 
-void union_sets(int a, int b) {
-    a = find_set(a);
-    b = find_set(b);
-    if (a != b) {
-        if (rank[a] < rank[b]) swap(a, b); // Đặt biến a là gốc của cây có độ cao lớn hơn
-        parent[b] = a;
-        if (rank[a] == rank[b]) rank[a]++; // Nếu như hai cây có cùng một độ cao, độ cao của cây mới sau khi gộp sẽ tăng 1
-    } 
-}
-```
+    ```cpp
+    void make_set(int v) {
+        parent[v] = v;
+        rank[v] = 0; // Gốc của cây có độ cao là 0
+    }
+    
+    void union_sets(int a, int b) {
+        a = find_set(a);
+        b = find_set(b);
+        if (a != b) {
+            if (rank[a] < rank[b]) swap(a, b); // Đặt biến a là gốc của cây có độ cao lớn hơn
+            parent[b] = a;
+            if (rank[a] == rank[b]) rank[a]++; // Nếu như hai cây có cùng một độ cao, độ cao của cây mới sau khi gộp sẽ tăng 1
+        } 
+    }
+    ```
 
-```python
-def make_set(v):
-    parent[v] = v
-    rank[v] = 0  # Gốc của cây có độ cao là 0
+=== "Python"
 
-def union_sets(a, b):
-    a = find_set(a)
-    b = find_set(b)
-    if a != b:
-        if rank[a] < rank[b]:
-            a, b = b, a  # Đặt biến a là gốc của cây có độ cao lớn hơn
-        parent[b] = a
-        if rank[a] == rank[b]:
-            rank[a] += 1  # Nếu như hai cây có cùng một độ cao, độ cao của cây mới sau khi gộp sẽ tăng 1
-```
+    ```python
+    def make_set(v):
+        parent[v] = v
+        rank[v] = 0  # Gốc của cây có độ cao là 0
+    
+    def union_sets(a, b):
+        a = find_set(a)
+        b = find_set(b)
+        if a != b:
+            if rank[a] < rank[b]:
+                a, b = b, a  # Đặt biến a là gốc của cây có độ cao lớn hơn
+            parent[b] = a
+            if rank[a] == rank[b]:
+                rank[a] += 1  # Nếu như hai cây có cùng một độ cao, độ cao của cây mới sau khi gộp sẽ tăng 1
+    ```
 
 Chỉ cần sử dụng phương pháp tối ưu này, độ phức tạp của thao tác `find_set` sẽ trở thành $\mathcal{O}(\log{n})$. Tuy nhiên, ta vẫn còn có thể làm tốt hơn thế khi kết hợp với phương pháp tối ưu thứ hai.
 
@@ -181,37 +193,45 @@ Có thể thấy sau khi thực hiện một thao tác như vậy, cấu trúc c
 Bên trái là cây ban đầu và bên phải là cây bị nén sau khi ta sử dụng thao tác `find_set(7)`, nén đường đi tới gốc của các đỉnh $7, 5, 3, 2$.
 
 Thao tác `find_set` mới này được cài đặt như sau:
-```cpp
-int find_set(int v) {
-    if (v == parent[v]) return v; // Trả về đỉnh v nếu như đỉnh v là gốc của cây
-    int p = find_set(parent[v]); // Đệ quy lên cha của đỉnh v
-    parent[v] = p; // Nén đoạn từ v lên gốc của cây
-    return p;
-}
-```
+=== "C++"
 
-```python
-def find_set(v):
-    if v == parent[v]:
-        return v  # Trả về đỉnh v nếu như đỉnh v là gốc của cây
-    p = find_set(parent[v])  # Đệ quy lên cha của đỉnh v
-    parent[v] = p  # Nén đoạn từ v lên gốc của cây
-    return p
-```
+    ```cpp
+    int find_set(int v) {
+        if (v == parent[v]) return v; // Trả về đỉnh v nếu như đỉnh v là gốc của cây
+        int p = find_set(parent[v]); // Đệ quy lên cha của đỉnh v
+        parent[v] = p; // Nén đoạn từ v lên gốc của cây
+        return p;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def find_set(v):
+        if v == parent[v]:
+            return v  # Trả về đỉnh v nếu như đỉnh v là gốc của cây
+        p = find_set(parent[v])  # Đệ quy lên cha của đỉnh v
+        parent[v] = p  # Nén đoạn từ v lên gốc của cây
+        return p
+    ```
 
 Một cách cài đặt khác của thao tác `find_set` mà thường được sử dụng nhiều trong CP do tính ngắn gọn của nó:
-```cpp
-int find_set(int v) {
-    return v == parent[v] ? v : parent[v] = find_set(parent[v]);
-}
-```
+=== "C++"
 
-```python
-def find_set(v):
-    if v != parent[v]:
-        parent[v] = find_set(parent[v])
-    return parent[v]
-```
+    ```cpp
+    int find_set(int v) {
+        return v == parent[v] ? v : parent[v] = find_set(parent[v]);
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def find_set(v):
+        if v != parent[v]:
+            parent[v] = find_set(parent[v])
+        return parent[v]
+    ```
 
 ## Độ phức tạp thời gian
 
@@ -235,46 +255,50 @@ Một điều đáng lưu ý là nếu như chúng ta chỉ sử dụng phương
 
 Nếu như `lab[v]` âm thì $u$ là gốc của một cây và `-lab[v]` là số lượng đỉnh của cây đó. Còn nếu `lab[v]` dương thì `lab[v]` là cha của đỉnh $u$.
 
-```cpp
-void make_set(int v) {
-    lab[u] = -1;
-}
+=== "C++"
 
-int find_set(int v) {
-    return lab[v] < 0 ? v : lab[v] = find_set(lab[v]);
-}
-
-void union_sets(int a, int b) {
-    a = find_set(a);
-    b = find_set(b);
-    
-    if (a != b) {
-        if (lab[a] > lab[b]) swap(a, b);
-        lab[a] += lab[b];
-        lab[b] = a;
+    ```cpp
+    void make_set(int v) {
+        lab[u] = -1;
     }
-}
-```
+    
+    int find_set(int v) {
+        return lab[v] < 0 ? v : lab[v] = find_set(lab[v]);
+    }
+    
+    void union_sets(int a, int b) {
+        a = find_set(a);
+        b = find_set(b);
+        
+        if (a != b) {
+            if (lab[a] > lab[b]) swap(a, b);
+            lab[a] += lab[b];
+            lab[b] = a;
+        }
+    }
+    ```
 
-```python
-def make_set(v):
-    lab[v] = -1
+=== "Python"
 
-def find_set(v):
-    if lab[v] < 0:
-        return v
-    lab[v] = find_set(lab[v])
-    return lab[v]
-
-def union_sets(a, b):
-    a = find_set(a)
-    b = find_set(b)
-    if a != b:
-        if lab[a] > lab[b]:
-            a, b = b, a
-        lab[a] += lab[b]
-        lab[b] = a
-```
+    ```python
+    def make_set(v):
+        lab[v] = -1
+    
+    def find_set(v):
+        if lab[v] < 0:
+            return v
+        lab[v] = find_set(lab[v])
+        return lab[v]
+    
+    def union_sets(a, b):
+        a = find_set(a)
+        b = find_set(b)
+        if a != b:
+            if lab[a] > lab[b]:
+                a, b = b, a
+            lab[a] += lab[b]
+            lab[b] = a
+    ```
 
 ## Một số ứng dụng của DSU
 
@@ -282,80 +306,88 @@ def union_sets(a, b):
 
 Ngoài việc lưu các thông tin về cấu trúc cây, ta có thể lưu các hàm có tính chất giao hoán và kết hợp của từng tập hợp. Ví dụ, ta có thể lưu tổng các phần tử/ giá trị phần tử bé nhất của từng tập hợp. Lúc này, các thao tác của dsu sẽ được cài đặt như sau:
 
-```cpp
-void make_set(int v) {
-    parent[v] = v;
-    sz[v] = 1;
-    mn[v] = value[v];
-    sum[v] = value[v];
-    // value[v] là giá trị của phần tử thứ v
-}
+=== "C++"
 
-int find_set(int v) {
-    return v == parent[v] ? v : parent[v] = find_set(parent[v]);
-}
+    ```cpp
+    void make_set(int v) {
+        parent[v] = v;
+        sz[v] = 1;
+        mn[v] = value[v];
+        sum[v] = value[v];
+        // value[v] là giá trị của phần tử thứ v
+    }
+    
+    int find_set(int v) {
+        return v == parent[v] ? v : parent[v] = find_set(parent[v]);
+    }
+    
+    void union_sets(int a, int b) {
+        a = find_set(a);
+        b = find_set(b);
+        if (a != b) {
+            if (sz[a] < sz[b]) swap(a, b);
+            parent[b] = a;
+            sz[a] += sz[b];
+            sum[a] += sum[b];
+            mn[a] = min(mn[a], mn[b]);
+        } 
+    }
+    ```
 
-void union_sets(int a, int b) {
-    a = find_set(a);
-    b = find_set(b);
-    if (a != b) {
-        if (sz[a] < sz[b]) swap(a, b);
-        parent[b] = a;
-        sz[a] += sz[b];
-        sum[a] += sum[b];
-        mn[a] = min(mn[a], mn[b]);
-    } 
-}
-```
+=== "Python"
 
-```python
-def make_set(v):
-    parent[v] = v
-    sz[v] = 1
-    mn[v] = value[v]
-    sum[v] = value[v]
-    # value[v] là giá trị của phần tử thứ v
-
-def find_set(v):
-    if v != parent[v]:
-        parent[v] = find_set(parent[v])
-    return parent[v]
-
-def union_sets(a, b):
-    a = find_set(a)
-    b = find_set(b)
-    if a != b:
-        if sz[a] < sz[b]:
-            a, b = b, a
-        parent[b] = a
-        sz[a] += sz[b]
-        sum[a] += sum[b]
-        mn[a] = min(mn[a], mn[b])
-```
+    ```python
+    def make_set(v):
+        parent[v] = v
+        sz[v] = 1
+        mn[v] = value[v]
+        sum[v] = value[v]
+        # value[v] là giá trị của phần tử thứ v
+    
+    def find_set(v):
+        if v != parent[v]:
+            parent[v] = find_set(parent[v])
+        return parent[v]
+    
+    def union_sets(a, b):
+        a = find_set(a)
+        b = find_set(b)
+        if a != b:
+            if sz[a] < sz[b]:
+                a, b = b, a
+            parent[b] = a
+            sz[a] += sz[b]
+            sum[a] += sum[b]
+            mn[a] = min(mn[a], mn[b])
+    ```
 
 Có thể thấy rằng, tương tự như thông tin về độ lớn của cây (`sz`) hay độ cao của cây (`rank`), ta sẽ lưu các hàm này tại gốc của từng cây.
 
-```cpp
-int find_sum(int v) { // Trả về tổng của các phần tử trong tập hợp chứa v
-    v = find_set(v);
-    return sum[v];
-}
+=== "C++"
 
-int find_min(int v) { // Trả về giá trị bé nhất của các phần tử trong tập hợp chứa v
-    v = find_set(v);
-    return mn[v];
-}
-```
+    ```cpp
+    int find_sum(int v) { // Trả về tổng của các phần tử trong tập hợp chứa v
+        v = find_set(v);
+        return sum[v];
+    }
+    
+    int find_min(int v) { // Trả về giá trị bé nhất của các phần tử trong tập hợp chứa v
+        v = find_set(v);
+        return mn[v];
+    }
+    ```
 
-```python
-def find_sum(v):  # Trả về tổng của các phần tử trong tập hợp chứa v
-    v = find_set(v)
-    return sum[v]
+=== "Python"
 
-def find_min(v):  # Trả về giá trị bé nhất của các phần tử trong tập hợp chứa v
-    v = find_set(v)
-    return mn[v]
-```
+    ```python
+    def find_sum(v):  # Trả về tổng của các phần tử trong tập hợp chứa v
+        v = find_set(v)
+        return sum[v]
+    
+    def find_min(v):  # Trả về giá trị bé nhất của các phần tử trong tập hợp chứa v
+        v = find_set(v)
+        return mn[v]
+    ```
 
 ## Bài toán xếp hàng
 

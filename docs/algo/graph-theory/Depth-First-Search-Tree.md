@@ -59,40 +59,44 @@
     * Khi đã duyệt xong đỉnh $u$ và các nút trong cây con $DFS$ gốc $u$ ta sẽ tiến hành cập nhật giá trị $tail[u]=$ **thời gian duyệt *DFS* hiện tại**.
 - **Cài đặt :**
 
-``` cpp
-int timeDfs = 0; // Thứ tự duyệt DFS
+=== "C++"
 
-void dfs(int u, int pre) {
-    num[u] = low[u] = ++timeDfs;
-    for (int v : g[u]){
-        if (v == pre) continue;
-        if (!num[v]) {
-            dfs(v, u);
-            low[u] = min(low[u], low[v]);
+    ``` cpp
+    int timeDfs = 0; // Thứ tự duyệt DFS
+
+    void dfs(int u, int pre) {
+        num[u] = low[u] = ++timeDfs;
+        for (int v : g[u]){
+            if (v == pre) continue;
+            if (!num[v]) {
+                dfs(v, u);
+                low[u] = min(low[u], low[v]);
+            }
+            else low[u] = min(low[u], num[v]);
         }
-        else low[u] = min(low[u], num[v]);
-    }
-    tail[u] = timeDfs;
-} 
-```    
+        tail[u] = timeDfs;
+    } 
+    ```
 
-```python
-timeDfs = 0
+=== "Python"
 
-def dfs(u, pre):
-    global timeDfs
-    timeDfs += 1
-    num[u] = low[u] = timeDfs
-    for v in g[u]:
-        if v == pre:
-            continue
-        if not num[v]:
-            dfs(v, u)
-            low[u] = min(low[u], low[v])
-        else:
-            low[u] = min(low[u], num[v])
-    tail[u] = timeDfs
-```
+    ```python
+    timeDfs = 0
+
+    def dfs(u, pre):
+        global timeDfs
+        timeDfs += 1
+        num[u] = low[u] = timeDfs
+        for v in g[u]:
+            if v == pre:
+                continue
+            if not num[v]:
+                dfs(v, u)
+                low[u] = min(low[u], low[v])
+            else:
+                low[u] = min(low[u], num[v])
+        tail[u] = timeDfs
+    ```
 
 - **Ví dụ minh họa :**
 

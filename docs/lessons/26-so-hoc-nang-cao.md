@@ -41,63 +41,62 @@ Cho `N = p1^a1 × p2^a2 × ... × pk^ak` (phân tích thừa số nguyên tố),
 - `φ(p^k) = p^k - p^(k-1) = p^(k-1) × (p - 1)`
 - `φ(m × n) = φ(m) × φ(n)` nếu `GCD(m, n) = 1` (hàm nhân tính)
 - `Σ φ(d) = N` với d là tất cả ước của N (tổng chia hết)
+=== "C++"
 
-### 1.3 Code C++
-
-```cpp
-// Tính φ(n) đơn lẻ - O(sqrt(n))
-long long eulerPhi(long long n) {
-    long long result = n;
-    for (long long i = 2; i * i <= n; i++) {
-        if (n % i == 0) {
-            while (n % i == 0) n /= i;  // loại bỏ hết thừa số i
-            result -= result / i;         // nhân (1 - 1/i)
+    ```cpp
+    // Tính φ(n) đơn lẻ - O(sqrt(n))
+    long long eulerPhi(long long n) {
+        long long result = n;
+        for (long long i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                while (n % i == 0) n /= i;  // loại bỏ hết thừa số i
+                result -= result / i;         // nhân (1 - 1/i)
+            }
         }
+        if (n > 1) result -= result / n;  // thừa số nguyên tố lớn còn lại
+        return result;
     }
-    if (n > 1) result -= result / n;  // thừa số nguyên tố lớn còn lại
-    return result;
-}
-
-// Sàng Euler - tính φ cho tất cả số từ 1 đến N - O(N log log N)
-vector<int> eulerSieve(int n) {
-    vector<int> phi(n + 1);
-    for (int i = 0; i <= n; i++) phi[i] = i;
-    for (int i = 2; i <= n; i++) {
-        if (phi[i] == i) {  // i là nguyên tố (chưa bị sửa)
-            for (int j = i; j <= n; j += i)
-                phi[j] -= phi[j] / i;
+    
+    // Sàng Euler - tính φ cho tất cả số từ 1 đến N - O(N log log N)
+    vector<int> eulerSieve(int n) {
+        vector<int> phi(n + 1);
+        for (int i = 0; i <= n; i++) phi[i] = i;
+        for (int i = 2; i <= n; i++) {
+            if (phi[i] == i) {  // i là nguyên tố (chưa bị sửa)
+                for (int j = i; j <= n; j += i)
+                    phi[j] -= phi[j] / i;
+            }
         }
+        return phi;
     }
-    return phi;
-}
-```
+    ```
 
-### 1.4 Code Python
+=== "Python"
 
-```python
-# Tính φ(n) đơn lẻ - O(sqrt(n))
-def euler_phi(n):
-    result = n
-    i = 2
-    while i * i <= n:
-        if n % i == 0:
-            while n % i == 0:
-                n //= i
-            result -= result // i
-        i += 1
-    if n > 1:
-        result -= result // n
-    return result
-
-# Sàng Euler - tính φ cho tất cả số từ 1 đến N - O(N log log N)
-def euler_sieve(n):
-    phi = list(range(n + 1))
-    for i in range(2, n + 1):
-        if phi[i] == i:  # i là nguyên tố
-            for j in range(i, n + 1, i):
-                phi[j] -= phi[j] // i
-    return phi
-```
+    ```python
+    # Tính φ(n) đơn lẻ - O(sqrt(n))
+    def euler_phi(n):
+        result = n
+        i = 2
+        while i * i <= n:
+            if n % i == 0:
+                while n % i == 0:
+                    n //= i
+                result -= result // i
+            i += 1
+        if n > 1:
+            result -= result // n
+        return result
+    
+    # Sàng Euler - tính φ cho tất cả số từ 1 đến N - O(N log log N)
+    def euler_sieve(n):
+        phi = list(range(n + 1))
+        for i in range(2, n + 1):
+            if phi[i] == i:  # i là nguyên tố
+                for j in range(i, n + 1, i):
+                    phi[j] -= phi[j] // i
+        return phi
+    ```
 
 ---
 
@@ -133,81 +132,80 @@ C(n, k) mod p = fact[n] × inv_fact[k] × inv_fact[n-k] mod p
 ```
 
 Với `inv_fact[i]` là modular inverse của `i!`.
+=== "C++"
 
-### 2.3 Code C++
-
-```cpp
-const long long MOD = 1e9 + 7;
-long long fact[1000001], inv_fact[1000001];
-
-long long powerMod(long long a, long long b, long long mod) {
-    long long result = 1;
-    a %= mod;
-    while (b > 0) {
-        if (b & 1) result = result * a % mod;
-        a = a * a % mod;
-        b >>= 1;
+    ```cpp
+    const long long MOD = 1e9 + 7;
+    long long fact[1000001], inv_fact[1000001];
+    
+    long long powerMod(long long a, long long b, long long mod) {
+        long long result = 1;
+        a %= mod;
+        while (b > 0) {
+            if (b & 1) result = result * a % mod;
+            a = a * a % mod;
+            b >>= 1;
+        }
+        return result;
     }
-    return result;
-}
+    
+    // Modular inverse qua Fermat: a^(-1) = a^(p-2) mod p (p nguyên tố)
+    long long modInverse(long long a, long long mod) {
+        return powerMod(a, mod - 2, mod);
+    }
+    
+    void buildFactorial(int n) {
+        fact[0] = 1;
+        for (int i = 1; i <= n; i++)
+            fact[i] = fact[i-1] * i % MOD;
+        inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
+        for (int i = n - 1; i >= 0; i--)
+            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
+    }
+    
+    long long nCk(int n, int k) {
+        if (k < 0 || k > n) return 0;
+        return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
+    }
+    
+    long long nPk(int n, int k) {
+        if (k < 0 || k > n) return 0;
+        return fact[n] % MOD * inv_fact[n-k] % MOD;
+    }
+    ```
 
-// Modular inverse qua Fermat: a^(-1) = a^(p-2) mod p (p nguyên tố)
-long long modInverse(long long a, long long mod) {
-    return powerMod(a, mod - 2, mod);
-}
+=== "Python"
 
-void buildFactorial(int n) {
-    fact[0] = 1;
-    for (int i = 1; i <= n; i++)
-        fact[i] = fact[i-1] * i % MOD;
-    inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
-    for (int i = n - 1; i >= 0; i--)
-        inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
-}
-
-long long nCk(int n, int k) {
-    if (k < 0 || k > n) return 0;
-    return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
-}
-
-long long nPk(int n, int k) {
-    if (k < 0 || k > n) return 0;
-    return fact[n] % MOD * inv_fact[n-k] % MOD;
-}
-```
-
-### 2.4 Code Python
-
-```python
-MOD = 10**9 + 7
-
-def power_mod(a, b, mod=MOD):
-    result = 1
-    a %= mod
-    while b > 0:
-        if b & 1:
-            result = result * a % mod
-        a = a * a % mod
-        b >>= 1
-    return result
-
-def mod_inverse(a, mod=MOD):
-    return power_mod(a, mod - 2, mod)
-
-def build_factorial(n):
-    fact = [1] * (n + 1)
-    for i in range(1, n + 1):
-        fact[i] = fact[i-1] * i % MOD
-    inv_fact = [1] * (n + 1)
-    inv_fact[n] = power_mod(fact[n], MOD - 2)
-    for i in range(n - 1, -1, -1):
-        inv_fact[i] = inv_fact[i+1] * (i+1) % MOD
-    return fact, inv_fact
-
-def nCk(n, k, fact, inv_fact):
-    if k < 0 or k > n: return 0
-    return fact[n] * inv_fact[k] % MOD * inv_fact[n-k] % MOD
-```
+    ```python
+    MOD = 10**9 + 7
+    
+    def power_mod(a, b, mod=MOD):
+        result = 1
+        a %= mod
+        while b > 0:
+            if b & 1:
+                result = result * a % mod
+            a = a * a % mod
+            b >>= 1
+        return result
+    
+    def mod_inverse(a, mod=MOD):
+        return power_mod(a, mod - 2, mod)
+    
+    def build_factorial(n):
+        fact = [1] * (n + 1)
+        for i in range(1, n + 1):
+            fact[i] = fact[i-1] * i % MOD
+        inv_fact = [1] * (n + 1)
+        inv_fact[n] = power_mod(fact[n], MOD - 2)
+        for i in range(n - 1, -1, -1):
+            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD
+        return fact, inv_fact
+    
+    def nCk(n, k, fact, inv_fact):
+        if k < 0 or k > n: return 0
+        return fact[n] * inv_fact[k] % MOD * inv_fact[n-k] % MOD
+    ```
 
 ---
 
@@ -234,6 +232,24 @@ C(n, k) mod p = Π C(ni, ki) mod p
 ### 3.3 Code C++
 
 ```cpp
+long long lucasCnk(long long n, long long k, long long p) {
+    if (k == 0) return 1;
+    long long ni = n % p, ki = k % p;
+    if (ki > ni) return 0;
+    return lucasCnk(n / p, k / p, p) * nCk_small(ni, ki, p) % p;
+}
+
+// nCk_small tính trực tiếp cho n, k nhỏ (< p)
+long long nCk_small(long long n, long long k, long long p) {
+    if (k > n) return 0;
+    long long res = 1;
+    for (long long i = 0; i < k; i++) {
+        res = res * (n - i) % p;
+        res = res * powerMod(i + 1, p - 2, p) % p;
+    }
+    return res;
+}
+```
 long long lucasCnk(long long n, long long k, long long p) {
     if (k == 0) return 1;
     long long ni = n % p, ki = k % p;
@@ -287,82 +303,81 @@ y1 = M1^(-1) mod m1,  y2 = M2^(-1) mod m2
 
 x = (a1 × M1 × y1 + a2 × M2 × y2) mod M
 ```
+=== "C++"
 
-### 4.3 Code C++
-
-```cpp
-// Extended GCD - tìm x, y sao cho a*x + b*y = gcd(a, b)
-long long extGcd(long long a, long long b, long long &x, long long &y) {
-    if (b == 0) { x = 1; y = 0; return a; }
-    long long x1, y1;
-    long long g = extGcd(b, a % b, x1, y1);
-    x = y1;
-    y = x1 - (a / b) * y1;
-    return g;
-}
-
-// Modular inverse qua Extended GCD (không cần p nguyên tố, chỉ cần GCD(a, p) = 1)
-long long modInverseGcd(long long a, long long m) {
-    long long x, y;
-    long long g = extGcd(a, m, x, y);
-    if (g != 1) return -1;  // không tồn tại inverse
-    return (x % m + m) % m;
-}
-
-// CRT cho 2 phương trình: x ≡ a1 (mod m1), x ≡ a2 (mod m2)
-// Yêu cầu: GCD(m1, m2) = 1
-// Trả về {x, M} với x là nghiệm, M = m1 * m2
-pair<long long, long long> crt2(long long a1, long long m1, long long a2, long long m2) {
-    long long M = m1 * m2;
-    long long M1 = M / m1, M2 = M / m2;
-    long long y1 = modInverseGcd(M1, m1);
-    long long y2 = modInverseGcd(M2, m2);
-    long long x = (a1 * M1 % M * y1 % M + a2 * M2 % M * y2 % M) % M;
-    return {(x + M) % M, M};
-}
-
-// CRT cho nhiều phương trình (dãy)
-// Input: vector {a1, m1}, {a2, m2}, ... với mi đôi một nguyên tố cùng nhau
-pair<long long, long long> crt(vector<pair<long long,long long>> eqs) {
-    long long a1 = eqs[0].first, m1 = eqs[0].second;
-    for (int i = 1; i < (int)eqs.size(); i++) {
-        auto [a2, m2] = eqs[i];
-        auto [x, M] = crt2(a1, m1, a2, m2);
-        a1 = x; m1 = M;
+    ```cpp
+    // Extended GCD - tìm x, y sao cho a*x + b*y = gcd(a, b)
+    long long extGcd(long long a, long long b, long long &x, long long &y) {
+        if (b == 0) { x = 1; y = 0; return a; }
+        long long x1, y1;
+        long long g = extGcd(b, a % b, x1, y1);
+        x = y1;
+        y = x1 - (a / b) * y1;
+        return g;
     }
-    return {a1, m1};
-}
-```
+    
+    // Modular inverse qua Extended GCD (không cần p nguyên tố, chỉ cần GCD(a, p) = 1)
+    long long modInverseGcd(long long a, long long m) {
+        long long x, y;
+        long long g = extGcd(a, m, x, y);
+        if (g != 1) return -1;  // không tồn tại inverse
+        return (x % m + m) % m;
+    }
+    
+    // CRT cho 2 phương trình: x ≡ a1 (mod m1), x ≡ a2 (mod m2)
+    // Yêu cầu: GCD(m1, m2) = 1
+    // Trả về {x, M} với x là nghiệm, M = m1 * m2
+    pair<long long, long long> crt2(long long a1, long long m1, long long a2, long long m2) {
+        long long M = m1 * m2;
+        long long M1 = M / m1, M2 = M / m2;
+        long long y1 = modInverseGcd(M1, m1);
+        long long y2 = modInverseGcd(M2, m2);
+        long long x = (a1 * M1 % M * y1 % M + a2 * M2 % M * y2 % M) % M;
+        return {(x + M) % M, M};
+    }
+    
+    // CRT cho nhiều phương trình (dãy)
+    // Input: vector {a1, m1}, {a2, m2}, ... với mi đôi một nguyên tố cùng nhau
+    pair<long long, long long> crt(vector<pair<long long,long long>> eqs) {
+        long long a1 = eqs[0].first, m1 = eqs[0].second;
+        for (int i = 1; i < (int)eqs.size(); i++) {
+            auto [a2, m2] = eqs[i];
+            auto [x, M] = crt2(a1, m1, a2, m2);
+            a1 = x; m1 = M;
+        }
+        return {a1, m1};
+    }
+    ```
 
-### 4.4 Code Python
+=== "Python"
 
-```python
-def ext_gcd(a, b):
-    if b == 0:
-        return a, 1, 0
-    g, x1, y1 = ext_gcd(b, a % b)
-    return g, y1, x1 - (a // b) * y1
-
-def mod_inverse_gcd(a, m):
-    g, x, y = ext_gcd(a, m)
-    if g != 1:
-        return -1
-    return (x % m + m) % m
-
-def crt2(a1, m1, a2, m2):
-    M = m1 * m2
-    M1, M2 = M // m1, M // m2
-    y1 = mod_inverse_gcd(M1, m1)
-    y2 = mod_inverse_gcd(M2, m2)
-    x = (a1 * M1 * y1 + a2 * M2 * y2) % M
-    return (x + M) % M, M
-
-def crt(equations):
-    a1, m1 = equations[0]
-    for a2, m2 in equations[1:]:
-        a1, m1 = crt2(a1, m1, a2, m2)
-    return a1, m1
-```
+    ```python
+    def ext_gcd(a, b):
+        if b == 0:
+            return a, 1, 0
+        g, x1, y1 = ext_gcd(b, a % b)
+        return g, y1, x1 - (a // b) * y1
+    
+    def mod_inverse_gcd(a, m):
+        g, x, y = ext_gcd(a, m)
+        if g != 1:
+            return -1
+        return (x % m + m) % m
+    
+    def crt2(a1, m1, a2, m2):
+        M = m1 * m2
+        M1, M2 = M // m1, M // m2
+        y1 = mod_inverse_gcd(M1, m1)
+        y2 = mod_inverse_gcd(M2, m2)
+        x = (a1 * M1 * y1 + a2 * M2 * y2) % M
+        return (x + M) % M, M
+    
+    def crt(equations):
+        a1, m1 = equations[0]
+        for a2, m2 in equations[1:]:
+            a1, m1 = crt2(a1, m1, a2, m2)
+        return a1, m1
+    ```
 
 **Ví dụ minh họa:**
 ```
@@ -409,71 +424,70 @@ Tính chất này cực kỳ quan trọng trong **Möbius inversion** (đảo ng
 ```
 Nếu  f(n) = Σ_{d|n} g(d)   thì   g(n) = Σ_{d|n} μ(d) × f(n/d)
 ```
+=== "C++"
 
-### 5.3 Code C++
-
-```cpp
-// Sàng Möbius - O(N log log N)
-vector<int> mobiusSieve(int n) {
-    vector<int> mu(n + 1, 1);
-    vector<bool> isPrime(n + 1, true);
-    vector<int> primes;
-    mu[0] = 0;
-    for (int i = 2; i <= n; i++) {
-        if (isPrime[i]) {
-            primes.push_back(i);
-            mu[i] = -1;  // nguyên tố → 1 thừa số → (-1)^1
-        }
-        for (int p : primes) {
-            if (i * p > n) break;
-            isPrime[i * p] = false;
-            if (i % p == 0) {
-                mu[i * p] = 0;  // p chia hết i → i*p có thừa số bậc ≥ 2
-                break;
+    ```cpp
+    // Sàng Möbius - O(N log log N)
+    vector<int> mobiusSieve(int n) {
+        vector<int> mu(n + 1, 1);
+        vector<bool> isPrime(n + 1, true);
+        vector<int> primes;
+        mu[0] = 0;
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i]) {
+                primes.push_back(i);
+                mu[i] = -1;  // nguyên tố → 1 thừa số → (-1)^1
             }
-            mu[i * p] = -mu[i];  // thêm 1 thừa số nguyên tố mới → đổi dấu
+            for (int p : primes) {
+                if (i * p > n) break;
+                isPrime[i * p] = false;
+                if (i % p == 0) {
+                    mu[i * p] = 0;  // p chia hết i → i*p có thừa số bậc ≥ 2
+                    break;
+                }
+                mu[i * p] = -mu[i];  // thêm 1 thừa số nguyên tố mới → đổi dấu
+            }
         }
+        return mu;
     }
-    return mu;
-}
-
-// Tính μ(n) đơn lẻ - O(sqrt(n))
-int mobiusSingle(int n) {
-    int cnt = 0;
-    for (int i = 2; i * i <= n; i++) {
-        if (n % i == 0) {
-            n /= i;
-            cnt++;
-            if (n % i == 0) return 0;  // có thừa số bậc ≥ 2
+    
+    // Tính μ(n) đơn lẻ - O(sqrt(n))
+    int mobiusSingle(int n) {
+        int cnt = 0;
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                n /= i;
+                cnt++;
+                if (n % i == 0) return 0;  // có thừa số bậc ≥ 2
+            }
         }
+        if (n > 1) cnt++;  // thừa số nguyên tố lớn còn lại
+        return (cnt % 2 == 0) ? 1 : -1;
     }
-    if (n > 1) cnt++;  // thừa số nguyên tố lớn còn lại
-    return (cnt % 2 == 0) ? 1 : -1;
-}
-```
+    ```
 
-### 5.4 Code Python
+=== "Python"
 
-```python
-def mobius_sieve(n):
-    mu = [1] * (n + 1)
-    is_prime = [True] * (n + 1)
-    primes = []
-    mu[0] = 0
-    for i in range(2, n + 1):
-        if is_prime[i]:
-            primes.append(i)
-            mu[i] = -1
-        for p in primes:
-            if i * p > n:
-                break
-            is_prime[i * p] = False
-            if i % p == 0:
-                mu[i * p] = 0
-                break
-            mu[i * p] = -mu[i]
-    return mu
-```
+    ```python
+    def mobius_sieve(n):
+        mu = [1] * (n + 1)
+        is_prime = [True] * (n + 1)
+        primes = []
+        mu[0] = 0
+        for i in range(2, n + 1):
+            if is_prime[i]:
+                primes.append(i)
+                mu[i] = -1
+            for p in primes:
+                if i * p > n:
+                    break
+                is_prime[i * p] = False
+                if i % p == 0:
+                    mu[i * p] = 0
+                    break
+                mu[i * p] = -mu[i]
+        return mu
+    ```
 
 ---
 
@@ -492,6 +506,66 @@ Sử dụng hàm `f(x) = (x² + c) mod n` để tạo dãy số. Dùng **Floyd's
 ### 6.3 Code C++
 
 ```cpp
+long long mulMod(long long a, long long b, long long mod) {
+    return (__int128)a * b % mod;
+}
+
+// Miller-Rabin kiểm tra nguyên tố - O(k log^2 n)
+bool millerRabin(long long n) {
+    if (n < 2) return false;
+    if (n == 2 || n == 3) return true;
+    if (n % 2 == 0) return false;
+
+    // Viết n-1 = 2^r * d
+    long long d = n - 1;
+    int r = 0;
+    while (d % 2 == 0) { d /= 2; r++; }
+
+    // Các cơ sở đủ cho n < 2^64
+    vector<long long> bases = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+    for (long long a : bases) {
+        if (a >= n) continue;
+        long long x = powerMod(a, d, n);
+        if (x == 1 || x == n - 1) continue;
+        bool composite = true;
+        for (int i = 0; i < r - 1; i++) {
+            x = mulMod(x, x, n);
+            if (x == n - 1) { composite = false; break; }
+        }
+        if (composite) return false;
+    }
+    return true;
+}
+
+bool isPrime(long long n) {
+    return millerRabin(n);
+}
+
+long long pollardRho(long long n) {
+    if (n % 2 == 0) return 2;
+    long long x = rand() % (n - 2) + 2;
+    long long y = x;
+    long long c = rand() % (n - 1) + 1;
+    long long d = 1;
+    while (d == 1) {
+        x = (mulMod(x, x, n) + c) % n;
+        y = (mulMod(y, y, n) + c) % n;
+        y = (mulMod(y, y, n) + c) % n;
+        d = __gcd(abs(x - y), n);
+        if (d == n) return pollardRho(n);  // thử lại với c khác
+    }
+    return d;
+}
+
+// Phân tích n thành các thừa số nguyên tố
+void factorize(long long n, map<long long,int> &factors) {
+    if (n == 1) return;
+    if (isPrime(n)) { factors[n]++; return; }  // cần hàm isPrime (Miller-Rabin)
+    long long d = pollardRho(n);
+    factorize(d, factors);
+    factorize(n / d, factors);
+}
+```
 long long mulMod(long long a, long long b, long long mod) {
     return (__int128)a * b % mod;
 }
@@ -575,9 +649,19 @@ void factorize(long long n, map<long long,int> &factors) {
 // ĐÚNG:
 result = ((a - b) % MOD + MOD) % MOD;
 ```
+// SAI: result = (a - b) % MOD;  // có thể âm!
+// ĐÚNG:
+result = ((a - b) % MOD + MOD) % MOD;
+```
 
 **Overflow khi nhân:**
 ```cpp
+// SAI với int hoặc long long khi a, b > 10^9:
+result = a * b % MOD;  // overflow nếu a * b > 2^63
+
+// ĐÚNG: Dùng __int128 hoặc modular multiplication
+result = (__int128)a * b % MOD;
+```
 // SAI với int hoặc long long khi a, b > 10^9:
 result = a * b % MOD;  // overflow nếu a * b > 2^63
 
@@ -670,6 +754,35 @@ long long countCoprimePairs(vector<int> &a) {
     return ans;
 }
 ```
+// Đếm số cặp nguyên tố cùng nhau trong mảng
+// a[i] ≤ MAX_VAL
+const int MAX_VAL = 1000000;
+int cnt[MAX_VAL + 1];  // cnt[d] = số phần tử chia hết cho d
+
+long long countCoprimePairs(vector<int> &a) {
+    int n = a.size();
+    vector<int> mu = mobiusSieve(MAX_VAL);
+
+    // Đếm số phần tử chia hết cho mỗi d
+    for (int x : a) {
+        for (int d = 1; d * d <= x; d++) {
+            if (x % d == 0) {
+                cnt[d]++;
+                if (d * d != x) cnt[x / d]++;
+            }
+        }
+    }
+
+    // Áp dụng inclusion-exclusion với Möbius
+    long long ans = 0;
+    for (int d = 1; d <= MAX_VAL; d++) {
+        if (mu[d] == 0) continue;
+        long long c = cnt[d];
+        ans += mu[d] * c * (c - 1) / 2;
+    }
+    return ans;
+}
+```
 
 ### 8.2 Euler's Theorem cho Modular Exponentiation
 
@@ -709,12 +822,57 @@ long long powerModLargeGeneral(long long a, string b, long long n) {
     return powerMod(a, b_mod_phi, n);
 }
 ```
+// Tính a^b mod n, b rất lớn (biểu diễn dưới dạng string)
+// Yêu cầu: GCD(a, n) = 1
+long long powerModLarge(long long a, string b, long long n) {
+    long long phi_n = eulerPhi(n);
+
+    // Tính b mod φ(n)
+    long long b_mod_phi = 0;
+    for (char c : b) {
+        b_mod_phi = (b_mod_phi * 10 + (c - '0')) % phi_n;
+    }
+
+    // Euler: a^b ≡ a^(b mod φ(n)) (mod n) khi GCD(a, n) = 1
+    return powerMod(a, b_mod_phi, n);
+}
+
+// Khi GCD(a, n) ≠ 1 và b ≥ φ(n):
+// a^b ≡ a^(b mod φ(n) + φ(n)) (mod n)
+long long powerModLargeGeneral(long long a, string b, long long n) {
+    long long phi_n = eulerPhi(n);
+    long long b_mod_phi = 0;
+    bool b_ge_phi = false;
+    // Tính b mod φ(n) và kiểm tra b ≥ φ(n)
+    for (char c : b) {
+        b_mod_phi = b_mod_phi * 10 + (c - '0');
+        if (b_mod_phi >= phi_n) {
+            b_ge_phi = true;
+            b_mod_phi %= phi_n;
+        }
+    }
+    if (b_ge_phi) b_mod_phi += phi_n;
+    return powerMod(a, b_mod_phi, n);
+}
+```
 
 ### 8.3 Ứng dụng Möbius Inversion
 
 **Bài toán mẫu:** Đếm số cặp `(i, j)` với `1 ≤ i ≤ N, 1 ≤ j ≤ M` sao cho `GCD(i, j) = 1`.
 
 ```cpp
+// Đếm cặp (i,j) với 1≤i≤N, 1≤j≤M, GCD(i,j) = 1
+// Công thức: Σ μ(d) × floor(N/d) × floor(M/d)
+long long countCoprimePairs(int n, int m) {
+    vector<int> mu = mobiusSieve(max(n, m));
+    long long ans = 0;
+    for (int d = 1; d <= min(n, m); d++) {
+        if (mu[d] == 0) continue;
+        ans += (long long)mu[d] * (n / d) * (m / d);
+    }
+    return ans;
+}
+```
 // Đếm cặp (i,j) với 1≤i≤N, 1≤j≤M, GCD(i,j) = 1
 // Công thức: Σ μ(d) × floor(N/d) × floor(M/d)
 long long countCoprimePairs(int n, int m) {

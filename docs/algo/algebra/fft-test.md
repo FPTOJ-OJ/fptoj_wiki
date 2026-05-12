@@ -311,98 +311,105 @@ Ngoài ra, nếu ta sử dụng $\omega^{-1}=\exp(\frac{-2\pi i}{n})$ thay cho $
 
 Ta sẽ cài đặt chung cả biến đổi xuôi và ngược:
 
-```cpp
-using cd = complex<long double>;
+=== "C++"
 
-void fft(vector<cd> &a, bool invert) {
-    /// invert = true tương ứng với biến đổi ngược
-    int n = a.size();
-    if (n == 1) return;
-    vector<cd> a0, a1;
-    for (int i = 0; i < n / 2; i++) {
-        a0.push_back(a[2 * i]);
-        a1.push_back(a[2 * i + 1]);
-    }
-    fft(a0, invert); fft(a1, invert);
-    cd w = 1, wn = polar(1.0L, acos(-1.0L) / n * (invert ? -2 : 2));
-    /// polar(r, t) = r * exp(it) và acos(-1.0L) = pi
-    /// thay wn = wn^-1 ở biến đổi ngược
-    for (int i = 0; i < n / 2; i++) {
-        a[i] = a0[i] + w * a1[i];
-        a[i + n / 2] = a0[i] - w * a1[i];
-        /// Ta sẽ chia 2 ở mỗi tầng đệ quy thay cho việc chia n ở cuối
-        if (invert) {
-            a[i] /= 2; a[i + n / 2] /= 2;
+    ```cpp
+    using cd = complex<long double>;
+
+    void fft(vector<cd> &a, bool invert) {
+        /// invert = true tương ứng với biến đổi ngược
+        int n = a.size();
+        if (n == 1) return;
+        vector<cd> a0, a1;
+        for (int i = 0; i < n / 2; i++) {
+            a0.push_back(a[2 * i]);
+            a1.push_back(a[2 * i + 1]);
         }
-        w *= wn;
+        fft(a0, invert); fft(a1, invert);
+        cd w = 1, wn = polar(1.0L, acos(-1.0L) / n * (invert ? -2 : 2));
+        /// polar(r, t) = r * exp(it) và acos(-1.0L) = pi
+        /// thay wn = wn^-1 ở biến đổi ngược
+        for (int i = 0; i < n / 2; i++) {
+            a[i] = a0[i] + w * a1[i];
+            a[i + n / 2] = a0[i] - w * a1[i];
+            /// Ta sẽ chia 2 ở mỗi tầng đệ quy thay cho việc chia n ở cuối
+            if (invert) {
+                a[i] /= 2; a[i + n / 2] /= 2;
+            }
+            w *= wn;
+        }
     }
-}
-```
+    ```
 
-```python
-import cmath
+=== "Python"
 
-def fft(a, invert):
-    n = len(a)
-    if n == 1:
-        return
-    a0 = a[0::2]
-    a1 = a[1::2]
-    fft(a0, invert)
-    fft(a1, invert)
-    ang = 2 * cmath.pi / n * (-1 if invert else 1)
-    wn = cmath.exp(1j * ang)
-    w = 1
-    for i in range(n // 2):
-        a[i] = a0[i] + w * a1[i]
-        a[i + n // 2] = a0[i] - w * a1[i]
-        if invert:
-            a[i] /= 2
-            a[i + n // 2] /= 2
-        w *= wn
-```
+    ```python
+    import cmath
+
+    def fft(a, invert):
+        n = len(a)
+        if n == 1:
+            return
+        a0 = a[0::2]
+        a1 = a[1::2]
+        fft(a0, invert)
+        fft(a1, invert)
+        ang = 2 * cmath.pi / n * (-1 if invert else 1)
+        wn = cmath.exp(1j * ang)
+        w = 1
+        for i in range(n // 2):
+            a[i] = a0[i] + w * a1[i]
+            a[i + n // 2] = a0[i] - w * a1[i]
+            if invert:
+                a[i] /= 2
+                a[i + n // 2] /= 2
+            w *= wn
+    ```
 
 Dưới đây là cài đặt để tính tích chập của hai dãy số:
-```cpp
-vector<int> conv(const vector<int> &a, const vector<int> &b) {
-    if (a.empty() || b.empty()) return {};
-    vector<cd> fa(a.begin(), a.end());
-    vector<cd> fb(b.begin(), b.end());
-    int n = 1;
-    while (n < int(a.size() + b.size()) - 1) n <<= 1;
-    fa.resize(n); fb.resize(n);
-    fft(fa, false); fft(fb, false);
-    for (int i = 0; i < n; i++)
-        fa[i] *= fb[i];
-    fft(fa, true);
-    vector<int> res(n);
-    for (int i = 0; i < n; i++)
-        res[i] = int(real(fa[i]) + 0.5);
-    return res;
-}
-```
 
-```python
-def conv(a, b):
-    if not a or not b:
-        return []
-    fa = list(map(complex, a))
-    fb = list(map(complex, b))
-    n = 1
-    while n < len(a) + len(b) - 1:
-        n <<= 1
-    fa += [0j] * (n - len(fa))
-    fb += [0j] * (n - len(fb))
-    fft(fa, False)
-    fft(fb, False)
-    for i in range(n):
-        fa[i] *= fb[i]
-    fft(fa, True)
-    res = [int(fa[i].real + 0.5) for i in range(n)]
-    return res
-```
+=== "C++"
 
-#### Cài đặt khử đệ quy
+    ```cpp
+    vector<int> conv(const vector<int> &a, const vector<int> &b) {
+        if (a.empty() || b.empty()) return {};
+        vector<cd> fa(a.begin(), a.end());
+        vector<cd> fb(b.begin(), b.end());
+        int n = 1;
+        while (n < int(a.size() + b.size()) - 1) n <<= 1;
+        fa.resize(n); fb.resize(n);
+        fft(fa, false); fft(fb, false);
+        for (int i = 0; i < n; i++)
+            fa[i] *= fb[i];
+        fft(fa, true);
+        vector<int> res(n);
+        for (int i = 0; i < n; i++)
+            res[i] = int(real(fa[i]) + 0.5);
+        return res;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def conv(a, b):
+        if not a or not b:
+            return []
+        fa = list(map(complex, a))
+        fb = list(map(complex, b))
+        n = 1
+        while n < len(a) + len(b) - 1:
+            n <<= 1
+        fa += [0j] * (n - len(fa))
+        fb += [0j] * (n - len(fb))
+        fft(fa, False)
+        fft(fb, False)
+        for i in range(n):
+            fa[i] *= fb[i]
+        fft(fa, True)
+        res = [int(fa[i].real + 0.5) for i in range(n)]
+        return res
+    ```
 
 Ta xét các tầng đệ quy với $n=8$:
 - Tầng $3$: $(a_0,a_1,a_2,a_3,a_4,a_5,a_6,a_7)$
@@ -419,63 +426,67 @@ Có thể thấy rằng nếu ta đảo ngược thứ tự bit thì, ví dụ $
 Gọi $rev(i)$ là số nhận được sau khi đảo ngược thứ tự bit của $i$, ta có $rev(i)=\dfrac{rev(i / 2) | [(i \bmod 2) \cdot n]}{2}$ với $|$ thể hiện phép toán bitwise OR (bạn đọc tự chứng minh).
 
 Ta có cài đặt sau:
-```cpp
-void fft(vector<cd> &a, bool invert) {
-    int n = a.size(), L = __builtin_ctz(n);
-    vector<int> rev(n);
-    for (int i = 0; i < n; i++) {
-        rev[i] = (rev[i >> 1] | (i & 1) << L) >> 1;
-        if (i < rev[i]) swap(a[i], a[rev[i]]);
-    }
-    for (int len = 2; len <= n; len <<= 1) {
-        cd wlen = polar(1.0L, acos(-1.0L) / len * (invert ? -2 : 2));
-        for (int i = 0; i < n; i += len) {
-            cd w = 1;
-            for (int j = 0; j < len / 2; j++) {
-                cd u = a[i + j];
-                cd v = a[i + j + len / 2] * w;
-                a[i + j] = u + v;
-                a[i + j + len / 2] = u - v;
-                w *= wlen;
+
+=== "C++"
+
+    ```cpp
+    void fft(vector<cd> &a, bool invert) {
+        int n = a.size(), L = __builtin_ctz(n);
+        vector<int> rev(n);
+        for (int i = 0; i < n; i++) {
+            rev[i] = (rev[i >> 1] | (i & 1) << L) >> 1;
+            if (i < rev[i]) swap(a[i], a[rev[i]]);
+        }
+        for (int len = 2; len <= n; len <<= 1) {
+            cd wlen = polar(1.0L, acos(-1.0L) / len * (invert ? -2 : 2));
+            for (int i = 0; i < n; i += len) {
+                cd w = 1;
+                for (int j = 0; j < len / 2; j++) {
+                    cd u = a[i + j];
+                    cd v = a[i + j + len / 2] * w;
+                    a[i + j] = u + v;
+                    a[i + j + len / 2] = u - v;
+                    w *= wlen;
+                }
             }
         }
+        if (invert) {
+            for (auto &x : a) x /= n;
+        }
     }
-    if (invert) {
-        for (auto &x : a) x /= n;
-    }
-}
-```
+    ```
 
-```python
-import cmath
+=== "Python"
 
-def fft(a, invert):
-    n = len(a)
-    L = n.bit_length() - 1
-    rev = [0] * n
-    for i in range(n):
-        rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (L - 1))
-        if i < rev[i]:
-            a[i], a[rev[i]] = a[rev[i]], a[i]
-    length = 2
-    while length <= n:
-        ang = 2 * cmath.pi / length * (-1 if invert else 1)
-        wlen = cmath.exp(1j * ang)
-        for i in range(0, n, length):
-            w = 1
-            for j in range(length // 2):
-                u = a[i + j]
-                v = a[i + j + length // 2] * w
-                a[i + j] = u + v
-                a[i + j + length // 2] = u - v
-                w *= wlen
-        length <<= 1
-    if invert:
+    ```python
+    import cmath
+
+    def fft(a, invert):
+        n = len(a)
+        L = n.bit_length() - 1
+        rev = [0] * n
         for i in range(n):
-            a[i] /= n
-```
+            rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (L - 1))
+            if i < rev[i]:
+                a[i], a[rev[i]] = a[rev[i]], a[i]
+        length = 2
+        while length <= n:
+            ang = 2 * cmath.pi / length * (-1 if invert else 1)
+            wlen = cmath.exp(1j * ang)
+            for i in range(0, n, length):
+                w = 1
+                for j in range(length // 2):
+                    u = a[i + j]
+                    v = a[i + j + length // 2] * w
+                    a[i + j] = u + v
+                    a[i + j + length // 2] = u - v
+                    w *= wlen
+            length <<= 1
+        if invert:
+            for i in range(n):
+                a[i] /= n
+    ```
 
-#### Vấn đề về độ chính xác
 Ở cài đặt phía trên ta có viết ```w *= wlen``` để tính luỹ thừa của căn đơn vị. Việc nhân nhiều lần sẽ ảnh hưởng rất lớn đến độ chính xác của thuật toán vì ta đang thực hiện tính toán trên số thực.
 
 Nhận xét rằng với mỗi $len$ ta chỉ cần tính $\omega_{len}^0,\omega_{len}^1,\ldots,\omega_{len}^{len/2-1}$.
@@ -483,51 +494,61 @@ Nhận xét rằng với mỗi $len$ ta chỉ cần tính $\omega_{len}^0,\omega
 Định nghĩa một mảng $root$ sao cho với mỗi $len$ và với mỗi $0\le j<\frac{len}{2}$ ta có $root(\frac{len}{2}+j)=\omega_{len}^j$.
 
 Cài đặt để tính mảng $root$:
-```cpp
-vector<cd> root(n);
-root[1] = 1;
-for (int k = 2; k < n; k *= 2) {
-    cd z = polar(1.0l, acos(-1.0l) / k * (invert ? 1 : -1));
-    for (int j = k / 2; j < k; j++) {
-        root[2 * j] = root[j];
-        root[2 * j + 1] = root[j] * z;
+
+=== "C++"
+
+    ```cpp
+    vector<cd> root(n);
+    root[1] = 1;
+    for (int k = 2; k < n; k *= 2) {
+        cd z = polar(1.0l, acos(-1.0l) / k * (invert ? 1 : -1));
+        for (int j = k / 2; j < k; j++) {
+            root[2 * j] = root[j];
+            root[2 * j + 1] = root[j] * z;
+        }
     }
-}
-```
-```python
-root = [0j] * n
-root[1] = 1
-for k in range(2, n, 2):
-    z = cmath.exp(1j * cmath.pi / k * (1 if invert else -1))
-    for j in range(k // 2, k):
-        root[2 * j] = root[j]
-        root[2 * j + 1] = root[j] * z
-```
+    ```
+
+=== "Python"
+
+    ```python
+    root = [0j] * n
+    root[1] = 1
+    for k in range(2, n, 2):
+        z = cmath.exp(1j * cmath.pi / k * (1 if invert else -1))
+        for j in range(k // 2, k):
+            root[2 * j] = root[j]
+            root[2 * j + 1] = root[j] * z
+    ```
 
 Sau khi có mảng $root$ ta có thể sửa cài đặt FFT như sau:
-```cpp
-for (int k = 1; k < n; k *= 2)
-    for (int i = 0; i < n; i += 2 * k)
-        for (int j = 0; j < k; j++) {
-            cd z = root[j + k] * a[i + j + k];
-            a[i + j + k] = a[i + j] - z;
-            a[i + j] += z;
-        }
-```
-```python
-k = 1
-while k < n:
-    for i in range(0, n, 2 * k):
-        for j in range(k):
-            z = root[j + k] * a[i + j + k]
-            a[i + j + k] = a[i + j] - z
-            a[i + j] += z
-    k *= 2
-```
+
+=== "C++"
+
+    ```cpp
+    for (int k = 1; k < n; k *= 2)
+        for (int i = 0; i < n; i += 2 * k)
+            for (int j = 0; j < k; j++) {
+                cd z = root[j + k] * a[i + j + k];
+                a[i + j + k] = a[i + j] - z;
+                a[i + j] += z;
+            }
+    ```
+
+=== "Python"
+
+    ```python
+    k = 1
+    while k < n:
+        for i in range(0, n, 2 * k):
+            for j in range(k):
+                z = root[j + k] * a[i + j + k]
+                a[i + j + k] = a[i + j] - z
+                a[i + j] += z
+        k *= 2
+    ```
 
 Thử nghiệm với $n=2^{20}$, sai số chỉ rơi vào khoảng $5.5511\cdot 10^{-16}$. 
-
-#### FFT hai dãy cùng một lúc
 
 Ta có thể tính $\text{DFT}$ của hai dãy $a$ và $b$ cùng một lúc bằng cách tính $\text{DFT}$ của dãy $c$ với $c_j=a_j+b_j\cdot i$.
 
@@ -542,58 +563,63 @@ A(\omega^j)B(\omega^j) &=\frac{C^2(\omega^j)-\overline{C^2(\omega^{-j})}}{4i}
 \end{align}
 
 Sử dụng công thức này ta có thể tính tích chập chỉ dùng hai lần gọi hàm `fft`:
-```cpp
-vector<int> conv(const vector<int> &a, const vector<int> &b) {
-    if (a.empty() || b.empty()) return {};
-    int n = 1;
-    while (n < int(a.size() + b.size()) - 1) n <<= 1;
-    vector<cd> in(n), out(n);
-    for (int i = 0; i < int(a.size()); i++)
-        in[i].real(a[i]);
-    for (int i = 0; i < int(b.size()); i++)
-        in[i].image(b[i]);
-    fft(in, false);
-    for (int i = 0; i < n; i++)
-        in[i] *= in[i];
-    for (int i = 0; i < n; i++) {
-        /// (n - i) mod n
-        int j = -i & (n - 1);
-        out[i] = in[i] - conj(in[j]);
+
+=== "C++"
+
+    ```cpp
+    vector<int> conv(const vector<int> &a, const vector<int> &b) {
+        if (a.empty() || b.empty()) return {};
+        int n = 1;
+        while (n < int(a.size() + b.size()) - 1) n <<= 1;
+        vector<cd> in(n), out(n);
+        for (int i = 0; i < int(a.size()); i++)
+            in[i].real(a[i]);
+        for (int i = 0; i < int(b.size()); i++)
+            in[i].image(b[i]);
+        fft(in, false);
+        for (int i = 0; i < n; i++)
+            in[i] *= in[i];
+        for (int i = 0; i < n; i++) {
+            /// (n - i) mod n
+            int j = -i & (n - 1);
+            out[i] = in[i] - conj(in[j]);
+        }
+        fft(out, true)
+        vector<int> res(n);
+        /// ở trên ta không chia cho 4i nên kết quả sẽ nằm trong phần ảo
+        for (int i = 0; i < n; i++)
+            res[i] = int(imag(out[i]) / 4 + 0.5);
+        return res;
     }
-    fft(out, true)
-    vector<int> res(n);
-    /// ở trên ta không chia cho 4i nên kết quả sẽ nằm trong phần ảo
-    for (int i = 0; i < n; i++)
-        res[i] = int(imag(out[i]) / 4 + 0.5);
-    return res;
-}
-```
+    ```
 
-```python
-import cmath
+=== "Python"
 
-def conv(a, b):
-    if not a or not b:
-        return []
-    n = 1
-    while n < len(a) + len(b) - 1:
-        n <<= 1
-    inp = [0j] * n
-    for i in range(len(a)):
-        inp[i] = complex(a[i], 0)
-    for i in range(len(b)):
-        inp[i] = complex(inp[i].real, b[i])
-    fft(inp, False)
-    for i in range(n):
-        inp[i] *= inp[i]
-    out = [0j] * n
-    for i in range(n):
-        j = -i & (n - 1)
-        out[i] = inp[i] - inp[j].conjugate()
-    fft(out, True)
-    res = [int(out[i].imag / 4 + 0.5) for i in range(n)]
-    return res
-```
+    ```python
+    import cmath
+
+    def conv(a, b):
+        if not a or not b:
+            return []
+        n = 1
+        while n < len(a) + len(b) - 1:
+            n <<= 1
+        inp = [0j] * n
+        for i in range(len(a)):
+            inp[i] = complex(a[i], 0)
+        for i in range(len(b)):
+            inp[i] = complex(inp[i].real, b[i])
+        fft(inp, False)
+        for i in range(n):
+            inp[i] *= inp[i]
+        out = [0j] * n
+        for i in range(n):
+            j = -i & (n - 1)
+            out[i] = inp[i] - inp[j].conjugate()
+        fft(out, True)
+        res = [int(out[i].imag / 4 + 0.5) for i in range(n)]
+        return res
+    ```
 
 ## 3. Thuật toán NTT
 
@@ -622,84 +648,89 @@ Từ đây ta có nếu $\omega_n$ là căn đơn vị cấp $n$, thì $\omega_n
 Ta chứng minh được rằng với một số nguyên tố có dạng $p=c2^k+1$, tồn tại $\omega_{2^k}=g^c$ với $g$ là một [căn nguyên thuỷ](https://vi.wikipedia.org/wiki/C%C4%83n_nguy%C3%AAn_th%E1%BB%A7y_modulo_n) modulo $p$. Lấy ví dụ với $p=998244353=119\cdot 2^{23}+1$ có căn nguyên thuỷ $g=3$ và $\omega_{2^{23}}=3^{119} \bmod p=15311432$.
 
 Cài đặt với $p=998244353$ (các hằng số ```root, root_pw``` thể hiện căn đơn vị và số mũ tương ứng, ```root_1``` là nghịch đảo của căn đơn vị, hàm ```inverse``` tính nghịch đảo modulo của một số):
-```cpp
-const int mod = 998244353;
-const int root = 15311432;
-const int root_1 = 469870224;
-const int root_pw = 1 << 23;
 
-void fft(vector<int> & a, bool invert) {
-    int n = a.size(), L = __builtin_ctz(n);
-    
-    vector<int> rev(n);
-    for (int i = 0; i < n; i++) {
-        rev[i] = (rev[i >> 1] | (i & 1) << L) >> 1;
-        if (i < rev[i]) swap(a[i], a[rev[i]]);
-    }
+=== "C++"
 
-    for (int len = 2; len <= n; len <<= 1) {
-        int wlen = invert ? root_1 : root;
-        for (int i = len; i < root_pw; i <<= 1)
-            wlen = (int)(1LL * wlen * wlen % mod);
+    ```cpp
+    const int mod = 998244353;
+    const int root = 15311432;
+    const int root_1 = 469870224;
+    const int root_pw = 1 << 23;
 
-        for (int i = 0; i < n; i += len) {
-            int w = 1;
-            for (int j = 0; j < len / 2; j++) {
-                int u = a[i + j];
-                int v = 1ll * a[i + j + len / 2] * w % mod;
-                a[i + j] = u + v < mod ? u + v : u + v - mod;
-                a[i + j + len / 2] = u - v >= 0 ? u - v : u - v + mod;
-                w = 1ll * w * wlen % mod;
+    void fft(vector<int> & a, bool invert) {
+        int n = a.size(), L = __builtin_ctz(n);
+        
+        vector<int> rev(n);
+        for (int i = 0; i < n; i++) {
+            rev[i] = (rev[i >> 1] | (i & 1) << L) >> 1;
+            if (i < rev[i]) swap(a[i], a[rev[i]]);
+        }
+
+        for (int len = 2; len <= n; len <<= 1) {
+            int wlen = invert ? root_1 : root;
+            for (int i = len; i < root_pw; i <<= 1)
+                wlen = (int)(1LL * wlen * wlen % mod);
+
+            for (int i = 0; i < n; i += len) {
+                int w = 1;
+                for (int j = 0; j < len / 2; j++) {
+                    int u = a[i + j];
+                    int v = 1ll * a[i + j + len / 2] * w % mod;
+                    a[i + j] = u + v < mod ? u + v : u + v - mod;
+                    a[i + j + len / 2] = u - v >= 0 ? u - v : u - v + mod;
+                    w = 1ll * w * wlen % mod;
+                }
             }
         }
+
+        if (invert) {
+            int n_1 = inverse(n, mod);
+            for (int & x : a)
+                x = 1ll * x * n_1 % mod;
+        }
     }
+    ```
 
-    if (invert) {
-        int n_1 = inverse(n, mod);
-        for (int & x : a)
-            x = 1ll * x * n_1 % mod;
-    }
-}
-```
+=== "Python"
 
-```python
-MOD = 998244353
-ROOT = 15311432
-ROOT_1 = 469870224
-ROOT_PW = 1 << 23
+    ```python
+    MOD = 998244353
+    ROOT = 15311432
+    ROOT_1 = 469870224
+    ROOT_PW = 1 << 23
 
-def inverse(a, m):
-    return pow(a, m - 2, m)
+    def inverse(a, m):
+        return pow(a, m - 2, m)
 
-def ntt(a, invert):
-    n = len(a)
-    L = n.bit_length() - 1
-    rev = [0] * n
-    for i in range(n):
-        rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (L - 1))
-        if i < rev[i]:
-            a[i], a[rev[i]] = a[rev[i]], a[i]
-    length = 2
-    while length <= n:
-        wlen = ROOT_1 if invert else ROOT
-        i = length
-        while i < ROOT_PW:
-            wlen = wlen * wlen % MOD
-            i <<= 1
-        for i in range(0, n, length):
-            w = 1
-            for j in range(length // 2):
-                u = a[i + j]
-                v = a[i + j + length // 2] * w % MOD
-                a[i + j] = (u + v) if (u + v < MOD) else (u + v - MOD)
-                a[i + j + length // 2] = (u - v) if (u - v >= 0) else (u - v + MOD)
-                w = w * wlen % MOD
-        length <<= 1
-    if invert:
-        n_1 = inverse(n, MOD)
+    def ntt(a, invert):
+        n = len(a)
+        L = n.bit_length() - 1
+        rev = [0] * n
         for i in range(n):
-            a[i] = a[i] * n_1 % MOD
-```
+            rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (L - 1))
+            if i < rev[i]:
+                a[i], a[rev[i]] = a[rev[i]], a[i]
+        length = 2
+        while length <= n:
+            wlen = ROOT_1 if invert else ROOT
+            i = length
+            while i < ROOT_PW:
+                wlen = wlen * wlen % MOD
+                i <<= 1
+            for i in range(0, n, length):
+                w = 1
+                for j in range(length // 2):
+                    u = a[i + j]
+                    v = a[i + j + length // 2] * w % MOD
+                    a[i + j] = (u + v) if (u + v < MOD) else (u + v - MOD)
+                    a[i + j + length // 2] = (u - v) if (u - v >= 0) else (u - v + MOD)
+                    w = w * wlen % MOD
+            length <<= 1
+        if invert:
+            n_1 = inverse(n, MOD)
+            for i in range(n):
+                a[i] = a[i] * n_1 % MOD
+    ```
 
 ### Nhân đa thức với modulo bất kì
 
@@ -708,8 +739,6 @@ Có thể thấy rằng thuật toán NTT chỉ hoạt động với nếu căn 
 #### Sử dụng định lý thặng dư Trung Hoa
 
 Nếu kết quả của phép nhân đa thức có hệ số nhỏ hơn $M_1\cdot M_2$, với $M_1,M_2$ là hai số nguyên tố có dạng $c2^k+1$, ta có thể thực hiện NTT trên hai modulo này và dùng [định lý thặng dư Trung Hoa](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Bnh_l%C3%BD_s%E1%BB%91_d%C6%B0_Trung_Qu%E1%BB%91c) để khôi phục kết quả.
-
-#### Chia nhỏ đa thức
 
 Ta cần tính $A(x)\cdot B(x)$ với hệ số modulo $M$, thực hiện tách hai đa thức như sau:
 $$
@@ -725,79 +754,84 @@ $$A_0(x)B_0(x)+(A_0(x)B_1(x)+A_1(x)B_0(x))\cdot C + A_1(x)B_1(x)\cdot C^2$$
 Sử dụng kĩ thuật tương tự với [FFT hai dãy cùng một lúc](), ta có thể tính biểu thức trên với chỉ $4$ lần gọi FFT.
 
 Cài đặt:
-```cpp 
-using ll = long long;
 
-vector<int> convMod(const vector<int> &a, const vector<int> &b, int M) {
-    if (a.empty() || b.empty()) return {};
-    vector<int> res(a.size() + b.size() - 1);
-    int B = 32 - __builtin_clz(res.size());
-    int n = 1 << B, cut = sqrt(M);
-    
-    vector<cd> L(n), R(n), outs(n), outl(n);
-    
-    for (int i = 0; i < int(a.size()); i++)
-        L[i] = cd(a[i] / cut, a[i] % cut);
-    for (int i = 0; i < int(b.size()); i++)
-        R[i] = cd(b[i] / cut, b[i] % cut);
-    fft(L, false); fft(R, false);
+=== "C++"
 
-    for (int i = 0; i < n; i++) {
-        /// j = (n - i) % n
-        int j = -i & (n - 1);
-        outl[i] = (L[i] + conj(L[j])) * R[i] / 2.0l;
-        outs[i] = (L[i] - conj(L[j])) * R[i] / 2il;
+    ```cpp 
+    using ll = long long;
+
+    vector<int> convMod(const vector<int> &a, const vector<int> &b, int M) {
+        if (a.empty() || b.empty()) return {};
+        vector<int> res(a.size() + b.size() - 1);
+        int B = 32 - __builtin_clz(res.size());
+        int n = 1 << B, cut = sqrt(M);
+        
+        vector<cd> L(n), R(n), outs(n), outl(n);
+        
+        for (int i = 0; i < int(a.size()); i++)
+            L[i] = cd(a[i] / cut, a[i] % cut);
+        for (int i = 0; i < int(b.size()); i++)
+            R[i] = cd(b[i] / cut, b[i] % cut);
+        fft(L, false); fft(R, false);
+
+        for (int i = 0; i < n; i++) {
+            /// j = (n - i) % n
+            int j = -i & (n - 1);
+            outl[i] = (L[i] + conj(L[j])) * R[i] / 2.0l;
+            outs[i] = (L[i] - conj(L[j])) * R[i] / 2il;
+        }
+        fft(outl, true), fft(outs, true);
+
+        for (int i = 0; i < int(res.size()); i++) {
+            ll av = ll(real(outl[i]) + 0.5);
+            ll cv = ll(imag(outs[i]) + 0.5);
+            ll bv = ll(imag(outl[i]) + 0.5) + ll(real(outs[i]) + 0.5);
+            res[i] = ((av % M * cut + bv) % M * cut + cv) % M;
+        }
+        return res;
     }
-    fft(outl, true), fft(outs, true);
+    ```
 
-    for (int i = 0; i < int(res.size()); i++) {
-        ll av = ll(real(outl[i]) + 0.5);
-        ll cv = ll(imag(outs[i]) + 0.5);
-        ll bv = ll(imag(outl[i]) + 0.5) + ll(real(outs[i]) + 0.5);
-        res[i] = ((av % M * cut + bv) % M * cut + cv) % M;
-    }
-    return res;
-}
-```
+=== "Python"
 
-```python
-import cmath
-import math
+    ```python
+    import cmath
+    import math
 
-def conv_mod(a, b, M):
-    if not a or not b:
-        return []
-    res_len = len(a) + len(b) - 1
-    B = res_len.bit_length()
-    n = 1 << B
-    cut = int(math.sqrt(M))
+    def conv_mod(a, b, M):
+        if not a or not b:
+            return []
+        res_len = len(a) + len(b) - 1
+        B = res_len.bit_length()
+        n = 1 << B
+        cut = int(math.sqrt(M))
 
-    L = [0j] * n
-    R = [0j] * n
-    for i in range(len(a)):
-        L[i] = complex(a[i] // cut, a[i] % cut)
-    for i in range(len(b)):
-        R[i] = complex(b[i] // cut, b[i] % cut)
-    fft(L, False)
-    fft(R, False)
+        L = [0j] * n
+        R = [0j] * n
+        for i in range(len(a)):
+            L[i] = complex(a[i] // cut, a[i] % cut)
+        for i in range(len(b)):
+            R[i] = complex(b[i] // cut, b[i] % cut)
+        fft(L, False)
+        fft(R, False)
 
-    outl = [0j] * n
-    outs = [0j] * n
-    for i in range(n):
-        j = -i & (n - 1)
-        outl[i] = (L[i] + R[j].conjugate()) * R[i] / 2.0
-        outs[i] = (L[i] - R[j].conjugate()) * R[i] / (2.0j)
-    fft(outl, True)
-    fft(outs, True)
+        outl = [0j] * n
+        outs = [0j] * n
+        for i in range(n):
+            j = -i & (n - 1)
+            outl[i] = (L[i] + R[j].conjugate()) * R[i] / 2.0
+            outs[i] = (L[i] - R[j].conjugate()) * R[i] / (2.0j)
+        fft(outl, True)
+        fft(outs, True)
 
-    res = [0] * res_len
-    for i in range(res_len):
-        av = int(outl[i].real + 0.5)
-        cv = int(outs[i].imag + 0.5)
-        bv = int(outl[i].imag + 0.5) + int(outs[i].real + 0.5)
-        res[i] = ((av % M * cut + bv) % M * cut + cv) % M
-    return res
-```
+        res = [0] * res_len
+        for i in range(res_len):
+            av = int(outl[i].real + 0.5)
+            cv = int(outs[i].imag + 0.5)
+            bv = int(outl[i].imag + 0.5) + int(outs[i].real + 0.5)
+            res[i] = ((av % M * cut + bv) % M * cut + cv) % M
+        return res
+    ```
 
 ## 4. Bài tập tham khảo
 - [Codeforces - Nikita and Order Statistics](https://codeforces.com/problemset/problem/993/E)

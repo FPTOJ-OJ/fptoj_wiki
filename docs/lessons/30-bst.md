@@ -27,6 +27,9 @@ Binary Search Tree là cây nhị phân với tính chất:
 
 > **Mọi nút bên trái < nút cha < mọi nút bên phải**<br>
 
+![Binary Search Tree - VisuAlgo](../uploads/img/gif/bst.gif)
+*Minh họa thao tác trên BST (Nguồn: VisuAlgo)*
+
 ```
         8
        / \
@@ -166,158 +169,160 @@ Max: 8 → 10 → 14  (đi phải liên tục)
 
 ## 3. Code C++ — BST hoàn chỉnh
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-struct Node {
-    int val;
-    Node *left, *right;
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
     
-    Node(int v) : val(v), left(nullptr), right(nullptr) {}
-};
-
-struct BST {
-    Node* root = nullptr;
-    
-    // Thêm phần tử - O(h)
-    Node* insert(Node* node, int val) {
-        if (node == nullptr) return new Node(val);
+    struct Node {
+        int val;
+        Node *left, *right;
         
-        if (val < node->val)
-            node->left = insert(node->left, val);    // Nhỏ hơn → trái
-        else if (val > node->val)
-            node->right = insert(node->right, val);  // Lớn hơn → phải
+        Node(int v) : val(v), left(nullptr), right(nullptr) {}
+    };
+    
+    struct BST {
+        Node* root = nullptr;
         
-        return node;  // Trả về nút (có thể đã thay đổi)
-    }
-    
-    void insert(int val) { root = insert(root, val); }
-    
-    // Tìm kiếm - O(h)
-    bool search(Node* node, int val) {
-        if (node == nullptr) return false;
-        if (val == node->val) return true;
-        if (val < node->val) return search(node->left, val);
-        return search(node->right, val);
-    }
-    
-    bool search(int val) { return search(root, val); }
-    
-    // Tìm nút nhỏ nhất trong cây con
-    Node* findMin(Node* node) {
-        while (node->left != nullptr)
-            node = node->left;
-        return node;
-    }
-    
-    // Xóa phần tử - O(h)
-    Node* erase(Node* node, int val) {
-        if (node == nullptr) return nullptr;
-        
-        if (val < node->val)
-            node->left = erase(node->left, val);
-        else if (val > node->val)
-            node->right = erase(node->right, val);
-        else {
-            // Tìm thấy nút cần xóa
-            // Trường hợp 1 & 2: 0 hoặc 1 con
-            if (node->left == nullptr) {
-                Node* temp = node->right;
-                delete node;
-                return temp;
-            }
-            if (node->right == nullptr) {
-                Node* temp = node->left;
-                delete node;
-                return temp;
-            }
-            // Trường hợp 3: 2 con
-            Node* successor = findMin(node->right);
-            node->val = successor->val;
-            node->right = erase(node->right, successor->val);
+        // Thêm phần tử - O(h)
+        Node* insert(Node* node, int val) {
+            if (node == nullptr) return new Node(val);
+            
+            if (val < node->val)
+                node->left = insert(node->left, val);    // Nhỏ hơn → trái
+            else if (val > node->val)
+                node->right = insert(node->right, val);  // Lớn hơn → phải
+            
+            return node;  // Trả về nút (có thể đã thay đổi)
         }
-        return node;
-    }
-    
-    void erase(int val) { root = erase(root, val); }
-    
-    // Duyệt inorder: cho ra dãy tăng dần
-    void inorder(Node* node) {
-        if (node == nullptr) return;
-        inorder(node->left);
-        cout << node->val << " ";
-        inorder(node->right);
-    }
-    
-    void print() { inorder(root); cout << endl; }
-};
-```
+        
+        void insert(int val) { root = insert(root, val); }
+        
+        // Tìm kiếm - O(h)
+        bool search(Node* node, int val) {
+            if (node == nullptr) return false;
+            if (val == node->val) return true;
+            if (val < node->val) return search(node->left, val);
+            return search(node->right, val);
+        }
+        
+        bool search(int val) { return search(root, val); }
+        
+        // Tìm nút nhỏ nhất trong cây con
+        Node* findMin(Node* node) {
+            while (node->left != nullptr)
+                node = node->left;
+            return node;
+        }
+        
+        // Xóa phần tử - O(h)
+        Node* erase(Node* node, int val) {
+            if (node == nullptr) return nullptr;
+            
+            if (val < node->val)
+                node->left = erase(node->left, val);
+            else if (val > node->val)
+                node->right = erase(node->right, val);
+            else {
+                // Tìm thấy nút cần xóa
+                // Trường hợp 1 & 2: 0 hoặc 1 con
+                if (node->left == nullptr) {
+                    Node* temp = node->right;
+                    delete node;
+                    return temp;
+                }
+                if (node->right == nullptr) {
+                    Node* temp = node->left;
+                    delete node;
+                    return temp;
+                }
+                // Trường hợp 3: 2 con
+                Node* successor = findMin(node->right);
+                node->val = successor->val;
+                node->right = erase(node->right, successor->val);
+            }
+            return node;
+        }
+        
+        void erase(int val) { root = erase(root, val); }
+        
+        // Duyệt inorder: cho ra dãy tăng dần
+        void inorder(Node* node) {
+            if (node == nullptr) return;
+            inorder(node->left);
+            cout << node->val << " ";
+            inorder(node->right);
+        }
+        
+        void print() { inorder(root); cout << endl; }
+    };
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-class Node:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-class BST:
-    def __init__(self):
-        self.root = None
+    ```python
+    class Node:
+        def __init__(self, val):
+            self.val = val
+            self.left = None
+            self.right = None
     
-    def insert(self, val):
-        self.root = self._insert(self.root, val)
-    
-    def _insert(self, node, val):
-        if node is None:
-            return Node(val)
-        if val < node.val:
-            node.left = self._insert(node.left, val)
-        elif val > node.val:
-            node.right = self._insert(node.right, val)
-        return node
-    
-    def search(self, val):
-        return self._search(self.root, val)
-    
-    def _search(self, node, val):
-        if node is None: return False
-        if val == node.val: return True
-        if val < node.val: return self._search(node.left, val)
-        return self._search(node.right, val)
-    
-    def find_min(self, node):
-        while node.left:
-            node = node.left
-        return node
-    
-    def erase(self, val):
-        self.root = self._erase(self.root, val)
-    
-    def _erase(self, node, val):
-        if node is None: return None
-        if val < node.val:
-            node.left = self._erase(node.left, val)
-        elif val > node.val:
-            node.right = self._erase(node.right, val)
-        else:
-            if node.left is None: return node.right
-            if node.right is None: return node.left
-            successor = self.find_min(node.right)
-            node.val = successor.val
-            node.right = self._erase(node.right, successor.val)
-        return node
-    
-    def inorder(self, node=None, result=None):
-        if result is None: result = []
-        if node is None: return result
-        self.inorder(node.left, result)
-        result.append(node.val)
-        self.inorder(node.right, result)
-        return result
-```
+    class BST:
+        def __init__(self):
+            self.root = None
+        
+        def insert(self, val):
+            self.root = self._insert(self.root, val)
+        
+        def _insert(self, node, val):
+            if node is None:
+                return Node(val)
+            if val < node.val:
+                node.left = self._insert(node.left, val)
+            elif val > node.val:
+                node.right = self._insert(node.right, val)
+            return node
+        
+        def search(self, val):
+            return self._search(self.root, val)
+        
+        def _search(self, node, val):
+            if node is None: return False
+            if val == node.val: return True
+            if val < node.val: return self._search(node.left, val)
+            return self._search(node.right, val)
+        
+        def find_min(self, node):
+            while node.left:
+                node = node.left
+            return node
+        
+        def erase(self, val):
+            self.root = self._erase(self.root, val)
+        
+        def _erase(self, node, val):
+            if node is None: return None
+            if val < node.val:
+                node.left = self._erase(node.left, val)
+            elif val > node.val:
+                node.right = self._erase(node.right, val)
+            else:
+                if node.left is None: return node.right
+                if node.right is None: return node.left
+                successor = self.find_min(node.right)
+                node.val = successor.val
+                node.right = self._erase(node.right, successor.val)
+            return node
+        
+        def inorder(self, node=None, result=None):
+            if result is None: result = []
+            if node is None: return result
+            self.inorder(node.left, result)
+            result.append(node.val)
+            self.inorder(node.right, result)
+            return result
+    ```
 
 ---
 
@@ -326,6 +331,14 @@ class BST:
 ### 4.1. Inorder (trung tố): Trái → Gốc → Phải
 
 ```cpp
+void inorder(Node* node) {
+    if (node == nullptr) return;
+    inorder(node->left);      // Trái
+    cout << node->val << " "; // Gốc
+    inorder(node->right);     // Phải
+}
+// BST → inorder cho dãy TĂNG DẦN!
+```
 void inorder(Node* node) {
     if (node == nullptr) return;
     inorder(node->left);      // Trái
@@ -345,10 +358,24 @@ void preorder(Node* node) {
     preorder(node->right);    // Phải
 }
 ```
+void preorder(Node* node) {
+    if (node == nullptr) return;
+    cout << node->val << " "; // Gốc
+    preorder(node->left);     // Trái
+    preorder(node->right);    // Phải
+}
+```
 
 ### 4.3. Postorder (hậu tố): Trái → Phải → Gốc
 
 ```cpp
+void postorder(Node* node) {
+    if (node == nullptr) return;
+    postorder(node->left);    // Trái
+    postorder(node->right);   // Phải
+    cout << node->val << " "; // Gốc
+}
+```
 void postorder(Node* node) {
     if (node == nullptr) return;
     postorder(node->left);    // Trái
@@ -426,10 +453,27 @@ void rangeQuery(Node* node, int L, int R) {
     if (R > node->val) rangeQuery(node->right, L, R);
 }
 ```
+void rangeQuery(Node* node, int L, int R) {
+    if (node == nullptr) return;
+    if (L < node->val) rangeQuery(node->left, L, R);
+    if (L <= node->val && node->val <= R)
+        cout << node->val << " ";  // In phần tử trong khoảng
+    if (R > node->val) rangeQuery(node->right, L, R);
+}
+```
 
 ### 6.3. Kiểm tra cây có phải BST
 
 ```cpp
+bool isBST(Node* node, long long minVal, long long maxVal) {
+    if (node == nullptr) return true;
+    if (node->val <= minVal || node->val >= maxVal) return false;
+    return isBST(node->left, minVal, node->val) &&
+           isBST(node->right, node->val, maxVal);
+}
+
+// Gọi: isBST(root, LLONG_MIN, LLONG_MAX)
+```
 bool isBST(Node* node, long long minVal, long long maxVal) {
     if (node == nullptr) return true;
     if (node->val <= minVal || node->val >= maxVal) return false;

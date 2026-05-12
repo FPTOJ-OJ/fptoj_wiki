@@ -19,37 +19,69 @@ Sinh testcase ngẫu nhiên → chạy cả 2 → so output
 
 ---
 
-## 2. Sinh testcase cơ bản trong C++
+## 2. Sinh testcase cơ bản
 
 ### 2.1. Sinh số ngẫu nhiên
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-int main() {
-    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-    int randInt(int l, int r) {
-        return uniform_int_distribution<int>(l, r)(rng);
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+        int randInt(int l, int r) {
+            return uniform_int_distribution<int>(l, r)(rng);
+        }
+        
+        // Sinh số ngẫu nhiên trong [a, b]
+        int a = 1, b = 100;
+        int random_num = randInt(a, b);
+        cout << random_num << endl;
+        
+        // Sinh mảng ngẫu nhiên
+        int n = 10;
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++)
+            arr[i] = randInt(1, 100);
+        
+        // In testcase
+        cout << n << endl;
+        for (int x : arr) cout << x << " ";
+        cout << endl;
     }
+    ```
+
+=== "Python"
+
+    ```python
+    import random
     
-    // Sinh số ngẫu nhiên trong [a, b]
-    int a = 1, b = 100;
-    int random_num = randInt(a, b);
-    cout << random_num << endl;
+    def gen_array(n_min=1, n_max=10, val_min=1, val_max=100):
+        """Sinh mảng ngẫu nhiên"""
+        n = random.randint(n_min, n_max)
+        arr = [random.randint(val_min, val_max) for _ in range(n)]
+        return n, arr
     
-    // Sinh mảng ngẫu nhiên
-    int n = 10;
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++)
-        arr[i] = randInt(1, 100);
+    def gen_tree(n):
+        """Sinh cây ngẫu nhiên (Prüfer sequence)"""
+        edges = []
+        for i in range(2, n + 1):
+            parent = random.randint(1, i - 1)
+            edges.append((parent, i))
+        return edges
     
-    // In testcase
-    cout << n << endl;
-    for (int x : arr) cout << x << " ";
-    cout << endl;
-}
-```
+    def gen_string(length_min=1, length_max=10, charset='abc'):
+        """Sinh xâu ngẫu nhiên"""
+        length = random.randint(length_min, length_max)
+        return ''.join(random.choices(charset, k=length))
+    
+    # Ví dụ: Sinh testcase cho bài đếm
+    n, arr = gen_array(1, 5, 1, 10)
+    print(n)
+    print(*arr)
+    ```
 
 ### 2.2. Sinh testcase cho bài tìm kiếm nhị phân
 
@@ -102,38 +134,6 @@ void genGraph() {
 
 ---
 
-## 3. Sinh testcase trong Python
-
-```python
-import random
-
-def gen_array(n_min=1, n_max=10, val_min=1, val_max=100):
-    """Sinh mảng ngẫu nhiên"""
-    n = random.randint(n_min, n_max)
-    arr = [random.randint(val_min, val_max) for _ in range(n)]
-    return n, arr
-
-def gen_tree(n):
-    """Sinh cây ngẫu nhiên (Prüfer sequence)"""
-    edges = []
-    for i in range(2, n + 1):
-        parent = random.randint(1, i - 1)
-        edges.append((parent, i))
-    return edges
-
-def gen_string(length_min=1, length_max=10, charset='abc'):
-    """Sinh xâu ngẫu nhiên"""
-    length = random.randint(length_min, length_max)
-    return ''.join(random.choices(charset, k=length))
-
-# Ví dụ: Sinh testcase cho bài đếm
-n, arr = gen_array(1, 5, 1, 10)
-print(n)
-print(*arr)
-```
-
----
-
 ## 4. Stress Test — Kỹ thuật tìm bug hiệu quả nhất
 
 ### 4.1. Stress Test là gì?
@@ -146,113 +146,115 @@ Lặp lại N lần:
   4. Nếu expected ≠ actual → IN RA TESTCASE ĐÓ → DEBUG!
 ```
 
-### 4.2. Template Stress Test C++
+### 4.2. Template Stress Test
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-// ===== Code brute force (chắc chắn đúng) =====
-long long bruteForce(vector<int>& a) {
-    // Ví dụ: tìm max subarray sum - O(N²)
-    long long maxSum = LLONG_MIN;
-    for (int i = 0; i < a.size(); i++) {
-        long long sum = 0;
-        for (int j = i; j < a.size(); j++) {
-            sum += a[j];
-            maxSum = max(maxSum, sum);
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    // ===== Code brute force (chắc chắn đúng) =====
+    long long bruteForce(vector<int>& a) {
+        // Ví dụ: tìm max subarray sum - O(N²)
+        long long maxSum = LLONG_MIN;
+        for (int i = 0; i < a.size(); i++) {
+            long long sum = 0;
+            for (int j = i; j < a.size(); j++) {
+                sum += a[j];
+                maxSum = max(maxSum, sum);
+            }
         }
+        return maxSum;
     }
-    return maxSum;
-}
-
-// ===== Code cần test (có thể có bug) =====
-long long mySolution(vector<int>& a) {
-    // Kadane's algorithm - O(N)
-    long long maxSum = a[0], curSum = a[0];
-    for (int i = 1; i < a.size(); i++) {
-        curSum = max((long long)a[i], curSum + a[i]);
-        maxSum = max(maxSum, curSum);
-    }
-    return maxSum;
-}
-
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-int randInt(int l, int r) {
-    return uniform_int_distribution<int>(l, r)(rng);
-}
-
-int main() {
-    for (int test = 1; test <= 10000; test++) {
-        // Bước 1: Sinh testcase ngẫu nhiên
-        int n = randInt(1, 20);
-        vector<int> a(n);
-        for (int i = 0; i < n; i++)
-            a[i] = randInt(-100, 100);  // [-100, 100]
-        
-        // Bước 2: Chạy cả 2
-        long long expected = bruteForce(a);
-        long long actual = mySolution(a);
-        
-        // Bước 3: So sánh
-        if (expected != actual) {
-            cout << "BUG FOUND at test " << test << "!\n";
-            cout << "Input: n=" << n << endl;
-            for (int x : a) cout << x << " ";
-            cout << endl;
-            cout << "Expected: " << expected << endl;
-            cout << "Actual: " << actual << endl;
-            return 0;
+    
+    // ===== Code cần test (có thể có bug) =====
+    long long mySolution(vector<int>& a) {
+        // Kadane's algorithm - O(N)
+        long long maxSum = a[0], curSum = a[0];
+        for (int i = 1; i < a.size(); i++) {
+            curSum = max((long long)a[i], curSum + a[i]);
+            maxSum = max(maxSum, curSum);
         }
+        return maxSum;
     }
     
-    cout << "All 10000 tests passed!\n";
-    return 0;
-}
-```
-
-### 4.3. Template Stress Test Python
-
-```python
-import random
-import sys
-
-def brute_force(a):
-    """Brute force - O(N²) - chắc chắn đúng"""
-    max_sum = float('-inf')
-    for i in range(len(a)):
-        s = 0
-        for j in range(i, len(a)):
-            s += a[j]
-            max_sum = max(max_sum, s)
-    return max_sum
-
-def my_solution(a):
-    """Kadane's - O(N) - cần test"""
-    max_sum = cur_sum = a[0]
-    for i in range(1, len(a)):
-        cur_sum = max(a[i], cur_sum + a[i])
-        max_sum = max(max_sum, cur_sum)
-    return max_sum
-
-# Stress test
-for test in range(1, 10001):
-    n = random.randint(1, 20)
-    a = [random.randint(-100, 100) for _ in range(n)]
+    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+    int randInt(int l, int r) {
+        return uniform_int_distribution<int>(l, r)(rng);
+    }
     
-    expected = brute_force(a)
-    actual = my_solution(a)
-    
-    if expected != actual:
-        print(f"BUG at test {test}!")
-        print(f"Input: {n}")
-        print(f"Array: {a}")
-        print(f"Expected: {expected}")
-        print(f"Actual: {actual}")
-        sys.exit(0)
+    int main() {
+        for (int test = 1; test <= 10000; test++) {
+            // Bước 1: Sinh testcase ngẫu nhiên
+            int n = randInt(1, 20);
+            vector<int> a(n);
+            for (int i = 0; i < n; i++)
+                a[i] = randInt(-100, 100);  // [-100, 100]
+            
+            // Bước 2: Chạy cả 2
+            long long expected = bruteForce(a);
+            long long actual = mySolution(a);
+            
+            // Bước 3: So sánh
+            if (expected != actual) {
+                cout << "BUG FOUND at test " << test << "!\n";
+                cout << "Input: n=" << n << endl;
+                for (int x : a) cout << x << " ";
+                cout << endl;
+                cout << "Expected: " << expected << endl;
+                cout << "Actual: " << actual << endl;
+                return 0;
+            }
+        }
+        
+        cout << "All 10000 tests passed!\n";
+        return 0;
+    }
+    ```
 
-print("All 10000 tests passed!")
-```
+=== "Python"
+
+    ```python
+    import random
+    import sys
+    
+    def brute_force(a):
+        """Brute force - O(N²) - chắc chắn đúng"""
+        max_sum = float('-inf')
+        for i in range(len(a)):
+            s = 0
+            for j in range(i, len(a)):
+                s += a[j]
+                max_sum = max(max_sum, s)
+        return max_sum
+    
+    def my_solution(a):
+        """Kadane's - O(N) - cần test"""
+        max_sum = cur_sum = a[0]
+        for i in range(1, len(a)):
+            cur_sum = max(a[i], cur_sum + a[i])
+            max_sum = max(max_sum, cur_sum)
+        return max_sum
+    
+    # Stress test
+    for test in range(1, 10001):
+        n = random.randint(1, 20)
+        a = [random.randint(-100, 100) for _ in range(n)]
+        
+        expected = brute_force(a)
+        actual = my_solution(a)
+        
+        if expected != actual:
+            print(f"BUG at test {test}!")
+            print(f"Input: {n}")
+            print(f"Array: {a}")
+            print(f"Expected: {expected}")
+            print(f"Actual: {actual}")
+            sys.exit(0)
+    
+    print("All 10000 tests passed!")
+    ```
 
 ---
 

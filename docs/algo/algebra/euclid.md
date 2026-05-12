@@ -54,34 +54,42 @@ Phép tính $a - b$ sau khi thực hiện $\lfloor \frac{a}{b} \rfloor$ lần th
 
 Vậy $\gcd(a, b) = \gcd(b, a \text{ mod } b)$ (đpcm).
 
-### Cài đặt
-```cpp
-int gcd(int a, int b)
-{
-    if (b == 0) return a;
-    return gcd(b, a % b);
-}
-```
+=== "C++"
 
-```python
-def gcd(a, b):
-    if b == 0:
-        return a
-    return gcd(b, a % b)
-```
+    ```cpp
+    int gcd(int a, int b)
+    {
+        if (b == 0) return a;
+        return gcd(b, a % b);
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def gcd(a, b):
+        if b == 0:
+            return a
+        return gcd(b, a % b)
+    ```
 
 Hoặc ngắn hơn:
-```cpp
-int gcd(int a, int b)
-{
-    return (b ? gcd(b, a % b) : a);
-}
-```
 
-```python
-def gcd(a, b):
-    return a if b == 0 else gcd(b, a % b)
-```
+=== "C++"
+
+    ```cpp
+    int gcd(int a, int b)
+    {
+        return (b ? gcd(b, a % b) : a);
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def gcd(a, b):
+        return a if b == 0 else gcd(b, a % b)
+    ```
 
 ### Độ phức tạp
 **Định lý Lamé**: Thuật toán Euclid cần thực hiện ít hơn $5\log_{10}(\min(u, v))$ lần chia lấy dư.
@@ -96,49 +104,54 @@ Ta có một số tính chất sau:
 - $\gcd(2k, 2h + 1) = \gcd(k, 2h + 1)$
 
 Kết hợp với $\gcd(a, b) = \gcd(b, a - b)$ ta cài đặt như sau (Code tham khảo từ CP Algorithms):
-```cpp
-int gcd(int a, int b) 
-{
-    if (!a || !b) return a | b;
-    int shift = __builtin_ctz(a | b);
-    a >>= __builtin_ctz(a);
-    do 
-	{
-        b >>= __builtin_ctz(b);
-        if (a > b)
-            swap(a, b);
-        b -= a;
-    } while (b);
-    
-    return a << shift;
-}
-```
-```python
-def gcd(a, b):
-    if a == 0 or b == 0:
-        return a | b
-    # Đếm số bit 0 tận cùng
-    shift = (a | b).bit_length() - 1 - (a | b).bit_count() + (a | b).bit_length()
-    # __builtin_ctz: đếm số bit 0 từ LSB
-    def ctz(x):
-        if x == 0:
-            return 0
-        n = 0
-        while (x & 1) == 0:
-            x >>= 1
-            n += 1
-        return n
-    shift = ctz(a | b)
-    a >>= ctz(a)
-    while True:
-        b >>= ctz(b)
-        if a > b:
-            a, b = b, a
-        b -= a
-        if b == 0:
-            break
-    return a << shift
-```
+=== "C++"
+
+    ```cpp
+    int gcd(int a, int b) 
+    {
+        if (!a || !b) return a | b;
+        int shift = __builtin_ctz(a | b);
+        a >>= __builtin_ctz(a);
+        do 
+    	{
+            b >>= __builtin_ctz(b);
+            if (a > b)
+                swap(a, b);
+            b -= a;
+        } while (b);
+        
+        return a << shift;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def gcd(a, b):
+        if a == 0 or b == 0:
+            return a | b
+        # Đếm số bit 0 tận cùng
+        shift = (a | b).bit_length() - 1 - (a | b).bit_count() + (a | b).bit_length()
+        # __builtin_ctz: đếm số bit 0 từ LSB
+        def ctz(x):
+            if x == 0:
+                return 0
+            n = 0
+            while (x & 1) == 0:
+                x >>= 1
+                n += 1
+            return n
+        shift = ctz(a | b)
+        a >>= ctz(a)
+        while True:
+            b >>= ctz(b)
+            if a > b:
+                a, b = b, a
+            b -= a
+            if b == 0:
+                break
+        return a << shift
+    ```
 Đoạn code trên thực hiện những công việc sau:
 - Chia cả hai số $a$ và $b$ cho $shift$ là luỹ thừa của $2$, để hai số đều lẻ (Hàm `__builtin_ctz(k)` đếm số bit $0$ tận cùng của $k$).
 - Lúc này, ít nhất một trong hai số là lẻ. Liên tục chia số chẵn cho $2$ để nó trở thành số lẻ, sau đó áp dụng $(a, b) = (b, a - b)$. Lặp lại bước trên tới khi một trong hai số là $0$.
@@ -226,37 +239,40 @@ $$\begin{align}
 
 Liên tục cập nhật các hệ số $x, y$ theo công thức trên tới khi thu được $a = A, b = B$ như ban đầu, ta sẽ thu được kết quả.
 
-### Cài đặt
-```cpp
-// Hàm trả về ƯCLN của a và b đồng thời thay đổi giá trị của x, y
-int extEuclid(int a, int b, int& x, int& y)
-{
-    if (b == 0)
-    {
-        x = 1;
-        y = 0;
-        return a;
-    }
-    int q = a / b;
-    int r = a - b * q;
-    int x1 = 0, y1 = 0;
-    int d = extEuclid(b, r, x1, y1);
-    x = y1;
-    y = x1 - q * y1;
-    return d;
-}
-```
+=== "C++"
 
-```python
-# Hàm trả về ƯCLN của a và b đồng thời thay đổi giá trị của x, y
-def ext_euclid(a, b):
-    if b == 0:
-        return a, 1, 0
-    q = a // b
-    r = a - b * q
-    d, x1, y1 = ext_euclid(b, r)
-    return d, y1, x1 - q * y1
-```
+    ```cpp
+    // Hàm trả về ƯCLN của a và b đồng thời thay đổi giá trị của x, y
+    int extEuclid(int a, int b, int& x, int& y)
+    {
+        if (b == 0)
+        {
+            x = 1;
+            y = 0;
+            return a;
+        }
+        int q = a / b;
+        int r = a - b * q;
+        int x1 = 0, y1 = 0;
+        int d = extEuclid(b, r, x1, y1);
+        x = y1;
+        y = x1 - q * y1;
+        return d;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Hàm trả về ƯCLN của a và b đồng thời thay đổi giá trị của x, y
+    def ext_euclid(a, b):
+        if b == 0:
+            return a, 1, 0
+        q = a // b
+        r = a - b * q
+        d, x1, y1 = ext_euclid(b, r)
+        return d, y1, x1 - q * y1
+    ```
 
 ### Độ phức tạp
 Thuật toán Euclid mở rộng thực tế chỉ là thêm một vài bước tính toán vào thuật toán Euclid thường nên độ phức tạp vẫn là $O(\text{log}(\text{min}\{a, b\}))$.
@@ -346,66 +362,70 @@ Chốt lại, để tìm nghiệm của một phương trình Diophantus, ta tì
 ### Cài đặt
 Đoạn chương trình sau tìm **một** nghiệm nguyên của phương trình $ax + by = c$, với $a, b \neq 0$:
 
-```cpp
-const pair <int, int> INVALID_ROOT = {INT_MAX, INT_MAX};
+=== "C++"
 
-//Hàm trả về ƯCLN của a và b, biến đổi x, y thoả mãn ax + by = \gcd(a, b)
-int extEuclid(int a, int b, int &x, int&y)
-{
-    if (b == 0)
+    ```cpp
+    const pair <int, int> INVALID_ROOT = {INT_MAX, INT_MAX};
+
+    //Hàm trả về ƯCLN của a và b, biến đổi x, y thoả mãn ax + by = \gcd(a, b)
+    int extEuclid(int a, int b, int &x, int&y)
     {
-        x = 1;
-        y = 0;
-        return a;
+        if (b == 0)
+        {
+            x = 1;
+            y = 0;
+            return a;
+        }
+        int q = a / b;
+        int r = a - b * q;
+        int x1 = 0, y1 = 0;
+        int d = extEuclid(b, r, x1, y1);
+        x = y1;
+        y = x1 - q * y1;
+        return d;
     }
-    int q = a / b;
-    int r = a - b * q;
-    int x1 = 0, y1 = 0;
-    int d = extEuclid(b, r, x1, y1);
-    x = y1;
-    y = x1 - q * y1;
-    return d;
-}
 
-//Tìm 1 nghiệm nguyên của phương trình ax + by + c = 0
-pair <int, int> diophantineSolve(int a, int b, int c)
-{
-    int x = 0, y = 0;
-    int d = extEuclid(a, b, x, y);
-    if (c % d != 0) return INVALID_ROOT;
-    x *= c / d;
-    y *= c / d;
-    if (a < 0) x = -x;
-    if (b < 0) y = -y;
-    return make_pair(x, y);
-}
-```
+    //Tìm 1 nghiệm nguyên của phương trình ax + by + c = 0
+    pair <int, int> diophantineSolve(int a, int b, int c)
+    {
+        int x = 0, y = 0;
+        int d = extEuclid(a, b, x, y);
+        if (c % d != 0) return INVALID_ROOT;
+        x *= c / d;
+        y *= c / d;
+        if (a < 0) x = -x;
+        if (b < 0) y = -y;
+        return make_pair(x, y);
+    }
+    ```
 
-```python
-INVALID_ROOT = (float('inf'), float('inf'))
+=== "Python"
 
-# Hàm trả về ƯCLN của a và b, biến đổi x, y thoả mãn ax + by = gcd(a, b)
-def ext_euclid(a, b):
-    if b == 0:
-        return a, 1, 0
-    q = a // b
-    r = a - b * q
-    d, x1, y1 = ext_euclid(b, r)
-    return d, y1, x1 - q * y1
+    ```python
+    INVALID_ROOT = (float('inf'), float('inf'))
 
-# Tìm 1 nghiệm nguyên của phương trình ax + by = c
-def diophantine_solve(a, b, c):
-    d, x, y = ext_euclid(a, b)
-    if c % d != 0:
-        return INVALID_ROOT
-    x *= c // d
-    y *= c // d
-    if a < 0:
-        x = -x
-    if b < 0:
-        y = -y
-    return x, y
-```
+    # Hàm trả về ƯCLN của a và b, biến đổi x, y thoả mãn ax + by = gcd(a, b)
+    def ext_euclid(a, b):
+        if b == 0:
+            return a, 1, 0
+        q = a // b
+        r = a - b * q
+        d, x1, y1 = ext_euclid(b, r)
+        return d, y1, x1 - q * y1
+
+    # Tìm 1 nghiệm nguyên của phương trình ax + by = c
+    def diophantine_solve(a, b, c):
+        d, x, y = ext_euclid(a, b)
+        if c % d != 0:
+            return INVALID_ROOT
+        x *= c // d
+        y *= c // d
+        if a < 0:
+            x = -x
+        if b < 0:
+            y = -y
+        return x, y
+    ```
 
 ### Một số bài toán liên quan
 #### Đếm số nghiệm của phương trình Diophantus trong một khoảng cho trước

@@ -11,51 +11,54 @@ Bạn có 12 viên kẹo đỏ và 8 viên kẹo xanh. Muốn chia thành nhiề
 
 ### Thuật toán Euclid
 
-```
-GCD(a, b) = GCD(b, a % b)   nếu b > 0
-GCD(a, 0) = a
-```
+$$
+\gcd(a, b) = \gcd(b, a \bmod b) \quad \text{nếu } b > 0
+$$
+$$
+\gcd(a, 0) = a
+$$
+
+> $\gcd$ viết tắt của Greatest Common Divisor — ước chung lớn nhất. Công thức trên nói: ước chung lớn nhất của $a$ và $b$ bằng ước chung lớn nhất của $b$ và phần dư khi chia $a$ cho $b$.
 
 **Tại sao hoạt động?** Nếu d là ước chung của a và b, thì d cũng là ước của a % b (vì a = q×b + r, nên r = a - q×b, mà d chia hết cả a lẫn b → d chia hết r).
+=== "C++"
 
-### Code C++
-
-```cpp
-// GCD - O(log(min(a,b)))
-long long gcd(long long a, long long b) {
-    while (b) {
-        a %= b;
-        swap(a, b);
+    ```cpp
+    // GCD - O(log(min(a,b)))
+    long long gcd(long long a, long long b) {
+        while (b) {
+            a %= b;
+            swap(a, b);
+        }
+        return a;
     }
-    return a;
-}
+    
+    // LCM - Bội chung nhỏ nhất
+    long long lcm(long long a, long long b) {
+        return a / gcd(a, b) * b;  // Chia trước để tránh tràn số
+    }
+    
+    // C++ có sẵn __gcd(a, b) trong <algorithm>
+    // C++17 có std::gcd() và std::lcm() trong <numeric>
+    ```
 
-// LCM - Bội chung nhỏ nhất
-long long lcm(long long a, long long b) {
-    return a / gcd(a, b) * b;  // Chia trước để tránh tràn số
-}
+=== "Python"
 
-// C++ có sẵn __gcd(a, b) trong <algorithm>
-// C++17 có std::gcd() và std::lcm() trong <numeric>
-```
-
-### Code Python - GCD & LCM
-
-```python
-import math
-
-def gcd(a, b):
-    while b:
-        a, b = b, a % b
-    return a
-
-def lcm(a, b):
-    return a // gcd(a, b) * b
-
-# Hoặc dùng built-in
-g = math.gcd(12, 8)    # 4
-l = math.lcm(12, 8)    # 24
-```
+    ```python
+    import math
+    
+    def gcd(a, b):
+        while b:
+            a, b = b, a % b
+        return a
+    
+    def lcm(a, b):
+        return a // gcd(a, b) * b
+    
+    # Hoặc dùng built-in
+    g = math.gcd(12, 8)    # 4
+    l = math.lcm(12, 8)    # 24
+    ```
 
 ### Bước chạy
 
@@ -104,46 +107,48 @@ a × y' + b × (x' - (a/b) × y') = GCD
 → x = y'
 → y = x' - (a/b) × y'
 ```
+=== "C++"
 
-### Code C++
-
-```cpp
-// Extended Euclid - trả về GCD(a, b), đồng thời tìm x, y
-// sao cho a*x + b*y = GCD(a, b)
-long long extendedGcd(long long a, long long b, long long& x, long long& y) {
-    if (b == 0) {
-        x = 1;
-        y = 0;
-        return a;
+    ```cpp
+    // Extended Euclid - trả về GCD(a, b), đồng thời tìm x, y
+    // sao cho a*x + b*y = GCD(a, b)
+    long long extendedGcd(long long a, long long b, long long& x, long long& y) {
+        if (b == 0) {
+            x = 1;
+            y = 0;
+            return a;
+        }
+        long long x1, y1;
+        long long g = extendedGcd(b, a % b, x1, y1);
+        x = y1;
+        y = x1 - (a / b) * y1;
+        return g;
     }
-    long long x1, y1;
-    long long g = extendedGcd(b, a % b, x1, y1);
-    x = y1;
-    y = x1 - (a / b) * y1;
-    return g;
-}
+    
+    // Ví dụ:
+    // extendedGcd(35, 15, x, y) → GCD=5, x=1, y=-2
+    // Kiểm tra: 35×1 + 15×(-2) = 35 - 30 = 5 ✅
+    ```
 
-// Ví dụ:
-// extendedGcd(35, 15, x, y) → GCD=5, x=1, y=-2
-// Kiểm tra: 35×1 + 15×(-2) = 35 - 30 = 5 ✅
-```
+=== "Python"
 
-### Code Python
+    ```python
+    def extended_gcd(a, b):
+        if b == 0:
+            return a, 1, 0
+        g, x1, y1 = extended_gcd(b, a % b)
+        x = y1
+        y = x1 - (a // b) * y1
+        return g, x, y
+    
+    # Ví dụ:
+    g, x, y = extended_gcd(35, 15)
+    print(g, x, y)  # 5 1 -2
+    # 35*1 + 15*(-2) = 5 ✅
+    ```
 
-```python
-def extended_gcd(a, b):
-    if b == 0:
-        return a, 1, 0
-    g, x1, y1 = extended_gcd(b, a % b)
-    x = y1
-    y = x1 - (a // b) * y1
-    return g, x, y
-
-# Ví dụ:
-g, x, y = extended_gcd(35, 15)
-print(g, x, y)  # 5 1 -2
-# 35*1 + 15*(-2) = 5 ✅
-```
+!!! tip "Thử tương tác"
+    - [Euclidean GCD](https://algorithm-visualizer.org/simple-recursive/euclidean-greatest-common-divisor)
 
 ---
 
@@ -155,7 +160,7 @@ Trong toán học thường: `a / b = a × (1/b)`. Nhưng trong modulo, không c
 
 **Ví dụ:** Trong mod 7:
 
-- 3 × 5 = 15 ≡ 1 (mod 7) → 5 là nghịch đảo của 3 (mod 7)
+- $3 \times 5 = 15 \equiv 1 \pmod{7}$ → 5 là nghịch đảo của 3 (mod 7)
 - Vậy `a / 3 (mod 7)` = `a × 5 (mod 7)`
 
 ### Khi nào tồn tại?
@@ -166,19 +171,25 @@ Nghịch đảo modulo của a (mod M) tồn tại khi và chỉ khi **GCD(a, M)
 
 **Định lý Fermat nhỏ:** Nếu p là số nguyên tố và a không chia hết p, thì:
 
-```
-a^(p-1) ≡ 1 (mod p)
-```
+$$
+a^{p-1} \equiv 1 \pmod{p}
+$$
 
-**Tại sao?** Đây là kết quả của lý thuyết nhóm: tập {1, 2, ..., p-1} tạo thành nhóm nhân modulo p. Mọi phần tử trong nhóm có bậc chia hết p-1 (theo định lý Lagrange).
+> Nghĩa là: lấy $a$ nhân với chính nó $p-1$ lần, rồi chia cho $p$ thì dư 1. Đây là kết quả của lý thuyết nhóm: tập $\{1, 2, \ldots, p-1\}$ tạo thành nhóm nhân modulo $p$.
 
 Từ `a^(p-1) ≡ 1 (mod p)`, ta suy ra:
 
-```
-a^(p-1) ≡ 1 (mod p)
-a × a^(p-2) ≡ 1 (mod p)
-→ a^(-1) ≡ a^(p-2) (mod p)
-```
+$$
+a^{p-1} \equiv 1 \pmod{p}
+$$
+$$
+a \times a^{p-2} \equiv 1 \pmod{p}
+$$
+$$
+\Rightarrow a^{-1} \equiv a^{p-2} \pmod{p}
+$$
+
+> Từ định lý Fermat, ta nhân hai vế với $a^{-1}$ để suy ra công thức tính nghịch đảo modulo: $a^{-1} = a^{p-2} \bmod p$.
 
 **Vậy nghịch đảo modulo của a = a^(M-2) mod M** (khi M là số nguyên tố).
 
@@ -204,75 +215,74 @@ a × x ≡ 1 (mod M)   (vì M × y ≡ 0 mod M)
 ---
 
 ## 4. Code chi tiết
+=== "C++"
 
-### Code C++
-
-```cpp
-const long long MOD = 1e9 + 7;
-
-// Lũy thừa nhị phân - O(log b)
-long long powerMod(long long a, long long b, long long mod) {
-    long long result = 1;
-    a %= mod;
-    while (b > 0) {
-        if (b & 1) result = (__int128)result * a % mod;
-        a = (__int128)a * a % mod;
-        b >>= 1;
+    ```cpp
+    const long long MOD = 1e9 + 7;
+    
+    // Lũy thừa nhị phân - O(log b)
+    long long powerMod(long long a, long long b, long long mod) {
+        long long result = 1;
+        a %= mod;
+        while (b > 0) {
+            if (b & 1) result = (__int128)result * a % mod;
+            a = (__int128)a * a % mod;
+            b >>= 1;
+        }
+        return result;
     }
-    return result;
-}
+    
+    // Nghịch đảo modulo (MOD là số nguyên tố) - O(log MOD)
+    // Dùng Fermat's Little Theorem: a^(-1) = a^(MOD-2) mod MOD
+    long long modInverse(long long a, long long mod) {
+        return powerMod(a, mod - 2, mod);
+    }
+    
+    // Nghịch đảo modulo (tổng quát, dùng Extended Euclid)
+    // Hoạt động với mọi mod (không cần nguyên tố)
+    long long modInverseExtendedGcd(long long a, long long mod) {
+        long long x, y;
+        long long g = extendedGcd(a, mod, x, y);
+        if (g != 1) return -1;  // Không tồn tại nghịch đảo
+        return (x % mod + mod) % mod;  // Đảm bảo kết quả dương
+    }
+    
+    // Phép chia modulo: a / b mod MOD = a * b^(-1) mod MOD
+    long long modDivide(long long a, long long b, long long mod) {
+        return (__int128)a * modInverse(b, mod) % mod;
+    }
+    ```
 
-// Nghịch đảo modulo (MOD là số nguyên tố) - O(log MOD)
-// Dùng Fermat's Little Theorem: a^(-1) = a^(MOD-2) mod MOD
-long long modInverse(long long a, long long mod) {
-    return powerMod(a, mod - 2, mod);
-}
+=== "Python"
 
-// Nghịch đảo modulo (tổng quát, dùng Extended Euclid)
-// Hoạt động với mọi mod (không cần nguyên tố)
-long long modInverseExtendedGcd(long long a, long long mod) {
-    long long x, y;
-    long long g = extendedGcd(a, mod, x, y);
-    if (g != 1) return -1;  // Không tồn tại nghịch đảo
-    return (x % mod + mod) % mod;  // Đảm bảo kết quả dương
-}
-
-// Phép chia modulo: a / b mod MOD = a * b^(-1) mod MOD
-long long modDivide(long long a, long long b, long long mod) {
-    return (__int128)a * modInverse(b, mod) % mod;
-}
-```
-
-### Code Python - Power Mod & Modular Inverse
-
-```python
-MOD = 10**9 + 7
-
-def power_mod(a, b, mod):
-    result = 1
-    a %= mod
-    while b > 0:
-        if b & 1:
-            result = result * a % mod
-        a = a * a % mod
-        b >>= 1
-    return result
-
-# Nghịch đảo modulo (Fermat, khi MOD là số nguyên tố)
-def mod_inverse(a, mod):
-    return power_mod(a, mod - 2, mod)
-
-# Nghịch đảo modulo (Extended Euclid, tổng quát)
-def mod_inverse_ext(a, mod):
-    g, x, y = extended_gcd(a, mod)
-    if g != 1:
-        return -1
-    return (x % mod + mod) % mod
-
-# Phép chia modulo
-def mod_divide(a, b, mod):
-    return a * mod_inverse(b, mod) % mod
-```
+    ```python
+    MOD = 10**9 + 7
+    
+    def power_mod(a, b, mod):
+        result = 1
+        a %= mod
+        while b > 0:
+            if b & 1:
+                result = result * a % mod
+            a = a * a % mod
+            b >>= 1
+        return result
+    
+    # Nghịch đảo modulo (Fermat, khi MOD là số nguyên tố)
+    def mod_inverse(a, mod):
+        return power_mod(a, mod - 2, mod)
+    
+    # Nghịch đảo modulo (Extended Euclid, tổng quát)
+    def mod_inverse_ext(a, mod):
+        g, x, y = extended_gcd(a, mod)
+        if g != 1:
+            return -1
+        return (x % mod + mod) % mod
+    
+    # Phép chia modulo
+    def mod_divide(a, b, mod):
+        return a * mod_inverse(b, mod) % mod
+    ```
 
 ---
 
@@ -303,52 +313,54 @@ Khi bài toán yêu cầu tính `(a/b) mod p`, ta chuyển thành `(a × b^(-1))
 
 Để tính nCk nhanh cho nhiều truy vấn, ta precompute nghịch đảo của giai thừa:
 
-```cpp
-long long fact[1000001], inv_fact[1000001];
+=== "C++"
 
-void buildFactorial(int n) {
-    fact[0] = 1;
-    for (int i = 1; i <= n; i++)
-        fact[i] = fact[i-1] * i % MOD;
+    ```cpp
+    long long fact[1000001], inv_fact[1000001];
     
-    // Tính inv_fact[n] = (n!)^(-1) bằng Fermat
-    inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
+    void buildFactorial(int n) {
+        fact[0] = 1;
+        for (int i = 1; i <= n; i++)
+            fact[i] = fact[i-1] * i % MOD;
+        
+        // Tính inv_fact[n] = (n!)^(-1) bằng Fermat
+        inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
+        
+        // Tính inv_fact[i] từ inv_fact[i+1]:
+        // (i!)^(-1) = ((i+1)!)^(-1) × (i+1)
+        for (int i = n - 1; i >= 0; i--)
+            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
+    }
     
-    // Tính inv_fact[i] từ inv_fact[i+1]:
-    // (i!)^(-1) = ((i+1)!)^(-1) × (i+1)
-    for (int i = n - 1; i >= 0; i--)
-        inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
-}
+    // C(n, k) mod MOD - O(1) sau khi preprocess
+    long long nCk(int n, int k) {
+        if (k < 0 || k > n) return 0;
+        return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
+    }
+    ```
 
-// C(n, k) mod MOD - O(1) sau khi preprocess
-long long nCk(int n, int k) {
-    if (k < 0 || k > n) return 0;
-    return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
-}
-```
+=== "Python"
 
-### Code Python - Precompute Factorial & nCk
-
-```python
-MOD = 10**9 + 7
-
-def build_factorial(n):
-    fact = [1] * (n + 1)
-    for i in range(1, n + 1):
-        fact[i] = fact[i - 1] * i % MOD
+    ```python
+    MOD = 10**9 + 7
     
-    inv_fact = [1] * (n + 1)
-    inv_fact[n] = pow(fact[n], MOD - 2, MOD)
-    for i in range(n - 1, -1, -1):
-        inv_fact[i] = inv_fact[i + 1] * (i + 1) % MOD
+    def build_factorial(n):
+        fact = [1] * (n + 1)
+        for i in range(1, n + 1):
+            fact[i] = fact[i - 1] * i % MOD
+        
+        inv_fact = [1] * (n + 1)
+        inv_fact[n] = pow(fact[n], MOD - 2, MOD)
+        for i in range(n - 1, -1, -1):
+            inv_fact[i] = inv_fact[i + 1] * (i + 1) % MOD
+        
+        return fact, inv_fact
     
-    return fact, inv_fact
-
-def nCk(n, k, fact, inv_fact):
-    if k < 0 or k > n:
-        return 0
-    return fact[n] * inv_fact[k] % MOD * inv_fact[n - k] % MOD
-```
+    def nCk(n, k, fact, inv_fact):
+        if k < 0 or k > n:
+            return 0
+        return fact[n] * inv_fact[k] % MOD * inv_fact[n - k] % MOD
+    ```
 
 ---
 

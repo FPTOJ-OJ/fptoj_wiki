@@ -95,30 +95,34 @@ Thông thường, do việc sử dụng HLD sẽ đi kèm với một cấu trú
 
 Đầu tiên, ta cần phải tính kích thước của cây con từng đỉnh để lấy ra các con "nặng" của từng đỉnh một. Ngoài ra, ta cần tính thêm độ sâu các đỉnh để phục vụ cho thao tác tính LCA.
 
-```cpp
-void Dfs(int s, int p = -1) {
-    Sz[s] = 1;
-    for(int u: AdjList[s]) {
-        if(u == p) continue;
-        Par[u] = s;
-        Depth[u] = Depth[s] + 1;
-        Dfs(u, s);
-        Sz[s] += Sz[u];
-    }
-}
-```
+=== "C++"
 
-```python
-def Dfs(s, p=-1):
-    Sz[s] = 1
-    for u in AdjList[s]:
-        if u == p:
-            continue
-        Par[u] = s
-        Depth[u] = Depth[s] + 1
-        Dfs(u, s)
-        Sz[s] += Sz[u]
-```
+    ```cpp
+    void Dfs(int s, int p = -1) {
+        Sz[s] = 1;
+        for(int u: AdjList[s]) {
+            if(u == p) continue;
+            Par[u] = s;
+            Depth[u] = Depth[s] + 1;
+            Dfs(u, s);
+            Sz[s] += Sz[u];
+        }
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def Dfs(s, p=-1):
+        Sz[s] = 1
+        for u in AdjList[s]:
+            if u == p:
+                continue
+            Par[u] = s
+            Depth[u] = Depth[s] + 1
+            Dfs(u, s)
+            Sz[s] += Sz[u]
+    ```
 mảng $Sz, Depth$ và $Par$ lần luợt lưu kích thuớc cây con, độ sâu và cha (tổ tiên trực tiếp) của các đỉnh trên cây
 mảng $AdjList$ là mảng vector để lưu lại thông tin về đồ thị. $AdjList[s]$ là vector gồm các đỉnh kề với $s$.
 
@@ -126,52 +130,56 @@ mảng $AdjList$ là mảng vector để lưu lại thông tin về đồ thị.
 
 Sau đó chúng ta thực hiện phân chia các đỉnh vào các chuỗi. Với mỗi đỉnh, cần lưu lại chuỗi của đỉnh và vị trí của đỉnh khi đặt các chuỗi liên tiếp với nhau (để thuận tiện cho việc xử lý truy vấn). Với mỗi chuỗi, chúng ta cần biết đỉnh đầu tiên của chuỗi (để thực hiện việc nhảy giữa các chuỗi).
 
-```cpp
-void Hld(int s, int p = -1) {
-    if(!ChainHead[CurChain]) {
-        ChainHead[CurChain] = s;
-    }
-    ChainID[s] = CurChain;
-    Pos[s] = CurPos;
-    Arr[CurPos] = s;
-    CurPos++;
-    int nxt = 0;
-    for(int u: AdjList[s]) {
-        if(u != p) {
-            if(nxt == 0 || Sz[u] > Sz[nxt]) nxt = u;
-        }
-    }
-    if(nxt) Hld(nxt, s);
-    for(int u: AdjList[s]) {
-        if(u != p && u != nxt) {
-            CurChain++;
-            Hld(u, s);
-        }
-    }
-}
-```
+=== "C++"
 
-```python
-def Hld(s, p=-1):
-    global CurChain, CurPos
-    if not ChainHead[CurChain]:
-        ChainHead[CurChain] = s
-    ChainID[s] = CurChain
-    Pos[s] = CurPos
-    Arr[CurPos] = s
-    CurPos += 1
-    nxt = 0
-    for u in AdjList[s]:
-        if u != p:
-            if nxt == 0 or Sz[u] > Sz[nxt]:
-                nxt = u
-    if nxt:
-        Hld(nxt, s)
-    for u in AdjList[s]:
-        if u != p and u != nxt:
-            CurChain += 1
-            Hld(u, s)
-```
+    ```cpp
+    void Hld(int s, int p = -1) {
+        if(!ChainHead[CurChain]) {
+            ChainHead[CurChain] = s;
+        }
+        ChainID[s] = CurChain;
+        Pos[s] = CurPos;
+        Arr[CurPos] = s;
+        CurPos++;
+        int nxt = 0;
+        for(int u: AdjList[s]) {
+            if(u != p) {
+                if(nxt == 0 || Sz[u] > Sz[nxt]) nxt = u;
+            }
+        }
+        if(nxt) Hld(nxt, s);
+        for(int u: AdjList[s]) {
+            if(u != p && u != nxt) {
+                CurChain++;
+                Hld(u, s);
+            }
+        }
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def Hld(s, p=-1):
+        global CurChain, CurPos
+        if not ChainHead[CurChain]:
+            ChainHead[CurChain] = s
+        ChainID[s] = CurChain
+        Pos[s] = CurPos
+        Arr[CurPos] = s
+        CurPos += 1
+        nxt = 0
+        for u in AdjList[s]:
+            if u != p:
+                if nxt == 0 or Sz[u] > Sz[nxt]:
+                    nxt = u
+        if nxt:
+            Hld(nxt, s)
+        for u in AdjList[s]:
+            if u != p and u != nxt:
+                CurChain += 1
+                Hld(u, s)
+    ```
 $nxt$ là biến dùng để lưu lại đỉnh con "nặng nhất".
 $Arr$ là mảng dùng để lưu lại các chuỗi. 
 $ChainID$ là mảng lưu lại số thứ tự của các chuỗi. 
@@ -191,32 +199,36 @@ Liên tục thực hiện nhảy từ chuỗi có số thứ tự lớn hơn lê
 
 Ở đó, đỉnh có độ sâu thấp hơn là LCA của $u$ và $v$.
 
-```cpp
-int LCA(int u, int v) {
-    while(ChainID[u] != ChainID[v]) {
-        if(ChainID[u] > ChainID[v]) {
-            u = Par[ChainHead[ChainID[u]]];
-        }
-        else {
-            v = Par[ChainHead[ChainID[v]]];
-        }
-    }
-    if(Depth[u] < Depth[v]) return u;
-    return v;
-}
-```
+=== "C++"
 
-```python
-def LCA(u, v):
-    while ChainID[u] != ChainID[v]:
-        if ChainID[u] > ChainID[v]:
-            u = Par[ChainHead[ChainID[u]]]
-        else:
-            v = Par[ChainHead[ChainID[v]]]
-    if Depth[u] < Depth[v]:
-        return u
-    return v
-```
+    ```cpp
+    int LCA(int u, int v) {
+        while(ChainID[u] != ChainID[v]) {
+            if(ChainID[u] > ChainID[v]) {
+                u = Par[ChainHead[ChainID[u]]];
+            }
+            else {
+                v = Par[ChainHead[ChainID[v]]];
+            }
+        }
+        if(Depth[u] < Depth[v]) return u;
+        return v;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def LCA(u, v):
+        while ChainID[u] != ChainID[v]:
+            if ChainID[u] > ChainID[v]:
+                u = Par[ChainHead[ChainID[u]]]
+            else:
+                v = Par[ChainHead[ChainID[v]]]
+        if Depth[u] < Depth[v]:
+            return u
+        return v
+    ```
 
 #### Segment tree
 

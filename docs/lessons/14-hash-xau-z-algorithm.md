@@ -18,90 +18,89 @@ Chuyển xâu sang số hệ cơ số `base` (thường là 31), lấy modulo ch
 ```
 hash("abc") = (1 × 31² + 2 × 31¹ + 3 × 31⁰) % MOD
 ```
+=== "C++"
 
-### Code C++: Hash xâu + Tìm xâu mẫu
-
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
-
-const long long MOD = 1e9 + 7;
-const long long BASE = 31;
-
-// Tính hash của xâu - O(N)
-long long computeHash(string s) {
-    long long hash = 0;
-    for (char c : s)
-        hash = (hash * BASE + (c - 'a' + 1)) % MOD;
-    return hash;
-}
-
-// Tìm xâu mẫu trong văn bản - O(N + M)
-vector<int> rabinKarp(string text, string pattern) {
-    int n = text.size(), m = pattern.size();
-    vector<int> positions;
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
     
-    // Tính hash của mẫu
-    long long hashP = computeHash(pattern);
+    const long long MOD = 1e9 + 7;
+    const long long BASE = 31;
     
-    // Tính lũy thừa BASE
-    vector<long long> power(n + 1);
-    power[0] = 1;
-    for (int i = 1; i <= n; i++)
-        power[i] = (power[i-1] * BASE) % MOD;
-    
-    // Tính hash tiền tố của văn bản
-    vector<long long> hashT(n + 1);
-    for (int i = 0; i < n; i++)
-        hashT[i + 1] = (hashT[i] * BASE + (text[i] - 'a' + 1)) % MOD;
-    
-    // Tìm kiếm
-    for (int i = 0; i <= n - m; i++) {
-        long long curHash = (hashT[i + m] - hashT[i] * power[m] % MOD + MOD) % MOD;
-        if (curHash == hashP)
-            positions.push_back(i);
+    // Tính hash của xâu - O(N)
+    long long computeHash(string s) {
+        long long hash = 0;
+        for (char c : s)
+            hash = (hash * BASE + (c - 'a' + 1)) % MOD;
+        return hash;
     }
-    return positions;
-}
+    
+    // Tìm xâu mẫu trong văn bản - O(N + M)
+    vector<int> rabinKarp(string text, string pattern) {
+        int n = text.size(), m = pattern.size();
+        vector<int> positions;
+        
+        // Tính hash của mẫu
+        long long hashP = computeHash(pattern);
+        
+        // Tính lũy thừa BASE
+        vector<long long> power(n + 1);
+        power[0] = 1;
+        for (int i = 1; i <= n; i++)
+            power[i] = (power[i-1] * BASE) % MOD;
+        
+        // Tính hash tiền tố của văn bản
+        vector<long long> hashT(n + 1);
+        for (int i = 0; i < n; i++)
+            hashT[i + 1] = (hashT[i] * BASE + (text[i] - 'a' + 1)) % MOD;
+        
+        // Tìm kiếm
+        for (int i = 0; i <= n - m; i++) {
+            long long curHash = (hashT[i + m] - hashT[i] * power[m] % MOD + MOD) % MOD;
+            if (curHash == hashP)
+                positions.push_back(i);
+        }
+        return positions;
+    }
+    
+    int main() {
+        string text = "aabcabaab";
+        string pattern = "ab";
+        auto pos = rabinKarp(text, pattern);
+        for (int p : pos) cout << p << " ";  // 2 5 7
+    }
+    ```
 
-int main() {
-    string text = "aabcabaab";
-    string pattern = "ab";
-    auto pos = rabinKarp(text, pattern);
-    for (int p : pos) cout << p << " ";  // 2 5 7
-}
-```
+=== "Python"
 
-### Code Python
-
-```python
-def rabin_karp(text, pattern):
-    n, m = len(text), len(pattern)
-    BASE, MOD = 31, 10**9 + 7
-    
-    # Hash của mẫu
-    hash_p = 0
-    for c in pattern:
-        hash_p = (hash_p * BASE + ord(c) - ord('a') + 1) % MOD
-    
-    # Lũy thừa BASE
-    power = [1] * (n + 1)
-    for i in range(1, n + 1):
-        power[i] = (power[i-1] * BASE) % MOD
-    
-    # Hash tiền tố văn bản
-    hash_t = [0] * (n + 1)
-    for i in range(n):
-        hash_t[i+1] = (hash_t[i] * BASE + ord(text[i]) - ord('a') + 1) % MOD
-    
-    # Tìm kiếm
-    positions = []
-    for i in range(n - m + 1):
-        cur_hash = (hash_t[i+m] - hash_t[i] * power[m] % MOD + MOD) % MOD
-        if cur_hash == hash_p:
-            positions.append(i)
-    return positions
-```
+    ```python
+    def rabin_karp(text, pattern):
+        n, m = len(text), len(pattern)
+        BASE, MOD = 31, 10**9 + 7
+        
+        # Hash của mẫu
+        hash_p = 0
+        for c in pattern:
+            hash_p = (hash_p * BASE + ord(c) - ord('a') + 1) % MOD
+        
+        # Lũy thừa BASE
+        power = [1] * (n + 1)
+        for i in range(1, n + 1):
+            power[i] = (power[i-1] * BASE) % MOD
+        
+        # Hash tiền tố văn bản
+        hash_t = [0] * (n + 1)
+        for i in range(n):
+            hash_t[i+1] = (hash_t[i] * BASE + ord(text[i]) - ord('a') + 1) % MOD
+        
+        # Tìm kiếm
+        positions = []
+        for i in range(n - m + 1):
+            cur_hash = (hash_t[i+m] - hash_t[i] * power[m] % MOD + MOD) % MOD
+            if cur_hash == hash_p:
+                positions.append(i)
+        return positions
+    ```
 
 ---
 
@@ -119,65 +118,64 @@ Z[1]=2: "aa" khớp "aa..."
 Z[4]=2: "aa" khớp "aa..."
 Z[6]=3: "aab" khớp "aab..."
 ```
+=== "C++"
 
-### Code C++
-
-```cpp
-vector<int> z_function(string s) {
-    int n = s.length();
-    vector<int> z(n);
-    for (int i = 1, l = 0, r = 0; i < n; i++) {
-        if (i <= r)
-            z[i] = min(r - i + 1, z[i - l]);
-        while (i + z[i] < n && s[z[i]] == s[i + z[i]])
-            z[i]++;
-        if (i + z[i] - 1 > r) {
-            l = i;
-            r = i + z[i] - 1;
+    ```cpp
+    vector<int> z_function(string s) {
+        int n = s.length();
+        vector<int> z(n);
+        for (int i = 1, l = 0, r = 0; i < n; i++) {
+            if (i <= r)
+                z[i] = min(r - i + 1, z[i - l]);
+            while (i + z[i] < n && s[z[i]] == s[i + z[i]])
+                z[i]++;
+            if (i + z[i] - 1 > r) {
+                l = i;
+                r = i + z[i] - 1;
+            }
         }
+        return z;
     }
-    return z;
-}
+    
+    // Tìm xâu mẫu bằng Z-algorithm
+    vector<int> zSearch(string text, string pattern) {
+        string combined = pattern + "$" + text;
+        vector<int> z = z_function(combined);
+        int m = pattern.length();
+        vector<int> positions;
+        for (int i = m + 1; i < combined.length(); i++)
+            if (z[i] == m)
+                positions.push_back(i - m - 1);
+        return positions;
+    }
+    ```
 
-// Tìm xâu mẫu bằng Z-algorithm
-vector<int> zSearch(string text, string pattern) {
-    string combined = pattern + "$" + text;
-    vector<int> z = z_function(combined);
-    int m = pattern.length();
-    vector<int> positions;
-    for (int i = m + 1; i < combined.length(); i++)
-        if (z[i] == m)
-            positions.push_back(i - m - 1);
-    return positions;
-}
-```
+=== "Python"
 
-### Code Python - Z-Algorithm
-
-```python
-def z_function(s):
-    n = len(s)
-    z = [0] * n
-    l, r = 0, 0
-    for i in range(1, n):
-        if i <= r:
-            z[i] = min(r - i + 1, z[i - l])
-        while i + z[i] < n and s[z[i]] == s[i + z[i]]:
-            z[i] += 1
-        if i + z[i] - 1 > r:
-            l, r = i, i + z[i] - 1
-    return z
-
-def z_search(text, pattern):
-    combined = pattern + "$" + text
-    z = z_function(combined)
-    m = len(pattern)
-    positions = []
-    for i in range(m + 1, len(combined)):
-        if z[i] == m:
-            positions.append(i - m - 1)
-    return positions
-```
+    ```python
+    def z_function(s):
+        n = len(s)
+        z = [0] * n
+        l, r = 0, 0
+        for i in range(1, n):
+            if i <= r:
+                z[i] = min(r - i + 1, z[i - l])
+            while i + z[i] < n and s[z[i]] == s[i + z[i]]:
+                z[i] += 1
+            if i + z[i] - 1 > r:
+                l, r = i, i + z[i] - 1
+        return z
+    
+    def z_search(text, pattern):
+        combined = pattern + "$" + text
+        z = z_function(combined)
+        m = len(pattern)
+        positions = []
+        for i in range(m + 1, len(combined)):
+            if z[i] == m:
+                positions.append(i - m - 1)
+        return positions
+    ```
 
 ---
 
@@ -237,12 +235,23 @@ hash("cab") = hashT[5] - hashT[2] × BASE³
 // Chỉ khi CẢ HAI hash giống nhau mới coi là trùng
 // Xác suất sai: ~1/(10^9 × 10^9) ≈ 0
 ```
+// Hash 1: MOD1 = 10^9 + 7
+// Hash 2: MOD2 = 10^9 + 9
+// Chỉ khi CẢ HAI hash giống nhau mới coi là trùng
+// Xác suất sai: ~1/(10^9 × 10^9) ≈ 0
+```
 
 ## 5. Bẫy hay gặp với Hash
 
 ### 5.1. Hash collision — Sai kết quả
 
 ```cpp
+// SAI: Chỉ dùng 1 hash → có thể bị hack
+if (hash1 == hash2)  // Có thể collision!
+
+// ĐÚNG: Dùng 2 hash
+if (hash1a == hash2a && hash1b == hash2b)  // An toàn
+```
 // SAI: Chỉ dùng 1 hash → có thể bị hack
 if (hash1 == hash2)  // Có thể collision!
 
@@ -259,10 +268,22 @@ long long curHash = (hashT[i+m] - hashT[i] * power[m]) % MOD;
 // ĐÚNG: Luôn + MOD rồi % MOD
 long long curHash = (hashT[i+m] - hashT[i] * power[m] % MOD + MOD) % MOD;
 ```
+// SAI: (a - b) % MOD có thể ÂM nếu a < b
+long long curHash = (hashT[i+m] - hashT[i] * power[m]) % MOD;
+
+// ĐÚNG: Luôn + MOD rồi % MOD
+long long curHash = (hashT[i+m] - hashT[i] * power[m] % MOD + MOD) % MOD;
+```
 
 ### 5.3. Chọn BASE không tốt
 
 ```cpp
+// SAI: BASE = 1 → hash = tổng mã ASCII → collision cao!
+// SAI: BASE = 256 → overflow nếu không modulo
+
+// ĐÚNG: BASE = 31 hoặc 131 (số nguyên tố, không quá nhỏ)
+const long long BASE = 31;
+```
 // SAI: BASE = 1 → hash = tổng mã ASCII → collision cao!
 // SAI: BASE = 256 → overflow nếu không modulo
 
@@ -279,10 +300,22 @@ result = (result * a) % MOD;
 // ĐÚNG: Dùng __int128 hoặc cast
 result = (__int128)result * a % MOD;
 ```
+// SAI: a * a có thể tràn long long trước khi modulo
+result = (result * a) % MOD;
+
+// ĐÚNG: Dùng __int128 hoặc cast
+result = (__int128)result * a % MOD;
+```
 
 ### 5.5. Z-function: Quên ký tự phân tách
 
 ```cpp
+// SAI: Không có "$" → Z[i] có thể match sai
+string combined = pattern + text;
+
+// ĐÚNG: Phải có ký tự phân tách
+string combined = pattern + "$" + text;  // "$" không xuất hiện trong pattern/text
+```
 // SAI: Không có "$" → Z[i] có thể match sai
 string combined = pattern + text;
 

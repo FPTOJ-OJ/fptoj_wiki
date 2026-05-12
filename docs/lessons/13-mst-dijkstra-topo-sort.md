@@ -13,150 +13,159 @@ Có N nhà, M đường dây nối giữa các nhà. Muốn nối tất cả nh�
 
 **Ý tưởng:** Sắp xếp tất cả cạnh theo trọng số tăng dần. Duyệt, nếu cạnh không tạo chu trình → thêm vào MST.
 
-```cpp
-#include <algorithm>
-using namespace std;
+=== "C++"
 
-struct Edge {
-    int u, v, w;
-    bool operator<(const Edge& other) const {
-        return w < other.w;
-    }
-};
-
-// DSU (Disjoint Set Union) - xem lại Bài 8
-struct DSU {
-    vector<int> parent, sz;
-    DSU(int n) {
-        parent.resize(n + 1);
-        sz.resize(n + 1, 1);
-        for (int i = 1; i <= n; i++) parent[i] = i;
-    }
-    int find(int v) {
-        if (v == parent[v]) return v;
-        return parent[v] = find(parent[v]);
-    }
-    bool unite(int a, int b) {
-        a = find(a); b = find(b);
-        if (a == b) return false;
-        if (sz[a] < sz[b]) swap(a, b);
-        parent[b] = a;
-        sz[a] += sz[b];
-        return true;
-    }
-};
-
-long long kruskal(int n, vector<Edge>& edges) {
-    sort(edges.begin(), edges.end());
-    DSU dsu(n);
-    long long mst_weight = 0;
-    int edges_used = 0;
+    ```cpp
+    #include <algorithm>
+    using namespace std;
     
-    for (auto& e : edges) {
-        if (dsu.unite(e.u, e.v)) {
-            mst_weight += e.w;
-            edges_used++;
-            if (edges_used == n - 1) break;
+    struct Edge {
+        int u, v, w;
+        bool operator<(const Edge& other) const {
+            return w < other.w;
         }
+    };
+    
+    // DSU (Disjoint Set Union) - xem lại Bài 8
+    struct DSU {
+        vector<int> parent, sz;
+        DSU(int n) {
+            parent.resize(n + 1);
+            sz.resize(n + 1, 1);
+            for (int i = 1; i <= n; i++) parent[i] = i;
+        }
+        int find(int v) {
+            if (v == parent[v]) return v;
+            return parent[v] = find(parent[v]);
+        }
+        bool unite(int a, int b) {
+            a = find(a); b = find(b);
+            if (a == b) return false;
+            if (sz[a] < sz[b]) swap(a, b);
+            parent[b] = a;
+            sz[a] += sz[b];
+            return true;
+        }
+    };
+    
+    long long kruskal(int n, vector<Edge>& edges) {
+        sort(edges.begin(), edges.end());
+        DSU dsu(n);
+        long long mst_weight = 0;
+        int edges_used = 0;
+        
+        for (auto& e : edges) {
+            if (dsu.unite(e.u, e.v)) {
+                mst_weight += e.w;
+                edges_used++;
+                if (edges_used == n - 1) break;
+            }
+        }
+        return (edges_used == n - 1) ? mst_weight : -1;
     }
-    return (edges_used == n - 1) ? mst_weight : -1;
-}
-```
+    ```
 
-### Code Python - Kruskal
+=== "Python"
 
-```python
-class DSU:
-    def __init__(self, n):
-        self.parent = list(range(n + 1))
-        self.sz = [1] * (n + 1)
+    ```python
+    class DSU:
+        def __init__(self, n):
+            self.parent = list(range(n + 1))
+            self.sz = [1] * (n + 1)
+        
+        def find(self, v):
+            if v == self.parent[v]:
+                return v
+            self.parent[v] = self.find(self.parent[v])
+            return self.parent[v]
+        
+        def unite(self, a, b):
+            a, b = self.find(a), self.find(b)
+            if a == b:
+                return False
+            if self.sz[a] < self.sz[b]:
+                a, b = b, a
+            self.parent[b] = a
+            self.sz[a] += self.sz[b]
+            return True
     
-    def find(self, v):
-        if v == self.parent[v]:
-            return v
-        self.parent[v] = self.find(self.parent[v])
-        return self.parent[v]
-    
-    def unite(self, a, b):
-        a, b = self.find(a), self.find(b)
-        if a == b:
-            return False
-        if self.sz[a] < self.sz[b]:
-            a, b = b, a
-        self.parent[b] = a
-        self.sz[a] += self.sz[b]
-        return True
-
-def kruskal(n, edges):
-    edges.sort(key=lambda e: e[2])  # Sắp xếp theo trọng số
-    dsu = DSU(n)
-    mst_weight = 0
-    edges_used = 0
-    
-    for u, v, w in edges:
-        if dsu.unite(u, v):
-            mst_weight += w
-            edges_used += 1
-            if edges_used == n - 1:
-                break
-    
-    return mst_weight if edges_used == n - 1 else -1
-```
+    def kruskal(n, edges):
+        edges.sort(key=lambda e: e[2])  # Sắp xếp theo trọng số
+        dsu = DSU(n)
+        mst_weight = 0
+        edges_used = 0
+        
+        for u, v, w in edges:
+            if dsu.unite(u, v):
+                mst_weight += w
+                edges_used += 1
+                if edges_used == n - 1:
+                    break
+        
+        return mst_weight if edges_used == n - 1 else -1
+    ```
 
 ### Thuật toán Prim
 
 **Ý tưởng:** Bắt đầu từ đỉnh bất kỳ. Mỗi bước, chọn cạnh nhỏ nhất nối đỉnh đã thăm với đỉnh chưa thăm.
 
-```cpp
-long long prim(int n, vector<vector<pair<int,int>>>& adj) {
-    vector<bool> visited(n + 1, false);
-    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
-    pq.push({0, 1});  // {trọng số, đỉnh}
-    long long mst_weight = 0;
-    int count = 0;
-    
-    while (!pq.empty() && count < n) {
-        auto [w, u] = pq.top();
-        pq.pop();
-        if (visited[u]) continue;
-        visited[u] = true;
-        mst_weight += w;
-        count++;
+=== "C++"
+
+    ```cpp
+    long long prim(int n, vector<vector<pair<int,int>>>& adj) {
+        vector<bool> visited(n + 1, false);
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+        pq.push({0, 1});  // {trọng số, đỉnh}
+        long long mst_weight = 0;
+        int count = 0;
         
-        for (auto [v, weight] : adj[u]) {
-            if (!visited[v])
-                pq.push({weight, v});
+        while (!pq.empty() && count < n) {
+            auto [w, u] = pq.top();
+            pq.pop();
+            if (visited[u]) continue;
+            visited[u] = true;
+            mst_weight += w;
+            count++;
+            
+            for (auto [v, weight] : adj[u]) {
+                if (!visited[v])
+                    pq.push({weight, v});
+            }
         }
+        return (count == n) ? mst_weight : -1;
     }
-    return (count == n) ? mst_weight : -1;
-}
-```
+    ```
 
-### Code Python - Prim
+=== "Python"
 
-```python
-import heapq
-
-def prim(n, adj):
-    visited = [False] * (n + 1)
-    pq = [(0, 1)]  # (trọng số, đỉnh)
-    mst_weight = 0
-    count = 0
+    ```python
+    import heapq
     
-    while pq and count < n:
-        w, u = heapq.heappop(pq)
-        if visited[u]:
-            continue
-        visited[u] = True
-        mst_weight += w
-        count += 1
+    def prim(n, adj):
+        visited = [False] * (n + 1)
+        pq = [(0, 1)]  # (trọng số, đỉnh)
+        mst_weight = 0
+        count = 0
         
-        for v, weight in adj[u]:
-            if not visited[v]:
-                heapq.heappush(pq, (weight, v))
-    
-    return mst_weight if count == n else -1
-```
+        while pq and count < n:
+            w, u = heapq.heappop(pq)
+            if visited[u]:
+                continue
+            visited[u] = True
+            mst_weight += w
+            count += 1
+            
+            for v, weight in adj[u]:
+                if not visited[v]:
+                    heapq.heappush(pq, (weight, v))
+        
+        return mst_weight if count == n else -1
+    ```
+
+!!! tip "Thử tương tác"
+    - [Kruskal's MST](https://algorithm-visualizer.org/greedy/kruskals-minimum-spanning-tree)
+    - [Prim's MST](https://algorithm-visualizer.org/greedy/prims-minimum-spanning-tree)
+    - [Dijkstra's Shortest Path](https://algorithm-visualizer.org/greedy/dijkstras-shortest-path)
 
 ---
 
@@ -172,51 +181,53 @@ Bắt đầu từ đỉnh nguồn. Mỗi bước, chọn đỉnh **chưa thăm**
 
 ![Dijkstra Animation](../uploads/img/dijkstra.gif)
 
-```cpp
-vector<long long> dijkstra(int start, int n, vector<vector<pair<int,int>>>& adj) {
-    vector<long long> dist(n + 1, LLONG_MAX);
-    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
-    
-    dist[start] = 0;
-    pq.push({0, start});
-    
-    while (!pq.empty()) {
-        auto [d, u] = pq.top();
-        pq.pop();
+=== "C++"
+
+    ```cpp
+    vector<long long> dijkstra(int start, int n, vector<vector<pair<int,int>>>& adj) {
+        vector<long long> dist(n + 1, LLONG_MAX);
+        priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
         
-        if (d > dist[u]) continue;  // Đã có đường ngắn hơn
+        dist[start] = 0;
+        pq.push({0, start});
         
-        for (auto [v, w] : adj[u]) {
-            if (dist[u] + w < dist[v]) {
-                dist[v] = dist[u] + w;
-                pq.push({dist[v], v});
+        while (!pq.empty()) {
+            auto [d, u] = pq.top();
+            pq.pop();
+            
+            if (d > dist[u]) continue;  // Đã có đường ngắn hơn
+            
+            for (auto [v, w] : adj[u]) {
+                if (dist[u] + w < dist[v]) {
+                    dist[v] = dist[u] + w;
+                    pq.push({dist[v], v});
+                }
             }
         }
+        return dist;
     }
-    return dist;
-}
-```
+    ```
 
-### Code Python - Dijkstra
+=== "Python"
 
-```python
-import heapq
-
-def dijkstra(start, n, adj):
-    dist = [float('inf')] * (n + 1)
-    dist[start] = 0
-    pq = [(0, start)]
+    ```python
+    import heapq
     
-    while pq:
-        d, u = heapq.heappop(pq)
-        if d > dist[u]:
-            continue
-        for v, w in adj[u]:
-            if dist[u] + w < dist[v]:
-                dist[v] = dist[u] + w
-                heapq.heappush(pq, (dist[v], v))
-    return dist
-```
+    def dijkstra(start, n, adj):
+        dist = [float('inf')] * (n + 1)
+        dist[start] = 0
+        pq = [(0, start)]
+        
+        while pq:
+            d, u = heapq.heappop(pq)
+            if d > dist[u]:
+                continue
+            for v, w in adj[u]:
+                if dist[u] + w < dist[v]:
+                    dist[v] = dist[u] + w
+                    heapq.heappush(pq, (dist[v], v))
+        return dist
+    ```
 
 **Độ phức tạp:** O((V + E) log V) với priority_queue.
 
@@ -277,59 +288,61 @@ Muốn học "Lập trình" phải học "Tin học cơ bản" trước. Muốn 
 
 Sắp xếp các đỉnh của DAG (đồ thị có hướng không chu trình) sao cho mọi cạnh đều đi từ trái sang phải.
 
-```cpp
-vector<int> topoSort(int n, vector<vector<int>>& adj) {
-    vector<int> inDegree(n + 1, 0);
-    for (int u = 1; u <= n; u++)
-        for (int v : adj[u])
-            inDegree[v]++;
-    
-    queue<int> q;
-    for (int i = 1; i <= n; i++)
-        if (inDegree[i] == 0) q.push(i);
-    
-    vector<int> result;
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-        result.push_back(u);
+=== "C++"
+
+    ```cpp
+    vector<int> topoSort(int n, vector<vector<int>>& adj) {
+        vector<int> inDegree(n + 1, 0);
+        for (int u = 1; u <= n; u++)
+            for (int v : adj[u])
+                inDegree[v]++;
         
-        for (int v : adj[u]) {
-            inDegree[v]--;
-            if (inDegree[v] == 0)
-                q.push(v);
+        queue<int> q;
+        for (int i = 1; i <= n; i++)
+            if (inDegree[i] == 0) q.push(i);
+        
+        vector<int> result;
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            result.push_back(u);
+            
+            for (int v : adj[u]) {
+                inDegree[v]--;
+                if (inDegree[v] == 0)
+                    q.push(v);
+            }
         }
+        
+        if (result.size() != n) return {};  // Có chu trình!
+        return result;
     }
-    
-    if (result.size() != n) return {};  // Có chu trình!
-    return result;
-}
-```
+    ```
 
-### Code Python - Topo Sort
+=== "Python"
 
-```python
-from collections import deque
-
-def topo_sort(n, adj):
-    in_degree = [0] * (n + 1)
-    for u in range(1, n + 1):
-        for v in adj[u]:
-            in_degree[v] += 1
+    ```python
+    from collections import deque
     
-    q = deque([i for i in range(1, n + 1) if in_degree[i] == 0])
-    result = []
-    
-    while q:
-        u = q.popleft()
-        result.append(u)
-        for v in adj[u]:
-            in_degree[v] -= 1
-            if in_degree[v] == 0:
-                q.append(v)
-    
-    return result if len(result) == n else []
-```
+    def topo_sort(n, adj):
+        in_degree = [0] * (n + 1)
+        for u in range(1, n + 1):
+            for v in adj[u]:
+                in_degree[v] += 1
+        
+        q = deque([i for i in range(1, n + 1) if in_degree[i] == 0])
+        result = []
+        
+        while q:
+            u = q.popleft()
+            result.append(u)
+            for v in adj[u]:
+                in_degree[v] -= 1
+                if in_degree[v] == 0:
+                    q.append(v)
+        
+        return result if len(result) == n else []
+    ```
 
 ---
 
@@ -409,7 +422,7 @@ if (visited[u]) continue;  // ← PHẢI CÓ DÒNG NÀY
 
 ## Bài viết liên quan
 
-- [Bài 8: DSU](08-heap-dsu-segment-tree-bit.md)
+- [Bài 8b: DSU](08b-dsu.md)
 - [Bài 10: BFS & DFS](10-bfs-dfs-do-thi.md)
 - [Bài 23: Floyd-Warshall & Bellman-Ford](23-floyd-warshall-bellman-ford.md)
 

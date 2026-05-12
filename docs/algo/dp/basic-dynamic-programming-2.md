@@ -90,71 +90,75 @@ Cần lưu ý thứ tự tính. Để tính $L[i][j]$ cần biết $L[i - 1][j -
 
 ![/uploads/basic-dynamic-programming-2_img1.png](../../uploads/basic-dynamic-programming-2_img1.png)
 
-```cpp
-## include <iostream>
-## include <string>
-## include <vector>
-using namespace std;
+=== "C++"
 
-int m, n;
-string a, b;
-vector<vector<int>> L;
+    ```cpp
+    ## include <iostream>
+    ## include <string>
+    ## include <vector>
+    using namespace std;
 
-int main()
-{
-    cin >> a >> b;
-    m = a.length();
-    n = b.length();
-    L.resize(m + 1);
-    for (auto& i : L)
-        i.resize(n + 1);
-    /* Vì a và b bắt đầu từ chỉ số 1 nên 
-     * chèn thêm 1 kí tự vào đầu 2 xâu */
-    a = "_" + a;
-    b = "_" + b;
-    
-    for (int i = 0; i <= m; i++)
-        L[i][0] = i;
-    for (int j = 0; j <= n; j++)
-        L[0][j] = j;
-    for (int i = 1; i <= m; i++)
-        for (int j = 1; j <= n; j++)
-        {
-            if (a[i] == b[j])
-                L[i][j] = L[i - 1][j - 1];
-            else
-                L[i][j] = 1 + min(L[i - 1][j - 1],
-                              min(L[i - 1][j], L[i][j - 1]));
-        }
-    cout << L[m][n];
-}
-```
+    int m, n;
+    string a, b;
+    vector<vector<int>> L;
 
-```python
-a = input().strip()
-b = input().strip()
-m = len(a)
-n = len(b)
+    int main()
+    {
+        cin >> a >> b;
+        m = a.length();
+        n = b.length();
+        L.resize(m + 1);
+        for (auto& i : L)
+            i.resize(n + 1);
+        /* Vì a và b bắt đầu từ chỉ số 1 nên 
+         * chèn thêm 1 kí tự vào đầu 2 xâu */
+        a = "_" + a;
+        b = "_" + b;
 
-a = " " + a
-b = " " + b
+        for (int i = 0; i <= m; i++)
+            L[i][0] = i;
+        for (int j = 0; j <= n; j++)
+            L[0][j] = j;
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++)
+            {
+                if (a[i] == b[j])
+                    L[i][j] = L[i - 1][j - 1];
+                else
+                    L[i][j] = 1 + min(L[i - 1][j - 1],
+                                  min(L[i - 1][j], L[i][j - 1]));
+            }
+        cout << L[m][n];
+    }
+    ```
 
-L = [[0] * (n + 1) for _ in range(m + 1)]
+=== "Python"
 
-for i in range(m + 1):
-    L[i][0] = i
-for j in range(n + 1):
-    L[0][j] = j
+    ```python
+    a = input().strip()
+    b = input().strip()
+    m = len(a)
+    n = len(b)
 
-for i in range(1, m + 1):
-    for j in range(1, n + 1):
-        if a[i] == b[j]:
-            L[i][j] = L[i - 1][j - 1]
-        else:
-            L[i][j] = 1 + min(L[i - 1][j - 1], L[i - 1][j], L[i][j - 1])
+    a = " " + a
+    b = " " + b
 
-print(L[m][n])
-```
+    L = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(m + 1):
+        L[i][0] = i
+    for j in range(n + 1):
+        L[0][j] = j
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if a[i] == b[j]:
+                L[i][j] = L[i - 1][j - 1]
+            else:
+                L[i][j] = 1 + min(L[i - 1][j - 1], L[i - 1][j], L[i][j - 1])
+
+    print(L[m][n])
+    ```
 
 ## 1.4. Một số bài toán khác
 
@@ -185,122 +189,126 @@ Lưu ý do $m$ và $n$ có thể lớn đến $10^6$ nên mảng $L$ phải là 
 
 Nếu đề bài yêu cầu phải in ra xâu con dài nhất thì phải thực hiện truy vết. Dưới đây là một cách cài đặt tham khảo:
 
-```cpp
-## include <iostream>
-## include <string>
-## include <vector>
-using namespace std;
+=== "C++"
 
-// Struct dùng để truy vết 
-struct Trace
-{
-    // Vị trí của kí tự trước đó trong A và B
-    int i;
-    int j;   
-    // Kí tự cần thêm vào xâu kết quả 
-    // (có thể là kí tự NULL)
-    char c;
-    Trace(int ii = 0, int jj = 0, char cc = '\0')
-      : i(ii), j(jj), c(cc)
-    { };
-};
+    ```cpp
+    ## include <iostream>
+    ## include <string>
+    ## include <vector>
+    using namespace std;
 
-int m, n;
-string a, b;
-vector<vector<int>> L;
-vector<vector<Trace>> Tr;
+    // Struct dùng để truy vết 
+    struct Trace
+    {
+        // Vị trí của kí tự trước đó trong A và B
+        int i;
+        int j;   
+        // Kí tự cần thêm vào xâu kết quả 
+        // (có thể là kí tự NULL)
+        char c;
+        Trace(int ii = 0, int jj = 0, char cc = '\0')
+          : i(ii), j(jj), c(cc)
+        { };
+    };
 
-int main()
-{
-    cin >> a >> b;
-    m = a.length();
-    n = b.length();
-    L.resize(m + 1);
-    Tr.resize(m + 1);
-    for (auto& i : L)
-        i.resize(n + 1);
-    for (auto& i : Tr)
-        i.resize(n + 1);
-    // Vì a và b bắt đầu từ chỉ số 1 nên 
-    // chèn thêm 1 kí tự vào đầu 2 xâu
-    a = "_" + a;
-    b = "_" + b;
-    
-    for (int i = 0; i <= m; i++)
-        L[i][0] = 0;
-    for (int j = 0; j <= n; j++)
-        L[0][j] = 0;
-    for (int i = 1; i <= m; i++)
-        for (int j = 1; j <= n; j++)
-        {
-            if (a[i] == b[j])
+    int m, n;
+    string a, b;
+    vector<vector<int>> L;
+    vector<vector<Trace>> Tr;
+
+    int main()
+    {
+        cin >> a >> b;
+        m = a.length();
+        n = b.length();
+        L.resize(m + 1);
+        Tr.resize(m + 1);
+        for (auto& i : L)
+            i.resize(n + 1);
+        for (auto& i : Tr)
+            i.resize(n + 1);
+        // Vì a và b bắt đầu từ chỉ số 1 nên 
+        // chèn thêm 1 kí tự vào đầu 2 xâu
+        a = "_" + a;
+        b = "_" + b;
+
+        for (int i = 0; i <= m; i++)
+            L[i][0] = 0;
+        for (int j = 0; j <= n; j++)
+            L[0][j] = 0;
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++)
             {
-                L[i][j] = L[i - 1][j - 1] + 1;
-                Tr[i][j] = Trace(i - 1, j - 1, a[i]);
+                if (a[i] == b[j])
+                {
+                    L[i][j] = L[i - 1][j - 1] + 1;
+                    Tr[i][j] = Trace(i - 1, j - 1, a[i]);
+                }
+                else if (L[i - 1][j] > L[i][j - 1])
+                {
+                    L[i][j] = L[i - 1][j];
+                    Tr[i][j] = Trace(i - 1, j);
+                }
+                else
+                {
+                    L[i][j] = L[i][j - 1];
+                    Tr[i][j] = Trace(i, j - 1);
+                }
             }
-            else if (L[i - 1][j] > L[i][j - 1])
-            {
-                L[i][j] = L[i - 1][j];
-                Tr[i][j] = Trace(i - 1, j);
-            }
+        // Truy vết xâu con chung dài nhất từ Tr[m][n]
+        Trace t = Tr[m][n];
+        string ans = "";
+        while (true)
+        {                 
+            if (t.c != '\0')
+                ans = t.c + ans;
+            if (t.i == 0 && t.j == 0)
+                break;
             else
-            {
-                L[i][j] = L[i][j - 1];
-                Tr[i][j] = Trace(i, j - 1);
-            }
+                t = Tr[t.i][t.j];
         }
-    // Truy vết xâu con chung dài nhất từ Tr[m][n]
-    Trace t = Tr[m][n];
-    string ans = "";
-    while (true)
-    {                 
-        if (t.c != '\0')
-            ans = t.c + ans;
-        if (t.i == 0 && t.j == 0)
-            break;
-        else
-            t = Tr[t.i][t.j];
+        cout << ans;
     }
-    cout << ans;
-}
-```
+    ```
 
-```python
-import sys
-input = sys.stdin.readline
+=== "Python"
 
-a = " " + input().strip()
-b = " " + input().strip()
-m = len(a) - 1
-n = len(b) - 1
+    ```python
+    import sys
+    input = sys.stdin.readline
 
-L = [[0] * (n + 1) for _ in range(m + 1)]
-Tr = [[(0, 0, '')] * (n + 1) for _ in range(m + 1)]
+    a = " " + input().strip()
+    b = " " + input().strip()
+    m = len(a) - 1
+    n = len(b) - 1
 
-for i in range(1, m + 1):
-    for j in range(1, n + 1):
-        if a[i] == b[j]:
-            L[i][j] = L[i - 1][j - 1] + 1
-            Tr[i][j] = (i - 1, j - 1, a[i])
-        elif L[i - 1][j] > L[i][j - 1]:
-            L[i][j] = L[i - 1][j]
-            Tr[i][j] = (i - 1, j, '')
-        else:
-            L[i][j] = L[i][j - 1]
-            Tr[i][j] = (i, j - 1, '')
+    L = [[0] * (n + 1) for _ in range(m + 1)]
+    Tr = [[(0, 0, '')] * (n + 1) for _ in range(m + 1)]
 
-ans = ""
-ti, tj = m, n
-while True:
-    pi, pj, c = Tr[ti][tj]
-    if c:
-        ans = c + ans
-    if pi == 0 and pj == 0:
-        break
-    ti, tj = pi, pj
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if a[i] == b[j]:
+                L[i][j] = L[i - 1][j - 1] + 1
+                Tr[i][j] = (i - 1, j - 1, a[i])
+            elif L[i - 1][j] > L[i][j - 1]:
+                L[i][j] = L[i - 1][j]
+                Tr[i][j] = (i - 1, j, '')
+            else:
+                L[i][j] = L[i][j - 1]
+                Tr[i][j] = (i, j - 1, '')
 
-print(ans)
-```
+    ans = ""
+    ti, tj = m, n
+    while True:
+        pi, pj, c = Tr[ti][tj]
+        if c:
+            ans = c + ans
+        if pi == 0 and pj == 0:
+            break
+        ti, tj = pi, pj
+
+    print(ans)
+    ```
 
 Như vậy độ phức tạp bộ nhớ của bài toán là $\mathcal{O}(mn)$, độ phức tạp thời gian là $\mathcal{O}(mn)$.
 
@@ -309,32 +317,36 @@ Có một phương pháp cài đặt tốt hơn, chỉ với độ phức tạp 
 > 
 Tức là để tính hàng $L[i]$ thì chỉ cần hàng $L[i-1]$ và $L[i][0] = 0$. Do đó ta chỉ cần 2 mảng 1 chiều để lưu hàng vừa tính $P$ và hàng đang tính $L$. Cách cài đặt mới như sau:
 
-```cpp
-vector<int> P(n + 1), L(n + 1);
-for (int i = 1; i <= m; i++)
-{
-    L[0] = 0;
-    for (int j = 1; j <= n; j++)
-        if (a[i] == b[j])
-            L[j] = P[j - 1] + 1;
-        else
-            L[j] = max(L[j - 1], P[j]);
-    P = L;
-}
-```
+=== "C++"
 
-```python
-P = [0] * (n + 1)
-L = [0] * (n + 1)
-for i in range(1, m + 1):
-    L[0] = 0
-    for j in range(1, n + 1):
-        if a[i] == b[j]:
-            L[j] = P[j - 1] + 1
-        else:
-            L[j] = max(L[j - 1], P[j])
-    P = L[:]
-```
+    ```cpp
+    vector<int> P(n + 1), L(n + 1);
+    for (int i = 1; i <= m; i++)
+    {
+        L[0] = 0;
+        for (int j = 1; j <= n; j++)
+            if (a[i] == b[j])
+                L[j] = P[j - 1] + 1;
+            else
+                L[j] = max(L[j - 1], P[j]);
+        P = L;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    P = [0] * (n + 1)
+    L = [0] * (n + 1)
+    for i in range(1, m + 1):
+        L[0] = 0
+        for j in range(1, n + 1):
+            if a[i] == b[j]:
+                L[j] = P[j - 1] + 1
+            else:
+                L[j] = max(L[j - 1], P[j])
+        P = L[:]
+    ```
 
 
 ### 1.4.2. Bắc cầu
@@ -384,66 +396,70 @@ Tóm lại, công thức QHĐ là:
 
 **Cài đặt:** Ta có thể cài đặt trực tiếp thuật toán trên mà không cần quan tâm đến thứ tự tính như sau:
 
-```cpp
-## include <iostream>
-## include <string>
-using namespace std;
+=== "C++"
 
-const int N = 5010;
-int n, d[N][N];
-string s;
+    ```cpp
+    ## include <iostream>
+    ## include <string>
+    using namespace std;
 
-int calc(int i, int j)
-{
-    // Nếu L[i, j] chưa được tính thì lưu giá trị vào d[i][j]
-    if (d[i][j] == -1)
+    const int N = 5010;
+    int n, d[N][N];
+    string s;
+
+    int calc(int i, int j)
     {
-        if (i >= j)
-            d[i][j] = 0;
-        else
+        // Nếu L[i, j] chưa được tính thì lưu giá trị vào d[i][j]
+        if (d[i][j] == -1)
         {
-            if (s[i] == s[j])
-                d[i][j] = calc(i + 1, j - 1);
+            if (i >= j)
+                d[i][j] = 0;
             else
-                d[i][j] = 1 + min(calc(i, j - 1), calc(i + 1, j));
+            {
+                if (s[i] == s[j])
+                    d[i][j] = calc(i + 1, j - 1);
+                else
+                    d[i][j] = 1 + min(calc(i, j - 1), calc(i + 1, j));
+            }
         }
+        return d[i][j];
     }
-    return d[i][j];
-}
 
-int main()
-{
-    cin >> s;
-    n = s.length();
-    s = "_" + s;
-    for (int i = 0; i <= n; i++)
-    for (int j = 0; j <= n; j++)
-        d[i][j] = -1;
-    cout << calc(1, n) << '\n';
-}
-```
+    int main()
+    {
+        cin >> s;
+        n = s.length();
+        s = "_" + s;
+        for (int i = 0; i <= n; i++)
+        for (int j = 0; j <= n; j++)
+            d[i][j] = -1;
+        cout << calc(1, n) << '\n';
+    }
+    ```
 
-```python
-import sys
-sys.setrecursionlimit(10000)
+=== "Python"
 
-s = " " + input().strip()
-n = len(s) - 1
-d = [[-1] * (n + 1) for _ in range(n + 1)]
+    ```python
+    import sys
+    sys.setrecursionlimit(10000)
 
-def calc(i, j):
-    if d[i][j] == -1:
-        if i >= j:
-            d[i][j] = 0
-        else:
-            if s[i] == s[j]:
-                d[i][j] = calc(i + 1, j - 1)
+    s = " " + input().strip()
+    n = len(s) - 1
+    d = [[-1] * (n + 1) for _ in range(n + 1)]
+
+    def calc(i, j):
+        if d[i][j] == -1:
+            if i >= j:
+                d[i][j] = 0
             else:
-                d[i][j] = 1 + min(calc(i, j - 1), calc(i + 1, j))
-    return d[i][j]
+                if s[i] == s[j]:
+                    d[i][j] = calc(i + 1, j - 1)
+                else:
+                    d[i][j] = 1 + min(calc(i, j - 1), calc(i + 1, j))
+        return d[i][j]
 
-print(calc(1, n))
-```
+    print(calc(1, n))
+    ```
 
 **Nhận xét:** Đây là phương pháp đệ quy có nhớ (*memoization*). Độ phức tạp bộ nhớ của thuật toán là $\mathcal{O}(n^2)$. Có một phương pháp cài đặt tiết kiệm hơn như sau:
 
@@ -483,57 +499,61 @@ Tương tự như các ví dụ trước, ta có thể dùng mảng hai chiều 
 
 Để giảm độ phức tạp bộ nhớ xuống $\mathcal{O}(n)$, ở mỗi bước ta chỉ cần lưu kết quả của hai hàng vừa tính ($L[i-1]$ và $L[i]$). Ta có thể cài đặt như sau:
 
-```cpp
-## include <iostream>
-## include <vector>
-using namespace std;
+=== "C++"
 
-long long n, w;
-vector<long long> a, b, L, P;
+    ```cpp
+    ## include <iostream>
+    ## include <vector>
+    using namespace std;
 
-int main()
-{
-    cin >> n >> w;
-    a.resize(n + 1);
-    b.resize(n + 1);
-    for (int i = 1; i <= n; i++)
-    	cin >> a[i] >> b[i];
-    P = L = vector<long long>(w + 1);
-    for (int i = 1; i <= n; i++)
+    long long n, w;
+    vector<long long> a, b, L, P;
+
+    int main()
     {
-    	for (int j = 1; j <= w; j++)
-    	{
-    	    if (a[i] > j)
-    	    	L[j] = P[j];
-    	    else
-    	        L[j] = max(P[j], L[j - a[i]] + b[i]);
+        cin >> n >> w;
+        a.resize(n + 1);
+        b.resize(n + 1);
+        for (int i = 1; i <= n; i++)
+        	cin >> a[i] >> b[i];
+        P = L = vector<long long>(w + 1);
+        for (int i = 1; i <= n; i++)
+        {
+        	for (int j = 1; j <= w; j++)
+        	{
+        	    if (a[i] > j)
+        	    	L[j] = P[j];
+        	    else
+        	        L[j] = max(P[j], L[j - a[i]] + b[i]);
+            }
+        	P = L;
         }
-    	P = L;
+        cout << L[w];
     }
-    cout << L[w];
-}
-```
+    ```
 
-```python
-n, w = map(int, input().split())
-a = [0] * (n + 1)
-b = [0] * (n + 1)
-for i in range(1, n + 1):
-    a[i], b[i] = map(int, input().split())
+=== "Python"
 
-P = [0] * (w + 1)
-L = [0] * (w + 1)
+    ```python
+    n, w = map(int, input().split())
+    a = [0] * (n + 1)
+    b = [0] * (n + 1)
+    for i in range(1, n + 1):
+        a[i], b[i] = map(int, input().split())
 
-for i in range(1, n + 1):
-    for j in range(1, w + 1):
-        if a[i] > j:
-            L[j] = P[j]
-        else:
-            L[j] = max(P[j], L[j - a[i]] + b[i])
-    P = L[:]
+    P = [0] * (w + 1)
+    L = [0] * (w + 1)
 
-print(L[w])
-```
+    for i in range(1, n + 1):
+        for j in range(1, w + 1):
+            if a[i] > j:
+                L[j] = P[j]
+            else:
+                L[j] = max(P[j], L[j - a[i]] + b[i])
+        P = L[:]
+
+    print(L[w])
+    ```
 
 Lưu ý rằng đoạn chương trình trên mới chỉ cài đặt y nguyên công thức QHĐ chứ chưa tối ưu. Ví dụ với các $j<A_i$, ta gán $L[j]=P[j]$ nhưng sau đó lại gán $P=L$. Bạn đọc có thể rút gọn đoạn code lại để chương trình tối ưu hơn.
 
@@ -562,144 +582,148 @@ Kết quả của bài toán là $L[n][m]$ hoặc $-1$ nếu $L[n][m ]=\inf$. Đ
 
 **Cài đặt:**
 
-```cpp
-## include <iostream>
-## include <vector>
-using namespace std;
+=== "C++"
 
-// Struct để truy vết
-struct Trace
-{
-    int coin; // Chỉ số đồng tiền được thêm vào
-    int i; // i và j dùng để truy vết trong bảng QHĐ
-    int j;
+    ```cpp
+    ## include <iostream>
+    ## include <vector>
+    using namespace std;
 
-    Trace(int c = 0, int row = 0, int col = 0)
-        : coin(c), i(row), j(col) {};
-};
-
-const int N = 1e6 + 10;
-int n, m, A[N];
-vector<int> L, P;
-vector<vector<Trace>> d;
-
-int main()
-{
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++)
-        cin >> A[i];
-
-    // Quy ước inf = -1
-    P = vector<int>(m + 1, -1);
-    L.resize(m + 1);
-    d = vector<vector<Trace>>(n + 1, vector<Trace>(m + 1));
-
-    // Bước QHĐ
-    for (int i = 1; i <= n; i++)
+    // Struct để truy vết
+    struct Trace
     {
-        L[0] = 0;
-        for (int j = 1; j <= m; j++)
-            if (A[i] > j)
-            {
-                L[j] = P[j];
-                d[i][j] = Trace(0, i - 1, j);
-            }
-            else
-            {
-                // L[j] = min(P[j], L[j - A[i]]);
-                // Nếu P[j] và L[j - A[i]] khác inf
-                if (P[j] != -1 && L[j - A[i]] != -1)
-                {
-                    if (P[j] < L[j - A[i]] + 1)
-                    {
-                        L[j] = P[j];
-                        d[i][j] = Trace(0, i - 1, j);
-                    }
-                    else
-                    {
-                        L[j] = L[j - A[i]] + 1;
-                        d[i][j] = Trace(i, i, j - A[i]);
-                    }
-                }
-                // Chỉ L[j - A[i]] là inf
-                else if (P[j] != -1)
+        int coin; // Chỉ số đồng tiền được thêm vào
+        int i; // i và j dùng để truy vết trong bảng QHĐ
+        int j;
+
+        Trace(int c = 0, int row = 0, int col = 0)
+            : coin(c), i(row), j(col) {};
+    };
+
+    const int N = 1e6 + 10;
+    int n, m, A[N];
+    vector<int> L, P;
+    vector<vector<Trace>> d;
+
+    int main()
+    {
+        cin >> n >> m;
+        for (int i = 1; i <= n; i++)
+            cin >> A[i];
+
+        // Quy ước inf = -1
+        P = vector<int>(m + 1, -1);
+        L.resize(m + 1);
+        d = vector<vector<Trace>>(n + 1, vector<Trace>(m + 1));
+
+        // Bước QHĐ
+        for (int i = 1; i <= n; i++)
+        {
+            L[0] = 0;
+            for (int j = 1; j <= m; j++)
+                if (A[i] > j)
                 {
                     L[j] = P[j];
                     d[i][j] = Trace(0, i - 1, j);
                 }
-                // Chỉ P[j] là inf
-                else if (L[j - A[i]] != -1)
-                {
-                    L[j] = L[j - A[i]] + 1;
-                    d[i][j] = Trace(i, i, j - A[i]);
-                }
-                // Cả hai số là inf
                 else
-                    L[j] = -1;
-            }
-        P = L;
-    }
-    cout << L[m] << '\n';
-
-    // Truy vết
-    if (L[m] != -1)
-    {
-        vector<int> cnt(n + 1);
-        Trace t = d[n][m];
-        while (t.coin != 0 && t.j != 0)
-        {
-            cnt[t.coin]++;
-            t = d[t.i][t.j];
+                {
+                    // L[j] = min(P[j], L[j - A[i]]);
+                    // Nếu P[j] và L[j - A[i]] khác inf
+                    if (P[j] != -1 && L[j - A[i]] != -1)
+                    {
+                        if (P[j] < L[j - A[i]] + 1)
+                        {
+                            L[j] = P[j];
+                            d[i][j] = Trace(0, i - 1, j);
+                        }
+                        else
+                        {
+                            L[j] = L[j - A[i]] + 1;
+                            d[i][j] = Trace(i, i, j - A[i]);
+                        }
+                    }
+                    // Chỉ L[j - A[i]] là inf
+                    else if (P[j] != -1)
+                    {
+                        L[j] = P[j];
+                        d[i][j] = Trace(0, i - 1, j);
+                    }
+                    // Chỉ P[j] là inf
+                    else if (L[j - A[i]] != -1)
+                    {
+                        L[j] = L[j - A[i]] + 1;
+                        d[i][j] = Trace(i, i, j - A[i]);
+                    }
+                    // Cả hai số là inf
+                    else
+                        L[j] = -1;
+                }
+            P = L;
         }
-        for (int i = 1; i <= n; i++)
-            cout << cnt[i] << ' ';
+        cout << L[m] << '\n';
+
+        // Truy vết
+        if (L[m] != -1)
+        {
+            vector<int> cnt(n + 1);
+            Trace t = d[n][m];
+            while (t.coin != 0 && t.j != 0)
+            {
+                cnt[t.coin]++;
+                t = d[t.i][t.j];
+            }
+            for (int i = 1; i <= n; i++)
+                cout << cnt[i] << ' ';
+        }
     }
-}
-```
+    ```
 
-```python
-n, m = map(int, input().split())
-A = [0] + list(map(int, input().split()))
+=== "Python"
 
-INF = -1
-P = [INF] * (m + 1)
-L = [0] * (m + 1)
-d = [[(0, 0, 0)] * (m + 1) for _ in range(n + 1)]
+    ```python
+    n, m = map(int, input().split())
+    A = [0] + list(map(int, input().split()))
 
-for i in range(1, n + 1):
-    L[0] = 0
-    for j in range(1, m + 1):
-        if A[i] > j:
-            L[j] = P[j]
-            d[i][j] = (0, i - 1, j)
-        else:
-            if P[j] != INF and L[j - A[i]] != INF:
-                if P[j] < L[j - A[i]] + 1:
-                    L[j] = P[j]
-                    d[i][j] = (0, i - 1, j)
-                else:
-                    L[j] = L[j - A[i]] + 1
-                    d[i][j] = (i, i, j - A[i])
-            elif P[j] != INF:
+    INF = -1
+    P = [INF] * (m + 1)
+    L = [0] * (m + 1)
+    d = [[(0, 0, 0)] * (m + 1) for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        L[0] = 0
+        for j in range(1, m + 1):
+            if A[i] > j:
                 L[j] = P[j]
                 d[i][j] = (0, i - 1, j)
-            elif L[j - A[i]] != INF:
-                L[j] = L[j - A[i]] + 1
-                d[i][j] = (i, i, j - A[i])
             else:
-                L[j] = INF
-    P = L[:]
+                if P[j] != INF and L[j - A[i]] != INF:
+                    if P[j] < L[j - A[i]] + 1:
+                        L[j] = P[j]
+                        d[i][j] = (0, i - 1, j)
+                    else:
+                        L[j] = L[j - A[i]] + 1
+                        d[i][j] = (i, i, j - A[i])
+                elif P[j] != INF:
+                    L[j] = P[j]
+                    d[i][j] = (0, i - 1, j)
+                elif L[j - A[i]] != INF:
+                    L[j] = L[j - A[i]] + 1
+                    d[i][j] = (i, i, j - A[i])
+                else:
+                    L[j] = INF
+        P = L[:]
 
-print(L[m])
+    print(L[m])
 
-if L[m] != INF:
-    cnt = [0] * (n + 1)
-    coin, ti, tj = d[n][m]
-    while coin != 0 and tj != 0:
-        cnt[coin] += 1
-        coin, ti, tj = d[ti][tj]
-    print(' '.join(str(cnt[i]) for i in range(1, n + 1)))
-```
+    if L[m] != INF:
+        cnt = [0] * (n + 1)
+        coin, ti, tj = d[n][m]
+        while coin != 0 and tj != 0:
+            cnt[coin] += 1
+            coin, ti, tj = d[ti][tj]
+        print(' '.join(str(cnt[i]) for i in range(1, n + 1)))
+    ```
 
 ## 3. Nhân ma trận
 
@@ -734,104 +758,112 @@ Nói cách khác, tích $A_{k+1}\times A_{k+1}\times\ldots\times A_j$ được t
 Nếu tính theo thứ tự, để tính được $L[i][j]$ ta cần các giá trị $L[i][k]$ và $L[k+1][j]$ sao cho $i\le k<j$. Do đó, không thể tính $L[i][j]$ theo thứ tự tăng dần của $i$ hoặc $j$. Thay vào đó, ta sẽ tính theo thứ tự tăng dần của $j-i$ như sau: đầu tiên tính các số $L[i][j]$ thỏa mãn $j-i=0$, sau đó tính giá trị các số tiếp theo với $j-i=1;2;\ldots;n-1$. Như vậy, khi tính $L[i][j]$ thì các giá trị $L[i][k],L[k+1][j]$ đã được tính, với $i\le k < j$.
 
 **Đệ quy có nhớ:**
-```cpp
-## include <iostream>
-using namespace std;
+=== "C++"
 
-const int N = 310;
-int d[N], L[N][N], n;
+    ```cpp
+    ## include <iostream>
+    using namespace std;
 
-int calc(int i, int j)
-{
-    if (L[i][j] == -1)
+    const int N = 310;
+    int d[N], L[N][N], n;
+
+    int calc(int i, int j)
     {
-        if (i == j)
-            L[i][j] = 0;
-        else
+        if (L[i][j] == -1)
         {
-            L[i][j] = calc(i + 1, j) + d[i - 1] * d[i] * d[j];
-            for (int k = i; k < j; k++)
-                L[i][j] = min(L[i][j], calc(i, k) + calc(k + 1, j) + d[i - 1] * d[k] * d[j]);
+            if (i == j)
+                L[i][j] = 0;
+            else
+            {
+                L[i][j] = calc(i + 1, j) + d[i - 1] * d[i] * d[j];
+                for (int k = i; k < j; k++)
+                    L[i][j] = min(L[i][j], calc(i, k) + calc(k + 1, j) + d[i - 1] * d[k] * d[j]);
+            }
         }
+        return L[i][j];
     }
-    return L[i][j];
-}
 
-int main()
-{
-    cin >> n;
-    for (int i = 0; i <= n; i++)
-        cin >> d[i];
+    int main()
+    {
+        cin >> n;
+        for (int i = 0; i <= n; i++)
+            cin >> d[i];
 
-    for (int i = 1; i <= n; i++)
-    for (int j = 1; j <= n; j++)
-        L[i][j] = -1;
-    cout << calc(1, n);
-}
-```
+        for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            L[i][j] = -1;
+        cout << calc(1, n);
+    }
+    ```
 
-```python
-import sys
-sys.setrecursionlimit(10000)
+=== "Python"
 
-n = int(input())
-d = list(map(int, input().split()))
+    ```python
+    import sys
+    sys.setrecursionlimit(10000)
 
-L = [[-1] * (n + 1) for _ in range(n + 1)]
+    n = int(input())
+    d = list(map(int, input().split()))
 
-def calc(i, j):
-    if L[i][j] == -1:
-        if i == j:
-            L[i][j] = 0
-        else:
-            L[i][j] = calc(i + 1, j) + d[i - 1] * d[i] * d[j]
-            for k in range(i, j):
-                L[i][j] = min(L[i][j], calc(i, k) + calc(k + 1, j) + d[i - 1] * d[k] * d[j])
-    return L[i][j]
+    L = [[-1] * (n + 1) for _ in range(n + 1)]
 
-print(calc(1, n))
-```
+    def calc(i, j):
+        if L[i][j] == -1:
+            if i == j:
+                L[i][j] = 0
+            else:
+                L[i][j] = calc(i + 1, j) + d[i - 1] * d[i] * d[j]
+                for k in range(i, j):
+                    L[i][j] = min(L[i][j], calc(i, k) + calc(k + 1, j) + d[i - 1] * d[k] * d[j])
+        return L[i][j]
+
+    print(calc(1, n))
+    ```
 
 **Tính theo thứ tự:**
-```cpp
-## include <iostream>
-using namespace std;
+=== "C++"
 
-const int N = 310;
-int d[N], L[N][N], n;
+    ```cpp
+    ## include <iostream>
+    using namespace std;
 
-int main()
-{
-    cin >> n;
-    for (int i = 0; i <= n; i++)
-        cin >> d[i];
-    for (int dis = 1; dis < n; dis++)
-        for (int i = 1; i + dis <= n; i++)
-        {
-            int j = i + dis;
-            L[i][j] = L[i + 1][j] + d[i - 1] * d[i] * d[j];
-            for (int k = i; k < j; k++)
-                L[i][j] = min(L[i][j], L[i][k] + L[k + 1][j] + d[i - 1] * d[k] * d[j]);
-        }
-    cout << L[1][n];
-}
-```
+    const int N = 310;
+    int d[N], L[N][N], n;
 
-```python
-n = int(input())
-d = list(map(int, input().split()))
+    int main()
+    {
+        cin >> n;
+        for (int i = 0; i <= n; i++)
+            cin >> d[i];
+        for (int dis = 1; dis < n; dis++)
+            for (int i = 1; i + dis <= n; i++)
+            {
+                int j = i + dis;
+                L[i][j] = L[i + 1][j] + d[i - 1] * d[i] * d[j];
+                for (int k = i; k < j; k++)
+                    L[i][j] = min(L[i][j], L[i][k] + L[k + 1][j] + d[i - 1] * d[k] * d[j]);
+            }
+        cout << L[1][n];
+    }
+    ```
 
-L = [[0] * (n + 1) for _ in range(n + 1)]
+=== "Python"
 
-for dis in range(1, n):
-    for i in range(1, n - dis + 1):
-        j = i + dis
-        L[i][j] = L[i + 1][j] + d[i - 1] * d[i] * d[j]
-        for k in range(i, j):
-            L[i][j] = min(L[i][j], L[i][k] + L[k + 1][j] + d[i - 1] * d[k] * d[j])
+    ```python
+    n = int(input())
+    d = list(map(int, input().split()))
 
-print(L[1][n])
-```
+    L = [[0] * (n + 1) for _ in range(n + 1)]
+
+    for dis in range(1, n):
+        for i in range(1, n - dis + 1):
+            j = i + dis
+            L[i][j] = L[i + 1][j] + d[i - 1] * d[i] * d[j]
+            for k in range(i, j):
+                L[i][j] = min(L[i][j], L[i][k] + L[k + 1][j] + d[i - 1] * d[k] * d[j])
+
+    print(L[1][n])
+    ```
 
 Với hai cách cài đặt trên, độ phức tạp bộ nhớ là $\mathcal{O}(n^2)$, độ phức tạp thời gian là $\mathcal{O}(n^3)$.
 
@@ -860,70 +892,74 @@ Từ đó, ta rút ra công thức truy hồi sau:
 $L[1][n]$ là tổng đường chéo của cách chia tối ưu.
 
 **Cài đặt:**
-```cpp
-## include <iostream>
-## include <cmath>
-using namespace std;
+=== "C++"
 
-struct Point
-{
-    double x;
-    double y;
-    Point(double xx = 0.0, double yy = 0.0)
-        : x(xx), y(yy) {};
-};
+    ```cpp
+    ## include <iostream>
+    ## include <cmath>
+    using namespace std;
 
-double distance(const Point& a, const Point& b)
-{
-    return sqrtl((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
-}
+    struct Point
+    {
+        double x;
+        double y;
+        Point(double xx = 0.0, double yy = 0.0)
+            : x(xx), y(yy) {};
+    };
 
-const int N = 310;
-int n;
-double L[N][N];
-Point p[N];
+    double distance(const Point& a, const Point& b)
+    {
+        return sqrtl((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+    }
 
-int main()
-{
-    cin >> n;
-    for (int i = 1; i <= n; i++)
-        cin >> p[i].x >> p[i].y;
+    const int N = 310;
+    int n;
+    double L[N][N];
+    Point p[N];
 
-    for (int dis = 3; dis <= n - 1; dis++)
-        for (int i = 1; i + dis <= n; i++)
-        {
-            int j = i + dis;
-            L[i][j] = L[i + 1][j] + distance(p[i + 1], p[j]);
-            for (int k = i + 1; k <= j - 1; k++)
-                L[i][j] = min(L[i][j], L[i][k] + L[k][j] + distance(p[i], p[k]) + distance(p[k], p[j]));
-        }
-    cout << L[1][n];
-}
-```
+    int main()
+    {
+        cin >> n;
+        for (int i = 1; i <= n; i++)
+            cin >> p[i].x >> p[i].y;
 
-```python
-import math
+        for (int dis = 3; dis <= n - 1; dis++)
+            for (int i = 1; i + dis <= n; i++)
+            {
+                int j = i + dis;
+                L[i][j] = L[i + 1][j] + distance(p[i + 1], p[j]);
+                for (int k = i + 1; k <= j - 1; k++)
+                    L[i][j] = min(L[i][j], L[i][k] + L[k][j] + distance(p[i], p[k]) + distance(p[k], p[j]));
+            }
+        cout << L[1][n];
+    }
+    ```
 
-def distance(a, b):
-    return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+=== "Python"
 
-n = int(input())
-p = [(0, 0)] * (n + 1)
-for i in range(1, n + 1):
-    x, y = map(float, input().split())
-    p[i] = (x, y)
+    ```python
+    import math
 
-L = [[0.0] * (n + 1) for _ in range(n + 1)]
+    def distance(a, b):
+        return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
-for dis in range(3, n):
-    for i in range(1, n - dis + 1):
-        j = i + dis
-        L[i][j] = L[i + 1][j] + distance(p[i + 1], p[j])
-        for k in range(i + 1, j):
-            L[i][j] = min(L[i][j], L[i][k] + L[k][j] + distance(p[i], p[k]) + distance(p[k], p[j]))
+    n = int(input())
+    p = [(0, 0)] * (n + 1)
+    for i in range(1, n + 1):
+        x, y = map(float, input().split())
+        p[i] = (x, y)
 
-print(L[1][n])
-```
+    L = [[0.0] * (n + 1) for _ in range(n + 1)]
+
+    for dis in range(3, n):
+        for i in range(1, n - dis + 1):
+            j = i + dis
+            L[i][j] = L[i + 1][j] + distance(p[i + 1], p[j])
+            for k in range(i + 1, j):
+                L[i][j] = min(L[i][j], L[i][k] + L[k][j] + distance(p[i], p[k]) + distance(p[k], p[j]))
+
+    print(L[1][n])
+    ```
 
 ### 3.4.2. Biểu thức số học 
 > *Cho $n$ số thực không âm $A_1,A_2,\ldots,A_n$ được viết thành một hàng ngang theo thứ tự đó. Giữa hai số liên tiếp có một dấu `+` hoặc `*` cho trước. Hãy đặt các dấu ngoặc vào biểu thức để giá trị thu được là lớn nhất.*
@@ -973,29 +1009,33 @@ Tóm lại, công thức truy hồi của bài toán là:
 ## 4.3. Code tham khảo
 Tương tự các bài toán trước, có hai phương pháp cài đặt QHĐ, với phương pháp tính từng hàng cài đặt nhanh và tiết kiệm hơn:
 
-```cpp
-vector<int> P(k + 1), L(k + 1);
-for (int i = 1; i <= n; i++)
-{
-    for (int j = 1; j <= i; j++)
+=== "C++"
+
+    ```cpp
+    vector<int> P(k + 1), L(k + 1);
+    for (int i = 1; i <= n; i++)
     {
-        L[j] = max(P[j - 1] + v[i][j], P[j]);
+        for (int j = 1; j <= i; j++)
+        {
+            L[j] = max(P[j - 1] + v[i][j], P[j]);
+        }
+        P = L;
     }
-    P = L;
-}
-cout << L[k];
-```
+    cout << L[k];
+    ```
 
-```python
-P = [0] * (k + 1)
-L = [0] * (k + 1)
-for i in range(1, n + 1):
-    for j in range(1, i + 1):
-        L[j] = max(P[j - 1] + v[i][j], P[j])
-    P = L[:]
+=== "Python"
 
-print(L[k])
-```
+    ```python
+    P = [0] * (k + 1)
+    L = [0] * (k + 1)
+    for i in range(1, n + 1):
+        for j in range(1, i + 1):
+            L[j] = max(P[j - 1] + v[i][j], P[j])
+        P = L[:]
+
+    print(L[k])
+    ```
 
 ## 4.4. Một số bài toán khác
 

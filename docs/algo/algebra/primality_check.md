@@ -27,27 +27,31 @@ Cách đơn giản nhất để kiểm tra tính nguyên tố của số tự nh
 
 Ta có thể cài đặt như sau:
 
-```cpp
-bool primeCheck(int n)
-{
-    if (n < 2)
-        return false;
-    for (int i = 2; i < n; ++i)
-        if (n % i == 0)
-            return false;
-    return true;
-}
-```
+=== "C++"
 
-```python
-def prime_check(n):
-    if n < 2:
-        return False
-    for i in range(2, n):
-        if n % i == 0:
+    ```cpp
+    bool primeCheck(int n)
+    {
+        if (n < 2)
+            return false;
+        for (int i = 2; i < n; ++i)
+            if (n % i == 0)
+                return false;
+        return true;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def prime_check(n):
+        if n < 2:
             return False
-    return True
-```
+        for i in range(2, n):
+            if n % i == 0:
+                return False
+        return True
+    ```
 
 Độ phức tạp thuật toán: $\mathcal{O}\left(n\right)$.
 
@@ -57,93 +61,105 @@ def prime_check(n):
 
 Cài đặt thuật toán:
 
-```cpp
-bool primeCheck(int n)
-{
-    if (n < 2)
-        return false;
-    for (int i = 2; i * i <= n; ++i)
-        if (n % i == 0)
-            return false;
-    return true;
-}
-```
+=== "C++"
 
-```python
-def prime_check(n):
-    if n < 2:
-        return False
-    i = 2
-    while i * i <= n:
-        if n % i == 0:
+    ```cpp
+    bool primeCheck(int n)
+    {
+        if (n < 2)
+            return false;
+        for (int i = 2; i * i <= n; ++i)
+            if (n % i == 0)
+                return false;
+        return true;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def prime_check(n):
+        if n < 2:
             return False
-        i += 1
-    return True
-```
+        i = 2
+        while i * i <= n:
+            if n % i == 0:
+                return False
+            i += 1
+        return True
+    ```
 
 Độ phức tạp thuật toán: $\mathcal{O}\left(\sqrt{n}\right)$.
 
 Ta có thể mở rộng thuật toán trên thành thuật toán phân tích một số nguyên dương ra thừa số nguyên tố:
 
-```cpp
-void primeFactorization(int n)
-{
-    for (int i = 2; i * i <= n; ++i)
-        while (n % i == 0)
-        {
-            n /= i;
-            cout << i << ' ';
-        }
-    if (n > 1)
-        cout << n;
-}
-```
+=== "C++"
 
-```python
-def prime_factorization(n):
-    res = []
-    i = 2
-    while i * i <= n:
-        while n % i == 0:
-            n //= i
-            res.append(i)
-        i += 1
-    if n > 1:
-        res.append(n)
-    return res
-```
+    ```cpp
+    void primeFactorization(int n)
+    {
+        for (int i = 2; i * i <= n; ++i)
+            while (n % i == 0)
+            {
+                n /= i;
+                cout << i << ' ';
+            }
+        if (n > 1)
+            cout << n;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def prime_factorization(n):
+        res = []
+        i = 2
+        while i * i <= n:
+            while n % i == 0:
+                n //= i
+                res.append(i)
+            i += 1
+        if n > 1:
+            res.append(n)
+        return res
+    ```
 
 ## 1.3. Ngây thơ 2.5
 
 Để ý nếu số nguyên tố $n$ lẻ thì $n$ không chia hết cho một số chẵn bất kì. Do đó nếu $n>2$, ta chỉ cần xét các số $i$ lẻ thuộc đoạn $\left[2,\left[\sqrt{n}\right]\right]$. Tương tự, nếu $n>3$ thì ta chỉ cần xét $i$ là các số không chia hết cho $3$. Từ hai nhận xét trên, nếu $n>3$ thì ta chỉ cần xét các số $i$ sao cho $i$ chia $6$ dư $1$ hoặc $5$.
 
-```cpp
-bool primeCheck(int n)
-{
-    if (n == 2 || n == 3)
-        return true;
-    if (n < 3 || n % 2 == 0 || n % 3 == 0)
-        return false;
-    for (int i = 5; i * i <= n; i += 6)
-        if (n % i == 0 || n % (i + 2) == 0)
-            return false;
-    return true;
-}
-```
+=== "C++"
 
-```python
-def prime_check(n):
-    if n == 2 or n == 3:
-        return True
-    if n < 3 or n % 2 == 0 or n % 3 == 0:
-        return False
-    i = 5
-    while i * i <= n:
-        if n % i == 0 or n % (i + 2) == 0:
+    ```cpp
+    bool primeCheck(int n)
+    {
+        if (n == 2 || n == 3)
+            return true;
+        if (n < 3 || n % 2 == 0 || n % 3 == 0)
+            return false;
+        for (int i = 5; i * i <= n; i += 6)
+            if (n % i == 0 || n % (i + 2) == 0)
+                return false;
+        return true;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def prime_check(n):
+        if n == 2 or n == 3:
+            return True
+        if n < 3 or n % 2 == 0 or n % 3 == 0:
             return False
-        i += 6
-    return True
-```
+        i = 5
+        while i * i <= n:
+            if n % i == 0 or n % (i + 2) == 0:
+                return False
+            i += 6
+        return True
+    ```
 **Chú ý:** Có thể sử dụng nhiều số nguyên tố đầu tiên để tối ưu thuật toán hơn. Về lý thuyết, nếu $k$ là số số nguyên tố được dùng càng lớn thì vòng lặp chạy càng nhanh. Tuy nhiên, với $k=50$, độ phức tạp vòng lặp `for` là $\mathcal{O}\left(\frac{\sqrt{n}}{10}\right)$. Và kể cả với $k=6.10^5$ thì độ phức tạp thuật của vòng lặp `for` vẫn là $\mathcal{O}\left(\frac{\sqrt{n}}{30}\right)$.
 
 Do đó thuật toán này có thể không đủ nhanh để giải quyết giới hạn $n\le10^{18}$, hoặc $n\le10^9$ nhưng phải kiểm tra $10^6$ số $n$ trở lên. Để giải quyết các bài toán có giới hạn lớn như thế, ta phải sử dụng đến các phương pháp xác suất.
@@ -169,128 +185,140 @@ Về lý thuyết, nếu ta kiểm tra đẳng thức Fermat với mọi số $a
 ## 2.2. Cài đặt
 Ta có thể cài đặt kết quả của phép tính $a^{n-1}\mod{n}$ bằng lũy thừa nhị phân.
 
-```cpp
-// Tính a^k (mod n)
-int binaryPower(long long a, int k, int n)
-{
-    a = a % n;
-    long long res = 1;
-    while (k)
-    {
-        if (k & 1)
-            res = (res * a) % n;
-        a = (a * a) % n;
-        k /= 2;
-    }
-    return res;
-}
-```
+=== "C++"
 
-```python
-# Tính a^k (mod n)
-def binary_power(a, k, n):
-    a = a % n
-    res = 1
-    while k > 0:
-        if k & 1:
-            res = (res * a) % n
-        a = (a * a) % n
-        k //= 2
-    return res
-```
+    ```cpp
+    // Tính a^k (mod n)
+    int binaryPower(long long a, int k, int n)
+    {
+        a = a % n;
+        long long res = 1;
+        while (k)
+        {
+            if (k & 1)
+                res = (res * a) % n;
+            a = (a * a) % n;
+            k /= 2;
+        }
+        return res;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Tính a^k (mod n)
+    def binary_power(a, k, n):
+        a = a % n
+        res = 1
+        while k > 0:
+            if k & 1:
+                res = (res * a) % n
+            a = (a * a) % n
+            k //= 2
+        return res
+    ```
 
 Cài đặt phép thử Fermat:
 
-```cpp
-bool isProbablyPrime(int n)
-{
-    if (n < 7)
-        return n == 2 || n == 3 || n == 5;
-    
-    static const int repeatNum = 5;
-    for (int i = 0; i < repeatNum; ++i)
+=== "C++"
+
+    ```cpp
+    bool isProbablyPrime(int n)
     {
-        int a = rand() % (n - 3) + 2;
-        if (binaryPower(a, n - 1, n) != 1)
-            return false;
+        if (n < 7)
+            return n == 2 || n == 3 || n == 5;
+        
+        static const int repeatNum = 5;
+        for (int i = 0; i < repeatNum; ++i)
+        {
+            int a = rand() % (n - 3) + 2;
+            if (binaryPower(a, n - 1, n) != 1)
+                return false;
+        }
+        return true;
     }
-    return true;
-}
-```
+    ```
 
-```python
-import random
+=== "Python"
 
-def is_probably_prime(n):
-    if n < 7:
-        return n in (2, 3, 5)
-    REPEAT_NUM = 5
-    for _ in range(REPEAT_NUM):
-        a = random.randint(2, n - 2)
-        if binary_power(a, n - 1, n) != 1:
-            return False
-    return True
-```
+    ```python
+    import random
+    
+    def is_probably_prime(n):
+        if n < 7:
+            return n in (2, 3, 5)
+        REPEAT_NUM = 5
+        for _ in range(REPEAT_NUM):
+            a = random.randint(2, n - 2)
+            if binary_power(a, n - 1, n) != 1:
+                return False
+        return True
+    ```
 
 Độ phức tạp phép thử là $\mathcal{O}\left(c\log{n}\right)$ với $c$ là số cơ số $a$ được thử.
 
 Do thuật toán `binaryPower` có sử dụng phép tính `(a * a) % n` nên nếu $n\ge2^{32}$ sẽ có thể bị tràn số. Phiên bản được trình bày ở trên xử lí $n<2^{32}$. Để áp dụng thuật toán lũy thừa nhị phân với $10^{18}\ge n$, bạn phải dùng kiểu số nguyên $128-bit$ nếu ngôn ngữ lập trình cho phép. Nếu ngôn ngữ lập trình chỉ có loại số nguyên $64-bit$, bạn có thể tham khảo thuật toán được chỉnh sửa như sau:
 
-```cpp
-// Tính a * b mod n
-long long binaryMul(long long a, long long b, long long n)
-{
-    a = a % n;
-    long long res = 0;
-    while (b)
+=== "C++"
+
+    ```cpp
+    // Tính a * b mod n
+    long long binaryMul(long long a, long long b, long long n)
     {
-        if (b & 1)
-            res = (res + a) % n;
-        a = (2 * a) % n;
-        b /= 2;
+        a = a % n;
+        long long res = 0;
+        while (b)
+        {
+            if (b & 1)
+                res = (res + a) % n;
+            a = (2 * a) % n;
+            b /= 2;
+        }
+        return res;
     }
-    return res;
-}
-
-// Tính a^b mod n
-long long binaryPow(long long a, long long k, long long n)
-{
-    a = a % n;
-    long long res = 1;
-    while (k)
+    
+    // Tính a^b mod n
+    long long binaryPow(long long a, long long k, long long n)
     {
-        if (k & 1)
-            res = binaryMul(res, a, n);
-        a = binaryMul(a, a, n) % n;
-        k /= 2;
+        a = a % n;
+        long long res = 1;
+        while (k)
+        {
+            if (k & 1)
+                res = binaryMul(res, a, n);
+            a = binaryMul(a, a, n) % n;
+            k /= 2;
+        }
+        return res;
     }
-    return res;
-}
-```
+    ```
 
-```python
-# Tính a * b mod n
-def binary_mul(a, b, n):
-    a = a % n
-    res = 0
-    while b > 0:
-        if b & 1:
-            res = (res + a) % n
-        a = (2 * a) % n
-        b //= 2
-    return res
+=== "Python"
 
-# Tính a^b mod n
-def binary_pow(a, k, n):
-    a = a % n
-    res = 1
-    while k > 0:
-        if k & 1:
-            res = binary_mul(res, a, n)
-        a = binary_mul(a, a, n)
-        k //= 2
-    return res
-```
+    ```python
+    # Tính a * b mod n
+    def binary_mul(a, b, n):
+        a = a % n
+        res = 0
+        while b > 0:
+            if b & 1:
+                res = (res + a) % n
+            a = (2 * a) % n
+            b //= 2
+        return res
+    
+    # Tính a^b mod n
+    def binary_pow(a, k, n):
+        a = a % n
+        res = 1
+        while k > 0:
+            if k & 1:
+                res = binary_mul(res, a, n)
+            a = binary_mul(a, a, n)
+            k //= 2
+        return res
+    ```
 
 Khi đó độ phức tạp thuật toán là $\mathcal{O}\left(c\log^2{n}\right)$.
 
@@ -366,109 +394,113 @@ Nghĩa là với hợp số $n$ bất kì, xác suất để thuật toán chứ
 
 **Cài đặt thuật toán:**
 
-```cpp
-// Tính a^k mod n
-long long binaryPower(long long a, long long k, long long n)
-{
-    a = a % n;
-    long long res = 1;
-    while (k)
-    {
-        if (k & 1)
-            res = (res * a) % n;
-        a = (a * a) % n;
-        k /= 2;
-    }
-    return res;
-}
+=== "C++"
 
-// Kiểm tra điều kiện thuật toán với a cố định
-bool test(long long a, long long n, long long k, long long m)
-{
-    long long mod = binaryPower(a, m, n);
-    if (mod == 1 || mod == n - 1)
-            return true;
-    for (int l = 1; l < k; ++l)
+    ```cpp
+    // Tính a^k mod n
+    long long binaryPower(long long a, long long k, long long n)
     {
-        mod = (mod * mod) % n;
-        if (mod == n - 1)
-            return true;
+        a = a % n;
+        long long res = 1;
+        while (k)
+        {
+            if (k & 1)
+                res = (res * a) % n;
+            a = (a * a) % n;
+            k /= 2;
+        }
+        return res;
     }
-    return false;
-}
-
-bool RabinMiller(long long n)
-{
-    // Kiểm tra với các giá trị nhỏ
-    if (n == 2 || n == 3 || n == 5 || n == 7)
-        return true;
-    if (n < 11)
+    
+    // Kiểm tra điều kiện thuật toán với a cố định
+    bool test(long long a, long long n, long long k, long long m)
+    {
+        long long mod = binaryPower(a, m, n);
+        if (mod == 1 || mod == n - 1)
+                return true;
+        for (int l = 1; l < k; ++l)
+        {
+            mod = (mod * mod) % n;
+            if (mod == n - 1)
+                return true;
+        }
         return false;
-
-    // Tính m và k
-    long long k = 0, m = n - 1;
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        k++;
     }
-
-    // Lặp lại bước kiểm tra với a ngẫu nhiên
-    const static int repeatTime = 3;
-    for (int i = 0; i < repeatTime; ++i)
+    
+    bool RabinMiller(long long n)
     {
-        long long a = rand() % (n - 3) + 2;
-        if (!test(a, n, k, m))
+        // Kiểm tra với các giá trị nhỏ
+        if (n == 2 || n == 3 || n == 5 || n == 7)
+            return true;
+        if (n < 11)
             return false;
+    
+        // Tính m và k
+        long long k = 0, m = n - 1;
+        while (m % 2 == 0)
+        {
+            m /= 2;
+            k++;
+        }
+    
+        // Lặp lại bước kiểm tra với a ngẫu nhiên
+        const static int repeatTime = 3;
+        for (int i = 0; i < repeatTime; ++i)
+        {
+            long long a = rand() % (n - 3) + 2;
+            if (!test(a, n, k, m))
+                return false;
+        }
+        return true;
     }
-    return true;
-}
-```
+    ```
 
-```python
-import random
+=== "Python"
 
-# Tính a^k mod n
-def binary_power(a, k, n):
-    a = a % n
-    res = 1
-    while k > 0:
-        if k & 1:
-            res = (res * a) % n
-        a = (a * a) % n
-        k //= 2
-    return res
-
-# Kiểm tra điều kiện thuật toán với a cố định
-def test(a, n, k, m):
-    mod = binary_power(a, m, n)
-    if mod == 1 or mod == n - 1:
-        return True
-    for _ in range(1, k):
-        mod = (mod * mod) % n
-        if mod == n - 1:
+    ```python
+    import random
+    
+    # Tính a^k mod n
+    def binary_power(a, k, n):
+        a = a % n
+        res = 1
+        while k > 0:
+            if k & 1:
+                res = (res * a) % n
+            a = (a * a) % n
+            k //= 2
+        return res
+    
+    # Kiểm tra điều kiện thuật toán với a cố định
+    def test(a, n, k, m):
+        mod = binary_power(a, m, n)
+        if mod == 1 or mod == n - 1:
             return True
-    return False
-
-def rabin_miller(n):
-    if n in (2, 3, 5, 7):
-        return True
-    if n < 11:
+        for _ in range(1, k):
+            mod = (mod * mod) % n
+            if mod == n - 1:
+                return True
         return False
-
-    # Tính m và k
-    k, m = 0, n - 1
-    while m % 2 == 0:
-        m //= 2
-        k += 1
-
-    REPEAT_TIME = 3
-    for _ in range(REPEAT_TIME):
-        a = random.randint(2, n - 2)
-        if not test(a, n, k, m):
+    
+    def rabin_miller(n):
+        if n in (2, 3, 5, 7):
+            return True
+        if n < 11:
             return False
-    return True
-```
+    
+        # Tính m và k
+        k, m = 0, n - 1
+        while m % 2 == 0:
+            m //= 2
+            k += 1
+    
+        REPEAT_TIME = 3
+        for _ in range(REPEAT_TIME):
+            a = random.randint(2, n - 2)
+            if not test(a, n, k, m):
+                return False
+        return True
+    ```
 Độ phức tạp là $\mathcal{O}\left(c\log{n}\right)$.
 
 ## 3.3. Thuật toán đơn định (Deterministic)
@@ -482,47 +514,51 @@ Với $n$ đủ lớn thì vẫn có rất nhiều giá trị cần kiểm tra. 
 
 Do đó, ta có phiên bản thuật toán (độ chính xác $100\%$) của phép thử như sau:
 
-```cpp
-bool MillerRabin(long long n)
-{
-    if (n == 2 || n == 3 || n == 5 || n == 7)
-        return true;
-    if (n < 11)
-        return false;
+=== "C++"
 
-    long long k = 0, m = n - 1;
-    while (m % 2 == 0)
+    ```cpp
+    bool MillerRabin(long long n)
     {
-        m /= 2;
-        k++;
-    }
-
-    static vector<int> checkSet = {2,3,5,7,11,13,17,19,23,29,31,37};
-    for (auto a : checkSet)
-        if (!test(a, n, k, m))
+        if (n == 2 || n == 3 || n == 5 || n == 7)
+            return true;
+        if (n < 11)
             return false;
-    return true;
-}
-```
+    
+        long long k = 0, m = n - 1;
+        while (m % 2 == 0)
+        {
+            m /= 2;
+            k++;
+        }
+    
+        static vector<int> checkSet = {2,3,5,7,11,13,17,19,23,29,31,37};
+        for (auto a : checkSet)
+            if (!test(a, n, k, m))
+                return false;
+        return true;
+    }
+    ```
 
-```python
-def miller_rabin(n):
-    if n in (2, 3, 5, 7):
-        return True
-    if n < 11:
-        return False
+=== "Python"
 
-    k, m = 0, n - 1
-    while m % 2 == 0:
-        m //= 2
-        k += 1
-
-    check_set = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
-    for a in check_set:
-        if not test(a, n, k, m):
+    ```python
+    def miller_rabin(n):
+        if n in (2, 3, 5, 7):
+            return True
+        if n < 11:
             return False
-    return True
-```
+    
+        k, m = 0, n - 1
+        while m % 2 == 0:
+            m //= 2
+            k += 1
+    
+        check_set = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+        for a in check_set:
+            if not test(a, n, k, m):
+                return False
+        return True
+    ```
 
 ## 4. Bài tập luyện tập:
 

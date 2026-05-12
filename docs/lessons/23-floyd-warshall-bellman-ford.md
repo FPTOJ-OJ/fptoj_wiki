@@ -15,46 +15,48 @@ Lặp N-1 lần. Mỗi lần, duyệt **tất cả** cạnh, cập nhật khoả
 
 ![Bellman-Ford](../uploads/img/bellman-ford.svg)
 
-```cpp
-// Bellman-Ford - O(VE)
-// Trả về true nếu có chu trình âm
-bool bellmanFord(int n, int start, vector<tuple<int,int,int>>& edges, 
-                 vector<long long>& dist) {
-    dist.assign(n + 1, LLONG_MAX);
-    dist[start] = 0;
-    
-    // Lặp N-1 lần
-    for (int i = 1; i < n; i++) {
+=== "C++"
+
+    ```cpp
+    // Bellman-Ford - O(VE)
+    // Trả về true nếu có chu trình âm
+    bool bellmanFord(int n, int start, vector<tuple<int,int,int>>& edges, 
+                     vector<long long>& dist) {
+        dist.assign(n + 1, LLONG_MAX);
+        dist[start] = 0;
+        
+        // Lặp N-1 lần
+        for (int i = 1; i < n; i++) {
+            for (auto [u, v, w] : edges) {
+                if (dist[u] != LLONG_MAX && dist[u] + w < dist[v])
+                    dist[v] = dist[u] + w;
+            }
+        }
+        
+        // Kiểm tra chu trình âm
         for (auto [u, v, w] : edges) {
             if (dist[u] != LLONG_MAX && dist[u] + w < dist[v])
-                dist[v] = dist[u] + w;
+                return true;  // Có chu trình âm!
         }
+        return false;
     }
-    
-    // Kiểm tra chu trình âm
-    for (auto [u, v, w] : edges) {
-        if (dist[u] != LLONG_MAX && dist[u] + w < dist[v])
-            return true;  // Có chu trình âm!
-    }
-    return false;
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-def bellman_ford(n, start, edges):
-    dist = [float('inf')] * (n + 1)
-    dist[start] = 0
-    for _ in range(n - 1):
+    ```python
+    def bellman_ford(n, start, edges):
+        dist = [float('inf')] * (n + 1)
+        dist[start] = 0
+        for _ in range(n - 1):
+            for u, v, w in edges:
+                if dist[u] != float('inf') and dist[u] + w < dist[v]:
+                    dist[v] = dist[u] + w
         for u, v, w in edges:
             if dist[u] != float('inf') and dist[u] + w < dist[v]:
-                dist[v] = dist[u] + w
-    for u, v, w in edges:
-        if dist[u] != float('inf') and dist[u] + w < dist[v]:
-            return True, dist
-    return False, dist
-```
+                return True, dist
+        return False, dist
+    ```
 
 ### Tại sao lặp N-1 lần? Tại sao kiểm tra thêm 1 lần nữa?
 
@@ -93,102 +95,109 @@ Dùng đỉnh trung gian k. Với mỗi cặp (i, j), thử xem đi qua k có ng
 ```
 dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
 ```
+=== "C++"
 
-### Code C++
-
-```cpp
-// Floyd-Warshall - O(V³)
-void floydWarshall(int n, vector<vector<long long>>& dist) {
-    // dist[i][j] = khoảng cách ngắn nhất từ i đến j
-    // Khởi tạo: dist[i][j] = trọng số cạnh (i,j), hoặc INF nếu không có cạnh
-    // dist[i][i] = 0
-    
-    for (int k = 1; k <= n; k++) {          // Đỉnh trung gian
-        for (int i = 1; i <= n; i++) {      // Đỉnh nguồn
-            for (int j = 1; j <= n; j++) {  // Đỉnh đích
-                if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX)
-                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+    ```cpp
+    // Floyd-Warshall - O(V³)
+    void floydWarshall(int n, vector<vector<long long>>& dist) {
+        // dist[i][j] = khoảng cách ngắn nhất từ i đến j
+        // Khởi tạo: dist[i][j] = trọng số cạnh (i,j), hoặc INF nếu không có cạnh
+        // dist[i][i] = 0
+        
+        for (int k = 1; k <= n; k++) {          // Đỉnh trung gian
+            for (int i = 1; i <= n; i++) {      // Đỉnh nguồn
+                for (int j = 1; j <= n; j++) {  // Đỉnh đích
+                    if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX)
+                        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+                }
             }
         }
     }
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-def floyd_warshall(n, dist):
-    for k in range(1, n + 1):
-        for i in range(1, n + 1):
-            for j in range(1, n + 1):
-                if dist[i][k] != float('inf') and dist[k][j] != float('inf'):
-                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
-```
+    ```python
+    def floyd_warshall(n, dist):
+        for k in range(1, n + 1):
+            for i in range(1, n + 1):
+                for j in range(1, n + 1):
+                    if dist[i][k] != float('inf') and dist[k][j] != float('inf'):
+                        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+    ```
 
 ### Floyd-Warshall: Truy vết đường đi
 
 Muốn biết đường đi ngắn nhất từ i đến j đi qua những đỉnh nào? Dùng mảng `next[i][j]`:
 
-```cpp
-// Khởi tạo next[i][j] = j nếu có cạnh (i,j), -1 nếu không
-int next[MAXN][MAXN];
+=== "C++"
 
-void floydWithPath(int n, vector<vector<long long>>& dist) {
-    // Khởi tạo next
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= n; j++)
-            next[i][j] = (i != j && dist[i][j] < LLONG_MAX) ? j : -1;
-
-    for (int k = 1; k <= n; k++) {
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX &&
-                    dist[i][k] + dist[k][j] < dist[i][j]) {
-                    dist[i][j] = dist[i][k] + dist[k][j];
-                    next[i][j] = next[i][k];  // Đi từ i, rẽ tại k
+    ```cpp
+    // Khởi tạo next[i][j] = j nếu có cạnh (i,j), -1 nếu không
+    int next[MAXN][MAXN];
+    
+    void floydWithPath(int n, vector<vector<long long>>& dist) {
+        // Khởi tạo next
+        for (int i = 1; i <= n; i++)
+            for (int j = 1; j <= n; j++)
+                next[i][j] = (i != j && dist[i][j] < LLONG_MAX) ? j : -1;
+    
+        for (int k = 1; k <= n; k++) {
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
+                    if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX &&
+                        dist[i][k] + dist[k][j] < dist[i][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                        next[i][j] = next[i][k];  // Đi từ i, rẽ tại k
+                    }
                 }
             }
         }
     }
-}
-
-// Truy vết đường đi từ u đến v
-vector<int> getPath(int u, int v) {
-    if (next[u][v] == -1) return {};  // Không có đường đi
-    vector<int> path = {u};
-    while (u != v) {
-        u = next[u][v];
-        path.push_back(u);
+    
+    // Truy vết đường đi từ u đến v
+    vector<int> getPath(int u, int v) {
+        if (next[u][v] == -1) return {};  // Không có đường đi
+        vector<int> path = {u};
+        while (u != v) {
+            u = next[u][v];
+            path.push_back(u);
+        }
+        return path;
     }
-    return path;
-}
-```
+    ```
 
-```python
-def floyd_with_path(n, dist):
-    nxt = [[-1] * (n + 1) for _ in range(n + 1)]
-    for i in range(1, n + 1):
-        for j in range(1, n + 1):
-            if i != j and dist[i][j] < float('inf'):
-                nxt[i][j] = j
+=== "Python"
 
-    for k in range(1, n + 1):
+    ```python
+    def floyd_with_path(n, dist):
+        nxt = [[-1] * (n + 1) for _ in range(n + 1)]
         for i in range(1, n + 1):
             for j in range(1, n + 1):
-                if dist[i][k] + dist[k][j] < dist[i][j]:
-                    dist[i][j] = dist[i][k] + dist[k][j]
-                    nxt[i][j] = nxt[i][k]
+                if i != j and dist[i][j] < float('inf'):
+                    nxt[i][j] = j
+    
+        for k in range(1, n + 1):
+            for i in range(1, n + 1):
+                for j in range(1, n + 1):
+                    if dist[i][k] + dist[k][j] < dist[i][j]:
+                        dist[i][j] = dist[i][k] + dist[k][j]
+                        nxt[i][j] = nxt[i][k]
     return nxt
 
-def get_path(u, v, nxt):
-    if nxt[u][v] == -1:
-        return []
-    path = [u]
-    while u != v:
-        u = nxt[u][v]
-        path.append(u)
-    return path
-```
+    def get_path(u, v, nxt):
+        if nxt[u][v] == -1:
+            return []
+        path = [u]
+        while u != v:
+            u = nxt[u][v]
+            path.append(u)
+        return path
+    ```
+
+!!! tip "Thử tương tác"
+    - [Bellman-Ford](https://algorithm-visualizer.org/dynamic-programming/bellman-fords-shortest-path)
+    - [Floyd-Warshall](https://algorithm-visualizer.org/dynamic-programming/floyd-warshalls-shortest-path)
 
 ---
 
@@ -238,10 +247,62 @@ for (int k = 1; k <= n; k++)
         for (int j = 1; j <= n; j++)
             reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);
 ```
+// Kiểm tra có đường đi từ i đến j không
+bool reach[MAXN][MAXN];
+for (int k = 1; k <= n; k++)
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);
+```
 
 ### 5.2. Tìm chu trình âm và in ra
 
 ```cpp
+// Bellman-Ford + truy vết chu trình âm
+bool bellmanFordWithPath(int n, int start, vector<tuple<int,int,int>>& edges,
+                         vector<long long>& dist, vector<int>& parent) {
+    dist.assign(n + 1, LLONG_MAX);
+    parent.assign(n + 1, -1);
+    dist[start] = 0;
+
+    int lastUpdated = -1;
+    for (int i = 1; i < n; i++) {
+        for (auto [u, v, w] : edges) {
+            if (dist[u] != LLONG_MAX && dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                parent[v] = u;
+            }
+        }
+    }
+
+    // Kiểm tra chu trình âm
+    for (auto [u, v, w] : edges) {
+        if (dist[u] != LLONG_MAX && dist[u] + w < dist[v]) {
+            parent[v] = u;
+            lastUpdated = v;
+            break;
+        }
+    }
+
+    if (lastUpdated == -1) return false;
+
+    // Truy vết chu trình
+    vector<int> cycle;
+    int x = lastUpdated;
+    for (int i = 0; i < n; i++) x = parent[x];  // Vào trong chu trình
+    int cur = x;
+    do {
+        cycle.push_back(cur);
+        cur = parent[cur];
+    } while (cur != x);
+    cycle.push_back(x);
+    reverse(cycle.begin(), cycle.end());
+
+    cout << "Chu trình âm: ";
+    for (int v : cycle) cout << v << " ";
+    return true;
+}
+```
 // Bellman-Ford + truy vết chu trình âm
 bool bellmanFordWithPath(int n, int start, vector<tuple<int,int,int>>& edges,
                          vector<long long>& dist, vector<int>& parent) {

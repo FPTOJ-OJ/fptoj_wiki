@@ -35,22 +35,26 @@ $$(x + y)^n= \sum\limits_{k = 0}^{n} C_n^k \cdot x^k \cdot y ^ {n - k}$$
 $$C_n^k = \dfrac{n!}{k! (n - k)!}$$
 - Với công thức này, ta nghĩ ngay đến một thuật toán "ngây thơ": Tính $n!$, $k!$ và  $(n - k)!$. Từ đó tính được $C_n^k$.
 
-```cpp
-long long res = 1;
-for (int i = 1; i <= n; i++) res = res * i;
-for (int i = 1; i <= k; i++) res = res / i;
-for (int i = 1; i <= n-k; i++) res = res / i;
-```
+=== "C++"
 
-```python
-res = 1
-for i in range(1, n + 1):
-    res = res * i
-for i in range(1, k + 1):
-    res = res // i
-for i in range(1, n - k + 1):
-    res = res // i
-```
+    ```cpp
+    long long res = 1;
+    for (int i = 1; i <= n; i++) res = res * i;
+    for (int i = 1; i <= k; i++) res = res / i;
+    for (int i = 1; i <= n-k; i++) res = res / i;
+    ```
+
+=== "Python"
+
+    ```python
+    res = 1
+    for i in range(1, n + 1):
+        res = res * i
+    for i in range(1, k + 1):
+        res = res // i
+    for i in range(1, n - k + 1):
+        res = res // i
+    ```
 
 - Mở rộng hơn, ta có thể biến đổi một chút như sau:
 
@@ -58,17 +62,21 @@ $$C_n^k = \dfrac{n}{1} \cdot \dfrac{n - 1}{2} \ldots \dfrac{n - k + 1}{k} = \dfr
 
 Vì $C_n^k$ là số nguyên, nên bạn yên tâm rằng $C_{n-1}^{k-1} \cdot (n - k + 1)$ luôn chia hết cho $k$.
 
-```cpp
-long long res = 1;
-for (int i = 1; i <= k; i++)
-    res = res * (n - i + 1) / i;
-```
+=== "C++"
 
-```python
-res = 1
-for i in range(1, k + 1):
-    res = res * (n - i + 1) // i
-```
+    ```cpp
+    long long res = 1;
+    for (int i = 1; i <= k; i++)
+        res = res * (n - i + 1) / i;
+    ```
+
+=== "Python"
+
+    ```python
+    res = 1
+    for i in range(1, k + 1):
+        res = res * (n - i + 1) // i
+    ```
 
 - Hai cách tiếp cận trên rất tự nhiên, dễ nghĩ, dễ thực hiện nhưng lại có một trở ngại: giá trị của $n!$ có thể rất lớn (khi $n = 20$ thì $n! \approx 2.42\times10^{18}$)
 
@@ -85,21 +93,25 @@ C_{n - 1}^{k - 1} + C_{n - 1}^{k} &\text{trong các trường hợp còn lại}
 Với công thức truy hồi này, ta sẽ sử dụng một mảng hai chiều `C[n][k]` để tính $C_n^k$
 
 **Code C++ minh họa**
-```cpp
-for (int i = 0; i <= n; i++){
-    C[i][0] = 1;
-    for (int k = 1; k <= i; k++){
-        C[i][k] = C[i - 1][k - 1] + C[i - 1][k];
-    }
-}
-```
+=== "C++"
 
-```python
-for i in range(n + 1):
-    C[i][0] = 1
-    for j in range(1, i + 1):
-        C[i][j] = C[i - 1][j - 1] + C[i - 1][j]
-```
+    ```cpp
+    for (int i = 0; i <= n; i++){
+        C[i][0] = 1;
+        for (int k = 1; k <= i; k++){
+            C[i][k] = C[i - 1][k - 1] + C[i - 1][k];
+        }
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    for i in range(n + 1):
+        C[i][0] = 1
+        for j in range(1, i + 1):
+            C[i][j] = C[i - 1][j - 1] + C[i - 1][j]
+    ```
 
 Độ phức tạp không gian: $O(n^2)$
 Độ phức tạp thời gian:
@@ -133,21 +145,25 @@ Ngoài ra còn có hai cách tính dựa trên cách tính giai thừa modulo $M
 $$C_n^k = (C_{n - 1}^{k - 1} + C_{n - 1}^{k}) \mod M$$
 
 **Code C++ minh họa**
-```cpp
-for (int i = 0; i <= n; i++){
-    C[i][0] = 1 % MOD;
-    for (int k = 1; k <= i; k++){
-        C[i][k] = (C[i - 1][k - 1] + C[i - 1][k]) % MOD;
-    }
-}
-```
+=== "C++"
 
-```python
-for i in range(n + 1):
-    C[i][0] = 1 % MOD
-    for j in range(1, i + 1):
-        C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % MOD
-```
+    ```cpp
+    for (int i = 0; i <= n; i++){
+        C[i][0] = 1 % MOD;
+        for (int k = 1; k <= i; k++){
+            C[i][k] = (C[i - 1][k - 1] + C[i - 1][k]) % MOD;
+        }
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    for i in range(n + 1):
+        C[i][0] = 1 % MOD
+        for j in range(1, i + 1):
+            C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % MOD
+    ```
 
 Độ phức tạp không gian: $O(n^2)$
 Độ phức tạp thời gian:
@@ -202,91 +218,95 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
     - Cuối cùng, $C_n^k = \text{fact}[n] \times \text{ifact}[k] \times \text{ifact}[n - k] \mod M$.
 
 **Code C++ minh họa**
-```cpp
-const int MOD = 1e9 + 7;
-const int N = 1e6;
-int fact[N + 5], ifact[N + 5];
+=== "C++"
 
-// Hàm lũy thừa nhanh
-long long binpow(long long a, long long b) {
-    long long ans = 1;
-    while (b > 0){
-        if (b % 2) ans = ans * a % MOD;
-        a = a * a % MOD;
-        b /= 2;
+    ```cpp
+    const int MOD = 1e9 + 7;
+    const int N = 1e6;
+    int fact[N + 5], ifact[N + 5];
+    
+    // Hàm lũy thừa nhanh
+    long long binpow(long long a, long long b) {
+        long long ans = 1;
+        while (b > 0){
+            if (b % 2) ans = ans * a % MOD;
+            a = a * a % MOD;
+            b /= 2;
+        }
+        return ans;
     }
-    return ans;
-}
-
-// Chuẩn bị
-void prepare(){
-    // Tính fact[]
-    fact[0] = 1;
-    for (int i = 1; i <= N; i++)
-        fact[i] = 1LL * fact[i - 1] * i % MOD;
-        
-    // Tính ifact[]
-    ifact[N] = binpow(fact[N], MOD - 2);
-    for (int i = N - 1; i >= 1; i--)
-        ifact[i] = 1LL * ifact[i + 1] * (i + 1) % MOD;
-}
-
-// Hàm tính nCk
-int C(int n, int k){
-    if (k > n) return 0;
-    return (1LL * fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD;
-}
-
-int main(){
-    prepare();        
-    // Truy vấn
-    int q; cin >> q;
-    while (q--){
-        int n, k; cin >> n >> k;
-        cout << C(n, k) << '\n';
+    
+    // Chuẩn bị
+    void prepare(){
+        // Tính fact[]
+        fact[0] = 1;
+        for (int i = 1; i <= N; i++)
+            fact[i] = 1LL * fact[i - 1] * i % MOD;
+            
+        // Tính ifact[]
+        ifact[N] = binpow(fact[N], MOD - 2);
+        for (int i = N - 1; i >= 1; i--)
+            ifact[i] = 1LL * ifact[i + 1] * (i + 1) % MOD;
     }
-}
-```
+    
+    // Hàm tính nCk
+    int C(int n, int k){
+        if (k > n) return 0;
+        return (1LL * fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD;
+    }
+    
+    int main(){
+        prepare();        
+        // Truy vấn
+        int q; cin >> q;
+        while (q--){
+            int n, k; cin >> n >> k;
+            cout << C(n, k) << '\n';
+        }
+    }
+    ```
 
-```python
-MOD = 10**9 + 7
-N = 10**6
-fact = [0] * (N + 5)
-ifact = [0] * (N + 5)
+=== "Python"
 
-# Hàm lũy thừa nhanh
-def binpow(a, b):
-    ans = 1
-    while b > 0:
-        if b % 2:
-            ans = ans * a % MOD
-        a = a * a % MOD
-        b //= 2
-    return ans
-
-# Chuẩn bị
-def prepare():
-    # Tính fact[]
-    fact[0] = 1
-    for i in range(1, N + 1):
-        fact[i] = fact[i - 1] * i % MOD
-    # Tính ifact[]
-    ifact[N] = binpow(fact[N], MOD - 2)
-    for i in range(N - 1, 0, -1):
-        ifact[i] = ifact[i + 1] * (i + 1) % MOD
-
-# Hàm tính nCk
-def C(n, k):
-    if k > n:
-        return 0
-    return (fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD
-
-prepare()
-q = int(input())
-for _ in range(q):
-    n, k = map(int, input().split())
-    print(C(n, k))
-```
+    ```python
+    MOD = 10**9 + 7
+    N = 10**6
+    fact = [0] * (N + 5)
+    ifact = [0] * (N + 5)
+    
+    # Hàm lũy thừa nhanh
+    def binpow(a, b):
+        ans = 1
+        while b > 0:
+            if b % 2:
+                ans = ans * a % MOD
+            a = a * a % MOD
+            b //= 2
+        return ans
+    
+    # Chuẩn bị
+    def prepare():
+        # Tính fact[]
+        fact[0] = 1
+        for i in range(1, N + 1):
+            fact[i] = fact[i - 1] * i % MOD
+        # Tính ifact[]
+        ifact[N] = binpow(fact[N], MOD - 2)
+        for i in range(N - 1, 0, -1):
+            ifact[i] = ifact[i + 1] * (i + 1) % MOD
+    
+    # Hàm tính nCk
+    def C(n, k):
+        if k > n:
+            return 0
+        return (fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD
+    
+    prepare()
+    q = int(input())
+    for _ in range(q):
+        n, k = map(int, input().split())
+        print(C(n, k))
+    ```
 
 Độ phức tạp không gian: $O(n)$
 Độ phức tạp thời gian:
@@ -299,140 +319,148 @@ for _ in range(q):
 - **Ý tưởng:** Các bạn có thể tham khảo tại bài viết [Định lý Lucas của VNOI](https://vnoi.info/wiki/translate/he/Lucas-theorem.md)
 
 **Code C++ minh họa**
-```cpp
-int C(long long n, long long k){...} // hàm tính Ckn sử dụng định nghĩa bên trên
-int comb(long long n, long long k){
-    if (k > n) return 0;
-    int res = 1;
-    while (n > 0){
-        res = 1LL * res * C(n % MOD, k % MOD) % MOD;
-        n /= MOD; k/= MOD;
+=== "C++"
+
+    ```cpp
+    int C(long long n, long long k){...} // hàm tính Ckn sử dụng định nghĩa bên trên
+    int comb(long long n, long long k){
+        if (k > n) return 0;
+        int res = 1;
+        while (n > 0){
+            res = 1LL * res * C(n % MOD, k % MOD) % MOD;
+            n /= MOD; k/= MOD;
+        }
+        return res;
     }
-    return res;
-}
-```
+    ```
 
-```python
-def C(n, k):  # hàm tính Ckn sử dụng định nghĩa bên trên
-    pass
+=== "Python"
 
-def comb(n, k):
-    if k > n:
-        return 0
-    res = 1
-    while n > 0:
-        res = res * C(n % MOD, k % MOD) % MOD
-        n //= MOD
-        k //= MOD
-    return res
-```
+    ```python
+    def C(n, k):  # hàm tính Ckn sử dụng định nghĩa bên trên
+        pass
+    
+    def comb(n, k):
+        if k > n:
+            return 0
+        res = 1
+        while n > 0:
+            res = res * C(n % MOD, k % MOD) % MOD
+            n //= MOD
+            k //= MOD
+        return res
+    ```
 
 <details>
 <summary>Bạn đọc tham khảo thêm code đầy đủ ở đây</summary>
-```cpp
-const int MOD = 1e6 + 3;
-int fact[MOD + 5], ifact[MOD + 5];
+=== "C++"
 
-// Hàm lũy thừa nhanh
-long long binpow(long long a, long long b) {
-    long long ans = 1;
-    while (b > 0){
-        if (b % 2) ans = ans * a % MOD;
-        a = a * a % MOD;
-        b /= 2;
-    }
-    return ans;
-}
-
-// Chuẩn bị
-void prepare(){
-    // Tính fact[]
-    fact[0] = 1;
-    for (int i = 1; i < MOD; i++)
-        fact[i] = 1LL * fact[i - 1] * i % MOD;
-        
-    // Tính ifact[]
-    ifact[MOD - 1] = binpow(fact[MOD - 1], MOD - 2);
-    for (int i = MOD - 2; i >= 0; i--)
-        ifact[i] = 1LL * ifact[i + 1] * (i + 1) % MOD;
-}
-
-// Hàm tính nCk với n < M
-int C(int n, int k){
-    if (k > n) return 0;
-    return (1LL * fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD;
-}
-
-// Hàm tính nCk với n có thể lớn hơn M
-int comb(long long n, long long k){
-    if (k > n) return 0;
-    int res = 1;
-    while (n > 0){
-        res = 1LL * res * C(n % MOD, k % MOD) % MOD;
-        n /= MOD; k/= MOD;
-    }
-    return res;
-}
-
-int main(){
-    prepare();        
-    // Truy vấn
-    int q; cin >> q;
-    while (q--){
-        long long n, k; cin >> n >> k;
-        cout << comb(n, k) << '\n';
+    ```cpp
+    const int MOD = 1e6 + 3;
+    int fact[MOD + 5], ifact[MOD + 5];
+    
+    // Hàm lũy thừa nhanh
+    long long binpow(long long a, long long b) {
+        long long ans = 1;
+        while (b > 0){
+            if (b % 2) ans = ans * a % MOD;
+            a = a * a % MOD;
+            b /= 2;
+        }
+        return ans;
     }
     
-}
-```
+    // Chuẩn bị
+    void prepare(){
+        // Tính fact[]
+        fact[0] = 1;
+        for (int i = 1; i < MOD; i++)
+            fact[i] = 1LL * fact[i - 1] * i % MOD;
+            
+        // Tính ifact[]
+        ifact[MOD - 1] = binpow(fact[MOD - 1], MOD - 2);
+        for (int i = MOD - 2; i >= 0; i--)
+            ifact[i] = 1LL * ifact[i + 1] * (i + 1) % MOD;
+    }
+    
+    // Hàm tính nCk với n < M
+    int C(int n, int k){
+        if (k > n) return 0;
+        return (1LL * fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD;
+    }
+    
+    // Hàm tính nCk với n có thể lớn hơn M
+    int comb(long long n, long long k){
+        if (k > n) return 0;
+        int res = 1;
+        while (n > 0){
+            res = 1LL * res * C(n % MOD, k % MOD) % MOD;
+            n /= MOD; k/= MOD;
+        }
+        return res;
+    }
+    
+    int main(){
+        prepare();        
+        // Truy vấn
+        int q; cin >> q;
+        while (q--){
+            long long n, k; cin >> n >> k;
+            cout << comb(n, k) << '\n';
+        }
+        
+    }
+    ```
 
-```python
-MOD = 10**6 + 3
-fact = [0] * (MOD + 5)
-ifact = [0] * (MOD + 5)
+=== "Python"
 
-# Hàm lũy thừa nhanh
-def binpow(a, b):
-    ans = 1
-    while b > 0:
-        if b % 2:
-            ans = ans * a % MOD
-        a = a * a % MOD
-        b //= 2
-    return ans
-
-# Chuẩn bị
-def prepare():
-    fact[0] = 1
-    for i in range(1, MOD):
-        fact[i] = fact[i - 1] * i % MOD
-    ifact[MOD - 1] = binpow(fact[MOD - 1], MOD - 2)
-    for i in range(MOD - 2, -1, -1):
-        ifact[i] = ifact[i + 1] * (i + 1) % MOD
-
-# Hàm tính nCk với n < M
-def C(n, k):
-    if k > n:
-        return 0
-    return (fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD
-
-# Hàm tính nCk với n có thể lớn hơn M
-def comb(n, k):
-    if k > n:
-        return 0
-    res = 1
-    while n > 0:
-        res = res * C(n % MOD, k % MOD) % MOD
-        n //= MOD
-        k //= MOD
-    return res
-
-prepare()
-q = int(input())
-for _ in range(q):
-    n, k = map(int, input().split())
-    print(comb(n, k))
-```
+    ```python
+    MOD = 10**6 + 3
+    fact = [0] * (MOD + 5)
+    ifact = [0] * (MOD + 5)
+    
+    # Hàm lũy thừa nhanh
+    def binpow(a, b):
+        ans = 1
+        while b > 0:
+            if b % 2:
+                ans = ans * a % MOD
+            a = a * a % MOD
+            b //= 2
+        return ans
+    
+    # Chuẩn bị
+    def prepare():
+        fact[0] = 1
+        for i in range(1, MOD):
+            fact[i] = fact[i - 1] * i % MOD
+        ifact[MOD - 1] = binpow(fact[MOD - 1], MOD - 2)
+        for i in range(MOD - 2, -1, -1):
+            ifact[i] = ifact[i + 1] * (i + 1) % MOD
+    
+    # Hàm tính nCk với n < M
+    def C(n, k):
+        if k > n:
+            return 0
+        return (fact[n] * ifact[k] % MOD) * ifact[n - k] % MOD
+    
+    # Hàm tính nCk với n có thể lớn hơn M
+    def comb(n, k):
+        if k > n:
+            return 0
+        res = 1
+        while n > 0:
+            res = res * C(n % MOD, k % MOD) % MOD
+            n //= MOD
+            k //= MOD
+        return res
+    
+    prepare()
+    q = int(input())
+    for _ in range(q):
+        n, k = map(int, input().split())
+        print(comb(n, k))
+    ```
 </details>
 
 Độ phức tạp không gian: $O(M)$
@@ -469,111 +497,126 @@ for _ in range(q):
         - $d$ là vị trí cuối cùng mà $n_i \neq 0$.  Nghĩa là ta chỉ cần chạy cho đến khi $n_i = 0$.
 
 **Chi tiết các bước:**
-```cpp
-const int MOD = 27;
-const int prime = 3;
-long long fact[MOD], ifact[MOD];
-```
-```python
-MOD = 27
-prime = 3
-fact = [0] * MOD
-ifact = [0] * MOD
-```
+=== "C++"
+
+    ```cpp
+    const int MOD = 27;
+    const int prime = 3;
+    long long fact[MOD], ifact[MOD];
+    ```
+
+=== "Python"
+
+    ```python
+    MOD = 27
+    prime = 3
+    fact = [0] * MOD
+    ifact = [0] * MOD
+    ```
 - Chú ý rằng ở bước chuẩn bị, $\text{fact}[i]$ sử dụng để lưu $\left( i! \right)_p$ (*Xem phần mô tả mở rộng định lý Lucas*) thay vì $i!$ và ta cần sử dụng định lý Euler thay cho định lý Fermat nhỏ.
-```cpp
-void init(){
-    fact[0] = 1;
-    for (int i = 1; i < MOD; i++) {
-        if (i % prime != 0)
-            fact[i] = (fact[i - 1] * i) % MOD;
-        else
-            fact[i] = fact[i - 1];
+=== "C++"
+
+    ```cpp
+    void init(){
+        fact[0] = 1;
+        for (int i = 1; i < MOD; i++) {
+            if (i % prime != 0)
+                fact[i] = (fact[i - 1] * i) % MOD;
+            else
+                fact[i] = fact[i - 1];
+        }
+        int phi = MOD / prime * (prime - 1) - 1;
+        ifact[MOD - 1] = binpow(fact[MOD - 1], phi, MOD);
+        for (int i = MOD - 1; i > 0; i--) {
+            if (i % prime != 0)
+                ifact[i - 1] = (ifact[i] * i) % MOD;
+            else
+                ifact[i - 1] = ifact[i];
+        }
     }
-    int phi = MOD / prime * (prime - 1) - 1;
-    ifact[MOD - 1] = binpow(fact[MOD - 1], phi, MOD);
-    for (int i = MOD - 1; i > 0; i--) {
-        if (i % prime != 0)
-            ifact[i - 1] = (ifact[i] * i) % MOD;
-        else
-            ifact[i - 1] = ifact[i];
-    }
-}
-```
-```python
-def init():
-    fact[0] = 1
-    for i in range(1, MOD):
-        if i % prime != 0:
-            fact[i] = (fact[i - 1] * i) % MOD
-        else:
-            fact[i] = fact[i - 1]
-    phi = MOD // prime * (prime - 1) - 1
-    ifact[MOD - 1] = binpow(fact[MOD - 1], phi, MOD)
-    for i in range(MOD - 1, 0, -1):
-        if i % prime != 0:
-            ifact[i - 1] = (ifact[i] * i) % MOD
-        else:
-            ifact[i - 1] = ifact[i]
-```
+    ```
+
+=== "Python"
+
+    ```python
+    def init():
+        fact[0] = 1
+        for i in range(1, MOD):
+            if i % prime != 0:
+                fact[i] = (fact[i - 1] * i) % MOD
+            else:
+                fact[i] = fact[i - 1]
+        phi = MOD // prime * (prime - 1) - 1
+        ifact[MOD - 1] = binpow(fact[MOD - 1], phi, MOD)
+        for i in range(MOD - 1, 0, -1):
+            if i % prime != 0:
+                ifact[i - 1] = (ifact[i] * i) % MOD
+            else:
+                ifact[i - 1] = ifact[i]
+    ```
 - Tiếp theo ta sử dụng công thức bên trên
-```cpp
-long long C(long long N, long long K, long long R){
-    return (fact[N] * ifact[R] % MOD) * ifact[K] % MOD;
-}
+=== "C++"
 
-int count_carry(long long n, long long k, long long r, int p, long long t){
-    long long res = 0;
-    while (n >= t) {
-        res += ((n / t) - (k / t) - (r / t));
-        t *= p;
+    ```cpp
+    long long C(long long N, long long K, long long R){
+        return (fact[N] * ifact[R] % MOD) * ifact[K] % MOD;
     }
-    return res;
-}
-
-long long calc(long long N, long long K, long long R) {
-    if (K > N)
-        return 0;
-    long long res = 1;
-    int vp = count_carry(N, K, R, prime, prime);
-    int vp2 = count_carry(N, K, R, prime, MOD);
-    while (N > 0) {
-        res = (res * C(N % MOD, K % MOD, R % MOD)) % MOD;
-        N /= prime; K /= prime; R /= prime;
+    
+    int count_carry(long long n, long long k, long long r, int p, long long t){
+        long long res = 0;
+        while (n >= t) {
+            res += ((n / t) - (k / t) - (r / t));
+            t *= p;
+        }
+        return res;
     }
-    res = res * binpow(prime, vp, MOD) % MOD;
-    if ((vp2 % 2 == 1) && (prime != 2 || MOD <= 4))
-        res = (MOD - res) % MOD;
-    return res;
-}
-```
-```python
-def C_mod(N, K, R):
-    return (fact[N] * ifact[R] % MOD) * ifact[K] % MOD
+    
+    long long calc(long long N, long long K, long long R) {
+        if (K > N)
+            return 0;
+        long long res = 1;
+        int vp = count_carry(N, K, R, prime, prime);
+        int vp2 = count_carry(N, K, R, prime, MOD);
+        while (N > 0) {
+            res = (res * C(N % MOD, K % MOD, R % MOD)) % MOD;
+            N /= prime; K /= prime; R /= prime;
+        }
+        res = res * binpow(prime, vp, MOD) % MOD;
+        if ((vp2 % 2 == 1) && (prime != 2 || MOD <= 4))
+            res = (MOD - res) % MOD;
+        return res;
+    }
+    ```
 
-def count_carry(n, k, r, p, t):
-    res = 0
-    while n >= t:
-        res += (n // t) - (k // t) - (r // t)
-        t *= p
-    return res
+=== "Python"
 
-def calc(N, K, R):
-    if K > N:
-        return 0
-    res = 1
-    vp = count_carry(N, K, R, prime, prime)
-    vp2 = count_carry(N, K, R, prime, MOD)
-    while N > 0:
-        res = (res * C_mod(N % MOD, K % MOD, R % MOD)) % MOD
-        N //= prime
-        K //= prime
-        R //= prime
-    res = res * binpow(prime, vp, MOD) % MOD
-    if (vp2 % 2 == 1) and (prime != 2 or MOD <= 4):
-        res = (MOD - res) % MOD
-    return res
-```
+    ```python
+    def C_mod(N, K, R):
+        return (fact[N] * ifact[R] % MOD) * ifact[K] % MOD
+    
+    def count_carry(n, k, r, p, t):
+        res = 0
+        while n >= t:
+            res += (n // t) - (k // t) - (r // t)
+            t *= p
+        return res
+    
+    def calc(N, K, R):
+        if K > N:
+            return 0
+        res = 1
+        vp = count_carry(N, K, R, prime, prime)
+        vp2 = count_carry(N, K, R, prime, MOD)
+        while N > 0:
+            res = (res * C_mod(N % MOD, K % MOD, R % MOD)) % MOD
+            N //= prime
+            K //= prime
+            R //= prime
+        res = res * binpow(prime, vp, MOD) % MOD
+        if (vp2 % 2 == 1) and (prime != 2 or MOD <= 4):
+            res = (MOD - res) % MOD
+        return res
+    ```
 
 Độ phức tạp không gian: $O(M)$
 Độ phức tạp thời gian:
@@ -683,217 +726,221 @@ def calc(N, K, R):
 
 <details>
 <summary> Bạn đọc tham khảo thêm code nộp AC bài nCr ở đây </summary>
-```cpp
-## include <bits/stdc++.h>
-const int MOD = 142857;
+=== "C++"
 
-using ll = long long;
-
-using namespace std;
-
-int primes[] = {3, 11, 13, 37};
-int primes_pw[] = {27, 11, 13, 37};
-int phi[] = {18, 10, 12, 36}; // phi = prime_pw * (prime - 1)/prime
-int rem[4];
-vector<ll> fact[4], ifact[4];
-int t;
-
-ll binpow(ll a, ll n, ll mod)
-{
-    ll res = 1;
-    for (; n > 0; n >>= 1)
+    ```cpp
+    ## include <bits/stdc++.h>
+    const int MOD = 142857;
+    
+    using ll = long long;
+    
+    using namespace std;
+    
+    int primes[] = {3, 11, 13, 37};
+    int primes_pw[] = {27, 11, 13, 37};
+    int phi[] = {18, 10, 12, 36}; // phi = prime_pw * (prime - 1)/prime
+    int rem[4];
+    vector<ll> fact[4], ifact[4];
+    int t;
+    
+    ll binpow(ll a, ll n, ll mod)
     {
-        if (n & 1)
-            res = res * a % mod;
-        a = a * a % mod;
+        ll res = 1;
+        for (; n > 0; n >>= 1)
+        {
+            if (n & 1)
+                res = res * a % mod;
+            a = a * a % mod;
+        }
+        return res;
     }
-    return res;
-}
-
-void init(int x)
-{
-    fact[x].assign(primes_pw[x], 0);
-    ifact[x].assign(primes_pw[x], 0);
-    fact[x][0] = 1;
-    for (int i = 1; i < primes_pw[x]; i++)
+    
+    void init(int x)
     {
-        if (i % primes[x] != 0)
-            fact[x][i] = (fact[x][i - 1] * i) % primes_pw[x];
-        else
-            fact[x][i] = fact[x][i - 1];
+        fact[x].assign(primes_pw[x], 0);
+        ifact[x].assign(primes_pw[x], 0);
+        fact[x][0] = 1;
+        for (int i = 1; i < primes_pw[x]; i++)
+        {
+            if (i % primes[x] != 0)
+                fact[x][i] = (fact[x][i - 1] * i) % primes_pw[x];
+            else
+                fact[x][i] = fact[x][i - 1];
+        }
+        ifact[x][primes_pw[x] - 1] = binpow(fact[x][primes_pw[x] - 1],
+                                            primes_pw[x] / primes[x] * (primes[x] - 1) - 1,
+                                            primes_pw[x]);
+        for (int i = primes_pw[x] - 1; i > 0; i--)
+        {
+            if (i % primes[x] != 0)
+                ifact[x][i - 1] = (ifact[x][i] * i) % primes_pw[x];
+            else
+                ifact[x][i - 1] = ifact[x][i];
+        }
     }
-    ifact[x][primes_pw[x] - 1] = binpow(fact[x][primes_pw[x] - 1],
-                                        primes_pw[x] / primes[x] * (primes[x] - 1) - 1,
-                                        primes_pw[x]);
-    for (int i = primes_pw[x] - 1; i > 0; i--)
+    
+    /*i is the order of prime*/
+    ll C(ll N, ll K, ll R, int i)
     {
-        if (i % primes[x] != 0)
-            ifact[x][i - 1] = (ifact[x][i] * i) % primes_pw[x];
-        else
-            ifact[x][i - 1] = ifact[x][i];
+        return (fact[i][N] * ifact[i][R] % primes_pw[i]) * ifact[i][K] % primes_pw[i];
     }
-}
-
-/*i is the order of prime*/
-ll C(ll N, ll K, ll R, int i)
-{
-    return (fact[i][N] * ifact[i][R] % primes_pw[i]) * ifact[i][K] % primes_pw[i];
-}
-
-int count_carry(ll n, ll k, ll r, ll p, ll t)
-{
-    ll res = 0;
-    while (n >= t)
+    
+    int count_carry(ll n, ll k, ll r, ll p, ll t)
     {
-        res += (n / t - k / t - r / t);
-        t *= p;
+        ll res = 0;
+        while (n >= t)
+        {
+            res += (n / t - k / t - r / t);
+            t *= p;
+        }
+        return res;
     }
-    return res;
-}
-
-ll calc(ll N, ll K, ll R, int ord_pr)
-{
-    if (K > N)
-        return 0;
-    int prime = primes[ord_pr];
-    int mod = primes_pw[ord_pr];
-    ll res = 1;
-    int vp = count_carry(N, K, R, prime, prime);
-    int vp2 = count_carry(N, K, R, prime, mod);
-    while (N > 0)
+    
+    ll calc(ll N, ll K, ll R, int ord_pr)
     {
-        res = (res * C(N % mod, K % mod, R % mod, ord_pr)) % mod;
-        N /= prime;
-        K /= prime;
-        R /= prime;
+        if (K > N)
+            return 0;
+        int prime = primes[ord_pr];
+        int mod = primes_pw[ord_pr];
+        ll res = 1;
+        int vp = count_carry(N, K, R, prime, prime);
+        int vp2 = count_carry(N, K, R, prime, mod);
+        while (N > 0)
+        {
+            res = (res * C(N % mod, K % mod, R % mod, ord_pr)) % mod;
+            N /= prime;
+            K /= prime;
+            R /= prime;
+        }
+        res = res * binpow(prime, vp, mod) % mod;
+        if ((vp2 & 1) && (prime != 2 || mod <= 4))
+            res = (mod - res) % mod;
+    
+        return res;
     }
-    res = res * binpow(prime, vp, mod) % mod;
-    if ((vp2 & 1) && (prime != 2 || mod <= 4))
-        res = (mod - res) % mod;
-
-    return res;
-}
-
-ll CRT(ll N, ll K)
-{
-    ll res = 0;
-    for (int i = 0; i <= 3; i++)
+    
+    ll CRT(ll N, ll K)
     {
-        int ans = calc(N, K, N - K, i) * rem[i] % MOD;
-        res = (res + ans) % MOD;
+        ll res = 0;
+        for (int i = 0; i <= 3; i++)
+        {
+            int ans = calc(N, K, N - K, i) * rem[i] % MOD;
+            res = (res + ans) % MOD;
+        }
+        return res;
     }
-    return res;
-}
-
-void solve()
-{
-    for (int i = 0; i <= 3; i++)
+    
+    void solve()
     {
-        init(i);
-        int tmp = MOD / primes_pw[i];
-        rem[i] = tmp * binpow(tmp, phi[i] - 1, primes_pw[i]) % MOD;
+        for (int i = 0; i <= 3; i++)
+        {
+            init(i);
+            int tmp = MOD / primes_pw[i];
+            rem[i] = tmp * binpow(tmp, phi[i] - 1, primes_pw[i]) % MOD;
+        }
+        while (t--)
+        {
+            ll N, K;
+            cin >> N >> K;
+            cout << CRT(N, K) << '\n';
+        }
     }
-    while (t--)
+    
+    int main()
     {
-        ll N, K;
-        cin >> N >> K;
-        cout << CRT(N, K) << '\n';
+        ios_base::sync_with_stdio(0);
+        cin.tie(NULL);
+        cin >> t;
+        solve();
     }
-}
+    ```
 
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    cin >> t;
-    solve();
-}
-```
+=== "Python"
 
-```python
-MOD = 142857
-
-primes = [3, 11, 13, 37]
-primes_pw = [27, 11, 13, 37]
-phi = [18, 10, 12, 36]
-rem = [0] * 4
-fact = [[] for _ in range(4)]
-ifact = [[] for _ in range(4)]
-
-def binpow(a, n, mod):
-    res = 1
-    while n > 0:
-        if n & 1:
-            res = res * a % mod
-        a = a * a % mod
-        n >>= 1
-    return res
-
-def init(x):
-    fact[x] = [0] * primes_pw[x]
-    ifact[x] = [0] * primes_pw[x]
-    fact[x][0] = 1
-    for i in range(1, primes_pw[x]):
-        if i % primes[x] != 0:
-            fact[x][i] = (fact[x][i - 1] * i) % primes_pw[x]
-        else:
-            fact[x][i] = fact[x][i - 1]
-    ifact[x][primes_pw[x] - 1] = binpow(fact[x][primes_pw[x] - 1],
-                                         primes_pw[x] // primes[x] * (primes[x] - 1) - 1,
-                                         primes_pw[x])
-    for i in range(primes_pw[x] - 1, 0, -1):
-        if i % primes[x] != 0:
-            ifact[x][i - 1] = (ifact[x][i] * i) % primes_pw[x]
-        else:
-            ifact[x][i - 1] = ifact[x][i]
-
-def C_mod(N, K, R, i):
-    return (fact[i][N] * ifact[i][R] % primes_pw[i]) * ifact[i][K] % primes_pw[i]
-
-def count_carry(n, k, r, p, t):
-    res = 0
-    while n >= t:
-        res += (n // t - k // t - r // t)
-        t *= p
-    return res
-
-def calc(N, K, R, ord_pr):
-    if K > N:
-        return 0
-    prime = primes[ord_pr]
-    mod = primes_pw[ord_pr]
-    res = 1
-    vp = count_carry(N, K, R, prime, prime)
-    vp2 = count_carry(N, K, R, prime, mod)
-    while N > 0:
-        res = (res * C_mod(N % mod, K % mod, R % mod, ord_pr)) % mod
-        N //= prime
-        K //= prime
-        R //= prime
-    res = res * binpow(prime, vp, mod) % mod
-    if (vp2 & 1) and (prime != 2 or mod <= 4):
-        res = (mod - res) % mod
-    return res
-
-def CRT_func(N, K):
-    res = 0
-    for i in range(4):
-        ans = calc(N, K, N - K, i) * rem[i] % MOD
-        res = (res + ans) % MOD
-    return res
-
-def solve():
-    for i in range(4):
-        init(i)
-        tmp = MOD // primes_pw[i]
-        rem[i] = tmp * binpow(tmp, phi[i] - 1, primes_pw[i]) % MOD
-    t = int(input())
-    for _ in range(t):
-        N, K = map(int, input().split())
-        print(CRT_func(N, K))
-
-solve()
-```
+    ```python
+    MOD = 142857
+    
+    primes = [3, 11, 13, 37]
+    primes_pw = [27, 11, 13, 37]
+    phi = [18, 10, 12, 36]
+    rem = [0] * 4
+    fact = [[] for _ in range(4)]
+    ifact = [[] for _ in range(4)]
+    
+    def binpow(a, n, mod):
+        res = 1
+        while n > 0:
+            if n & 1:
+                res = res * a % mod
+            a = a * a % mod
+            n >>= 1
+        return res
+    
+    def init(x):
+        fact[x] = [0] * primes_pw[x]
+        ifact[x] = [0] * primes_pw[x]
+        fact[x][0] = 1
+        for i in range(1, primes_pw[x]):
+            if i % primes[x] != 0:
+                fact[x][i] = (fact[x][i - 1] * i) % primes_pw[x]
+            else:
+                fact[x][i] = fact[x][i - 1]
+        ifact[x][primes_pw[x] - 1] = binpow(fact[x][primes_pw[x] - 1],
+                                             primes_pw[x] // primes[x] * (primes[x] - 1) - 1,
+                                             primes_pw[x])
+        for i in range(primes_pw[x] - 1, 0, -1):
+            if i % primes[x] != 0:
+                ifact[x][i - 1] = (ifact[x][i] * i) % primes_pw[x]
+            else:
+                ifact[x][i - 1] = ifact[x][i]
+    
+    def C_mod(N, K, R, i):
+        return (fact[i][N] * ifact[i][R] % primes_pw[i]) * ifact[i][K] % primes_pw[i]
+    
+    def count_carry(n, k, r, p, t):
+        res = 0
+        while n >= t:
+            res += (n // t - k // t - r // t)
+            t *= p
+        return res
+    
+    def calc(N, K, R, ord_pr):
+        if K > N:
+            return 0
+        prime = primes[ord_pr]
+        mod = primes_pw[ord_pr]
+        res = 1
+        vp = count_carry(N, K, R, prime, prime)
+        vp2 = count_carry(N, K, R, prime, mod)
+        while N > 0:
+            res = (res * C_mod(N % mod, K % mod, R % mod, ord_pr)) % mod
+            N //= prime
+            K //= prime
+            R //= prime
+        res = res * binpow(prime, vp, mod) % mod
+        if (vp2 & 1) and (prime != 2 or mod <= 4):
+            res = (mod - res) % mod
+        return res
+    
+    def CRT_func(N, K):
+        res = 0
+        for i in range(4):
+            ans = calc(N, K, N - K, i) * rem[i] % MOD
+            res = (res + ans) % MOD
+        return res
+    
+    def solve():
+        for i in range(4):
+            init(i)
+            tmp = MOD // primes_pw[i]
+            rem[i] = tmp * binpow(tmp, phi[i] - 1, primes_pw[i]) % MOD
+        t = int(input())
+        for _ in range(t):
+            N, K = map(int, input().split())
+            print(CRT_func(N, K))
+    
+    solve()
+    ```
 </details>
 
 ## Bài tập luyện tập

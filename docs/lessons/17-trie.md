@@ -60,138 +60,140 @@ Thêm "apple":
 
 ## 3. Code C++ - Cài đặt chi tiết
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-// Mỗi node lưu 26 con trỏ (cho 26 chữ cái a-z)
-struct TrieNode {
-    TrieNode* children[26];  // children[0] = 'a', children[1] = 'b', ...
-    bool isEnd;              // true nếu node này là kết thúc của 1 từ hợp lệ
-    int count;               // Số lần chèn qua node này (đếm prefix)
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
     
-    TrieNode() {
-        for (int i = 0; i < 26; i++)
-            children[i] = nullptr;
-        isEnd = false;
-        count = 0;
-    }
-};
-
-struct Trie {
-    TrieNode* root;
-    
-    Trie() { root = new TrieNode(); }
-    
-    // Thêm từ vào Trie - O(L)
-    // Duyệt từng ký tự, tạo node mới nếu chưa tồn tại
-    void insert(string word) {
-        TrieNode* cur = root;
-        for (char c : word) {
-            int idx = c - 'a';  // 'a' → 0, 'b' → 1, ...
-            if (cur->children[idx] == nullptr)
-                cur->children[idx] = new TrieNode();  // Tạo node mới
-            cur = cur->children[idx];
-            cur->count++;  // Đếm số từ đi qua node này
+    // Mỗi node lưu 26 con trỏ (cho 26 chữ cái a-z)
+    struct TrieNode {
+        TrieNode* children[26];  // children[0] = 'a', children[1] = 'b', ...
+        bool isEnd;              // true nếu node này là kết thúc của 1 từ hợp lệ
+        int count;               // Số lần chèn qua node này (đếm prefix)
+        
+        TrieNode() {
+            for (int i = 0; i < 26; i++)
+                children[i] = nullptr;
+            isEnd = false;
+            count = 0;
         }
-        cur->isEnd = true;  // Đánh dấu kết thúc từ
-    }
+    };
     
-    // Tìm từ có tồn tại không - O(L)
-    // Duyệt theo từng ký tự, nếu thiếu node → không tồn tại
-    bool search(string word) {
-        TrieNode* cur = root;
-        for (char c : word) {
-            int idx = c - 'a';
-            if (cur->children[idx] == nullptr)
-                return false;  // Không có đường đi → từ không tồn tại
-            cur = cur->children[idx];
+    struct Trie {
+        TrieNode* root;
+        
+        Trie() { root = new TrieNode(); }
+        
+        // Thêm từ vào Trie - O(L)
+        // Duyệt từng ký tự, tạo node mới nếu chưa tồn tại
+        void insert(string word) {
+            TrieNode* cur = root;
+            for (char c : word) {
+                int idx = c - 'a';  // 'a' → 0, 'b' → 1, ...
+                if (cur->children[idx] == nullptr)
+                    cur->children[idx] = new TrieNode();  // Tạo node mới
+                cur = cur->children[idx];
+                cur->count++;  // Đếm số từ đi qua node này
+            }
+            cur->isEnd = true;  // Đánh dấu kết thúc từ
         }
-        return cur->isEnd;  // Phải là kết thúc từ hợp lệ
-    }
-    
-    // Kiểm tra có từ nào bắt đầu bằng prefix không - O(L)
-    bool startsWith(string prefix) {
-        TrieNode* cur = root;
-        for (char c : prefix) {
-            int idx = c - 'a';
-            if (cur->children[idx] == nullptr)
-                return false;
-            cur = cur->children[idx];
+        
+        // Tìm từ có tồn tại không - O(L)
+        // Duyệt theo từng ký tự, nếu thiếu node → không tồn tại
+        bool search(string word) {
+            TrieNode* cur = root;
+            for (char c : word) {
+                int idx = c - 'a';
+                if (cur->children[idx] == nullptr)
+                    return false;  // Không có đường đi → từ không tồn tại
+                cur = cur->children[idx];
+            }
+            return cur->isEnd;  // Phải là kết thúc từ hợp lệ
         }
-        return true;  // Chỉ cần đường đi tồn tại, không cần isEnd
-    }
-    
-    // Đếm số từ có prefix cho trước - O(L)
-    int countPrefix(string prefix) {
-        TrieNode* cur = root;
-        for (char c : prefix) {
-            int idx = c - 'a';
-            if (cur->children[idx] == nullptr)
-                return 0;
-            cur = cur->children[idx];
+        
+        // Kiểm tra có từ nào bắt đầu bằng prefix không - O(L)
+        bool startsWith(string prefix) {
+            TrieNode* cur = root;
+            for (char c : prefix) {
+                int idx = c - 'a';
+                if (cur->children[idx] == nullptr)
+                    return false;
+                cur = cur->children[idx];
+            }
+            return true;  // Chỉ cần đường đi tồn tại, không cần isEnd
         }
-        return cur->count;
-    }
-    
-    // Giải phóng bộ nhớ (quan trọng khi dùng nhiều!)
-    void deleteTrie(TrieNode* node) {
-        if (node == nullptr) return;
-        for (int i = 0; i < 26; i++)
-            deleteTrie(node->children[i]);
-        delete node;
-    }
-    
-    ~Trie() { deleteTrie(root); }
-};
-```
+        
+        // Đếm số từ có prefix cho trước - O(L)
+        int countPrefix(string prefix) {
+            TrieNode* cur = root;
+            for (char c : prefix) {
+                int idx = c - 'a';
+                if (cur->children[idx] == nullptr)
+                    return 0;
+                cur = cur->children[idx];
+            }
+            return cur->count;
+        }
+        
+        // Giải phóng bộ nhớ (quan trọng khi dùng nhiều!)
+        void deleteTrie(TrieNode* node) {
+            if (node == nullptr) return;
+            for (int i = 0; i < 26; i++)
+                deleteTrie(node->children[i]);
+            delete node;
+        }
+        
+        ~Trie() { deleteTrie(root); }
+    };
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-class TrieNode:
-    def __init__(self):
-        self.children = {}      # dict: ký tự → TrieNode
-        self.is_end = False
-        self.count = 0          # Số từ đi qua node này
-
-class Trie:
-    def __init__(self):
-        self.root = TrieNode()
+    ```python
+    class TrieNode:
+        def __init__(self):
+            self.children = {}      # dict: ký tự → TrieNode
+            self.is_end = False
+            self.count = 0          # Số từ đi qua node này
     
-    def insert(self, word):         # O(L)
-        cur = self.root
-        for c in word:
-            if c not in cur.children:
-                cur.children[c] = TrieNode()
-            cur = cur.children[c]
-            cur.count += 1
-        cur.is_end = True
-    
-    def search(self, word):         # O(L)
-        cur = self.root
-        for c in word:
-            if c not in cur.children:
-                return False
-            cur = cur.children[c]
-        return cur.is_end
-    
-    def starts_with(self, prefix):  # O(L)
-        cur = self.root
-        for c in prefix:
-            if c not in cur.children:
-                return False
-            cur = cur.children[c]
-        return True
-    
-    def count_prefix(self, prefix): # O(L)
-        cur = self.root
-        for c in prefix:
-            if c not in cur.children:
-                return 0
-            cur = cur.children[c]
-        return cur.count
-```
+    class Trie:
+        def __init__(self):
+            self.root = TrieNode()
+        
+        def insert(self, word):         # O(L)
+            cur = self.root
+            for c in word:
+                if c not in cur.children:
+                    cur.children[c] = TrieNode()
+                cur = cur.children[c]
+                cur.count += 1
+            cur.is_end = True
+        
+        def search(self, word):         # O(L)
+            cur = self.root
+            for c in word:
+                if c not in cur.children:
+                    return False
+                cur = cur.children[c]
+            return cur.is_end
+        
+        def starts_with(self, prefix):  # O(L)
+            cur = self.root
+            for c in prefix:
+                if c not in cur.children:
+                    return False
+                cur = cur.children[c]
+            return True
+        
+        def count_prefix(self, prefix): # O(L)
+            cur = self.root
+            for c in prefix:
+                if c not in cur.children:
+                    return 0
+                cur = cur.children[c]
+            return cur.count
+    ```
 
 ---
 
@@ -212,149 +214,147 @@ Muốn XOR lớn nhất → ưu tiên bit ngược:
   Bit 1: X có 0 → ưu tiên đi theo 1
   Bit 0: X có 1 → ưu tiên đi theo 0
 ```
+=== "C++"
 
-### Code C++
-
-```cpp
-struct BitTrieNode {
-    BitTrieNode* children[2];  // 0 và 1
-    BitTrieNode() {
-        children[0] = children[1] = nullptr;
-    }
-};
-
-struct BitTrie {
-    BitTrieNode* root;
-    static const int MAX_BIT = 30;  // Số bit tối đa (cho số <= 10^9)
-    
-    BitTrie() { root = new BitTrieNode(); }
-    
-    // Thêm số vào trie - O(MAX_BIT)
-    void insert(int num) {
-        BitTrieNode* cur = root;
-        for (int i = MAX_BIT; i >= 0; i--) {
-            int bit = (num >> i) & 1;  // Lấy bit thứ i
-            if (cur->children[bit] == nullptr)
-                cur->children[bit] = new BitTrieNode();
-            cur = cur->children[bit];
+    ```cpp
+    struct BitTrieNode {
+        BitTrieNode* children[2];  // 0 và 1
+        BitTrieNode() {
+            children[0] = children[1] = nullptr;
         }
-    }
+    };
     
-    // Tìm số trong trie sao cho XOR với x là lớn nhất - O(MAX_BIT)
-    int findMaxXor(int x) {
-        BitTrieNode* cur = root;
-        int result = 0;
-        for (int i = MAX_BIT; i >= 0; i--) {
-            int bit = (x >> i) & 1;
-            int want = 1 - bit;  // Ưu tiên bit ngược
-            
-            if (cur->children[want] != nullptr) {
-                result |= (1 << i);  // Bit này contribute 1 vào XOR
-                cur = cur->children[want];
-            } else {
-                cur = cur->children[bit];  // Không có lựa chọn, đi theo bit giống
+    struct BitTrie {
+        BitTrieNode* root;
+        static const int MAX_BIT = 30;  // Số bit tối đa (cho số <= 10^9)
+        
+        BitTrie() { root = new BitTrieNode(); }
+        
+        // Thêm số vào trie - O(MAX_BIT)
+        void insert(int num) {
+            BitTrieNode* cur = root;
+            for (int i = MAX_BIT; i >= 0; i--) {
+                int bit = (num >> i) & 1;  // Lấy bit thứ i
+                if (cur->children[bit] == nullptr)
+                    cur->children[bit] = new BitTrieNode();
+                cur = cur->children[bit];
             }
         }
-        return result;
-    }
-};
-
-// Ví dụ sử dụng:
-// A = [3, 10, 5, 25, 2, 8], X = 5
-// BitTrie chứa các số trong A
-// findMaxXor(5) → 5 XOR 25 = 28 (lớn nhất)
-```
-
-### Code Python
-
-```python
-class BitTrieNode:
-    def __init__(self):
-        self.children = [None, None]  # 0 và 1
-
-class BitTrie:
-    MAX_BIT = 30
+        
+        // Tìm số trong trie sao cho XOR với x là lớn nhất - O(MAX_BIT)
+        int findMaxXor(int x) {
+            BitTrieNode* cur = root;
+            int result = 0;
+            for (int i = MAX_BIT; i >= 0; i--) {
+                int bit = (x >> i) & 1;
+                int want = 1 - bit;  // Ưu tiên bit ngược
+                
+                if (cur->children[want] != nullptr) {
+                    result |= (1 << i);  // Bit này contribute 1 vào XOR
+                    cur = cur->children[want];
+                } else {
+                    cur = cur->children[bit];  // Không có lựa chọn, đi theo bit giống
+                }
+            }
+            return result;
+        }
+    };
     
-    def __init__(self):
-        self.root = BitTrieNode()
+    // Ví dụ sử dụng:
+    // A = [3, 10, 5, 25, 2, 8], X = 5
+    // BitTrie chứa các số trong A
+    // findMaxXor(5) → 5 XOR 25 = 28 (lớn nhất)
+    ```
+
+=== "Python"
+
+    ```python
+    class BitTrieNode:
+        def __init__(self):
+            self.children = [None, None]  # 0 và 1
     
-    def insert(self, num):
-        cur = self.root
-        for i in range(self.MAX_BIT, -1, -1):
-            bit = (num >> i) & 1
-            if cur.children[bit] is None:
-                cur.children[bit] = BitTrieNode()
-            cur = cur.children[bit]
-    
-    def find_max_xor(self, x):
-        cur = self.root
-        result = 0
-        for i in range(self.MAX_BIT, -1, -1):
-            bit = (x >> i) & 1
-            want = 1 - bit
-            if cur.children[want] is not None:
-                result |= (1 << i)
-                cur = cur.children[want]
-            else:
+    class BitTrie:
+        MAX_BIT = 30
+        
+        def __init__(self):
+            self.root = BitTrieNode()
+        
+        def insert(self, num):
+            cur = self.root
+            for i in range(self.MAX_BIT, -1, -1):
+                bit = (num >> i) & 1
+                if cur.children[bit] is None:
+                    cur.children[bit] = BitTrieNode()
                 cur = cur.children[bit]
-        return result
-```
+        
+        def find_max_xor(self, x):
+            cur = self.root
+            result = 0
+            for i in range(self.MAX_BIT, -1, -1):
+                bit = (x >> i) & 1
+                want = 1 - bit
+                if cur.children[want] is not None:
+                    result |= (1 << i)
+                    cur = cur.children[want]
+                else:
+                    cur = cur.children[bit]
+            return result
+    ```
 
 ---
 
 ## 5. Ứng dụng: Auto-complete và Tìm kiếm xâu
+=== "C++"
 
-### Duyệt tất cả từ trong Trie
-
-```cpp
-// Tìm tất cả từ có prefix cho trước
-void findAllWithPrefix(TrieNode* node, string prefix, vector<string>& result) {
-    if (node->isEnd)
-        result.push_back(prefix);
-    
-    for (int i = 0; i < 26; i++) {
-        if (node->children[i] != nullptr) {
-            char c = 'a' + i;
-            findAllWithPrefix(node->children[i], prefix + c, result);
+    ```cpp
+    // Tìm tất cả từ có prefix cho trước
+    void findAllWithPrefix(TrieNode* node, string prefix, vector<string>& result) {
+        if (node->isEnd)
+            result.push_back(prefix);
+        
+        for (int i = 0; i < 26; i++) {
+            if (node->children[i] != nullptr) {
+                char c = 'a' + i;
+                findAllWithPrefix(node->children[i], prefix + c, result);
+            }
         }
     }
-}
-
-vector<string> autocomplete(Trie& trie, string prefix) {
-    TrieNode* cur = trie.root;
-    // Đi đến node của prefix
-    for (char c : prefix) {
-        int idx = c - 'a';
-        if (cur->children[idx] == nullptr)
-            return {};  // Không có từ nào với prefix này
-        cur = cur->children[idx];
+    
+    vector<string> autocomplete(Trie& trie, string prefix) {
+        TrieNode* cur = trie.root;
+        // Đi đến node của prefix
+        for (char c : prefix) {
+            int idx = c - 'a';
+            if (cur->children[idx] == nullptr)
+                return {};  // Không có từ nào với prefix này
+            cur = cur->children[idx];
+        }
+        // Duyệt tất cả từ từ node này
+        vector<string> result;
+        findAllWithPrefix(cur, prefix, result);
+        return result;
     }
-    // Duyệt tất cả từ từ node này
-    vector<string> result;
-    findAllWithPrefix(cur, prefix, result);
-    return result;
-}
-```
+    ```
 
-### Code Python - Autocomplete
+=== "Python"
 
-```python
-def find_all_with_prefix(node, prefix, result):
-    if node.is_end:
-        result.append(prefix)
-    for c, child in node.children.items():
-        find_all_with_prefix(child, prefix + c, result)
-
-def autocomplete(trie, prefix):
-    cur = trie.root
-    for c in prefix:
-        if c not in cur.children:
-            return []
-        cur = cur.children[c]
-    result = []
-    find_all_with_prefix(cur, prefix, result)
-    return result
-```
+    ```python
+    def find_all_with_prefix(node, prefix, result):
+        if node.is_end:
+            result.append(prefix)
+        for c, child in node.children.items():
+            find_all_with_prefix(child, prefix + c, result)
+    
+    def autocomplete(trie, prefix):
+        cur = trie.root
+        for c in prefix:
+            if c not in cur.children:
+                return []
+            cur = cur.children[c]
+        result = []
+        find_all_with_prefix(cur, prefix, result)
+        return result
+    ```
 
 ---
 
@@ -392,4 +392,4 @@ def autocomplete(trie, prefix):
 - [USACO Guide - Trie](https://usaco.gold/adv/trie)
 - [YouTube - Trie Data Structure (takeuforward)](https://www.youtube.com/watch?v=AXjmTQ8LEoI)
 
-**Bài tiếp theo:** [Heap, DSU, Segment Tree, BIT →](08-heap-dsu-segment-tree-bit.md)
+**Bài tiếp theo:** [Heap (Hàng đợi ưu tiên) →](08a-heap.md)

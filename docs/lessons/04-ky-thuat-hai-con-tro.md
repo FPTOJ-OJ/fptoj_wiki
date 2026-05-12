@@ -125,130 +125,132 @@ Kết quả: độ dài dài nhất = 4 (đoạn [2,6,5,3])
 
 ## 4. Bắt tay vào Code nào!
 
-### Code C++
+### Code: Hai con trỏ
 
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
+=== "C++"
 
-// ===== Bài toán 1: Trộn 2 mảng đã sắp xếp =====
-vector<int> mergeArrays(vector<int>& a, vector<int>& b) {
-    vector<int> c;
-    int i = 0, j = 0;  // 2 con trỏ
-    
-    while (i < a.size() && j < b.size()) {
-        if (a[i] <= b[j]) {
-            c.push_back(a[i++]);  // Lấy a[i], tăng i
-        } else {
-            c.push_back(b[j++]);  // Lấy b[j], tăng j
-        }
-    }
-    // Copy phần còn lại
-    while (i < a.size()) c.push_back(a[i++]);
-    while (j < b.size()) c.push_back(b[j++]);
-    
-    return c;
-}
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
 
-// ===== Bài toán 2: Tìm 2 phần tử có tổng = X =====
-// Mảng đã được sắp xếp tăng dần
-pair<int,int> findPairWithSum(vector<int>& a, int x) {
-    int i = 0, j = a.size() - 1;
-    
-    while (i < j) {
-        int sum = a[i] + a[j];
-        if (sum == x)
-            return {i, j};          // Tìm thấy!
-        else if (sum < x)
-            i++;                    // Cần tổng lớn hơn
-        else
-            j--;                    // Cần tổng nhỏ hơn
-    }
-    return {-1, -1};  // Không tìm thấy
-}
-
-// ===== Bài toán 3: Đoạn con dài nhất có tổng ≤ S =====
-int longestSubarrayWithSum(vector<int>& a, long long s) {
-    int ans = 0;
-    long long sum = 0;
-    int l = 0;
-    
-    for (int r = 0; r < a.size(); r++) {
-        sum += a[r];                // Mở rộng đoạn sang phải
+    // ===== Bài toán 1: Trộn 2 mảng đã sắp xếp =====
+    vector<int> mergeArrays(vector<int>& a, vector<int>& b) {
+        vector<int> c;
+        int i = 0, j = 0;  // 2 con trỏ
         
-        while (sum > s) {           // Thu nhỏ đoạn từ trái
-            sum -= a[l];
-            l++;
+        while (i < a.size() && j < b.size()) {
+            if (a[i] <= b[j]) {
+                c.push_back(a[i++]);  // Lấy a[i], tăng i
+            } else {
+                c.push_back(b[j++]);  // Lấy b[j], tăng j
+            }
         }
+        // Copy phần còn lại
+        while (i < a.size()) c.push_back(a[i++]);
+        while (j < b.size()) c.push_back(b[j++]);
         
-        ans = max(ans, r - l + 1);  // Cập nhật kết quả
+        return c;
     }
-    return ans;
-}
 
-int main() {
-    // Test bài toán 2
-    vector<int> a = {2, 5, 6, 8, 10, 12, 15};
-    auto [i, j] = findPairWithSum(a, 16);
-    cout << "Vi tri: " << i << " " << j << endl;  // Output: 2 4
-    
-    // Test bài toán 3
-    vector<int> b = {2, 6, 5, 3, 6, 8, 9};
-    cout << "Doan dai nhat: " << longestSubarrayWithSum(b, 20) << endl;  // Output: 4
-    
-    return 0;
-}
-```
+    // ===== Bài toán 2: Tìm 2 phần tử có tổng = X =====
+    // Mảng đã được sắp xếp tăng dần
+    pair<int,int> findPairWithSum(vector<int>& a, int x) {
+        int i = 0, j = a.size() - 1;
+        
+        while (i < j) {
+            int sum = a[i] + a[j];
+            if (sum == x)
+                return {i, j};          // Tìm thấy!
+            else if (sum < x)
+                i++;                    // Cần tổng lớn hơn
+            else
+                j--;                    // Cần tổng nhỏ hơn
+        }
+        return {-1, -1};  // Không tìm thấy
+    }
 
-### Code Python
+    // ===== Bài toán 3: Đoạn con dài nhất có tổng ≤ S =====
+    int longestSubarrayWithSum(vector<int>& a, long long s) {
+        int ans = 0;
+        long long sum = 0;
+        int l = 0;
+        
+        for (int r = 0; r < a.size(); r++) {
+            sum += a[r];                // Mở rộng đoạn sang phải
+            
+            while (sum > s) {           // Thu nhỏ đoạn từ trái
+                sum -= a[l];
+                l++;
+            }
+            
+            ans = max(ans, r - l + 1);  // Cập nhật kết quả
+        }
+        return ans;
+    }
 
-```python
-# ===== Bài toán 1: Trộn 2 mảng =====
-def merge_arrays(a, b):
-    c = []
-    i = j = 0
-    while i < len(a) and j < len(b):
-        if a[i] <= b[j]:
-            c.append(a[i]); i += 1
-        else:
-            c.append(b[j]); j += 1
-    c.extend(a[i:])
-    c.extend(b[j:])
-    return c
+    int main() {
+        // Test bài toán 2
+        vector<int> a = {2, 5, 6, 8, 10, 12, 15};
+        auto [i, j] = findPairWithSum(a, 16);
+        cout << "Vi tri: " << i << " " << j << endl;  // Output: 2 4
+        
+        // Test bài toán 3
+        vector<int> b = {2, 6, 5, 3, 6, 8, 9};
+        cout << "Doan dai nhat: " << longestSubarrayWithSum(b, 20) << endl;  // Output: 4
+        
+        return 0;
+    }
+    ```
 
-# ===== Bài toán 2: Tìm 2 phần tử có tổng = X =====
-def find_pair_with_sum(a, x):
-    i, j = 0, len(a) - 1
-    while i < j:
-        s = a[i] + a[j]
-        if s == x:
-            return (i, j)       # Tìm thấy!
-        elif s < x:
-            i += 1              # Cần tổng lớn hơn
-        else:
-            j -= 1              # Cần tổng nhỏ hơn
-    return (-1, -1)             # Không tìm thấy
+=== "Python"
 
-# ===== Bài toán 3: Đoạn con dài nhất có tổng ≤ S =====
-def longest_subarray(a, s):
-    ans = 0
-    total = 0
-    l = 0
-    for r in range(len(a)):
-        total += a[r]           # Mở rộng đoạn
-        while total > s:        # Thu nhỏ từ trái
-            total -= a[l]
-            l += 1
-        ans = max(ans, r - l + 1)
-    return ans
+    ```python
+    # ===== Bài toán 1: Trộn 2 mảng =====
+    def merge_arrays(a, b):
+        c = []
+        i = j = 0
+        while i < len(a) and j < len(b):
+            if a[i] <= b[j]:
+                c.append(a[i]); i += 1
+            else:
+                c.append(b[j]); j += 1
+        c.extend(a[i:])
+        c.extend(b[j:])
+        return c
 
-# Test
-a = [2, 5, 6, 8, 10, 12, 15]
-print(find_pair_with_sum(a, 16))  # (2, 4)
+    # ===== Bài toán 2: Tìm 2 phần tử có tổng = X =====
+    def find_pair_with_sum(a, x):
+        i, j = 0, len(a) - 1
+        while i < j:
+            s = a[i] + a[j]
+            if s == x:
+                return (i, j)       # Tìm thấy!
+            elif s < x:
+                i += 1              # Cần tổng lớn hơn
+            else:
+                j -= 1              # Cần tổng nhỏ hơn
+        return (-1, -1)             # Không tìm thấy
 
-b = [2, 6, 5, 3, 6, 8, 9]
-print(longest_subarray(b, 20))    # 4
-```
+    # ===== Bài toán 3: Đoạn con dài nhất có tổng ≤ S =====
+    def longest_subarray(a, s):
+        ans = 0
+        total = 0
+        l = 0
+        for r in range(len(a)):
+            total += a[r]           # Mở rộng đoạn
+            while total > s:        # Thu nhỏ từ trái
+                total -= a[l]
+                l += 1
+            ans = max(ans, r - l + 1)
+        return ans
+
+    # Test
+    a = [2, 5, 6, 8, 10, 12, 15]
+    print(find_pair_with_sum(a, 16))  # (2, 4)
+
+    b = [2, 6, 5, 3, 6, 8, 9]
+    print(longest_subarray(b, 20))    # 4
+    ```
 
 ---
 
@@ -264,47 +266,57 @@ Hai con trỏ **chỉ hoạt động** khi mảng có tính đơn điệu (sắp
 
 Khi cài đặt, hãy đảm bảo ở mọi trường hợp của `if-else`, các con trỏ đều được di chuyển.
 
-```cpp
-// SAI: có thể lặp vô hạn nếu sum > x
-while (i < j) {
-    if (a[i] + a[j] == x) return {i, j};
-    if (a[i] + a[j] < x) i++;
-    // Quên trường hợp sum > x → j không bao giờ giảm!
-}
+=== "C++"
 
-// ĐÚNG:
-while (i < j) {
-    int sum = a[i] + a[j];
-    if (sum == x) return {i, j};
-    else if (sum < x) i++;
-    else j--;
-}
-```
-```python
-# ĐÚNG:
-while i < j:
-    s = a[i] + a[j]
-    if s == x:
-        return (i, j)
-    elif s < x:
-        i += 1
-    else:
-        j -= 1
-```
+    ```cpp
+    // SAI: có thể lặp vô hạn nếu sum > x
+    while (i < j) {
+        if (a[i] + a[j] == x) return {i, j};
+        if (a[i] + a[j] < x) i++;
+        // Quên trường hợp sum > x → j không bao giờ giảm!
+    }
+
+    // ĐÚNG:
+    while (i < j) {
+        int sum = a[i] + a[j];
+        if (sum == x) return {i, j};
+        else if (sum < x) i++;
+        else j--;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # ĐÚNG:
+    while i < j:
+        s = a[i] + a[j]
+        if s == x:
+            return (i, j)
+        elif s < x:
+            i += 1
+        else:
+            j -= 1
+    ```
 
 ### Bẫy 3: Tràn số khi tính tổng
 
-```cpp
-// SAI: a[i] + a[j] có thể vượt quá int
-int sum = a[i] + a[j];
+=== "C++"
 
-// ĐÚNG: dùng long long
-long long sum = (long long)a[i] + a[j];
-```
-```python
-# Python tự động xử lý số lớn, không cần lo tràn số
-s = a[i] + a[j]
-```
+    ```cpp
+    // SAI: a[i] + a[j] có thể vượt quá int
+    int sum = a[i] + a[j];
+
+    // ĐÚNG: dùng long long
+    long long sum = (long long)a[i] + a[j];
+    ```
+
+=== "Python"
+
+    ```python
+    # Python tự động xử lý số lớn, không cần lo tràn số
+    s = a[i] + a[j]
+    ```
 
 ### Bẫy 4: Đoạn con dài nhất - dùng long long cho tổng
 
@@ -348,7 +360,7 @@ for r = 0 to n-1:
 ## Tài liệu tham khảo
 
 - [VNOI Wiki - Kĩ thuật hai con trỏ](https://wiki.vnoi.info/algo/basic/two-pointers)
-- [CP-Algorithms - Two Pointers](https://cp-algorithms.com/algebra/two-pointer-method.html)
+- [CP-Algorithms - Two Pointers](https://usaco.guide/silver/two-pointers)
 - [USACO Guide - Two Pointers](https://usaco.guide/silver/two-pointers)
 - [GeeksforGeeks - Two Pointer Technique](https://www.geeksforgeeks.org/dsa/two-pointers-technique/)
 - [YouTube - Two Pointers (takeuforward)](https://www.youtube.com/watch?v=On03HWe2tZM)

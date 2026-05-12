@@ -228,22 +228,32 @@ Vì FFT đòi hỏi phải sử dụng số phức và (trong nhiều trường 
 
 Để sử dụng số phức trong `C++` ta cần khai báo thư viện `complex`:
 
-```cpp
-## include <complex>
-```
-```python
-import cmath
-```
+=== "C++"
+
+    ```cpp
+    ## include <complex>
+    ```
+
+=== "Python"
+
+    ```python
+    import cmath
+    ```
 Vì `C++` cài đặt `complex` là một lớp (`class`) gồm 2 trường thực (`real()`) và ảo (`imag()`) nên khi sử dụng ta cần chỉ định kiểu dữ liệu cho hai trường này. Hai kiểu dữ liệu thông dụng là `double` hoặc `long double`:
 
-```cpp
-typedef complex<double> base;
-typedef vector<base> vb;
-```
-```python
-# Python has built-in complex numbers
-# Use: complex(real, imag)
-```
+=== "C++"
+
+    ```cpp
+    typedef complex<double> base;
+    typedef vector<base> vb;
+    ```
+
+=== "Python"
+
+    ```python
+    # Python has built-in complex numbers
+    # Use: complex(real, imag)
+    ```
 
 Sau khi được định nghĩa bằng lệnh `typedef` thì để khai báo biến và vector kiểu phức, ta chỉ cần viết `base x` và `vb v` là được.
 
@@ -259,119 +269,129 @@ Trong các phần trên ta đã giả sử rằng $n$ là lũy thừa của $2$.
 
 Xét một đoạn mã `C++` cài đặt hàm FFT sử dụng đệ quy như sau:
 
-```cpp
-void fft_slow(int n, vb& a) // biến đổi fft của vector a, lưu kết quả vào chính nó
-{
-    if(n == 1)
+=== "C++"
+
+    ```cpp
+    void fft_slow(int n, vb& a) // biến đổi fft của vector a, lưu kết quả vào chính nó
     {
-        return;
+        if(n == 1)
+        {
+            return;
+        }
+        int i, j, k;
+
+        // Bước 1. Khai báo kết quả fft chẵn và lẻ
+        vb a_even(n / 2), a_odd (n / 2);
+
+        // Bước 2. Tách hàng chẵn và hàng lẻ
+        for(i = j = 0; i < n; i += 2)
+        {
+            a_even[j] = a[i];
+            a_odd[j]  = a[i+1];
+            ++j;
+        }
+
+        // Bước 3. Biến đổi FFT với các hàng chẵn, lẻ
+        fft_slow(n / 2, a_even);
+        fft_slow(n / 2, a_odd);
+
+       // Bước 4: Ghép hoàn chỉnh kết quả
+        double ang = 2*PI/n;
+        base w (1),  wn (cos(ang), sin(ang));
+
+        for(i = 0; i < n / 2; ++i)
+        {
+            a[i]         = a_even[i] + w * a_odd[i];
+            a[i + n / 2] = a_even[i] - w * a_odd[i];
+            w *= wn;
+        }
     }
-    int i, j, k;
+    ```
 
-    // Bước 1. Khai báo kết quả fft chẵn và lẻ
-    vb a_even(n / 2), a_odd (n / 2);
+=== "Python"
 
-    // Bước 2. Tách hàng chẵn và hàng lẻ
-    for(i = j = 0; i < n; i += 2)
-    {
-        a_even[j] = a[i];
-        a_odd[j]  = a[i+1];
-        ++j;
-    }
+    ```python
+    import cmath
 
-    // Bước 3. Biến đổi FFT với các hàng chẵn, lẻ
-    fft_slow(n / 2, a_even);
-    fft_slow(n / 2, a_odd);
+    PI = cmath.pi
 
-   // Bước 4: Ghép hoàn chỉnh kết quả
-    double ang = 2*PI/n;
-    base w (1),  wn (cos(ang), sin(ang));
-
-    for(i = 0; i < n / 2; ++i)
-    {
-        a[i]         = a_even[i] + w * a_odd[i];
-        a[i + n / 2] = a_even[i] - w * a_odd[i];
-        w *= wn;
-    }
-}
-```
-```python
-import cmath
-
-PI = cmath.pi
-
-def fft_slow(a):
-    n = len(a)
-    if n == 1:
-        return a
-    a_even = a[0::2]
-    a_odd = a[1::2]
-    a_even = fft_slow(a_even)
-    a_odd = fft_slow(a_odd)
-    ang = 2 * PI / n
-    w = 1
-    wn = cmath.exp(1j * ang)
-    result = [0] * n
-    for i in range(n // 2):
-        result[i] = a_even[i] + w * a_odd[i]
-        result[i + n // 2] = a_even[i] - w * a_odd[i]
-        w *= wn
-    return result
-```
+    def fft_slow(a):
+        n = len(a)
+        if n == 1:
+            return a
+        a_even = a[0::2]
+        a_odd = a[1::2]
+        a_even = fft_slow(a_even)
+        a_odd = fft_slow(a_odd)
+        ang = 2 * PI / n
+        w = 1
+        wn = cmath.exp(1j * ang)
+        result = [0] * n
+        for i in range(n // 2):
+            result[i] = a_even[i] + w * a_odd[i]
+            result[i + n // 2] = a_even[i] - w * a_odd[i]
+            w *= wn
+        return result
+    ```
 
 Có nhiều nguyên nhân làm cho FFT đệ quy chạy chậm, như trong **Bước 1** thì khai báo hai vector kích cỡ $n/2$ lớn như vậy và lại khai báo liên tục ở các mức đệ quy. Bản thân chương trình đệ quy cũng chạy chậm vì chương trình phải lưu rất nhiều con trỏ stack và liên tục giải phóng bộ nhớ của biến cục bộ ở mỗi mức đệ quy. Nhìn chung đệ quy chỉ có ý nghĩa như trong thuật toán Quy Hoạch Động khi ta muốn tìm kết quả của một công thức truy hồi mà chỉ duyệt qua những trạng thái liên quan trực tiếp tới kết quả. Trong FFT ta luôn phải thăm hết các ma trận con nên cài đặt FFT bằng đệ quy không có lợi về tốc độ thực hiện.
 
 Để cho đầy đủ thì ta cũng có hàm biến đổi FFT ngược như sau:
 
-```cpp
-void inverse_fft_slow(int n, vb& a)
-{
-    if(n == 1)
-    {
-        return;
-    }
-    int i, j, k;
-    vb a_even, a_odd;
-    for(i = 0; i < n; ++i)
-    {
-        if(i & 1) a_odd.push_back(a[i]);
-        else      a_even.push_back(a[i]);
-    }
-    inverse_fft_slow(n / 2, a_even);
-    inverse_fft_slow(n / 2, a_odd);
+=== "C++"
 
-    double ang = -2*PI/n;
-    base w (1),  wn (cos(ang), sin(ang));
-
-    for(i = 0; i < n/ 2; ++i)
+    ```cpp
+    void inverse_fft_slow(int n, vb& a)
     {
-        a[i]         = a_even[i] + w * a_odd[i];
-        a[i]         /= 2;
-        a[i + n / 2] = a_even[i] - w * a_odd[i];
-        a[i + n / 2] /= 2;
-        w *= wn;
+        if(n == 1)
+        {
+            return;
+        }
+        int i, j, k;
+        vb a_even, a_odd;
+        for(i = 0; i < n; ++i)
+        {
+            if(i & 1) a_odd.push_back(a[i]);
+            else      a_even.push_back(a[i]);
+        }
+        inverse_fft_slow(n / 2, a_even);
+        inverse_fft_slow(n / 2, a_odd);
+
+        double ang = -2*PI/n;
+        base w (1),  wn (cos(ang), sin(ang));
+
+        for(i = 0; i < n/ 2; ++i)
+        {
+            a[i]         = a_even[i] + w * a_odd[i];
+            a[i]         /= 2;
+            a[i + n / 2] = a_even[i] - w * a_odd[i];
+            a[i + n / 2] /= 2;
+            w *= wn;
+        }
     }
-}
-```
-```python
-def inverse_fft_slow(a):
-    n = len(a)
-    if n == 1:
-        return a
-    a_even = a[0::2]
-    a_odd = a[1::2]
-    a_even = inverse_fft_slow(a_even)
-    a_odd = inverse_fft_slow(a_odd)
-    ang = -2 * PI / n
-    w = 1
-    wn = cmath.exp(1j * ang)
-    result = [0] * n
-    for i in range(n // 2):
-        result[i] = (a_even[i] + w * a_odd[i]) / 2
-        result[i + n // 2] = (a_even[i] - w * a_odd[i]) / 2
-        w *= wn
-    return result
-```
+    ```
+
+=== "Python"
+
+    ```python
+    def inverse_fft_slow(a):
+        n = len(a)
+        if n == 1:
+            return a
+        a_even = a[0::2]
+        a_odd = a[1::2]
+        a_even = inverse_fft_slow(a_even)
+        a_odd = inverse_fft_slow(a_odd)
+        ang = -2 * PI / n
+        w = 1
+        wn = cmath.exp(1j * ang)
+        result = [0] * n
+        for i in range(n // 2):
+            result[i] = (a_even[i] + w * a_odd[i]) / 2
+            result[i + n // 2] = (a_even[i] - w * a_odd[i]) / 2
+            w *= wn
+        return result
+    ```
 
 **Khử đệ quy:**
 

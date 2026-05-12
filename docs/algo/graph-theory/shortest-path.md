@@ -95,81 +95,89 @@ Có thể chứng minh được rằng, vòng lặp trên cần thực hiện $N
 
 * **Độ phức tạp**: Ta có một vòng lặp được thực hiện $N-1$ lần, mỗi lần lặp ta sẽ xử lí tất cả các cạnh trong đồ thị, như vậy độ phức tạp của thuật toán là $O(N*M)$.
 
-**Code:**
-```cpp
-const long long INF = 2000000000000000000LL;
-struct Edge {
-    int u, v;
-    long long w; // cạnh từ u đến v, trọng số w
-};
-void bellmanFord(int n, int S, vector<Edge> &e, vector<long long> &D, vector<int> &trace) {
-    // e: danh sách cạnh
-    // n: số đỉnh
-    // S: đỉnh bắt đầu
-    // D: độ dài đường đi ngắn nhất
-    // trace: mảng truy vết đường đi
-    // INF nếu không có đường đi
-    // -INF nếu có đường đi âm vô tận
-    D.resize(n, INF);
-    trace.resize(n, -1);
+=== "C++"
 
-    D[S] = 0;
-    for(int T = 1; T < n; T++) {
-        for (auto E : e) {
-            int u = E.u;
-            int v = E.v;
-            long long w = E.w;
-            if (D[u] != INF && D[v] > D[u] + w) {
-                D[v] = D[u] + w;
-                trace[v] = u;
+    ```cpp
+    const long long INF = 2000000000000000000LL;
+    struct Edge {
+        int u, v;
+        long long w; // cạnh từ u đến v, trọng số w
+    };
+    void bellmanFord(int n, int S, vector<Edge> &e, vector<long long> &D, vector<int> &trace) {
+        // e: danh sách cạnh
+        // n: số đỉnh
+        // S: đỉnh bắt đầu
+        // D: độ dài đường đi ngắn nhất
+        // trace: mảng truy vết đường đi
+        // INF nếu không có đường đi
+        // -INF nếu có đường đi âm vô tận
+        D.resize(n, INF);
+        trace.resize(n, -1);
+
+        D[S] = 0;
+        for(int T = 1; T < n; T++) {
+            for (auto E : e) {
+                int u = E.u;
+                int v = E.v;
+                long long w = E.w;
+                if (D[u] != INF && D[v] > D[u] + w) {
+                    D[v] = D[u] + w;
+                    trace[v] = u;
+                }
             }
         }
     }
-}
-```
-```python
-def bellman_ford(n, S, edges):
-    INF = 10**18
-    D = [INF] * n
-    trace = [-1] * n
-    D[S] = 0
-    for _ in range(n - 1):
-        for u, v, w in edges:
-            if D[u] != INF and D[v] > D[u] + w:
-                D[v] = D[u] + w
-                trace[v] = u
-    return D, trace
-```
+    ```
+
+=== "Python"
+
+    ```python
+    def bellman_ford(n, S, edges):
+        INF = 10**18
+        D = [INF] * n
+        trace = [-1] * n
+        D[S] = 0
+        for _ in range(n - 1):
+            for u, v, w in edges:
+                if D[u] != INF and D[v] > D[u] + w:
+                    D[v] = D[u] + w
+                    trace[v] = u
+        return D, trace
+    ```
 
 ## Tìm lại đường đi ngắn nhất
 Thao tác tìm đường đi ngắn nhất từ $S$ đến $u$ khá đơn giản, ta sẽ bắt đầu từ đỉnh $u$, sau đó truy vết theo mảng $trace$ ngược về $S$.
 
-```cpp
-vector<int> trace_path(vector<int> &trace, int S, int u) {
-    if (u != S && trace[u] == -1) return vector<int>(0); // không có đường đi
+=== "C++"
 
-    vector<int> path;
-    while (u != -1) { // truy vết ngược từ u về S
-        path.push_back(u);
-        u = trace[u];
+    ```cpp
+    vector<int> trace_path(vector<int> &trace, int S, int u) {
+        if (u != S && trace[u] == -1) return vector<int>(0); // không có đường đi
+
+        vector<int> path;
+        while (u != -1) { // truy vết ngược từ u về S
+            path.push_back(u);
+            u = trace[u];
+        }
+        reverse(path.begin(), path.end()); // cần reverse vì đường đi lúc này là từ u về S
+        
+        return path;
     }
-    reverse(path.begin(), path.end()); // cần reverse vì đường đi lúc này là từ u về S
-    
-    return path;
-}
+    ```
 
-```
-```python
-def trace_path(trace, S, u):
-    if u != S and trace[u] == -1:
-        return []
-    path = []
-    while u != -1:
-        path.append(u)
-        u = trace[u]
-    path.reverse()
-    return path
-```
+=== "Python"
+
+    ```python
+    def trace_path(trace, S, u):
+        if u != S and trace[u] == -1:
+            return []
+        path = []
+        while u != -1:
+            path.append(u)
+            u = trace[u]
+        path.reverse()
+        return path
+    ```
 
 ## Các trường hợp có chu trình âm
 
@@ -345,67 +353,71 @@ Ta sẽ lặp $N$ lần quá trình sau:
 
 Như vậy độ phức tạp của cách cài đặt cơ bản sẽ là $O(N^2 + M)$.
 
-**Code:**
-``` cpp
-const long long INF = 2000000000000000000LL;
-struct Edge{
-    int v;
-    long long w;
-};
-void dijkstra(int n, int S, vector<vector<Edge>> E, vector<long long> &D, vector<int> &trace) {
-    D.resize(n, INF);
-    trace.resize(n, -1);
-    
-    vector<bool> P(n, 0);
-    D[S] = 0;
-    
-    for (int i = 0; i < n; i++) {
-        int uBest; // tìm đỉnh u chưa dùng, có khoảng cách nhỏ nhất
-        long long Max = INF;
-        for (int u = 0; u < n; u++) {
-            if(D[u] < Max && P[u] == false) {
-                uBest = u;
-                Max = D[u];
-            }
-        }
+=== "C++"
+
+    ```cpp
+    const long long INF = 2000000000000000000LL;
+    struct Edge{
+        int v;
+        long long w;
+    };
+    void dijkstra(int n, int S, vector<vector<Edge>> E, vector<long long> &D, vector<int> &trace) {
+        D.resize(n, INF);
+        trace.resize(n, -1);
         
-        // cải tiến các đường đi qua u
-        int u = uBest;
-        P[u] = true;
-        for(auto x : E[u]) {
-            int v = x.v;
-            long long w = x.w;
-            if(D[v] > D[u] + w) {
-                D[v] = D[u] + w;
-                trace[v] = u;
+        vector<bool> P(n, 0);
+        D[S] = 0;
+        
+        for (int i = 0; i < n; i++) {
+            int uBest; // tìm đỉnh u chưa dùng, có khoảng cách nhỏ nhất
+            long long Max = INF;
+            for (int u = 0; u < n; u++) {
+                if(D[u] < Max && P[u] == false) {
+                    uBest = u;
+                    Max = D[u];
+                }
+            }
+            
+            // cải tiến các đường đi qua u
+            int u = uBest;
+            P[u] = true;
+            for(auto x : E[u]) {
+                int v = x.v;
+                long long w = x.w;
+                if(D[v] > D[u] + w) {
+                    D[v] = D[u] + w;
+                    trace[v] = u;
+                }
             }
         }
     }
-}
-```
-```python
-def dijkstra(n, S, E):
-    INF = 10**18
-    D = [INF] * n
-    trace = [-1] * n
-    P = [False] * n
-    D[S] = 0
+    ```
 
-    for _ in range(n):
-        u_best = -1
-        best = INF
-        for u in range(n):
-            if D[u] < best and not P[u]:
-                u_best = u
-                best = D[u]
-        u = u_best
-        P[u] = True
-        for v, w in E[u]:
-            if D[v] > D[u] + w:
-                D[v] = D[u] + w
-                trace[v] = u
-    return D, trace
-```
+=== "Python"
+
+    ```python
+    def dijkstra(n, S, E):
+        INF = 10**18
+        D = [INF] * n
+        trace = [-1] * n
+        P = [False] * n
+        D[S] = 0
+
+        for _ in range(n):
+            u_best = -1
+            best = INF
+            for u in range(n):
+                if D[u] < best and not P[u]:
+                    u_best = u
+                    best = D[u]
+            u = u_best
+            P[u] = True
+            for v, w in E[u]:
+                if D[v] > D[u] + w:
+                    D[v] = D[u] + w
+                    trace[v] = u
+        return D, trace
+    ```
 ## Cải tiến đối với đồ thị thưa
 
 * Nhận xét rằng bước đầu tiên: "Tìm đỉnh $u$ có $D_u$ nhỏ nhất và $P_u = false$", có thể được cải tiến. Ta có thể sử dụng cấu trúc dữ liệu [Heap](https://vnoi.info/wiki/translate/wcipeg/Binary-Heap.md) (cụ thể là Min Heap) hoặc cây nhị phân tìm kiếm để cải tiến bước này.
@@ -423,107 +435,115 @@ def dijkstra(n, S, E):
 - Để cách cài đặt cải tiến tốt hơn, ta cần $MlogN < N^2$ suy ra $M < N^2/logN$.
     - Ví dụ: đối với $N = 10^5$, ta cần $M > 6 \cdot 10^8$ để cách cài đặt cơ bản tốt hơn cách cài đặt cải tiến. Thực tế trong lập trình thi đấu khó có đồ thị nào có số cạnh lớn như vậy. Vì thế nhìn chung khi $N$ lớn thì thuật $O(MlogN)$ luôn tốt hơn.
 
-**Code:**
-```cpp
-const long long INF = 2000000000000000000LL;
-struct Edge{// kiểu dữ liệu tự tạo để lưu thông số của một cạnh.
-    int v;
-    long long w;
-};
-struct Node{// kiểu dữ liệu để lưu đỉnh u và độ dài của đường đi ngắn nhất từ s đến u.
-    int u;
-    long long Dist_u;
-};
-struct cmp{
-    bool operator() (Node a, Node b) {
-        return a.Dist_u > b.Dist_u;
-    }
-};
-void dijkstraSparse(int n, int s, vector<vector<Edge>> &E, vector<long long> &D, vector<int> &trace) {
-    D.resize(n, INF);
-    trace.resize(n, -1);
-    vector<bool> P(n, 0);
-    
-    D[s] = 0;
-    priority_queue<Node, vector<Node>, cmp> h; // hàng đợi ưu tiên, sắp xếp theo dist[u] nhỏ nhất trước
-    h.push({s, D[s]});
-    
-    while(!h.empty()) {
-        Node x = h.top();
-        h.pop();
+=== "C++"
+
+    ```cpp
+    const long long INF = 2000000000000000000LL;
+    struct Edge{// kiểu dữ liệu tự tạo để lưu thông số của một cạnh.
+        int v;
+        long long w;
+    };
+    struct Node{// kiểu dữ liệu để lưu đỉnh u và độ dài của đường đi ngắn nhất từ s đến u.
+        int u;
+        long long Dist_u;
+    };
+    struct cmp{
+        bool operator() (Node a, Node b) {
+            return a.Dist_u > b.Dist_u;
+        }
+    };
+    void dijkstraSparse(int n, int s, vector<vector<Edge>> &E, vector<long long> &D, vector<int> &trace) {
+        D.resize(n, INF);
+        trace.resize(n, -1);
+        vector<bool> P(n, 0);
         
-        int u = x.u;
-        if(P[u] == true) // Đỉnh u đã được chọn trước đó, bỏ qua
-            continue;
+        D[s] = 0;
+        priority_queue<Node, vector<Node>, cmp> h; // hàng đợi ưu tiên, sắp xếp theo dist[u] nhỏ nhất trước
+        h.push({s, D[s]});
+        
+        while(!h.empty()) {
+            Node x = h.top();
+            h.pop();
             
-        P[u] = true; // Đánh dấu đỉnh u đã được chọn
-        for(auto e : E[u]) {
-            int v = e.v;
-            long long w = e.w; 
-            
-            if(D[v] > D[u] + w) {
-                D[v] = D[u] + w;
-                h.push({v, D[v]});
-                trace[v] = u;
+            int u = x.u;
+            if(P[u] == true) // Đỉnh u đã được chọn trước đó, bỏ qua
+                continue;
+                
+            P[u] = true; // Đánh dấu đỉnh u đã được chọn
+            for(auto e : E[u]) {
+                int v = e.v;
+                long long w = e.w; 
+                
+                if(D[v] > D[u] + w) {
+                    D[v] = D[u] + w;
+                    h.push({v, D[v]});
+                    trace[v] = u;
+                }
             }
         }
     }
-}
-```
-```python
-import heapq
+    ```
 
-def dijkstra_sparse(n, s, E):
-    INF = 10**18
-    D = [INF] * n
-    trace = [-1] * n
-    P = [False] * n
+=== "Python"
 
-    D[s] = 0
-    h = [(0, s)]
+    ```python
+    import heapq
 
-    while h:
-        dist_u, u = heapq.heappop(h)
-        if P[u]:
-            continue
-        P[u] = True
-        for v, w in E[u]:
-            if D[v] > D[u] + w:
-                D[v] = D[u] + w
-                heapq.heappush(h, (D[v], v))
-                trace[v] = u
-    return D, trace
-```
+    def dijkstra_sparse(n, s, E):
+        INF = 10**18
+        D = [INF] * n
+        trace = [-1] * n
+        P = [False] * n
+
+        D[s] = 0
+        h = [(0, s)]
+
+        while h:
+            dist_u, u = heapq.heappop(h)
+            if P[u]:
+                continue
+            P[u] = True
+            for v, w in E[u]:
+                if D[v] > D[u] + w:
+                    D[v] = D[u] + w
+                    heapq.heappush(h, (D[v], v))
+                    trace[v] = u
+        return D, trace
+    ```
 
 ## Tìm lại đường đi ngắn nhất
 Cũng giống như thuật toán Bellman-Ford, để tìm lại đường đi ngắn nhất từ $S$ về $u$, ta sẽ bắt đầu từ đỉnh $u$, sau đó truy vết theo mảng $trace$ ngược về $S$.
 
-```cpp
-vector<int> trace_path(vector<int> &trace, int S, int u) {
-    if (u != S && trace[u] == -1) return vector<int>(0); // không có đường đi
+=== "C++"
 
-    vector<int> path;
-    while (u != -1) { // truy vết ngược từ u về S
-        path.push_back(u);
-        u = trace[u];
+    ```cpp
+    vector<int> trace_path(vector<int> &trace, int S, int u) {
+        if (u != S && trace[u] == -1) return vector<int>(0); // không có đường đi
+
+        vector<int> path;
+        while (u != -1) { // truy vết ngược từ u về S
+            path.push_back(u);
+            u = trace[u];
+        }
+        reverse(path.begin(), path.end()); // cần reverse vì đường đi lúc này là từ u về S
+        
+        return path;
     }
-    reverse(path.begin(), path.end()); // cần reverse vì đường đi lúc này là từ u về S
-    
-    return path;
-}
+    ```
 
-```
-```python
-def trace_path(trace, S, u):
-    if u != S and trace[u] == -1:
-        return []
-    path = []
-    while u != -1:
-        path.append(u)
-        u = trace[u]
-    path.reverse()
-    return path
-```
+=== "Python"
+
+    ```python
+    def trace_path(trace, S, u):
+        if u != S and trace[u] == -1:
+            return []
+        path = []
+        while u != -1:
+            path.append(u)
+            u = trace[u]
+        path.reverse()
+        return path
+    ```
 
 
 ## 3. Thuật toán Floyd-Warshall
@@ -592,77 +612,84 @@ Ta nhận thấy có một cấu trúc đệ quy, chia nhỏ bài toán ở đâ
 
 - Độ phức tạp của thuật toán là $O(N^3)$.
 
-**Code:**
-Thuật toán có thể được cài đặt rất dễ dàng chỉ với 3 vòng lặp:
+=== "C++"
 
-```cpp
-void init_trace(vector<vector<int>> &trace) {
-    int n = trace.size();
-    for (int u = 0; u < n; u++) {
-        for (int v = 0; v < n; v++) {
-            trace[u][v] = u;
-        }
-    }
-}
-
-void floydWarshall(int n, vector<vector<long long>> &w, vector<vector<long long>> &D, vector<vector<int>> &trace) {
-    D = w;
-    init_trace(trace); // nếu cần dò đường đi
-    
-    for (int k = 0; k < n; k++) {
+    ```cpp
+    void init_trace(vector<vector<int>> &trace) {
+        int n = trace.size();
         for (int u = 0; u < n; u++) {
             for (int v = 0; v < n; v++) {
-                if (D[u][v] > D[u][k] + D[k][v]) {
-                    D[u][v] = D[u][k] + D[k][v];
-                    trace[u][v] = trace[k][v];
+                trace[u][v] = u;
+            }
+        }
+    }
+
+    void floydWarshall(int n, vector<vector<long long>> &w, vector<vector<long long>> &D, vector<vector<int>> &trace) {
+        D = w;
+        init_trace(trace); // nếu cần dò đường đi
+        
+        for (int k = 0; k < n; k++) {
+            for (int u = 0; u < n; u++) {
+                for (int v = 0; v < n; v++) {
+                    if (D[u][v] > D[u][k] + D[k][v]) {
+                        D[u][v] = D[u][k] + D[k][v];
+                        trace[u][v] = trace[k][v];
+                    }
                 }
             }
         }
     }
-}
-```
-```python
-def floyd_warshall(n, w):
-    D = [row[:] for row in w]
-    trace = [[u for v in range(n)] for u in range(n)]
+    ```
 
-    for k in range(n):
-        for u in range(n):
-            for v in range(n):
-                if D[u][v] > D[u][k] + D[k][v]:
-                    D[u][v] = D[u][k] + D[k][v]
-                    trace[u][v] = trace[k][v]
-    return D, trace
-```
+=== "Python"
+
+    ```python
+    def floyd_warshall(n, w):
+        D = [row[:] for row in w]
+        trace = [[u for v in range(n)] for u in range(n)]
+
+        for k in range(n):
+            for u in range(n):
+                for v in range(n):
+                    if D[u][v] > D[u][k] + D[k][v]:
+                        D[u][v] = D[u][k] + D[k][v]
+                        trace[u][v] = trace[k][v]
+        return D, trace
+    ```
 
 ## Tìm lại đường đi ngắn nhất
 Giống như hai thuật toán Bellman-Ford và Dijkstra, để tìm đường đi từ $u$ đến $v$, ta sẽ bắt đầu từ $v$, truy ngược về $u$ theo mảng trace đã tìm được.
 
-```cpp
-vector<int> trace_path(vector<vector<int>> &trace, int u, int v) {
-    vector<int> path;
-    while (v != u) { // truy vết ngược từ v về u
-        path.push_back(v);
-        v = trace[u][v];
-    }
-    path.push_back(u);
-    
-    reverse(path.begin(), path.end()); // cần reverse vì đường đi từ v ngược về u
-    
-    return path;
-}
+=== "C++"
 
-```
-```python
-def trace_path(trace, u, v):
-    path = []
-    while v != u:
-        path.append(v)
-        v = trace[u][v]
-    path.append(u)
-    path.reverse()
-    return path
-```
+    ```cpp
+    vector<int> trace_path(vector<vector<int>> &trace, int u, int v) {
+        vector<int> path;
+        while (v != u) { // truy vết ngược từ v về u
+            path.push_back(v);
+            v = trace[u][v];
+        }
+        path.push_back(u);
+        
+        reverse(path.begin(), path.end()); // cần reverse vì đường đi từ v ngược về u
+        
+        return path;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def trace_path(trace, u, v):
+        path = []
+        while v != u:
+            path.append(v)
+            v = trace[u][v]
+        path.append(u)
+        path.reverse()
+        return path
+    ```
+
 ## 4. Lưu ý
 
 * Bảng so sánh các thuật toán được đề cập:

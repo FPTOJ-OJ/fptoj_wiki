@@ -47,6 +47,9 @@ Giá trị: 1   0   1   0   1
 ```
 → `10101₂` = 21₁₀ → Tập hợp {Em, Chi, An} được lưu bằng số 21!
 
+![Bitmask operations - VisuAlgo](../uploads/img/gif/bitmask.gif)
+*Minh họa phép toán bit (Nguồn: VisuAlgo)*
+
 ---
 
 ## 3. Thuật toán này hoạt động như thế nào?
@@ -101,18 +104,23 @@ Giá trị: 1   0   1   0   1
 
 Vì mỗi số nguyên từ `0` đến `2^n - 1` biểu diễn một tập con (mỗi bit bật/tắt tương ứng với có/không chọn phần tử đó), ta chỉ cần lặp qua tất cả giá trị đó:
 
-```cpp
-for (int mask = 0; mask < (1 << n); mask++) {
-    // mask là mỗi tập con của {0, 1, ..., n-1}
-    // mask = 0 → tập rỗng {}
-    // mask = 1 → {0}, mask = 2 → {1}, mask = 3 → {0, 1}, ...
-}
-```
-```python
-for mask in range(1 << n):
-    # mask là mỗi tập con của {0, 1, ..., n-1}
-    pass
-```
+=== "C++"
+
+    ```cpp
+    for (int mask = 0; mask < (1 << n); mask++) {
+        // mask là mỗi tập con của {0, 1, ..., n-1}
+        // mask = 0 → tập rỗng {}
+        // mask = 1 → {0}, mask = 2 → {1}, mask = 3 → {0, 1}, ...
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    for mask in range(1 << n):
+        # mask là mỗi tập con của {0, 1, ..., n-1}
+        pass
+    ```
 
 Với n phần tử → có 2^n tập con. Ứng dụng: khi N ≤ 20, duyệt tất cả tập con trong O(2^N) là chấp nhận được.
 
@@ -174,83 +182,98 @@ int main() {
 
 **Trick:** XOR toàn bộ mảng! Vì `a XOR a = 0` và `a XOR 0 = a`, nên các cặp số triệt tiêu nhau, chỉ còn lại số lẻ.
 
-```cpp
-// XOR toàn bộ → kết quả là số xuất hiện 1 lần
-int findSingle(vector<int>& a) {
-    int result = 0;
-    for (int x : a)
-        result ^= x;     // Cặp số giống nhau XOR nhau = 0, số lẻ còn lại
-    return result;
-}
-// Ví dụ: [2, 3, 5, 3, 2] → 2^3^5^3^2 = 5 ✅
-// Độ phức tạp: O(N) thời gian, O(1) bộ nhớ — không cần HashMap!
-```
-```python
-def find_single(a):
-    result = 0
-    for x in a:
-        result ^= x     # XOR lần lượt từng phần tử
-    return result
-# Ví dụ: find_single([2, 3, 5, 3, 2]) → 5 ✅
-```
+=== "C++"
+
+    ```cpp
+    // XOR toàn bộ → kết quả là số xuất hiện 1 lần
+    int findSingle(vector<int>& a) {
+        int result = 0;
+        for (int x : a)
+            result ^= x;     // Cặp số giống nhau XOR nhau = 0, số lẻ còn lại
+        return result;
+    }
+    // Ví dụ: [2, 3, 5, 3, 2] → 2^3^5^3^2 = 5 ✅
+    // Độ phức tạp: O(N) thời gian, O(1) bộ nhớ — không cần HashMap!
+    ```
+
+=== "Python"
+
+    ```python
+    def find_single(a):
+        result = 0
+        for x in a:
+            result ^= x     # XOR lần lượt từng phần tử
+        return result
+    # Ví dụ: find_single([2, 3, 5, 3, 2]) → 5 ✅
+    ```
 
 ### Ứng dụng 3: Đếm số bit 1 — trick tối ưu
 
-```cpp
-// Cách 1: Thư viện GCC — O(1)
-int count1 = __builtin_popcount(n);     // n là int
-int count2 = __builtin_popcountll(n);   // n là long long
+=== "C++"
 
-// Cách 2: Xóa bit thấp nhất lặp đi lặp lại — O(số bit 1)
-int countBits(int n) {
-    int count = 0;
-    while (n) {
-        n &= (n - 1);   // Xóa bit 1 thấp nhất: 1100 → 1000 → 0000
-        count++;
+    ```cpp
+    // Cách 1: Thư viện GCC — O(1)
+    int count1 = __builtin_popcount(n);     // n là int
+    int count2 = __builtin_popcountll(n);   // n là long long
+
+    // Cách 2: Xóa bit thấp nhất lặp đi lặp lại — O(số bit 1)
+    int countBits(int n) {
+        int count = 0;
+        while (n) {
+            n &= (n - 1);   // Xóa bit 1 thấp nhất: 1100 → 1000 → 0000
+            count++;
+        }
+        return count;
     }
-    return count;
-}
-```
-```python
-# Python có sẵn hàm bin() để đếm
-count = bin(n).count('1')
+    ```
 
-# Hoặc dùng int.bit_count() từ Python 3.10+
-count = n.bit_count()
-```
+=== "Python"
+
+    ```python
+    # Python có sẵn hàm bin() để đếm
+    count = bin(n).count('1')
+
+    # Hoặc dùng int.bit_count() từ Python 3.10+
+    count = n.bit_count()
+    ```
 
 ### Ứng dụng 4: Duyệt tất cả tập con — nền tảng của bitmask DP
 
 In tất cả tập con của tập {0, 1, 2}:
 
-```cpp
-int n = 3;
-for (int mask = 0; mask < (1 << n); mask++) {
-    // Với mỗi mask, in ra phần tử nào được chọn (bit nào được bật)
-    cout << "{ ";
-    for (int i = 0; i < n; i++) {
-        if (mask & (1 << i))       // Bit thứ i có bật không?
-            cout << i << " ";
+=== "C++"
+
+    ```cpp
+    int n = 3;
+    for (int mask = 0; mask < (1 << n); mask++) {
+        // Với mỗi mask, in ra phần tử nào được chọn (bit nào được bật)
+        cout << "{ ";
+        for (int i = 0; i < n; i++) {
+            if (mask & (1 << i))       // Bit thứ i có bật không?
+                cout << i << " ";
+        }
+        cout << "}\n";
     }
-    cout << "}\n";
-}
-// Output:
-// {  }        → mask=000: tập rỗng
-// { 0 }       → mask=001: chọn phần tử 0
-// { 1 }       → mask=010: chọn phần tử 1
-// { 0 1 }     → mask=011: chọn 0 và 1
-// { 2 }       → mask=100: chọn phần tử 2
-// { 0 2 }     → mask=101: chọn 0 và 2
-// { 1 2 }     → mask=110: chọn 1 và 2
-// { 0 1 2 }   → mask=111: chọn tất cả
-```
-```python
-n = 3
-for mask in range(1 << n):
-    # Lấy ra danh sách các phần tử được chọn
-    subset = [i for i in range(n) if mask & (1 << i)]
-    print(subset)
-```
+    // Output:
+    // {  }        → mask=000: tập rỗng
+    // { 0 }       → mask=001: chọn phần tử 0
+    // { 1 }       → mask=010: chọn phần tử 1
+    // { 0 1 }     → mask=011: chọn 0 và 1
+    // { 2 }       → mask=100: chọn phần tử 2
+    // { 0 2 }     → mask=101: chọn 0 và 2
+    // { 1 2 }     → mask=110: chọn 1 và 2
+    // { 0 1 2 }   → mask=111: chọn tất cả
+    ```
+
+=== "Python"
+
+    ```python
+    n = 3
+    for mask in range(1 << n):
+        # Lấy ra danh sách các phần tử được chọn
+        subset = [i for i in range(n) if mask & (1 << i)]
+        print(subset)
+    ```
 
 ### Ứng dụng 5: Bitmask DP — giải bài toán phân công tối ưu
 
@@ -287,52 +310,67 @@ for (int mask = 0; mask < (1 << n); mask++) {
 
 ### Bẫy 1: Tràn số khi dịch bit
 
-```cpp
-// SAI: 1 là kiểu int, 1 << 40 bị tràn!
-long long x = 1 << 40;
+=== "C++"
 
-// ĐÚNG: dùng 1LL
-long long x = 1LL << 40;
-```
-```python
-# Python tự động xử lý số lớn, không cần lo tràn
-x = 1 << 40
-```
+    ```cpp
+    // SAI: 1 là kiểu int, 1 << 40 bị tràn!
+    long long x = 1 << 40;
+
+    // ĐÚNG: dùng 1LL
+    long long x = 1LL << 40;
+    ```
+
+=== "Python"
+
+    ```python
+    # Python tự động xử lý số lớn, không cần lo tràn
+    x = 1 << 40
+    ```
 
 ### Bẫy 2: Thứ tự ưu tiên toán tử
 
-```cpp
-// SAI: & có ưu tiên thấp hơn ==
-if (mask & (1 << i) == 0) ...  // Được hiểu là: mask & ((1 << i) == 0)
+=== "C++"
 
-// ĐÚNG: dùng ngoặc
-if ((mask & (1 << i)) == 0) ...
-```
-```python
-# SAI: & có ưu tiên thấp hơn ==
-if mask & (1 << i) == 0: ...    # Được hiểu là: mask & ((1 << i) == 0)
+    ```cpp
+    // SAI: & có ưu tiên thấp hơn ==
+    if (mask & (1 << i) == 0) ...  // Được hiểu là: mask & ((1 << i) == 0)
 
-# ĐÚNG: dùng ngoặc
-if (mask & (1 << i)) == 0: ...
-```
+    // ĐÚNG: dùng ngoặc
+    if ((mask & (1 << i)) == 0) ...
+    ```
+
+=== "Python"
+
+    ```python
+    # SAI: & có ưu tiên thấp hơn ==
+    if mask & (1 << i) == 0: ...    # Được hiểu là: mask & ((1 << i) == 0)
+
+    # ĐÚNG: dùng ngoặc
+    if (mask & (1 << i)) == 0: ...
+    ```
 
 ### Bẫy 3: NOT (~) trên int
 
-```cpp
-int mask = 0b101;
-~mask = ...11111111111111111111111111111010  // Đảo TẤT CẢ bit, kể cả bit dấu!
+=== "C++"
 
-// ĐÚNG: chỉ đảo n bit đầu
-int not_mask = mask ^ ((1 << n) - 1);
-```
-```python
-mask = 0b101
-# Python: ~mask = -(mask+1) do bù 2, KHÔNG dùng được như C++!
-# Ví dụ: ~0b101 = -6, không phải 0b...010
+    ```cpp
+    int mask = 0b101;
+    ~mask = ...11111111111111111111111111111010  // Đảo TẤT CẢ bit, kể cả bit dấu!
 
-# ĐÚNG: chỉ đảo n bit đầu
-not_mask = mask ^ ((1 << n) - 1)
-```
+    // ĐÚNG: chỉ đảo n bit đầu
+    int not_mask = mask ^ ((1 << n) - 1);
+    ```
+
+=== "Python"
+
+    ```python
+    mask = 0b101
+    # Python: ~mask = -(mask+1) do bù 2, KHÔNG dùng được như C++!
+    # Ví dụ: ~0b101 = -6, không phải 0b...010
+
+    # ĐÚNG: chỉ đảo n bit đầu
+    not_mask = mask ^ ((1 << n) - 1)
+    ```
 
 ### Mẹo thi cử
 

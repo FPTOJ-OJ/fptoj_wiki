@@ -45,7 +45,10 @@ Bộ bài học **Lập trình thi đấu** được biên soạn dành cho ngư
 | 16 | [Hash Table](16-hash-table.md) | Bảng băm, hash function, chaining, open addressing | ⭐⭐ |
 | 15 | [Deque & Sliding Window](15-deque-sliding-window.md) | Deque, hàng đợi đơn điệu, tìm min/max trên đoạn tịnh tiến | ⭐⭐⭐ |
 | 17 | [Trie](17-trie.md) | Cây tiền tố, bitwise trie, autocomplete | ⭐⭐⭐ |
-| 08 | [Heap, DSU, Segment Tree, BIT](08-heap-dsu-segment-tree-bit.md) | Heap (hàng đợi ưu tiên), DSU (gộp tập hợp), Segment Tree, Fenwick Tree | ⭐⭐⭐ |
+| 08a | [Heap (Hàng đợi ưu tiên)](08a-heap.md) | Priority Queue, Binary Heap, Heap Sort | ⭐⭐ |
+| 08b | [DSU (Gộp tập hợp)](08b-dsu.md) | Disjoint Set Union, Path Compression | ⭐⭐ |
+| 08c | [Segment Tree](08c-segment-tree.md) | Cây phân đoạn, Lazy Propagation | ⭐⭐⭐ |
+| 08d | [Fenwick Tree (BIT)](08d-fenwick-tree.md) | Cây chỉ số nhị phân | ⭐⭐⭐ |
 
 ---
 

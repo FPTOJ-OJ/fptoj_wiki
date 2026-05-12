@@ -183,6 +183,10 @@ Thực tế: pos = i - 2*m = i - 4
 Output: [4, 7] → P xuất hiện tại vị trí 4 và 7 trong T.
 ```
 
+!!! tip "Thử tương tác"
+    - [KMP String Search](https://algorithm-visualizer.org/dynamic-programming/knuth-morris-pratts-string-search)
+    - [Z String Search](https://algorithm-visualizer.org/dynamic-programming/z-string-search)
+
 ---
 
 ## 4. Ứng dụng thực tế
@@ -359,7 +363,6 @@ KMP tự động xử lý overlap vì nhảy theo `π[i-1]`, không nhảy toàn
 | [SPOJ - NHAY](https://www.spoj.com/problems/NHAY/) | SPOJ | ⭐⭐ | KMP cơ bản |
 | [CF - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D) | CF | ⭐⭐⭐ | KMP nâng cao |
 | [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr) | VNOJ | ⭐⭐ | Tìm xâu con bằng KMP/Hash |
-| [VNOJ - KMP](https://oj.vnoi.info/problem/kmp) | VNOJ | ⭐⭐ | KMP trực tiếp |
 | [VNOJ - NKPALIN](https://oj.vnoi.info/problem/nkpalin) | VNOJ | ⭐⭐⭐ | Palindrome + KMP |
 | [VNOJ - PALINY](https://oj.vnoi.info/problem/paliny) | VNOJ | ⭐⭐⭐ | Palindrome dài nhất |
 

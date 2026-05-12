@@ -46,24 +46,28 @@ Giới hạn: $N, Q \le 10^5$
 ### Thuật toán ngây thơ
 Ta duyệt qua tất cả phần tử.
 ![img](../../uploads/x2DCggl.gif)
-```cpp
-int a[N];
-int queryMin(int l, int r) {
-    int mi = INT_MAX;
-    for (int i = l; i <= r; ++i) {
-        mi = min(mi, a[i]);
-    }
-    return mi;
-}
-```
+=== "C++"
 
-```python
-def queryMin(l, r):
-    mi = float('inf')
-    for i in range(l, r + 1):
-        mi = min(mi, a[i])
-    return mi
-```
+    ```cpp
+    int a[N];
+    int queryMin(int l, int r) {
+        int mi = INT_MAX;
+        for (int i = l; i <= r; ++i) {
+            mi = min(mi, a[i]);
+        }
+        return mi;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def queryMin(l, r):
+        mi = float('inf')
+        for i in range(l, r + 1):
+            mi = min(mi, a[i])
+        return mi
+    ```
 
 #### Phân tích
 - Độ phức tạp truy vấn: $\mathcal{O}(r - l + 1) = \mathcal{O}(N)$
@@ -217,40 +221,44 @@ Nhận xét thêm:
 - Vậy nên, $k$ còn có một cách tính khác là $$k=\_\_lg(len)$$ (phần nguyên của phép $\log_2(len)$)
 - Từ đây, ta có thể giảm độ phức tạp truy vấn xuống còn $\mathcal{O}(1)!!!!!!!$
 
-```cpp
-// LG là số lớn nhất thoả 2^LG < N
-// ví dụ: N = 10^5 thì LG = 16 vì 2^16 = 65536
-int a[N], st[LG + 1][N];
-void preprocess() {
-    for (int i = 1; i <= n; ++i) st[0][i] = a[i];
-    for (int j = 1; j <= LG; ++j)
-        for (int i = 1; i + (1 << j) - 1 <= n; ++i)
-            st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))]);
-}
-int queryMin(int l, int r) {
-    int k = __lg(r - l + 1);
-    return min(st[k][l], st[k][r - (1 << k) + 1]);
-}
-```
+=== "C++"
 
-```python
-import math
+    ```cpp
+    // LG là số lớn nhất thoả 2^LG < N
+    // ví dụ: N = 10^5 thì LG = 16 vì 2^16 = 65536
+    int a[N], st[LG + 1][N];
+    void preprocess() {
+        for (int i = 1; i <= n; ++i) st[0][i] = a[i];
+        for (int j = 1; j <= LG; ++j)
+            for (int i = 1; i + (1 << j) - 1 <= n; ++i)
+                st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))]);
+    }
+    int queryMin(int l, int r) {
+        int k = __lg(r - l + 1);
+        return min(st[k][l], st[k][r - (1 << k) + 1]);
+    }
+    ```
 
-# LG là số lớn nhất thoả 2^LG < N
-LG = 16
-st = [[0] * N for _ in range(LG + 1)]
+=== "Python"
 
-def preprocess():
-    for i in range(1, n + 1):
-        st[0][i] = a[i]
-    for j in range(1, LG + 1):
-        for i in range(1, n + 1 - (1 << j) + 1):
-            st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))])
+    ```python
+    import math
 
-def queryMin(l, r):
-    k = int(math.log2(r - l + 1))
-    return min(st[k][l], st[k][r - (1 << k) + 1])
-```
+    # LG là số lớn nhất thoả 2^LG < N
+    LG = 16
+    st = [[0] * N for _ in range(LG + 1)]
+
+    def preprocess():
+        for i in range(1, n + 1):
+            st[0][i] = a[i]
+        for j in range(1, LG + 1):
+            for i in range(1, n + 1 - (1 << j) + 1):
+                st[j][i] = min(st[j - 1][i], st[j - 1][i + (1 << (j - 1))])
+
+    def queryMin(l, r):
+        k = int(math.log2(r - l + 1))
+        return min(st[k][l], st[k][r - (1 << k) + 1])
+    ```
 
 - Độ phức tạp tiền xử lý: $\mathcal{O}(N \log N)$
 - Độ phức tạp truy vấn: $\mathcal{O}(1)$
@@ -276,51 +284,55 @@ Từ nhận xét trên, ta có thể tách $[l\ldots r]$ thành $\log_2$ đoạn
     - $l = l + 2^j$ (tiếp tục tách $[l+2^j\ldots r]$ như $[l\ldots r]$)
 
 ### Cài đặt
-```cpp
-// LG là số lớn nhất thoả 2^LG < N
-// ví dụ: N = 10^5 thì LG = 16 vì 2^16 = 65536
-int a[N], st[LG + 1][N];
-void preprocess() {
-    for (int i = 1; i <= n; ++i) st[0][i] = a[i];
-    for (int j = 1; j <= LG; ++j)
-        for (int i = 1; i + (1 << j) - 1 <= n; ++i)
-            st[j][i] = st[j - 1][i] + st[j - 1][i + (1 << (j - 1))];
-}
-int querySum(int l, int r) {
-    int len = r - l + 1;
-    int sum = 0;
-    for (int j = 0; (1 << j) <= len; ++j)
-        if (len >> j & 1) {
-            sum = sum + st[j][l];
-            l = l + (1 << j);
-        }
-    return sum;
-}
-```
+=== "C++"
 
-```python
-# LG là số lớn nhất thoả 2^LG < N
-LG = 16
-st = [[0] * N for _ in range(LG + 1)]
+    ```cpp
+    // LG là số lớn nhất thoả 2^LG < N
+    // ví dụ: N = 10^5 thì LG = 16 vì 2^16 = 65536
+    int a[N], st[LG + 1][N];
+    void preprocess() {
+        for (int i = 1; i <= n; ++i) st[0][i] = a[i];
+        for (int j = 1; j <= LG; ++j)
+            for (int i = 1; i + (1 << j) - 1 <= n; ++i)
+                st[j][i] = st[j - 1][i] + st[j - 1][i + (1 << (j - 1))];
+    }
+    int querySum(int l, int r) {
+        int len = r - l + 1;
+        int sum = 0;
+        for (int j = 0; (1 << j) <= len; ++j)
+            if (len >> j & 1) {
+                sum = sum + st[j][l];
+                l = l + (1 << j);
+            }
+        return sum;
+    }
+    ```
 
-def preprocess():
-    for i in range(1, n + 1):
-        st[0][i] = a[i]
-    for j in range(1, LG + 1):
-        for i in range(1, n + 1 - (1 << j) + 1):
-            st[j][i] = st[j - 1][i] + st[j - 1][i + (1 << (j - 1))]
+=== "Python"
 
-def querySum(l, r):
-    length = r - l + 1
-    s = 0
-    j = 0
-    while (1 << j) <= length:
-        if (length >> j) & 1:
-            s += st[j][l]
-            l += (1 << j)
-        j += 1
-    return s
-```
+    ```python
+    # LG là số lớn nhất thoả 2^LG < N
+    LG = 16
+    st = [[0] * N for _ in range(LG + 1)]
+
+    def preprocess():
+        for i in range(1, n + 1):
+            st[0][i] = a[i]
+        for j in range(1, LG + 1):
+            for i in range(1, n + 1 - (1 << j) + 1):
+                st[j][i] = st[j - 1][i] + st[j - 1][i + (1 << (j - 1))]
+
+    def querySum(l, r):
+        length = r - l + 1
+        s = 0
+        j = 0
+        while (1 << j) <= length:
+            if (length >> j) & 1:
+                s += st[j][l]
+                l += (1 << j)
+            j += 1
+        return s
+    ```
 
 - Độ phức tạp tiền xử lý: $\mathcal{O}(N \log N)$
 - Độ phức tạp truy vấn: $\mathcal{O}(\log N)$

@@ -33,46 +33,48 @@ Bạn đến quầy bán vé. Ai đến trước → phục vụ trước! Khôn
 
 ## 2. Code C++ — Dùng thư viện
 
-```cpp
-#include <queue>
-using namespace std;
+=== "C++"
 
-int main() {
-    queue<int> q;
+    ```cpp
+    #include <queue>
+    using namespace std;
     
-    q.push(1);    // [1]
-    q.push(2);    // [1, 2]
-    q.push(3);    // [1, 2, 3]
+    int main() {
+        queue<int> q;
+        
+        q.push(1);    // [1]
+        q.push(2);    // [1, 2]
+        q.push(3);    // [1, 2, 3]
+        
+        cout << q.front();  // 1 (phần tử đầu)
+        cout << q.back();   // 3 (phần tử cuối)
+        
+        q.pop();      // [2, 3] — loại 1
+        cout << q.front();  // 2
+        
+        cout << q.size();   // 2
+        cout << q.empty();  // 0 (false)
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    from collections import deque
     
-    cout << q.front();  // 1 (phần tử đầu)
-    cout << q.back();   // 3 (phần tử cuối)
+    q = deque()
+    q.append(1)     # [1]
+    q.append(2)     # [1, 2]
+    q.append(3)     # [1, 2, 3]
     
-    q.pop();      // [2, 3] — loại 1
-    cout << q.front();  // 2
+    print(q[0])     # 1 (phần tử đầu)
+    print(q[-1])    # 3 (phần tử cuối)
     
-    cout << q.size();   // 2
-    cout << q.empty();  // 0 (false)
-}
-```
-
-### Code Python
-
-```python
-from collections import deque
-
-q = deque()
-q.append(1)     # [1]
-q.append(2)     # [1, 2]
-q.append(3)     # [1, 2, 3]
-
-print(q[0])     # 1 (phần tử đầu)
-print(q[-1])    # 3 (phần tử cuối)
-
-q.popleft()     # [2, 3] — loại 1
-print(q[0])     # 2
-
-print(len(q))   # 2
-```
+    q.popleft()     # [2, 3] — loại 1
+    print(q[0])     # 2
+    
+    print(len(q))   # 2
+    ```
 
 !!! tip "Lưu ý Python"
     Dùng `collections.deque` thay vì `list` cho queue! `list.pop(0)` là O(N), còn `deque.popleft()` là O(1).
@@ -149,50 +151,49 @@ BFS từ đỉnh 1:
 
 Thứ tự: 1 → 2 → 3 → 4 → 5
 ```
+=== "C++"
 
-### Code C++ — BFS
-
-```cpp
-vector<int> adj[MAXN];
-bool visited[MAXN];
-
-void bfs(int start) {
-    queue<int> q;
-    q.push(start);
-    visited[start] = true;
+    ```cpp
+    vector<int> adj[MAXN];
+    bool visited[MAXN];
     
-    while (!q.empty()) {
-        int v = q.front(); q.pop();
-        cout << v << " ";  // Xử lý đỉnh v
+    void bfs(int start) {
+        queue<int> q;
+        q.push(start);
+        visited[start] = true;
         
-        for (int u : adj[v]) {
-            if (!visited[u]) {
-                visited[u] = true;
-                q.push(u);
+        while (!q.empty()) {
+            int v = q.front(); q.pop();
+            cout << v << " ";  // Xử lý đỉnh v
+            
+            for (int u : adj[v]) {
+                if (!visited[u]) {
+                    visited[u] = true;
+                    q.push(u);
+                }
             }
         }
     }
-}
-```
+    ```
 
-### Code Python — BFS
+=== "Python"
 
-```python
-from collections import deque
-
-def bfs(start, adj):
-    visited = {start}
-    q = deque([start])
+    ```python
+    from collections import deque
     
-    while q:
-        v = q.popleft()
-        print(v, end=" ")  # Xử lý đỉnh v
+    def bfs(start, adj):
+        visited = {start}
+        q = deque([start])
         
-        for u in adj[v]:
-            if u not in visited:
-                visited.add(u)
-                q.append(u)
-```
+        while q:
+            v = q.popleft()
+            print(v, end=" ")  # Xử lý đỉnh v
+            
+            for u in adj[v]:
+                if u not in visited:
+                    visited.add(u)
+                    q.append(u)
+    ```
 
 ---
 
@@ -204,7 +205,7 @@ Thêm/xóa được ở **cả đầu lẫn cuối** — đã học ở [Bài 15
 
 ### 5.2. Priority Queue (Hàng đợi ưu tiên)
 
-Phần tử ưu tiên nhất ra trước — đã học ở [Bài 8: Heap, DSU, Segment Tree, BIT](08-heap-dsu-segment-tree-bit.md).
+Phần tử ưu tiên nhất ra trước — đã học ở [Bài 8a: Heap](08a-heap.md).
 
 ### 5.3. Monotonic Queue (Hàng đợi đơn điệu)
 
@@ -226,31 +227,30 @@ Queue luôn giữ thứ tự tăng/giảm dần — đã học ở Bài 15.
 ---
 
 ## 7. Lưu ý & Cạm bẫy
+=== "C++"
 
-### 7.1. Quên kiểm tra rỗng
+    ```cpp
+    // SAI: front() khi queue rỗng → crash!
+    cout << q.front();
+    
+    // ĐÚNG: Kiểm tra trước
+    if (!q.empty()) cout << q.front();
+    ```
 
-```cpp
-// SAI: front() khi queue rỗng → crash!
-cout << q.front();
+=== "Python"
 
-// ĐÚNG: Kiểm tra trước
-if (!q.empty()) cout << q.front();
-```
-
-### 7.2. Dùng list.pop(0) trong Python
-
-```python
-# SAI: list.pop(0) là O(N) — phải dời toàn bộ!
-q = []
-q.append(1)
-q.pop(0)  # O(N)!
-
-# ĐÚNG: Dùng deque.popleft() — O(1)
-from collections import deque
-q = deque()
-q.append(1)
-q.popleft()  # O(1)
-```
+    ```python
+    # SAI: list.pop(0) là O(N) — phải dời toàn bộ!
+    q = []
+    q.append(1)
+    q.pop(0)  # O(N)!
+    
+    # ĐÚNG: Dùng deque.popleft() — O(1)
+    from collections import deque
+    q = deque()
+    q.append(1)
+    q.popleft()  # O(1)
+    ```
 
 ### 7.3. BFS quên visited
 

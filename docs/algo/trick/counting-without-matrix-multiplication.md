@@ -94,50 +94,54 @@ Hàm quy hoạch động trên có thể chạy với $n \le 10,000$.
 Bây giờ tôi sẽ nói cách giải đúng. Gọi $f(n, p, Just, p_0, Just_0)$ nghĩa là: ta xuất phát từ trạng thái $(n, p, Just)$, có bao nhiêu cách đi đến trạng thái $(0, p_0, Just_0)$.
 
 
-```cpp
-long f(int n, int x, int Just) {
-    if (x>=p) x=p;
-    if (Just==2) {
-        if (n==0) return 0;
-        return f(n-1, x+1, 1);
-    } else {
-        if (n==0) return 1;
-        if (F[x][Just].count(n)) return F[x][Just][n];
-        long Sum = f(n-1, x+1, 1) * 2;
-        if (Just==1) Sum += f(n-1, x+1, 2);
-        if (x>=p) Sum += f(n-1, 0, 0);
-        Sum += f(n-1, x+1, 0) * (t-4);
-        return F[x][Just][n] = Sum % M;
+=== "C++"
+
+    ```cpp
+    long f(int n, int x, int Just) {
+        if (x>=p) x=p;
+        if (Just==2) {
+            if (n==0) return 0;
+            return f(n-1, x+1, 1);
+        } else {
+            if (n==0) return 1;
+            if (F[x][Just].count(n)) return F[x][Just][n];
+            long Sum = f(n-1, x+1, 1) * 2;
+            if (Just==1) Sum += f(n-1, x+1, 2);
+            if (x>=p) Sum += f(n-1, 0, 0);
+            Sum += f(n-1, x+1, 0) * (t-4);
+            return F[x][Just][n] = Sum % M;
+        }
     }
-}
 
-cout << f(n, ::p, 0) << endl;
-```
+    cout << f(n, ::p, 0) << endl;
+    ```
 
-```python
-from functools import lru_cache
+=== "Python"
 
-@lru_cache(maxsize=None)
-def f(n, x, just):
-    if x >= p:
-        x = p
-    if just == 2:
-        if n == 0:
-            return 0
-        return f(n - 1, x + 1, 1)
-    else:
-        if n == 0:
-            return 1
-        s = f(n - 1, x + 1, 1) * 2
-        if just == 1:
-            s += f(n - 1, x + 1, 2)
+    ```python
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def f(n, x, just):
         if x >= p:
-            s += f(n - 1, 0, 0)
-        s += f(n - 1, x + 1, 0) * (t - 4)
-        return s % M
+            x = p
+        if just == 2:
+            if n == 0:
+                return 0
+            return f(n - 1, x + 1, 1)
+        else:
+            if n == 0:
+                return 1
+            s = f(n - 1, x + 1, 1) * 2
+            if just == 1:
+                s += f(n - 1, x + 1, 2)
+            if x >= p:
+                s += f(n - 1, 0, 0)
+            s += f(n - 1, x + 1, 0) * (t - 4)
+            return s % M
 
-print(f(n, p, 0))
-```
+    print(f(n, p, 0))
+    ```
 
 Ta có các trường hợp:
 
@@ -146,75 +150,79 @@ Ta có các trường hợp:
 
 Chú ý tại trường hợp $n=0$, việc $n=0$ không có nghĩa đó là kết thúc của một dãy. Vì ta chia dãy thành các phần nhỏ hơn, $n=0$ chỉ có nghĩa là kết thúc của một phần nhỏ. Vì thế ta sẽ thêm một biến $Stop$ thuộc kiểu boolean. Khi $Stop=true$, $f(n,p,Just,p_0,Just_0) = f(n,p,Just)$, ngược lại, tức là $Stop=false$, $f(n,p,Just,p_0,Just_0,Stop) = f(n,p,Just,p_0,Just_0)$.
 
-```cpp
-map<int, int> G[21][3][21][3][2];
-## define C p][Just][p0][Just0][Stop
+=== "C++"
 
-long g(int n, int p, int Just, int p0, int Just0, bool Stop) {
-    if (p>=::p) p=::p;
-    if (n%2==1 || n==0) {
-        if (Just==2) {
-            if (n==0) return Stop ? 0 : p==p0 && Just==Just0;
-            return g(n-1, p+1, 1, p0, Just0, Stop);
+    ```cpp
+    map<int, int> G[21][3][21][3][2];
+    ## define C p][Just][p0][Just0][Stop
+
+    long g(int n, int p, int Just, int p0, int Just0, bool Stop) {
+        if (p>=::p) p=::p;
+        if (n%2==1 || n==0) {
+            if (Just==2) {
+                if (n==0) return Stop ? 0 : p==p0 && Just==Just0;
+                return g(n-1, p+1, 1, p0, Just0, Stop);
+            } else {
+                if (n==0) return Stop ? 1 : p==p0 && Just==Just0;
+                if (G[C].count(n)) return G[C][n];
+                long Sum = g(n-1, p+1, 1, p0, Just0, Stop) * 2;
+                if (Just==1) Sum += g(n-1, p+1, 2, p0, Just0, Stop);
+                if (p>=::p) Sum += g(n-1, 0, 0, p0, Just0, Stop);
+                Sum += g(n-1, p+1, 0, p0, Just0, Stop) * (t-4);
+                return G[C][n] = Sum % M;
+            }
         } else {
-            if (n==0) return Stop ? 1 : p==p0 && Just==Just0;
             if (G[C].count(n)) return G[C][n];
-            long Sum = g(n-1, p+1, 1, p0, Just0, Stop) * 2;
-            if (Just==1) Sum += g(n-1, p+1, 2, p0, Just0, Stop);
-            if (p>=::p) Sum += g(n-1, 0, 0, p0, Just0, Stop);
-            Sum += g(n-1, p+1, 0, p0, Just0, Stop) * (t-4);
+            long Sum = 0;
+            for (int i=0; i<=::p; i++)
+            for (int k=0; k<=2; k++) {
+                long G1 = g(n/2, p, Just, i, k, false);
+                 long G2 = g(n/2, i, k, p0, Just0, Stop);
+                Sum += G1*G2;
+            }
             return G[C][n] = Sum % M;
-        }
-    } else {
-        if (G[C].count(n)) return G[C][n];
-        long Sum = 0;
-        for (int i=0; i<=::p; i++)
-        for (int k=0; k<=2; k++) {
-            long G1 = g(n/2, p, Just, i, k, false);
-             long G2 = g(n/2, i, k, p0, Just0, Stop);
-            Sum += G1*G2;
-        }
-        return G[C][n] = Sum % M;
-     }
-}
+         }
+    }
 
-cout << g(n, ::p, 0, rand()%21, rand()%3, true) << endl;
-```
+    cout << g(n, ::p, 0, rand()%21, rand()%3, true) << endl;
+    ```
 
-```python
-from functools import lru_cache
+=== "Python"
 
-@lru_cache(maxsize=None)
-def g(n, p, just, p0, just0, stop):
-    if p >= P:
-        p = P
-    if n % 2 == 1 or n == 0:
-        if just == 2:
-            if n == 0:
-                return 0 if stop else int(p == p0 and just == just0)
-            return g(n - 1, p + 1, 1, p0, just0, stop)
+    ```python
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def g(n, p, just, p0, just0, stop):
+        if p >= P:
+            p = P
+        if n % 2 == 1 or n == 0:
+            if just == 2:
+                if n == 0:
+                    return 0 if stop else int(p == p0 and just == just0)
+                return g(n - 1, p + 1, 1, p0, just0, stop)
+            else:
+                if n == 0:
+                    return 1 if stop else int(p == p0 and just == just0)
+                s = g(n - 1, p + 1, 1, p0, just0, stop) * 2
+                if just == 1:
+                    s += g(n - 1, p + 1, 2, p0, just0, stop)
+                if p >= P:
+                    s += g(n - 1, 0, 0, p0, just0, stop)
+                s += g(n - 1, p + 1, 0, p0, just0, stop) * (t - 4)
+                return s % M
         else:
-            if n == 0:
-                return 1 if stop else int(p == p0 and just == just0)
-            s = g(n - 1, p + 1, 1, p0, just0, stop) * 2
-            if just == 1:
-                s += g(n - 1, p + 1, 2, p0, just0, stop)
-            if p >= P:
-                s += g(n - 1, 0, 0, p0, just0, stop)
-            s += g(n - 1, p + 1, 0, p0, just0, stop) * (t - 4)
+            s = 0
+            for i in range(P + 1):
+                for k in range(3):
+                    g1 = g(n // 2, p, just, i, k, False)
+                    g2 = g(n // 2, i, k, p0, just0, stop)
+                    s += g1 * g2
             return s % M
-    else:
-        s = 0
-        for i in range(P + 1):
-            for k in range(3):
-                g1 = g(n // 2, p, just, i, k, False)
-                g2 = g(n // 2, i, k, p0, just0, stop)
-                s += g1 * g2
-        return s % M
 
-import random
-print(g(n, P, 0, random.randint(0, 20), random.randint(0, 2), True))
-```
+    import random
+    print(g(n, P, 0, random.randint(0, 20), random.randint(0, 2), True))
+    ```
 
 Chú ý ở code trên, `::p` và `p` là khác nhau. `::p` là biến `p` toàn cục, tức là `p` được nhập từ input. Còn `p` là tham số ở trong hàm `g`. `Rand()%21` và `rand()%3` là hai số mà ta có thể bỏ qua giá trị của chúng (khi nào mà `Stop=true` thì `p0` và `Just0` không có ý nghĩa).
 
@@ -241,31 +249,35 @@ Có hai trường hợp:
 
 Lúc này độ phức tạp là $\mathcal{O}(log n)$. Bởi vì với mỗi độ sâu, chỉ có tối đa 4 giá trị $n$.
 
-```cpp
-map<long, long> F;
-F[0]=F[1]=1;
+=== "C++"
 
-long f(long n) {
-     if (F.count(n)) return F[n];
-     long k=n/2;
-     if (n%2==0) { // n=2*k
-         return F[n] = (f(k) * f(k) + f(k-1) * f(k-1)) % M;
-     } else { // n=2*k+1
-         return F[n] = (f(k) * f(k+1) + f(k-1) * f(k)) % M;
-     }
-}
-```
+    ```cpp
+    map<long, long> F;
+    F[0]=F[1]=1;
 
-```python
-from functools import lru_cache
+    long f(long n) {
+         if (F.count(n)) return F[n];
+         long k=n/2;
+         if (n%2==0) { // n=2*k
+             return F[n] = (f(k) * f(k) + f(k-1) * f(k-1)) % M;
+         } else { // n=2*k+1
+             return F[n] = (f(k) * f(k+1) + f(k-1) * f(k)) % M;
+         }
+    }
+    ```
 
-@lru_cache(maxsize=None)
-def f(n):
-    if n == 0 or n == 1:
-        return 1
-    k = n // 2
-    if n % 2 == 0:  # n = 2*k
-        return (f(k) * f(k) + f(k - 1) * f(k - 1)) % M
-    else:  # n = 2*k + 1
-        return (f(k) * f(k + 1) + f(k - 1) * f(k)) % M
-```
+=== "Python"
+
+    ```python
+    from functools import lru_cache
+
+    @lru_cache(maxsize=None)
+    def f(n):
+        if n == 0 or n == 1:
+            return 1
+        k = n // 2
+        if n % 2 == 0:  # n = 2*k
+            return (f(k) * f(k) + f(k - 1) * f(k - 1)) % M
+        else:  # n = 2*k + 1
+            return (f(k) * f(k + 1) + f(k - 1) * f(k)) % M
+    ```

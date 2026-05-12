@@ -16,40 +16,96 @@ comments: true
 
 ## 📚 Bài Học (Dành cho người mới)
 
-> **Bộ 28 bài học biên soạn dễ hiểu** - từ cơ bản đến nâng cao, kèm code C++ & Python
+> **Bộ 32 bài học biên soạn dễ hiểu** - từ cơ bản đến nâng cao, kèm code C++ & Python, diagrams tương tác
 
-🔗 **[Xem tổng hợp bài học →](lessons/index.md)**
+🔗 **[Xem tổng hợp bài học chi tiết →](lessons/index.md)**
 
-| # | Chủ đề | Độ khó |
-|---|--------|--------|
-| 01 | [Độ phức tạp thời gian](lessons/01-do-phuc-tap-thoi-gian.md) | ⭐ |
-| 02 | [Thuật toán sắp xếp](lessons/02-thuat-toan-sap-xep.md) | ⭐ |
-| 03 | [Tìm kiếm nhị phân](lessons/03-tim-kiem-nhi-phan.md) | ⭐ |
-| 04 | [Kĩ thuật hai con trỏ](lessons/04-ky-thuat-hai-con-tro.md) | ⭐ |
-| 05 | [Phép toán bit](lessons/05-phep-toan-bit.md) | ⭐ |
-| 06 | [Đệ quy và quay lui](lessons/06-de-quy-va-quay-lui.md) | ⭐ |
-| 07 | [Mảng, Stack, Prefix Sum](lessons/07-mang-stack-prefix-sum.md) | ⭐⭐ |
-| 08 | [Heap, DSU, Segment Tree, BIT](lessons/08-heap-dsu-segment-tree-bit.md) | ⭐⭐ |
-| 09 | [KMP - Tìm xâu](lessons/09-kmp-tim-xau.md) | ⭐⭐ |
-| 10 | [BFS/DFS trên đồ thị](lessons/10-bfs-dfs-do-thi.md) | ⭐⭐ |
-| 11 | [Lũy thừa nhị phân & Sàng nguyên tố](lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md) | ⭐⭐ |
-| 12 | [Quy hoạch động](lessons/12-quy-hoach-dong.md) | ⭐⭐ |
-| 13 | [MST, Dijkstra, Topo Sort](lessons/13-mst-dijkstra-topo-sort.md) | ⭐⭐ |
-| 14 | [Hash xâu & Z-algorithm](lessons/14-hash-xau-z-algorithm.md) | ⭐⭐ |
-| 15 | [Deque & Sliding Window](lessons/15-deque-sliding-window.md) | ⭐⭐ |
-| 16 | [Hash Table](lessons/16-hash-table.md) | ⭐⭐ |
-| 17 | [Trie](lessons/17-trie.md) | ⭐⭐ |
-| 18 | [Euclid & Modular Inverse](lessons/18-euclid-modular-inverse.md) | ⭐⭐ |
-| 19 | [Tổ hợp & Xác suất](lessons/19-to-hop-xac-suat.md) | ⭐⭐ |
-| 20 | [Manacher (Palindrome)](lessons/20-manacher.md) | ⭐⭐⭐ |
-| 21 | [Greedy (Tham lam)](lessons/21-greedy.md) | ⭐⭐ |
-| 22 | [Hình học cơ bản](lessons/22-hinh-hoc-co-ban.md) | ⭐⭐ |
-| 23 | [Floyd-Warshall & Bellman-Ford](lessons/23-floyd-warshall-bellman-ford.md) | ⭐⭐ |
-| 24 | [Stack nâng cao](lessons/24-stack-nang-cao.md) | ⭐⭐⭐ |
-| 25 | [Binary Search on Answer](lessons/25-binary-search-on-answer.md) | ⭐⭐⭐ |
-| 26 | [Số học nâng cao](lessons/26-so-hoc-nang-cao.md) | ⭐⭐⭐ |
-| 27 | [Lý thuyết trò chơi](lessons/27-ly-thuyet-tro-choi.md) | ⭐⭐⭐ |
-| 28 | [Bao lồi (Convex Hull)](lessons/28-bao-loi.md) | ⭐⭐⭐ |
+### Nhập môn (⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 35 | [Setup môi trường](lessons/35-setup-moi-truong.md) | Cài đặt, template, editor |
+| 01 | [Độ phức tạp thời gian](lessons/01-do-phuc-tap-thoi-gian.md) | Big-O, ước lượng tốc độ |
+| 02 | [Sắp xếp](lessons/02-thuat-toan-sap-xep.md) | Merge Sort, Quick Sort |
+| 03 | [Tìm kiếm nhị phân](lessons/03-tim-kiem-nhi-phan.md) | Binary Search, lower/upper bound |
+| 05 | [Phép toán bit](lessons/05-phep-toan-bit.md) | AND, OR, XOR, bitmask |
+| 06 | [Đệ quy & Quay lui](lessons/06-de-quy-va-quay-lui.md) | Recursion, backtracking |
+
+### Kỹ thuật cơ bản (⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 04 | [Hai con trỏ](lessons/04-ky-thuat-hai-con-tro.md) | Two pointers, sliding window |
+| 07 | [Mảng, Stack, Prefix Sum](lessons/07-mang-stack-prefix-sum.md) | Stack, prefix sum, difference array |
+| 11 | [Lũy thừa nhị phân & Sàng](lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md) | Tính mũ nhanh, sàng nguyên tố |
+
+### Cấu trúc dữ liệu (⭐⭐ → ⭐⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 08a | [Heap](lessons/08a-heap.md) | Priority Queue, Heap Sort |
+| 08b | [DSU](lessons/08b-dsu.md) | Gộp tập hợp, Path Compression |
+| 08c | [Segment Tree](lessons/08c-segment-tree.md) | Truy vấn đoạn, Lazy Propagation |
+| 08d | [Fenwick Tree](lessons/08d-fenwick-tree.md) | BIT, cây chỉ số nhị phân |
+| 15 | [Deque & Sliding Window](lessons/15-deque-sliding-window.md) | Hàng đợi đơn điệu |
+| 16 | [Hash Table](lessons/16-hash-table.md) | Bảng băm |
+| 17 | [Trie](lessons/17-trie.md) | Cây tiền tố |
+| 33 | [Linked List](lessons/33-linked-list.md) | Danh sách liên kết |
+| 34 | [Queue](lessons/34-queue.md) | Hàng đợi FIFO |
+
+### Đồ thị (⭐⭐ → ⭐⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 10 | [BFS/DFS](lessons/10-bfs-dfs-do-thi.md) | Duyệt đồ thị |
+| 13 | [MST, Dijkstra, Topo](lessons/13-mst-dijkstra-topo-sort.md) | Cây khung, đường đi ngắn nhất |
+| 23 | [Floyd-Warshall & Bellman-Ford](lessons/23-floyd-warshall-bellman-ford.md) | Đường đi tất cả cặp |
+| 31 | [LCA & Binary Lifting](lessons/31-lca-binary-lifting.md) | Tổ tiên chung gần nhất |
+
+### Quy hoạch động & Tham lam (⭐⭐⭐ → ⭐⭐⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 21 | [Greedy](lessons/21-greedy.md) | Thuật toán tham lam |
+| 12 | [Quy hoạch động](lessons/12-quy-hoach-dong.md) | DP cơ bản đến nâng cao |
+| 25 | [Binary Search on Answer](lessons/25-binary-search-on-answer.md) | Tìm nhị phân trên đáp án |
+
+### Xử lý xâu (⭐⭐⭐ → ⭐⭐⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 09 | [KMP](lessons/09-kmp-tim-xau.md) | Tìm xâu mẫu O(N+M) |
+| 14 | [Hash xâu & Z-algorithm](lessons/14-hash-xau-z-algorithm.md) | Hash, Z-function |
+| 20 | [Manacher](lessons/20-manacher.md) | Palindrome dài nhất O(N) |
+| 32 | [Suffix Array](lessons/32-suffix-array.md) | Mảng hậu tố, LCP |
+
+### Toán & Số học (⭐⭐⭐ → ⭐⭐⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 18 | [Euclid & Modular Inverse](lessons/18-euclid-modular-inverse.md) | GCD, nghịch đảo modulo |
+| 19 | [Tổ hợp & Xác suất](lessons/19-to-hop-xac-suat.md) | C(n,k), giai thừa modulo |
+| 26 | [Số học nâng cao](lessons/26-so-hoc-nang-cao.md) | Euler, Lucas, CRT, Möbius |
+| 27 | [Lý thuyết trò chơi](lessons/27-ly-thuyet-tro-choi.md) | Nim, Sprague-Grundy |
+
+### Hình học & Nâng cao (⭐⭐⭐ → ⭐⭐⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 22 | [Hình học cơ bản](lessons/22-hinh-hoc-co-ban.md) | Cross product, diện tích |
+| 24 | [Stack nâng cao](lessons/24-stack-nang-cao.md) | Monotone stack, biểu thức |
+| 28 | [Bao lồi](lessons/28-bao-loi.md) | Convex Hull |
+| 29 | [Sparse Table](lessons/29-sparse-table.md) | RMQ O(1) |
+| 30 | [BST](lessons/30-bst.md) | Cây tìm kiếm nhị phân |
+
+### Kỹ năng thi đấu (⭐ → ⭐⭐)
+
+| # | Chủ đề | Mô tả ngắn |
+|---|--------|------------|
+| 36 | [Kỹ năng thi đấu](lessons/36-ky-nang-thi-dau.md) | Chiến thuật, quản lý thời gian |
+| 37 | [Sinh testcase](lessons/37-sinh-testcase.md) | Stress test tìm bug |
+| 38 | [Debug & Mẹo](lessons/38-debug-meo.md) | Fix WA/TLE/RE |
+| 39 | [Tổ chức code](lessons/39-to-chuc-code.md) | Quản lý thư mục, nộp bài |
 
 ---
 

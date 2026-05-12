@@ -3,72 +3,72 @@
 [![Site](https://img.shields.io/badge/Site-wiki.fptoj.com-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://wiki.fptoj.com)
 [![GitHub](https://img.shields.io/badge/GitHub-KienPC1234/fptoj_wiki-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KienPC1234/fptoj_wiki)
 
-Chào mừng bạn đến với **FPTOJ Wiki** - kho lưu trữ kiến thức về Thuật toán và Lập trình thi đấu (Competitive Programming) dành cho mọi người.
+Welcome to **FPTOJ Wiki** - a knowledge repository for Algorithms and Competitive Programming for everyone.
 
 > [!IMPORTANT]
-> **FPTOJ Wiki** là một bản fork của [VNOI Wiki](https://wiki.vnoi.info/), được xây dựng và tùy chỉnh để phục vụ tốt nhất cho các thành viên của FPTOJ.
+> **FPTOJ Wiki** is a fork of [VNOI Wiki](https://wiki.vnoi.info/), built and customized to best serve middle and high school students.
 
 ---
 
-## 📖 Giới thiệu
+## 📖 Introduction
 
-FPTOJ Wiki được xây dựng với mục đích chia sẻ kiến thức Tin học đến với tất cả mọi người. Chúng tôi tập trung vào việc hệ thống hóa các bài học từ cơ bản đến nâng cao, giúp người học có một lộ trình rõ ràng trong việc chinh phục các thuật toán.
+FPTOJ Wiki was built with the goal of sharing computer science knowledge with everyone. We focus on systematizing lessons from basic to advanced, helping learners have a clear roadmap for conquering algorithms.
 
-### Các nhóm bài học chính:
-- **⭐ Nhóm 1 — Nhập môn**: Setup môi trường, Độ phức tạp, Sắp xếp, Tìm kiếm nhị phân.
-- **⭐⭐ Nhóm 2 & 3**: Kỹ thuật cơ bản, Cấu trúc dữ liệu (DSU, Segment Tree, BIT...).
-- **⭐⭐⭐ Nhóm 4 & 5**: Đồ thị, Quy hoạch động, Tham lam.
-- **⭐⭐⭐ Nhóm 6 & 7**: Xử lý xâu (KMP, Hash, Suffix Array), Toán & Số học.
-- **⭐⭐⭐⭐ Nhóm 8**: Hình học & Cấu trúc dữ liệu nâng cao.
-- **🏆 Nhóm 9**: Kỹ năng thi đấu & Mẹo.
-
----
-
-## 🛠️ Công nghệ sử dụng
-
-Dự án được xây dựng dựa trên các công nghệ hiện đại:
-
-- **[MkDocs](https://www.mkdocs.org/)**: Static site generator mạnh mẽ.
-- **[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)**: Theme hiện đại, responsive và hỗ trợ dark mode.
-- **[KaTeX](https://katex.org/)**: Hiển thị công thức toán học mượt mà.
-- **[Giscus](https://giscus.app/)**: Hệ thống bình luận dựa trên GitHub Discussions.
+### Main Lesson Groups:
+- **⭐ Group 1 — Introduction**: Environment setup, Complexity, Sorting, Binary Search.
+- **⭐⭐ Groups 2 & 3**: Basic techniques, Data Structures (DSU, Segment Tree, BIT...).
+- **⭐⭐⭐ Groups 4 & 5**: Graphs, Dynamic Programming, Greedy.
+- **⭐⭐⭐ Groups 6 & 7**: String Processing (KMP, Hash, Suffix Array), Math & Arithmetic.
+- **⭐⭐⭐⭐ Group 8**: Geometry & Advanced Data Structures.
+- **🏆 Group 9**: Competitive Skills & Tips.
 
 ---
 
-## 💻 Chạy cục bộ (Local Development)
+## 🛠️ Technologies Used
 
-Để chạy Wiki trên máy cá nhân, bạn cần cài đặt Python và thực hiện các bước sau:
+The project is built using modern technologies:
 
-1. **Clone repository**:
+- **[MkDocs](https://www.mkdocs.org/)**: Powerful static site generator.
+- **[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)**: Modern, responsive theme with dark mode support.
+- **[KaTeX](https://katex.org/)**: Smooth mathematical formula rendering.
+- **[Giscus](https://giscus.app/)**: Comment system based on GitHub Discussions.
+
+---
+
+## 💻 Local Development
+
+To run the Wiki locally, you need to install Python and follow these steps:
+
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/KienPC1234/fptoj_wiki.git
    cd fptoj_wiki
    ```
 
-2. **Cài đặt thư viện**:
+2. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Khởi động server**:
+3. **Start the server**:
    ```bash
    python -m mkdocs serve
    ```
-   Hoặc chạy file `serve.bat` (trên Windows).
+   Or run the `serve.bat` file (on Windows).
 
-Truy cập `http://127.0.0.1:8000` để xem kết quả.
-
----
-
-## 🤝 Đóng góp
-
-Chúng tôi luôn hoan nghênh sự đóng góp từ cộng đồng. Nếu bạn phát hiện lỗi hoặc muốn bổ sung nội dung, hãy tạo **Pull Request** hoặc mở **Issue** trên GitHub.
+Visit `http://127.0.0.1:8000` to see the results.
 
 ---
 
-## 📜 Ghi nhận (Credits)
+## 🤝 Contribution
 
-Dự án này kế thừa và phát triển dựa trên nội dung tuyệt vời từ cộng đồng **VNOI**. Xin gửi lời cảm ơn chân thành đến đội ngũ [VNOI Wiki](https://wiki.vnoi.info/) vì những đóng góp vô giá cho cộng đồng Tin học Việt Nam.
+We always welcome contributions from the community. If you find a bug or want to add content, please create a **Pull Request** or open an **Issue** on GitHub.
+
+---
+
+## 📜 Credits
+
+This project is inherited and developed based on the excellent content from the **VNOI** community. We would like to express our sincere thanks to the [VNOI Wiki](https://wiki.vnoi.info/) team for their invaluable contributions to the Vietnamese Computer Science community.
 
 ---
 Created with ❤️ by **KienPC** and **FPTOJ Team**.

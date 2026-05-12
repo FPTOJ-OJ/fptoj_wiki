@@ -40,27 +40,32 @@ Gọi số cách xếp $i$ cái ghế là $f[i]$. Ta xét chiếc ghế thứ $n
 
 Với ý tưởng trên, ta có thể giải bài toán này như các bài toán đệ quy đơn giản. Cài đặt như sau:
 
-```cpp
-// Tính số cách sắp xếp n cái ghế
-int solve(int n)
-{
-    // Trường hợp cơ bản
-    if (n == 1)
-        return 3;
-    if (n == 2)
-        return 8;
-    // Bước đệ quy
-    return 2 * solve(n - 1) + 2 * solve(n - 2);
-}
-```
-```python
-def solve(n):
-    if n == 1:
-        return 3
-    if n == 2:
-        return 8
-    return 2 * solve(n - 1) + 2 * solve(n - 2)
-```
+=== "C++"
+
+    ```cpp
+    // Tính số cách sắp xếp n cái ghế
+    int solve(int n)
+    {
+        // Trường hợp cơ bản
+        if (n == 1)
+            return 3;
+        if (n == 2)
+            return 8;
+        // Bước đệ quy
+        return 2 * solve(n - 1) + 2 * solve(n - 2);
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def solve(n):
+        if n == 1:
+            return 3
+        if n == 2:
+            return 8
+        return 2 * solve(n - 1) + 2 * solve(n - 2)
+    ```
 Thuật toán trên có độ phức tạp lũy thừa nên chỉ áp dụng được với $n$ nhỏ $(n < 45)$, không đủ nhanh so với yêu cầu bài toán.
 
 ### Tối ưu thuật toán đệ quy
@@ -85,38 +90,43 @@ Từ sơ đồ trên ta thấy có nhiều hàm bị gọi rất nhiều lần m
 
 Để khắc phục điều này ta có thể sử dụng một mảng nhớ $d$ sao cho $d[i]$ là giá trị của `solve(i)`:
 
-```cpp
-int d[100010];
+=== "C++"
 
-int solve(int n)
-{
-    if (n == 1)
-        return 3;
-    else if (n == 2)
-        return 8;
-    else if (d[n] != 0)
-        return d[n];
-    else
+    ```cpp
+    int d[100010];
+
+    int solve(int n)
     {
-        d[n] = 2 * f(n - 1) + 2 * f(n - 2);
-        return d[n];
+        if (n == 1)
+            return 3;
+        else if (n == 2)
+            return 8;
+        else if (d[n] != 0)
+            return d[n];
+        else
+        {
+            d[n] = 2 * f(n - 1) + 2 * f(n - 2);
+            return d[n];
+        }
     }
-}
-```
-```python
-d = [0] * 100010
+    ```
 
-def solve(n):
-    if n == 1:
-        return 3
-    elif n == 2:
-        return 8
-    elif d[n] != 0:
-        return d[n]
-    else:
-        d[n] = 2 * solve(n - 1) + 2 * solve(n - 2)
-        return d[n]
-```
+=== "Python"
+
+    ```python
+    d = [0] * 100010
+
+    def solve(n):
+        if n == 1:
+            return 3
+        elif n == 2:
+            return 8
+        elif d[n] != 0:
+            return d[n]
+        else:
+            d[n] = 2 * solve(n - 1) + 2 * solve(n - 2)
+            return d[n]
+    ```
 Thuật toán trên có độ phức tạp $O(n)$.
 
 Với cách tiếp cận trên, ta quan tâm đến giá trị cuối cùng $f[n]$, sau đó mới xem xét những giá trị bé hơn cần thiết cho tính toán.
@@ -153,32 +163,37 @@ Công thức $(*)$ được gọi là **công thức truy hồi**.
 Sau khi đã biết công thức truy hồi và tính được $f[1]$, $f[2]$, ta có thể tìm $f[n]$.
 
 ### Code mẫu:
-```cpp
-## include <iostream>
-using namespace std;
+=== "C++"
 
-long long n, f[100010];
+    ```cpp
+    ## include <iostream>
+    using namespace std;
 
-int main()
-{
-    cin >> n;
-    f[1] = 3;
-    f[2] = 8;
-    for (int i = 3; i <= n; i++)
-        f[i] = 2 * f[i - 1] + 2 * f[i - 2];
-    cout << f[n];
-    return 0;
-}
-```
-```python
-n = int(input())
-f = [0] * (n + 1)
-f[1] = 3
-f[2] = 8
-for i in range(3, n + 1):
-    f[i] = 2 * f[i - 1] + 2 * f[i - 2]
-print(f[n])
-```
+    long long n, f[100010];
+
+    int main()
+    {
+        cin >> n;
+        f[1] = 3;
+        f[2] = 8;
+        for (int i = 3; i <= n; i++)
+            f[i] = 2 * f[i - 1] + 2 * f[i - 2];
+        cout << f[n];
+        return 0;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    n = int(input())
+    f = [0] * (n + 1)
+    f[1] = 3
+    f[2] = 8
+    for i in range(3, n + 1):
+        f[i] = 2 * f[i - 1] + 2 * f[i - 2]
+    print(f[n])
+    ```
 Độ phức tạp của thuật toán trên là $O(n)$, nhưng cách thực hiện đơn giản hơn đệ quy có nhớ.
 
 **Phân tích:** Từ ví dụ trên, ta thấy phương pháp QHĐ được triển khai theo các bước sau:
@@ -231,51 +246,56 @@ $10$|$2$|$5 (5)$
 $11$|$3$|$1 (10)$
 
 ### Code tham khảo:
-```cpp
-## include <iostream>
-using namespace std;
+=== "C++"
 
-const int N = 1e3 + 10;
-int f[N], v[N], n, S;
-// Gán f[i] = -1 nếu không thể tìm được một số đồng xu tổng bằng i
+    ```cpp
+    ## include <iostream>
+    using namespace std;
 
-int main()
-{
-    cin >> n >> S;
-    for (int i = 1; i <= n; i++)
-        cin >> v[i];
+    const int N = 1e3 + 10;
+    int f[N], v[N], n, S;
+    // Gán f[i] = -1 nếu không thể tìm được một số đồng xu tổng bằng i
 
-    for (int i = 1; i <= S; i++)
-        f[i] = -1;
+    int main()
+    {
+        cin >> n >> S;
+        for (int i = 1; i <= n; i++)
+            cin >> v[i];
 
-    for (int i = 1; i <= S; i++)
-        for (int j = 1; j <= n; j++)
-            if (v[j] <= i && f[i - v[j]] != -1)
-                {
-                    if (f[i] != -1)
-                        f[i] = min(f[i], f[i - v[j]] + 1);
-                    else
-                        f[i] = f[i - v[j]] + 1;
-                }
-    cout << f[S];
-}
-```
-```python
-n, S = map(int, input().split())
-v = list(map(int, input().split()))
-f = [-1] * (S + 1)
-f[0] = 0
+        for (int i = 1; i <= S; i++)
+            f[i] = -1;
 
-for i in range(1, S + 1):
-    for j in range(n):
-        if v[j] <= i and f[i - v[j]] != -1:
-            if f[i] != -1:
-                f[i] = min(f[i], f[i - v[j]] + 1)
-            else:
-                f[i] = f[i - v[j]] + 1
+        for (int i = 1; i <= S; i++)
+            for (int j = 1; j <= n; j++)
+                if (v[j] <= i && f[i - v[j]] != -1)
+                    {
+                        if (f[i] != -1)
+                            f[i] = min(f[i], f[i - v[j]] + 1);
+                        else
+                            f[i] = f[i - v[j]] + 1;
+                    }
+        cout << f[S];
+    }
+    ```
 
-print(f[S])
-```
+=== "Python"
+
+    ```python
+    n, S = map(int, input().split())
+    v = list(map(int, input().split()))
+    f = [-1] * (S + 1)
+    f[0] = 0
+
+    for i in range(1, S + 1):
+        for j in range(n):
+            if v[j] <= i and f[i - v[j]] != -1:
+                if f[i] != -1:
+                    f[i] = min(f[i], f[i - v[j]] + 1)
+                else:
+                    f[i] = f[i - v[j]] + 1
+
+    print(f[S])
+    ```
 **Nhận xét:** Đôi khi, trạng thái trong bài QHĐ chính là yêu cầu của bài toán.
 
 ## Tìm độ dài dãy con không giảm dài nhất
@@ -352,71 +372,76 @@ Một số biến thể:
 
 Bài toán giống ví dụ 3, nhưng yêu cầu in ra dãy con đó. Ta có thể làm tương tự như trên, nhưng thêm mảng truy vết $d[i]$ lưu vị trí $j<i$ mà $f[i]=f[j]+1$. Ta có thể cài đặt như sau: 
 
-```cpp
-## include <iostream>
-## include <vector>
-using namespace std;
+=== "C++"
 
-const int N = 1e3 + 10;
-int f[N], a[N], d[N], n;
+    ```cpp
+    ## include <iostream>
+    ## include <vector>
+    using namespace std;
 
-int main()
-{
-    cin >> n;
-    for (int i = 1; i <= n; i++)
-        cin >> a[i];
-    // Bước QHĐ
-    for (int i = 1; i <= n; i++)
+    const int N = 1e3 + 10;
+    int f[N], a[N], d[N], n;
+
+    int main()
     {
-        f[i] = 1;
-        for (int j = 1; j < i; j++)
-            if (a[j] <= a[i] && f[i] < f[j] + 1)
-            {
-                f[i] = f[j] + 1;
-                d[i] = j;
-            }
+        cin >> n;
+        for (int i = 1; i <= n; i++)
+            cin >> a[i];
+        // Bước QHĐ
+        for (int i = 1; i <= n; i++)
+        {
+            f[i] = 1;
+            for (int j = 1; j < i; j++)
+                if (a[j] <= a[i] && f[i] < f[j] + 1)
+                {
+                    f[i] = f[j] + 1;
+                    d[i] = j;
+                }
+        }
+        // Tìm t là vị trí cuối cùng của dãy dài nhất
+        int t = 1;
+        for (int i = 1; i <= n; i++)
+            if (f[i] > f[t])
+                t = i;
+        // In ra dãy con đó
+        vector<int> seq;
+        while (t)
+        {
+            seq.push_back(a[t]);
+            t = d[t];
+        }
+        for (auto i = seq.rbegin(); i != seq.rend(); i++)
+            cout << (*i) << ' ';
     }
-    // Tìm t là vị trí cuối cùng của dãy dài nhất
-    int t = 1;
-    for (int i = 1; i <= n; i++)
-        if (f[i] > f[t])
-            t = i;
-    // In ra dãy con đó
-    vector<int> seq;
-    while (t)
-    {
-        seq.push_back(a[t]);
-        t = d[t];
-    }
-    for (auto i = seq.rbegin(); i != seq.rend(); i++)
-        cout << (*i) << ' ';
-}
-```
-```python
-n = int(input())
-a = [0] + list(map(int, input().split()))
-f = [0] * (n + 1)
-d = [0] * (n + 1)
+    ```
 
-for i in range(1, n + 1):
-    f[i] = 1
-    for j in range(1, i):
-        if a[j] <= a[i] and f[i] < f[j] + 1:
-            f[i] = f[j] + 1
-            d[i] = j
+=== "Python"
 
-t = 1
-for i in range(1, n + 1):
-    if f[i] > f[t]:
-        t = i
+    ```python
+    n = int(input())
+    a = [0] + list(map(int, input().split()))
+    f = [0] * (n + 1)
+    d = [0] * (n + 1)
 
-seq = []
-while t:
-    seq.append(a[t])
-    t = d[t]
+    for i in range(1, n + 1):
+        f[i] = 1
+        for j in range(1, i):
+            if a[j] <= a[i] and f[i] < f[j] + 1:
+                f[i] = f[j] + 1
+                d[i] = j
 
-print(' '.join(map(str, reversed(seq))))
-```
+    t = 1
+    for i in range(1, n + 1):
+        if f[i] > f[t]:
+            t = i
+
+    seq = []
+    while t:
+        seq.append(a[t])
+        t = d[t]
+
+    print(' '.join(map(str, reversed(seq))))
+    ```
 ### Bố trí phòng họp (mất tính thứ tự so với dãy ban đầu)
 
 > *Có $n$ cuộc họp, cuộc họp thứ $i$ bắt đầu vào thời điểm $A_i$ và kết thúc ở thời điểm $B_i$. Do chỉ có một phòng hội thảo nên 2 cuộc họp bất kì sẽ được cùng bố trí phục vụ nếu khoảng thời gian làm việc của chúng chỉ giao nhau tại đầu mút hoặc không giao nhau. Hãy bố trí phòng họp để phục vụ được nhiều cuộc họp nhất.*
@@ -431,96 +456,101 @@ Sắp xếp các cuộc họp tăng dần theo thời điểm bắt đầu $A_i$
 
 ![/uploads/basic-dynamic-programming-1_img6.png](../../uploads/basic-dynamic-programming-1_img6.png)
 
-```cpp
-## include <iostream>
-## include <vector>
-## include <algorithm>
-using namespace std;
+=== "C++"
 
-struct Meeting
-{
-    Meeting(int aa = 1, int bb = 1, int nn = 1)
-    : a(aa), b(bb), num(nn)
-    { };
-    int a; // Thời điểm bắt đầu cuộc họp
-    int b; // Thời điểm kết thúc cuộc họp
-    int num; // Số thứ tự của cuộc họp
-};
+    ```cpp
+    ## include <iostream>
+    ## include <vector>
+    ## include <algorithm>
+    using namespace std;
 
-const int N = 1e3 + 10;
-int n, f[N], d[N];
-Meeting m[N];
-
-// Hàm so sánh để sắp xếp
-bool compare(const Meeting& x, const Meeting& y)
-{
-    return x.a < y.a || (x.a == y.a && x.b < y.b);
-}
-
-int main()
-{
-    cin >> n;
-    for (int i = 1; i <= n; i++)
+    struct Meeting
     {
-        m[i].num = i;
-        cin >> m[i].a >> m[i].b;
-    }
-    sort(m + 1, m + n + 1, compare);
-    // Bước quy hoạch động
-    for (int i = 1; i <= n; i++)
+        Meeting(int aa = 1, int bb = 1, int nn = 1)
+        : a(aa), b(bb), num(nn)
+        { };
+        int a; // Thời điểm bắt đầu cuộc họp
+        int b; // Thời điểm kết thúc cuộc họp
+        int num; // Số thứ tự của cuộc họp
+    };
+
+    const int N = 1e3 + 10;
+    int n, f[N], d[N];
+    Meeting m[N];
+
+    // Hàm so sánh để sắp xếp
+    bool compare(const Meeting& x, const Meeting& y)
     {
-        f[i] = 1;
-        for (int j = 1; j < i; j++)
-            if (m[j].b <= m[i].a && f[i] < f[j] + 1)
-            {
-                f[i] = f[j] + 1;
-                d[i] = j;
-            }
+        return x.a < y.a || (x.a == y.a && x.b < y.b);
     }
-    // Truy vết
-    int t = 1;
-    for (int i = 1; i <= n; i++)
-        if (f[i] > f[t])
-            t = i;
-    vector<int> seq;
-    while (t)
+
+    int main()
     {
-        seq.push_back(m[t].num);
-        t = d[t];
+        cin >> n;
+        for (int i = 1; i <= n; i++)
+        {
+            m[i].num = i;
+            cin >> m[i].a >> m[i].b;
+        }
+        sort(m + 1, m + n + 1, compare);
+        // Bước quy hoạch động
+        for (int i = 1; i <= n; i++)
+        {
+            f[i] = 1;
+            for (int j = 1; j < i; j++)
+                if (m[j].b <= m[i].a && f[i] < f[j] + 1)
+                {
+                    f[i] = f[j] + 1;
+                    d[i] = j;
+                }
+        }
+        // Truy vết
+        int t = 1;
+        for (int i = 1; i <= n; i++)
+            if (f[i] > f[t])
+                t = i;
+        vector<int> seq;
+        while (t)
+        {
+            seq.push_back(m[t].num);
+            t = d[t];
+        }
+        for (auto i = seq.rbegin(); i != seq.rend(); i++)
+            cout << (*i) << ' ';
     }
-    for (auto i = seq.rbegin(); i != seq.rend(); i++)
-        cout << (*i) << ' ';
-}
-```
-```python
-n = int(input())
-meetings = []
-for i in range(1, n + 1):
-    a, b = map(int, input().split())
-    meetings.append((a, b, i))
+    ```
 
-meetings.sort()
-f = [1] * (n + 1)
-d = [0] * (n + 1)
+=== "Python"
 
-for i in range(1, n + 1):
-    for j in range(1, i):
-        if meetings[j - 1][1] <= meetings[i - 1][0] and f[i] < f[j] + 1:
-            f[i] = f[j] + 1
-            d[i] = j
+    ```python
+    n = int(input())
+    meetings = []
+    for i in range(1, n + 1):
+        a, b = map(int, input().split())
+        meetings.append((a, b, i))
 
-t = 1
-for i in range(1, n + 1):
-    if f[i] > f[t]:
-        t = i
+    meetings.sort()
+    f = [1] * (n + 1)
+    d = [0] * (n + 1)
 
-seq = []
-while t:
-    seq.append(meetings[t - 1][2])
-    t = d[t]
+    for i in range(1, n + 1):
+        for j in range(1, i):
+            if meetings[j - 1][1] <= meetings[i - 1][0] and f[i] < f[j] + 1:
+                f[i] = f[j] + 1
+                d[i] = j
 
-print(' '.join(map(str, reversed(seq))))
-```
+    t = 1
+    for i in range(1, n + 1):
+        if f[i] > f[t]:
+            t = i
+
+    seq = []
+    while t:
+        seq.append(meetings[t - 1][2])
+        t = d[t]
+
+    print(' '.join(map(str, reversed(seq))))
+    ```
 
 
 ### Cho thuê máy
@@ -532,64 +562,69 @@ print(' '.join(map(str, reversed(seq))))
 
 Tương tự như bài toán bố trí phòng họp, nếu sắp xếp các đơn đặt hàng theo thời điểm bắt đầu, ta sẽ đưa được về bài toán **tìm dãy con có tổng lớn nhất**. Bài toán này là biến thể của bài toán tìm dãy con tăng dài nhất, ta có thể cài đặt bằng đoạn chương trình như sau:
 
-```cpp
-struct Value
-{
-    Value(int aa = 1, int bb = 1, int cc = 1, int nn = 1)
-    : a(aa), b(bb), num(nn)
-    { };
-    int a; // Thời điểm bắt đầu thuê
-    int b; // Thời điểm kết thúc thuê
-    int c; // Tiền thuê
-    int num; // Số thứ tự
-}
+=== "C++"
 
-const int N = 1e3 + 10;
-int n, f[N], d[N];
-Value m[N];
-
-bool compare(const Value& x, const Value& y)
-{
-    return x.a < y.a || (x.a == y.a && x.b < y.b);
-}
-int main()
-{
-    // ...
-    sort(m + 1, m + n + 1, compare);
-    // Bước quy hoạch động
-    for (int i = 1; i <= n; i++)
+    ```cpp
+    struct Value
     {
-        f[i] = m[i].c;
-        for (int j = 1; j < i; j++)
-            if (m[j].b <= m[i].a && f[i] < f[j] + m[i].c)
-            {
-                f[i] = f[j] + m[i].c;
-                d[i] = j;
-            }
+        Value(int aa = 1, int bb = 1, int cc = 1, int nn = 1)
+        : a(aa), b(bb), num(nn)
+        { };
+        int a; // Thời điểm bắt đầu thuê
+        int b; // Thời điểm kết thúc thuê
+        int c; // Tiền thuê
+        int num; // Số thứ tự
     }
-    // ... truy vết
-}
-```
-```python
-n = int(input())
-items = []
-for i in range(1, n + 1):
-    a, b, c = map(int, input().split())
-    items.append((a, b, c, i))
 
-items.sort()
-f = [0] * (n + 1)
-d = [0] * (n + 1)
+    const int N = 1e3 + 10;
+    int n, f[N], d[N];
+    Value m[N];
 
-for i in range(1, n + 1):
-    f[i] = items[i - 1][2]
-    for j in range(1, i):
-        if items[j - 1][1] <= items[i - 1][0] and f[i] < f[j] + items[i - 1][2]:
-            f[i] = f[j] + items[i - 1][2]
-            d[i] = j
+    bool compare(const Value& x, const Value& y)
+    {
+        return x.a < y.a || (x.a == y.a && x.b < y.b);
+    }
+    int main()
+    {
+        // ...
+        sort(m + 1, m + n + 1, compare);
+        // Bước quy hoạch động
+        for (int i = 1; i <= n; i++)
+        {
+            f[i] = m[i].c;
+            for (int j = 1; j < i; j++)
+                if (m[j].b <= m[i].a && f[i] < f[j] + m[i].c)
+                {
+                    f[i] = f[j] + m[i].c;
+                    d[i] = j;
+                }
+        }
+        // ... truy vết
+    }
+    ```
 
-# Truy vết tương tự bài bố trí phòng họp
-```
+=== "Python"
+
+    ```python
+    n = int(input())
+    items = []
+    for i in range(1, n + 1):
+        a, b, c = map(int, input().split())
+        items.append((a, b, c, i))
+
+    items.sort()
+    f = [0] * (n + 1)
+    d = [0] * (n + 1)
+
+    for i in range(1, n + 1):
+        f[i] = items[i - 1][2]
+        for j in range(1, i):
+            if items[j - 1][1] <= items[i - 1][0] and f[i] < f[j] + items[i - 1][2]:
+                f[i] = f[j] + items[i - 1][2]
+                d[i] = j
+
+    # Truy vết tương tự bài bố trí phòng họp
+    ```
 
 ### Dãy tam giác bao nhau
 
@@ -631,50 +666,55 @@ Ta dễ dàng suy ra:
 - $Q[i] = \max  (1, P[j] + 1)$, với mọi $j$ thỏa mãn: $j \le i-L$ và $A_i - U \le A_j < A_i$.
 - $P[i] = \max  (1, Q[j] + 1)$, với mọi $j$ thỏa mãn: $j \le i-L$ và $A_i < A_j \le A_i + U$.
 
-```cpp
-## include <iostream>
-using namespace std;
+=== "C++"
 
-const int N = 1e3 + 10;
-int a[N], P[N], Q[N], n, U, L;
+    ```cpp
+    ## include <iostream>
+    using namespace std;
 
-int main()
-{
-    cin >> n >> U >> L;
-    for (int i = 1; i <= n; i++)
-        cin >> a[i];
-    for (int i = 1; i <= n; i++)
+    const int N = 1e3 + 10;
+    int a[N], P[N], Q[N], n, U, L;
+
+    int main()
     {
-        P[i] = 1; Q[i] = 1;
-        for (int j = 1; j <= i - L; j++)
+        cin >> n >> U >> L;
+        for (int i = 1; i <= n; i++)
+            cin >> a[i];
+        for (int i = 1; i <= n; i++)
         {
-            if (a[i] - U <= a[j] && a[j] < a[i])
-                Q[i] = max(Q[i], P[j] + 1);
-            if (a[j] > a[i] && a[j] <= a[i] + U)
-                P[i] = max(P[i], Q[j] + 1);
+            P[i] = 1; Q[i] = 1;
+            for (int j = 1; j <= i - L; j++)
+            {
+                if (a[i] - U <= a[j] && a[j] < a[i])
+                    Q[i] = max(Q[i], P[j] + 1);
+                if (a[j] > a[i] && a[j] <= a[i] + U)
+                    P[i] = max(P[i], Q[j] + 1);
+            }
         }
+        int mx = Q[1];
+        for (int i = 1; i <= n; i++)
+            mx = max(mx, max(P[i], Q[i]));
+        cout << mx;
     }
-    int mx = Q[1];
-    for (int i = 1; i <= n; i++)
-        mx = max(mx, max(P[i], Q[i]));
-    cout << mx;
-}
-```
-```python
-n, U, L = map(int, input().split())
-a = [0] + list(map(int, input().split()))
-P = [1] * (n + 1)
-Q = [1] * (n + 1)
+    ```
 
-for i in range(1, n + 1):
-    for j in range(1, i - L + 1):
-        if a[i] - U <= a[j] < a[i]:
-            Q[i] = max(Q[i], P[j] + 1)
-        if a[i] < a[j] <= a[i] + U:
-            P[i] = max(P[i], Q[j] + 1)
+=== "Python"
 
-print(max(max(P[1:]), max(Q[1:])))
-```
+    ```python
+    n, U, L = map(int, input().split())
+    a = [0] + list(map(int, input().split()))
+    P = [1] * (n + 1)
+    Q = [1] * (n + 1)
+
+    for i in range(1, n + 1):
+        for j in range(1, i - L + 1):
+            if a[i] - U <= a[j] < a[i]:
+                Q[i] = max(Q[i], P[j] + 1)
+            if a[i] < a[j] <= a[i] + U:
+                P[i] = max(P[i], Q[j] + 1)
+
+    print(max(max(P[1:]), max(Q[1:])))
+    ```
 
 ### Dãy số WAVIO
 
@@ -717,42 +757,47 @@ Với mọi $i,j\ge 2$, để đi từ $(1, 1)$ đến $(i, j)$ An có hai lựa
 
 ![/uploads/basic-dynamic-programming-1_img10.png](../../uploads/basic-dynamic-programming-1_img10.png)
 
-```cpp
-## include <iostream>
-using namespace std;
+=== "C++"
 
-const int N = 1e3 + 10;
-int m, n, a[N][N];
-long long f[N][N];
+    ```cpp
+    ## include <iostream>
+    using namespace std;
 
-int main()
-{
-    cin >> n >> m;
-    for (int i = 1; i <= m; i++)
-        for (int j = 1; j <= n; j++)
-            cin >> a[i][j];
-    for (int i = 1; i <= m; i++)
-        for (int j = 1; j <= n; j++)
-            f[i][j] = max(f[i - 1][j], f[i][j - 1]) + a[i][j];
-    cout << f[m][n];
-}
-```
-```python
-n, m = map(int, input().split())
-a = [[0] * (n + 1) for _ in range(m + 1)]
-f = [[0] * (n + 1) for _ in range(m + 1)]
+    const int N = 1e3 + 10;
+    int m, n, a[N][N];
+    long long f[N][N];
 
-for i in range(1, m + 1):
-    row = list(map(int, input().split()))
-    for j in range(1, n + 1):
-        a[i][j] = row[j - 1]
+    int main()
+    {
+        cin >> n >> m;
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++)
+                cin >> a[i][j];
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++)
+                f[i][j] = max(f[i - 1][j], f[i][j - 1]) + a[i][j];
+        cout << f[m][n];
+    }
+    ```
 
-for i in range(1, m + 1):
-    for j in range(1, n + 1):
-        f[i][j] = max(f[i - 1][j], f[i][j - 1]) + a[i][j]
+=== "Python"
 
-print(f[m][n])
-```
+    ```python
+    n, m = map(int, input().split())
+    a = [[0] * (n + 1) for _ in range(m + 1)]
+    f = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(1, m + 1):
+        row = list(map(int, input().split()))
+        for j in range(1, n + 1):
+            a[i][j] = row[j - 1]
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            f[i][j] = max(f[i - 1][j], f[i][j - 1]) + a[i][j]
+
+    print(f[m][n])
+    ```
 
 ### Ví dụ khác
 
@@ -825,23 +870,28 @@ Ta có thể tính $L[i,t]$ theo công thức: $L[i,t]=1$ nếu $L[i-1,t]=1$ ho�
 Nếu áp dụng luôn công thức trên thì ta cần dùng bảng phương án hai chiều. Ta có thể nhận xét rằng để tính dòng thứ $i$, ta chỉ cần dòng $i-1$. Bảng phương án khi đó chỉ cần 1 mảng 1 chiều $L[0..S]$ và được tính như sau:
 
 
-```cpp
-long long L[1010];
+=== "C++"
 
-L[0] = 1;
-for (int i = 1; i <= n; i++)
-    for (int t = S; t >= a[i]; t--)
-        if (L[t - a[i]] == 1)
-            L[t] = 1;
-```
-```python
-L = [0] * (S + 1)
-L[0] = 1
-for i in range(n):
-    for t in range(S, a[i] - 1, -1):
-        if L[t - a[i]] == 1:
-            L[t] = 1
-```
+    ```cpp
+    long long L[1010];
+
+    L[0] = 1;
+    for (int i = 1; i <= n; i++)
+        for (int t = S; t >= a[i]; t--)
+            if (L[t - a[i]] == 1)
+                L[t] = 1;
+    ```
+
+=== "Python"
+
+    ```python
+    L = [0] * (S + 1)
+    L[0] = 1
+    for i in range(n):
+        for t in range(S, a[i] - 1, -1):
+            if L[t - a[i]] == 1:
+                L[t] = 1
+    ```
 
 Dễ thấy độ phức tạp bộ nhớ của cách cài đặt trên là $O(m)$, độ phức tạp thời gian là $O(nm)$, với $m$ là tổng của $n$ số.
 
@@ -864,61 +914,66 @@ Khi đó sẽ có cách chia với chênh lệch 2 phần là $T-2S$ là nhỏ n
 * Nếu $L[i-1,j-a[i]]=true$ thì $L[i,j] = true$.
 
 Cuối cùng, ta cần tìm số $j$ lớn nhất không vượt quá $\frac{T}{2}$ sao cho tồn tại số nguyên dương $i$ để $L[i,j]=true$, hay $L[n,j]=true$.
-```cpp
-## include <iostream>
-using namespace std;
+=== "C++"
 
-const int N = 310;
-int n, a[N];
-bool L[N][N];
+    ```cpp
+    ## include <iostream>
+    using namespace std;
 
-int main()
-{
-    cin >> n;
-    int t = 0;
-    for (int i = 1; i <= n; i++)
+    const int N = 310;
+    int n, a[N];
+    bool L[N][N];
+
+    int main()
     {
-        cin >> a[i];
-        t += a[i];
-    }
-    for (int i = 0; i <= n; i++)
-        L[i][0] = true;
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; 2 * j <= t; j++)
+        cin >> n;
+        int t = 0;
+        for (int i = 1; i <= n; i++)
         {
-            L[i][j] |= L[i - 1][j];
-            if (a[i] <= j)
-                L[i][j] |= L[i - 1][j - a[i]];
+            cin >> a[i];
+            t += a[i];
         }
-    int mx = 0;
-    for (int i = 1; 2 * i <= t; i++)
-        if (L[n][i])
-            mx = i;
-    cout << mx << ' ' << t - mx;
-}
-```
-```python
-n = int(input())
-a = list(map(int, input().split()))
-t = sum(a)
-L = [[False] * (t // 2 + 1) for _ in range(n + 1)]
+        for (int i = 0; i <= n; i++)
+            L[i][0] = true;
+        for (int i = 1; i <= n; i++)
+            for (int j = 1; 2 * j <= t; j++)
+            {
+                L[i][j] |= L[i - 1][j];
+                if (a[i] <= j)
+                    L[i][j] |= L[i - 1][j - a[i]];
+            }
+        int mx = 0;
+        for (int i = 1; 2 * i <= t; i++)
+            if (L[n][i])
+                mx = i;
+        cout << mx << ' ' << t - mx;
+    }
+    ```
 
-for i in range(n + 1):
-    L[i][0] = True
+=== "Python"
 
-for i in range(1, n + 1):
-    for j in range(1, t // 2 + 1):
-        L[i][j] = L[i - 1][j]
-        if a[i - 1] <= j:
-            L[i][j] = L[i][j] or L[i - 1][j - a[i - 1]]
+    ```python
+    n = int(input())
+    a = list(map(int, input().split()))
+    t = sum(a)
+    L = [[False] * (t // 2 + 1) for _ in range(n + 1)]
 
-mx = 0
-for i in range(1, t // 2 + 1):
-    if L[n][i]:
-        mx = i
+    for i in range(n + 1):
+        L[i][0] = True
 
-print(mx, t - mx)
-```
+    for i in range(1, n + 1):
+        for j in range(1, t // 2 + 1):
+            L[i][j] = L[i - 1][j]
+            if a[i - 1] <= j:
+                L[i][j] = L[i][j] or L[i - 1][j - a[i - 1]]
+
+    mx = 0
+    for i in range(1, t // 2 + 1):
+        if L[n][i]:
+            mx = i
+
+    print(mx, t - mx)
+    ```
 
 ### Market (Olympic Balkan 2000)
 

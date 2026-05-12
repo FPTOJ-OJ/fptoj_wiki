@@ -75,40 +75,41 @@ a[1] ⊕ a[2] ⊕ ... ⊕ a[n] = 0  →  Người đi trước THUA  (P-position
 - Bất kỳ nước đi nào cũng làm XOR ≠ 0
 - Đối thủ luôn có thể đưa XOR về 0 (theo logic trên)
 - Cuối cùng, trạng thái (0, 0, ..., 0) có XOR = 0 → người đi trước không còn nước đi
+=== "C++"
 
-### Code
-
-```cpp
-// Kiểm tra người đi trước có thắng không
-bool firstPlayerWins(vector<int>& piles) {
-    int xorSum = 0;
-    for (int x : piles) xorSum ^= x;
-    return xorSum != 0;
-}
-
-// Tìm nước đi tối ưu (nếu thắng)
-pair<int,int> findWinningMove(vector<int>& piles) {
-    int xorSum = 0;
-    for (int x : piles) xorSum ^= x;
-    if (xorSum == 0) return {-1, -1}; // Không có nước thắng
-
-    for (int i = 0; i < piles.size(); i++) {
-        int target = piles[i] ^ xorSum;
-        if (target < piles[i]) {
-            return {i, piles[i] - target}; // Lấy từ đống i, lấy pile[i]-target viên
-        }
+    ```cpp
+    // Kiểm tra người đi trước có thắng không
+    bool firstPlayerWins(vector<int>& piles) {
+        int xorSum = 0;
+        for (int x : piles) xorSum ^= x;
+        return xorSum != 0;
     }
-    return {-1, -1};
-}
-```
+    
+    // Tìm nước đi tối ưu (nếu thắng)
+    pair<int,int> findWinningMove(vector<int>& piles) {
+        int xorSum = 0;
+        for (int x : piles) xorSum ^= x;
+        if (xorSum == 0) return {-1, -1}; // Không có nước thắng
+    
+        for (int i = 0; i < piles.size(); i++) {
+            int target = piles[i] ^ xorSum;
+            if (target < piles[i]) {
+                return {i, piles[i] - target}; // Lấy từ đống i, lấy pile[i]-target viên
+            }
+        }
+        return {-1, -1};
+    }
+    ```
 
-```python
-def first_player_wins(piles):
-    xor_sum = 0
-    for x in piles:
-        xor_sum ^= x
-    return xor_sum != 0
-```
+=== "Python"
+
+    ```python
+    def first_player_wins(piles):
+        xor_sum = 0
+        for x in piles:
+            xor_sum ^= x
+        return xor_sum != 0
+    ```
 
 ---
 
@@ -165,55 +166,56 @@ MEX(S) = giá trị nguyên không âm nhỏ nhất KHÔNG có trong tập S
 - Trạng thái có Grundy = k tương đương đống Nim có k viên
 
 Khi bạn kết hợp nhiều trò chơi con (game sum), bạn chỉ cần XOR các Grundy numbers — giống hệt Nim!
+=== "C++"
 
-### Code tính Grundy (đệ quy + memo)
+    ```cpp
+    int grundy[1001];
+    bool computed[1001];
+    
+    int calcGrundy(int state) {
+        if (computed[state]) return grundy[state];
+        computed[state] = true;
+    
+        vector<int> nextStates;
+        // Liệt kê tất cả trạng thái tiếp theo từ state
+        // Ví dụ: lấy 1, 2, hoặc 3 viên đá
+        if (state >= 1) nextStates.push_back(calcGrundy(state - 1));
+        if (state >= 2) nextStates.push_back(calcGrundy(state - 2));
+        if (state >= 3) nextStates.push_back(calcGrundy(state - 3));
+    
+        grundy[state] = mex(nextStates);
+        return grundy[state];
+    }
+    
+    int mex(vector<int>& s) {
+        sort(s.begin(), s.end());
+        s.erase(unique(s.begin(), s.end()), s.end());
+        for (int i = 0; i < (int)s.size(); i++)
+            if (s[i] != i) return i;
+        return s.size();
+    }
+    ```
 
-```cpp
-int grundy[1001];
-bool computed[1001];
+=== "Python"
 
-int calcGrundy(int state) {
-    if (computed[state]) return grundy[state];
-    computed[state] = true;
-
-    vector<int> nextStates;
-    // Liệt kê tất cả trạng thái tiếp theo từ state
-    // Ví dụ: lấy 1, 2, hoặc 3 viên đá
-    if (state >= 1) nextStates.push_back(calcGrundy(state - 1));
-    if (state >= 2) nextStates.push_back(calcGrundy(state - 2));
-    if (state >= 3) nextStates.push_back(calcGrundy(state - 3));
-
-    grundy[state] = mex(nextStates);
-    return grundy[state];
-}
-
-int mex(vector<int>& s) {
-    sort(s.begin(), s.end());
-    s.erase(unique(s.begin(), s.end()), s.end());
-    for (int i = 0; i < (int)s.size(); i++)
-        if (s[i] != i) return i;
-    return s.size();
-}
-```
-
-```python
-def mex(s):
-    s = sorted(set(s))
-    for i in range(len(s)):
-        if s[i] != i:
-            return i
-    return len(s)
-
-def grundy(n, moves):
-    dp = [0] * (n + 1)
-    for i in range(1, n + 1):
-        next_states = []
-        for m in moves:
-            if i >= m:
-                next_states.append(dp[i - m])
-        dp[i] = mex(next_states)
-    return dp[n]
-```
+    ```python
+    def mex(s):
+        s = sorted(set(s))
+        for i in range(len(s)):
+            if s[i] != i:
+                return i
+        return len(s)
+    
+    def grundy(n, moves):
+        dp = [0] * (n + 1)
+        for i in range(1, n + 1):
+            next_states = []
+            for m in moves:
+                if i >= m:
+                    next_states.append(dp[i - m])
+            dp[i] = mex(next_states)
+        return dp[n]
+    ```
 
 ---
 
@@ -314,6 +316,19 @@ int dfs(int u) {
     return grundy[u];
 }
 ```
+vector<int> adj[MAXN]; // adj[u] = danh sách đỉnh kề (u → v)
+int grundy[MAXN];
+
+int dfs(int u) {
+    if (grundy[u] != -1) return grundy[u];
+    vector<int> next;
+    for (int v : adj[u]) {
+        next.push_back(dfs(v));
+    }
+    grundy[u] = mex(next);
+    return grundy[u];
+}
+```
 
 ---
 
@@ -377,6 +392,14 @@ bool isWythoffP(int a, int b) {
     return a == (int)(k * phi);
 }
 ```
+// Kiểm tra (a, b) có phải P-position trong Wythoff's Game không
+bool isWythoffP(int a, int b) {
+    if (a > b) swap(a, b);
+    double phi = (1 + sqrt(5)) / 2;
+    int k = b - a;
+    return a == (int)(k * phi);
+}
+```
 
 ### 7.2 Subtraction Games
 
@@ -385,6 +408,20 @@ bool isWythoffP(int a, int b) {
 **Grundy có chu kỳ!** Với subtraction set hữu hạn, Grundy numbers luôn tuần hoàn sau một điểm.
 
 ```cpp
+// Subtraction game với set S
+int grundy[MAXN];
+int computeGrundy(int n, vector<int>& S) {
+    grundy[0] = 0;
+    for (int i = 1; i <= n; i++) {
+        set<int> reachable;
+        for (int s : S) {
+            if (i >= s) reachable.insert(grundy[i - s]);
+        }
+        grundy[i] = mex(reachable);
+    }
+    return grundy[n];
+}
+```
 // Subtraction game với set S
 int grundy[MAXN];
 int computeGrundy(int n, vector<int>& S) {
@@ -430,6 +467,27 @@ int dfs(int u) {
     return g;
 }
 ```
+// Grundy trên DAG - duyệt topological
+vector<int> adj[MAXN];
+int grundy[MAXN];
+bool visited[MAXN];
+
+int dfs(int u) {
+    if (visited[u]) return grundy[u];
+    visited[u] = true;
+    
+    set<int> nextValues;
+    for (int v : adj[u]) {
+        nextValues.insert(dfs(v));
+    }
+    
+    // Tính MEX
+    int g = 0;
+    while (nextValues.count(g)) g++;
+    grundy[u] = g;
+    return g;
+}
+```
 
 ### 7.4 Stone Pile Games (Chia đống)
 
@@ -451,6 +509,16 @@ G(4) = MEX{G(1)⊕G(3), G(2)⊕G(2), G(3)⊕G(1)} = MEX{0, 0, 0} = MEX{0} = 1
 **Kết quả:** Grundy của cây = XOR các Grundy của subtree con + 1.
 
 ```cpp
+int treeGrundy(int u, int parent) {
+    int g = 0;
+    for (int v : adj[u]) {
+        if (v != parent) {
+            g ^= (treeGrundy(v, u) + 1);
+        }
+    }
+    return g;
+}
+```
 int treeGrundy(int u, int parent) {
     int g = 0;
     for (int v : adj[u]) {
@@ -547,6 +615,21 @@ void compute(int n) {
     }
 }
 ```
+// SAI: Đệ quy sâu có thể stack overflow
+int grundy(int n) {
+    if (n == 0) return 0;
+    // ... đệ quy
+}
+
+// ĐÚNG: Dùng bottom-up DP
+int grundy[MAXN];
+void compute(int n) {
+    grundy[0] = 0;
+    for (int i = 1; i <= n; i++) {
+        // Tính grundy[i] từ các giá trị trước
+    }
+}
+```
 
 **2. Quên memoization → TLE:**
 
@@ -564,10 +647,38 @@ int grundy(int n) {
     return memo[n] = result;
 }
 ```
+// SAI: Tính lại nhiều lần → O(2^n)
+int grundy(int n) { ... }
+
+// ĐÚNG: Memoize → O(n)
+bool computed[MAXN];
+int memo[MAXN];
+int grundy(int n) {
+    if (computed[n]) return memo[n];
+    computed[n] = true;
+    // ...
+    return memo[n] = result;
+}
+```
 
 **3. MEX implementation sai:**
 
 ```cpp
+// SAI: Chỉ kiểm tra phần tử đầu
+int mex(vector<int>& s) {
+    if (s.empty() || s[0] != 0) return 0; // SAI nếu s = {1, 2}
+    // ...
+}
+
+// ĐÚNG: Phải sort + unique trước
+int mex(vector<int>& s) {
+    sort(s.begin(), s.end());
+    s.erase(unique(s.begin(), s.end()), s.end());
+    for (int i = 0; i < (int)s.size(); i++)
+        if (s[i] != i) return i;
+    return s.size();
+}
+```
 // SAI: Chỉ kiểm tra phần tử đầu
 int mex(vector<int>& s) {
     if (s.empty() || s[0] != 0) return 0; // SAI nếu s = {1, 2}

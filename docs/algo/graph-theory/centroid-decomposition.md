@@ -42,49 +42,53 @@ Mở rộng ý tưởng, cần xây dựng hàm $findCentroid(u)$ với ý nghĩ
 
 Sau đây là code ví dụ, lưu ý trước khi tìm trọng tâm, ta cần gọi hàm $countChild(root, 0)$ để đếm số lượng đỉnh thuộc từng cây con. Để tìm centroid, gọi $findCentroid(root, 0)$, với $root$ là gốc của cây (có thể chọn bất cứ đỉnh nào).
 
-```cpp
-int n;           // n là số đỉnh của cây ban đầu
-int child[N];   // child[u] là số đỉnh thuộc cây con gốc u
+=== "C++"
 
-void countChild(int u, int parent) {
-    child[u] = 1; // cây con gốc u có ít nhất 1 đỉnh là đỉnh u
-    for (int v : adj[u]) { // với mọi v kề u
-        if (v != parent) { // nếu v là con của u
-            countChild(v, u);
-            child[u] += child[v];
-        }
-    }
-}
+    ```cpp
+    int n;           // n là số đỉnh của cây ban đầu
+    int child[N];   // child[u] là số đỉnh thuộc cây con gốc u
 
-int findCentroid(int u, int parent) {
-    for (int v : adj[u]) { 
-        if (v != parent) { 
-            if (child[v] > n/2) { // tìm được v thỏa mãn
-                return findCentroid(v, u);
+    void countChild(int u, int parent) {
+        child[u] = 1; // cây con gốc u có ít nhất 1 đỉnh là đỉnh u
+        for (int v : adj[u]) { // với mọi v kề u
+            if (v != parent) { // nếu v là con của u
+                countChild(v, u);
+                child[u] += child[v];
             }
         }
     }
-    return u; // không có giá trị v nào thỏa mãn, trả về u
-}
-```
 
-```python
-child = [0] * (N)
+    int findCentroid(int u, int parent) {
+        for (int v : adj[u]) { 
+            if (v != parent) { 
+                if (child[v] > n/2) { // tìm được v thỏa mãn
+                    return findCentroid(v, u);
+                }
+            }
+        }
+        return u; // không có giá trị v nào thỏa mãn, trả về u
+    }
+    ```
 
-def count_child(u, parent):
-    child[u] = 1
-    for v in adj[u]:
-        if v != parent:
-            count_child(v, u)
-            child[u] += child[v]
+=== "Python"
 
-def find_centroid(u, parent):
-    for v in adj[u]:
-        if v != parent:
-            if child[v] > n // 2:
-                return find_centroid(v, u)
-    return u
-```
+    ```python
+    child = [0] * (N)
+
+    def count_child(u, parent):
+        child[u] = 1
+        for v in adj[u]:
+            if v != parent:
+                count_child(v, u)
+                child[u] += child[v]
+
+    def find_centroid(u, parent):
+        for v in adj[u]:
+            if v != parent:
+                if child[v] > n // 2:
+                    return find_centroid(v, u)
+        return u
+    ```
 
 Code trên hoạt động với độ phức tạp là $O(n)$ (lưu ý, $n$ là số đỉnh của cây **đang xét**).
 
@@ -132,107 +136,111 @@ Vậy tổng số đỉnh của tất cả các cây tạo thành từ thuật t
 
 ## Cài đặt
 
-```cpp
-## include<bits/stdc++.h>
+=== "C++"
 
-using namespace std;
+    ```cpp
+    ## include<bits/stdc++.h>
 
-const int N = 200005;
+    using namespace std;
 
-int n, k, child[N], del[N]; // del[u] để kiểm tra đỉnh u có bị xóa hay chưa
-vector<int> adj[N];
+    const int N = 200005;
 
-void countChild(int u, int parent) {
-    child[u] = 1; 
-    for (int v : adj[u]) if (v != parent && !del[v]) { 
-		countChild(v, u);
-		child[u] += child[v];
+    int n, k, child[N], del[N]; // del[u] để kiểm tra đỉnh u có bị xóa hay chưa
+    vector<int> adj[N];
+
+    void countChild(int u, int parent) {
+        child[u] = 1; 
+        for (int v : adj[u]) if (v != parent && !del[v]) { 
+    		countChild(v, u);
+    		child[u] += child[v];
+        }
     }
-}
 
-int centroid(int u, int parent, int n) {
-	for (int v : adj[u]) 
-		if (v != parent && child[v] > n/2 && !del[v])
-			return centroid(v, u, n);
-	return u;
-}
+    int centroid(int u, int parent, int n) {
+    	for (int v : adj[u]) 
+    		if (v != parent && child[v] > n/2 && !del[v])
+    			return centroid(v, u, n);
+    	return u;
+    }
 
-void updateAns(int root, int n) {
-	//hàm thực hiện bước 2
-}
+    void updateAns(int root, int n) {
+    	//hàm thực hiện bước 2
+    }
 
-long long solve(int u) {
-	countChild(u, 0); 
-	
-	int n = child[u];
-	int root = centroid(u, 0, n); // bước 1
-	
-	updateAns(root, n); // bước 2
-	
-	del[root] = 1;
-	for (int v : adj[root]) if (!del[v]) 
-            ans += solve(v); // bước 3
+    long long solve(int u) {
+    	countChild(u, 0); 
+    	
+    	int n = child[u];
+    	int root = centroid(u, 0, n); // bước 1
+    	
+    	updateAns(root, n); // bước 2
+    	
+    	del[root] = 1;
+    	for (int v : adj[root]) if (!del[v]) 
+                ans += solve(v); // bước 3
 
-	return ans;
-}
+    	return ans;
+    }
 
-int main() {
-	cin >> n >> k;
-	for (int i = 1; i < n; ++i) {
-		int u, v; cin >> u >> v;
-		adj[u].push_back(v);
-		adj[v].push_back(u);
-	}
+    int main() {
+    	cin >> n >> k;
+    	for (int i = 1; i < n; ++i) {
+    		int u, v; cin >> u >> v;
+    		adj[u].push_back(v);
+    		adj[v].push_back(u);
+    	}
 
-	cout << solve(1);
+    	cout << solve(1);
 
-	return 0;
-}
-```
+    	return 0;
+    }
+    ```
 
-```python
-import sys
-sys.setrecursionlimit(300000)
-input = sys.stdin.readline
+=== "Python"
 
-N = 200005
-adj = [[] for _ in range(N)]
-child = [0] * N
-del_node = [False] * N
+    ```python
+    import sys
+    sys.setrecursionlimit(300000)
+    input = sys.stdin.readline
 
-def count_child(u, parent):
-    child[u] = 1
-    for v in adj[u]:
-        if v != parent and not del_node[v]:
-            count_child(v, u)
-            child[u] += child[v]
+    N = 200005
+    adj = [[] for _ in range(N)]
+    child = [0] * N
+    del_node = [False] * N
 
-def find_centroid(u, parent, n):
-    for v in adj[u]:
-        if v != parent and child[v] > n // 2 and not del_node[v]:
-            return find_centroid(v, u, n)
-    return u
+    def count_child(u, parent):
+        child[u] = 1
+        for v in adj[u]:
+            if v != parent and not del_node[v]:
+                count_child(v, u)
+                child[u] += child[v]
 
-def solve(u):
-    count_child(u, 0)
-    n = child[u]
-    root = find_centroid(u, 0, n)
-    # updateAns(root, n) -- implement step 2 here
-    del_node[root] = True
-    ans = 0
-    for v in adj[root]:
-        if not del_node[v]:
-            ans += solve(v)
-    return ans
+    def find_centroid(u, parent, n):
+        for v in adj[u]:
+            if v != parent and child[v] > n // 2 and not del_node[v]:
+                return find_centroid(v, u, n)
+        return u
 
-n, k = map(int, input().split())
-for _ in range(n - 1):
-    u, v = map(int, input().split())
-    adj[u].append(v)
-    adj[v].append(u)
+    def solve(u):
+        count_child(u, 0)
+        n = child[u]
+        root = find_centroid(u, 0, n)
+        # updateAns(root, n) -- implement step 2 here
+        del_node[root] = True
+        ans = 0
+        for v in adj[root]:
+            if not del_node[v]:
+                ans += solve(v)
+        return ans
 
-print(solve(1))
-```
+    n, k = map(int, input().split())
+    for _ in range(n - 1):
+        u, v = map(int, input().split())
+        adj[u].append(v)
+        adj[v].append(u)
+
+    print(solve(1))
+    ```
 
 ## Mở rộng
 
@@ -301,243 +309,247 @@ Gọi $s(u, v)$ là xâu tạo bởi đường đi từ $u$ đến $v$.
 
 Dưới đây là một code đã ac bài Lampice, bạn đọc có thể tham khảo.
 
-```cpp
-## include <bits/stdc++.h>
+=== "C++"
 
-## define For(i, a, b) for (int i=a;i<=b;++i)
+    ```cpp
+    ## include <bits/stdc++.h>
 
-using namespace std;
+    ## define For(i, a, b) for (int i=a;i<=b;++i)
 
-const int N = 200005;
-const long long base = 35711;
-const long long mod  = 1e9 + 7;
+    using namespace std;
 
-int n, Len, maxDep, child[N], valid[N];
-char a[N];
+    const int N = 200005;
+    const long long base = 35711;
+    const long long mod  = 1e9 + 7;
 
-vector<pair<int, long long>> b;
-long long pw[N];
-vector<int> adj[N];
-unordered_map<long long, bool> f[N];
+    int n, Len, maxDep, child[N], valid[N];
+    char a[N];
 
-void countChild(int u, int p)
-{
-    child[u] = 1;
-    for (int v : adj[u]) if (v != p && valid[v])
+    vector<pair<int, long long>> b;
+    long long pw[N];
+    vector<int> adj[N];
+    unordered_map<long long, bool> f[N];
+
+    void countChild(int u, int p)
     {
-        countChild(v, u);
-        child[u] += child[v];
+        child[u] = 1;
+        for (int v : adj[u]) if (v != p && valid[v])
+        {
+            countChild(v, u);
+            child[u] += child[v];
+        }
     }
-}
 
-bool dfs(int u, int p, int h, long long hshdown, long long hshup)
-{
-    if (h > Len) return false;
-
-    if (p)
-        hshdown = (hshdown * base + a[u]) % mod;    
-    hshup = (hshup + 1LL * a[u] * pw[h - 1]) % mod;
-    
-    long long x =  (hshup * pw[Len - h] - hshdown + mod) % mod;
-    if (!p) f[h][x] = true;
-    
-    if (f[Len - h + 1].find(x) != f[Len - h + 1].end() ) 
-        return true;
-
-    for (int v : adj[u]) if (v != p && valid[v])
+    bool dfs(int u, int p, int h, long long hshdown, long long hshup)
     {
-        if (!p) b.clear();
+        if (h > Len) return false;
 
-        if (dfs(v, u, h + 1, hshdown, hshup)) 
+        if (p)
+            hshdown = (hshdown * base + a[u]) % mod;    
+        hshup = (hshup + 1LL * a[u] * pw[h - 1]) % mod;
+        
+        long long x =  (hshup * pw[Len - h] - hshdown + mod) % mod;
+        if (!p) f[h][x] = true;
+        
+        if (f[Len - h + 1].find(x) != f[Len - h + 1].end() ) 
             return true;
 
-        if (!p)
-            for (pair<int, long long> x : b) f[x.first][x.second] = true;
+        for (int v : adj[u]) if (v != p && valid[v])
+        {
+            if (!p) b.clear();
+
+            if (dfs(v, u, h + 1, hshdown, hshup)) 
+                return true;
+
+            if (!p)
+                for (pair<int, long long> x : b) f[x.first][x.second] = true;
+        }
+
+        maxDep = max(maxDep, h);
+        b.push_back({h, x});
+
+        return false;
     }
 
-    maxDep = max(maxDep, h);
-    b.push_back({h, x});
-
-    return false;
-}
-
-bool CD(int u, int n)
-{
-    countChild(u, 0);
-
-    int flag = 1, half = n / 2;
-    while (flag)
+    bool CD(int u, int n)
     {
-        flag = 0;
-        for (int v : adj[u])
-            if (valid[v] && child[v] < child[u] && child[v] > half)
-            {
-                u = v;
-                flag = 1;
-                break;
-            }
+        countChild(u, 0);
+
+        int flag = 1, half = n / 2;
+        while (flag)
+        {
+            flag = 0;
+            for (int v : adj[u])
+                if (valid[v] && child[v] < child[u] && child[v] > half)
+                {
+                    u = v;
+                    flag = 1;
+                    break;
+                }
+        }
+        
+        childCounting(u, 0);
+
+        if (dfs(u, 0, 1, 0, 0)) return true;
+
+        For(i, 1, maxDep) f[i].clear();
+        maxDep = 0;
+
+        valid[u] = false;
+        for (int v : adj[u]) if (valid[v])
+            if (CD(v, child[v])) return true;
+        return false;
     }
-    
-    childCounting(u, 0);
 
-    if (dfs(u, 0, 1, 0, 0)) return true;
-
-    For(i, 1, maxDep) f[i].clear();
-    maxDep = 0;
-
-    valid[u] = false;
-    for (int v : adj[u]) if (valid[v])
-        if (CD(v, child[v])) return true;
-    return false;
-}
-
-bool check(int len)
-{
-    Len = len;
-    For(i, 1, n) valid[i] = 1, f[i].clear();
-    return CD(1, n);
-}
-
-void solve()
-{
-    cin >> n;
-    For(i, 1, n) cin >> a[i];
-    For(i, 1, n - 1)
+    bool check(int len)
     {
-        int u, v; cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+        Len = len;
+        For(i, 1, n) valid[i] = 1, f[i].clear();
+        return CD(1, n);
     }
 
-    pw[0] = 1;
-    For(i, 1, n) pw[i] = pw[i - 1] * base % mod;
-
-    int l = 0, r = (n - 1) / 2;
-    while (l < r)
+    void solve()
     {
-        int g = (l + r + 1) / 2;
-        if (check(g * 2 + 1)) l = g; else r = g - 1;
+        cin >> n;
+        For(i, 1, n) cin >> a[i];
+        For(i, 1, n - 1)
+        {
+            int u, v; cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+
+        pw[0] = 1;
+        For(i, 1, n) pw[i] = pw[i - 1] * base % mod;
+
+        int l = 0, r = (n - 1) / 2;
+        while (l < r)
+        {
+            int g = (l + r + 1) / 2;
+            if (check(g * 2 + 1)) l = g; else r = g - 1;
+        }
+
+        int ans = r * 2 + 1;
+        
+        l = 0, r = n / 2;
+        while (l < r)
+        {
+            int g = (l + r + 1) / 2;
+            if (check(g * 2)) l = g; else r = g - 1;
+        }
+
+        cout << max(ans, r * 2);
     }
 
-    int ans = r * 2 + 1;
-    
-    l = 0, r = n / 2;
-    while (l < r)
+    int main()
     {
-        int g = (l + r + 1) / 2;
-        if (check(g * 2)) l = g; else r = g - 1;
+    	ios_base::sync_with_stdio(false);
+    	cin.tie(NULL);cout.tie(NULL);
+
+    	solve();
+
+    	return 0;
     }
+    ```
 
-    cout << max(ans, r * 2);
-}
+=== "Python"
 
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);cout.tie(NULL);
+    ```python
+    import sys
+    sys.setrecursionlimit(300000)
+    input = sys.stdin.readline
 
-	solve();
+    def solve():
+        n = int(input())
+        a = [0] + list(input().strip())
+        adj = [[] for _ in range(n + 1)]
+        for _ in range(n - 1):
+            u, v = map(int, input().split())
+            adj[u].append(v)
+            adj[v].append(u)
 
-	return 0;
-}
-```
+        BASE = 35711
+        MOD = 10 ** 9 + 7
+        pw = [1] * (n + 1)
+        for i in range(1, n + 1):
+            pw[i] = pw[i - 1] * BASE % MOD
 
-```python
-import sys
-sys.setrecursionlimit(300000)
-input = sys.stdin.readline
+        def check(Len):
+            valid = [True] * (n + 1)
+            child = [0] * (n + 1)
 
-def solve():
-    n = int(input())
-    a = [0] + list(input().strip())
-    adj = [[] for _ in range(n + 1)]
-    for _ in range(n - 1):
-        u, v = map(int, input().split())
-        adj[u].append(v)
-        adj[v].append(u)
-
-    BASE = 35711
-    MOD = 10 ** 9 + 7
-    pw = [1] * (n + 1)
-    for i in range(1, n + 1):
-        pw[i] = pw[i - 1] * BASE % MOD
-
-    def check(Len):
-        valid = [True] * (n + 1)
-        child = [0] * (n + 1)
-
-        def countChild(u, p):
-            child[u] = 1
-            for v in adj[u]:
-                if v != p and valid[v]:
-                    countChild(v, u)
-                    child[u] += child[v]
-
-        def dfs(u, p, h, hshdown, hshup, f, b):
-            if h > Len:
-                return False
-            if p:
-                hshdown = (hshdown * BASE + ord(a[u])) % MOD
-            hshup = (hshup + ord(a[u]) * pw[h - 1]) % MOD
-            x = (hshup * pw[Len - h] - hshdown + MOD) % MOD
-            if not p:
-                if h not in f:
-                    f[h] = {}
-                f[h][x] = True
-            if Len - h + 1 in f and x in f[Len - h + 1]:
-                return True
-            for v in adj[u]:
-                if v != p and valid[v]:
-                    if dfs(v, u, h + 1, hshdown, hshup, f, b):
-                        return True
-            b.append((h, x))
-            return False
-
-        def CD(u, sz):
-            countChild(u, 0)
-            half = sz // 2
-            flag = True
-            while flag:
-                flag = False
+            def countChild(u, p):
+                child[u] = 1
                 for v in adj[u]:
-                    if valid[v] and child[v] < child[u] and child[v] > half:
-                        u = v
-                        flag = True
-                        break
-            countChild(u, 0)
-            f = {}
-            b = []
-            if dfs(u, 0, 1, 0, 0, f, b):
-                return True
-            valid[u] = False
-            for v in adj[u]:
-                if valid[v] and CD(v, child[v]):
+                    if v != p and valid[v]:
+                        countChild(v, u)
+                        child[u] += child[v]
+
+            def dfs(u, p, h, hshdown, hshup, f, b):
+                if h > Len:
+                    return False
+                if p:
+                    hshdown = (hshdown * BASE + ord(a[u])) % MOD
+                hshup = (hshup + ord(a[u]) * pw[h - 1]) % MOD
+                x = (hshup * pw[Len - h] - hshdown + MOD) % MOD
+                if not p:
+                    if h not in f:
+                        f[h] = {}
+                    f[h][x] = True
+                if Len - h + 1 in f and x in f[Len - h + 1]:
                     return True
-            return False
+                for v in adj[u]:
+                    if v != p and valid[v]:
+                        if dfs(v, u, h + 1, hshdown, hshup, f, b):
+                            return True
+                b.append((h, x))
+                return False
 
-        return CD(1, n)
+            def CD(u, sz):
+                countChild(u, 0)
+                half = sz // 2
+                flag = True
+                while flag:
+                    flag = False
+                    for v in adj[u]:
+                        if valid[v] and child[v] < child[u] and child[v] > half:
+                            u = v
+                            flag = True
+                            break
+                countChild(u, 0)
+                f = {}
+                b = []
+                if dfs(u, 0, 1, 0, 0, f, b):
+                    return True
+                valid[u] = False
+                for v in adj[u]:
+                    if valid[v] and CD(v, child[v]):
+                        return True
+                return False
 
-    l, r = 0, (n - 1) // 2
-    while l < r:
-        g = (l + r + 1) // 2
-        if check(g * 2 + 1):
-            l = g
-        else:
-            r = g - 1
-    ans = r * 2 + 1
+            return CD(1, n)
 
-    l, r = 0, n // 2
-    while l < r:
-        g = (l + r + 1) // 2
-        if check(g * 2):
-            l = g
-        else:
-            r = g - 1
+        l, r = 0, (n - 1) // 2
+        while l < r:
+            g = (l + r + 1) // 2
+            if check(g * 2 + 1):
+                l = g
+            else:
+                r = g - 1
+        ans = r * 2 + 1
 
-    print(max(ans, r * 2))
+        l, r = 0, n // 2
+        while l < r:
+            g = (l + r + 1) // 2
+            if check(g * 2):
+                l = g
+            else:
+                r = g - 1
 
-solve()
-```
+        print(max(ans, r * 2))
+
+    solve()
+    ```
 
 ## [QTREE5](https://www.spoj.com/problems/QTREE5)
 
@@ -565,202 +577,205 @@ Lưu ý, giá trị $dist(u, p) + s_p$ đề cập ở trên có thể là giá 
 
 ### Cài đặt
 
-```cpp
-## include <bits/stdc++.h>
+=== "C++"
 
-using namespace std;
+    ```cpp
+    ## include <bits/stdc++.h>
 
-const int N = 2 * 1e5 + 5;
-const int oo = 1e9 + 7;
+    using namespace std;
 
-int n, del[N], par[N], child[N];
-vector<int> adj[N];
-multiset<int> s[N];
-map<int, int> d[N];
+    const int N = 2 * 1e5 + 5;
+    const int oo = 1e9 + 7;
 
-int countChild(int u, int p) {
-    child[u] = 1;
-    for (int v : adj[u]) {
-        if (v == p || del[v]) continue;
-        child[u] += countChild(v, u);
+    int n, del[N], par[N], child[N];
+    vector<int> adj[N];
+    multiset<int> s[N];
+    map<int, int> d[N];
+
+    int countChild(int u, int p) {
+        child[u] = 1;
+        for (int v : adj[u]) {
+            if (v == p || del[v]) continue;
+            child[u] += countChild(v, u);
+        }
+        return child[u];
     }
-    return child[u];
-}
 
-int centroid(int u, int p, int m) {
-    for (int v : adj[u]) {
-        if (v == p || del[v]) continue;
-        if (child[v] > m / 2) 
-            return centroid(v, u, m);
+    int centroid(int u, int p, int m) {
+        for (int v : adj[u]) {
+            if (v == p || del[v]) continue;
+            if (child[v] > m / 2) 
+                return centroid(v, u, m);
+        }
+        return u;
     }
-    return u;
-}
 
-void calcDist(int u, int p, int root) {
-    for (int v : adj[u]) {
-        if (v == p || del[v]) continue;
-        d[v][root] = d[u][root] + 1;
-        calcDist(v, u, root);
+    void calcDist(int u, int p, int root) {
+        for (int v : adj[u]) {
+            if (v == p || del[v]) continue;
+            d[v][root] = d[u][root] + 1;
+            calcDist(v, u, root);
+        }
     }
-}
 
-int cd(int u = 1) {
-    int m = countChild(u, 0);
-    u = centroid(u, 0, m);
-    calcDist(u, 0, u);
-    del[u] = 1;
-    for (int v : adj[u]) {
-        if (del[v]) continue;
-        int x = cd(v);
-        par[x] = u;
+    int cd(int u = 1) {
+        int m = countChild(u, 0);
+        u = centroid(u, 0, m);
+        calcDist(u, 0, u);
+        del[u] = 1;
+        for (int v : adj[u]) {
+            if (del[v]) continue;
+            int x = cd(v);
+            par[x] = u;
+        }
+        return u;
     }
-    return u;
-}
 
-void solve()
-{
-    int n; cin >> n;
-    for (int i = 1; i < n; ++i) {
-        int u, v; cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-    int root = cd();
+    void solve()
+    {
+        int n; cin >> n;
+        for (int i = 1; i < n; ++i) {
+            int u, v; cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        int root = cd();
 
-    int q; cin >> q;
-    vector<int> col(n + 5, 1);
-    while (q--) {
-        int t, u; cin >> t >> u;
-        if (t == 0) {
-            int p = u;
-            col[u] ^= 1;
-            if (col[u]) {
-                while (p) {
-                    s[p].erase(s[p].lower_bound(d[u][p]));
-                    p = par[p];
+        int q; cin >> q;
+        vector<int> col(n + 5, 1);
+        while (q--) {
+            int t, u; cin >> t >> u;
+            if (t == 0) {
+                int p = u;
+                col[u] ^= 1;
+                if (col[u]) {
+                    while (p) {
+                        s[p].erase(s[p].lower_bound(d[u][p]));
+                        p = par[p];
+                    }
+                }
+                else {
+                    while (p) {
+                        s[p].insert(d[u][p]);
+                        p = par[p];
+                    }
                 }
             }
             else {
+                int ans = oo, p = u;
                 while (p) {
-                    s[p].insert(d[u][p]);
+                    if (s[p].size()) {
+                        ans = min(ans, d[u][p] + *s[p].begin());
+                    }
                     p = par[p];
                 }
+                if (ans >= oo) cout << "-1\n";
+                else cout << ans << "\n";
             }
-        }
-        else {
-            int ans = oo, p = u;
-            while (p) {
-                if (s[p].size()) {
-                    ans = min(ans, d[u][p] + *s[p].begin());
-                }
-                p = par[p];
-            }
-            if (ans >= oo) cout << "-1\n";
-            else cout << ans << "\n";
         }
     }
-}
 
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);cout.tie(NULL);
+    int main()
+    {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);cout.tie(NULL);
 
-    solve();
+        solve();
 
-    return 0;
-}
+        return 0;
+    }
+    ```
 
-```
+=== "Python"
 
-```python
-import sys
-from sortedcontainers import SortedList
-sys.setrecursionlimit(300000)
-input = sys.stdin.readline
+    ```python
+    import sys
+    from sortedcontainers import SortedList
+    sys.setrecursionlimit(300000)
+    input = sys.stdin.readline
 
-N = 200005
-oo = 10 ** 9 + 7
+    N = 200005
+    oo = 10 ** 9 + 7
 
-adj = [[] for _ in range(N)]
-del_node = [False] * N
-par = [0] * N
-child = [0] * N
-d = [{} for _ in range(N)]
-s = [SortedList() for _ in range(N)]
+    adj = [[] for _ in range(N)]
+    del_node = [False] * N
+    par = [0] * N
+    child = [0] * N
+    d = [{} for _ in range(N)]
+    s = [SortedList() for _ in range(N)]
 
-def countChild(u, p):
-    child[u] = 1
-    for v in adj[u]:
-        if v == p or del_node[v]:
-            continue
-        child[u] += countChild(v, u)
-    return child[u]
+    def countChild(u, p):
+        child[u] = 1
+        for v in adj[u]:
+            if v == p or del_node[v]:
+                continue
+            child[u] += countChild(v, u)
+        return child[u]
 
-def centroid(u, p, m):
-    for v in adj[u]:
-        if v == p or del_node[v]:
-            continue
-        if child[v] > m // 2:
-            return centroid(v, u, m)
-    return u
+    def centroid(u, p, m):
+        for v in adj[u]:
+            if v == p or del_node[v]:
+                continue
+            if child[v] > m // 2:
+                return centroid(v, u, m)
+        return u
 
-def calcDist(u, p, root):
-    for v in adj[u]:
-        if v == p or del_node[v]:
-            continue
-        d[v][root] = d[u][root] + 1
-        calcDist(v, u, root)
+    def calcDist(u, p, root):
+        for v in adj[u]:
+            if v == p or del_node[v]:
+                continue
+            d[v][root] = d[u][root] + 1
+            calcDist(v, u, root)
 
-def cd(u=1):
-    m = countChild(u, 0)
-    u = centroid(u, 0, m)
-    d[u][u] = 0
-    calcDist(u, 0, u)
-    del_node[u] = True
-    for v in adj[u]:
-        if del_node[v]:
-            continue
-        x = cd(v)
-        par[x] = u
-    return u
+    def cd(u=1):
+        m = countChild(u, 0)
+        u = centroid(u, 0, m)
+        d[u][u] = 0
+        calcDist(u, 0, u)
+        del_node[u] = True
+        for v in adj[u]:
+            if del_node[v]:
+                continue
+            x = cd(v)
+            par[x] = u
+        return u
 
-n = int(input())
-for _ in range(n - 1):
-    u, v = map(int, input().split())
-    adj[u].append(v)
-    adj[v].append(u)
+    n = int(input())
+    for _ in range(n - 1):
+        u, v = map(int, input().split())
+        adj[u].append(v)
+        adj[v].append(u)
 
-root = cd()
+    root = cd()
 
-col = [1] * (n + 1)
-q = int(input())
-for _ in range(q):
-    t, u = map(int, input().split())
-    if t == 0:
-        p = u
-        col[u] ^= 1
-        if col[u]:
-            while p:
-                if d[u][p] in s[p]:
-                    s[p].remove(d[u][p])
-                p = par[p]
+    col = [1] * (n + 1)
+    q = int(input())
+    for _ in range(q):
+        t, u = map(int, input().split())
+        if t == 0:
+            p = u
+            col[u] ^= 1
+            if col[u]:
+                while p:
+                    if d[u][p] in s[p]:
+                        s[p].remove(d[u][p])
+                    p = par[p]
+            else:
+                while p:
+                    s[p].add(d[u][p])
+                    p = par[p]
         else:
+            ans = oo
+            p = u
             while p:
-                s[p].add(d[u][p])
+                if len(s[p]) > 0:
+                    ans = min(ans, d[u][p] + s[p][0])
                 p = par[p]
-    else:
-        ans = oo
-        p = u
-        while p:
-            if len(s[p]) > 0:
-                ans = min(ans, d[u][p] + s[p][0])
-            p = par[p]
-        if ans >= oo:
-            print(-1)
-        else:
-            print(ans)
-```
+            if ans >= oo:
+                print(-1)
+            else:
+                print(ans)
+    ```
 
 ## Luyện tập
 

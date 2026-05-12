@@ -1,3 +1,6 @@
 .idea/
 site
 log.txt
+__pycache__/
+*.py[codz]
+*$py.class

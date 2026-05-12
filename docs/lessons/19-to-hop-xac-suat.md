@@ -11,14 +11,23 @@ Có 10 bạn, chọn 5 bạn đi đá bóng. Có bao nhiêu cách chọn? → C(
 
 ### Công thức
 
-```
-C(n, k) = n! / (k! × (n-k)!)
+$$
+C(n, k) = \frac{n!}{k!(n-k)!}
+$$
 
-Tính chất:
+> Nghĩa là: chọn $k$ phần tử từ $n$ phần tử, không quan trọng thứ tự. Ví dụ $C(5,2) = \frac{5!}{2! \cdot 3!} = 10$.
+
+**Tính chất:**
+
+$$
 C(n, 0) = C(n, n) = 1
-C(n, k) = C(n, n-k)   (đối xứng)
-C(n, k) = C(n-1, k-1) + C(n-1, k)  (tam giác Pascal)
-```
+$$
+$$
+C(n, k) = C(n, n-k) \quad \text{(đối xứng)}
+$$
+$$
+C(n, k) = C(n-1, k-1) + C(n-1, k) \quad \text{(tam giác Pascal)}
+$$
 
 ### Tại sao C(n, k) = C(n-1, k-1) + C(n-1, k)?
 
@@ -55,35 +64,37 @@ Mỗi số = tổng 2 số phía trên nó:
 
 Phù hợp khi N nhỏ (≤ 5000) và cần tính nhiều C(n, k).
 
-```cpp
-const long long MOD = 1e9 + 7;
-long long C[5001][5001];
+=== "C++"
 
-void buildPascal(int n) {
-    for (int i = 0; i <= n; i++) {
-        C[i][0] = C[i][i] = 1;
-        for (int j = 1; j < i; j++)
-            C[i][j] = (C[i-1][j-1] + C[i-1][j]) % MOD;
+    ```cpp
+    const long long MOD = 1e9 + 7;
+    long long C[5001][5001];
+    
+    void buildPascal(int n) {
+        for (int i = 0; i <= n; i++) {
+            C[i][0] = C[i][i] = 1;
+            for (int j = 1; j < i; j++)
+                C[i][j] = (C[i-1][j-1] + C[i-1][j]) % MOD;
+        }
     }
-}
+    
+    // Truy vấn O(1)
+    // C(n, k) đã lưu trong mảng C[n][k]
+    ```
 
-// Truy vấn O(1)
-// C(n, k) đã lưu trong mảng C[n][k]
-```
+=== "Python"
 
-### Code Python
-
-```python
-MOD = 10**9 + 7
-
-def build_pascal(n):
-    C = [[0] * (n + 1) for _ in range(n + 1)]
-    for i in range(n + 1):
-        C[i][0] = C[i][i] = 1
-        for j in range(1, i):
-            C[i][j] = (C[i-1][j-1] + C[i-1][j]) % MOD
-    return C
-```
+    ```python
+    MOD = 10**9 + 7
+    
+    def build_pascal(n):
+        C = [[0] * (n + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            C[i][0] = C[i][i] = 1
+            for j in range(1, i):
+                C[i][j] = (C[i-1][j-1] + C[i-1][j]) % MOD
+        return C
+    ```
 
 **Ưu điểm:** Đơn giản, dễ hiểu
 **Nhược điểm:** O(N²) bộ nhớ, chỉ N ≤ 5000
@@ -92,68 +103,70 @@ def build_pascal(n):
 
 Phù hợp khi N lớn (≤ 10⁶) và MOD là số nguyên tố.
 
-```cpp
-const long long MOD = 1e9 + 7;
+=== "C++"
 
-long long powerMod(long long a, long long b, long long mod) {
-    long long result = 1;
-    a %= mod;
-    while (b > 0) {
-        if (b & 1) result = result * a % mod;
-        a = a * a % mod;
-        b >>= 1;
-    }
-    return result;
-}
-
-long long fact[1000001], inv_fact[1000001];
-
-void buildFactorial(int n) {
-    fact[0] = 1;
-    for (int i = 1; i <= n; i++)
-        fact[i] = fact[i-1] * i % MOD;
+    ```cpp
+    const long long MOD = 1e9 + 7;
     
-    inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
-    for (int i = n - 1; i >= 0; i--)
-        inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
-}
-
-// C(n, k) mod MOD - O(1) sau khi preprocess
-long long nCk(int n, int k) {
-    if (k < 0 || k > n) return 0;
-    return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
-}
-```
+    long long powerMod(long long a, long long b, long long mod) {
+        long long result = 1;
+        a %= mod;
+        while (b > 0) {
+            if (b & 1) result = result * a % mod;
+            a = a * a % mod;
+            b >>= 1;
+        }
+        return result;
+    }
+    
+    long long fact[1000001], inv_fact[1000001];
+    
+    void buildFactorial(int n) {
+        fact[0] = 1;
+        for (int i = 1; i <= n; i++)
+            fact[i] = fact[i-1] * i % MOD;
+        
+        inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
+        for (int i = n - 1; i >= 0; i--)
+            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
+    }
+    
+    // C(n, k) mod MOD - O(1) sau khi preprocess
+    long long nCk(int n, int k) {
+        if (k < 0 || k > n) return 0;
+        return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
+    }
+    ```
 
 **Công thức:** `C(n, k) = n! × (k!)^(-1) × ((n-k)!)^(-1) mod MOD`
 
 **Ưu điểm:** O(N) preprocess, O(1) truy vấn, N có thể đến 10⁶
 **Nhược điểm:** Cần MOD là số nguyên tố
 
-### Code Python
+=== "Python"
 
-```python
-MOD = 10**9 + 7
-
-# Python có sẵn math.comb (không lấy modulo)
-import math
-print(math.comb(10, 5))  # 252
-
-# Có modulo: dùng precompute
-def build_factorial(n):
-    fact = [1] * (n + 1)
-    for i in range(1, n + 1):
-        fact[i] = fact[i-1] * i % MOD
-    inv_fact = [1] * (n + 1)
-    inv_fact[n] = pow(fact[n], MOD - 2, MOD)
-    for i in range(n - 1, -1, -1):
-        inv_fact[i] = inv_fact[i+1] * (i+1) % MOD
-    return fact, inv_fact
-
-def nCk(n, k, fact, inv_fact):
-    if k < 0 or k > n: return 0
-    return fact[n] * inv_fact[k] % MOD * inv_fact[n-k] % MOD
-```
+    ```python
+    MOD = 10**9 + 7
+    
+    # Python có sẵn math.comb (không lấy modulo)
+    import math
+    print(math.comb(10, 5))  # 252
+    
+    # Có modulo: dùng precompute
+    def build_factorial(n):
+        fact = [1] * (n + 1)
+        for i in range(1, n + 1):
+            fact[i] = fact[i-1] * i % MOD
+        inv_fact = [1] * (n + 1)
+        inv_fact[n] = pow(fact[n], MOD - 2, MOD)
+        for i in range(n - 1, -1, -1):
+            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD
+        return fact, inv_fact
+    
+    def nCk(n, k, fact, inv_fact):
+        if k < 0 or k > n: return 0
+        return fact[n] * inv_fact[k] % MOD * inv_fact[n-k] % MOD
+    ```
 
 ### So sánh 2 cách
 
@@ -197,13 +210,17 @@ C(n+k-1, k) = C(n+k-1, n-1)
 
 Dãy Catalan Cₙ xuất hiện trong nhiều bài toán đếm:
 
-```
-C₀ = 1
-Cₙ = Σ Cᵢ × Cₙ₋₁₋ᵢ  (i từ 0 đến n-1)
-Cₙ = C(2n, n) / (n+1)
+$$
+C_0 = 1
+$$
+$$
+C_n = \sum_{i=0}^{n-1} C_i \times C_{n-1-i}
+$$
+$$
+C_n = \frac{C(2n, n)}{n+1} = \frac{1}{n+1}\binom{2n}{n}
+$$
 
-Dãy: 1, 1, 2, 5, 14, 42, 132, 429, ...
-```
+> Dãy Catalan: $1, 1, 2, 5, 14, 42, 132, 429, \ldots$ — Công thức tổng quát cho biết $C_n$ bằng tổng tích của mọi cặp Catalan nhỏ hơn, hoặc tính trực tiếp bằng tổ hợp chia cho $n+1$.
 
 **Ứng dụng của Catalan:**
 
@@ -212,36 +229,38 @@ Dãy: 1, 1, 2, 5, 14, 42, 132, 429, ...
 - Số đường đi trên lưới không vượt qua đường chéo
 - Số cách chia đa giác lồi thành tam giác
 
-```cpp
-// Tính Catalan numbers
-long long catalan[1001];
-void buildCatalan(int n) {
-    catalan[0] = catalan[1] = 1;
-    for (int i = 2; i <= n; i++)
-        for (int j = 0; j < i; j++)
-            catalan[i] = (catalan[i] + catalan[j] * catalan[i-1-j]) % MOD;
-}
+=== "C++"
 
-// Hoặc dùng công thức: Cₙ = C(2n, n) / (n+1)
-long long catalanFast(int n) {
-    return nCk(2*n, n) * modInverse(n+1, MOD) % MOD;
-}
-```
+    ```cpp
+    // Tính Catalan numbers
+    long long catalan[1001];
+    void buildCatalan(int n) {
+        catalan[0] = catalan[1] = 1;
+        for (int i = 2; i <= n; i++)
+            for (int j = 0; j < i; j++)
+                catalan[i] = (catalan[i] + catalan[j] * catalan[i-1-j]) % MOD;
+    }
+    
+    // Hoặc dùng công thức: Cₙ = C(2n, n) / (n+1)
+    long long catalanFast(int n) {
+        return nCk(2*n, n) * modInverse(n+1, MOD) % MOD;
+    }
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-def build_catalan(n):
-    catalan = [0] * (n + 1)
-    catalan[0] = catalan[1] = 1
-    for i in range(2, n + 1):
-        for j in range(i):
-            catalan[i] = (catalan[i] + catalan[j] * catalan[i-1-j]) % MOD
-    return catalan
-
-def catalan_fast(n, fact, inv_fact):
-    return nCk(2*n, n, fact, inv_fact) * pow(n+1, MOD-2, MOD) % MOD
-```
+    ```python
+    def build_catalan(n):
+        catalan = [0] * (n + 1)
+        catalan[0] = catalan[1] = 1
+        for i in range(2, n + 1):
+            for j in range(i):
+                catalan[i] = (catalan[i] + catalan[j] * catalan[i-1-j]) % MOD
+        return catalan
+    
+    def catalan_fast(n, fact, inv_fact):
+        return nCk(2*n, n, fact, inv_fact) * pow(n+1, MOD-2, MOD) % MOD
+    ```
 
 ---
 
@@ -256,28 +275,27 @@ P(A và B) = P(A) × P(B|A)   (xác suất có điều kiện)
 P(A hoặc B) = P(A) + P(B) - P(A và B)
 P(không A) = 1 - P(A)
 ```
+=== "C++"
 
-### Ví dụ: Xúc xắc
+    ```cpp
+    // Xác suất được tổng = 7 khi tung 2 xúc xắc
+    // Kết quả thuận lợi: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6
+    // Tổng kết quả: 6 × 6 = 36
+    // P = 6/36 = 1/6
+    
+    // Tính modulo: P = 6 × modInverse(36) % MOD
+    ```
 
-```cpp
-// Xác suất được tổng = 7 khi tung 2 xúc xắc
-// Kết quả thuận lợi: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6
-// Tổng kết quả: 6 × 6 = 36
-// P = 6/36 = 1/6
+=== "Python"
 
-// Tính modulo: P = 6 × modInverse(36) % MOD
-```
-
-### Code Python
-
-```python
-# Xác suất được tổng = 7 khi tung 2 xúc xắc
-# Kết quả thuận lợi: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6
-# Tổng kết quả: 6 × 6 = 36
-# P = 6/36 = 1/6
-
-# Tính modulo: P = 6 * pow(36, MOD-2, MOD) % MOD
-```
+    ```python
+    # Xác suất được tổng = 7 khi tung 2 xúc xắc
+    # Kết quả thuận lợi: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) = 6
+    # Tổng kết quả: 6 × 6 = 36
+    # P = 6/36 = 1/6
+    
+    # Tính modulo: P = 6 * pow(36, MOD-2, MOD) % MOD
+    ```
 
 ### Bài toán xác suất phổ biến
 
@@ -291,30 +309,29 @@ P(k mặt ngửa) = C(n, k) / 2^n
 
 - Số cách chọn k đồng xu ra mặt ngửa = C(n, k)
 - Tổng kết quả = 2^n (mỗi đồng xu có 2 trạng thái)
+=== "C++"
 
-### Ví dụ: Expected Value (Giá trị kỳ vọng)
+    ```cpp
+    // Kỳ vọng số lần tung xúc xắc cho đến khi được 6
+    // P(được 6) = 1/6 mỗi lần
+    // E = 1/P = 6 (trung bình cần 6 lần)
+    
+    // Kỳ vọng = Σ (giá trị × xác suất)
+    // Ví dụ: Kỳ vọng khi tung 1 xúc xắc
+    // E = 1×1/6 + 2×1/6 + 3×1/6 + 4×1/6 + 5×1/6 + 6×1/6 = 3.5
+    ```
 
-```cpp
-// Kỳ vọng số lần tung xúc xắc cho đến khi được 6
-// P(được 6) = 1/6 mỗi lần
-// E = 1/P = 6 (trung bình cần 6 lần)
+=== "Python"
 
-// Kỳ vọng = Σ (giá trị × xác suất)
-// Ví dụ: Kỳ vọng khi tung 1 xúc xắc
-// E = 1×1/6 + 2×1/6 + 3×1/6 + 4×1/6 + 5×1/6 + 6×1/6 = 3.5
-```
-
-### Code Python
-
-```python
-# Kỳ vọng số lần tung xúc xắc cho đến khi được 6
-# P(được 6) = 1/6 mỗi lần
-# E = 1/P = 6 (trung bình cần 6 lần)
-
-# Kỳ vọng = Σ (giá trị × xác suất)
-# Ví dụ: Kỳ vọng khi tung 1 xúc xắc
-# E = 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6 = 3.5
-```
+    ```python
+    # Kỳ vọng số lần tung xúc xắc cho đến khi được 6
+    # P(được 6) = 1/6 mỗi lần
+    # E = 1/P = 6 (trung bình cần 6 lần)
+    
+    # Kỳ vọng = Σ (giá trị × xác suất)
+    # Ví dụ: Kỳ vọng khi tung 1 xúc xắc
+    # E = 1*1/6 + 2*1/6 + 3*1/6 + 4*1/6 + 5*1/6 + 6*1/6 = 3.5
+    ```
 
 ---
 
@@ -326,42 +343,44 @@ Nhiều bài toán xác suất có thể giải bằng DP.
 
 Tung n đồng xu, xác suất có **nhiều hơn n/2** mặt ngửa?
 
-```cpp
-// dp[i][j] = xác suất được j mặt ngửa sau i lần tung
-// dp[0][0] = 1
-// dp[i][j] = dp[i-1][j-1] * 0.5 + dp[i-1][j] * 0.5
+=== "C++"
 
-double probMoreThanHalf(int n) {
-    vector<vector<double>> dp(n+1, vector<double>(n+1, 0));
-    dp[0][0] = 1.0;
+    ```cpp
+    // dp[i][j] = xác suất được j mặt ngửa sau i lần tung
+    // dp[0][0] = 1
+    // dp[i][j] = dp[i-1][j-1] * 0.5 + dp[i-1][j] * 0.5
     
-    for (int i = 1; i <= n; i++) {
-        for (int j = 0; j <= i; j++) {
-            dp[i][j] = dp[i-1][j] * 0.5;  // Lần i ra sấp
-            if (j > 0) dp[i][j] += dp[i-1][j-1] * 0.5;  // Lần i ra ngửa
+    double probMoreThanHalf(int n) {
+        vector<vector<double>> dp(n+1, vector<double>(n+1, 0));
+        dp[0][0] = 1.0;
+        
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= i; j++) {
+                dp[i][j] = dp[i-1][j] * 0.5;  // Lần i ra sấp
+                if (j > 0) dp[i][j] += dp[i-1][j-1] * 0.5;  // Lần i ra ngửa
+            }
         }
+        
+        double result = 0;
+        for (int j = n/2 + 1; j <= n; j++)
+            result += dp[n][j];
+        return result;
     }
-    
-    double result = 0;
-    for (int j = n/2 + 1; j <= n; j++)
-        result += dp[n][j];
-    return result;
-}
-```
+    ```
 
-### Code Python
+=== "Python"
 
-```python
-def prob_more_than_half(n):
-    dp = [[0.0] * (n + 1) for _ in range(n + 1)]
-    dp[0][0] = 1.0
-    for i in range(1, n + 1):
-        for j in range(i + 1):
-            dp[i][j] = dp[i-1][j] * 0.5
-            if j > 0:
-                dp[i][j] += dp[i-1][j-1] * 0.5
-    return sum(dp[n][n//2 + 1:])
-```
+    ```python
+    def prob_more_than_half(n):
+        dp = [[0.0] * (n + 1) for _ in range(n + 1)]
+        dp[0][0] = 1.0
+        for i in range(1, n + 1):
+            for j in range(i + 1):
+                dp[i][j] = dp[i-1][j] * 0.5
+                if j > 0:
+                    dp[i][j] += dp[i-1][j-1] * 0.5
+        return sum(dp[n][n//2 + 1:])
+    ```
 
 ---
 
@@ -370,6 +389,12 @@ def prob_more_than_half(n):
 ### Bẫy 1: Phép chia modulo ≠ phép chia thường
 
 ```cpp
+// SAI: (a / b) % MOD ≠ (a % MOD) / (b % MOD)
+long long wrong = (a / b) % MOD;
+
+// ĐÚNG: Dùng modular inverse
+long long correct = a % MOD * powerMod(b, MOD - 2, MOD) % MOD;
+```
 // SAI: (a / b) % MOD ≠ (a % MOD) / (b % MOD)
 long long wrong = (a / b) % MOD;
 
@@ -388,6 +413,12 @@ fact[i] = fact[i-1] * i;  // Tràn khi i > 20!
 // ĐÚNG: Luôn lấy modulo sau mỗi phép nhân
 fact[i] = fact[i-1] * i % MOD;
 ```
+// SAI: fact[i] có thể tràn long long trước khi lấy modulo
+fact[i] = fact[i-1] * i;  // Tràn khi i > 20!
+
+// ĐÚNG: Luôn lấy modulo sau mỗi phép nhân
+fact[i] = fact[i-1] * i % MOD;
+```
 
 ### Bẫy 3: Tam giác Pascal tốn bộ nhớ
 
@@ -398,10 +429,27 @@ long long C[5001][5001];
 // Giải pháp: Chỉ dùng khi N ≤ 5000
 // Với N > 5000, chuyển sang factorial + inverse (O(N) bộ nhớ)
 ```
+// C[5001][5001] → ~200MB bộ nhớ → có thể MLE!
+long long C[5001][5001];
+
+// Giải pháp: Chỉ dùng khi N ≤ 5000
+// Với N > 5000, chuyển sang factorial + inverse (O(N) bộ nhớ)
+```
 
 ### Bẫy 4: Catalan - Quên edge case
 
 ```cpp
+// SAI: Không xử lý n = 0
+long long catalan(int n) {
+    return nCk(2*n, n) / (n+1);  // Sai vì chia thường!
+}
+
+// ĐÚNG:
+long long catalan(int n) {
+    if (n == 0) return 1;  // C₀ = 1
+    return nCk(2*n, n) * powerMod(n+1, MOD-2, MOD) % MOD;
+}
+```
 // SAI: Không xử lý n = 0
 long long catalan(int n) {
     return nCk(2*n, n) / (n+1);  // Sai vì chia thường!
@@ -430,6 +478,17 @@ long long nCk(int n, int k) {
     return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
 }
 ```
+// SAI: Không kiểm tra k < 0
+long long nCk(int n, int k) {
+    return fact[n] * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
+}
+
+// ĐÚNG:
+long long nCk(int n, int k) {
+    if (k < 0 || k > n) return 0;  // Điều kiện bắt buộc
+    return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
+}
+```
 
 ### Bẫy 6: Quên tính nghịch đảo factorial đúng cách
 
@@ -443,10 +502,25 @@ inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
 for (int i = n - 1; i >= 0; i--)
     inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
 ```
+// SAI: Tính từng inv_fact[i] riêng lẻ → O(N log MOD)
+for (int i = 0; i <= n; i++)
+    inv_fact[i] = powerMod(fact[i], MOD - 2, MOD);  // Chậm!
+
+// ĐÚNG: Tính inv_fact[n] trước, sau đó đi ngược lại → O(N + log MOD)
+inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
+for (int i = n - 1; i >= 0; i--)
+    inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
+```
 
 ### Bẫy 7: Expected Value - Quên trọng số
 
 ```cpp
+// SAI: Kỳ vọng = tổng giá trị / số trường hợp (chỉ đúng khi đều xác suất)
+E = (1 + 2 + 3 + 4 + 5 + 6) / 6;  // Đúng vì xúc xắc công bằng
+
+// ĐÚNG (tổng quát): E = Σ (giá trị × xác suất)
+// Khi xác suất không đều, phải nhân trọng số!
+```
 // SAI: Kỳ vọng = tổng giá trị / số trường hợp (chỉ đúng khi đều xác suất)
 E = (1 + 2 + 3 + 4 + 5 + 6) / 6;  // Đúng vì xúc xắc công bằng
 
