@@ -5,19 +5,17 @@ on:
       - master
       - main
 permissions:
-  contents: write
+  contents: read
+  deployments: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Configure Git Credentials
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+          cache: 'pip'
       - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
       - uses: actions/cache@v4
         with:
@@ -26,4 +24,12 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      - run: mkdocs build
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: fptoj-wiki
+          directory: site
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
