@@ -71,9 +71,9 @@ $$O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right
 ---
 
 
->**Nhận xét:** 
->Xét $X = k \cdot p$ là bội của số nguyên tố $p$.
->Nếu như $p < X < p^2$, ta có $1 < k < p$. Ta suy ra $k$ phải có một ước nguyên tố nhỏ hơn $p$.
+>**Nhận xét:**<br>
+>Xét $X = k \cdot p$ là bội của số nguyên tố $p$.<br>
+>Nếu như $p < X < p^2$, ta có $1 < k < p$. Ta suy ra $k$ phải có một ước nguyên tố nhỏ hơn $p$.<br>
 >Vì thế, $X = k \cdot p$ đã bị sàng loại đi trong các vòng lặp trước đó và ta **chỉ cần xét** $\boldsymbol{X \ge p^2}$.
 <!--Với các bội của $i$ khác $i$ và nhỏ hơn $i \cdot i$ là $t \cdot i$ với $1 < t < i$. Rõ ràng $t$ có một ước nguyên tố nhỏ hơn $i$. Nghĩa là $t \cdot i$ đã bị sàng loại bỏ trong các vòng lặp trước nó.-->
 
@@ -515,7 +515,7 @@ Dựa vào công thức trên, đầu tiên ta sẽ gán <code>f[i] = i</code>. 
 </details>
 
 ## Một số cải tiến của sàng nguyên tố Eratosthenes
-> Sàng nguyên tố Eratosthenes với ĐPT thời gian $\boldsymbol{O(n \log \log n)}$ đã khá phù hợp với hầu hết các bài toán lập trình thi đấu. Tuy nhiên điểm yếu chí mạng của nó chính là ĐPT không gian $\boldsymbol{O(n)}$.
+> Sàng nguyên tố Eratosthenes với ĐPT thời gian $\boldsymbol{O(n \log \log n)}$ đã khá phù hợp với hầu hết các bài toán lập trình thi đấu. Tuy nhiên điểm yếu chí mạng của nó chính là ĐPT không gian $\boldsymbol{O(n)}$.<br>
 > Một số cải tiến dưới đây có thể không phù hợp với những bạn mới chỉ biết đến sàng nguyên tố. Các bạn hãy luyện tập với các bài tập luyện tập trước khi đến với các cải tiến bên dưới nha!
 
 ### So sánh mảng bool và vector<bool>
@@ -667,7 +667,7 @@ Trên thực tế, `int/unsigned int` chứa $4$ bytes hay $32$ bits. Nhờ đó
 
 ---
 ### **Sàng nguyên tố tuyến tính - Linear Sieve**
->- Sàng nguyên tố này được cải tiến từ Sàng Eratosthenes. Tuy có ĐPT thời gian là $\boldsymbol{O(n)}$ nhưng với những bộ dữ liệu khoảng $10^6$ thì không nhanh hơn Sàng Eratosthenes là mấy.
+>- Sàng nguyên tố này được cải tiến từ Sàng Eratosthenes. Tuy có ĐPT thời gian là $\boldsymbol{O(n)}$ nhưng với những bộ dữ liệu khoảng $10^6$ thì không nhanh hơn Sàng Eratosthenes là mấy.<br>
 >- Sàng $O(n)$ này có lưu lại các ước nguyên tố nhỏ nhất của các số không vượt quá $n$ nên sẽ phù hợp cho các bài toán liên quan đến phân tích thừa số nguyên tố.
 
 #### Hướng tiếp cận

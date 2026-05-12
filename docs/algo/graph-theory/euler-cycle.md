@@ -22,8 +22,8 @@ Khái niệm về đường đi và chu trình Euler lần đầu tiên được
 
 > Thành phố Konigsberg thuộc Phổ (nay là Kaliningrad thuộc Nga), được chia làm 4 vùng bằng các nhánh sông Pregel. Các vùng này gồm 2 vùng bên bờ sông (B, C), đảo Kneiphof (A) và một miền nằm giữa hai nhánh sông Pregel (D). Vào thế kỷ XVIII, người ta đã xây 7 chiếc cầu nối những vùng này với nhau. Người dân ở đây tự hỏi: Liệu có cách nào xuất phát tại một địa điểm trong thành phố, đi qua 7 chiếc cầu, mỗi chiếc đúng 1 lần rồi quay trở về nơi xuất phát không?
 >
-> | ![seven-bridges](../../uploads/Konigsberg_bridges.png) |
-> |:--:|
+> | ![seven-bridges](../../uploads/Konigsberg_bridges.png) |<br>
+> |:--:|<br>
 > | Minh hoạ 7 cây cầu ở Konigsberg - Nguồn: Wikipedia |
 
 Một cách tổng quát hơn:
@@ -741,8 +741,8 @@ Dãy de Bruijn $B(k, n)$ bậc $n$ của một tập $S$ gồm $k$ phần tử l
 
 Một tính chất quan trọng cần lưu ý là với cùng một tập $S$, đồ thị de Bruijn $n$ chiều là đồ thị đường *(line graph)* của đồ thị de Bruijn $n - 1$ chiều.
 
-> Đồ thị đường $L(G)$ của một đồ thị vô hướng $G$ là đồ thị được xây dựng như sau:
-> - Với mỗi cạnh trong $G$, tạo một đỉnh tương ứng trên $L(G)$
+> Đồ thị đường $L(G)$ của một đồ thị vô hướng $G$ là đồ thị được xây dựng như sau:<br>
+> - Với mỗi cạnh trong $G$, tạo một đỉnh tương ứng trên $L(G)$<br>
 > - Hai đỉnh bất kì trên $L(G)$ được nối bởi một cạnh vô hướng nếu hai cạnh tương ứng với hai đỉnh đó có đỉnh chung trên $G$
 
 Nhận thấy rằng dãy de Bruijn $B(k, n)$ chính là một chu trình Hamilton của đồ thị de Bruijn $n$ chiều và $k$ phần tử. Một hệ quả đáng lưu ý của các tính chất trên là do chu trình Hamilton của một đồ thị $G$ là chu trình Euler của đồ thị đường của $G$, nên $B(k, n)$ cũng chính là chu trình Euler của đồ thị de Bruijn $n - 1$ chiều và $k$ phần tử.

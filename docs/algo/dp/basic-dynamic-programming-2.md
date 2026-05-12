@@ -18,12 +18,12 @@ Bài viết được sưu tầm và bổ sung từ bài viết *"Một số bài
 
 ## 1.1. Mô hình
 
-> *Cho hai xâu $A$, $B$ có độ dài lần lượt là $m$ và $n$, bắt đầu từ chỉ số $1$. Ta muốn biến đổi xâu $A$ về xâu $B$ qua một số phép biến đổi thuộc các loại sau:*
-> * *Chèn kí tự $C$ vào sau kí tự thứ $i$: `I i C`, `i` có thể bằng $0$*
-> * *Thay thế kí tự ở vị trí thứ $i$ bằng kí tự $C$: `R i C`*
+> *Cho hai xâu $A$, $B$ có độ dài lần lượt là $m$ và $n$, bắt đầu từ chỉ số $1$. Ta muốn biến đổi xâu $A$ về xâu $B$ qua một số phép biến đổi thuộc các loại sau:*<br>
+> * *Chèn kí tự $C$ vào sau kí tự thứ $i$: `I i C`, `i` có thể bằng $0$*<br>
+> * *Thay thế kí tự ở vị trí thứ $i$ bằng kí tự $C$: `R i C`*<br>
 > * *Xoá kí tự ở vị trí thứ $i$: `D i`*
 > 
-> *Hãy tìm số ít nhất các phép biến đổi để biến xâu $A$ thành xâu $B$.*
+> *Hãy tìm số ít nhất các phép biến đổi để biến xâu $A$ thành xâu $B$.*<br>
 > **Điều kiện:** $1\le n \times m \le 10^6$.
 
 **Ví dụ 1:** `ILoveVNOI`$\to$`ILoveVNOIMore`
@@ -165,10 +165,10 @@ Cần lưu ý thứ tự tính. Để tính $L[i][j]$ cần biết $L[i - 1][j -
 ### 1.4.1. Xâu con chung dài nhất
 **Link nộp bài:** [**VNOJ-LCS**](https://oj.vnoi.info/problem/atcoder_dp_f)
 
-> *Cho $2$ xâu A và B. Tìm xâu con chung dài nhất của $A$ và $B$.
-> Xâu $X$ là xâu con của xâu $Y$ khi và chỉ khi có thể thu được $X$ bằng cách xóa một số kí tự của $Y$ (có thể tất cả hoặc không kí tự nào).*
-> **Điều kiện:** $1\le |A|\times |B| \le 10^6$.
-> **Input:** $2$ xâu $A$ và $B$.
+> *Cho $2$ xâu A và B. Tìm xâu con chung dài nhất của $A$ và $B$.<br>
+> Xâu $X$ là xâu con của xâu $Y$ khi và chỉ khi có thể thu được $X$ bằng cách xóa một số kí tự của $Y$ (có thể tất cả hoặc không kí tự nào).*<br>
+> **Điều kiện:** $1\le |A|\times |B| \le 10^6$.<br>
+> **Input:** $2$ xâu $A$ và $B$.<br>
 > **Output:** Độ dài xâu con chung dài nhất.
 
 **Lời giải:**
@@ -351,8 +351,8 @@ Tức là để tính hàng $L[i]$ thì chỉ cần hàng $L[i-1]$ và $L[i][0] 
 
 ### 1.4.2. Bắc cầu
 
-> *Hai nước Alpha và Beta nằm ở hai bên bờ sông Omega, Alpha nằm ở bờ bắc và có $m$ thành phố được đánh số từ $1$ đến $m$, Beta nằm ở bờ nam và có $n$ thành phố được đánh số từ $1$ đến $n$ (theo vị trí từ tây sang đông). 
-> Mỗi thành phố của nước này thường có quan hệ kết nghĩa với một số thành phố của nước kia. Để tăng cường tình hữu nghị, hai nước muốn xây các cây cầu bắc qua sông, mỗi cây cầu sẽ là nhịp cầu nối 2 thành phố kết nghĩa. Với yêu cầu là các cây cầu không được cắt nhau và mỗi thành phố chỉ là đầu cầu cho nhiều nhất là một cây cầu, hãy đếm số cây cầu nhiều nhất có thể xây dựng.*
+> *Hai nước Alpha và Beta nằm ở hai bên bờ sông Omega, Alpha nằm ở bờ bắc và có $m$ thành phố được đánh số từ $1$ đến $m$, Beta nằm ở bờ nam và có $n$ thành phố được đánh số từ $1$ đến $n$ (theo vị trí từ tây sang đông).<br>
+> Mỗi thành phố của nước này thường có quan hệ kết nghĩa với một số thành phố của nước kia. Để tăng cường tình hữu nghị, hai nước muốn xây các cây cầu bắc qua sông, mỗi cây cầu sẽ là nhịp cầu nối 2 thành phố kết nghĩa. Với yêu cầu là các cây cầu không được cắt nhau và mỗi thành phố chỉ là đầu cầu cho nhiều nhất là một cây cầu, hãy đếm số cây cầu nhiều nhất có thể xây dựng.*<br>
 > **Điều kiện:** $1\le n \times m \le 10^6$.
 
 ![/uploads/basic-dynamic-programming-2_img2.png](../../uploads/basic-dynamic-programming-2_img2.png)
@@ -374,8 +374,8 @@ Khi đó công thức QHĐ sẽ là:
 
 **Link nộp bài:** [**SPOJ - IOIPALIN**](https://www.spoj.com/problems/IOIPALIN/)
 
-> *Cho một xâu $S$. Ở mỗi bước, bạn An có thể chèn $1$ kí tự tùy ý vào bất kì vị trí nào trong xâu $S$. Hãy tính số bước ít nhất cần thực hiện để biến $S$ thành xâu đối xứng.
-> Xâu $S[1..n]$ được gọi là xâu đối xứng nếu $S[i] = S[n + 1 - i]$, với mọi $i=1;2;\ldots;n$.*
+> *Cho một xâu $S$. Ở mỗi bước, bạn An có thể chèn $1$ kí tự tùy ý vào bất kì vị trí nào trong xâu $S$. Hãy tính số bước ít nhất cần thực hiện để biến $S$ thành xâu đối xứng.<br>
+> Xâu $S[1..n]$ được gọi là xâu đối xứng nếu $S[i] = S[n + 1 - i]$, với mọi $i=1;2;\ldots;n$.*<br>
 > **Điều kiện:** $1\le|S|\le5000$.
 
 **Lời giải:**
@@ -474,7 +474,7 @@ Ví dụ: $S=edbabcd$, xâu đảo của $S$ là $P=dcbabde$. Xâu con chung dà
 
 ## 2. Xếp vali không giới hạn (Unbounded Knapsack)
 ## 2.1. Mô hình
-> *Có $n$ đồ vật, vật thứ $i$ có trọng lượng $A_i$ và giá trị $B_i$. Hãy chọn ra một số các đồ vật để xếp vào vali có trọng lượng tối đa $W$ sao cho tổng giá trị của vali là lớn nhất (Chú ý mỗi vật có thể chọn nhiều lần).*
+> *Có $n$ đồ vật, vật thứ $i$ có trọng lượng $A_i$ và giá trị $B_i$. Hãy chọn ra một số các đồ vật để xếp vào vali có trọng lượng tối đa $W$ sao cho tổng giá trị của vali là lớn nhất (Chú ý mỗi vật có thể chọn nhiều lần).*<br>
 > **Điều kiện:** $1\le n\times W\le 10^6,1\le A_i,B_i\le 10^9$.
 
 ![/uploads/basic-dynamic-programming-2_img3.png](../../uploads/basic-dynamic-programming-2_img3.png)
@@ -561,11 +561,11 @@ Lưu ý rằng đoạn chương trình trên mới chỉ cài đặt y nguyên c
 
 ### 2.4.1. Đổi tiền
 
-> *Ở đất nước Omega người ta chỉ tiêu tiền xu. Có $n$ loại tiền xu, loại thứ $i$ có mệnh giá là $A_i$ đồng. Một người khách du lịch đến Omega du lịch với số tiền $m$ đồng. Ông ta muốn đổi số tiền đó ra tiền xu Omega để tiện tiêu dùng. Ông ta cũng muốn số đồng tiền sau khi đổi là ít nhất (cho túi tiền đỡ nặng khi đi đây đi đó). Bạn hãy giúp ông ta tìm cách đổi tiền.*
-> **Điều kiện:** $1\le n \times m\le 10^6,1\le A_i\le 10^9$.
-> **Input:** Hai số $m,n$ và $A_1,A_2,\ldots,A_n$.
-> **Output:** Nếu không thể đổi được, in ra $-1$. Ngược lại, in ra hai dòng:
-> * Dòng đầu tiên in ra số đồng tiền ít nhất có thể.
+> *Ở đất nước Omega người ta chỉ tiêu tiền xu. Có $n$ loại tiền xu, loại thứ $i$ có mệnh giá là $A_i$ đồng. Một người khách du lịch đến Omega du lịch với số tiền $m$ đồng. Ông ta muốn đổi số tiền đó ra tiền xu Omega để tiện tiêu dùng. Ông ta cũng muốn số đồng tiền sau khi đổi là ít nhất (cho túi tiền đỡ nặng khi đi đây đi đó). Bạn hãy giúp ông ta tìm cách đổi tiền.*<br>
+> **Điều kiện:** $1\le n \times m\le 10^6,1\le A_i\le 10^9$.<br>
+> **Input:** Hai số $m,n$ và $A_1,A_2,\ldots,A_n$.<br>
+> **Output:** Nếu không thể đổi được, in ra $-1$. Ngược lại, in ra hai dòng:<br>
+> * Dòng đầu tiên in ra số đồng tiền ít nhất có thể.<br>
 > * Dòng thứ hai in ra $n$ số, số thứ $i$ là số đồng xu của mệnh giá thứ $i$.
 
 **Lời giải:**
@@ -729,11 +729,11 @@ Kết quả của bài toán là $L[n][m]$ hoặc $-1$ nếu $L[n][m ]=\inf$. Đ
 
 ## 3.1. Mô hình
 
-> *Khi nhân một ma trận kích thước $m \times n$ với một ma trận $n \times p$, số phép nhân phải thực hiện là $m \times n \times p$. Mặt khác phép nhân các ma trận có tính kết hợp, tức là: $(A \times B) \times C = A \times (B \times C).$
-> Do đó khi tính tích nhiều ma trận, ta có thể thực hiện theo các trình tự khác nhau, mỗi trình tự tính sẽ quyết định số phép nhân cần thực hiện.
-> Cho $n+1$ số $d_0,d_1,\ldots,d_n$ và $n$ ma trận $A_1, A_2, ..., A_n$, ma trận thứ $i$ có kích thước là $d_{i-1} \times d_i$. Hãy xác định trình tự nhân ma trận $A_1 \times A_2 \times \ldots \times A_n$ sao cho số phép nhân cần thực hiện là ít nhất.*
-> **Điều kiện:** $1\le n\le 300,1\le d_i\le 100$.
-> **Input:** Số $n$ và $n+1$ số $d_0,d_1,\ldots,d_n$.
+> *Khi nhân một ma trận kích thước $m \times n$ với một ma trận $n \times p$, số phép nhân phải thực hiện là $m \times n \times p$. Mặt khác phép nhân các ma trận có tính kết hợp, tức là: $(A \times B) \times C = A \times (B \times C).$<br>
+> Do đó khi tính tích nhiều ma trận, ta có thể thực hiện theo các trình tự khác nhau, mỗi trình tự tính sẽ quyết định số phép nhân cần thực hiện.<br>
+> Cho $n+1$ số $d_0,d_1,\ldots,d_n$ và $n$ ma trận $A_1, A_2, ..., A_n$, ma trận thứ $i$ có kích thước là $d_{i-1} \times d_i$. Hãy xác định trình tự nhân ma trận $A_1 \times A_2 \times \ldots \times A_n$ sao cho số phép nhân cần thực hiện là ít nhất.*<br>
+> **Điều kiện:** $1\le n\le 300,1\le d_i\le 100$.<br>
+> **Input:** Số $n$ và $n+1$ số $d_0,d_1,\ldots,d_n$.<br>
 > **Output:** Số nguyên duy nhất là số phép nhân ít nhất.
 
 ![/uploads/basic-dynamic-programming-2_img4.png](../../uploads/basic-dynamic-programming-2_img4.png)
@@ -871,9 +871,9 @@ Với hai cách cài đặt trên, độ phức tạp bộ nhớ là $\mathcal{O
 
 ### 3.4.1. Chia đa giác
 
-> *Cho một đa giác lồi $n$ đỉnh được đánh số từ $1$ đến $n$ theo chiều kim đồng hồ. Bằng các đường chéo không cắt nhau, ta có thể chia đa giác thành $n-2$ tam giác. Hãy xác định cách chia có tổng các đường chéo ngắn nhất.*
-> **Điều kiện:** $4\le n\le 300,-10^6\le x_i,y_i\le 10^6$ (với $(x_i,y_i)$ là tọa độ của đỉnh thứ $i$).
-> **Input:** Một số tự nhiên $n$ và $n$ bộ $(x_i,y_i)$.
+> *Cho một đa giác lồi $n$ đỉnh được đánh số từ $1$ đến $n$ theo chiều kim đồng hồ. Bằng các đường chéo không cắt nhau, ta có thể chia đa giác thành $n-2$ tam giác. Hãy xác định cách chia có tổng các đường chéo ngắn nhất.*<br>
+> **Điều kiện:** $4\le n\le 300,-10^6\le x_i,y_i\le 10^6$ (với $(x_i,y_i)$ là tọa độ của đỉnh thứ $i$).<br>
+> **Input:** Một số tự nhiên $n$ và $n$ bộ $(x_i,y_i)$.<br>
 > **Output:** In ra tổng các đường chéo của cách chia ngắn nhất.
 
 **Lời giải:**
@@ -962,7 +962,7 @@ $L[1][n]$ là tổng đường chéo của cách chia tối ưu.
     ```
 
 ### 3.4.2. Biểu thức số học 
-> *Cho $n$ số thực không âm $A_1,A_2,\ldots,A_n$ được viết thành một hàng ngang theo thứ tự đó. Giữa hai số liên tiếp có một dấu `+` hoặc `*` cho trước. Hãy đặt các dấu ngoặc vào biểu thức để giá trị thu được là lớn nhất.*
+> *Cho $n$ số thực không âm $A_1,A_2,\ldots,A_n$ được viết thành một hàng ngang theo thứ tự đó. Giữa hai số liên tiếp có một dấu `+` hoặc `*` cho trước. Hãy đặt các dấu ngoặc vào biểu thức để giá trị thu được là lớn nhất.*<br>
 > **Điều kiện:** $1\le n \le 300$.
 
 **Lời giải:**
@@ -980,7 +980,7 @@ Vậy ta có công thức truy hồi như sau:
 
 ## 4.1. Mô hình
 
-> *Có $n$ lọ hoa sắp thành một hàng ngang và $k$ bó hoa được đánh số thứ tự từ $1$ đến $k$. Cần cắm $k$ bó hoa trên vào $n$ lọ sao cho hoa có số thứ tự nhỏ phải đứng trước hoa có số thứ tự lớn. Giá trị thẩm mỹ tương ứng khi cắm hoa $i$ vào lọ thứ $j$ là $v_{i,j}\ge0$. Hãy tìm một cách cắm sao cho tổng giá trị thẫm mỹ là lớn nhất. Chú ý rằng mỗi bó hoa phải được cắm vào một lọ và mỗi lọ cũng chỉ cắm tối đa một bó hoa.*
+> *Có $n$ lọ hoa sắp thành một hàng ngang và $k$ bó hoa được đánh số thứ tự từ $1$ đến $k$. Cần cắm $k$ bó hoa trên vào $n$ lọ sao cho hoa có số thứ tự nhỏ phải đứng trước hoa có số thứ tự lớn. Giá trị thẩm mỹ tương ứng khi cắm hoa $i$ vào lọ thứ $j$ là $v_{i,j}\ge0$. Hãy tìm một cách cắm sao cho tổng giá trị thẫm mỹ là lớn nhất. Chú ý rằng mỗi bó hoa phải được cắm vào một lọ và mỗi lọ cũng chỉ cắm tối đa một bó hoa.*<br>
 > **Điều kiện:** $1\le n \times k\le10^6,1\le v_{i,j}\le10^9$.
 
 ## 4.2. Lời giải
@@ -1041,8 +1041,8 @@ Tương tự các bài toán trước, có hai phương pháp cài đặt QHĐ, 
 
 ### 4.4.1. Xếp phòng học
 
-> *Một trường học có $n$ phòng học đánh số từ $1$ đến $n$ và $k$ nhóm học sinh đánh số từ $1$ đến $k$. Cần xếp $k$ nhóm học sinh vào các phòng học khác nhau sao cho với hai nhóm $i<j$ có $a, b$ lần lượt là phòng học của hai nhóm thì $a<b$. Nói cách khác, nhóm có số hiệu lớn hơn sẽ được ưu tiên phòng có số hiệu lớn hơn. 
-> Nếu phòng học nào đó có chứa học sinh thì số ghế thừa phải được chuyển ra ngoài, nếu thiếu ghế thì phải lấy thêm. Biết số ghế có sẵn trong phòng thứ $i$ là $A_i$ và số học sinh nhóm thứ $j$ là $B_j(1\le i \le n,1\le j \le k).$ Tính số lần chuyển ghế ra vào ít nhất có thể.*
+> *Một trường học có $n$ phòng học đánh số từ $1$ đến $n$ và $k$ nhóm học sinh đánh số từ $1$ đến $k$. Cần xếp $k$ nhóm học sinh vào các phòng học khác nhau sao cho với hai nhóm $i<j$ có $a, b$ lần lượt là phòng học của hai nhóm thì $a<b$. Nói cách khác, nhóm có số hiệu lớn hơn sẽ được ưu tiên phòng có số hiệu lớn hơn.<br>
+> Nếu phòng học nào đó có chứa học sinh thì số ghế thừa phải được chuyển ra ngoài, nếu thiếu ghế thì phải lấy thêm. Biết số ghế có sẵn trong phòng thứ $i$ là $A_i$ và số học sinh nhóm thứ $j$ là $B_j(1\le i \le n,1\le j \le k).$ Tính số lần chuyển ghế ra vào ít nhất có thể.*<br>
 > **Điều kiện:** $1\le n\times k\le10^6, 1\le A_i,B_j\le10^9$.
 
 **Lời giải:**
@@ -1051,7 +1051,7 @@ Khi xếp nhóm $i$ vào phòng $j$ thì số lần chuyển ghế chính là đ
 
 ### 4.4.2. Mua giày (Đề QG bảng B năm 2003)
 
-> *Có $n$ đôi giày, đôi giày thứ $i$ có kích thước $H_i$. Có $k$ người cần mua giày, người thứ $j$ cần mua đôi giày kích thước $S_j$. Khi người $i$ chọn mua đôi giày $j$ thì độ lệch sẽ là $|H_i-S_j|$. Hãy tìm cách chọn mua giày cho $k$ người trên sao cho tổng độ lệch là ít nhất. Biết rằng mỗi người chỉ mua 1 đôi giày và 1 đôi giày cũng chỉ có tối đa một người mua.*
+> *Có $n$ đôi giày, đôi giày thứ $i$ có kích thước $H_i$. Có $k$ người cần mua giày, người thứ $j$ cần mua đôi giày kích thước $S_j$. Khi người $i$ chọn mua đôi giày $j$ thì độ lệch sẽ là $|H_i-S_j|$. Hãy tìm cách chọn mua giày cho $k$ người trên sao cho tổng độ lệch là ít nhất. Biết rằng mỗi người chỉ mua 1 đôi giày và 1 đôi giày cũng chỉ có tối đa một người mua.*<br>
 > **Điều kiện:** $1\le n\times k\le10^6, 1\le H_i,S_j\le10^9$.
 
 **Lời giải:**
@@ -1059,7 +1059,7 @@ Khi xếp nhóm $i$ vào phòng $j$ thì số lần chuyển ghế chính là đ
 Bài này khác với bài **Xếp phòng học** ở trên ở chỗ: người có thứ tự nhỏ hơn không nhất thiết phải mua đôi giày thứ tự nhỏ hơn.
 
 Tuy nhiên, để đưa bài toán về dạng ghép cặp, ta có nhận xét sau: 
-> *Cho $2$ dãy số nguyên dương sắp thứ tự $A_1\le A_2\le\ldots\le A_n$ và $B_1\le B_2\le\ldots\le B_n$. Gọi $C_1,C_2,\ldots,C_n$ là một hoán vị của $B_1,B_2,\ldots,B_n$. Khi đó:*
+> *Cho $2$ dãy số nguyên dương sắp thứ tự $A_1\le A_2\le\ldots\le A_n$ và $B_1\le B_2\le\ldots\le B_n$. Gọi $C_1,C_2,\ldots,C_n$ là một hoán vị của $B_1,B_2,\ldots,B_n$. Khi đó:*<br>
 > $|A_1-B_1|+|A_2-B_2|+\ldots+|A_n-B_n|\le|A_1-C_1|+|A_2-C_2|+\ldots+|A_n-C_n|$
 
 **Chứng minh:**

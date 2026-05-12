@@ -662,8 +662,8 @@ Giới hạn:
 > 
 > Xét cạnh $(u, v) \in T$. Không mất tính tổng quát, giả sử $v$ thuộc phần tám thứ nhất so với $u$. Giả sử tồn tại một điểm $w$ trong tập điểm ban đầu sao cho $d(u, w) < d(u, v)$. Đồng thời ta biết rằng $d(v, w) < d(u, v)$ (nhìn hình minh hoạ bên dưới). Do đó ta sẽ có một cây khung nhỏ hơn nếu ta bỏ $(u, v)$ và thay bằng một trong hai cạnh $(u, w)$ hay $(v, w)$. Điều này trái giả thiết $T$ là cây khung nhỏ nhất. Do đó, không tồn tại điểm $w$ sao cho $d(u, w) < d(u, v)$ - tức $v$ là điểm trong phần tám thứ nhất của $u$ có khoảng cách Manhattan gần nhất. Chứng minh tương tự với các trường hợp $v$ thuộc các phần tám còn lại của $u$.
 >
-> | <img src="/uploads/Sweep-Line_img6.png" width="300px"> |
-> | :--------: |
+> | <img src="/uploads/Sweep-Line_img6.png" width="300px"> |<br>
+> | :--------: |<br>
 > | $\forall w$ thuộc vùng màu xanh, $d(v, w) \leq d(u, v)$ |
 
 Qua bổ đề 2, ta thấy bài toán đặt ra hiện tại là làm sao để dựng được đồ thị $G$ hiệu quả. Dễ thấy để dựng đồ thị $G$, với mỗi điểm $P$ cho trước, ta cần tìm $8$ điểm có khoảng cách Manhattan gần $P$ nhất cho mỗi phần tám. Dưới đây bài viết sẽ mô tả thuật toán tìm điểm có khoảng cách Manhattan gần nhất trong phần tám thứ $1$ cho $n$ điểm. Như vậy có thể tìm điểm khoảng cách Manhattan gần cho $7$ phần tám còn lại bằng cách tương tự.
@@ -672,13 +672,13 @@ Qua bổ đề 2, ta thấy bài toán đặt ra hiện tại là làm sao để
 >
 > Gọi $d(P, Q)$ là khoảng cách Manhattan giữa hai điểm $P$ và $Q$. Gọi $A(x_A, y_A)$, $B(x_B, y_B)$, $C(x_C, y_C)$, $D(x_D, y_D)$ là bốn điểm trên mặt phẳng sao cho $x_A, x_B \leqslant x_C, x_D$ và $y_A, y_B \leqslant y_C, y_D$. Ta có $d(A, C) \leqslant d(A, D)$ tương đương với $d(B, C) \leqslant d(B, D)$.
 > 
-> **Chứng minh**
-> $$\begin{align}
-> d(A, C) &\leqslant d(A, D)\\
-> x_C - x_A + y_C - y_A &\leqslant x_D - x_A + y_D - y_A\\
-> x_C + y_C &\leqslant x_D + y_D\\
-> x_C - x_B + y_C - y_B &\leqslant x_D - x_B + y_D - y_B\\
-> d(B, C) &\leqslant d(B, D)
+> **Chứng minh**<br>
+> $$\begin{align}<br>
+> d(A, C) &\leqslant d(A, D)\\<br>
+> x_C - x_A + y_C - y_A &\leqslant x_D - x_A + y_D - y_A\\<br>
+> x_C + y_C &\leqslant x_D + y_D\\<br>
+> x_C - x_B + y_C - y_B &\leqslant x_D - x_B + y_D - y_B\\<br>
+> d(B, C) &\leqslant d(B, D)<br>
 > \end{align}$$
 
 Ta sẽ sử dụng phương pháp chia để trị để giải quyết bài toán. Đầu tiên ta sẽ sắp xếp $n$ điểm theo thứ tự tăng dần về hoành độ. Tại mỗi bước ta chia $n$ điểm thành $2$ tập con $L$ và $R$. Gọi đệ quy giải bài toán với từng tập con. Nhận xét rằng lời giải cho tập $R$ cũng chính là lời giải đúng, do đó ta chỉ cần cập nhật lời giải cho các điểm trong tập $L$.
