@@ -284,4 +284,4 @@ N = 10⁷ → sàng OK. N = 10⁸ → có thể thiếu bộ nhớ!
 - [HackerEarth - Number Theory](https://www.hackerearth.com/practice/math/number-theory/basic-number-theory-1/tutorial/)
 - [GeeksforGeeks - Binary Exponentiation](https://www.geeksforgeeks.org/dsa/modular-exponentiation-power-in-modular-arithmetic/)
 
-**Bài tiếp theo:** [Linked List chi tiết →](33-linked-list.md)
+**Bài tiếp theo:** [Quy hoạch động →](12-quy-hoach-dong.md)

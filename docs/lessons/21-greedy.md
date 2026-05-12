@@ -37,7 +37,7 @@ Greedy **không phải lúc nào cũng đúng!** Chỉ đúng khi bài toán có
 
 → Greedy không phải lúc nào cũng tối ưu! (Nhưng với hệ tiền tệ chuẩn {1, 5, 10, 50, 100} thì Greedy luôn đúng.)
 
-!!! tip "Thử tương tích"
+!!! tip "Thử tương tác"
     - [Job Scheduling](https://algorithm-visualizer.org/greedy/job-scheduling-problem)
     - [Kruskal's MST](https://algorithm-visualizer.org/greedy/kruskals-minimum-spanning-tree)
     - [Dijkstra's Shortest Path](https://algorithm-visualizer.org/greedy/dijkstras-shortest-path)

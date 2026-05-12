@@ -486,4 +486,4 @@ Nếu N lớn (ví dụ N = 100.000), đệ quy có thể tràn stack → chươ
 - [USACO Guide - Backtracking](https://usaco.guide/bronze/intro-complete)
 - [YouTube - Backtracking (NeetCode)](https://www.youtube.com/watch?v=A80Yzfk-bcU)
 
-**Bài tiếp theo:** [Kĩ thuật hai con trỏ →](04-ky-thuat-hai-con-tro.md)
+**Bài tiếp theo:** [Mảng, Stack, Prefix Sum →](07-mang-stack-prefix-sum.md)

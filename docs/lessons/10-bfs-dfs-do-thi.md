@@ -56,19 +56,6 @@ Thành phố có N ngã tư (đỉnh), M con đường (cạnh) nối các ngã 
         # xử lý v
         pass
     ```
-```python
-from collections import defaultdict
-
-# Danh sách kề - O(V + E) bộ nhớ
-adj = defaultdict(list)
-adj[1].append(2)  # đỉnh 1 nối với đỉnh 2
-adj[2].append(1)  # đồ thị vô hướng → thêm cả chiều ngược
-
-# Duyệt đỉnh kề của u
-for v in adj[u]:
-    # xử lý v
-    pass
-```
 
 **Cách 2: Ma trận kề** (dùng khi cần truy cập O(1))
 

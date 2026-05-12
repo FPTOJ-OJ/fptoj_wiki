@@ -9,26 +9,6 @@
 
 Mỗi điểm trên bản đồ có tọa độ (x, y). Vector = mũi tên từ điểm A đến điểm B.
 
-```cpp
-struct Point {
-    double x, y;
-};
-
-// Vector từ A đến B
-Point vector(Point A, Point B) {
-    return {B.x - A.x, B.y - A.y};
-}
-```
-struct Point {
-    double x, y;
-};
-
-// Vector từ A đến B
-Point vector(Point A, Point B) {
-    return {B.x - A.x, B.y - A.y};
-}
-```
-
 ---
 
 ## 2. Các phép toán cơ bản
@@ -325,29 +305,6 @@ Diện tích = |Σ(xᵢ × yᵢ₊₁ - xᵢ₊₁ × yᵢ)| / 2
 
 **Ẩn dụ:** Imagine "buộc dây" qua các đỉnh theo thứ tự, rồi "thắt" lại → diện tích bên trong!
 
-```cpp
-double polygonArea(vector<Point>& p) {
-    int n = p.size();
-    double area = 0;
-    for (int i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-        area += p[i].x * p[j].y;
-        area -= p[j].x * p[i].y;
-    }
-    return abs(area) / 2.0;
-}
-```
-double polygonArea(vector<Point>& p) {
-    int n = p.size();
-    double area = 0;
-    for (int i = 0; i < n; i++) {
-        int j = (i + 1) % n;
-        area += p[i].x * p[j].y;
-        area -= p[j].x * p[i].y;
-    }
-    return abs(area) / 2.0;
-}
-```
 === "C++"
 
     ```cpp
@@ -428,48 +385,6 @@ Cho đường thẳng đi qua A và B, khoảng cách từ P đến đường th
 ## 7. Code Python tổng hợp
 
 ```python
-import math
-
-class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-    
-    def __sub__(self, other):
-        return Point(self.x - other.x, self.y - other.y)
-    
-    def __add__(self, other):
-        return Point(self.x + other.x, self.y + other.y)
-
-def dot(A, B):
-    return A.x * B.x + A.y * B.y
-
-def cross(A, B):
-    return A.x * B.y - A.y * B.x
-
-def distance(A, B):
-    return math.sqrt((A.x - B.x)**2 + (A.y - B.y)**2)
-
-def polygon_area(polygon):
-    area = 0
-    n = len(polygon)
-    for i in range(n):
-        j = (i + 1) % n
-        area += polygon[i].x * polygon[j].y
-        area -= polygon[j].x * polygon[i].y
-    return abs(area) / 2.0
-
-def segments_intersect(A, B, C, D):
-    d1 = cross(B - A, C - A)
-    d2 = cross(B - A, D - A)
-    d3 = cross(D - C, A - C)
-    d4 = cross(D - C, B - C)
-    
-    if ((d1 > 0 and d2 < 0) or (d1 < 0 and d2 > 0)) and \
-       ((d3 > 0 and d4 < 0) or (d3 < 0 and d4 > 0)):
-        return True
-    return False
-```
 import math
 
 class Point:

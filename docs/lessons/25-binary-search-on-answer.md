@@ -5,7 +5,7 @@
 
 ## 1. Đây là gì?
 
-###Ẩn dụ: Đoán số
+### Ẩn dụ: Đoán số
 
 Bạn nghĩ 1 con số từ 1 đến 100. Bạn hỏi: "Số đó ≥ 50 không?" → "Có" → "≥ 75 không?" → "Không" → ... Chỉ cần ~7 câu hỏi!
 
@@ -203,56 +203,6 @@ check(MAX): Với sức chở MAX, chuyển được trong D ngày không?
         return lo
     ```
 
-```python
-def binary_search_on_answer(lo, hi, check):
-    while lo < hi:
-        mid = lo + (hi - lo) // 2
-        if check(mid):
-            hi = mid
-        else:
-            lo = mid + 1
-    return lo
-
-# Ví dụ: Capacity To Ship Packages
-def ship_within_days(weights, days):
-    def check(capacity):
-        cur, used = 0, 1
-        for w in weights:
-            if cur + w <= capacity:
-                cur += w
-            else:
-                used += 1
-                cur = w
-        return used <= days
-    lo = max(weights)
-    hi = sum(weights)
-    return binary_search_on_answer(lo, hi, check)
-```
-def binary_search_on_answer(lo, hi, check):
-    while lo < hi:
-        mid = lo + (hi - lo) // 2
-        if check(mid):
-            hi = mid
-        else:
-            lo = mid + 1
-    return lo
-
-# Ví dụ: Capacity To Ship Packages
-def ship_within_days(weights, days):
-    def check(capacity):
-        cur, used = 0, 1
-        for w in weights:
-            if cur + w <= capacity:
-                cur += w
-            else:
-                used += 1
-                cur = w
-        return used <= days
-    lo = max(weights)
-    hi = sum(weights)
-    return binary_search_on_answer(lo, hi, check)
-```
-
 ---
 
 ## 5. Lưu ý / Cạm bẫy hay gặp
@@ -260,20 +210,6 @@ def ship_within_days(weights, days):
 ### Bẫy 1: Lặp vô hạn khi lo + 1 = hi
 
 ```cpp
-// SAI: Có thể lặp vô hạn khi tìm max mà check(mid) = true
-while (lo < hi) {
-    int mid = lo + (hi - lo) / 2;  // mid luôn = lo khi hi = lo + 1
-    if (check(mid)) lo = mid;       // lo không đổi → lặp vô hạn!
-    else hi = mid - 1;
-}
-
-// ĐÚNG: Dùng mid = lo + (hi - lo + 1) / 2 khi tìm max
-while (lo < hi) {
-    int mid = lo + (hi - lo + 1) / 2;  // Làm tròn lên
-    if (check(mid)) lo = mid;
-    else hi = mid - 1;
-}
-```
 // SAI: Có thể lặp vô hạn khi tìm max mà check(mid) = true
 while (lo < hi) {
     int mid = lo + (hi - lo) / 2;  // mid luôn = lo khi hi = lo + 1
@@ -305,30 +241,10 @@ int lo = 0, hi = 1e18;  // Quá rộng → nhiều bước hơn
 int lo = *max_element(weights.begin(), weights.end());  // Gói nặng nhất
 int hi = accumulate(weights.begin(), weights.end(), 0); // Tổng tất cả
 ```
-// SAI: Cận dưới quá nhỏ hoặc cận trên quá lớn → TLE hoặc sai
-int lo = 0, hi = 1e18;  // Quá rộng → nhiều bước hơn
-
-// ĐÚNG: Chọn cận chặt
-// Cận dưới: giá trị nhỏ nhất có thể là kết quả
-// Cận trên: giá trị lớn nhất có thể là kết quả
-
-// Ví dụ: Capacity To Ship
-int lo = *max_element(weights.begin(), weights.end());  // Gói nặng nhất
-int hi = accumulate(weights.begin(), weights.end(), 0); // Tổng tất cả
-```
 
 ### Bẫy 3: Integer vs Float
 
 ```cpp
-// SAI: Dùng int khi kết quả có thể là số thực
-int mid = lo + (hi - lo) / 2;  // Mất phần thập phân!
-
-// ĐÚNG: Dùng double khi cần chính xác
-double mid = lo + (hi - lo) / 2.0;
-
-// Hoặc nhân lên để dùng int (tránh số thực)
-// Ví dụ: Cần chính xác 1e-6 → nhân 1e6, dùng int, chia kết quả cuối
-```
 // SAI: Dùng int khi kết quả có thể là số thực
 int mid = lo + (hi - lo) / 2;  // Mất phần thập phân!
 
@@ -350,25 +266,10 @@ bool check(int x) {
 // ĐÚNG: Chỉ dùng binary search khi check có tính chất:
 // Nếu check(x) = true thì mọi y > x cũng = true (hoặc ngược lại)
 ```
-// SAI: check không có tính đơn điệu → binary search không áp dụng được
-bool check(int x) {
-    return x * x - 5 * x + 6 <= 0;  // Parabol → không đơn điệu!
-}
-
-// ĐÚNG: Chỉ dùng binary search khi check có tính chất:
-// Nếu check(x) = true thì mọi y > x cũng = true (hoặc ngược lại)
-```
 
 ### Bẫy 5: Quên kiểm tra kết quả cuối cùng
 
 ```cpp
-// SAI: Trả về lo mà không kiểm tra
-return lo;  // Có thể lo không thỏa mãn nếu không có nghiệm!
-
-// ĐÚNG: Kiểm tra sau khi binary search
-if (check(lo)) return lo;
-return -1;  // Không có nghiệm
-```
 // SAI: Trả về lo mà không kiểm tra
 return lo;  // Có thể lo không thỏa mãn nếu không có nghiệm!
 
@@ -399,28 +300,10 @@ int minimizeMaximum(int lo, int hi) {
     return lo;
 }
 ```
-int minimizeMaximum(int lo, int hi) {
-    while (lo < hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (check(mid)) hi = mid;    // mid thỏa mãn → thử nhỏ hơn
-        else lo = mid + 1;           // mid không thỏa → cần lớn hơn
-    }
-    return lo;
-}
-```
 
 ### Template nhanh: Maximize Minimum
 
 ```cpp
-int maximizeMinimum(int lo, int hi) {
-    while (lo < hi) {
-        int mid = lo + (hi - lo + 1) / 2;  // +1 tránh lặp vô hạn
-        if (check(mid)) lo = mid;           // mid thỏa mãn → thử lớn hơn
-        else hi = mid - 1;                  // mid không thỏa → cần nhỏ hơn
-    }
-    return lo;
-}
-```
 int maximizeMinimum(int lo, int hi) {
     while (lo < hi) {
         int mid = lo + (hi - lo + 1) / 2;  // +1 tránh lặp vô hạn

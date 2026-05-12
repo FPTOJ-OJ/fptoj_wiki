@@ -395,11 +395,6 @@ long long wrong = (a / b) % MOD;
 // ĐÚNG: Dùng modular inverse
 long long correct = a % MOD * powerMod(b, MOD - 2, MOD) % MOD;
 ```
-// SAI: (a / b) % MOD ≠ (a % MOD) / (b % MOD)
-long long wrong = (a / b) % MOD;
-
-// ĐÚNG: Dùng modular inverse
-long long correct = a % MOD * powerMod(b, MOD - 2, MOD) % MOD;
 ```
 
 **Lý do:** Modular arithmetic không có phép chia trực tiếp. Phải chuyển sang nhân với nghịch đảo modulo.
@@ -413,11 +408,6 @@ fact[i] = fact[i-1] * i;  // Tràn khi i > 20!
 // ĐÚNG: Luôn lấy modulo sau mỗi phép nhân
 fact[i] = fact[i-1] * i % MOD;
 ```
-// SAI: fact[i] có thể tràn long long trước khi lấy modulo
-fact[i] = fact[i-1] * i;  // Tràn khi i > 20!
-
-// ĐÚNG: Luôn lấy modulo sau mỗi phép nhân
-fact[i] = fact[i-1] * i % MOD;
 ```
 
 ### Bẫy 3: Tam giác Pascal tốn bộ nhớ
@@ -429,11 +419,6 @@ long long C[5001][5001];
 // Giải pháp: Chỉ dùng khi N ≤ 5000
 // Với N > 5000, chuyển sang factorial + inverse (O(N) bộ nhớ)
 ```
-// C[5001][5001] → ~200MB bộ nhớ → có thể MLE!
-long long C[5001][5001];
-
-// Giải pháp: Chỉ dùng khi N ≤ 5000
-// Với N > 5000, chuyển sang factorial + inverse (O(N) bộ nhớ)
 ```
 
 ### Bẫy 4: Catalan - Quên edge case
@@ -450,16 +435,6 @@ long long catalan(int n) {
     return nCk(2*n, n) * powerMod(n+1, MOD-2, MOD) % MOD;
 }
 ```
-// SAI: Không xử lý n = 0
-long long catalan(int n) {
-    return nCk(2*n, n) / (n+1);  // Sai vì chia thường!
-}
-
-// ĐÚNG:
-long long catalan(int n) {
-    if (n == 0) return 1;  // C₀ = 1
-    return nCk(2*n, n) * powerMod(n+1, MOD-2, MOD) % MOD;
-}
 ```
 
 **Lưu ý:** `C(2n, n) / (n+1)` phải chuyển thành `C(2n, n) × (n+1)^(-1) mod MOD`.
@@ -478,16 +453,6 @@ long long nCk(int n, int k) {
     return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
 }
 ```
-// SAI: Không kiểm tra k < 0
-long long nCk(int n, int k) {
-    return fact[n] * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
-}
-
-// ĐÚNG:
-long long nCk(int n, int k) {
-    if (k < 0 || k > n) return 0;  // Điều kiện bắt buộc
-    return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
-}
 ```
 
 ### Bẫy 6: Quên tính nghịch đảo factorial đúng cách
@@ -502,14 +467,6 @@ inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
 for (int i = n - 1; i >= 0; i--)
     inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
 ```
-// SAI: Tính từng inv_fact[i] riêng lẻ → O(N log MOD)
-for (int i = 0; i <= n; i++)
-    inv_fact[i] = powerMod(fact[i], MOD - 2, MOD);  // Chậm!
-
-// ĐÚNG: Tính inv_fact[n] trước, sau đó đi ngược lại → O(N + log MOD)
-inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
-for (int i = n - 1; i >= 0; i--)
-    inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
 ```
 
 ### Bẫy 7: Expected Value - Quên trọng số
@@ -521,11 +478,6 @@ E = (1 + 2 + 3 + 4 + 5 + 6) / 6;  // Đúng vì xúc xắc công bằng
 // ĐÚNG (tổng quát): E = Σ (giá trị × xác suất)
 // Khi xác suất không đều, phải nhân trọng số!
 ```
-// SAI: Kỳ vọng = tổng giá trị / số trường hợp (chỉ đúng khi đều xác suất)
-E = (1 + 2 + 3 + 4 + 5 + 6) / 6;  // Đúng vì xúc xắc công bằng
-
-// ĐÚNG (tổng quát): E = Σ (giá trị × xác suất)
-// Khi xác suất không đều, phải nhân trọng số!
 ```
 
 ### Mẹo thi cử

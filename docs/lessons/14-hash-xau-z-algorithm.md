@@ -235,10 +235,6 @@ hash("cab") = hashT[5] - hashT[2] × BASE³
 // Chỉ khi CẢ HAI hash giống nhau mới coi là trùng
 // Xác suất sai: ~1/(10^9 × 10^9) ≈ 0
 ```
-// Hash 1: MOD1 = 10^9 + 7
-// Hash 2: MOD2 = 10^9 + 9
-// Chỉ khi CẢ HAI hash giống nhau mới coi là trùng
-// Xác suất sai: ~1/(10^9 × 10^9) ≈ 0
 ```
 
 ## 5. Bẫy hay gặp với Hash
@@ -252,11 +248,6 @@ if (hash1 == hash2)  // Có thể collision!
 // ĐÚNG: Dùng 2 hash
 if (hash1a == hash2a && hash1b == hash2b)  // An toàn
 ```
-// SAI: Chỉ dùng 1 hash → có thể bị hack
-if (hash1 == hash2)  // Có thể collision!
-
-// ĐÚNG: Dùng 2 hash
-if (hash1a == hash2a && hash1b == hash2b)  // An toàn
 ```
 
 ### 5.2. Quên `+ MOD` khi trừ
@@ -268,11 +259,6 @@ long long curHash = (hashT[i+m] - hashT[i] * power[m]) % MOD;
 // ĐÚNG: Luôn + MOD rồi % MOD
 long long curHash = (hashT[i+m] - hashT[i] * power[m] % MOD + MOD) % MOD;
 ```
-// SAI: (a - b) % MOD có thể ÂM nếu a < b
-long long curHash = (hashT[i+m] - hashT[i] * power[m]) % MOD;
-
-// ĐÚNG: Luôn + MOD rồi % MOD
-long long curHash = (hashT[i+m] - hashT[i] * power[m] % MOD + MOD) % MOD;
 ```
 
 ### 5.3. Chọn BASE không tốt
@@ -284,11 +270,6 @@ long long curHash = (hashT[i+m] - hashT[i] * power[m] % MOD + MOD) % MOD;
 // ĐÚNG: BASE = 31 hoặc 131 (số nguyên tố, không quá nhỏ)
 const long long BASE = 31;
 ```
-// SAI: BASE = 1 → hash = tổng mã ASCII → collision cao!
-// SAI: BASE = 256 → overflow nếu không modulo
-
-// ĐÚNG: BASE = 31 hoặc 131 (số nguyên tố, không quá nhỏ)
-const long long BASE = 31;
 ```
 
 ### 5.4. Quên modulo khi nhân
@@ -300,11 +281,6 @@ result = (result * a) % MOD;
 // ĐÚNG: Dùng __int128 hoặc cast
 result = (__int128)result * a % MOD;
 ```
-// SAI: a * a có thể tràn long long trước khi modulo
-result = (result * a) % MOD;
-
-// ĐÚNG: Dùng __int128 hoặc cast
-result = (__int128)result * a % MOD;
 ```
 
 ### 5.5. Z-function: Quên ký tự phân tách
@@ -316,11 +292,6 @@ string combined = pattern + text;
 // ĐÚNG: Phải có ký tự phân tách
 string combined = pattern + "$" + text;  // "$" không xuất hiện trong pattern/text
 ```
-// SAI: Không có "$" → Z[i] có thể match sai
-string combined = pattern + text;
-
-// ĐÚNG: Phải có ký tự phân tách
-string combined = pattern + "$" + text;  // "$" không xuất hiện trong pattern/text
 ```
 
 ---

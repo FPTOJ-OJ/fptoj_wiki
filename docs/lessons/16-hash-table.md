@@ -439,4 +439,4 @@ Cho danh sách từ, nhóm các từ là đảo chữ của nhau (cùng chữ c�
 - [GeeksforGeeks - Hashing Data Structure](https://www.geeksforgeeks.org/dsa/hashing-data-structure/)
 - [Codeforces - Hash Tables](https://codeforces.com/blog/entry/60445)
 
-**Bài tiếp theo:** [Deque & Sliding Window →](15-deque-sliding-window.md)
+**Bài tiếp theo:** [Trie →](17-trie.md)

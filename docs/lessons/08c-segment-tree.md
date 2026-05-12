@@ -875,5 +875,4 @@ Segment Tree theo hàng (dọc):
 **Bài liên quan:**
 - [Bài 8a: Heap](08a-heap.md) — Hàng đợi ưu tiên
 - [Bài 8b: DSU](08b-dsu.md) — Gộp tập hợp
-- [Bài 8d: Fenwick Tree](08d-fenwick-tree.md) — Cây chỉ số nhị phân
 - [Bài 8d: Fenwick Tree (BIT)](08d-fenwick-tree.md) — Cây chỉ số nhị phân
