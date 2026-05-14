@@ -249,7 +249,7 @@ long long nCk_small(long long n, long long k, long long p) {
     }
     return res;
 }
-```
+```cpp
 long long lucasCnk(long long n, long long k, long long p) {
     if (k == 0) return 1;
     long long ni = n % p, ki = k % p;
@@ -494,6 +494,7 @@ Nếu  f(n) = Σ_{d|n} g(d)   thì   g(n) = Σ_{d|n} μ(d) × f(n/d)
 ## 6. Pollard's Rho - Phân tích thừa số lớn
 
 ![Pollard Rho](../All_Images_Collected/pollard_rho.png)
+*Minh họa thuật toán Pollard's Rho với Floyd's cycle detection*
 
 ### 6.1 Khi nào dùng?
 
@@ -649,19 +650,9 @@ void factorize(long long n, map<long long,int> &factors) {
 // ĐÚNG:
 result = ((a - b) % MOD + MOD) % MOD;
 ```
-// SAI: result = (a - b) % MOD;  // có thể âm!
-// ĐÚNG:
-result = ((a - b) % MOD + MOD) % MOD;
-```
 
 **Overflow khi nhân:**
 ```cpp
-// SAI với int hoặc long long khi a, b > 10^9:
-result = a * b % MOD;  // overflow nếu a * b > 2^63
-
-// ĐÚNG: Dùng __int128 hoặc modular multiplication
-result = (__int128)a * b % MOD;
-```
 // SAI với int hoặc long long khi a, b > 10^9:
 result = a * b % MOD;  // overflow nếu a * b > 2^63
 
@@ -754,35 +745,6 @@ long long countCoprimePairs(vector<int> &a) {
     return ans;
 }
 ```
-// Đếm số cặp nguyên tố cùng nhau trong mảng
-// a[i] ≤ MAX_VAL
-const int MAX_VAL = 1000000;
-int cnt[MAX_VAL + 1];  // cnt[d] = số phần tử chia hết cho d
-
-long long countCoprimePairs(vector<int> &a) {
-    int n = a.size();
-    vector<int> mu = mobiusSieve(MAX_VAL);
-
-    // Đếm số phần tử chia hết cho mỗi d
-    for (int x : a) {
-        for (int d = 1; d * d <= x; d++) {
-            if (x % d == 0) {
-                cnt[d]++;
-                if (d * d != x) cnt[x / d]++;
-            }
-        }
-    }
-
-    // Áp dụng inclusion-exclusion với Möbius
-    long long ans = 0;
-    for (int d = 1; d <= MAX_VAL; d++) {
-        if (mu[d] == 0) continue;
-        long long c = cnt[d];
-        ans += mu[d] * c * (c - 1) / 2;
-    }
-    return ans;
-}
-```
 
 ### 8.2 Euler's Theorem cho Modular Exponentiation
 
@@ -822,57 +784,12 @@ long long powerModLargeGeneral(long long a, string b, long long n) {
     return powerMod(a, b_mod_phi, n);
 }
 ```
-// Tính a^b mod n, b rất lớn (biểu diễn dưới dạng string)
-// Yêu cầu: GCD(a, n) = 1
-long long powerModLarge(long long a, string b, long long n) {
-    long long phi_n = eulerPhi(n);
-
-    // Tính b mod φ(n)
-    long long b_mod_phi = 0;
-    for (char c : b) {
-        b_mod_phi = (b_mod_phi * 10 + (c - '0')) % phi_n;
-    }
-
-    // Euler: a^b ≡ a^(b mod φ(n)) (mod n) khi GCD(a, n) = 1
-    return powerMod(a, b_mod_phi, n);
-}
-
-// Khi GCD(a, n) ≠ 1 và b ≥ φ(n):
-// a^b ≡ a^(b mod φ(n) + φ(n)) (mod n)
-long long powerModLargeGeneral(long long a, string b, long long n) {
-    long long phi_n = eulerPhi(n);
-    long long b_mod_phi = 0;
-    bool b_ge_phi = false;
-    // Tính b mod φ(n) và kiểm tra b ≥ φ(n)
-    for (char c : b) {
-        b_mod_phi = b_mod_phi * 10 + (c - '0');
-        if (b_mod_phi >= phi_n) {
-            b_ge_phi = true;
-            b_mod_phi %= phi_n;
-        }
-    }
-    if (b_ge_phi) b_mod_phi += phi_n;
-    return powerMod(a, b_mod_phi, n);
-}
-```
 
 ### 8.3 Ứng dụng Möbius Inversion
 
 **Bài toán mẫu:** Đếm số cặp `(i, j)` với `1 ≤ i ≤ N, 1 ≤ j ≤ M` sao cho `GCD(i, j) = 1`.
 
 ```cpp
-// Đếm cặp (i,j) với 1≤i≤N, 1≤j≤M, GCD(i,j) = 1
-// Công thức: Σ μ(d) × floor(N/d) × floor(M/d)
-long long countCoprimePairs(int n, int m) {
-    vector<int> mu = mobiusSieve(max(n, m));
-    long long ans = 0;
-    for (int d = 1; d <= min(n, m); d++) {
-        if (mu[d] == 0) continue;
-        ans += (long long)mu[d] * (n / d) * (m / d);
-    }
-    return ans;
-}
-```
 // Đếm cặp (i,j) với 1≤i≤N, 1≤j≤M, GCD(i,j) = 1
 // Công thức: Σ μ(d) × floor(N/d) × floor(M/d)
 long long countCoprimePairs(int n, int m) {

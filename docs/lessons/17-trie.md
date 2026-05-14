@@ -31,6 +31,7 @@ Bạn gõ "app" → điện thoại gợi ý "apple", "application", "appstore".
 Mỗi node là 1 ký tự. Đi từ gốc → lá = 1 từ hoàn chỉnh. Các từ có cùng tiền tố **chia sẻ** chung đường đi từ gốc!
 
 ![Trie](../uploads/img/trie.png)
+*Minh họa cấu trúc cây Trie*
 
 ### Tại sao Trie nhanh cho tìm prefix?
 
@@ -61,6 +62,13 @@ Thêm "apple":
 ## 3. Code C++ - Cài đặt chi tiết
 
 === "C++"
+
+    !!! tip "nullptr trong C++"
+        `nullptr` là hằng số đại diện cho **con trỏ rỗng** (null pointer). Dùng thay cho `NULL` trong C++ hiện đại. Ví dụ:
+        ```cpp
+        int* p = nullptr;  // p không trỏ đến đâu cả
+        if (p == nullptr) { /* p rỗng */ }
+        ```
 
     ```cpp
     #include <bits/stdc++.h>

@@ -265,12 +265,6 @@ if (s[i] == '-' && (i == 0 || s[i-1] == '(' || s[i-1] == '+' || s[i-1] == '-')) 
     val.push_back(0);  // thêm 0 giả lập "0 - 5"
 }
 ```
-// Xử lý unary minus: chuyển "-5" thành "(0-5)"
-// Hoặc: gặp '-' mà trước đó là '(' hoặc đầu chuỗi → push 0 vào val trước
-if (s[i] == '-' && (i == 0 || s[i-1] == '(' || s[i-1] == '+' || s[i-1] == '-')) {
-    val.push_back(0);  // thêm 0 giả lập "0 - 5"
-}
-```
 
 ### 4.2. Xử lý ngoặc lồng nhau sâu
 
@@ -286,8 +280,6 @@ Thuật toán vẫn hoạt động đúng vì mỗi `(` đều được push và
 ### 4.3. Chia cho 0
 
 ```cpp
-case '/': val.push_back(l / r); break;  // r có thể = 0!
-```
 case '/': val.push_back(l / r); break;  // r có thể = 0!
 ```
 
@@ -317,8 +309,6 @@ Code cơ bản chỉ xử lý số và toán tử. Nếu biểu thức có dấu
 ```cpp
 while (!ops.empty() && ...)  // LUÔN kiểm tra empty() trước khi top()
 ```
-while (!ops.empty() && ...)  // LUÔN kiểm tra empty() trước khi top()
-```
 
 Đây là lỗi runtime phổ biến nhất khi dùng stack. Quy tắc: **luôn kiểm tra `empty()` trước khi gọi `top()` hoặc `pop()`**.
 
@@ -340,22 +330,6 @@ Hình chữ nhật lớn nhất = 10 (cột 5 và 6, chiều rộng 2, chiều c
 Duyệt từ trái sang phải, duy trì stack **tăng dần** chiều cao. Khi gặp cột thấp hơn, pop các cột cao hơn ra và tính diện tích.
 
 ```cpp
-int largestRectangleArea(vector<int>& heights) {
-    stack<int> st;  // lưu index
-    int maxArea = 0;
-    int n = heights.size();
-    for (int i = 0; i <= n; i++) {
-        int h = (i == n) ? 0 : heights[i];
-        while (!st.empty() && h < heights[st.top()]) {
-            int height = heights[st.top()]; st.pop();
-            int width = st.empty() ? i : i - st.top() - 1;
-            maxArea = max(maxArea, height * width);
-        }
-        st.push(i);
-    }
-    return maxArea;
-}
-```
 int largestRectangleArea(vector<int>& heights) {
     stack<int> st;  // lưu index
     int maxArea = 0;
@@ -404,19 +378,6 @@ vector<int> stockSpan(vector<int>& prices) {
     return span;
 }
 ```
-vector<int> stockSpan(vector<int>& prices) {
-    int n = prices.size();
-    vector<int> span(n);
-    stack<int> st;  // lưu index
-    for (int i = 0; i < n; i++) {
-        while (!st.empty() && prices[st.top()] <= prices[i])
-            st.pop();
-        span[i] = st.empty() ? i + 1 : i - st.top();
-        st.push(i);
-    }
-    return span;
-}
-```
 
 ### 5.3. Next Greater Element / Next Smaller Element
 
@@ -432,36 +393,6 @@ NGE:     [5, 25, 25, -1]
 **Previous Greater Element / Previous Smaller Element:** Tìm bên trái thay vì bên phải.
 
 ```cpp
-// Next Greater Element
-vector<int> nextGreater(vector<int>& a) {
-    int n = a.size();
-    vector<int> nge(n, -1);
-    stack<int> st;
-    for (int i = 0; i < n; i++) {
-        while (!st.empty() && a[st.top()] < a[i]) {
-            nge[st.top()] = a[i];
-            st.pop();
-        }
-        st.push(i);
-    }
-    return nge;
-}
-
-// Next Smaller Element
-vector<int> nextSmaller(vector<int>& a) {
-    int n = a.size();
-    vector<int> nse(n, -1);
-    stack<int> st;
-    for (int i = 0; i < n; i++) {
-        while (!st.empty() && a[st.top()] > a[i]) {
-            nse[st.top()] = a[i];
-            st.pop();
-        }
-        st.push(i);
-    }
-    return nse;
-}
-```
 // Next Greater Element
 vector<int> nextGreater(vector<int>& a) {
     int n = a.size();
@@ -530,34 +461,6 @@ string infixToPostfix(string s) {
     return result;
 }
 ```
-string infixToPostfix(string s) {
-    string result = "";
-    stack<char> ops;
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == ' ') continue;
-        if (isdigit(s[i])) {
-            while (i < s.size() && isdigit(s[i]))
-                result += s[i++];
-            result += ' ';
-            i--;
-        } else if (s[i] == '(') {
-            ops.push('(');
-        } else if (s[i] == ')') {
-            while (!ops.empty() && ops.top() != '(')
-                result += ops.top(), result += ' ', ops.pop();
-            ops.pop();
-        } else {
-            while (!ops.empty() && ops.top() != '(' &&
-                   priority(ops.top()) >= priority(s[i]))
-                result += ops.top(), result += ' ', ops.pop();
-            ops.push(s[i]);
-        }
-    }
-    while (!ops.empty())
-        result += ops.top(), result += ' ', ops.pop();
-    return result;
-}
-```
 
 ### 5.5. Min Stack - Lấy giá trị nhỏ nhất O(1)
 
@@ -566,24 +469,6 @@ string infixToPostfix(string s) {
 **Ý tưởng:** Dùng stack phụ `minStack` luôn lưu giá trị nhỏ nhất tại mỗi thời điểm.
 
 ```cpp
-class MinStack {
-    stack<int> st, minSt;
-public:
-    void push(int x) {
-        st.push(x);
-        if (minSt.empty() || x <= minSt.top())
-            minSt.push(x);
-        else
-            minSt.push(minSt.top());  // lặp lại min hiện tại
-    }
-    void pop() {
-        st.pop();
-        minSt.pop();
-    }
-    int top() { return st.top(); }
-    int getMin() { return minSt.top(); }
-};
-```
 class MinStack {
     stack<int> st, minSt;
 public:
@@ -623,23 +508,6 @@ public:
     int getMin() { return minSt.top(); }
 };
 ```
-class MinStack {
-    stack<int> st, minSt;
-public:
-    void push(int x) {
-        st.push(x);
-        if (minSt.empty() || x <= minSt.top())
-            minSt.push(x);
-    }
-    void pop() {
-        if (st.top() == minSt.top())
-            minSt.pop();
-        st.pop();
-    }
-    int top() { return st.top(); }
-    int getMin() { return minSt.top(); }
-};
-```
 
 ### 5.6. Tính toán biểu thức hậu tố (Postfix Evaluation)
 
@@ -651,23 +519,6 @@ Cho biểu thức hậu tố `"2 3 4 * +"` → tính kết quả.
 - Gặp toán tử → pop 2 số, tính toán, push kết quả lại
 
 ```cpp
-int evalRPN(vector<string>& tokens) {
-    stack<int> st;
-    for (string& t : tokens) {
-        if (t == "+" || t == "-" || t == "*" || t == "/") {
-            int r = st.top(); st.pop();
-            int l = st.top(); st.pop();
-            if (t == "+") st.push(l + r);
-            else if (t == "-") st.push(l - r);
-            else if (t == "*") st.push(l * r);
-            else st.push(l / r);
-        } else {
-            st.push(stoi(t));
-        }
-    }
-    return st.top();
-}
-```
 int evalRPN(vector<string>& tokens) {
     stack<int> st;
     for (string& t : tokens) {

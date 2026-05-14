@@ -180,6 +180,7 @@ Bạn muốn đi từ A đến B. Có nhiều con đường, mỗi con đường
 Bắt đầu từ đỉnh nguồn. Mỗi bước, chọn đỉnh **chưa thăm** có khoảng cách nhỏ nhất, cập nhật khoảng cách các đỉnh kề.
 
 ![Dijkstra Animation](../uploads/img/dijkstra.gif)
+*Minh họa thuật toán Dijkstra tìm đường đi ngắn nhất*
 
 === "C++"
 
@@ -279,6 +280,7 @@ Kết quả: dist = [∞, 0, 1, 4, 3]
 ## 3. Sắp Xếp Tô-pô (Topological Sort)
 
 ![Topological Sort](../uploads/img/topological-sort.svg)
+*Minh họa sắp xếp tô-pô (Topological Sort)*
 
 ### Ẩn dụ: Môn học tiên quyết
 

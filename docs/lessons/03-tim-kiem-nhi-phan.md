@@ -56,6 +56,7 @@ Khi tính `mid = (lo + hi) / 2` với số nguyên:
 3. Lặp lại cho đến khi `lo > hi` (không tìm thấy)
 
 ![Binary Search](../uploads/img/binary-search.png)
+*Minh họa thuật toán tìm kiếm nhị phân*
 
 **Minh họa:** Tìm 55 trong mảng [0, 5, 13, 19, 21, 41, 55, 68, 72, 81, 98]
 
@@ -225,6 +226,9 @@ Mỗi bước giảm một nửa không gian tìm kiếm → **O(log N)**
     ```
 
 === "C++ (thư viện STL)"
+
+    !!! tip "Từ khóa auto"
+        `auto` cho phép trình biên dịch **tự suy luận kiểu** của biến. Thay vì viết `vector<int>::iterator it = ...`, bạn chỉ cần viết `auto it = ...`. Rất hữu ích với các hàm trả về iterator phức tạp!
 
     ```cpp
     #include <bits/stdc++.h>

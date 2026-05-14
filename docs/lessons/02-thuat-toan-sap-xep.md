@@ -169,6 +169,7 @@ graph TD
 **Minh họa:**
 
 ![Quick Sort](../uploads/img/quick-sort.gif)
+*Minh họa thuật toán Quick Sort*
 
 ```
 [5, 3, 8, 1, 9, 2, 7]  pivot = 5
@@ -291,6 +292,16 @@ Gộp: [1, 2, 3] [5] [7, 8, 9] = [1, 2, 3, 5, 7, 8, 9]
 
 === "C++ (thư viện)"
 
+    !!! tip "Cú pháp Range-based for (C++11)"
+        `for (int x : a)` duyệt qua **tất cả phần tử** trong mảng `a`. Mỗi lần lặp, `x` nhận giá trị của phần tử hiện tại. Thay vì:
+        ```cpp
+        for (int i = 0; i < n; i++) {
+            int x = a[i];
+            // xử lý x
+        }
+        ```
+        Bạn có thể viết: `for (int x : a) { /* xử lý x */ }`
+
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -317,6 +328,14 @@ Gộp: [1, 2, 3] [5] [7, 8, 9] = [1, 2, 3, 5, 7, 8, 9]
     ```
 
 === "Python"
+
+    !!! tip "Hàm map() trong Python"
+        `map(int, input().split())` áp dụng hàm `int` cho **từng phần tử** kết quả của `input().split()`.
+        - `input().split()` → chuỗi `"1 2 3"` thành list `["1", "2", "3"]`
+        - `map(int, ...)` → chuyển từng phần tử thành số nguyên
+        - `list(...)` → chuyển kết quả thành list
+        
+        Tương đương: `[int(x) for x in input().split()]`
 
     ```python
     # ===== Dùng thư viện - đơn giản nhất =====
@@ -461,6 +480,18 @@ Sắp xếp struct/pair theo nhiều điều kiện là kỹ năng bắt buộc 
     ```
 
 === "Python"
+
+    !!! tip "Lambda trong Python"
+        `lambda` là **hàm ẩn danh** (không có tên), thường dùng làm tham số `key` khi sắp xếp.
+        - `lambda s: (-s[1], s[2])` nghĩa là: với mỗi phần tử `s`, trả về `(-s[1], s[2])` làm key so sánh
+        - Dùng để sắp xếp theo nhiều tiêu chí (s[1] giảm, s[2] tăng)
+        
+        Tương đương:
+        ```python
+        def sort_key(s):
+            return (-s[1], s[2])
+        sorted(students, key=sort_key)
+        ```
 
     ```python
     students = [("An", 8, 17), ("Binh", 7, 18), ("Chi", 8, 16)]

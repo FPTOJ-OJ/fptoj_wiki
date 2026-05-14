@@ -198,84 +198,38 @@ Xâu gốc: "abba"
 Xâu đã chèn: "^#a#b#b#a#$"
 Chỉ số:       0 1 2 3 4 5 6 7 8 9 10
 
-i=1: t[1]='a', mở rộng: t[0]='^' != t[2]='#' → P[1]=0
-     C=1, R=1
+i=1 (t[1]='a'):
+i < R? 1 >= 1 → No → P[1]=0
+Mở rộng: t[2]='#' == t[0]='^' → No → dừng
+P[1]=0, C=1, R=1
 
-i=2: t[2]='#', i<R? 2>1 → không reuse
-     Mở rộng: t[3]='b' != t[1]='a' → P[2]=0
-     C=2, R=2
+i=2 (t[2]='#'):
+i < R? 2 >= 1 → No → P[2]=0
+Mở rộng: t[3]='b' == t[1]='a' → No → dừng
+P[2]=0, C=2, R=2
 
-i=3: t[3]='b', i<R? 3>2 → không reuse
-     Mở rộng: t[4]='#' != t[2]='#' → bằng nhau!
-     P[3]=1, t[5]='b' != t[1]='a' → dừng
-     P[3]=1, C=3, R=4
+i=3 (t[3]='b'):
+i < R? 3 >= 2 → No → P[3]=0
+Mở rộng: t[4]='#' == t[2]='#' → P[3]=1
+t[5]='b' == t[1]='a' → No → dừng
+P[3]=1, C=3, R=4
 
-i=4: t[4]='#', i<R? 4>=4 → không reuse (i phải < R)
-     Mở rộng: t[5]='b' == t[3]='b' → P[4]=1
-     t[6]='a' == t[2]='#'? Không → dừng? 
-     Kiểm tra lại: t[i+P[i]+1] = t[5]='b', t[i-P[i]-1] = t[3]='b' → bằng → P[4]=1
-     t[6]='a', t[2]='#' → không bằng → dừng
-     P[4]=1? Sai! Let me recheck...
-     
-     Actually: t = "^#a#b#b#a#$"
-     i=4: P[4]=0 ban đầu
-     t[5]='b', t[3]='b' → bằng → P[4]=1
-     t[6]='a', t[2]='#' → không bằng → dừng
-     P[4]=1 → C=4, R=5
-     
-     Hmm, kết quả chưa đúng. P[4] nên = 4 cho "abba".
-     
-     Let me re-index:
-     t = "^#a#b#b#a#$"
-     idx: 0 1 2 3 4 5 6 7 8 9 10
-     
-     i=4 (t[4]='b'): 
-     i_mirror = 2*3 - 4 = 2 (t[2]='#')
-     i < R? 4 >= 4 → No → P[4]=0
-     Mở rộng: t[5]='b' == t[3]='b' → P[4]=1
-     t[6]='a' == t[2]='#' → No → dừng
-     P[4]=1, C=4, R=5
-     
-     i=5 (t[5]='b'):
-     i_mirror = 2*4 - 5 = 3 (t[3]='b')
-     i < R? 5 >= 5 → No → P[5]=0
-     Mở rộng: t[6]='a' == t[4]='b' → No → dừng
-     P[5]=0
-     
-     i=6 (t[6]='a'):
-     Mở rộng: t[7]='a' == t[5]='b' → No → P[6]=0
-     
-     Hmm, kết quả P[4]=1 chỉ ra palindrome "b#b" (bán kính 1, dài 1 trong xâu gốc = "bb" dài 2). 
-     Nhưng "abba" dài 4!
-     
-     Có lỗi trong code. Vấn đề là preprocessing.
-     
-     Correct: "^#a#b#b#a#$"
-     P[4] (tâm '#') = 4 → "a#b#b#a" → "abba" dài 4
-     
-     Để P[4]=4, cần:
-     t[5]='b' == t[3]='b' → P=1
-     t[6]='a' == t[2]='a'? t[2]='a'! → P=2
-     t[7]='#' == t[1]='#'? → P=3
-     t[8]='a' == t[0]='^'? → No → dừng
-     
-     Wait, t[6]='a', t[2]='a'? Let me recheck:
-     t = "^#a#b#b#a#$"
-     t[0]='^', t[1]='#', t[2]='a', t[3]='#', t[4]='b', t[5]='#', t[6]='b', t[7]='#', t[8]='a', t[9]='#', t[10]='$'
-     
-     Oh! I had the wrong indexing. Let me redo:
-     ^ # a # b # b # a # $
-     0 1 2 3 4 5 6 7 8 9 10
-     
-     So t[4]='b', t[6]='b'. The palindrome "abba" has center at index 5 ('#').
-     
-     i=5: t[5]='#'
-     t[6]='b' == t[4]='b' → P[5]=1
-     t[7]='#' == t[3]='#' → P[5]=2
-     t[8]='a' == t[2]='a' → P[5]=3
-     t[9]='#' == t[1]='#' → P[5]=4
-     t[10]='$' == t[0]='^' → No → dừng
-     P[5]=4! ✅
+i=4 (t[4]='b'):
+i < R? 4 >= 4 → No → P[4]=0
+Mở rộng: t[5]='#' == t[3]='#' → P[4]=1
+t[6]='b' == t[2]='a' → No → dừng
+P[4]=1
+
+i=5 (t[5]='#'):
+i < R? 5 >= 4 → No → P[5]=0
+Mở rộng: t[6]='b' == t[4]='b' → P[5]=1
+t[7]='#' == t[3]='#' → P[5]=2
+t[8]='a' == t[2]='a' → P[5]=3
+t[9]='#' == t[1]='#' → P[5]=4
+t[10]='$' == t[0]='^' → No → dừng
+P[5]=4 → palindrome dài nhất có tâm tại 5, bán kính 4
+
+Kết quả: P[5]=4 → "abba" (từ index (5-4)/2 = 0, dài 4)
 ```
 
 ---

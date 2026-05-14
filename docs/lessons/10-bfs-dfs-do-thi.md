@@ -12,6 +12,7 @@ Thành phố có N ngã tư (đỉnh), M con đường (cạnh) nối các ngã 
 **Đồ thị** = tập đỉnh + tập cạnh nối giữa các đỉnh.
 
 ![Graph](../uploads/img/graph.svg)
+*Minh họa đồ thị vô hướng*
 
 ### Các loại đồ thị
 
@@ -108,6 +109,7 @@ Thành phố có N ngã tư (đỉnh), M con đường (cạnh) nối các ngã 
 Thả hòn đá xuống hồ → sóng lan đồng đều. BFS cũng vậy: duyệt đỉnh cách 1 bước trước, rồi 2 bước, 3 bước...
 
 ![BFS Animation](../uploads/img/bfs.gif)
+*Minh họa thuật toán BFS (duyệt theo chiều rộng)*
 
 ### Ý tưởng cốt lõi
 
@@ -233,6 +235,7 @@ Khoảng cách: 0    1   1   2   2
 Tại mỗi ngã rẽ, chọn 1 đường đi sâu hết mức. Đến đường cụt → quay lui → thử đường khác.
 
 ![DFS](../uploads/img/dfs.svg)
+*Minh họa thuật toán DFS (duyệt theo chiều sâu)*
 
 ### Ý tưởng cốt lõi
 
@@ -335,6 +338,14 @@ Thứ tự thăm: 1 → 2 → 4 → 5 → 3
 **Bài toán:** Cho lưới N×M, tìm đường đi ngắn nhất từ A đến B (tránh vật cản).
 
 === "C++"
+
+    !!! tip "Cú pháp C++17: Structured Binding"
+        `auto [x, y] = q.front()` là cú pháp **structured binding** (C++17) - gán nhiều giá trị từ tuple/pair cùng lúc. Thay vì viết:
+        ```cpp
+        int x = q.front().first;
+        int y = q.front().second;
+        ```
+        Bạn có thể viết ngắn gọn: `auto [x, y] = q.front();`
 
     ```cpp
     int dx[] = {-1, 1, 0, 0};

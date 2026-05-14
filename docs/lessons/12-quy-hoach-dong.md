@@ -99,6 +99,7 @@ Bạn leo cầu thang, mỗi bước 1 hoặc 2 bậc. Thay vì tính lại từ
 ### 3.2. DP 2 chiều (Knapsack)
 
 ![Knapsack DP](../uploads/img/dp-knapsack.png)
+*Minh họa bài toán Cái túi 0/1 (Knapsack)*
 
 === "C++"
 
@@ -119,6 +120,19 @@ Bạn leo cầu thang, mỗi bước 1 hoặc 2 bậc. Thay vì tính lại từ
     ```
 
 === "Python"
+
+    !!! tip "List Comprehension 2D trong Python"
+        `[[0] * (W + 1) for _ in range(n + 1)]` tạo mảng 2D kích thước `(n+1) x (W+1)` toàn số 0.
+        - `[0] * (W + 1)` → tạo 1 hàng gồm W+1 số 0
+        - `for _ in range(n + 1)` → lặp n+1 lần để tạo n+1 hàng
+        - `_` là biến "throwaway" - không dùng đến giá trị lặp
+        
+        Tương đương:
+        ```python
+        dp = []
+        for _ in range(n + 1):
+            dp.append([0] * (W + 1))
+        ```
 
     ```python
     def knapsack(w, v, W):

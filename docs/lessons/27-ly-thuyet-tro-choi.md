@@ -316,19 +316,6 @@ int dfs(int u) {
     return grundy[u];
 }
 ```
-vector<int> adj[MAXN]; // adj[u] = danh sách đỉnh kề (u → v)
-int grundy[MAXN];
-
-int dfs(int u) {
-    if (grundy[u] != -1) return grundy[u];
-    vector<int> next;
-    for (int v : adj[u]) {
-        next.push_back(dfs(v));
-    }
-    grundy[u] = mex(next);
-    return grundy[u];
-}
-```
 
 ---
 
@@ -392,14 +379,6 @@ bool isWythoffP(int a, int b) {
     return a == (int)(k * phi);
 }
 ```
-// Kiểm tra (a, b) có phải P-position trong Wythoff's Game không
-bool isWythoffP(int a, int b) {
-    if (a > b) swap(a, b);
-    double phi = (1 + sqrt(5)) / 2;
-    int k = b - a;
-    return a == (int)(k * phi);
-}
-```
 
 ### 7.2 Subtraction Games
 
@@ -408,20 +387,6 @@ bool isWythoffP(int a, int b) {
 **Grundy có chu kỳ!** Với subtraction set hữu hạn, Grundy numbers luôn tuần hoàn sau một điểm.
 
 ```cpp
-// Subtraction game với set S
-int grundy[MAXN];
-int computeGrundy(int n, vector<int>& S) {
-    grundy[0] = 0;
-    for (int i = 1; i <= n; i++) {
-        set<int> reachable;
-        for (int s : S) {
-            if (i >= s) reachable.insert(grundy[i - s]);
-        }
-        grundy[i] = mex(reachable);
-    }
-    return grundy[n];
-}
-```
 // Subtraction game với set S
 int grundy[MAXN];
 int computeGrundy(int n, vector<int>& S) {
@@ -467,27 +432,6 @@ int dfs(int u) {
     return g;
 }
 ```
-// Grundy trên DAG - duyệt topological
-vector<int> adj[MAXN];
-int grundy[MAXN];
-bool visited[MAXN];
-
-int dfs(int u) {
-    if (visited[u]) return grundy[u];
-    visited[u] = true;
-    
-    set<int> nextValues;
-    for (int v : adj[u]) {
-        nextValues.insert(dfs(v));
-    }
-    
-    // Tính MEX
-    int g = 0;
-    while (nextValues.count(g)) g++;
-    grundy[u] = g;
-    return g;
-}
-```
 
 ### 7.4 Stone Pile Games (Chia đống)
 
@@ -509,16 +453,6 @@ G(4) = MEX{G(1)⊕G(3), G(2)⊕G(2), G(3)⊕G(1)} = MEX{0, 0, 0} = MEX{0} = 1
 **Kết quả:** Grundy của cây = XOR các Grundy của subtree con + 1.
 
 ```cpp
-int treeGrundy(int u, int parent) {
-    int g = 0;
-    for (int v : adj[u]) {
-        if (v != parent) {
-            g ^= (treeGrundy(v, u) + 1);
-        }
-    }
-    return g;
-}
-```
 int treeGrundy(int u, int parent) {
     int g = 0;
     for (int v : adj[u]) {
@@ -615,21 +549,6 @@ void compute(int n) {
     }
 }
 ```
-// SAI: Đệ quy sâu có thể stack overflow
-int grundy(int n) {
-    if (n == 0) return 0;
-    // ... đệ quy
-}
-
-// ĐÚNG: Dùng bottom-up DP
-int grundy[MAXN];
-void compute(int n) {
-    grundy[0] = 0;
-    for (int i = 1; i <= n; i++) {
-        // Tính grundy[i] từ các giá trị trước
-    }
-}
-```
 
 **2. Quên memoization → TLE:**
 
@@ -647,38 +566,10 @@ int grundy(int n) {
     return memo[n] = result;
 }
 ```
-// SAI: Tính lại nhiều lần → O(2^n)
-int grundy(int n) { ... }
-
-// ĐÚNG: Memoize → O(n)
-bool computed[MAXN];
-int memo[MAXN];
-int grundy(int n) {
-    if (computed[n]) return memo[n];
-    computed[n] = true;
-    // ...
-    return memo[n] = result;
-}
-```
 
 **3. MEX implementation sai:**
 
 ```cpp
-// SAI: Chỉ kiểm tra phần tử đầu
-int mex(vector<int>& s) {
-    if (s.empty() || s[0] != 0) return 0; // SAI nếu s = {1, 2}
-    // ...
-}
-
-// ĐÚNG: Phải sort + unique trước
-int mex(vector<int>& s) {
-    sort(s.begin(), s.end());
-    s.erase(unique(s.begin(), s.end()), s.end());
-    for (int i = 0; i < (int)s.size(); i++)
-        if (s[i] != i) return i;
-    return s.size();
-}
-```
 // SAI: Chỉ kiểm tra phần tử đầu
 int mex(vector<int>& s) {
     if (s.empty() || s[0] != 0) return 0; // SAI nếu s = {1, 2}

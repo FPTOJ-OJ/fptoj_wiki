@@ -14,6 +14,7 @@ Dijkstra không xử lý được khi có cạnh trọng số âm. Bellman-Ford 
 Lặp N-1 lần. Mỗi lần, duyệt **tất cả** cạnh, cập nhật khoảng cách nếu tìm được đường tốt hơn.
 
 ![Bellman-Ford](../uploads/img/bellman-ford.svg)
+*Minh họa thuật toán Bellman-Ford*
 
 === "C++"
 
@@ -91,6 +92,7 @@ Bạn có N thành phố. Muốn biết khoảng cách ngắn nhất giữa **m�
 Dùng đỉnh trung gian k. Với mỗi cặp (i, j), thử xem đi qua k có ngắn hơn không.
 
 ![Floyd-Warshall](../uploads/img/floyd-warshall.svg)
+*Minh họa thuật toán Floyd-Warshall*
 
 ```
 dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
@@ -247,62 +249,10 @@ for (int k = 1; k <= n; k++)
         for (int j = 1; j <= n; j++)
             reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);
 ```
-// Kiểm tra có đường đi từ i đến j không
-bool reach[MAXN][MAXN];
-for (int k = 1; k <= n; k++)
-    for (int i = 1; i <= n; i++)
-        for (int j = 1; j <= n; j++)
-            reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);
-```
 
 ### 5.2. Tìm chu trình âm và in ra
 
 ```cpp
-// Bellman-Ford + truy vết chu trình âm
-bool bellmanFordWithPath(int n, int start, vector<tuple<int,int,int>>& edges,
-                         vector<long long>& dist, vector<int>& parent) {
-    dist.assign(n + 1, LLONG_MAX);
-    parent.assign(n + 1, -1);
-    dist[start] = 0;
-
-    int lastUpdated = -1;
-    for (int i = 1; i < n; i++) {
-        for (auto [u, v, w] : edges) {
-            if (dist[u] != LLONG_MAX && dist[u] + w < dist[v]) {
-                dist[v] = dist[u] + w;
-                parent[v] = u;
-            }
-        }
-    }
-
-    // Kiểm tra chu trình âm
-    for (auto [u, v, w] : edges) {
-        if (dist[u] != LLONG_MAX && dist[u] + w < dist[v]) {
-            parent[v] = u;
-            lastUpdated = v;
-            break;
-        }
-    }
-
-    if (lastUpdated == -1) return false;
-
-    // Truy vết chu trình
-    vector<int> cycle;
-    int x = lastUpdated;
-    for (int i = 0; i < n; i++) x = parent[x];  // Vào trong chu trình
-    int cur = x;
-    do {
-        cycle.push_back(cur);
-        cur = parent[cur];
-    } while (cur != x);
-    cycle.push_back(x);
-    reverse(cycle.begin(), cycle.end());
-
-    cout << "Chu trình âm: ";
-    for (int v : cycle) cout << v << " ";
-    return true;
-}
-```
 // Bellman-Ford + truy vết chu trình âm
 bool bellmanFordWithPath(int n, int start, vector<tuple<int,int,int>>& edges,
                          vector<long long>& dist, vector<int>& parent) {
