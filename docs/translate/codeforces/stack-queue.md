@@ -1,4 +1,4 @@
-
+﻿
 ## Hàng đợi (Queues)
 
 Hàng đợi là cấu trúc dữ liệu diễn tả tốt nhất cho câu “vào trước, ra trước”. Một ví dụ thực tế của hàng đợi là đoàn người xếp hàng ở ngân hàng. Mỗi người khi xếp hàng sẽ được đẩy vào hàng đợi ở vị trí cuối cùng. Sau khi người ở đầu hàng hoàn thành thủ tục và rời đi, những người đang xếp ở sau sẽ được đẩy về đầu hàng.
@@ -98,7 +98,6 @@ while queue.isNotEmpty():
         if CanMove(curState, dir):
             queue.Enqueue(MoveState(curState, dir))
 ```
-
 
 ## Ngăn xếp (Stack)
 Ngăn xếp có thể được xem như một định nghĩa đối nghịch với hàng đợi. Đối với ngăn xếp, “vào trước, ra trước”. Một ví dụ thực tế đối với ngăn xếp là chồng đĩa. Người rửa dọn sẽ luôn chọn đĩa trên cùng  – đây chính là đĩa được thêm vào sau cùng, sau đó đến đĩa tiếp theo.

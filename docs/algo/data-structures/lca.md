@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả**: Khúc Anh Tuấn
 
 Đôi lời về tác giả: Khúc Anh Tuấn được coi là huyền thoại của Competitive Programming Việt Nam với nhiều thành tích khủng:
@@ -15,13 +15,11 @@ Trước khi đọc bài viết này, bạn cần đọc bài viết: [Bài toá
 
 Để giải bài toán LCA ta có thể chuyển sang bài toán RMQ tương ứng và có thể giải bằng một số cách khác nhau. Trong bài viết này chúng ta sẽ đề cập tới một số phương pháp giải bài toán LCA một cách trực tiếp.
 
-
 ## Bài toán LCA (Least Common Ancestor):
 
 Input: 1 cây với $n$ đỉnh.
 
 Truy vấn: với 2 nút $u$, $v$ bất kỳ của cây $T$, truy vấn $LCA(u,v)$ cho biết cha chung gần nhất của 2 đỉnh $u$, $v$ trong cây $T$, tức là cho biết đỉnh xa gốc nhất là cha của cả $u$ và $v$.
-
 
 ## Cách 1 - Sparse Table
 
@@ -32,10 +30,9 @@ Từ cây đầu vào ta có thể xây dựng được mảng $F[1..n]$ với $
 
 Tất nhiên trong quá trình thay một nút bằng nút tổ tiên của nó, ta sẽ sử dụng mảng $A$ để có thể nhảy một lần được nhiều bước. Khi đó độ phức tạp của thuật toán sẽ là $< O(Nlog(N)), O(log(N)) >$.
 
-
 ## Cách 2 - Euler Tour + Interval Tree
 
-![LCA Euler Tour](../../All_Images_Collected/LCA_Euler.png)
+<img src="/All_Images_Collected/LCA_Euler.png" alt="LCA Euler Tour" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Từ cây đầu vào ta sử dụng thủ tục DFS để xây dựng 2 mảng:
 
@@ -69,14 +66,13 @@ Cũng tương tự cách 2 ta khởi tạo các mảng $prevnum[1..n]$ và $post
 
 Thuật toán trên nếu chỉ thực hiện 2 trường hợp đầu thì độ phức tạp cho mỗi lần chất vấn là $LogN$, còn nếu chỉ thực hiện trường hợp 3 thì độ phức tạp sẽ là $N$. Qua khảo sát bằng việc chạy chương trình cho thấy thời gian thực hiện trung bình của thuật toán này ngang với các thuật toán với độ phức tạp $<O(Nlog(N)),O(log(N))>$. Thuật toán này tuy có độ phức tạp lớn nhưng lại là phương pháp tiết kiệm bộ nhớ và cài đặt dễ dàng nên đây là thuật toán có ứng dụng cao trong làm bài.
 
-
 ## Cách 4 - Heavy Light Decomposition
 
 Sử dụng [Heavy Light Decomposition](heavy-light-decomposition.md).
 
 Xuất phát từ trường hợp suy biến của cây: mỗi nút của cây chỉ có đúng 1 con (trừ 1 nút lá không có con). Với một cây suy biến ta hoàn toàn có thể tìm $LCA(u,v)$ trong thời gian $O(1)$ (đỉnh nào gần gốc hơn trong 2 đỉnh $u$, $v$ sẽ là $LCA(u,v)$). Tư tưởng của Heavy Light Decomposition sẽ là chia cây ban đầu ra thành nhiều cây suy biến.
 
-![Hình minh họa](http://i.imgur.com/8nNHG8K.jpg)
+<img src="http://i.imgur.com/8nNHG8K.jpg" alt="Hình minh họa" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Những đoạn cùng màu là một cây suy biến. Nếu coi mỗi cây suy biến là một đỉnh thì ta sẽ được một cây mới gọi là cây rút gọn. Sau đây là một cách chia cây để cây rút gọn thu được có độ cao $O(LogN)$ với $N$ là số nút của cây ban đầu:
 

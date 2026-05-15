@@ -1,4 +1,4 @@
-
+﻿
 Nguồn: [USACO](http://train.usaco.org/usacotext2?a=VypAlPqkC1a&S=craft)
 
 Một cách tốt để sẵn sàng cho thi đấu là viết một chiến thuật về những gì bạn sẽ làm trong phòng thi. Điều này giúp bạn biết phải làm gì kể cả khi mọi thứ ổn và không ổn. Bằng cách này bạn có thể tiết kiệm thời gian trong phòng thi cho việc giải bài mà thay vì ngồi bối rối không biết làm gì tiếp theo... việc này có tác dụng như chuẩn bị phản ứng cho mọi tình huống.
@@ -107,7 +107,7 @@ Lưu ý rằng mặc dù vòng lặp thực hiện ${N * (N+1)/2}$ lần duyệt
 
 Xét một cây nhị phân cân bằng 4 levels:
 
-![cay-nhi-phan-can-bang-4-cap](https://s-media-cache-ak0.pinimg.com/564x/88/81/a1/8881a15ab475ed5adf771592871565a5.jpg)
+<img src="https://s-media-cache-ak0.pinimg.com/564x/88/81/a1/8881a15ab475ed5adf771592871565a5.jpg" alt="cay-nhi-phan-can-bang-4-cap" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Một thuật toán tìm kiếm trên một cây nhị phân thông thường sẽ có độ phức tạp $O(2^N)$.
 

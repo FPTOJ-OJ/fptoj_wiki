@@ -1,4 +1,4 @@
-
+﻿
 **Người viết:**
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 
@@ -6,7 +6,6 @@
 - Phạm Công Minh - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 - Nguyễn Đức Kiên - Trường Đại học Công nghệ, ĐHQGHN
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
-
 
 ## Tổ hợp (Combination)
 ### Giới thiệu về tổ hợp
@@ -19,7 +18,6 @@ $$C_n^k  = \dbinom{n}{k} = \dfrac{n!}{k! (n - k)!} = \dfrac{n(n-1)\ldots(n - k +
 Ta quy ước:
 - $C_n^0  = 1$ với mọi $n \ge 0$
 - Nếu $k > n$ thì $C_n^k  = 0$
-
 
 ### Một số tính chất của tổ hợp
 - Với mọi $n ≥ 1$ và $0 ≤ k ≤ n$, ta có:
@@ -122,7 +120,6 @@ Với công thức truy hồi này, ta sẽ sử dụng một mảng hai chiều
 Vì kết quả của $C_n^k$ có thể rất lớn nên trong lập trình thi đấu, thí sinh thường được yêu cầu tính $C_n^k$ theo một modulo $M$ nào đó (phần dư của phép chia $C_n^k$ cho $M$).
 Dưới đây là một số cách sử dụng để tính $C_n^k$ theo modulo $M$.
 *Chú ý rằng độ phức tạp dưới đây được tính toán khi sử dụng một modulo $M$ cho toàn bài!*
-
 
 |                                     Cách                                      |   Tiền xử lý    |        Truy vấn        |  Bộ nhớ  |   Độ khó   |                  Giới hạn                  |
 |:-----------------------------------------------------------------------------:|:---------------:|:----------------------:|:--------:|:----------:|:------------------------------------------:|
@@ -958,7 +955,6 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
 * [Hackerearth - Army parade](https://www.hackerearth.com/fr/problem/algorithm/army-parade-7bcfea8e/)
 * [Library Checker - Binomial Coefficient](https://judge.yosupo.jp/problem/binomial_coefficient)
 * [Libary Checker - Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod)
-
 
 ## Tài liệu tham khảo
 * [Codeforces - Binomial Coefficients with Large Mod](https://codeforces.com/blog/entry/111246)

@@ -1,4 +1,4 @@
-
+﻿
 **Nguồn**: Biên soạn lại từ bài viết của Nguyễn *RR* Thành Trung, Nguyễn Mạnh Quân.
 
 **Tác giả**: 
@@ -12,8 +12,6 @@
 - Hồ Ngọc Vĩnh Phát - VNUHCM-University of Science
 - Trần Xuân Bách - HUS High School for Gifted Students
 - Nguyễn Phú Bình - Hung Vuong High School for the Gifted, Binh Duong Province
-
-
 
 ## Mở đầu
 
@@ -88,7 +86,7 @@ Hay viết $C_{ij} = \begin{bmatrix} a_{i1} & a_{i2} & ... & a_{in} \end{bmatrix
 
 - Minh họa tích ma trận $AB$ của hai ma trận $A$ và $B$: 
 
-![/uploads/matrix-multiplication_img1.png](../../uploads/matrix-multiplication_img1.png)
+<img src="/uploads/matrix-multiplication_img1.png" alt="/uploads/matrix-multiplication_img1.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 - **Ví dụ:** Cho $2$ ma trận
 
@@ -104,7 +102,7 @@ Hay viết $C_{ij} = \begin{bmatrix} a_{i1} & a_{i2} & ... & a_{in} \end{bmatrix
 
     Mô tả quá trình nhân ma trận:
 
-![](../../uploads/k2XpJwF.gif)
+<img src="/uploads/k2XpJwF.gif" alt="" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ### Tính chất của phép nhân ma trận
 
@@ -309,7 +307,7 @@ Gọi $F_i$ là số cách lát các viên gạch nhỏ vào hình chữ nhật 
 
 $\Rightarrow$ $F_i = F_{i - 1} + F_{i - 2}$.
 
-![/uploads/matrix-multiplication_img2.png](../../uploads/matrix-multiplication_img2.png)
+<img src="/uploads/matrix-multiplication_img2.png" alt="/uploads/matrix-multiplication_img2.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Do đó, bài toán quy về tìm số $Fibonacci$ thứ $N$ với dãy $Fibonacci$ được định nghĩa như sau:
 
@@ -949,7 +947,6 @@ Ta còn có tính chất của dãy $Fibonacci$ như sau:
 Sau khi sử dụng các tính chất trên, bài toán trở thành một hoạt động rất cơ bản của [cây phân đoạn](../data-structures/segment-tree-extend.md) *(Cây IT - Interval Tree / Segment Tree)*. Với mỗi nút của cây phân đoạn lưu lại hai giá trị đầu tiên của dãy. *Bạn có thể tham khảo code **không** sử dụng phương pháp nhân ma trận tại [đây](https://ideone.com/zRN7N1) để hiểu rõ hơn về cách cập nhật cây phân đoạn*.
 
 Ở bài viết này, tôi sẽ sử dụng phương pháp **nhân ma trận** kết hợp với cây phân đoạn để giải quyết bài toán. Với mỗi nút của cây sẽ lưu lại ma trận hệ số của dãy $Fibonacci$.
-
 
 ## Cài đặt
 

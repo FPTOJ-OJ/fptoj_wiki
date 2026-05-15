@@ -1,5 +1,4 @@
-
-
+﻿
 
 ## Tìm kiếm tam phân - Ternary Search 
 
@@ -7,31 +6,27 @@ Nguồn: [e-maxx](https://e-maxx-eng.appspot.com/num_methods/ternary_search.html
 
 Người dịch: Đỗ Thanh Lam
 
-
 ## Mở đầu
 
 Cho một hàm F(x) chỉ có một cực trị duy nhất (unimodal). Có hai dạng hàm F(x) cơ bản:
 
 * Phần đầu tăng chặt, đạt đến giá trị lớn nhất, sau đó giảm chặt. (concave)
 
-<img src="http://vnoi.info/wiki/uploads/ternary_search_concave_func.png" width="200px" height="200px" />
+<img src="http://vnoi.info/uploads/ternary_search_concave_func.png" width="200px" height="200px" />
 
 Một hàm số thoả mãn tính chất này nếu tất cả các đoạn thẳng nối 2 điểm của đồ thị hàm số, nằm "bên dưới" của đồ thị.
 
 * Phần đầu giảm chặt, đạt đến giá trị nhỏ nhất, sau đó tăng chặt. (convex)
 
-<img src="http://vnoi.info/wiki/uploads/ternary_search_convex_func.png" width="200px" height="200px" />
-
+<img src="http://vnoi.info/uploads/ternary_search_convex_func.png" width="200px" height="200px" />
 
 Một hàm số thoả mãn tính chất này nếu tất cả các đoạn thẳng nối 2 điểm của đồ thị hàm số, đều nằm "bên trên" của đồ thị.
 
 Trong bài viết này chúng tôi sẽ giải quyết trường hợp 1, trường hợp 2 sẽ làm tương tự nhưng ngược lại. 
 
-
 ## Bài toán
 
 Cho một hàm $F(x)$ trong đoạn $[l, r]$ thoả mãn: $F$ tăng chặt tới một cực đại (điểm H) rồi giảm chặt. Yêu cầu tìm điểm đạt giá trị lớn nhất (điểm H).
-
 
 ## Thuật toán
 
@@ -39,17 +34,15 @@ Xét hai vị trí $m_1$ và $m_2$ trong đoạn $[l, r]$ sao cho $l < m_1 < m_2
 
 *   $[l, m_1]$. Khi đó, ta biết chắc chắn $F(m_1) > F(m_2)$.
 
-![/uploads/ternary_search_case_1.png](../../uploads/ternary_search_case_1.png)
+<img src="/uploads/ternary_search_case_1.png" alt="/uploads/ternary_search_case_1.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 *   $[m_1, m_2]$. Ta không thể rút ra kết luận gì về $F(m_1)$ và $F(m_2)$.
 
-![/uploads/ternary_search_case_2.png](../../uploads/ternary_search_case_2.png)
-
+<img src="/uploads/ternary_search_case_2.png" alt="/uploads/ternary_search_case_2.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 *   $[m_2, R]$. Tương tự trường hợp đầu, ta biết chắc chắn $F(m_1) < F(m_2)$.
 
-![/uploads/ternary_search_case_3.png](../../uploads/ternary_search_case_3.png)
-
+<img src="/uploads/ternary_search_case_3.png" alt="/uploads/ternary_search_case_3.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Ngược lại, bằng việc so sánh $F(m_1)$ và $F(m_2)$, ta có thể rút ra kết luận như sau:
 
@@ -67,7 +60,6 @@ Thì sau mỗi lần, độ lớn của đoạn $[l, r]$ giảm xuống còn $2/
 Nếu ta lặp đi lặp lại K lần, thì độ lớn của [l, r] sẽ chỉ còn $(2 / 3) ^ K$. Ví dụ với $l = -10^9, r = 10^9$, ta lặp lại $K = 100$ lần, thì đoạn [l, r] thu về chỉ còn độ dài là $(2 / 3.0) ^ {100} * (2*10^9) < 5 * 10^{-9}$, đủ chính xác với hầu hết mọi bài toán.
 
 Độ phức tạp thuật toán là $O(logT)$ với T là độ chính xác mà ta cần thực hiện.
-
 
 ## Cài đặt
 
@@ -103,15 +95,11 @@ def max_f(left, right):
     return f(left)
 ```
 
-
 ## Mở rộng
 
 Tìm kiếm tam phân cũng có thể dùng để giải các bài toán trên 2D với hàm dạng $f(x, y)$ nếu hàm f là hàm lồi. Ví dụ bài [E trong đề ACM ICPC Vietnam National Round 2017](https://open.kattis.com/contests/vietnam-national17-open/problems/europeantrip), lời giải chi tiết [ở đây](https://docs.google.com/document/d/1cDQEaf_YabpefiG7PiQZErHbr7AJIFjt7IIiDv9n4N4/edit).
 
-
 ## Bài tập tự luyện 
-
-
 
 *   [Codechef - Race time](https://www.codechef.com/problems/AMCS03)
 *   [Hackerearth - Rescuer](https://www.hackerearth.com/september-circuits/algorithm/rescuer-1/)

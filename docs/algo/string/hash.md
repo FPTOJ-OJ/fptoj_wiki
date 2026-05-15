@@ -1,9 +1,7 @@
-
+﻿
 **Tác giả**: Lê Khắc Minh Tuệ
 
 **Chỉnh sửa**: Nguyễn *RR* Thành Trung, Phạm Văn Hạnh
-
-
 
 ## Giới thiệu
 
@@ -81,7 +79,6 @@ pow[0] = 1
 for (i : 1 .. m)
        pow[i] = (pow[i-1] * base) mod MOD
 
-
 hashT[0] = 0
 for (i : 1 .. m)
        hashT[i] = (hashT[i-1] * base + T[i] - 'a') mod MOD
@@ -123,11 +120,9 @@ using namespace std;
 
 ll POW[maxn], hashT[maxn];
 
-
 ll getHashT(int i,int j) {
     return (hashT[j] - hashT[i - 1] * POW[j - i + 1] + MOD * MOD) % MOD;
 }
-
 
 int main() {
     // Input
@@ -238,7 +233,6 @@ Trên thực tế, khi cài đặt Hash sử dụng nhiều phép `mod` sẽ là
 
 Chỉ so sánh mã hash của hai xâu có cùng độ dài. Hiển nhiên, hai xâu kí tự không cùng độ dài thì không bằng nhau. Điều này có thể giảm xác suất rủi ro khi hash một modulo đáng kể.
 
-
 ## Ứng dụng
 
 Như đã đề cập ở trên, thuật toán này sẽ có trường hợp chạy sai. Tất nhiên, bên cạnh việc sử dụng Hash, còn có nhiều thuật toán xử lý xâu chuỗi khác, mang lại sự chính xác tuyệt đối. Tôi tạm gọi những thuật toán đó là _‘thuật toán chuẩn’_. Việc cài đặt _‘thuật toán chuẩn’_ có thể mang lại một tốc độ chạy chương trình cao hơn, độ chính xác của chương trình lớn hơn. Tuy nhiên, người làm bài sẽ phải trả giá là sự phức tạp khi cài đặt các _‘thuật toán chuẩn’_ đó.
@@ -276,7 +270,6 @@ Bài toán đặt ra như sau: Bạn được cho xâu $s$ độ dài $n (n \le 
 - Bây giờ, với mỗi $l$ khi đang chia nhị phân, chúng ta sẽ phải kiểm tra liệu có tồn tại xâu con nào xuất hiện ít nhất $k$ lần hay không. Điều này được làm rất đơn giản, bằng cách sinh mọi mã Hash của các xâu con độ dài $k$ trong $s$. Sau đó sắp xếp lại các mã Hash này theo chiều tăng dần, rồi kiếm tra xem có một đoạn liên tiếp các mã Hash nào giống nhau độ dài $l$ hay không.
 - Như vậy, độ phức tạp để  chia nhị phân là $O(log(n))$, độ phức tạp của sắp xếp là $O(n log(n))$, vậy độ phức tạp của cả bài toán là $O(n log^2(n) )$.
 
-
 ## Đánh giá độ chính xác
 
 Thông thường, khi sử dụng Hash, ta thường gặp phải 2 trường hợp như sau:
@@ -303,7 +296,6 @@ Theo [Birthday Paradox](https://en.wikipedia.org/wiki/Birthday_problem), ta dễ
 $(1 - 1 / 10^9)  \times  (1 - 2 / 10^9)  \times  (1 - 3 / 10^9)  \times  ... (1 - N / 10^9)$.
 
 Với $N = 30,000$, tích trên là $0.6376$, nghĩa là bạn có gần $0.40$ xác suất trả lời sai. Do vậy, bạn bắt buộc phải dùng nhiều $MOD$ khác nhau.
-
 
 ## Tổng kết
 

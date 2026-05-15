@@ -1,4 +1,4 @@
-# Bài 3: Tìm Kiếm Nhị Phân - Chia Để Trị Trong 20 Bước!
+﻿# Bài 3: Tìm Kiếm Nhị Phân - Chia Để Trị Trong 20 Bước!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Tìm kiếm nhị phân, Topcoder - Binary Search
@@ -55,8 +55,7 @@ Khi tính `mid = (lo + hi) / 2` với số nguyên:
    - Nếu `a[mid] > target` → Target nằm bên trái → `hi = mid - 1`
 3. Lặp lại cho đến khi `lo > hi` (không tìm thấy)
 
-![Binary Search](../uploads/img/binary-search.png)
-*Minh họa thuật toán tìm kiếm nhị phân*
+<p align="center"><img src="/uploads/img/binary-search.png" alt="Binary Search" style="max-width: 700px;" /><br><em>Minh họa thuật toán tìm kiếm nhị phân</em></p>
 
 **Minh họa:** Tìm 55 trong mảng [0, 5, 13, 19, 21, 41, 55, 68, 72, 81, 98]
 

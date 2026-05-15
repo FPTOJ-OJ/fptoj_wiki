@@ -1,4 +1,4 @@
-
+﻿
 **Nguời viết:** 
 - Ngô Nhật Quang - HUS High School for Gifted Students
 - Bùi Nguyễn Ngọc Thắng - Carnegie Mellon University in Qatar
@@ -10,8 +10,6 @@
 - Hồ Ngọc Vĩnh Phát - VNUHCM-University of Science
 - Lê Minh Hoàng - VNUHCM-University of Science
 - Nguyễn Phú Bình - VNUHCM-University of Science
-
-
 
 ## Giới thiệu
 
@@ -42,7 +40,7 @@ Ngoài ra, bài viết gốc có đề cập tới bài toán bao lồi, nhưng 
 
 ## Bài toán tìm cặp điểm gần nhất
 
-![Sweep Line 1](../../All_Images_Collected/sweep_line_1.png)
+<img src="/All_Images_Collected/sweep_line_1.png" alt="Sweep Line 1" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Link bài: [SPOJ - CLOPPAIR](https://www.spoj.com/problems/CLOPPAIR/)
 
@@ -71,7 +69,7 @@ Giả sử chúng ta đã xử lí xong $N - 1$ điểm đầu tiên và khoản
 > 
 > Từ $P$, vẽ $8$ hình vuông xung quanh, mỗi hình vuông có cạnh đúng bằng $d/2$, như hình dưới (điểm màu xanh là $P$).
 
-![Sweep Line 2](../../All_Images_Collected/sweep_line_2.png)
+<img src="/All_Images_Collected/sweep_line_2.png" alt="Sweep Line 2" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 <center>
 > <img src="/uploads/Sweep-Line_img2.png" width="300px">
@@ -234,7 +232,7 @@ Trong phần cài đặt này, các khoảng cách được lưu dưới dạng 
 
 ## Bài toán tìm giao điểm của các đoạn thẳng song song với trục toạ độ
 
-![Sweep Line 3](../../All_Images_Collected/sweep_line_3.png)
+<img src="/All_Images_Collected/sweep_line_3.png" alt="Sweep Line 3" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Link bài: [SPOJ - CS345A1](https://www.spoj.com/problems/CS345A1/)
 
@@ -651,7 +649,7 @@ Giới hạn:
 > Xét một điểm $P$ cho trước bất kì. Lấy gốc toạ độ tại $P$. Chia mặt phẳng toạ độ thành $8$ phần bằng nhau như hình dưới. Với mỗi phần tám, nối $P$ với một điểm bất kì trong phần tám đó có khoảng cách Manhattan gần nhất với $P$ (nếu có). Chẳng hạn trong ví dụ ở hình dưới, ta sẽ nối $P$ với $Q$.
 > 
 <center>
-> ![/uploads/Sweep-Line_img5.png](../../uploads/Sweep-Line_img5.png)
+> <img src="/uploads/Sweep-Line_img5.png" alt="/uploads/Sweep-Line_img5.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 </center>
 > 
 > Thực hiện thao tác trên với tất cả các điểm được cho, ta thu được một đồ thị $G$ có $O(n)$ cạnh. Ta sẽ chứng minh rằng cây khung nhỏ nhất trên đồ thị $G$ là một đáp án cho bài toán.
@@ -697,7 +695,7 @@ Nhờ có tính chất được đề cập trong bổ đề 3, ta nhận thấy
 
 Trên thực tế, với mỗi điểm $P$, ta có thể xét những điểm gần $P$ nhất trong những góc phần tám của mặt phẳng (xem hình dưới). Hình vẽ mô tả việc xử lí trong 1 góc của hình: Tây - Tây Bắc. Giả sử điểm $Q$ là điểm gần nhất, với đường nét đứt là những điểm có khoảng cách Manhattan cùng với $Q$, và $R$ là một điểm bất kì khác nằm trong góc phần tám đó. Nếu $PR$ là một cạnh trong cây khung, chúng ta có thể bỏ nó đi, bởi $PQ$ hoặc $QR$ sẽ cho ra cây khung tốt hơn.
 
-![Image](https://images.ctfassets.net/piwi0eufbb2g/5CCfXOgbKPyavwlhCdfQmW/1f393c0e52220f20583f4f95ecc104c8/octants.png)
+<img src="https://images.ctfassets.net/piwi0eufbb2g/5CCfXOgbKPyavwlhCdfQmW/1f393c0e52220f20583f4f95ecc104c8/octants.png" alt="Image" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Bài toán bây giờ trở thành tìm điểm gần nhất với $P$ ở mỗi góc phần tám. Chúng ta sẽ chỉ xử lí ở góc trong hình, bởi những góc còn lại có thể giải quyết tương tự. Ta có thể thấy rõ ràng rằng bài toán tìm điểm gần nhất tương đương với việc tìm điểm có $x - y$ đạt lớn nhất, với chặn trên và chặn dưới lần lượt là $x + y$ và $y$.
 

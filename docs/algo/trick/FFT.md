@@ -1,5 +1,4 @@
-
-
+﻿
 
 Tác giả: ngmq
 
@@ -36,7 +35,6 @@ c_{j} = \sum_{i=0}^j a_ib_{j-i} \qquad j = 0, 1, ..., d+e
 $$
 
 Cách làm theo định nghĩa là ta nhân mỗi hệ số của $p(x)$ với tất cả các hệ số của $q(x)$ rồi cộng các hệ số của cùng tổng số mũ. Vì hai đa thức có $d+1$ và $e+1$ hệ số nên cách làm này có độ phức tạp là $O((d+1)(e+1)) = O(de)$. Khi $d$ và $e$ tương đối lớn cỡ $10^3$ hoặc $10^4$ trở lên thì độ phức tạp này là quá lớn để chạy trên máy tính, đặc biệt là các máy tính nhúng đòi hỏi tốc độ tính toán nhanh. Phép biến đổi FFT giúp thực hiện phép nhân nói trên trong độ phức tạp $O(N*logN)$ trong đó $N$ là lũy thừa của $2$ nhỏ nhất lớn hơn $d$ và $e$.
-
 
 ## Biểu diễn đa thức qua ma trận Vandermonde
 
@@ -95,7 +93,6 @@ Từ định lý 2, ta thấy rằng 1 đa thức bất kỳ có 2 cách biểu 
 3. Tính tích của 2 đa thức trong cách biểu diễn 2 trong $O(N)$. Điều này cực kỳ đơn giản, vì khi ta đã cố định dãy $z_i$, ta có thể tính tất cả $c(z_i) = p(z_i) q(z_i)$ trong $O(N)$.
 4. Chuyển đa thức $c(x)$ về cách biểu diễn 1 (dùng FFT).
 
-
 ## Nghiệm nguyên thủy
 
 Như đã phân tích ở trên, ta cần chọn dãy $z_i$ sao cho việc biến đổi đa thức giữa 2 cách biểu diễn có thể thực hiện một cách hiệu quả. Nếu ta chọn $z_i$ là các **nghiệm nguyên thủy** thoả mãn:
@@ -149,7 +146,7 @@ Vậy $P = nI$ hay là $V * B/n = B/n * V = I$, vậy $B = V^{-1}$.
 - Phần $III$ gồm các phần tử có chỉ số hàng $n/2, n/2+1,...n-1$ và chỉ số cột là chẵn  $0, 2, 4, ...n-2$.
 - Phần $IV$ gồm các phần tử có chỉ số hàng  $n/2, n/2+1,...n-1$ và chỉ số cột là lẻ  $1, 3, 5, ...n-1$.
 
-<img src='/wiki/uploads/img4.png' height="250" width="500"/>
+<img src='/uploads/img4.png' height="250" width="500"/>
 (*Image Courtesy of Aalto University*)
 
 Nói cách khác, ta tạo một ma trận mới $K$ bằng cách chuyển tất cả các cột có chỉ số chẵn của ma trận $V$ lên trước, các cột có chỉ số lẻ về sau, giữ nguyên thứ tự tương đối của các cột cùng chỉ số chẵn hoặc cùng chỉ số lẻ. Ở ma trận $K$ này cột $n-2$ của $V$ nằm ngay trước cột $1$ của $V$. Bốn phần $I, II, III, IV$ được tạo bởi cắt đều ma trận $K$ thành 4 phần bằng nhau.
@@ -180,12 +177,12 @@ Trong phần trên ta đã thấy vai trò của ma trận Vandermonde $V$ là b
 
 **Chứng minh:** Sử dụng lại ký hiệu trong hình vẽ ở phần trên, ta gọi $X$ là vector cần biến đổi Fourier và $Y$ là vector kết quả tương ứng. Thay vì sử dụng ma trận $V$ để nhân với $X$, ta sử dụng ma trận $K$ là kết quả của phép biến đổi như trong **Định lý 2** để nhân với $X$. Lưu ý là vì $V$ đã đổi thứ tự cột nên $X$ cũng phải đổi thứ tự hàng: tất cả các hàng có chỉ số chẵn của $X$ được chuyển lên trên và các hàng chỉ số lẻ chuyển xuống dưới. Hình minh họa với $n = 4$ và $4$ nghiệm để thay vào ma trận Vandermonde là $1, i, -1, -i$:
 
-<img src='/wiki/uploads/img5.png' height="250" width="400"/>
+<img src='/uploads/img5.png' height="250" width="400"/>
 (*Image Courtesy: Aalto University*)
 
 Tách vector kết quả $Y$ thành hai phần theo $n/2$, ta được:
 
-<img src='/wiki/uploads/img6.png' height="300" width="500"/>
+<img src='/uploads/img6.png' height="300" width="500"/>
 (*Image Courtesy: Aalto University*)
 
 Ta quan sát là công thức tính nửa trên và nửa dưới của vector cột kết quả $Y$ sử dụng chung hai hạng tử và chỉ khác nhau về dấu của hạng tử thứ hai. Nói cách khác, chỉ cần tính được hai hạng tử tạo thành kết quả của vector kích cỡ $n/2$ là ta thu được kết quả của cả vector kích cỡ $n$ trong $O(n)$. Theo định lý tổng quát, độ phức tạp của cả quá trình là $O(nlog_2n)$
@@ -397,7 +394,7 @@ Có nhiều nguyên nhân làm cho FFT đệ quy chạy chậm, như trong **Bư
 
 Để khử đệ quy thì ta cần phân tích mối liên hệ giữa các lời gọi đệ quy và xem các phần tử được tính theo thứ tự nào. Hình vẽ sau đây minh họa trường hợp $n = 8$:
 
-![RecursionTree](../../uploads/fft_tree.png)
+<img src="/uploads/fft_tree.png" alt="RecursionTree" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Màu đỏ là các nhóm chẵn và màu xanh là các nhóm lẻ. Các bạn hãy dựa vào tính chẵn lẻ và để ý các số nhị phân $0, 1$ trong hình vẽ để tự viết chương trình FFT khử đệ quy hoặc giải thích tính đúng đắn của đoạn mã sau (đây là hàm FFT đã được dùng để giải bài POST2)
 
@@ -527,14 +524,12 @@ void fft(int n, vb& a, bool invert)
 
 Một số cách cài đặt khác sử dụng con trỏ cũng làm tăng tốc độ thực thi, có thể xem thêm trong trang của **emaxx** phần tài liệu tham khảo. Cũng trong trang của **emaxx** có thể tìm thấy cách cài đặt gộp hai hàm `fft` và `inverse_fft` lại làm một sử dụng một biến bool invert làm cho code ngắn gọn hơn.
 
-
 ## Bài tập luyện tập
 
 - [VNOJ POST2](https://oj.vnoi.info/problem/post2/)
 - [FFT problems on Codeforces](http://codeforces.com/problemset/tags/fft)
 - [FFT problems by a2oj.com](https://a2oj.com/Category.jsp?ID=42)
 - [SumOfArrays - Topcoder SRM 603](https://community.topcoder.com/stat?c=problem_statement&pm=12910&rd=15836) và [Hướng dẫn giải](https://apps.topcoder.com/wiki/display/tc/SRM+603)
-
 
 ## Tài liệu tham khảo
 

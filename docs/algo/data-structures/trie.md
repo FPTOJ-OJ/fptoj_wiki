@@ -1,4 +1,4 @@
-
+﻿
 **Nguời viết:** 
 - Ngô Nhật Quang - HUS High School for Gifted Students
 
@@ -6,8 +6,6 @@
 - Hồ Ngọc Vĩnh Phát - VNUHCM-University of Science
 - Lê Minh Hoàng - VNUHCM-University of Science
 - Cao Thanh Hậu - VNUHCM-University of Science
-
-
 
 ## Giới thiệu
 
@@ -26,7 +24,7 @@ Hãy xem xét một ví dụ sau:
 
 <center>
     
-![/uploads/trie_img1.png](../../uploads/trie_img1.png)
+<img src="/uploads/trie_img1.png" alt="/uploads/trie_img1.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 </center>
 
 Trong một trie, mỗi cạnh được biểu diễn bằng một kí tự, mỗi đỉnh và đường đi từ gốc đến đỉnh đó biểu diễn một xâu gồm các kí tự thuộc các cạnh trên đường đi đó. Ví dụ, đỉnh $5$ biểu diễn xâu `ab`, đỉnh $10$ biểu diễn xâu `caa`.
@@ -283,7 +281,7 @@ Lưu ý rằng các ứng dụng của trie xâu (liệt kê bên dưới) đề
 
 <center>
     
-![/uploads/trie_img2.png](../../uploads/trie_img2.png)
+<img src="/uploads/trie_img2.png" alt="/uploads/trie_img2.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 </center>
 
 ```cpp
@@ -511,7 +509,7 @@ Ta sẽ lần lượt xây đáp án bằng các đi xuống từ gốc của tr
 
 <center>
 
-![/uploads/trie_img3.png](../../uploads/trie_img3.png)
+<img src="/uploads/trie_img3.png" alt="/uploads/trie_img3.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 </center>
 
 ```cpp
@@ -681,7 +679,7 @@ Giả dụ ta đã có một trie nhị phân của dãy số $a_1, a_2, \ldots,
 
 <center>
     
-![/uploads/trie_img4.png](../../uploads/trie_img4.png)
+<img src="/uploads/trie_img4.png" alt="/uploads/trie_img4.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 </center>
 
 Vậy phần còn lại phải xử lí là kết hợp thuật tìm MEX trên với việc cả mảng đang bị XOR bởi số $z$. Dễ nhận thấy là, nếu bit thứ $k$ của $z$ được bật, thì nó tương tự việc hai cây con trái và phải của đỉnh đang xét được đổi chỗ cho nhau. Vì vậy thuật toán cuối cùng tương tự với thuật toán tìm MEX trên, thêm việc xét bit thứ $k$ của $z$ mà ta sẽ xét cây con trái trước (nếu bit đó là $0$) hay cây con phải trước (nếu bit đó là $1$).

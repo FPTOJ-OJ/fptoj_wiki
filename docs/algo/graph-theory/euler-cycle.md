@@ -1,4 +1,4 @@
-
+﻿
 **Nguồn:** [Eulerian path - Wikipedia](https://en.wikipedia.org/wiki/Eulerian_path) và một số nguồn khác
 
 **Biên soạn:**
@@ -14,15 +14,13 @@
 **Chuẩn bị bài tập và bộ test**
 - Nguyễn Hoàng Vũ - THPT chuyên Phan Bội Châu - Nghệ An
 
-
-
 Bài viết sẽ giới thiệu cho độc giả về đường đi và chu trình Euler, một khái niệm cơ bản có ứng dụng rộng rãi trong lý thuyết đồ thị và lập trình thi đấu. Phạm vi bài viết bao gồm các định lý liên quan đến sự tồn tại của đường đi và chu trình Euler trong đồ thị và chứng minh, thuật toán tìm chu trình Euler và ứng dụng trong một số bài tập.
 
 Khái niệm về đường đi và chu trình Euler lần đầu tiên được đề cập bởi Leonhard Euler năm 1736 khi nghiên cứu bài toán bảy cây cầu ở Konigsberg.
 
 > Thành phố Konigsberg thuộc Phổ (nay là Kaliningrad thuộc Nga), được chia làm 4 vùng bằng các nhánh sông Pregel. Các vùng này gồm 2 vùng bên bờ sông (B, C), đảo Kneiphof (A) và một miền nằm giữa hai nhánh sông Pregel (D). Vào thế kỷ XVIII, người ta đã xây 7 chiếc cầu nối những vùng này với nhau. Người dân ở đây tự hỏi: Liệu có cách nào xuất phát tại một địa điểm trong thành phố, đi qua 7 chiếc cầu, mỗi chiếc đúng 1 lần rồi quay trở về nơi xuất phát không?
 >
-> | ![seven-bridges](../../uploads/Konigsberg_bridges.png) |<br>
+> | <img src="/uploads/Konigsberg_bridges.png" alt="seven-bridges" style="max-width: 700px; display: block; margin: 0 auto;" /> |<br>
 > |:--:|<br>
 > | Minh hoạ 7 cây cầu ở Konigsberg - Nguồn: Wikipedia |
 
@@ -61,13 +59,15 @@ Ta thấy rằng mọi đỉnh $u$ thuộc đồ thị đều có bán bậc ra 
 
 Do đó ta kết luận đồ thị 1 là đồ thị Euler. Thật vậy, $2 \to 1 \to 5 \to 3 \to 4 \to 5 \to 2$ là một chu trình Euler trên đồ thị.
 
-|![graph1](../../uploads/neNBMhl.png)|
+|<img src="/uploads/neNBMhl.png" alt="graph1" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 |:--:|
 |Đồ thị 1|
 
 Đồ thị 2 dưới có những đỉnh mà bán bậc vào khác bán bậc ra. Chẳng hạn, đỉnh $1$ có $1$ cạnh vào và $3$ cạnh ra, tức $deg^+(1) = 1 \ne 3 = deg^-(1)$. Do đó ta kết luận đồ thị 2 không phải là đồ thị Euler.
 
-|![graph2](../../uploads/MoCKbAl.png)|
+|<img src="/uploads/MoCKbAl.png" alt="graph2" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 |:--:|
 |Đồ thị 2|
 
@@ -116,20 +116,19 @@ Theo giả sử thì với mọi $G_i$ ta tìm được một chu trình Euler $
 
 > Đồ thị ban đầu, dễ thấy tồn tại chu trình $C = 1 \to 2 \to 3 \to 4 \to 5 \to 6 \to 1$
 >
-> ![graph3](../../uploads/aUE68Hj.png)
+> <img src="/uploads/aUE68Hj.png" alt="graph3" style="max-width: 700px; display: block; margin: 0 auto;" />
 > 
 > Xoá các cạnh thuộc $C$, ta nhận thấy có $2$ chu trình con là $C_1 = 3 \to 9 \to 5 \to 3$ và $C_2 = 6 \to 8 \to 7 \to 6$
 >
-> ![graph4](../../uploads/fwSS7hb.png)
+> <img src="/uploads/fwSS7hb.png" alt="graph4" style="max-width: 700px; display: block; margin: 0 auto;" />
 > 
 > Nhận thấy giữa $C$ và $C_1$ có đỉnh chung $5$. Nối $2$ chu trình lại ta thu được một chu trình $C$ mới lớn hơn: $C = 1 \to 2 \to 3 \to 4 \to 5 \to 3 \to 9 \to 5 \to 6 \to 1$.
 >
-> ![graph5](../../uploads/sekE1zw.png)
+> <img src="/uploads/sekE1zw.png" alt="graph5" style="max-width: 700px; display: block; margin: 0 auto;" />
 > 
 > Tiếp tục, giữa $C$ và $C_2$ có đỉnh chung $6$. Nối $2$ chu trình lại ta thu được một chu trình $C$ mới: $C = 1 \to 2 \to 3 \to 4 \to 5 \to 3 \to 9 \to 5 \to 6 \to 7 \to 8 \to 6 \to 1$. Ta đã đi qua tất cả các cạnh và tìm được chu trình Euler trong đồ thị.
 >
-> ![graph6](../../uploads/l9EXMND.png)
-
+> <img src="/uploads/l9EXMND.png" alt="graph6" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## Đường đi Euler trên đồ thị có hướng
 
@@ -156,13 +155,15 @@ Các đỉnh khác ngoài $4$ và $6$ đều có bán bậc ra bằng bán bậc
 
 Do đó, ta kết luận tồn tại đường đi Euler trên đồ thị 3. Thật vậy, $4 \to 2 \to 3 \to 1 \to 2 \to 6$ là một đường đi Euler trên đồ thị.
 
-|![](../../uploads/qUYJzQW.png)|
+|<img src="/uploads/qUYJzQW.png" alt="" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 |:--:|
 | Đồ thị 3 |
 
 Đồ thị 4 có hướng không tồn tại đường đi Euler do có các đỉnh có bậc ra khác bậc vào là $1$, $2$, $4$, $6$.
 
-|![](../../uploads/f3LfsIy.png)|
+|<img src="/uploads/f3LfsIy.png" alt="" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 |:--:|
 | Đồ thị 4 |
 
@@ -224,15 +225,15 @@ Xét một đồ thị vô hướng $G$ có $n$ đỉnh thoả $\forall u \in G$
     
 > Đồ thị ban đầu, dễ thấy chu trình $C = 1 \to 2 \to 3 \to 4 \to 1$
 >
-> ![](../../uploads/cid4lgG.png)
+> <img src="/uploads/cid4lgG.png" alt="" style="max-width: 700px; display: block; margin: 0 auto;" />
 > 
 > Xoá các cạnh thuộc $C$, ta dễ thấy một chu trình $C_1 = 7 \to 4 \to 8 \to 1 \to 5 \to 2 \to 6 \to 3 \to 7$.
 >
-> ![](../../uploads/3BgtAJ0.png)
+> <img src="/uploads/3BgtAJ0.png" alt="" style="max-width: 700px; display: block; margin: 0 auto;" />
 > 
 > Nhận thấy $C$ và $C_1$ có đỉnh chung $2$, nối $C$ và $C_1$ để tạo ra chu trình mới lớn hơn: $1 \to 2 \to 6 \to 3 \to 7 \to 4 \to 8 \to 1 \to 5 \to 2 \to 3 \to 4 \to 1$. Ta đã đi qua tất cả các cạnh và tìm được chu trình Euler trong đồ thị.
 >
-> ![](../../uploads/Cv1oPJH.png)
+> <img src="/uploads/Cv1oPJH.png" alt="" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## Đường đi Euler trên đồ thị vô hướng
 

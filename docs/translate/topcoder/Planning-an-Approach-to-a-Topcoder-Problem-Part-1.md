@@ -1,9 +1,7 @@
-
+﻿
 Bài viết bởi [leadhyena_inran](https://www.topcoder.com/members/leadhyena_inran/).
 
 Nguồn: [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/planning-an-approach-to-a-topcoder-problem-part-1/)
-
-
 
 Giải bài là một nghệ thuật, nó có thể gây khó khăn cho cả những coder kì cựu nhất cũng như những người mới học. Để tìm cách giải phù hợp, chúng ta phải biết kết hợp nhiều phương pháp khác nhau như cảm nhận bằng trực giác, sáng tạo và thậm chí là may mắn. Cảm giác bất lực trước những bài khó thường làm chúng ta nản chí, và có thể bỏ cuộc giữa chừng. Tuy nhiên, không gì là không thể nếu bạn có đủ quyết tâm cũng như kĩ năng cần thiết. Bởi lí do đó, bài hướng dẫn này sẽ đưa ra những kĩ năng để giúp các bạn chọn những hướng tiếp cận rõ ràng cho những bài toán như vậy.
 
@@ -23,7 +21,6 @@ Thời gian hoàn thành lần đầu tiên là thời gian để giải bài to
 
 Ở nhiều môn võ, có một thuật ngữ luyện tập gọi là *kata*. Người tập sẽ thi triển những đòn thế được kịch bản sẵn và cố phòng thủ trước các đòn tấn công - cũng đã được kịch bản. Thoạt nghe thì phương pháp này chả có tác dụng gì vì sẽ chẳng lúc nào đánh nhau được "tiện" như vậy. Hơn nữa có vẻ như nó khuyến khích lối tư duy, luyện tập theo lối mòn được đề cập ở trên. Thế nhưng *kata* sẽ cho người tập cảm giác của việc có một kế hoạch rõ ràng và khuyến khích ý chí. Tin học cũng như vậy; chỉ sau khi code 3 lần một dạng bài trong một thời gian đủ nhiều ta mới nhuần nhuyễn hết mọi mặt của bài toán - định hướng, trình bày code và debug.
 
-
 ## Chiến thuật định hướng giải bài (Approach Tactics)
 
 Bây giờ bạn đã biết việc định hướng giải bài nó như thế nào và nó bao gồm những gì, bạn sẽ nhận ra rằng trước đây bạn đã biết khá nhiều cách để tiếp cận một bài toán. Dạng như *“Tôi dùng Quy hoạch động (dynamic programming) cho bài đó”*, *“Tôi có thể dùng tham lam (greedy) để giải bài này không?”*, *“Đừng nói với tôi rằng duyệt (brute-force) có thể ăn bài này”*. Thật ra bạn đang dùng sai những từ ngữ ở đây, vì bạn không thể phân loại mỗi bài tập chỉ với tham hay duyệt. Có rất rất nhiều dạng bài tập, và cũng rất nhiều cách tiếp cận, và thậm chí với mỗi hướng tiếp cận có thể tồn tại rất nhiều cách thể hiện khác nhau. Cách dùng từ như vậy chỉ tổng quát được những bước đi lớn để đến được đáp án.
@@ -33,7 +30,6 @@ Trong TopCoder có nhiều bài có lời giải hoàn chỉnh và chú thích c
 Những coder có kiến thức toán cơ bản tốt sẽ có thể biết được hướng suy nghĩ này, bởi vì những hướng tiếp cận đó rất giống với kĩ năng chứng minh toán học. Với những kì thủ họ sẽ thấy nó giống như việc nghĩ trước các nước cờ hay những người thiết kế ứng dụng có thể đã quen với nó trong khi làm việc với các [design patterns](https://en.wikipedia.org/wiki/Software_design_pattern) (thuật ngữ trong lập trình ứng dụng, chỉ những phương pháp thiết kế hiệu quả đã được nghiên cứu kĩ)...
 
 Để luyện tập cách tư duy và tìm ra phương pháp phù hợp với mình, ghi chú lại hướng giải của các bài toán là rất quan trọng. Sau đó hãy viết một bài phân tích dựa trên những gì bạn đã làm, càng chi tiết càng tốt, để những người khác có thể biết được cách bạn suy nghĩ như thế nào. Việc viết lại như thế không chỉ giúp bạn hiểu rõ hơn cách tiếp cận của mình, mà còn tìm ra được những sai lầm của bản thân và cải thiện nó. Hãy nhớ rằng, rất khó để cải thiện được những điều mà bạn còn chưa hiểu.
-
 
 ## Chia nhỏ vấn đề
 

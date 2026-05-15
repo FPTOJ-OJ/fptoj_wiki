@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả**: 
 * Hoàng Việt Cường - Đại học Bách Khoa Hà Nội
 * Phan Thành Long - THPT Chuyên Thái Bình (K17-20)
@@ -15,7 +15,7 @@ Vì bài viết nói về cây khung nhỏ nhất, các bạn nên đọc một 
 
 ## Cây khung nhỏ nhất là gì
 
-![MST Before](../../All_Images_Collected/MST_before.png)
+<img src="/All_Images_Collected/MST_before.png" alt="MST Before" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ### Định nghĩa
 
@@ -26,15 +26,14 @@ Theo lý thuyết đồ thị, chúng ta đều biết rằng 1 đồ thị đư
 
 - Một ví dụ về cây khung trong đồ thị vô hướng không trọng số:
 <!--
-![Đồ thị G có 3 cây khung](../../uploads/2vA7dPt.png)
+<img src="/uploads/2vA7dPt.png" alt="Đồ thị G có 3 cây khung" style="max-width: 700px; display: block; margin: 0 auto;" />
 -->
-![img](../../uploads/QqWCZO0.png)
+<img src="/uploads/QqWCZO0.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 - Một ví dụ về cây khung **nhỏ nhất** trong đồ thị vô hướng có trọng số:
-![MST After](../../All_Images_Collected/MST_after.png)
+<img src="/All_Images_Collected/MST_after.png" alt="MST After" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![img](../../uploads/egYfsfI.jpg)
-
+<img src="/uploads/egYfsfI.jpg" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Trong khuôn khổ bài viết, chúng ta sẽ làm việc với **đồ thị vô hướng có trọng số**.
 
@@ -82,7 +81,6 @@ Xuyên suốt cả bốn tính chất, ta đều sử dụng phép phản chứn
     **Kết luận:** $T$ ban đầu không phải là cây khung nhỏ nhất của đồ thị.
     
 
-
 ## Các thuật toán tìm cây khung nhỏ nhất
 ### 1. Thuật toán Kruskal
 **Ý tưởng thuật toán**: Ban đầu mỗi đỉnh là một cây riêng biệt, ta tìm cây khung nhỏ nhất bằng cách duyệt các cạnh theo trọng số từ nhỏ đến lớn, rồi hợp nhất các cây lại với nhau.
@@ -100,13 +98,13 @@ Giả sử ta cần tìm cây khung nhỏ nhất của đồ thị $G$. Thuật 
 Khi thuật toán kết thúc, rừng chỉ gồm đúng một cây và đó là một cây khung nhỏ nhất của đồ thị $G$
 
 Ví dụ các bước giải bài toán tìm cây khung nhỏ nhất với thuật toán Kruskal :
-![img](../../uploads/ZvvusBq.gif)
+<img src="/uploads/ZvvusBq.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 <!--
-![img](../../uploads/J6J8NhG.gif)
-![img](../../uploads/5T4aefO.png)
-![img](../../uploads/0TUNAZD.png)
-![img](../../uploads/qmLu49x.png)
-![img](../../uploads/gAZe9Uq.png)
+<img src="/uploads/J6J8NhG.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+<img src="/uploads/5T4aefO.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+<img src="/uploads/0TUNAZD.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+<img src="/uploads/qmLu49x.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+<img src="/uploads/gAZe9Uq.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 -->
 
 Để thực hiện thao tác kiểm tra cạnh và hợp nhất 2 cây một cách nhanh chóng, ta sử dụng cấu trúc **[Disjoint Set](https://vnoi.info/wiki/algo/data-structures/disjoint-set.md)**, dưới đây là đoạn code dùng để cài đặt thuật toán:
@@ -267,7 +265,6 @@ Thuật toán gồm 2 phần:
 
 $\Rightarrow$ độ phức tạp của thuật toán Kruskal là $O(m\log{m} +m\log{n})$
 
-
 ### 2. Thuật toán Prim
 **Ý tưởng thuật toán**: Ý tưởng của thuật toán Prim rất giống với ý tưởng của thuật toán Dijkstra (tìm đường đi ngắn nhất trên đồ thị). 
 Nếu như thuật toán **Kruskal** xây dựng cây khung nhỏ nhất bằng cách kết nạp từng **cạnh** vào đồ thị thì thuật toán **Prim** lại kết nạp từng **đỉnh** vào đồ thị theo tiêu chí: đỉnh được nạp vào tiếp theo phải **chưa được nạp** và **gần nhất** với các đỉnh đã được nạp vào đồ thị.
@@ -285,7 +282,7 @@ Mặc dù không bắt buộc, các bạn có thể đọc chứng minh tính đ
 Khi hoàn thành xong $n$ bước trên, ta thu được cây khung nhỏ nhất của đồ thị gồm $n$ đỉnh và $n - 1$ cạnh.
 
 Ví dụ các bước giải bài toán tìm cây khung nhỏ nhất với thuật toán Prim:
-![img](../../uploads/E8xqn14.gif)
+<img src="/uploads/E8xqn14.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Đoạn code sử dụng để cài đặt thuật toán Prim:
 ```cpp
@@ -398,7 +395,6 @@ print(prim(n, g, 1))
 
 **Fact**: Trong các bài toán tìm cây khung, phần lớn mọi người sẽ sử dụng thuật toán **Kruskal** do tính dễ cài đặt cũng như dễ hiểu của nó. 
 > **Bonus :** Các bạn có thể sử dụng [Visualgo](https://visualgo.net/en/mst) để  mô phỏng thuật toán Kruskal và Prim thông qua hoạt ảnh, qua đó hiểu thêm về các thuật toán trên
-
 
 ## Một số bài toán áp dụng
 ### 1. Bài toán [NKCITY](https://oj.vnoi.info/problem/nkcity)
@@ -636,7 +632,6 @@ int main() {
 }
 ```
 
-
 ### 3. Bài toán [160D - Edges in MST](https://codeforces.com/problemset/problem/160/D)
 #### Tóm tắt đề bài
 Cho đồ thị vô hướng có trọng số $G$ gồm $n$ đỉnh và $m$ cạnh. Yêu cầu với mỗi cạnh trong đồ thị, kiểm tra xem cạnh đó **không thuộc** bất kỳ cây khung nhỏ nhất nào, thuộc **một số** cây khung nhỏ nhất hay nằm trong **mọi** cây khung nhỏ nhất của đồ thị.
@@ -801,7 +796,6 @@ int main() {
     }
 }
 ```
-
 
 ## Luyện tập
 Các bạn có thể thử sức với một số bài tập sau:

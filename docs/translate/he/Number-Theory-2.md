@@ -1,12 +1,9 @@
-
+﻿
 Nguồn: [HackerEarth](https://www.hackerearth.com/practice/notes/number-theory-1/) và 1 số bài viết trên Wikipedia
 
 Người dịch: Bùi Việt Dũng
 
-
-
 Bạn có thể đọc phần 1 về Modulo & GCD [ở đây](So-hoc-Phan-1-Modulo-gcd.md).
-
 
 ## Số nguyên tố (Prime Numbers)
 
@@ -79,12 +76,11 @@ Xét hai số nguyên dương $N$ và $D$ thỏa mãn $N$ chia hết cho $D$ và
 
 **Độ phức tạp của thuật toán:** Độ phức tạp của thuật toán là $O(\sqrt{N})$ do ta phải duyệt từ 1 đến $\sqrt{N}$.
 
-
 ## Sàng Eratosthenes (Sieve of Eratosthenes)
 
 Sàng Eratosthenes dùng để tìm các số nguyên tố nhỏ hơn hoặc bằng số nguyên $N$ nào đó. Nó còn có thể được sử dụng để kiểm tra một số nguyên nhỏ hơn hoặc bằng $N$ hay không.
 
-![Sieve of Eratosthenes Animation](https://upload.wikimedia.org/wikipedia/commons/b/b8/Animation_Sieb_des_Eratosthenes_%28vi%29.gif)
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Animation_Sieb_des_Eratosthenes_%28vi%29.gif" alt="Sieve of Eratosthenes Animation" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Nguyên lí hoạt động của sàng là vào mỗi lần duyệt, ta chọn một số nguyên tố và loại ra khỏi sàng tất cả các bội của số nguyên tố đó mà lớn hơn số đó. Sau khi duyệt xong, các số còn lại trong sàng đều là số nguyên tố.
 

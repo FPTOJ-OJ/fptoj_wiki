@@ -1,7 +1,5 @@
-
+﻿
 Nguồn: [wcipeg](http://wcipeg.com/wiki/Tree)
-
-
 
 ## Định nghĩa
 

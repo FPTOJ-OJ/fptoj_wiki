@@ -1,4 +1,4 @@
-# Bài 11: Lũy Thừa Nhị Phân & Sàng Nguyên Tố
+﻿# Bài 11: Lũy Thừa Nhị Phân & Sàng Nguyên Tố
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Lũy thừa nhị phân, Sàng nguyên tố
@@ -299,8 +299,7 @@ Tính ma trận mũ trong $O(k^3 \log n)$ với $k$ là kích thước ma trận
 
 ## 2. Sàng nguyên tố Eratosthenes
 
-![Sieve of Eratosthenes](../All_Images_Collected/sieve_eratosthenes.png)
-*Minh họa thuật toán Sàng Eratosthenes*
+<p align="center"><img src="/All_Images_Collected/sieve_eratosthenes.png" alt="Sieve of Eratosthenes" style="max-width: 700px;" /><br><em>Minh họa thuật toán Sàng Eratosthenes</em></p>
 
 ### Ẩn dụ: Loại người gian lận
 

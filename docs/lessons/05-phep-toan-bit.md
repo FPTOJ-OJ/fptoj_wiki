@@ -1,4 +1,4 @@
-# Bài 5: Phép Toán Bit - Ma Thuật Với 0 và 1!
+﻿# Bài 5: Phép Toán Bit - Ma Thuật Với 0 và 1!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Phép toán bit
@@ -47,8 +47,7 @@ Giá trị: 1   0   1   0   1
 ```
 → `10101₂` = 21₁₀ → Tập hợp {Em, Chi, An} được lưu bằng số 21!
 
-![Bitmask operations - VisuAlgo](../uploads/img/gif/bitmask.gif)
-*Minh họa phép toán bit (Nguồn: VisuAlgo)*
+<p align="center"><img src="/uploads/img/gif/bitmask.gif" alt="Bitmask operations - VisuAlgo" style="max-width: 700px;" /><br><em>Minh họa phép toán bit (Nguồn: VisuAlgo)</em></p>
 
 ---
 

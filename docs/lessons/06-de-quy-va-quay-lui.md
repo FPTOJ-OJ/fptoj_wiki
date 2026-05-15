@@ -1,4 +1,4 @@
-# Bài 6: Đệ Quy Và Quay Lui - Thử Mọi Con Đường!
+﻿# Bài 6: Đệ Quy Và Quay Lui - Thử Mọi Con Đường!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Đệ quy và thuật toán quay lui
@@ -153,7 +153,6 @@ Mỗi hàng chỉ có đúng 1 hậu. Ta xếp từng hàng từ trên xuống:
 ### Ứng dụng 5: Tìm tất cả cách chọn số có tổng = Target
 
 Khác với hoán vị, bài này cho phép chọn một cần tử lặp lại. Ta dùng `startIdx` để tránh chọn ngược lại (tìm tổ hợp, không phải hoán vị).
-
 
 ### Code: Đệ quy và Quay lui
 

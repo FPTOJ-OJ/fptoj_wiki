@@ -1,313 +1,158 @@
----
+﻿---
 comments: true
 ---
 <p align="center">
-  <img src="uploads/logo.png" alt="FPTOJ Wiki Logo" width="200">
+  <img src="/uploads/logo.png" alt="FPTOJ Wiki Logo" width="200">
 </p>
 
 <h1 align="center">FPTOJ WIKI</h1>
 
 <p align="center">
   <a href="https://fptoj.com">🌐 fptoj.com</a> |
-  <a href="https://github.com/KienPC1234/fptoj_wiki">📦 GitHub</a>
+  <a href="https://github.com/FPTOJ-OJ/fptoj_wiki">📦 GitHub</a>
 </p>
 
 ---
 
-## 📚 Bài Học (Dành cho người mới)
+## 👋 Giới thiệu
 
-> **Bộ 32 bài học biên soạn dễ hiểu** - từ cơ bản đến nâng cao, kèm code C++ & Python, diagrams tương tác
+Chào mừng bạn đến với **FPTOJ Wiki** – một bản fork được phát triển từ [VNOI Wiki](https://wiki.vnoi.info/).
 
-🔗 **[Xem tổng hợp bài học chi tiết →](lessons/index.md)**
+Mục tiêu của chúng mình là tạo ra một không gian mở để chia sẻ kiến thức Tin học cho cộng đồng, tập trung chủ yếu vào **Thuật toán** và **Lập trình thi đấu** (Competitive Programming). Dự án hiện đang được duy trì và phát triển bởi **Hà Trí Kiên** cùng cộng đồng FPTOJ. Xem thêm thông tin về chúng mình [tại đây](about.md).
 
-### Nhập môn (⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 35 | [Setup môi trường](lessons/35-setup-moi-truong.md) | Cài đặt, template, editor |
-| 01 | [Độ phức tạp thời gian](lessons/01-do-phuc-tap-thoi-gian.md) | Big-O, ước lượng tốc độ |
-| 02 | [Sắp xếp](lessons/02-thuat-toan-sap-xep.md) | Merge Sort, Quick Sort |
-| 03 | [Tìm kiếm nhị phân](lessons/03-tim-kiem-nhi-phan.md) | Binary Search, lower/upper bound |
-| 05 | [Phép toán bit](lessons/05-phep-toan-bit.md) | AND, OR, XOR, bitmask |
-| 06 | [Đệ quy & Quay lui](lessons/06-de-quy-va-quay-lui.md) | Recursion, backtracking |
-
-### Kỹ thuật cơ bản (⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 04 | [Hai con trỏ](lessons/04-ky-thuat-hai-con-tro.md) | Two pointers, sliding window |
-| 07 | [Mảng, Stack, Prefix Sum](lessons/07-mang-stack-prefix-sum.md) | Stack, prefix sum, difference array |
-| 11 | [Lũy thừa nhị phân & Sàng](lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md) | Tính mũ nhanh, sàng nguyên tố |
-
-### Cấu trúc dữ liệu (⭐⭐ → ⭐⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 08a | [Heap](lessons/08a-heap.md) | Priority Queue, Heap Sort |
-| 08b | [DSU](lessons/08b-dsu.md) | Gộp tập hợp, Path Compression |
-| 08c | [Segment Tree](lessons/08c-segment-tree.md) | Truy vấn đoạn, Lazy Propagation |
-| 08d | [Fenwick Tree](lessons/08d-fenwick-tree.md) | BIT, cây chỉ số nhị phân |
-| 15 | [Deque & Sliding Window](lessons/15-deque-sliding-window.md) | Hàng đợi đơn điệu |
-| 16 | [Hash Table](lessons/16-hash-table.md) | Bảng băm |
-| 17 | [Trie](lessons/17-trie.md) | Cây tiền tố |
-| 33 | [Linked List](lessons/33-linked-list.md) | Danh sách liên kết |
-| 34 | [Queue](lessons/34-queue.md) | Hàng đợi FIFO |
-
-### Đồ thị (⭐⭐ → ⭐⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 10 | [BFS/DFS](lessons/10-bfs-dfs-do-thi.md) | Duyệt đồ thị |
-| 13 | [MST, Dijkstra, Topo](lessons/13-mst-dijkstra-topo-sort.md) | Cây khung, đường đi ngắn nhất |
-| 23 | [Floyd-Warshall & Bellman-Ford](lessons/23-floyd-warshall-bellman-ford.md) | Đường đi tất cả cặp |
-| 31 | [LCA & Binary Lifting](lessons/31-lca-binary-lifting.md) | Tổ tiên chung gần nhất |
-
-### Quy hoạch động & Tham lam (⭐⭐⭐ → ⭐⭐⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 21 | [Greedy](lessons/21-greedy.md) | Thuật toán tham lam |
-| 12 | [Quy hoạch động](lessons/12-quy-hoach-dong.md) | DP cơ bản đến nâng cao |
-| 25 | [Binary Search on Answer](lessons/25-binary-search-on-answer.md) | Tìm nhị phân trên đáp án |
-
-### Xử lý xâu (⭐⭐⭐ → ⭐⭐⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 09 | [KMP](lessons/09-kmp-tim-xau.md) | Tìm xâu mẫu O(N+M) |
-| 14 | [Hash xâu & Z-algorithm](lessons/14-hash-xau-z-algorithm.md) | Hash, Z-function |
-| 20 | [Manacher](lessons/20-manacher.md) | Palindrome dài nhất O(N) |
-| 32 | [Suffix Array](lessons/32-suffix-array.md) | Mảng hậu tố, LCP |
-
-### Toán & Số học (⭐⭐⭐ → ⭐⭐⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 18 | [Euclid & Modular Inverse](lessons/18-euclid-modular-inverse.md) | GCD, nghịch đảo modulo |
-| 19 | [Tổ hợp & Xác suất](lessons/19-to-hop-xac-suat.md) | C(n,k), giai thừa modulo |
-| 26 | [Số học nâng cao](lessons/26-so-hoc-nang-cao.md) | Euler, Lucas, CRT, Möbius |
-| 27 | [Lý thuyết trò chơi](lessons/27-ly-thuyet-tro-choi.md) | Nim, Sprague-Grundy |
-
-### Hình học & Nâng cao (⭐⭐⭐ → ⭐⭐⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 22 | [Hình học cơ bản](lessons/22-hinh-hoc-co-ban.md) | Cross product, diện tích |
-| 24 | [Stack nâng cao](lessons/24-stack-nang-cao.md) | Monotone stack, biểu thức |
-| 28 | [Bao lồi](lessons/28-bao-loi.md) | Convex Hull |
-| 29 | [Sparse Table](lessons/29-sparse-table.md) | RMQ O(1) |
-| 30 | [BST](lessons/30-bst.md) | Cây tìm kiếm nhị phân |
-
-### Kỹ năng thi đấu (⭐ → ⭐⭐)
-
-| # | Chủ đề | Mô tả ngắn |
-|---|--------|------------|
-| 36 | [Kỹ năng thi đấu](lessons/36-ky-nang-thi-dau.md) | Chiến thuật, quản lý thời gian |
-| 37 | [Sinh testcase](lessons/37-sinh-testcase.md) | Stress test tìm bug |
-| 38 | [Debug & Mẹo](lessons/38-debug-meo.md) | Fix WA/TLE/RE |
-| 39 | [Tổ chức code](lessons/39-to-chuc-code.md) | Quản lý thư mục, nộp bài |
+Nếu bạn có bất kỳ thắc mắc nào trong quá trình học, đừng ngần ngại đặt câu hỏi tại [mục Thảo luận (Discussions) ở repo của dự án](https://github.com/FPTOJ-OJ/fptoj_wiki/discussions).
 
 ---
 
-## 🔥 VNOI Roadmap
+## 🎯 Hệ Thống Đánh Giá Độ Khó
 
-VNOI Roadmap là một lộ trình hoàn chỉnh bao gồm các chủ đề được đánh giá độ khó từ 1 đến 5 sao, dành cho mọi đối tượng từ học sinh đến sinh viên, đặc biệt là các bạn mới bắt đầu tiếp xúc với Tin học.
+Để giúp bạn dễ dàng lựa chọn bài viết phù hợp với trình độ, các bài viết trên Wiki được phân loại theo độ khó từ 1 đến 5 sao:
 
-Được đúc kết từ kinh nghiệm của các thế hệ đi trước đã vượt qua nhiều cuộc thi, đóng góp cho nền Tin học Việt Nam trong suốt những năm vừa qua, chúng mình tin rằng VNOI Roadmap sẽ là một hành trang bổ ích trên con đường chinh phục Tin học của các bạn đấy!
+- **(⭐) Cơ bản**: Dành cho người mới bắt đầu.
+- **(⭐⭐) Trung bình**: Kiến thức nền tảng cần thiết cho kỳ thi HSG Quốc Gia, ACM ICPC.
+- **(⭐⭐⭐) Nâng cao**: Dành cho các bạn đặt mục tiêu đạt giải cao trong kỳ thi HSG QG.
+- **(⭐⭐⭐⭐) Rất khó**: Các chủ đề phức tạp, đòi hỏi tư duy sâu.
+- **(⭐⭐⭐⭐⭐) Chuyên sâu**: Kiến thức hẹp, đặc thù, áp dụng cho một số ít bài toán cực khó.
 
-🔗 **Link roadmap:** [https://roadmap.sh/r/vnoi-roadmap](https://roadmap.sh/r/vnoi-roadmap)
+💡 **Tài liệu khuyên đọc:** Đừng bỏ qua [Một số tài liệu hay về Thuật Toán](algo/basic/Tai-Lieu-Thuat-Toan.md) (Tài liệu giáo khoa chuyên tin).
 
 ---
 
-## Giới thiệu
+## 🚀 Khóa Học Căn Bản & Nền Tảng
 
-Wiki **FPTOJ** là một bản fork của [VNOI Wiki](https://wiki.vnoi.info/).
+Nếu bạn là người mới, hãy bắt đầu từ đây! Các bài viết được biên soạn chi tiết, dễ hiểu, đi kèm code mẫu và hình ảnh trực quan.
 
-Wiki được xây dựng với mục đích chia sẻ kiến thức Tin học đến với tất cả mọi người, đặc biệt tập trung vào Thuật toán và Lập trình thi đấu (Competitive Programming).
-Dự án được duy trì và phát triển bởi **FPTOJ Wiki <Hà Trí Kiên>**. Bạn có thể đọc bài giới thiệu của bọn mình [ở đây](about.md).
+### 🐍 1. Lập Trình Cơ Bản (Dành cho người mới)
 
-Bạn đọc bài viết nhưng không hiểu? Hãy hỏi [ở đây](https://www.facebook.com/groups/163215593699283/).
+Dành cho người chưa biết gì về lập trình, học sinh cấp 2–3 với mục tiêu nắm vững Python & C++ để tham gia thi đấu.
 
-Ở trang chủ này, các bài viết về thuật toán được đánh dấu về độ khó từ (1*) đến (5*) với ý nghĩa:
+🔗 **[Xem tổng hợp Lập trình Cơ Bản →](coding/index.md)**
 
-- (⭐): Cơ bản,
-- (⭐⭐): Kiến thức cần biết để thi HSG QG, ACM ICPC,
-- (⭐⭐⭐): Kiến thức nâng cao, dành cho các bạn có mục tiêu đạt giải cao trong HSG QG,
-- (⭐⭐⭐⭐): Kiến thức rất khó,
-- (⭐⭐⭐⭐⭐): Kiến thức rất chuyên sâu về 1 vấn đề nào đó, chỉ áp dụng được với rất ít bài khó.
+| Chương | Chủ đề | Số bài | Nội dung chính |
+|--------|--------|--------|----------------|
+| **1. Python** | Cơ bản & Cấu trúc dữ liệu | 13 bài | Biến, vòng lặp, List, Dict, Set, hàm |
+| | Thư viện & Tổng hợp | 7 bài | collections, heapq, itertools, bài tập thực hành |
+| **2. C++** | Cơ bản & Kỹ thuật | 8 bài | Cú pháp, mảng, string, fast I/O, con trỏ |
+| | Thư viện STL | 7 bài | vector, map, set, queue, algorithm |
 
-Tài liệu giáo khoa chuyên tin (download ở [Một số tài liệu hay về Thuật Toán](algo/basic/Tai-Lieu-Thuat-Toan.md)) đã viết rất chi tiết.
+### 📚 2. Bộ Bài Học Lập Trình Thi Đấu
 
-## Thuật toán
+Bộ bài học do chúng mình biên soạn từ cơ bản đến nâng cao. 
 
-## Nhập môn
+🔗 **[Xem chi tiết toàn bộ 39+ bài học →](lessons/index.md)**
 
-- [Tầm quan trọng của Thuật Toán](translate/topcoder/The-Importance-of-Algorithm.md)
-- [Một số tài liệu hay về Thuật Toán](algo/basic/Tai-Lieu-Thuat-Toan.md)
-- [Nghệ thuật giải bài](translate/topcoder/How-to-Find-a-Solution.md)
-- [Những cách tiếp cận bài toán](translate/topcoder/Planning-an-Approach-to-a-Topcoder-Problem-Part-1.md)
-- [Độ phức tạp thời gian (⭐)](algo/basic/computational-complexity.md)
-- [Sắp xếp (⭐)](algo/basic/sorting.md)
-- [Tìm kiếm nhị phân](algo/basic/binary-search.md)
-- [Hai con trỏ (⭐)](algo/basic/two-pointers.md)
-- [Phép toán bit](algo/basic/bitwise-operators.md)
-- [Đệ quy và quay lui](algo/basic/backtracking.md)
-- [Chia đôi tập](algo/basic/meet-in-the-middle.md)
+| Phân loại | Chủ đề tiêu biểu |
+|-----------|------------------|
+| **Nhập môn (⭐)** | [Setup môi trường](lessons/35-setup-moi-truong.md), [Độ phức tạp](lessons/01-do-phuc-tap-thoi-gian.md), [Sắp xếp](lessons/02-thuat-toan-sap-xep.md), [Tìm kiếm nhị phân](lessons/03-tim-kiem-nhi-phan.md), [Phép toán bit](lessons/05-phep-toan-bit.md), [Đệ quy & Quay lui](lessons/06-de-quy-va-quay-lui.md) |
+| **Kỹ thuật (⭐⭐)** | [Hai con trỏ](lessons/04-ky-thuat-hai-con-tro.md), [Prefix Sum](lessons/07-mang-stack-prefix-sum.md), [Lũy thừa nhị phân](lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md) |
+| **Cấu trúc dữ liệu**| [Heap](lessons/08a-heap.md), [DSU](lessons/08b-dsu.md), [Segment Tree](lessons/08c-segment-tree.md), [Fenwick Tree](lessons/08d-fenwick-tree.md), [Trie](lessons/17-trie.md), [Hash Table](lessons/16-hash-table.md) |
+| **Đồ thị** | [BFS/DFS](lessons/10-bfs-dfs-do-thi.md), [Dijkstra & MST](lessons/13-mst-dijkstra-topo-sort.md), [Floyd & Bellman-Ford](lessons/23-floyd-warshall-bellman-ford.md), [LCA](lessons/31-lca-binary-lifting.md) |
+| **QHĐ & Tham lam** | [Quy hoạch động](lessons/12-quy-hoach-dong.md), [Tham lam](lessons/21-greedy.md), [Tìm nhị phân trên đáp án](lessons/25-binary-search-on-answer.md) |
+| **Xử lý xâu** | [KMP](lessons/09-kmp-tim-xau.md), [Z-algorithm](lessons/14-hash-xau-z-algorithm.md), [Manacher](lessons/20-manacher.md), [Suffix Array](lessons/32-suffix-array.md) |
+| **Toán & Số học** | [Euclid & Modulo](lessons/18-euclid-modular-inverse.md), [Tổ hợp](lessons/19-to-hop-xac-suat.md), [Số học nâng cao](lessons/26-so-hoc-nang-cao.md), [Trò chơi](lessons/27-ly-thuyet-tro-choi.md) |
+| **Hình học & Khác** | [Hình học](lessons/22-hinh-hoc-co-ban.md), [Bao lồi](lessons/28-bao-loi.md), [Sparse Table](lessons/29-sparse-table.md), [BST](lessons/30-bst.md) |
+| **Kỹ năng (⭐-⭐⭐)** | [Sinh testcase](lessons/37-sinh-testcase.md), [Debug](lessons/38-debug-meo.md), [Chiến thuật](lessons/36-ky-nang-thi-dau.md), [Tổ chức code](lessons/39-to-chuc-code.md) |
 
-## Cấu trúc dữ liệu
+---
 
-- [Tổng quan về cấu trúc dữ liệu (⭐⭐)](algo/data-structures/data-structures-overview.md)
-- [Mảng và danh sách liên kết (⭐)](algo/data-structures/array-vs-linked-lists.md)
-- [Ngăn xếp (stack) (⭐)](algo/data-structures/Stack.md)
-- [Mảng cộng dồn và mảng hiệu](algo/data-structures/prefix-sum-and-difference-array.md)
-- [Deque và tìm min max trên đoạn tịnh tiến (⭐⭐)](algo/data-structures/deque-min-max.md)
-- [Heap (⭐⭐)](translate/wcipeg/Binary-Heap.md)
-- [Bảng băm (Hash table) (⭐⭐)](algo/data-structures/hash-table.md)
-- [Disjoint Set Union (⭐⭐)](algo/data-structures/disjoint-set-union.md)
-- [Cây Phân Đoạn (cơ bản)](algo/data-structures/segment-tree-basic.md)
-- [Segment Tree (Interval Tree) (⭐⭐)](algo/data-structures/segment-tree-extend.md)
-- [Cài đặt Segment Tree chạy nhanh hơn (⭐⭐⭐)](translate/codeforces/Efficient-and-easy-segment-trees.md)
-- [Chia căn - Part 1](algo/data-structures/sqrt-decomposition.md)
-- [Mo Algorithm (⭐⭐⭐)](algo/data-structures/mo-algorithm.md)
-- [Segment Tree (Interval Tree) trên tập đoạn thẳng (⭐⭐⭐⭐)](algo/data-structures/interval-tree-tap-doan-thang.md)
-- [Fenwick Tree (Binary Indexed Tree) (⭐⭐)](algo/data-structures/fenwick.md)
-- [Heavy Light Decomposition](algo/data-structures/heavy-light-decomposition.md)
-- [Persistent Data Structures (⭐⭐⭐)](algo/data-structures/persistent-data-structures.md)
-- [Lowest Common Ancestor (LCA) - Binary Lifting](algo/data-structures/lca-binlift.md)
-- [Bài toán RMQ & bài toán LCA (⭐⭐)](translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor.md)
-- [Các phương pháp giải bài toán LCA (⭐⭐⭐)](algo/data-structures/lca.md)
-- [Trie (⭐⭐)](algo/data-structures/trie.md)
-- [Suffix Array (⭐⭐⭐⭐)](algo/data-structures/suffix-array.md)
-- [Palindrome Tree (⭐⭐⭐⭐)](translate/codeforces/palindrome-tree.md)
-- [Skip List (⭐⭐⭐)](algo/data-structures/Skip-Lists.md)
-- [Range Tree - thầy Lê Minh Hoàng (⭐⭐⭐)](https://drive.google.com/file/d/0BwcTB8a10LBwbjB2elVmdzg1XzQ/view?usp=sharing&resourcekey=0-JxqVgB488l3bVgUXg4VU2Q)
+## 🧠 Chuyên Đề Thuật Toán (Lưu trữ từ VNOI)
 
-## Xử lý xâu
+Dưới đây là tập hợp các bài viết chuyên sâu từ thư viện VNOI và các nguồn uy tín khác. 
+Đừng quên tham khảo **[VNOI Roadmap](https://roadmap.sh/r/vnoi-roadmap)** - lộ trình hoàn chỉnh cho học sinh đến sinh viên.
 
-- [Tổng quan (⭐⭐)](algo/string/basic.md)
-- [KMP (⭐⭐)](algo/string/kmp.md)
-- [Trie (⭐⭐)](algo/data-structures/trie.md)
-- [Hash (⭐⭐)](algo/string/hash.md)
-- [Suffix Array (⭐⭐⭐⭐)](algo/data-structures/suffix-array.md)
-- [Palindrome Tree (⭐⭐⭐⭐)](translate/codeforces/palindrome-tree.md)
-- [Z-function](algo/string/z-algo.md)
-- [Z Algorithm (⭐⭐⭐)](translate/codeforces/z-algo.md)
-- [Suffix Tree - thầy Lê Minh Hoàng(⭐⭐⭐⭐)](https://drive.google.com/file/d/0BwcTB8a10LBwYUwwNVYzbmZiZnM/view?usp=sharing&resourcekey=0-TyQK7KSoZJW-fVpHquw6NQ)
+??? info "1. Nhập môn & Kỹ thuật cơ bản"
 
-## Quy hoạch động
-- [Nhập môn Quy hoạch động (⭐⭐)](translate/topcoder/dynamic-programming.md)
-- [Quy hoạch động cơ bản (Phần 1)](algo/dp/basic-dynamic-programming-1.md)
-- [Quy hoạch động cơ bản (Phần 2)](algo/dp/basic-dynamic-programming-2.md)
-- [Một vài bài tập về Palindrome (⭐⭐)](algo/dp/palindrome-problems.md)
-- [Một số bài toán QHD điển hình (⭐⭐)](algo/dp/basic-problems.md)
-- [Phân tích về QHD - Thầy Lê Minh Hoàng](algo/dp/thac-mac-ve-qhd.md)
-- [Một số kĩ thuật tối ưu hoá QHĐ (⭐⭐⭐)](algo/dp/Mot-so-ky-thuat-toi-uu-hoa-thuat-toan-Quy-Hoach-Dong.md)
-- [Kĩ thuật bao lồi (⭐⭐⭐)](translate/wcipeg/Convex-Hull-Trick.md)
+    - [Tầm quan trọng của Thuật Toán](translate/topcoder/The-Importance-of-Algorithm.md)
+    - [Nghệ thuật giải bài](translate/topcoder/How-to-Find-a-Solution.md) / [Tiếp cận bài toán](translate/topcoder/Planning-an-Approach-to-a-Topcoder-Problem-Part-1.md)
+    - [Độ phức tạp thời gian (⭐)](algo/basic/computational-complexity.md)
+    - [Sắp xếp (⭐)](algo/basic/sorting.md) / [Tìm kiếm nhị phân](algo/basic/binary-search.md) / [Hai con trỏ (⭐)](algo/basic/two-pointers.md)
+    - [Phép toán bit](algo/basic/bitwise-operators.md)
+    - [Đệ quy và quay lui](algo/basic/backtracking.md) / [Chia đôi tập (Meet in the middle)](algo/basic/meet-in-the-middle.md)
 
-## Đồ thị
-- [Các chủ đề cơ bản về đồ thị (⭐⭐)](algo/graph-theory/everything.md)
-- [Thuật toán duyệt đồ thị theo chiều rộng](algo/graph-theory/breadth-first-search.md) (BFS)
-- [Bài toán khớp cầu, thành phần liên thông mạnh](algo/graph-theory/Depth-First-Search-Tree.md) (Cây DFS và ứng dụng)
-- [Cây khung nhỏ nhất trên đồ thị vô hướng](algo/graph-theory/minimum-spanning-tree.md)
-- [Các thuật toán về tìm đường đi ngắn nhất](algo/graph-theory/shortest-path.md)
-- [Sắp xếp Tô-pô](algo/graph-theory/topological-sort.md)
-- [Đường đi - Chu trình Euler](algo/graph-theory/euler-cycle.md)
-- [Đường đi Euler trên cây](algo/graph-theory/euler-tour-on-tree.md)
-- [Thuật toán phân tách trọng tâm](algo/graph-theory/centroid-decomposition.md)
-- [Bài toán 2-SAT (⭐⭐⭐)](https://drive.google.com/file/d/15UbO4GWo1G6cUBDnV6uWk0KxjuEdurCG/view?usp=sharing)
-- [Luồng cực đại trên mạng (⭐⭐⭐)](translate/topcoder/max-flow-1-luong-cuc-dai-tren-mang-1.md)
+??? info "2. Cấu trúc dữ liệu"
 
-## Tham lam
+    - **Cơ bản:** [Tổng quan (⭐⭐)](algo/data-structures/data-structures-overview.md), [Mảng & DSLK (⭐)](algo/data-structures/array-vs-linked-lists.md), [Stack (⭐)](algo/data-structures/Stack.md), [Mảng cộng dồn & mảng hiệu](algo/data-structures/prefix-sum-and-difference-array.md)
+    - **Trung bình:** [Deque & Min/Max (⭐⭐)](algo/data-structures/deque-min-max.md), [Heap (⭐⭐)](translate/wcipeg/Binary-Heap.md), [Hash table (⭐⭐)](algo/data-structures/hash-table.md), [DSU (⭐⭐)](algo/data-structures/disjoint-set-union.md)
+    - **Cây Phân Đoạn:** [Cơ bản](algo/data-structures/segment-tree-basic.md), [Nâng cao (⭐⭐)](algo/data-structures/segment-tree-extend.md), [Cài đặt tối ưu (⭐⭐⭐)](translate/codeforces/Efficient-and-easy-segment-trees.md), [Trên tập đoạn thẳng (⭐⭐⭐⭐)](algo/data-structures/interval-tree-tap-doan-thang.md), [Fenwick Tree (⭐⭐)](algo/data-structures/fenwick.md)
+    - **Chia Căn:** [Cơ bản](algo/data-structures/sqrt-decomposition.md), [Mo's Algorithm (⭐⭐⭐)](algo/data-structures/mo-algorithm.md)
+    - **Cây:** [Heavy Light Decomposition](algo/data-structures/heavy-light-decomposition.md), [LCA - Binary Lifting](algo/data-structures/lca-binlift.md), [LCA & RMQ (⭐⭐)](translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor.md), [LCA tổng hợp (⭐⭐⭐)](algo/data-structures/lca.md), [Trie (⭐⭐)](algo/data-structures/trie.md)
+    - **Nâng cao:** [Persistent Data Structures (⭐⭐⭐)](algo/data-structures/persistent-data-structures.md), [Suffix Array (⭐⭐⭐⭐)](algo/data-structures/suffix-array.md), [Palindrome Tree (⭐⭐⭐⭐)](translate/codeforces/palindrome-tree.md), [Skip List (⭐⭐⭐)](algo/data-structures/Skip-Lists.md), [Range Tree (⭐⭐⭐)](https://drive.google.com/file/d/0BwcTB8a10LBwbjB2elVmdzg1XzQ/view?usp=sharing&resourcekey=0-JxqVgB488l3bVgUXg4VU2Q)
 
-- [Tham lam (⭐⭐)](translate/topcoder/Greedy-is-Good.md)
-- [Sum-constrained convex optimization](algo/trick/convex_greedy.md)
+??? info "3. Xử lý xâu"
 
-## Số học
+    - [Tổng quan (⭐⭐)](algo/string/basic.md)
+    - [KMP (⭐⭐)](algo/string/kmp.md) / [Hash (⭐⭐)](algo/string/hash.md) / [Z-function](algo/string/z-algo.md) / [Z Algorithm (⭐⭐⭐)](translate/codeforces/z-algo.md)
+    - [Trie (⭐⭐)](algo/data-structures/trie.md)
+    - [Suffix Array (⭐⭐⭐⭐)](algo/data-structures/suffix-array.md) / [Suffix Tree (⭐⭐⭐⭐)](https://drive.google.com/file/d/0BwcTB8a10LBwYUwwNVYzbmZiZnM/view?usp=sharing&resourcekey=0-TyQK7KSoZJW-fVpHquw6NQ)
+    - [Palindrome Tree (⭐⭐⭐⭐)](translate/codeforces/palindrome-tree.md)
 
-- [Kiểm tra số nguyên tố](algo/algebra/primality_check.md)
-- [Sàng nguyên tố](algo/algebra/prime_sieve.md)
-- [Lũy thừa nhị phân](algo/algebra/binary_exponentation.md)
+??? info "4. Quy hoạch động"
 
-### Series số học của HackerEarth
-- [Số học 1 - Modulo và gcd (⭐)](translate/he/So-hoc-Phan-1-Modulo-gcd.md).
-- [Số học 2 - Số nguyên tố, Sàng Eratosthenes (⭐)](translate/he/Number-Theory-2.md).
-- [Số học 3 - Tính (a^b) % c (⭐)](translate/he/Number-Theory-3.md).
-- [Số học 4 - Phi hàm Euler (⭐⭐)](translate/he/Number-Theory-4.md).
-- [Số học 4.5 - Nghịch đảo modulo (⭐⭐)](algo/math/modular-inverse.md).
-- [Số học 5 - Các kiến thức cơ bản về Tổ hợp (Combinatorics) (⭐⭐)](translate/he/Number-Theory-5.md).
-- [Số học 6 - Xác suất (Probabilities) (⭐⭐)](translate/he/Number-Theory-6.md).
-- [Số học 7 - Bao hàm - Loại trừ (Inclusion-Exclusion) (⭐⭐)](translate/he/Number-Theory-7.md).
+    - **Cơ bản:** [Nhập môn (⭐⭐)](translate/topcoder/dynamic-programming.md), [QHĐ Cơ bản 1](algo/dp/basic-dynamic-programming-1.md), [QHĐ Cơ bản 2](algo/dp/basic-dynamic-programming-2.md)
+    - **Bài tập:** [Palindrome (⭐⭐)](algo/dp/palindrome-problems.md), [Điển hình (⭐⭐)](algo/dp/basic-problems.md), [Thắc mắc QHĐ](algo/dp/thac-mac-ve-qhd.md)
+    - **Tối ưu:** [Kĩ thuật tối ưu hoá (⭐⭐⭐)](algo/dp/Mot-so-ky-thuat-toi-uu-hoa-thuat-toan-Quy-Hoach-Dong.md), [Bao lồi (Convex Hull Trick) (⭐⭐⭐)](translate/wcipeg/Convex-Hull-Trick.md)
 
-## Hình học
+??? info "5. Đồ thị"
 
-- [Hình học tính toán phần 1](algo/geometry/basic-geometry-1.md)
-- [Hình học tính toán phần 2](algo/geometry/basic-geometry-2.md)
-- [Thuật toán đường quét (⭐⭐)](algo/geometry/Sweep-Line.md)
-- [Bao lồi (⭐⭐⭐)](translate/wcipeg/Convex-Hull.md)
+    - **Cơ bản:** [Tổng quan (⭐⭐)](algo/graph-theory/everything.md), [BFS](algo/graph-theory/breadth-first-search.md), [Khớp cầu, TPLT mạnh](algo/graph-theory/Depth-First-Search-Tree.md)
+    - **Cây & Đường đi:** [Cây khung nhỏ nhất (MST)](algo/graph-theory/minimum-spanning-tree.md), [Đường đi ngắn nhất](algo/graph-theory/shortest-path.md), [Sắp xếp Tô-pô](algo/graph-theory/topological-sort.md)
+    - **Euler & Nâng cao:** [Chu trình Euler](algo/graph-theory/euler-cycle.md), [Đường đi Euler trên cây](algo/graph-theory/euler-tour-on-tree.md), [Phân tách trọng tâm](algo/graph-theory/centroid-decomposition.md)
+    - **Khác:** [Bài toán 2-SAT (⭐⭐⭐)](https://drive.google.com/file/d/15UbO4GWo1G6cUBDnV6uWk0KxjuEdurCG/view?usp=sharing), [Luồng cực đại trên mạng (⭐⭐⭐)](translate/topcoder/max-flow-1-luong-cuc-dai-tren-mang-1.md)
 
-## Toán học
+??? info "6. Số học & Toán học"
 
-- [Toán học trong Tin học (⭐⭐)](translate/topcoder/Mathematics-for-Topcoders.md)
-- [Xác suất (⭐⭐)](translate/topcoder/Hieu-ve-xac-suat.md)
-- [Định lý Wilson (⭐⭐⭐)](translate/he/Wilsons-theorem.md)
-- [Hàm nhân tính (Multiplicative Function) (⭐⭐⭐⭐)](algo/math/multiplicative-function.md)
-- [Hàm Mobius (⭐⭐⭐⭐)](translate/quora/mobius-function.md)
-- [Nhân nhanh đa thức - FFT (⭐⭐⭐⭐)](algo/trick/FFT.md)
-- [Lý thuyết trò chơi](algo/math/game-theory.md)
+    - **Số học cơ bản:** [Kiểm tra NT](algo/algebra/primality_check.md), [Sàng NT](algo/algebra/prime_sieve.md), [Lũy thừa nhị phân](algo/algebra/binary_exponentation.md)
+    - **Series HackerEarth:** [Modulo & GCD (⭐)](translate/he/So-hoc-Phan-1-Modulo-gcd.md), [Sàng Eratosthenes (⭐)](translate/he/Number-Theory-2.md), [Tính (a^b) % c (⭐)](translate/he/Number-Theory-3.md), [Phi hàm Euler (⭐⭐)](translate/he/Number-Theory-4.md), [Nghịch đảo modulo (⭐⭐)](algo/math/modular-inverse.md), [Tổ hợp (⭐⭐)](translate/he/Number-Theory-5.md), [Xác suất (⭐⭐)](translate/he/Number-Theory-6.md), [Bao hàm - Loại trừ (⭐⭐)](translate/he/Number-Theory-7.md)
+    - **Toán nâng cao:** [Toán học trong Tin học (⭐⭐)](translate/topcoder/Mathematics-for-Topcoders.md), [Xác suất (⭐⭐)](translate/topcoder/Hieu-ve-xac-suat.md), [Định lý Wilson (⭐⭐⭐)](translate/he/Wilsons-theorem.md), [Hàm nhân tính (⭐⭐⭐⭐)](algo/math/multiplicative-function.md), [Hàm Mobius (⭐⭐⭐⭐)](translate/quora/mobius-function.md), [Nhân nhanh đa thức - FFT (⭐⭐⭐⭐)](algo/trick/FFT.md)
+    - **Lý thuyết trò chơi:** [Tổng quan](algo/math/game-theory.md), [Alpha-Beta](algo/games/Giai-Thuat-Cat-Tia-Alpha-beta.md)
 
-## Tối ưu hoá
+??? info "7. Tham lam, Hình học & Kỹ năng khác"
 
-- [Tìm kiếm tam phân - Ternary Search (⭐⭐⭐)](translate/emaxx/Tim-kiem-tam-phan-Ternary-Search.md)
-- [Local Search (⭐⭐⭐)](algo/search/Local-Search.md)
+    - **Tham lam & Tối ưu:** [Tham lam (⭐⭐)](translate/topcoder/Greedy-is-Good.md), [Sum-constrained convex optimization](algo/trick/convex_greedy.md), [Tìm kiếm tam phân (⭐⭐⭐)](translate/emaxx/Tim-kiem-tam-phan-Ternary-Search.md), [Local Search (⭐⭐⭐)](algo/search/Local-Search.md)
+    - **Hình học:** [Cơ bản 1](algo/geometry/basic-geometry-1.md) / [Cơ bản 2](algo/geometry/basic-geometry-2.md), [Đường quét (⭐⭐)](algo/geometry/Sweep-Line.md), [Bao lồi (⭐⭐⭐)](translate/wcipeg/Convex-Hull.md)
+    - **Kỹ năng khác:** [Rời rạc hoá (⭐)](algo/trick/Roi-rac-hoa-va-ung-dung.md), [Nhân ma trận (⭐⭐⭐)](algo/trick/matrix-multiplication.md), [Khử nhân ma trận (⭐⭐⭐)](algo/trick/counting-without-matrix-multiplication.md), [Fun with bits](translate/topcoder/fun-with-bits.md)
 
+---
 
-## Kỹ năng khác
+## 🤝 Kỹ Năng & Chia Sẻ Kinh Nghiệm
 
-- [Rời rạc hoá (nén số) (⭐)](algo/trick/Roi-rac-hoa-va-ung-dung.md)
-- [Nhân ma trận (⭐⭐⭐)](algo/trick/matrix-multiplication.md)
-- [Khử nhân ma trận (⭐⭐⭐)](algo/trick/counting-without-matrix-multiplication.md)
-- [Mo's algorithm (⭐⭐⭐)](algo/data-structures/mo-algorithm.md)
-- [Fun with bits](translate/topcoder/fun-with-bits.md)
-- [Giải thuật cắt tỉa Alpha-Beta](algo/games/Giai-Thuat-Cat-Tia-Alpha-beta.md)
+- **Về cách học Tin học:** [Tôi đã học Tin như thế nào (Phần 1)](algo/basic/hoc-tin-the-nao-1.md) | [(Phần 2)](algo/basic/hoc-tin-the-nao-2.md) | [Hoài niệm về Pascal](others/Pascal-Vi-sao.md)
+- **Kĩ năng thi cử:** [Viết trình chấm](algo/skill/viet-trinh-cham.md) | [Tổng hợp lời khuyên](algo/skill/Ki-nang-thi-cu.md) | [Kinh nghiệm thi VOI](algo/skill/Kinh-nghiem-thi-VOI.md) | [Phỏng vấn Team IOI 2017](Phỏng-vấn-team-IOI-VN-2017.md)
 
+---
 
-## Chia sẻ
+## 💻 Khoa Học Máy Tính & Ngôn Ngữ
 
-## Về cách học Tin học
+- **C++:** [Xử lý xâu](languages/cpp/string.md) | [Con trỏ](languages/cpp/pointers.md) | [Sử dụng regex](translate/topcoder/Using-Regular-Expression.md) | [C++ STL](https://drive.google.com/file/d/1iqlQ1TmgGy_CKwZ0_9KPfu_ZHsnrT3Tu/view?usp=sharing)
+- **Các kỳ thi:** [ACM ICPC Regional Vietnam](http://acmicpc-vietnam.github.io/)
 
-- [Tôi đã học Tin như thế nào - phần 1](algo/basic/hoc-tin-the-nao-1.md)
-- [Tôi đã học Tin như thế nào - phần 2](algo/basic/hoc-tin-the-nao-2.md)
+---
 
-## Kĩ năng thi cử
+## 🎮 Giải Trí: Trò Chơi với AI
 
-- [Viết trình chấm](algo/skill/viet-trinh-cham.md)
-- [Tổng hợp lời khuyên cho các kỳ thi](algo/skill/Ki-nang-thi-cu.md)
-- [Kinh nghiệm thi VOI](algo/skill/Kinh-nghiem-thi-VOI.md)
-- [Phỏng vấn Team IOI Việt Nam 2017](Phỏng-vấn-team-IOI-VN-2017.md)
+Thử sức trí tuệ của bạn với các bot AI:
 
-## Khác
-
-- [Hoài niệm về Pascal - thầy Lê Minh Hoàng](others/Pascal-Vi-sao.md)
-
-
-
-## Các kỳ thi
-
-- [ACM ICPC Regional Vietnam](http://acmicpc-vietnam.github.io/)
-
-
-## Các chủ đề trong Khoa học máy tính
-
-## Ngôn ngữ lập trình
-
-- [Xử lý xâu trong C++](languages/cpp/string.md)
-- [Sử dụng regex](translate/topcoder/Using-Regular-Expression.md)
-- [C++ STL](https://drive.google.com/file/d/1iqlQ1TmgGy_CKwZ0_9KPfu_ZHsnrT3Tu/view?usp=sharing)
-- [Con trỏ trong C++](languages/cpp/pointers.md)
-
-## [Trò chơi giải trí với AI hay](https://play.google.com/store/apps/dev?id=8454869713871668206)
-
--   [Cờ Carô với AI hay](http://play.google.com/store/apps/details?id=com.popoko.gomokuvn)
--   [Cờ Vua với AI hay](http://play.google.com/store/apps/details?id=com.popoko.chessru)
--   [Cờ Gomoku với AI hay](http://play.google.com/store/apps/details?id=com.popoko.gomokukr)
--   [Trò chơi Dò Mìn](http://play.google.com/store/apps/details?id=com.popoko.minesweeper)
+- [Cờ Carô](http://play.google.com/store/apps/details?id=com.popoko.gomokuvn)
+- [Cờ Vua](http://play.google.com/store/apps/details?id=com.popoko.chessru)
+- [Cờ Gomoku](http://play.google.com/store/apps/details?id=com.popoko.gomokukr)
+- [Dò Mìn (Minesweeper)](http://play.google.com/store/apps/details?id=com.popoko.minesweeper)

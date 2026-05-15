@@ -1,8 +1,6 @@
-Bài viết bởi [bmerry](https://www.topcoder.com/members/bmerry).
+﻿Bài viết bởi [bmerry](https://www.topcoder.com/members/bmerry).
 
 Nguồn: [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/a-bit-of-fun-fun-with-bits/)
-
-
 
 ## Giới thiệu 
 

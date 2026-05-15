@@ -1,12 +1,10 @@
-
+﻿
 **Tác giả:**
 * Cao Thanh Hậu - Trường Đại học Khoa học Tự Nhiên, ĐHQG-HCM
 
 **Reviewer:**
 * Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 * Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
-
-
 
 ## Lời nói đầu
 
@@ -62,7 +60,6 @@ Dựa vào công thức trên, ta có hàm tính $a^b$ như sau:
         else:
             return x * x * a
     ```
-
 
 Dưới đây là một cách cài đặt khác không cần đệ quy. Trong cách này ta phân tích $b$ thành tổng các lũy thừa của $2$, đồng thời đạt được giá trị $a^{2^k}$ từ giá trị $a^{2^{k - 1}}$. Kết hợp lại, ta nhân $a^{2^k}$ vào kết quả nếu $2^k$ là một số hạng trong các lũy thừa tạo nên tổng $b$.
 Phân tích $b$ dưới dạng nhị phân cho một cách nhìn rõ ràng hơn, ví dụ tính $3^{10}$ như sau:

@@ -1,5 +1,4 @@
-
-
+﻿
 
 **Nguồn**: [emaxx](https://cp-algorithms.com/string/aho_corasick.html#toc-tgt-3)
 
@@ -19,6 +18,5 @@ Như các bạn đã biết:
 - Cấu trúc dữ liệu [Trie](../../algo/data-structures/trie.md) giúp chúng ta lưu trữ và tìm kiếm $N$.
 
 Cấu trúc dữ liệu **Aho-Corasick** có thể hình dung như 1 sự kết hợp giữa trie và KMP:
-
 
 // IN PROGRESS

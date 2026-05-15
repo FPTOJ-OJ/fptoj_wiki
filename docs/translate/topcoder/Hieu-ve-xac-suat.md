@@ -1,4 +1,4 @@
-
+﻿
 Nguồn: [Understanding Probabilities - Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/understanding-probabilities/)
  
 
@@ -25,7 +25,7 @@ Ta định nghĩa một **biến cố** (**event**) là một tập hợp các k
 
 Cái chúng ta quan tâm nhất là xác suất để một biến cố nhất định xảy ra, $P(E)$. Theo định nghĩa, $P(E)$ là một số thực trong khoảng từ $0$ đến $1$, trong đó $0$ thể hiện biến cố không có khả năng xảy ra và $1$ thể hiện biến cố chắc chắn xảy ra (hay là toàn bộ không gian mẫu).
 
-[/uploads/translate_topcoder_undertstandprobabilities_1.gif](../../uploads/translate_topcoder_undertstandprobabilities_1.gif)
+<img src="/uploads/translate_topcoder_undertstandprobabilities_1.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 - Impossible Event: biến cố chắc chắn ko thể xảy ra
 - Certain: biến cố chắc chắn xảy ra
@@ -127,7 +127,6 @@ def wager(scores, wager1, wager2):
 ```
 
 Một bài thú vị khác là [PipeCuts (SRM 233, Div 1 – Easy)](http://community.topcoder.com/stat?c=problem_statement&pm=3994&rd=6532), bài này có thể giải bằng cách tương tự như trên.
-
 
 ## Biến cố độc lập
 
@@ -249,7 +248,6 @@ $E(X1  \times  a1 + X2  \times  a2 + ... + Xk  \times  ak) = a1  \times  E(X1) +
 
 Chú ý rằng các biến không cần độc lập.
 
-
 ## Tính xác suất từng bước một
 
 Trong phần dưới đây, chúng ta sẽ tiếp tục thảo luận một vài bài tập trên Topcoder mà trong đó: **Xác suất của một biến cố bị ảnh hưởng bởi biến cố khác**.
@@ -283,7 +281,7 @@ Giờ xét `random(random(N))`. Để dễ hình dung, ta xét $N=4$:
 
 Ta hình dung bằng hình sau:
 
-[/uploads/translate_topcoder_understandprobabilties_02.gif](../../uploads/translate_topcoder_understandprobabilties_02.gif)
+<img src="/uploads/translate_topcoder_understandprobabilties_02.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Code để giải bài này
 
@@ -418,7 +416,6 @@ double cross (string p1a, string p1b, string p2a, string p2b,
  vector dom, vector rec, vector dependencies) {
   int I;
   double fitness = 0.0;
-
 
   n = rec.size();
   for (I = 0; I < n; i++)

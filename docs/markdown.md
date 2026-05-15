@@ -1,4 +1,4 @@
-
+﻿
 ## Test Markdown Syntax
 
 ## Bullet
@@ -51,7 +51,7 @@ Tables:
 
 Image from /uploads
 
-![alt=text](uploads/topcoder_translate_tree1.png)
+<img src="/uploads/topcoder_translate_tree1.png" alt="alt=text" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Formula: $a^{21} + b_{12} = c$
 

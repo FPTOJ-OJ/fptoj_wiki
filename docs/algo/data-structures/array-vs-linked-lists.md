@@ -1,17 +1,16 @@
-
+﻿
 ## Biến, con trỏ
 
 Cấu trúc dữ liệu đơn giản nhất chính là các biến (variable). Chúng nắm giữ duy nhất một giá trị, hơn nữa, phạm vi sử dụng có giới hạn. Khi nhiều giá trị cần lưu trữ, [mảng](#mang-arrays) (arrays) được sử dụng.
 
 Một khái niệm hơi khó hơn mặc dù không kém phần căn bản là con trỏ (pointer). Con trỏ thay vì giữ một giá trị, nó lại giữ một địa chỉ vùng nhớ:
 
-![/uploads/data_structures_basic_pointer.png](../../uploads/data_structures_basic_pointer.png)
+<img src="/uploads/data_structures_basic_pointer.png" alt="/uploads/data_structures_basic_pointer.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Trong hình trên:
 
 - `var` là một biến thông thường, có địa chỉ `1001` và giá trị `50`
 - `ptr` là một biến kiểu con trỏ, có địa chỉ `2047` và giá trị `1001`. Giá trị của `ptr` là địa chỉ của biến `var`.
-
 
 ## Mảng (Arrays)
 
@@ -53,14 +52,13 @@ Nếu ta thêm $N$ phần tử vào cuối mảng, thì độ phức tạp là:
 
 Do đó độ phức tạp tổng không quá $\mathcal{O(N)}$, và độ phức tạp trung bình của 1 thao tác là $\mathcal{O}(1)$.
 
-
 ## Danh sách liên kết (Linked Lists)
 
 Danh sách liên kết là một cấu trúc dữ liệu có thể giữ một số lượng phần tử tùy ý và dễ dàng thay đổi kích thước, cũng như dễ dàng bỏ đi các phần tử bên trong nó.
 
 Danh sách liên kết, hiểu theo cách đơn giản nhất là một con trỏ trỏ tới một nút dữ liệu. Mỗi nút dữ liệu bao gồm dữ liệu cần chứa và một con trỏ trỏ tới nút tiếp theo. Tại điểm cuối cùng, con trỏ trỏ tới giá trị NULL.
 
-![/uploads/data_structures_basic_linked_list.png](../../uploads/data_structures_basic_linked_list.png)
+<img src="/uploads/data_structures_basic_linked_list.png" alt="/uploads/data_structures_basic_linked_list.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Với thiết kế như ban đầu, một danh sách liên kết thích hợp để lưu trữ dữ liệu khi chưa biết trước được số lượng các phần tử hoặc các phần tử thường xuyên thay đổi. Tuy vậy, chúng ta không thể truy cập một cách ngẫu nhiên các phần tử của danh sách liên kết. Để tìm kiếm một giá trị, ta phải bắt đầu tại phần tử đầu tiên và duyệt tuần tự qua các phần tử cho tới khi bắt gặp được giá trị mà mình cần tìm kiếm. Để chèn một nút vào danh sách liên kết, bạn cũng phải thực hiện tương tự. Độ phức tạp của cả 2 thao tác này là $\mathcal{O}(N)$. Tuy nhiên, nếu ta biết được con trỏ trỏ đến phần tử cần xóa, thì độ phức tạp chỉ là $\mathcal{O}(1)$. Dễ dàng nhận thấy, thao tác tìm kiếm và chèn trong danh sách liên kết không thật sự hiệu quả.
 
@@ -132,7 +130,6 @@ Ngoài ra, ta cũng có thể lưu thêm con trỏ trỏ vào phần tử cuối
 
 - Thêm / xóa 1 phần tử mới vào đầu / cuối: $\mathcal{O}(1)$
 - Truy cập 1 phần tử ở vị trí bất kỳ: $\mathcal{O}(N)$.
-
 
 ## Tài liệu tham khảo
 

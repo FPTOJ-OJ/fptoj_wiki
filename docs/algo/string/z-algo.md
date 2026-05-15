@@ -1,4 +1,4 @@
-
+﻿
 **Người viết**: Nguyễn Nhật Minh Khôi - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 
 **Reviewer**:
@@ -9,8 +9,6 @@
 
 **Tham khảo**: [cp-algorithm](https://cp-algorithms.com/string/z-function.html)
 
-
-
 ## Định nghĩa
 Trong blog này, chúng ta sẽ tìm hiểu về hàm $Z$ (Z-function) của một chuỗi $S$ và những ứng dụng của nó.
 
@@ -19,7 +17,7 @@ Cho một chuỗi $S$ độ dài $n$, ký hiệu là $S[0\ldots n - 1]$, ta có 
 Ở đây, ta sẽ quy ước hai điều: một là chuỗi và mảng sẽ mặc định bắt đầu từ $0$, hai là $z[0] = 0$, ta có thể hiểu quy ước này nghĩa là chuỗi con xét ở đây phải là *chuỗi con nghiêm ngặt* (tức không tính chính nó).
 
 Ví dụ hàm $z$ với $S = aaabaab$:
-<!-- ![](https://i.imgur.com/J3z6AuG.png) -->
+<!-- <img src="https://i.imgur.com/J3z6AuG.png" alt="" style="max-width: 700px; display: block; margin: 0 auto;" /> -->
 
 | i | S[0..n-1] | S[i..n-1] | z[i]        |
 |---|-----------|-----------|-------------|
@@ -51,9 +49,8 @@ vector<int> z_function(string s) {
 $$
 z[i] = \texttt{min}(r - i + 1, z[i - l])
 $$
-![/uploads/z-algo-visualize.png](../../uploads/z-algo-visualize.png)
+<img src="/uploads/z-algo-visualize.png" alt="/uploads/z-algo-visualize.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 - $i > r$: khi đó $i$ nằm ngoài vùng ta đã kiểm tra, khi đó ta không thể tận dụng gì nên chỉ khởi tạo $z[i] = 0$ và làm theo thuật toán ngây thơ.
-
 
 Từ nhận xét này, ta thấy rằng nếu $k + z[k] - 1$ càng lớn, tức $r$ nào càng lớn thì ta càng có cơ hội khởi tạo được $z[i]$ lớn hơn (tức ít phải xét lại hơn). Do đó trong quá trình tính $z$ ta sẽ duy trì hai biến $l$ và $r$ với ý nghĩa đoạn $[l,r]$ là đoạn thoả $S[l \ldots r] = S[0 \ldots r - l]$ và **$r$ là lớn nhất**. khi đó, mỗi lần xét một $z[i]$ mới ta sẽ khởi tạo $z[i]$ như đã đề cập ở trên. Sau khi tính xong $z[i]$, ta sẽ cập nhật lại $l$ và $r$ với đoạn $[i, i + z[i] - 1]$ mới tính. Từ đó ta có thuật toán cải tiến như sau:
 ```c++

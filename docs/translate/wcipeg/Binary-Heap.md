@@ -1,16 +1,13 @@
-
+﻿
 **Biên soạn:** Đỗ Việt Anh (lion_it)
 
 **Email:** dovietanh.95@gmail.com
 
 **Nguồn:** [wcipeg.com/wiki](http://wcipeg.com/wiki/Binary_heap)
 
-
-
 ## 0. Kiến thức cần biết trước
 
 Để đọc và hiểu được bài viết các bạn cần có kiến thức về cấu trúc cây ([tree](http://wcipeg.com/wiki/Tree)) và cây nhị phân đầy đủ ([complete binary tree](http://wcipeg.com/wiki/Tree#Binary_and_k-ary_trees))
-
 
 ## 1. Giới thiệu chung
 
@@ -23,7 +20,6 @@ Một cấu trúc Binary Heap thỏa mãn 2 điều kiện sau:
    * **Tính chất 2 - Heap** (**TC2**) Mỗi nút (node) trên cây đều chứa một nhãn lớn hơn hoặc bằng các con của nó (nếu có) và nhỏ hơn hoặc bằng nút cha (trừ nút gốc là và nó là nút lớn nhất).
 
 Một cấu trúc như trên được gọi là max binary heap vì nhãn ở gốc (root), tương tự ta có thể thay đổi TC 2 để có được min binary heap với nhãn ở gốc là nhỏ nhất trong cây.
-
 
 ## 1.1. Ứng dụng
 
@@ -52,7 +48,6 @@ Binary Heap được dùng để cài đặt [priority queue](https://en.wikiped
 * Rõ ràng gốc (root) luôn chứa nhãn lớn nhất theo **TC2** (các nút con luôn không nhỏ hơn nút cha) 
 * **Độ phức tạp thuật toán:** $O(1)$.
     * Thông thường thao tác này sẽ đi kèm với thao tác xóa nút gốc để tìm nhãn tiếp theo (như khi sort). Thao tác xóa sẽ được miêu tả ở mục **2.3**
-
 
 ## 2.2. Thêm một nút (node) trên cây
 
@@ -86,7 +81,6 @@ Binary Heap được dùng để cài đặt [priority queue](https://en.wikiped
         * Xóa nút phải nhất ở lớp sâu nhất khỏi cây có độ phức tạp $O(1)$
         * Vun đống từ trên xuống (top-down heapify) cũng như bottom-up heapify không vượt quá độ sâu $h$ của cây nên có độ phức tạp là $O(logN)$
 
-
 ## 2.4. Tăng, giảm nhãn của một nút
 
 * Trước tiên cần xác định vị trí của nút ta cần thay đổi nhãn
@@ -96,7 +90,6 @@ Binary Heap được dùng để cài đặt [priority queue](https://en.wikiped
     * Nếu nhãn giảm đi so với nhãn trước đó cần thưc hiện top-down heapify như khi xóa nút.
 
 * **Độ phức tạp:** độ thức tạp của thao tác này bằng độ phức tạp của top-down heapify hoặc bottom-up heapify hay bằng $O(logN)$
-
 
 ## 2.5. Xây đựng Binary Heap từ tập $N$ phần tử
 

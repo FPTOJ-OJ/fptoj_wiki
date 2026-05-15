@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả:** 
 - Lê Minh Hoàng - Phổ thông Năng khiếu, ĐHQG-HCM
 
@@ -8,8 +8,6 @@
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 
 ---
-
-
 
 Trong [phần 1](basic-geometry-1.md), chúng ta đã tìm hiểu cách sử dụng vector để giải các bài toán hình học. Bây giờ chúng ta sẽ học cách sử dụng một vài kiến thức đại số tuyến tính cơ bản để tìm giao điểm của đường thẳng, sau đó áp dụng để giải quyết một số bài toán khác.
 
@@ -110,18 +108,21 @@ Ngoài ra, ta còn có thể sử dụng tích có hướng để kiểm tra hai
 - Nếu $\overrightarrow{\rm AB} \times \overrightarrow{\rm AC} < 0$ thì $A,B,C$ cùng chiều kim đồng hồ (CW).
 - Nếu $\overrightarrow{\rm AB} \times \overrightarrow{\rm AC} = 0$ thì $A,B,C$ thẳng hàng.
 
-|![img](../../uploads/Qz3w0Wg.png)|
+|<img src="/uploads/Qz3w0Wg.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 
 ### **Kiểm tra giao điểm của 2 đoạn thẳng**
 #### Tồn tại 3 điểm thẳng hàng
 Nếu tồn tại 3 trong 4 điểm đầu mút thẳng hàng, ta kiểm tra xem có tồn tại đầu mút của đoạn thẳng này thuộc đoạn thẳng kia hay không:
 - Nếu có thì rõ ràng là 2 đoạn thẳng giao nhau tại ít nhất 1 điểm (tại đầu mút vừa xét).
 
-|![img](../../uploads/ikP58hq.png)|
+|<img src="/uploads/ikP58hq.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 
 - Nếu không thì rõ ràng là 2 đoạn thẳng không thể giao nhau.
 
-|![img](../../uploads/wc6dups.png)|
+|<img src="/uploads/wc6dups.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 
 #### Không tồn tại 3 điểm thẳng hàng
 Nếu không tồn tại 3 trong 4 điểm đầu mút thẳng hàng thì 2 đoạn thẳng $AB$ và $CD$ giao nhau khi:
@@ -141,7 +142,8 @@ $$\begin{cases}
 (\overrightarrow{\rm CD} \times \overrightarrow{\rm CA}) \cdot (\overrightarrow{\rm CD} \times \overrightarrow{\rm CB}) < 0
 \end{cases}$$
 
-|![img](../../uploads/c5v5L4d.png)|
+|<img src="/uploads/c5v5L4d.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 
 Nhấn vào [**đây**][intersect] để tương tác với hình trên Desmos.
 
@@ -180,7 +182,7 @@ Từ $3$ điểm không thẳng hàng, có duy nhất một đường tròn đi 
 
 Chúng ta sẽ tìm đường trung trực của 2 đoạn $XY$ và $YZ$, sau đó tìm giao điểm của hai đường này, điểm đó chính là tâm của đường tròn.
 
-![img](../../uploads/bQrxrA8.png)
+<img src="/uploads/bQrxrA8.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Nhấn vào [**đây**][circle] để tương tác với hình trên Desmos.
 
@@ -191,7 +193,7 @@ Các bước để tìm đường trung trực của đoạn $XY$:
 - **Bước 2:** tìm trung điểm $M$ của đoạn $XY$ bằng cách lấy trung bình cộng của $2$ hoành độ và trung bình cộng của $2$ tung độ.
 - **Bước 3:** viết phương trình đường thẳng của đường thẳng vuông góc với đường thẳng $XY$ có dạng là $-Bx + Ay = D$.
 
-![img](../../uploads/jYRUgh8.png)
+<img src="/uploads/jYRUgh8.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Nhấn vào [**đây**][pendicular] để tương tác với hình trên Desmos.
 
@@ -290,7 +292,8 @@ X'_x = 2Y_x - X_x = 2 \cdot (-1.88) - 1 = -4.76 \\
 X'_y = 2Y_y - X_y = 2 \cdot (-0.84) - (-3) = 1.32
 \end{cases}$$
 
-|![img](../../uploads/wDQu2gx.png)|
+|<img src="/uploads/wDQu2gx.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 
 Nhấn vào [**đây**][symmetry] để tương tác với hình trên Desmos.
 
@@ -339,7 +342,7 @@ Bảng chuyển đổi một số giá trị thường dùng:
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Radian|0 |$\frac{\pi}{12}$| $\frac{\pi}6$| $\frac{\pi}4$| $\frac{\pi}3$| $\frac{5\pi}{12}$| $\frac{\pi}2$| $\pi$|
 
-![img](../../uploads/7iEnloB.png)
+<img src="/uploads/7iEnloB.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Nhấn vào [**đây**][rotation1] để tương tác với hình trên Desmos.
 
@@ -363,7 +366,8 @@ $$B=\left( -\dfrac{3\sqrt{2}}{2}+2, \dfrac{\sqrt{2}}{2}+2 \right)$$
 Vậy quay $A(1,4)$ ngược chiều kim đồng hồ 1 góc $45°$ quanh $C(2,2)$, ta được điểm
 $$B\left( -\dfrac{3\sqrt{2}}{2}+2, \dfrac{\sqrt{2}}{2}+2 \right)$$
 
-|![img](../../uploads/t66DtWV.png)|
+|<img src="/uploads/t66DtWV.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
+|
 
 Nhấn vào [**đây**][rotation2] để tương tác với hình trên Desmos.
 

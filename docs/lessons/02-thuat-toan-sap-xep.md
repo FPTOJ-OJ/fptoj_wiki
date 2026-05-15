@@ -1,4 +1,4 @@
-# Bài 2: Thuật Toán Sắp Xếp - Ai Là Vua Tốc Độ?
+﻿# Bài 2: Thuật Toán Sắp Xếp - Ai Là Vua Tốc Độ?
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán sắp xếp
@@ -70,8 +70,7 @@ Sắp xếp theo điểm tăng dần:
 | **Vun đống** (Heap Sort) | $O(N \log N)$ | Không | Không tốn bộ nhớ thêm |
 | **Nhanh** (Quick Sort) | $O(N \log N)$ TB | Không | Nhanh nhất thực tế, worst $O(N^2)$ |
 
-![Các thuật toán sắp xếp - VisuAlgo](../uploads/img/gif/sorting.gif)
-*Minh họa các thuật toán sắp xếp (Nguồn: VisuAlgo)*
+<p align="center"><img src="/uploads/img/gif/sorting.gif" alt="Các thuật toán sắp xếp - VisuAlgo" style="max-width: 700px;" /><br><em>Minh họa các thuật toán sắp xếp (Nguồn: VisuAlgo)</em></p>
 
 !!! tip "Thử tương tác"
     <iframe src="https://visualgo.net/en/sorting" style="width: 100%; height: 500px; border: 1px solid #ccc; border-radius: 8px;"></iframe>
@@ -168,8 +167,7 @@ graph TD
 
 **Minh họa:**
 
-![Quick Sort](../uploads/img/quick-sort.gif)
-*Minh họa thuật toán Quick Sort*
+<p align="center"><img src="/uploads/img/quick-sort.gif" alt="Quick Sort" style="max-width: 700px;" /><br><em>Minh họa thuật toán Quick Sort</em></p>
 
 ```
 [5, 3, 8, 1, 9, 2, 7]  pivot = 5

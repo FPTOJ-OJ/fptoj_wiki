@@ -1,4 +1,4 @@
-
+﻿
 **Xâu** (**string**) xuất hiện rất nhiều trong các bài toán. Bài viết này giới thiệu sơ qua một số thuật ngữ cũng như thuật toán về xâu.
 
 ## Thuật ngữ
@@ -31,7 +31,6 @@ Có 3 thuật toán chính để giải quyết bài này, đó là:
 - [Thuật toán KMP](../../translate/wcipeg/kmp.md)
 - [Hash](hash.md)
 - [Z Algorithm](../../translate/codeforces/z-algo.md)
-
 
 ## Xâu đối xứng (Palindrome)
 

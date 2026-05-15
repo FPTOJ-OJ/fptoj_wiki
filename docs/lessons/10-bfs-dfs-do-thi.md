@@ -1,4 +1,4 @@
-# Bài 10: BFS & DFS - Duyệt Đồ Thị!
+﻿# Bài 10: BFS & DFS - Duyệt Đồ Thị!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - BFS, Cây DFS và ứng dụng, CP-Algorithms
@@ -11,8 +11,7 @@ Thành phố có N ngã tư (đỉnh), M con đường (cạnh) nối các ngã 
 
 **Đồ thị** = tập đỉnh + tập cạnh nối giữa các đỉnh.
 
-![Graph](../uploads/img/graph.svg)
-*Minh họa đồ thị vô hướng*
+<p align="center"><img src="/uploads/img/graph.svg" alt="Graph" style="max-width: 700px;" /><br><em>Minh họa đồ thị vô hướng</em></p>
 
 ### Các loại đồ thị
 
@@ -103,13 +102,11 @@ Thành phố có N ngã tư (đỉnh), M con đường (cạnh) nối các ngã 
 !!! tip "Thử tương tác BFS/DFS"
     <iframe src="https://visualgo.net/en/dfsbfs" style="width: 100%; height: 500px; border: 1px solid #ccc; border-radius: 8px;"></iframe>
 
-
 ### Ẩn dụ: Sóng nước lan rộng
 
 Thả hòn đá xuống hồ → sóng lan đồng đều. BFS cũng vậy: duyệt đỉnh cách 1 bước trước, rồi 2 bước, 3 bước...
 
-![BFS Animation](../uploads/img/bfs.gif)
-*Minh họa thuật toán BFS (duyệt theo chiều rộng)*
+<p align="center"><img src="/uploads/img/bfs.gif" alt="BFS Animation" style="max-width: 700px;" /><br><em>Minh họa thuật toán BFS (duyệt theo chiều rộng)</em></p>
 
 ### Ý tưởng cốt lõi
 
@@ -234,8 +231,7 @@ Khoảng cách: 0    1   1   2   2
 
 Tại mỗi ngã rẽ, chọn 1 đường đi sâu hết mức. Đến đường cụt → quay lui → thử đường khác.
 
-![DFS](../uploads/img/dfs.svg)
-*Minh họa thuật toán DFS (duyệt theo chiều sâu)*
+<p align="center"><img src="/uploads/img/dfs.svg" alt="DFS" style="max-width: 700px;" /><br><em>Minh họa thuật toán DFS (duyệt theo chiều sâu)</em></p>
 
 ### Ý tưởng cốt lõi
 

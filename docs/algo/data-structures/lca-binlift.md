@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả:** 
 - Lê Minh Hoàng - Phổ thông Năng khiếu, ĐHQG-HCM
 
@@ -9,8 +9,6 @@
 - Trần Xuân Bách - THPT Chuyên Khoa học Tự nhiên, ĐHQGHN
 
 ---
-
-
 
 ## Giới thiệu
 
@@ -53,7 +51,7 @@ Cho một cây gồm $N$ đỉnh có gốc tại đỉnh $1$. Có $Q$ truy vấn
 Giới hạn: $N, Q \leq 2 \cdot 10^5$
 
 <!--430x678-->
-![img](../../uploads/f5rB83v.png)
+<img src="/uploads/f5rB83v.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## Ngây thơ
 
@@ -63,7 +61,7 @@ Giới hạn: $N, Q \leq 2 \cdot 10^5$
     - **Bước 2:** lặp lại thao tác cho $u$ và $v$ nhảy lên cha của chúng đến khi $u$ và $v$ trùng nhau (đỉnh đó là LCA của $u$ và $v$ ban đầu).
 
 <!--590x670-->
-![img](../../uploads/05jxDTf.gif)
+<img src="/uploads/05jxDTf.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Ví dụ:
 - Ta cần tìm LCA của $u$ và $v$. Ban đầu $h(u) > h(v)$.
@@ -393,7 +391,7 @@ Từ nhận xét trên, ta có một cách khác để nhảy lên tổ tiên th
     - Từ đó, ta có thể nhảy theo từng bước $2^j$ để tính khoảng cách trong $\mathcal{O}(1)$
 
     <!--915x570-->
-    ![img](../../uploads/DQaPNFx.gif)
+    <img src="/uploads/DQaPNFx.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
     ```cpp
     int dist[N][17];
@@ -450,7 +448,7 @@ Từ nhận xét trên, ta có một cách khác để nhảy lên tổ tiên th
             - Nếu tổ tiên thứ $2^j$ của $u$ và $v$ khác nhau thì ta cho cả $u$ và $v$ nhảy lên tổ tiên thứ $2^j$ của chúng. Cuối cùng thì $u$ và $v$ sẽ có cùng cha (tổ tiên thứ $k+1$ là cha của tổ tiên thứ $k$), vậy nên khi đó $LCA(u, v) = par[u] = par[v] = up[u][0] = up[v][0]$. 
 
     <!--864x666-->
-    ![img](../../uploads/iC7FKlw.gif)
+    <img src="/uploads/iC7FKlw.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
     ```cpp
     int h[N], up[N][20];
@@ -519,7 +517,7 @@ Chọn đỉnh $1$ làm gốc của cây.
 Với mỗi đỉnh của cây, ta tính $f(u)$ là khoảng cách của mỗi đỉnh đến đỉnh $1$ bằng cách duyệt qua tất cả các đỉnh trong cây.
 
 <!--406x622-->
-![img](../../uploads/71qRbBP.png)
+<img src="/uploads/71qRbBP.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Với hai đỉnh $u$ và $v$ bất kì, xét đường đi từ gốc của cây đến hai đỉnh này. Ta nhận thấy:
 - Phần giao của hai đường đi chính là đường đi từ gốc của cây đến tổ tiên chung gần nhất của $u$ và $v$ - gọi đỉnh này là $p$.

@@ -1,10 +1,7 @@
-
+﻿
 **Biên soạn:** Đỗ Việt Anh
 
 **Email:** dovietanh.95@gmail.com
-
-
-
 
 ## 0. Kiến thức cần biết
 
@@ -32,7 +29,7 @@ Cho một mạng (network) có dạng một đồ thị vô hướng $G=(E,V)$ (
 
 hình dưới đây biểu diễn một luồng cực đại trên mạng và mỗi cạnh của nó được gán nhãn là $f[u,v]/c[u,v]$ (giá trị dòng chảy và sức chứa của kênh)
 
-[/uploads/max_flow_img_1.jpg](../../uploads/max_flow_img_1.jpg)
+<img src="/uploads/max_flow_img_1.jpg" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## 3. cách giải bài toán
 
@@ -50,8 +47,8 @@ Mạng thặng dư $G'(E',V')$ của mạng $G(E,V)$ cho biết sức chứa cò
 
 (Có thể thấy tập cạnh xuôi trên $G'$ chính là tập cạnh của $G$). Hình dưới đây sẽ diễn tả một đồ thị G và mạng thặng dư $G$' của nó
 
-[/uploads/max_flow_2a.jpg](../../uploads/max_flow_2a.jpg)
-[/uploads/max_flow_2b.jpg](../../uploads/max_flow_2b.jpg)
+<img src="/uploads/max_flow_2a.jpg" style="max-width: 700px; display: block; margin: 0 auto;" />
+<img src="/uploads/max_flow_2b.jpg" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## 3.2 đường tăng luồng - augment path
 
@@ -61,15 +58,15 @@ Mạng thặng dư $G'(E',V')$ của mạng $G(E,V)$ cho biết sức chứa cò
 
 bằng việc xem xét đường tăng luồng s_A_C_t trên mạng thặng dư $G'$ chúng ta có thể tăng luồng lên 1 vì s_A và A_C có thể cho một luồng có giá trị là 3 nhưng C_t chỉ có thể cho một luồng 1 đi qua, do đó ta sẽ lấy giá trị nhỏ nhất trên đường đi để thực hiện tăng giá trị luồng. Sau khi tăng luồng lên một ta có hình như sau:
 
-[/uploads/max_flow_3a.jpg](../../uploads/max_flow_3a.jpg)
+<img src="/uploads/max_flow_3a.jpg" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 sau khi tăng luồng ta được một mạng mới với tổng giá trị luồng là 2 nhưng trong ví dụ **1.a** ta thấy tổng luồng là 3 do đó luồng như trên vẫn có thể tăng luồng thêm nữa. Vậy một câu hỏi là ta sẽ tăng luồng như thế nào? hãy nhìn vào mạng thặng dư **3.b** của đồ thị **3.a** dưới đây, trong hình dưới mối cạnh của $G'$ sẽ được gán nhãn bằng $c'[u,v] - f'[u,v]$
 
-[/uploads/max_flow_3b.jpg](../../uploads/max_flow_3b.jpg)
+<img src="/uploads/max_flow_3b.jpg" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Ta có thể thấy từ $s$ đến $t$ tồn tại một đường đi đơn (đường tăng luồn): s_A_C_B_D_E_t, ta sẽ sử dụng đường đi này để tăng các giá trị trên đường đi này một lượng bằng sức chứa nhỏ nhất (sức chứa của C_B nhỏ nhất và bằng 1), hình **1.b** dưới đây là mạng thặng dư tương ứng của **3.a** sau khi được tăng luồng
 
-[/uploads/max_flow_1b.jpg](../../uploads/max_flow_1b.jpg)
+<img src="/uploads/max_flow_1b.jpg" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## 3.4 Thuật toán Ford–Fulkerson
 
@@ -138,7 +135,6 @@ while find_augment_from_to(s,t):
     increase_flow(s, t)
 ```
 
-
 Để hiểu rõ hơn về thuật toán và cách chứng minh bạn có thể đọc tiếp các phần sau:
 
 ## 3.5 tính đúng dắn
@@ -148,7 +144,6 @@ while find_augment_from_to(s,t):
 ### 3.5.1 Lát cắt $s-t$
 
 Lát cắt là một các phân hoạch tập các đỉnh $V'$ trong mạng thặng dư $G'$ thành 2 tập $X$ và $Y$ thỏa mãn đỉnh phát $s$ thuộc $X$ và đỉnh thu $t$ thuộc $Y$. Ta có giá trị luồng của lát cắt là $f(X, Y)$ và $c(X, Y)$ (trong đó $f(X,Y)=\sum_{u \in X}\sum_{v \in Y} f'[u,v]$ và $c(X,Y)=\sum_{u \in X}\sum_{v \in Y} c'[u,v]$) ta có thể chứng mình được 2 điều sau:
-
 
 - $f(X, Y) \le c(X, Y)$
 
@@ -295,7 +290,6 @@ Hãy tìm luồng cực đại trên mạng.
 ## Lát cắt hẹp nhất: 
 
 Cho một đồ thị liên thông gồm n đỉnh và m cạnh, hãy tìm cách bỏ đi một số ít nhất các cạnh để làm cho đồ thị mất đi tính liên thông
-
 
 ## 5. Một số bài để luyện tập
 

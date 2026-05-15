@@ -1,4 +1,4 @@
-
+﻿
 Bài viết được sưu tầm và bổ sung từ bài viết *"Một số bài toán quy hoạch động kinh điển"* của thầy Nguyễn Thanh Tùng, *Tạp chí Tin học và Nhà trường* số $1$, năm $2005$.
 
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
@@ -6,8 +6,6 @@ Bài viết được sưu tầm và bổ sung từ bài viết *"Một số bài
 **Reviewer:**
 * Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 * Ngô Nhật Quang - Trường THPT chuyên Khoa học Tự Nhiên, ĐHQGHN
-
-
 
 ## Giới thiệu
 Ở phần trước, chúng ta đã được làm quen với khái niệm **Quy hoạch động** đồng thời xem xét một số bài toán điển hình. Bài viết này nhằm giới thiệu thêm một số bài toán quy hoạch động thường gặp khác.
@@ -59,7 +57,6 @@ Bài viết được sưu tầm và bổ sung từ bài viết *"Một số bài
 
 Đặt $A_i$ là xâu gồm $i$ kí tự đầu tiên của $A$, $B_j$ là xâu gồm $j$ kí tự đầu của $B$. Quy ước $A_0$ và $B_0$ là 2 xâu rỗng (có $0$ kí tự).
 
-
 Ý tưởng bài toán này là quy hoạch động mảng $L[i][j]$ - số phép biến đổi ít nhất để biến xâu $A_i$ thành xâu $B_j$.
 
 Dễ thấy $L[0][j]=j$ và $L[i][0]=i$.
@@ -88,7 +85,7 @@ Bài này ta có thể tiết kiệm biến hơn bằng cách dùng 2 mảng 1 c
 
 Cần lưu ý thứ tự tính. Để tính $L[i][j]$ cần biết $L[i - 1][j -1],L[i-1][j]$ và $L[i][j-1]$. Hơn nữa, $L[i][0]$ và $L[0][j]$ có thể tính trực tiếp nên ta có thể tính theo trình tự sau:
 
-![/uploads/basic-dynamic-programming-2_img1.png](../../uploads/basic-dynamic-programming-2_img1.png)
+<img src="/uploads/basic-dynamic-programming-2_img1.png" alt="/uploads/basic-dynamic-programming-2_img1.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 === "C++"
 
@@ -348,17 +345,13 @@ Tức là để tính hàng $L[i]$ thì chỉ cần hàng $L[i-1]$ và $L[i][0] 
         P = L[:]
     ```
 
-
 ### 1.4.2. Bắc cầu
 
 > *Hai nước Alpha và Beta nằm ở hai bên bờ sông Omega, Alpha nằm ở bờ bắc và có $m$ thành phố được đánh số từ $1$ đến $m$, Beta nằm ở bờ nam và có $n$ thành phố được đánh số từ $1$ đến $n$ (theo vị trí từ tây sang đông).<br>
 > Mỗi thành phố của nước này thường có quan hệ kết nghĩa với một số thành phố của nước kia. Để tăng cường tình hữu nghị, hai nước muốn xây các cây cầu bắc qua sông, mỗi cây cầu sẽ là nhịp cầu nối 2 thành phố kết nghĩa. Với yêu cầu là các cây cầu không được cắt nhau và mỗi thành phố chỉ là đầu cầu cho nhiều nhất là một cây cầu, hãy đếm số cây cầu nhiều nhất có thể xây dựng.*<br>
 > **Điều kiện:** $1\le n \times m \le 10^6$.
 
-![/uploads/basic-dynamic-programming-2_img2.png](../../uploads/basic-dynamic-programming-2_img2.png)
-
-**Lời giải:**
-
+<p align="center"><img src="/uploads/basic-dynamic-programming-2_img2.png" alt="/uploads/basic-dynamic-programming-2_img2.png" style="max-width: 700px; display: block; margin: 0 auto;" /></p>
 Bài toán có thể được phát biểu lại như sau: Cho đồ thị hai phía $G(A,B,E)$. Các đỉnh của $A$ là $a_1,a_2,\ldots,a_m$. Tương tự, các đỉnh của $B$ là $b_1,b_2,\ldots,b_n$. Cần tìm $k$ lớn nhất để có hai dãy đỉnh $a'_1 < a'_2 < \ldots < a'_k\in A$ và $b'_1 < b'_2 < \ldots < b'_k\in B$ sao cho: $(a'_i,b'_i)\in E$ với mọi $i=1;2;\ldots;k$.
 
 Ý tưởng tương tự như các bài trên, ta xét mảng $L[i][j]$ là số lượng cầu nhiều nhất có thể bắc từ các thành phố $a_1,a_2,\ldots,a_i$ đến $b_1,b_2,\ldots,b_j$.
@@ -477,9 +470,8 @@ Ví dụ: $S=edbabcd$, xâu đảo của $S$ là $P=dcbabde$. Xâu con chung dà
 > *Có $n$ đồ vật, vật thứ $i$ có trọng lượng $A_i$ và giá trị $B_i$. Hãy chọn ra một số các đồ vật để xếp vào vali có trọng lượng tối đa $W$ sao cho tổng giá trị của vali là lớn nhất (Chú ý mỗi vật có thể chọn nhiều lần).*<br>
 > **Điều kiện:** $1\le n\times W\le 10^6,1\le A_i,B_i\le 10^9$.
 
-![/uploads/basic-dynamic-programming-2_img3.png](../../uploads/basic-dynamic-programming-2_img3.png)
-
-**Chú ý:** Bài toán này khác với bài toán **Xếp Vali** ở phần trước ở chỗ mỗi vật không phải là duy nhất và có thể được chọn vào vali nhiều lần.
+<p align="center"><img src="/uploads/basic-dynamic-programming-2_img3.png" alt="/uploads/basic-dynamic-programming-2_img3.png" style="max-width: 700px; display: block; margin: 0 auto;" /></p>
+Chú ý:** Bài toán này khác với bài toán **Xếp Vali** ở phần trước ở chỗ mỗi vật không phải là duy nhất và có thể được chọn vào vali nhiều lần.
 
 ## 2.2. Lời giải
 
@@ -736,7 +728,7 @@ Kết quả của bài toán là $L[n][m]$ hoặc $-1$ nếu $L[n][m ]=\inf$. Đ
 > **Input:** Số $n$ và $n+1$ số $d_0,d_1,\ldots,d_n$.<br>
 > **Output:** Số nguyên duy nhất là số phép nhân ít nhất.
 
-![/uploads/basic-dynamic-programming-2_img4.png](../../uploads/basic-dynamic-programming-2_img4.png)
+<img src="/uploads/basic-dynamic-programming-2_img4.png" alt="/uploads/basic-dynamic-programming-2_img4.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 ## 3.2. Lời giải
 
 Gọi $L[i][j]$ là số phép nhân nhỏ nhất cần dùng để tính tích các ma trận từ $A_i$ đến $A_j$ $(A_i \times A_{i+1} \times \ldots \times A_j)$.

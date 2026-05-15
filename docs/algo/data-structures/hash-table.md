@@ -1,11 +1,11 @@
-
+﻿
 ## Tư tưởng
 
 Bảng băm là một CTDL thường được sử dụng như một từ điển: mỗi phần tử trong bảng băm là một cặp (khóa, giá trị). Nếu so sánh với mảng, khóa được xem như chỉ số của mảng, còn giá trị giống như giá trị mà ta lưu tại chỉ số tương ứng. Bảng băm không như các loại từ điển thông thường - ta có thể tìm được giá trị thông qua khóa của nó.
 
 Không may, không phải tất cả các kiểu dữ liệu đều có thể sắp xếp vào một từ điển đơn giản. Đây chính là lúc mà quá trình băm (hash) ra đời. Hash là quá trình khởi tạo một giá trị khóa (thường là 32 bit hoặc 64 bit) từ một phần dữ liệu. Nó có thể là $n$ bit đầu tiên của dữ liệu, $n$ bit cuối cùng, giá trị mod cho một số nguyên tố nào đó. Dựa theo giá trị hash, dữ liệu được chia vào các **bucket**:
 
-![/uploads/data_structures_hash_table_hash_function.png](../../uploads/data_structures_hash_table_hash_function.png)
+<img src="/uploads/data_structures_hash_table_hash_function.png" alt="/uploads/data_structures_hash_table_hash_function.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Giải thích hình minh họa:
 
@@ -33,7 +33,7 @@ Giá trị $n/k$ được gọi là **load factor**. Khi load factor nhỏ (xấ
 
 Trường hợp một hash bucket chứa nhiều hơn một giá trị ta gọi đó là **Hash collision** (va chạm). Việc xử lý hash collision rất quan trọng đối với độ hiệu quả của bảng băm. Một trong những phương pháp đơn giản nhất là cài đặt các [danh sách liên kết](array-vs-linked-lists.md) ở các bucket. Kĩ thuật này được gọi là **Separate chaining**:
 
-![/uploads/data_structures_hash_table_collision_linked_list.png](../../uploads/data_structures_hash_table_collision_linked_list.png)
+<img src="/uploads/data_structures_hash_table_collision_linked_list.png" alt="/uploads/data_structures_hash_table_collision_linked_list.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Giải thích hình minh họa:
 
@@ -44,7 +44,7 @@ Giải thích hình minh họa:
 
 Tư tưởng của **Open Addressing** là, khi xảy ra Hash collision, ta lưu vào một vị trí tiếp theo trong bảng băm. Ví dụ:
 
-![/uploads/data_structures_hash_table_collision_open_addressing.png](../../uploads/data_structures_hash_table_collision_open_addressing.png)
+<img src="/uploads/data_structures_hash_table_collision_open_addressing.png" alt="/uploads/data_structures_hash_table_collision_open_addressing.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Trong hình minh họa:
 

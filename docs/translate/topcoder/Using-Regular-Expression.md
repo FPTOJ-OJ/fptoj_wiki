@@ -1,12 +1,10 @@
-
-
+﻿
 
 Bài viết gốc: [Using Regular Expressions - đăng bởi Dan[Popovici] & mariusmuja trên Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/using-regular-expressions-2/)
 
 ## Giới thiệu
 
 Một **regex** (*regular expression*) là một chuỗi ký tự đặc biệt dùng để mô tả một **mẫu tìm kiếm** (**search pattern**). Hẳn là nhiều bạn đã nhìn thấy hoặc dùng regex trong các câu lệnh như `ls *.txt` (hoặc `dir *.txt`) để liệt kê ra tất cả các file có đuôi txt. Regex rất hữu dụng không chỉ trong việc tìm kiếm trên xâu (*pattern matching*) mà còn trong việc xử lý văn bản. Trong các kỳ SRMs thì regex có thể cực kỳ hữu ích. Vài dòng code sử dụng regex trong các bài toán xử lý text có thể khiến việc lập trình trở nên dễ thở hơn nhiều.
-
 
 ## Mô tả regex
 
@@ -110,7 +108,6 @@ Giải thích:
 
 Mô tả trên là mô tả sơ qua về regex cơ bản. Một regex được viết bởi các luật trên sẽ chạy được ở Java (>= 1.4) và C++ (POSIX EXTENDED). Để tìm hiểu sâu hơn về các mở rộng được cung cấp bởi các ngôn ngữ khác mời các bạn xem phần tham khảo.
 
-
 ## Sử dụng regex
 
 ## Debug regex
@@ -152,7 +149,6 @@ Java cũng cung cấp các method sau trong class String:
 - `String replaceAll(String regex, String replacement)`: Thay tất cả các xâu con của xâu hiện tại mà khớp với `regex` bằng xâu `replacement`.
 - `String replaceFirst(String regex, String replacement)`: Thay xâu con đầu tiên của xâu hiện tại mà khớp với `regex` bằng xâu `replacement`.
 - `String[] split(String regex)`: Chia xâu hiện tại thành nhiều xâu sử dụng các xâu con khớp với `regex` làm phân cách.
-
 
 ## Trong C++
 
@@ -211,13 +207,11 @@ else:
     print("Match not found.")
 ```
 
-
 ### GNU_regex
 
 GNU_regex API có nhiều hàm hơn. Với các hàm của GNU_regex các bạn có thể khớp một xâu với mẫu và cũng có thể tìm kiếm mẫu ở trong xâu. Việc sử dụng các hàm này cũng tương tự như việc sử dụng các hàm của POSIX: đầu tiên một mẫu cần phải được biên dịch sử dụng `re_compile_pattern`, sau đó nhận được pattern buffer và nó được dùng để tìm và khớp. Các hàm sử dụng cho tìm kiếm và khớp là `re_search` và `re_match`. Trong trường hợp tìm kiếm thì `fastmap` có thể được sử dụng để tối ưu việc tìm kiếm. Nếu không có `fastmap` thuật toán tìm kiếm sẽ khớp các mẫu ở các vị trí liên tiếp nhau trong xâu. Fastmap sẽ chỉ ra vị trí của ký tự bắt đầu tìm kiếm. Fastmap được tạo bằng cách gọi `re_compile_fastmap`. GNU_regex còn có hàm `re_search2` và `re_match2` cho việc tìm kiếm và khớp với những data tách rời.  Để giải phóng bộ nhớ của pattern buffer bạn dùng `regfree`.   
 
 Để biết cách sử dụng chi tiết mời các bạn xem mục [3] ở phần tham khảo. 
-
 
 #### Ví dụ
 
@@ -339,7 +333,6 @@ public class CheatCode {
   }
 }
 ```
-
 
 ## Tham khảo
 1. Xem trang hướng dẫn của linux: regex(7) 

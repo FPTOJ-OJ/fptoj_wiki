@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả:** 
 - Phạm Công Minh - THPT chuyên Khoa học Tự Nhiên, ĐHQGHN 
 
@@ -9,14 +9,11 @@
 
 ---
 
-
-
 ## Giới thiệu
 
 BIT 2 chiều là cấu trúc dữ liệu mở rộng của BIT 1 chiều. Công dụng chính của BIT 2 chiều là xử lý các truy vấn lên hình chữ nhật con trên một mảng 2 chiều. 
 
 Bài viết yêu cầu người đọc hiểu rõ cách hoạt động của BIT 1 chiều. Các bạn có thể đọc về BIT 1 chiều tại đây: [VNOI - Cây chỉ số nhị phân](https://vnoi.info/wiki/algo/data-structures/fenwick.md#c%C3%A2y-ch%E1%BB%89-s%E1%BB%91-nh%E1%BB%8B-ph%C3%A2n).
-
 
 ## Bài toán
 
@@ -142,7 +139,6 @@ Như đã giới thiệu trong bài viết BIT 1 chiều, phần tử thứ $v$ 
 
     Vì $BIT_{nt}[k][j] = A[k:k][j-lsb(j) + 1 : j]$ nên tổng này tương đương với:
 
-
     $$
     \sum_{k = i-lsb(i)+1}^iA[k:k][j-lsb(j) + 1 : j] \\
     $$
@@ -153,14 +149,11 @@ Như đã giới thiệu trong bài viết BIT 1 chiều, phần tử thứ $v$ 
     \sum A[i - lsb(i) + 1:i][j-lsb(j) + 1 : j]
     $$
 
-
     Như vậy phần tử thứ $j$ của BIT thứ $i$ trong BIT 2 chiều lưu tổng các phần tử trong hình chữ nhật con có góc trái trên là $(i - lsb(i) + 1, j-lsb(j) + 1)$ và góc phải dưới là $(i, j)$.
 
     Dưới đây là hình minh họa cho trường hợp $N = 3, M = 4$. 
 
-    ![img](../../uploads/r1jCazVqn.png)
-
-
+    <img src="/uploads/r1jCazVqn.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
     ## Cài đặt
 
@@ -272,7 +265,6 @@ Hàm để truy vấn:
 
     ## Phân tích
 
-
     * Độ phức tạp khi cập nhật: $O(\log N \times \log M)$
     * Độ phức tạp khi truy vấn: $O(\log N \times \log M)$
     * Có Q truy vấn, nên độ phức tạp là $O(Q \times \log N \times \log M)$
@@ -305,9 +297,9 @@ Hàm để truy vấn:
 
     Nếu vẫn chưa rõ, bạn đọc có thể tham khảo hình minh họa sau:
 
-    ![img](../../uploads/rkJVfmvw3.png)
+    <img src="/uploads/rkJVfmvw3.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-    ![img](../../uploads/r1_4NmvPh.png)
+    <img src="/uploads/r1_4NmvPh.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
     ### Cài đặt
 
@@ -321,7 +313,6 @@ Hàm để truy vấn:
         add(a, v+1, -x);
     }
     ```
-
 
     Hàm truy vấn tương tự như phần trước.
 
@@ -562,14 +553,4 @@ Khi đã rời rạc hóa xong, ta thực hiện các truy vấn như thường.
 * [LQDOJ - Khu Rừng 5](https://lqdoj.edu.vn/problem/forest5)
 * [LQDOJ - Khu Rừng 6](https://lqdoj.edu.vn/problem/forest6)
 * [VNOJ - Another Longest Increasing Subsequence Problem](https://oj.vnoi.info/problem/lis2vn)
-
-
-
-
-
-
-
-
-
-
 

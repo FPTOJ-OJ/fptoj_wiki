@@ -1,4 +1,4 @@
-# Bài 7: Mảng, Danh Sách Liên Kết và Stack
+﻿# Bài 7: Mảng, Danh Sách Liên Kết và Stack
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Mảng và danh sách liên kết, Stack, Mảng cộng dồn và mảng hiệu
@@ -172,8 +172,7 @@ Bạn đang rửa dĩa và xếp chồng lên nhau. Khi cần lấy dĩa → ch�
 
 ## 3. Mảng cộng dồn (Prefix Sum)
 
-![Prefix Sum](../uploads/img/prefix-sum.svg)
-*Minh họa mảng cộng dồn (Prefix Sum)*
+<p align="center"><img src="/uploads/img/prefix-sum.svg" alt="Prefix Sum" style="max-width: 700px;" /><br><em>Minh họa mảng cộng dồn (Prefix Sum)</em></p>
 
 ### Ẩn dụ: Tổng quãng đường
 

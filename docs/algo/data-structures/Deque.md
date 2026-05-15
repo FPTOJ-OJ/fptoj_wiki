@@ -1,4 +1,4 @@
-
+﻿
 **Hàng đợi hai đầu** (**deque**) là cấu trúc dữ liệu chứa 0 hoặc nhiều phần tử có cùng kiểu dữ liệu và được biểu diễn bằng một hàng có phần tử _đầu_ (**front**) và phần tử _cuối_ (**last**). **Deque** hỗ trợ 4 thao tác như sau:
 
   - _Thêm_ một phần tử vào _cuối deque_. **(Push back)**
@@ -17,8 +17,6 @@ Về ứng dụng, ta sẽ bổ sung thêm một số thao tác sau:
   - _Kiểm tra_ xem deque có rỗng hay không. **(Test empty)**
 
 Hai thao tác _lấy giá trị_ thật sự không cần thiết, bởi _lấy giá trị phần tử đầu_ deque **(peek front)** tương đương với việc xóa đi phần tử đó **(pop front)** rồi lại thêm nó vào **(push front)**, và tương tự với _lấy giá trị phần tử cuối_ **(peek last)**. Cũng như  _kiểm tra rỗng_ **(Test empty)** thật ra cũng chỉ là _kiểm tra xem số lượng phần tử_ của deque có bằng 0 hay không.
-
-
 
 ## Thuật ngữ
 
@@ -93,7 +91,6 @@ cấu trúc deque
 ```
 
 - Ta có thể dễ dàng nhận ra, **deque** đơn thuần chỉ là chứa các thao tác của **list** sẵn có. (Ở đây ta giả định rằng **list** bao gồm cả hàm trả về kích thước, nếu không thì ta sẽ thêm hàm trả về kích thước trong **deque**).
-
 
 ## Lớp **deque** trong STD C++
 - Trong STD C++, lớp `deque` nằm trong tiêu đề `<deque>`, là một _cấu trúc dữ liệu_ có khả năng chứa mọi kiểu dữ liệu (**cố định**), và kiểu dữ liệu này xem được xem như một thông số mẫu. Do đó, ví dụ như `deque<char>` là một hàng đợi hai đầu chứa các ký tự. Cấu trúc dữ liệu này cho phép sử dụng các hàm sau: (lưu ý rằng `T` là kiểu dữ liệu mà hàng đợi đó lưu trữ)

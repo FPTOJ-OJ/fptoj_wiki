@@ -1,4 +1,4 @@
-# Bài 12: Quy Hoạch Động (DP) - Từ Nhập Môn Đến Thành Thạo!
+﻿# Bài 12: Quy Hoạch Động (DP) - Từ Nhập Môn Đến Thành Thạo!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Quy hoạch động, Topcoder - DP from Novice to Advanced
@@ -98,8 +98,7 @@ Bạn leo cầu thang, mỗi bước 1 hoặc 2 bậc. Thay vì tính lại từ
 
 ### 3.2. DP 2 chiều (Knapsack)
 
-![Knapsack DP](../uploads/img/dp-knapsack.png)
-*Minh họa bài toán Cái túi 0/1 (Knapsack)*
+<p align="center"><img src="/uploads/img/dp-knapsack.png" alt="Knapsack DP" style="max-width: 700px;" /><br><em>Minh họa bài toán Cái túi 0/1 (Knapsack)</em></p>
 
 === "C++"
 

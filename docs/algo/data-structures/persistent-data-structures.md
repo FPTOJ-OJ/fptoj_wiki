@@ -1,7 +1,5 @@
-
+﻿
 **Tác giả:** Nguyễn *RR* Thành Trung
-
-
 
 ## 1. Mở đầu
 
@@ -45,7 +43,6 @@ Từ đó, ta rút ra được một tư tưởng cài đặt thuật toán:
     Chú ý: Mỗi thao tác Update luôn thay đổi một đường đi từ gốc đến một nút lá, nên không có trường hợp một nút ở version cũ có con là một nút ở version mới hơn. (Nếu thao tác Update là Update 1 đoạn, các nút bị thay đổi không còn là một đường đi nữa, nhưng nhận xét này vẫn đúng).
 - Khi thực hiện thao tác Query trên version t, ta chỉ cần thực hiện Query trên nút gốc ở version t.
 Tư tưởng này còn được gọi là **Path Copy** trong các tài liệu tiếng Anh.
-
 
 ## Cài đặt:
 
@@ -99,7 +96,6 @@ int get(int nodeId, int l, int r, int u, int v) {
     int mid = (l + r) >> 1;
     return max(get(it[nodeId].left, l, mid, u, v), get(it[nodeId].right, mid+1, r, u, v));
 }
-
 
 // When update:
     ++nVer;
@@ -174,7 +170,6 @@ Giải thích:
 
 - Cách cài đặt Persistent Data Structures trong mục này rất hiệu quả. Nó hoàn toàn không làm tăng thêm độ phức tạp (persistent IT có độ phức tạp mỗi thao tác là $O(logN)$), và bộ nhớ cần thêm là tối ưu: $O(Q  \times  logN)$.
 - Tuy nhiên, cách cài đặt này không dễ áp dụng với những CTDL khác. Chẳng hạn sẽ rất khó để cài đúng BIT với phương pháp này. Ở mục tiếp theo, mình sẽ trình bày một phương pháp cài đặt khác có thể dùng cho BIT, tuy nhiên có độ phức tạp lớn hơn.
-
 
 ## 3. Persistent BIT
 
@@ -257,7 +252,6 @@ Sự khác biệt về cách xử lý trục thời gian khiến cho Retroactive
 - **Recovery**: Giả sử một lỗi của phần cứng làm một số dữ liệu không được đọc. Retroactive DS cho phép đọc lại những dữ liệu này và thay đổi tất cả các thao tác được thực hiện sau đó.
 
 Trên thực tế, Retroactive Data Structures còn đang dừng lại ở việc là một khái niệm, chứ chưa có một phương pháp cài đặt nào hiệu quả. Các bạn nếu muốn tìm hiểu có thể nghiên cứu thêm về cơ chế rollback trong database hoặc tìm kiếm thêm về Retroactive Data Structures.
-
 
 ## Bài tập áp dụng
 

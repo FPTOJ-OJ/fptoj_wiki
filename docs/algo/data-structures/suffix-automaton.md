@@ -1,5 +1,4 @@
-
-
+﻿
 
 **Tác giả**: Cao Xuân Hưng
 
@@ -15,21 +14,21 @@
 
 - Dưới đây là một ví dụ về suffix automaton của chuỗi "acbcbc".
 
-![Suffix Automaton](../../All_Images_Collected/SA.png)
+<img src="/All_Images_Collected/SA.png" alt="Suffix Automaton" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![Suffix Automaton - Step a](../../All_Images_Collected/SAa.png)
+<img src="/All_Images_Collected/SAa.png" alt="Suffix Automaton - Step a" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![Suffix Automaton - Step aa](../../All_Images_Collected/SAaa.png)
+<img src="/All_Images_Collected/SAaa.png" alt="Suffix Automaton - Step aa" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![Suffix Automaton - Step ab](../../All_Images_Collected/SAab.png)
+<img src="/All_Images_Collected/SAab.png" alt="Suffix Automaton - Step ab" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![Suffix Automaton - Step aba](../../All_Images_Collected/SAaba.png)
+<img src="/All_Images_Collected/SAaba.png" alt="Suffix Automaton - Step aba" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![Suffix Automaton - Step abb](../../All_Images_Collected/SAabb.png)
+<img src="/All_Images_Collected/SAabb.png" alt="Suffix Automaton - Step abb" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![Suffix Automaton - Step abbb](../../All_Images_Collected/SAabbb.png)
+<img src="/All_Images_Collected/SAabbb.png" alt="Suffix Automaton - Step abbb" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-![Suffix Automaton Suffix Links](../../All_Images_Collected/SA_suffix_links.png)
+<img src="/All_Images_Collected/SA_suffix_links.png" alt="Suffix Automaton Suffix Links" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## Bài tập áp dụng
 

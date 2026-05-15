@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả:** 
 - Nguyễn Đức Kiên, Trường Đại học Công nghệ, ĐHQGHN.
 
@@ -8,7 +8,6 @@
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 
 ---
-
 
 ## Mở đầu
 

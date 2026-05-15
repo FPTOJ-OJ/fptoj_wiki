@@ -1,10 +1,9 @@
-# Bài 27: Lý Thuyết Trò Chơi - Ai Thắng?
+﻿# Bài 27: Lý Thuyết Trò Chơi - Ai Thắng?
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms, Errichto
 
 ---
-
 
 ## 1. Tổng quan
 

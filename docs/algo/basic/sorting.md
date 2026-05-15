@@ -1,4 +1,4 @@
-
+﻿
 ## Giới thiệu
 
 Ứng dụng về sắp xếp có ở khắp mọi nơi:
@@ -234,7 +234,6 @@ Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
 - Ấn vào nút `Create` ở phía dưới trang để tạo một dãy mới
 - Ấn vào `Sort`, rồi `Go` để chạy thuật toán.
 
-
 ## Sắp xếp vun đống (HeapSort)
 
 ## Ý tưởng
@@ -354,7 +353,6 @@ Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
 - Ấn vào nút `Create` ở phía dưới trang để tạo một dãy mới
 - Ấn vào `Sort`, rồi `Go` để chạy thuật toán.
 
-
 ## Sắp xếp cơ số (RadixSort)
 
 ## Ý tưởng
@@ -379,7 +377,6 @@ Bạn có thể vào [VisuAlgo](http://visualgo.net/sorting).
 - Chọn **Radix** ở thanh menu bên trên.
 - Ấn vào nút `Create` ở phía dưới trang để tạo một dãy mới
 - Ấn vào `Sort`, rồi `Go` để chạy thuật toán.
-
 
 ## Nguồn tham khảo
 

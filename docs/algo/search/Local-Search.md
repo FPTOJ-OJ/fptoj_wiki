@@ -1,7 +1,5 @@
-
+﻿
 Tác giả: Nguyễn Thành Trung (RR)
-
-
 
 ## Bài toán mở đầu (TSP)
 
@@ -80,7 +78,7 @@ def solve(a, n):
 
 Dưới đây là kết quả khi mình chạy với một bộ test được sinh random gồm 50 đỉnh:
 
-![/uploads/local_search_greedy.png](../../uploads/local_search_greedy.png)
+<img src="/uploads/local_search_greedy.png" alt="/uploads/local_search_greedy.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Khi quan sát kết quả của thuật toán trên, dễ thấy có rất nhiều cặp cạnh cắt nhau. Khi tồn tại 2 cạnh AB và CD cắt nhau, ta có thể đảo nó thành AC và BD hoặc AD và BC, và giữ nguyên phần còn lại của chu trình. Như vậy ta có thể thu được một kết quả tốt hơn. Nhận xét này đưa ta đến với ý tưởng thứ 2:
 
@@ -143,7 +141,7 @@ def optimize(a, id_arr, n):
 
 Minh họa cho test trên (chú ý rằng mình cài đặt sai và không xét cạnh nối từ đỉnh cuối đến đỉnh 1, nên còn một cặp cạnh cắt nhau ^_^):
 
-![/uploads/local_search_reverse.png](../../uploads/local_search_reverse.png)
+<img src="/uploads/local_search_reverse.png" alt="/uploads/local_search_reverse.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Ý tưởng này chính là nền tảng của Local Search: Xuất phát từ một cấu hình kết quả, ta tìm cách thay đổi một phần của cấu hình để đạt được một cấu hình tốt hơn. Thông thường, cài đặt local search gồm 3 bước chính:
 
@@ -157,7 +155,7 @@ Trong các bước trên có đề cập đến khái niệm "kề" của 2 cấ
 
 Xét một bài toán tìm giá trị lớn nhất của một hàm 2 chiều J(theta0, theta1).
 
-![/uploads/local_search_2d_func.png](../../uploads/local_search_2d_func.png)
+<img src="/uploads/local_search_2d_func.png" alt="/uploads/local_search_2d_func.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Hình vẽ trên mô tả cách làm của local search: Xuất phát từ điểm xanh đậm, ta xét các điểm ở gần nó, tìm điểm mà J lớn nhất, rồi di chuyển đến điểm đó.
 

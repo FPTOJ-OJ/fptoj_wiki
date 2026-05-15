@@ -1,12 +1,10 @@
-
+﻿
 **Người viết:** Phạm Hoàng Hiệp - University of Georgia
 
 **Review bởi:**
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 - Ngô Nhật Quang - The University of Texas at Dallas
-
-
 
 ## Giới thiệu
 
@@ -22,7 +20,7 @@ Thuật toán Manacher sẽ xử lý bài toán trên với độ phức tạp t
     - Nếu điểm chính giữa của xâu $T$ nào đó là $i$, ta có thể nói xâu $T$ đối xứng qua $i$
 - $S_i$ là chữ cái thứ $i$ của xâu $S$. $S_{i...j}$ là xâu con từ vị trí thứ $i$ đến $j$ của $S$, bao gồm cả $i$ và $j$
 
-![img](../../uploads/bSE3TvQ.jpg)
+<img src="/uploads/bSE3TvQ.jpg" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## Thuật toán ngây thơ
 ## Sai lầm thường gặp
@@ -54,7 +52,6 @@ $$
     }^\text{đối xứng}\ 
     \ldots
 $$
-
 
 Giả sử chúng ta có một xâu đối xứng qua $mid$ kéo từ $l$ đến $r$ như hình vẽ trên. Để tính $d[r-i]$ (đã biết hết các giá trị $d$ trước đó), chúng ta có thể dựa vào $S[l+i]$.
 
@@ -189,7 +186,6 @@ Hoàn toàn tương tự với việc tìm xâu có độ dài lẻ, chúng ta x
 Thêm các ký tự đặc biệt giữa hai ký tự liên tiếp trong xâu, khi đó các xâu đối xứng độ dài chẵn sẽ là các xâu đối xứng độ dài lẻ với điểm chính giữa là một ký tự đặc biệt. Các xâu đối xứng độ dài lẻ vẫn là các xâu đối xứng độ dài lẻ với điểm chính giữa là các chữ cái ban đầu trong xâu.
 
 Ký tự đặc biệt được thêm cần phải giống nhau (để đảm bảo tính đối xứng) và khác với tất cả các ký tự được dùng trong xâu. Ví dụ, $mike4235$ có thể chuyển thành $m.i.k.e.4.2.3.5$
-
 
 ## Độ phức tạp
 Ở mỗi lần tính $d[i]$, nếu $d[i] + i < r$ thì chúng ta chỉ mất $O(1)$. Tuy nhiên, nếu $d[i] + i > r$ thì chúng ta sẽ đặt lại giá trị của $r$ thành $d[i] + i$. Do $r$ không giảm và  $r \leq n$ nên tổng độ phức tạp không vượt quá $O(n)$.
@@ -513,7 +509,7 @@ Xác định số ma trận con **đẹp** trong ma trận đã cho.
 - Chúng ta đã từng gặp ý tưởng tương tự khi tính toán [*Z-function*](https://vnoi.info/wiki/algo/string/kmp.md) hay [*prefix function*](https://vnoi.info/wiki/algo/string/z-algo.md).
 - Thuật toán Manacher có thể được sử dụng trong hơi ít các bài toán. Tuy nhiên, thuật toán có ý tưởng tự nhiên và dễ cài đặt nên có thể có ích khi thi đấu.
 
-![img](../../uploads/5AC7Eew.png)
+<img src="/uploads/5AC7Eew.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## Bài tập luyện tập 
 - [CSES Longest palindrome](https://cses.fi/problemset/task/1111)

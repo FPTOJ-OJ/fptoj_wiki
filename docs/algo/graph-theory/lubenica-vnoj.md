@@ -1,4 +1,4 @@
-
+﻿
 ## Thuật toán
 Bài này có nhiều hướng giải, một trong số đó là sử dụng kỹ thuật [Heavy Light Decomposition](https://vnoi.info/wiki/algo/data-structures/heavy-light-decomposition.md), tuy nhiên có 1 cách làm đơn giản hơn cho bài này là sử dụng [LCA và RMQ](https://vnoi.info/wiki/translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor)
 
@@ -13,13 +13,11 @@ Có thể tính `up[u][i]` (i > 0) thông qua công thức QHĐ sau:
 Vậy nên `up[u][i].maxc = max(up[u][i-1].maxc. up[p][i-1].maxc)` có nghĩa là ***trọng số lớn nhất*** khi nhảy từ ``u`` lên cha thứ $2^i$ đi qua các cạnh bằng ***trọng số lớn nhất*** khi nhảy từ `u` lên cha thứ $2^{i - 1}$ là `p` và nhảy từ `p` lên cha thứ $2^{i - 1}$
 
 Ví dụ : Với u = 10, i = 2 ta thực hiện cập nhật mảng up như hình vẽ dưới đây:
-![](../../uploads/JUvY6GC.png)
-
+<img src="/uploads/JUvY6GC.png" alt="" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 - `up[u][i - 1].maxc` ở đây là trọng số lớn nhất của các cạnh 5 - 8 và 8 - 10, do đó có giá trị bằng 9
 - `up[p][i - 1].maxc` ở đây là trọng số lớn nhất của các cạnh 1 - 7 và 7 - 5, do đó có giá trị bằng 8
 Khi đó `up[u][i].maxc` ta sẽ cập nhật bằng giá trị lớn nhất của `up[u][i - 1].maxc` và `up[p][i - 1].maxc` có nghĩa là khi nhảy từ `u = 10` lên cha thứ $2^{i - 1}$ là `p = 5` và từ `p` lên cha thứ $2^{i - 1}$ của `p` là `1`. Nên `up[u][i].maxc = max(8, 9) = 9`.
-
 
 Tương tự cho min.
 Sau đó với mỗi truy vấn tìm LCA của hai đỉnh rồi tìm min và max trên mỗi đoạn này

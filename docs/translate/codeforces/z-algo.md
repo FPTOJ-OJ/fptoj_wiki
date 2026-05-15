@@ -1,7 +1,5 @@
-
+﻿
 **Nguồn bài**: [Codeforces](http://codeforces.com/blog/entry/3107)
-
-
 
 Trước khi đọc bài này, các bạn có thể đọc bài [Xử lý xâu](../../algo/string/basic.md) để nắm được các thuật ngữ cơ bản.
 

@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả:**
 * Cao Thanh Hậu - Trường đại học Khoa học Tự Nhiên - ĐHQG-HCM
 
@@ -6,8 +6,6 @@
 * Lê Minh Hoàng - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 * Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 * Ngô Nhật Quang - Trường THPT chuyên Khoa học Tự Nhiên - ĐHQGHN
-
-
 
 ## Giới thiệu
 
@@ -19,14 +17,13 @@ Thuật toán phân tách trọng tâm có thể hiểu là thuật toán "chia 
 
 Trọng tâm của cây - centroid - là một đỉnh trên cây mà khi bỏ nó ra khỏi cây, mỗi thành phần liên thông còn lại có số đỉnh không quá một nửa số đỉnh của cây ban đầu.
 
-![Centroid Definition](../../All_Images_Collected/centroid-definition.png)
+<img src="/All_Images_Collected/centroid-definition.png" alt="Centroid Definition" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 <center>
 
 <img src="/uploads/centroid-decomposition_img1.png" width="300px">
 
 </center>
-
 
 Cây trong hình trên có trọng tâm là đỉnh $5$.
 
@@ -96,7 +93,7 @@ Từ định nghĩa hàm $findCentroid(u)$ cũng có thể chứng minh trọng 
 
 ## Thuật toán phân tách trọng tâm - Centroid decomposition
 
-![Centroid Tree](../../All_Images_Collected/CentroidTree.png)
+<img src="/All_Images_Collected/CentroidTree.png" alt="Centroid Tree" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ## Bài toán
 
@@ -258,7 +255,6 @@ Sau khi xóa tất cả đỉnh trong cây $T$, ta đã xây dựng được câ
 <center>
 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmM2NjQyYWYyNGIyNTgyNWRlMTMzMmVmZjVmYjQxZDJiNzRkMTgwMiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/WNYdDoVhmiZgoNKGld/giphy.gif">
 </center>
-
 
 Cây trọng tâm có một số tính chất đặc biệt như:
 * Cây có số lượng đỉnh bằng với cây ban đầu.

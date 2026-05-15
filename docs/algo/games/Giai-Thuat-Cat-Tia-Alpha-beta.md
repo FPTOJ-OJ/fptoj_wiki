@@ -1,9 +1,8 @@
-Tác giả: Vũ Trọng Quang
+﻿Tác giả: Vũ Trọng Quang
 
 (Nguồn: https://www.stdio.vn/articles/giai-thuat-cat-tia-alpha-beta-564)
 
 Giải thuật cắt tỉa Alpha-beta cực kỳ quan trọng khi lập trình các trò chơi như cờ vua hay cờ tướng, khi các không gian trạng thái của những trò chơi này có độ phức tạp cao. Cắt tỉa Alpha-beta sẽ giúp loại bỏ những không gian trạng thái không cần thiết và hỗ trợ tối ưu hóa thuật toán tìm kiếm Minimax.
-
 
 Giải thuật cắt tỉa Alpha-beta từng được nhiều nhà khoa học máy tính đề xuất ý tưởng và không ngừng được cải tiến cho đến ngày nay. Giải thuật này thường sử dụng chung với thuật toán tìm kiếm Minimax nhằm hỗ trợ giảm bớt các không gian trạng thái trong cây trò chơi, giúp thuật toán Minimax có thể tìm kiếm sâu và nhanh hơn. Giải thuật cắt tỉa Alpha-beta có nguyên tắc đơn giản "Nếu biết là trường hợp xáu thì không cần phải xét thêm".
 
@@ -24,7 +23,7 @@ Khi chưa có alpha và beta xác định thì thực hiện tìm kiếm sâu (d
 ### Cắt tỉa như thế nào?
 Một số sách và tài liệu có đề cập với việc cắt tỉa alpha và cắt tỉa beta, ở đây tôi cũng sẽ nói về việc đó và dùng một cách khác đó là dùng các khoảng trong toán học. Hãy nhìn cây trò chơi phía dưới để hình dung cách để cắt tỉa.
 
-![cay_tro_choi](https://wiki.vnoi.info/algo/game/alpha-beta1.png)
+<img src="https://wiki.vnoi.info/algo/game/alpha-beta1.png" alt="cay_tro_choi" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Chắc hẳn những bạn đang đọc bài này sẽ đều thắc mắc vấn đề tại sao chúng ta có thể cắt bỏ toàn bộ những nút con của C trên cây trò chơi trên.
 
@@ -37,7 +36,7 @@ Sau khi xác định được alpha và beta, chúng ta có thể dễ dàng xá
 Nếu nói theo khoảng thì hiện tại chúng ta chỉ nhận khoảng ≥ 10 tại nút gốc  S, vậy thì đâu cần bận tâm đến việc khoảng ≤ 3 tại nút C.
 
 Ví dụ với một cây trò chơi trung bình
-![cay_tro_choi_2](https://wiki.vnoi.info/algo/game/alpha-beta2.png)
+<img src="https://wiki.vnoi.info/algo/game/alpha-beta2.png" alt="cay_tro_choi_2" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Ở đây chúng ta cũng xét từ trái qua phải bắt đầu từ nút gốc và nút con bên trái sẽ được ưu tiên duyệt trước. Duyệt nguyên cây này sẽ khá dài dòng nhưng để bạn hiểu tôi sẽ viết ra các bước sau.
 

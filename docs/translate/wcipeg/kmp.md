@@ -1,4 +1,4 @@
-
+﻿
 **Nguồn**: [wcipeg](http://wcipeg.com/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)
 
 **Người dịch**: Trần Kim Thạch
@@ -208,7 +208,6 @@ for i ∈ [2..m]
 ```
 
 Thuật toán có độ phức tạp $O(m)$. Để hiểu tại sao thì hãy để ý, `k` không bao giờ âm; nó không thể giảm nhiều hơn mức nó tăng. `k` chỉ tăng ở dòng `k ← k+1`, vốn chỉ bị gọi nhiều nhất là $m-1$ lần. Vậy `k` giảm nhiều nhất là k lần. Nhưng `k` giảm ở mỗi lần lặp của vòng `while`, vậy tổng tất cả các bước trong vòng `while` không quá $O(m)$. Tất cả những câu lệnh trong vòng `for` đều có độ phức tạp là hằng số, nên cả thuật toán có độ phức tạp $O(m)$.
-
 
 ## So khớp
 

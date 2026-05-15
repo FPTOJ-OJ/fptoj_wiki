@@ -1,4 +1,4 @@
-
+﻿
 **Mảng Hậu Tố** là một CTDL giúp **sort** các **hậu tố** theo **thứ tự từ điển**.
 
 Mảng này chứa các số nguyên, khởi đầu của các hậu tố.
@@ -8,7 +8,6 @@ Có 2 cách để xây dựng một mảng hậu tố:
 1. **Thuật toán không xác định:** Sử dụng thuật toán **Rabin-Karp** và kiểm tra nếu một hậu tố có thứ tự từ điển nhỏ hơn một hậu tố khác,tìm **mảng tiền tố chung lớn nhất** (**LCP**), sau đó sử dụng **Tìm Kiếm Nhị Phân** và **hàm băm** (**Hash**) và kiểm tra ký tự tiếp theo sau **LCP** của chúng.
 
 _Code C++:_
-
 
 ```cpp
 

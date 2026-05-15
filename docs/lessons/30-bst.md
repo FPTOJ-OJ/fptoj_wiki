@@ -1,4 +1,4 @@
-# Bài 30: Binary Search Tree (BST) - Cây Tìm Kiếm Nhị Phân
+﻿# Bài 30: Binary Search Tree (BST) - Cây Tìm Kiếm Nhị Phân
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, GeeksforGeeks - BST
@@ -27,8 +27,7 @@ Binary Search Tree là cây nhị phân với tính chất:
 
 > **Mọi nút bên trái < nút cha < mọi nút bên phải**<br>
 
-![Binary Search Tree - VisuAlgo](../uploads/img/gif/bst.gif)
-*Minh họa thao tác trên BST (Nguồn: VisuAlgo)*
+<p align="center"><img src="/uploads/img/gif/bst.gif" alt="Binary Search Tree - VisuAlgo" style="max-width: 700px;" /><br><em>Minh họa thao tác trên BST (Nguồn: VisuAlgo)</em></p>
 
 ```
         8

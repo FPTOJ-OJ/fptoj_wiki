@@ -1,4 +1,4 @@
-
+﻿
 **Người viết:**
 - Nguyễn Hoàng Vũ - Trường Đại học Công nghệ, ĐHQGHN
 
@@ -62,10 +62,6 @@ Xét một số nguyên dương $n$:
 
 </figure>
 
-
-
-
-
 #### Một số tính chất của căn đơn vị
 - $\omega_n^j=\omega_n^{j\bmod n}$.
 - Với $n$ chẵn, $\omega_n^{n/2}=-1$, từ đây suy ra $\omega_n^{j+n/2}=-\omega_n^j$.
@@ -126,7 +122,6 @@ Tập số mà FFT chọn để tính là tập các căn đơn vị cấp $n$, 
 $$\text{DFT}(a_0,a_1,\ldots,a_{n-1})=(A(\omega_n^0),A(\omega_n^1),\ldots,A(\omega_n^{n-1}))$$
 
 Bài viết này sẽ giới thiệu về một thuật toán FFT thông dụng là thuật toán *Cooley-Tukey*.
-
 
 Ta sẽ biểu diễn bài toán dưới dạng ma trận:
 
@@ -259,7 +254,6 @@ $$
 \end{array}
 \right ] 
 $$
-
 
 Vậy ta chỉ cần tính $\color{red}{AX}$ và $\color{red}{A}\color{blue}{Y}$ là đủ để tính kết quả. Mặt khác, có thể thấy tính $\color{red}{AX}$ và $\color{red}{A}\color{blue}{Y}$ tương đương với tính $\text{DFT}(a_0,a_2,a_4,a_6)$ và $\text{DFT}(a_1,a_3,a_5,a_7)$.
 
@@ -839,23 +833,4 @@ Cài đặt:
 - [CodeChef - Power Sum](https://www.codechef.com/SEPT19A/problems/PSUM)
 - [Kattis - A + B Problem](https://open.kattis.com/problems/aplusb)
 - [Codeforces - Rusty String](https://codeforces.com/contest/827/submission/109719530)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

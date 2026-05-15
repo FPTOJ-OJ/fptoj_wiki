@@ -1,12 +1,9 @@
----
+﻿---
 title: Kinh nghiệm thi VOI
 ---
 
-
 **Tác giả**: 
 - Trần Xuân Bách - HUS High School for Gifted Students
-
-
 
 Khác với các kì thi khác, bản chất thi offline của VOI khiến thí sinh phải rất cẩn trọng và tỉ mỉ khi code. Bài viết dưới đây sẽ chỉ ra các lỗi sai mà các bạn thường gặp, đồng thời chỉ ra cách khắc phục chúng.
 

@@ -1,11 +1,9 @@
-
+﻿
 **Tác giả**: [Nguyễn Tiến Trung Kiên](http://news.zing.vn/thay-giao-sinh-nam-1997-cua-cac-cao-thu-hsg-quoc-gia-post480645.html)
 
 **Đôi lời về tác giả**:
 
 Nguyễn Tiến Trung Kiên là cựu học sinh Chuyên Tổng Hợp, với 1 HCĐ IOI năm 2014 và 1 HCB IOI năm 2015. Kiên còn  nổi tiếng với [blog chứa code nhiều thuật toán](https://sites.google.com/site/kc97ble/) và series [Free contest](https://www.facebook.com/kcxxble).
-
-
 
 ## Giới thiệu
 
@@ -92,7 +90,6 @@ Không khó lắm để tìm ra công thức quy hoạch động: $f(n, x, Just)
 Hàm quy hoạch động trên có thể chạy với $n \le 10,000$.
 
 Bây giờ tôi sẽ nói cách giải đúng. Gọi $f(n, p, Just, p_0, Just_0)$ nghĩa là: ta xuất phát từ trạng thái $(n, p, Just)$, có bao nhiêu cách đi đến trạng thái $(0, p_0, Just_0)$.
-
 
 === "C++"
 

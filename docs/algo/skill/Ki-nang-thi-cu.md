@@ -1,4 +1,4 @@
-
+﻿
 ## Những lời khuyên trước khi thi QG 2017 - Phạm Văn Hạnh (skyvn97)
 
 Nguồn: [Facebook VNOI](https://www.facebook.com/groups/163215593699283/permalink/1326300137390817)
@@ -183,8 +183,6 @@ Chắc chắn, sang năm mình sẽ mở ra những chuyên mục hay hơn 
 Cuối cùng, xin chúc các bạn gặp nhiều may mắn, và mọi thứ suôn sẻ trong hay ngày thi sắp tới. Ai ai cũng đạt được ước nguyện của mình.
 
 À quên, chúc 5 bạn NDT, GTTV, DXB, NPD và TQA ngày mai vui vẻ :) Ahihi
-
-
 
 ## 1 vài góp ý sau kỳ thi VO17 - RR
 

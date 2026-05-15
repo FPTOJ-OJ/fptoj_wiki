@@ -1,4 +1,4 @@
-
+﻿
 **Người viết:**
 
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
@@ -8,8 +8,6 @@
 - Nguyễn Đức Kiên - Trường Đại học Công nghệ, ĐHQGHN
 - Phạm Hoàng Hiệp - University of Georgia
 - Ngô Nhật Quang - The University of Texas at Dallas
-
-
 
 ## **Giới thiệu**
 Thông thường khi viết một thuật toán, ta thường quan tâm nó chạy nhanh hay chậm, tốn nhiều bộ nhớ hay không.
@@ -69,7 +67,6 @@ Tuy nhiên, khi tính toán ĐPT, ta nên chọn $k$ nhỏ nhất sao cho thuậ
 Ví dụ: $n\log^2 n + n^2 + m\log n + 1 +q^2 = O(n^2+m\log n +q^2)$
 - Một số độ phức tạp thường gặp trong lập trình thi đấu và các dữ liệu phù hợp để thuật toán chạy trong khoảng $1s$ (khoảng $10^8$ lệnh):
 
-
 | ĐPT      | Tên gọi  | n        |
 | -------- | -------- | -------- |
 | $O(1)$   | Hằng số (Constant)  | Tùy yêu cầu bài toán     |
@@ -93,7 +90,6 @@ Dựa vào các quy tắc, ta rút ra được một số `mẹo` khi tính ĐPT
     1. Tính số lần lặp tối đa của một vòng lặp
     2. Nếu các vòng lặp nối tiếp nhau thì cộng các cận đó với nhau
     3. Nếu các vòng lặp lồng nhau thì nhân các cận với nhau
-
 
 **Ví dụ 1:**
 ```c++
@@ -299,7 +295,6 @@ backtrack(1)
     Đến `i = n + 1`, chúng ta sẽ in ra kết quả và xét đến cấu hình tiếp. Việc in kết quả sẽ tốn 1 vòng $O(n)$
     Vì thế ta có tổng cộng $n \times (n - 1) \times \ldots \times 1 \times n = n \times n!$ phép toán. Hay ĐPT bài toán là $\boldsymbol{O(n \times n!)}$.
 
-
 ---
 ### **Chia để trị**
 Đôi khi ĐPT của một thuật toán đệ quy không quá lớn như $O(n!)$.
@@ -317,9 +312,7 @@ Bạn đọc có thể thấy rõ với thuật toán sắp xếp *Merge Sort (S
 
 *Minh họa về cách thuật toán Merge Sort hoạt động:*
 
-![img](../../uploads/aqQU9hE.png)
-
-**Phân tích:**
+<p align="center"><img src="/uploads/aqQU9hE.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" /></p>
 Gọi $f(n)$ là ĐPT của hàm `MergeSort(S)` với $n = |S|$
 Dễ thấy:
 
@@ -427,7 +420,6 @@ Tương tự bài trên, nhưng chỉ khi biến $i$ là số nguyên tố thì 
 Vì thế độ phức tạp thời gian là $O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right)$ với $p \style{font-family:Cambria Math}{\large\text{ là số nguyên tố}}\le  n$. 
 Đến đây việc tính toán độ phức tạp sẽ phải dùng đến kiến thức *Lý thuyết số giải tích*. Bạn đọc có thể tham khảo thêm [Định lý Merten 2](https://en.wikipedia.org/wiki/Mertens%27_theorems#Proof).
 $$O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right) = O\left(n \cdot \underset{{p \le n}}{\sum\limits_{p \style{font-family:Cambria Math}{\large\text{ nguyên tố}}}}\dfrac{1}{p}\right) = \boldsymbol{O( n \log (\log n))}$$
-
 
 ## Mở rộng
 ## Họ hàm O(n)

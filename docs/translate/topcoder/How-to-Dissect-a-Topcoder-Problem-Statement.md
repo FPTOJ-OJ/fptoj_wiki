@@ -1,9 +1,7 @@
-
+﻿
 **Tác giả**: [antimatter](https://www.topcoder.com/member-profile/antimatter)
 
 **Nguồn**: [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/how-to-dissect-a-topcoder-problem-statement/)
-
-
 
 ## Về Topcoder
 
@@ -99,7 +97,6 @@ Mục này là danh sách các test bạn có thể chạy thử. Nó cho input 
 Thông thường bạn nên test code của mình với tất cả các test ví dụ. Trong đó thường sẽ có những test hiểm, những trường hợp mà có thể bạn chưa từng nghĩ đến, và một test ngẫu nhiên lớn. Chú ý rằng để được điểm của bài sau khi kỳ thi kết thúc, code của bạn phải chạy đúng với tất cả các test được Topcoder chuẩn bị từ trước (thường số test có thể là 100 - 200).
 
 Các ví dụ này không phải lúc nào cũng bao quát hết trường hợp! Code bạn chạy đúng với các test ví dụ không có nghĩa là nó đúng. Vì vậy hãy test nhiều, và nghĩ ra các test của chính bạn. Chú ý rằng sau **Coding Phase**, Topcoder còn có phần **Challenge Phase** - bạn có thể dùng các test của bạn để bắt lỗi sai trong code người khác và được thêm điểm.
-
 
 ## Bài toán ví dụ
 

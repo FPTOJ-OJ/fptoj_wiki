@@ -1,17 +1,13 @@
-
+﻿
 **Tác giả:** 
 - **Bùi Minh Hoạt** - Hung Vuong High School for the Gifted, Phu Tho Province
 - **Nguyễn Châu Khanh** - Hung Vuong High School for the Gifted, Phu Tho Province
 
 **Reviewer:** **Phạm Tuấn Nghĩa**
 
-
-
 ## **Định nghĩa**
 Deque (Double-ended queue) là một kiểu dữ liệu trừu tượng tổng quát hóa một hàng đợi. Nó là nó kiểu danh sách mà có thể bổ sung và loại bỏ một phần ở đầu hoặc cuối danh sách.
-![img](../../uploads/0f5hQR9.png)
-
-**Các thao tác deque hỗ trợ:**
+<p align="center"><img src="/uploads/0f5hQR9.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" /></p>
 - push_front($x$): Đẩy $x$ vào đầu deque
 - push_back($𝑥$): Đẩy $x$ vào cuối deque
 - pop_front(): Loại bỏ phần tử ở đầu deque
@@ -56,7 +52,7 @@ $minRange[i] =$ giá trị nhỏ nhất trong đoạn $[i - k + 1 … i]$
 ## **Phân tích**
 
 Với bài toán này ta có thể duyệt tất cả các đoạn gồm $k$ phần tử liên tiếp trong mảng $A$ để tìm giá trị nhỏ nhất.
-![img](../../uploads/nI9T8t3.png)
+<img src="/uploads/nI9T8t3.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 === "C++"
 
@@ -88,11 +84,11 @@ Mỗi lần gán $minRange = min(minRange, A[j])$ thì mấu chốt là những 
 
 **Minh họa**
 
-![img](../../uploads/ECBlewQ.png)
+<img src="/uploads/ECBlewQ.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Các ô được tô màu đỏ là các ô làm thay đổi giá trị $minRange$. Ô thứ $2$ có giá trị $A[2] = 2$ ta không cần quan tâm vì ngay từ $A[3] = 2$ nó đã không nằm trong danh sách các ô màu đỏ.
 
-![img](../../uploads/MpAwBtt.png)
+<img src="/uploads/MpAwBtt.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Tương tự, đối với đoạn $[2 ... 5]$ ta cũng không cần quan tâm đến ô thứ $2$ có giá trị $A[2] = 2$.
 Do đó ta có thể làm như sau:
@@ -104,14 +100,14 @@ Do đó ta có thể làm như sau:
 Đầu tiên chúng ta khởi tạo một hàng đợi hai đầu nhằm mục đích lưu vị trí của phần tử có giá trị nhỏ nhất. 
 
 Lúc đầu hàng đợi hai đầu của chúng ta rỗng
-![img](../../uploads/2SI3P7o.png)
+<img src="/uploads/2SI3P7o.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Đối với phần tử đầu tiên vì do hàng đợi rỗng nên ta sẽ đẩy phần tử này vào cuối hàng đợi
-![img](../../uploads/AiuYFLJ.png)
+<img src="/uploads/AiuYFLJ.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Tiếp theo ta sẽ đẩy lần lượt các phần tử có vị trí $2$; $3$ và $4$ vào cuối hàng đợi. 
-![img](../../uploads/w3AlnmP.png)
+<img src="/uploads/w3AlnmP.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Vì ta chỉ xét các đoạn trong khoảng từ $[i - k + 1 … i]$. Do đó khi ta xét đến phần tử thứ $5$ thì phần tử đầu tiên trong hàng đợi có vị trí $i = 1$ không còn ý nghĩa gì nữa. Vì vậy ta sẽ loại bỏ phần tử đầu tiên ra khỏi hàng đợi.
 Khi ta loại bỏ phần tử đầu tiên ra khỏi hàng đợi thì tất cả các phần tử đứng sau phần tử đó để được đẩy lên $1$ ô và hàng đợi sẽ được đánh số lại.
-![img](../../uploads/YsFpJBy.png)
+<img src="/uploads/YsFpJBy.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Tiếp đến khi ta chuẩn bị đẩy phần tử thứ $5$ vào hàng đợi thì nhận thấy rằng giá trị của nó nhỏ hơn giá trị của phần tử cuối trong hàng đợi. 
 
@@ -123,13 +119,13 @@ Vì vậy ta sẽ loại bỏ tất cả các phần tử cuối cùng trong deq
 
 Sau khi loại bỏ tất cả các phần tử cuối cùng và đẩy phần tử $i = 5$ vào thì hàng đợi sẽ có những giá trị sau:
 
-![img](../../uploads/yZG8HOO.png)
+<img src="/uploads/yZG8HOO.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Ta tiếp tục đẩy phần tử thứ $6$ vào deque
-![img](../../uploads/VPJM6Bd.png)
+<img src="/uploads/VPJM6Bd.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Sau đó ta tiếp tục đẩy phần tử thứ $7$ vào deque
-![img](../../uploads/inVXc6C.png)
+<img src="/uploads/inVXc6C.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Khi ta chuẩn bị đẩy phần tử thứ $8$ vào deque, ta nhận thấy rằng giá trị của nó nhỏ hơn giá trị của phần tử cuối trong hàng đợi. Do đó ta sẽ loại bỏ phần tử cuối cùng trong deque cho đến khi giá trị của phần tử cuối cùng nhỏ hơn giá trị ta chuẩn bị đẩy vào. 
-![img](../../uploads/puUB3j7.png)
+<img src="/uploads/puUB3j7.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Ta có thể rút ra được các nhận xét quan trọng như sau:
 - Ở mọi thời điểm, giá trị $A[i]$ trong deque luôn tăng nghiêm ngặt. Khi ta đẩy phần tử thứ $i$ vào deque thì nó luôn là phần tử có giá trị lớn nhất.
 - Vì đây là dãy tăng nghiêm ngặt thế nên phần tử đầu tiên luôn là phần tử nhỏ nhất. **(Đây chính là min trong đoạn $[i - k + 1 … i]$)**
@@ -397,9 +393,7 @@ Hiện tại Gnar đang đứng trên tòa nhà $1$. Mục tiêu của anh ấy 
 
 Điều này có nghĩa là tồn tại tòa nhà $k$ $(i + 1 \le k \le j - 1)$ có độ cao lớn nhất trong các tòa nhà từ $i + 1$ đến $j - 1$. Nếu $H[k] < min(H[i], H[j])$ thì tất cả các tòa nhà từ $i + 1$ đến $j - 1$ đều nhỏ hơn $min(H[i], H[j])$.
 
-![img](../../uploads/Tl3DSul.png)
-
-**Làm thế nào để tìm được hai biên nhận tòa nhà k làm max?** 
+<p align="center"><img src="/uploads/Tl3DSul.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" /></p>
 Vì $max(H[i + 1], …, H[j - 1]) < min(H[i], H[j])$ nên $H[k] < min(H[i], H[j])$. Điều này có nghĩa là cả $2$ tòa nhà $i$ và $j$ đều lớn hơn tòa nhà $k$ do đó tòa nhà $i$ và $j$ sẽ không nằm trong khoảng nhận tòa nhà $k$ là $max$.
 
 Gọi $L[k]$ là vị trí xa nhất tính từ vị trí $k$ về bên trái nhận độ cao $H[k]$ là $max$
@@ -417,7 +411,7 @@ Giả sử tòa nhà gần nhất bên trái, bên phải nhận tòa nhà $k$ l
 Vì vậy ta sẽ xét tất cả các tòa nhà $k$ để có thể tìm được tòa nhà $i$ và $j$ thỏa mãn yêu cầu đề bài.
 
 **Trường hợp 3:** Nếu tòa nhà thứ $i$ và $j$ thỏa mãn điều kiện $max(H[i], H[j]) < min(H[i + 1], …, H[j - 1])$ nghĩa là tất cả các tòa nhà nằm giữa $i$ và $j$ đều có độ cao lớn hơn hẳn $max(H[i], H[j])$. 
-![img](../../uploads/j5e9vEU.png)
+<img src="/uploads/j5e9vEU.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Lập luận tương tự. Ở trường hợp này ta sẽ xây dựng $2$ mảng $l$ và $r$.
 

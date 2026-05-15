@@ -1,4 +1,4 @@
-# Bài 8d: Fenwick Tree (BIT) - Cây Chỉ Số Nhị Phân
+﻿# Bài 8d: Fenwick Tree (BIT) - Cây Chỉ Số Nhị Phân
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Fenwick Tree, CP-Algorithms
@@ -16,8 +16,7 @@ Với mảng thường: mỗi truy vấn tổng prefix mất **O(N)**. Nếu có
 
 **Fenwick Tree (BIT)** giải quyết cả 2 thao tác trong **O(log N)** với chỉ **~10 dòng code**!
 
-![Fenwick Tree - VisuAlgo](../uploads/img/gif/fenwicktree.gif)
-*Minh họa Fenwick Tree (Nguồn: VisuAlgo)*
+<p align="center"><img src="/uploads/img/gif/fenwicktree.gif" alt="Fenwick Tree - VisuAlgo" style="max-width: 700px;" /><br><em>Minh họa Fenwick Tree (Nguồn: VisuAlgo)</em></p>
 
 ---
 
@@ -119,13 +118,21 @@ Ví dụ với N = 8:
 
 ```mermaid
 graph TD
-    n8["BIT[8]<br/>a[1..8]"] -->|"8-4=4"| n4["BIT[4]<br/>a[1..4]"]
-    n8 -->|"8-2=6"| n6["BIT[6]<br/>a[5..6]"]
-    n4 -->|"4-2=2"| n2["BIT[2]<br/>a[1..2]"]
-    n2 -->|"2-1=1"| n1["BIT[1]<br/>a[1]"]
-    n4 -->|"4-1=3"| n3["BIT[3]<br/>a[3]"]
-    n6 -->|"6-1=5"| n5["BIT[5]<br/>a[5]"]
-    n8 -->|"8-1=7"| n7["BIT[7]<br/>a[7]"]
+    n8["BIT[8]<br/>
+a[1..8]"] -->|"8-4=4"| n4["BIT[4]<br/>
+a[1..4]"]
+    n8 -->|"8-2=6"| n6["BIT[6]<br/>
+a[5..6]"]
+    n4 -->|"4-2=2"| n2["BIT[2]<br/>
+a[1..2]"]
+    n2 -->|"2-1=1"| n1["BIT[1]<br/>
+a[1]"]
+    n4 -->|"4-1=3"| n3["BIT[3]<br/>
+a[3]"]
+    n6 -->|"6-1=5"| n5["BIT[5]<br/>
+a[5]"]
+    n8 -->|"8-1=7"| n7["BIT[7]<br/>
+a[7]"]
 ```
 
 Minh họa đường đi khi truy vấn và cập nhật:
@@ -301,7 +308,6 @@ class FenwickTree:
     def range_sum(self, l, r):
         """Tính tổng đoạn [l, r] — O(log N)"""
         return self.query(r) - self.query(l - 1)
-
 
 # Sử dụng
 n = int(input())

@@ -1,4 +1,4 @@
-# Bài 13: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
+﻿# Bài 13: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây khung nhỏ nhất, Đường đi ngắn nhất, Sắp xếp Tô-pô
@@ -179,8 +179,7 @@ Bạn muốn đi từ A đến B. Có nhiều con đường, mỗi con đường
 
 Bắt đầu từ đỉnh nguồn. Mỗi bước, chọn đỉnh **chưa thăm** có khoảng cách nhỏ nhất, cập nhật khoảng cách các đỉnh kề.
 
-![Dijkstra Animation](../uploads/img/dijkstra.gif)
-*Minh họa thuật toán Dijkstra tìm đường đi ngắn nhất*
+<p align="center"><img src="/uploads/img/dijkstra.gif" alt="Dijkstra Animation" style="max-width: 700px;" /><br><em>Minh họa thuật toán Dijkstra tìm đường đi ngắn nhất</em></p>
 
 === "C++"
 
@@ -279,8 +278,7 @@ Kết quả: dist = [∞, 0, 1, 4, 3]
 
 ## 3. Sắp Xếp Tô-pô (Topological Sort)
 
-![Topological Sort](../uploads/img/topological-sort.svg)
-*Minh họa sắp xếp tô-pô (Topological Sort)*
+<p align="center"><img src="/uploads/img/topological-sort.svg" alt="Topological Sort" style="max-width: 700px;" /><br><em>Minh họa sắp xếp tô-pô (Topological Sort)</em></p>
 
 ### Ẩn dụ: Môn học tiên quyết
 

@@ -1,4 +1,4 @@
-# Bài 17: Trie - Cây Tìm Kiếm Tiền Tố
+﻿# Bài 17: Trie - Cây Tìm Kiếm Tiền Tố
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Trie
@@ -30,8 +30,7 @@ Bạn gõ "app" → điện thoại gợi ý "apple", "application", "appstore".
 
 Mỗi node là 1 ký tự. Đi từ gốc → lá = 1 từ hoàn chỉnh. Các từ có cùng tiền tố **chia sẻ** chung đường đi từ gốc!
 
-![Trie](../uploads/img/trie.png)
-*Minh họa cấu trúc cây Trie*
+<p align="center"><img src="/uploads/img/trie.png" alt="Trie" style="max-width: 700px;" /><br><em>Minh họa cấu trúc cây Trie</em></p>
 
 ### Tại sao Trie nhanh cho tìm prefix?
 

@@ -1,9 +1,7 @@
-
+﻿
 Nguồn: [e-maxx](https://e-maxx-eng.appspot.com/algebra/module-inverse.html)
 
 Người dịch: Nguyễn Thành Trung (RR)
-
-
 
 ## Định nghĩa:
 

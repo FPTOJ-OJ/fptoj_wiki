@@ -1,4 +1,4 @@
-# Bài 8a: Heap (Đống) - Hàng Đợi Ưu Tiên
+﻿# Bài 8a: Heap (Đống) - Hàng Đợi Ưu Tiên
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Binary Heap
@@ -57,8 +57,7 @@ graph TD
 
 **Tại sao hay?** Không cần con trỏ! Truy cập con/cha chỉ bằng phép tính chỉ số → O(1), tiết kiệm bộ nhớ.
 
-![Binary Heap - VisuAlgo](../uploads/img/gif/heap.gif)
-*Minh họa thao tác trên Heap (Nguồn: VisuAlgo)*
+<p align="center"><img src="/uploads/img/gif/heap.gif" alt="Binary Heap - VisuAlgo" style="max-width: 700px;" /><br><em>Minh họa thao tác trên Heap (Nguồn: VisuAlgo)</em></p>
 
 ## 5. Hai thao tác cốt lõi
 

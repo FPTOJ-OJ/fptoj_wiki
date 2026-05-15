@@ -1,4 +1,4 @@
-
+﻿
 **Tác giả:** 
 - Bùi Nguyễn Đức Tân - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
 - Lê Minh Hoàng - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
@@ -8,11 +8,9 @@
 
 ---
 
-
-
 ## Giới thiệu
 
-![Binary Indexed Tree](../../All_Images_Collected/binary_indexed_tree.png)
+<img src="/All_Images_Collected/binary_indexed_tree.png" alt="Binary Indexed Tree" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Cây chỉ số nhị phân (tên tiếng Anh là Binary Indexed Tree) hay cây Fenwick là một cấu trúc dữ liệu được sử dụng khá phổ biến trong lập trình thi đấu vì có thể cài đặt nhanh, dễ dàng so với các CTDL khác.
 
@@ -118,8 +116,7 @@ Nếu bài toán không có truy vấn cập nhật, độ phức tạp là $\ma
 ## Cây chỉ số nhị phân
 Cấu trúc prefix sum được biểu diễn qua sơ đồ sau:
 
-![img](../../uploads/hllVMYY.png)
-
+<p align="center"><img src="/uploads/hllVMYY.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" /></p>
 **Nhận xét:** Mỗi phần tử $sum[i]$ chứa tổng của tất cả phần tử từ $[1\dots i]$; vì thế, phần tử $sum[i]$ sẽ chứa phần tử $a[j]$ nếu thỏa $i \ge j$, số phần tử $sum$ cần cập nhật là $j - i + 1$, gần tương đương độ dài của mảng.
 
 Để tăng tốc độ cập nhật phần tử, cần bố trí lại phạm vi của từng đoạn gắn với $sum[i]$ để cực tiểu số phần tử $sum$ cần cập nhật nhưng vẫn phải đảm bảo tính liên tục để áp dụng tính chất của prefix sum.
@@ -128,12 +125,12 @@ Mỗi chỉ số $n$ đều có thể biểu diễn bằng tổng của các lũ
 
 Cụ thể, đặt $n = 2^{i_1} + 2^{i_2} + \ldots + 2^{i_k}$ $(i_1 > i_2 > \ldots > i_k \ge 0)$. Để tính tổng từ $[1 \ldots n]$, ta tính tổng các phần tử thuộc đoạn $[1;2^{i_1}]$, sau đó tính tiếp tổng của đoạn $[2^{i_1} + 1;2^{i_1} + 2^{i_2}]$, lặp lại quá trình này cho đến khi ta đến đoạn cuối cùng là $[2^{i_1} + 2^{i_2} + \ldots + 2^{i_{k - 1}} + 1;n]$. $n$ có thể có tối đa $\log_2 n$ bits, vì thế độ phức tạp khi tính tổng theo cách này là $\mathcal{O}(C \log n)$, trong đó $\mathcal{O}(C)$ là độ phức tạp khi lấy tổng một đoạn.
 
-![img](../../uploads/brL1XCD.png)
+<img src="/uploads/brL1XCD.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Từ cách chia block trên, ta quan sát được rằng block cuối cùng đối với mỗi $n$ (là block tổng chứa phần tử ở chỉ số $n$) có độ dài bằng với bit nhỏ nhất trong biểu diễn nhị phân của $n$. Đây chính là ý tưởng của cây BIT, ta sẽ lưu thông tin về block cuối của từng phần tử và thực hiện thao tác truy vấn trên đấy.
 
 Dưới đây là hình ảnh minh họa cây BIT:
-![img](../../uploads/SH4tJPN.png)
+<img src="/uploads/SH4tJPN.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Trong hình trên, những đoạn được tô đậm là đoạn của phần tử chỉ số $n$ được BIT lưu trữ; những đoạn được tô nét mảnh không được lưu trữ trực tiếp mà sẽ được truy cập gián tiếp.
 
@@ -226,7 +223,7 @@ Mảng hiệu được xây dựng bằng cách sau:
 - Với $2 \le i \le N$ thì $diff[i] = A[i] - A[i - 1]$.
 
 Bạn có thể theo dõi hình dưới và code minh họa để hiểu rõ hơn:
-![img](../../uploads/UaDoTx9.png)
+<img src="/uploads/UaDoTx9.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 ```c++
 int diff[N + 1];
@@ -261,7 +258,7 @@ $$
 Từ tính chất này, khi tính được mảng hiệu, để tính được giá trị của $a[i]$ ta chỉ cần lấy tổng của $i$ phần tử $diff$ đầu tiên. Khi này, bài toán của chúng ta thực chất được đưa về tính tổng trên mảng $diff$, vấn đề hiện tại là thao tác `update()` cần được xử lí như thế nào.
 
 Hình dưới đây minh họa thao tác cập nhật trên một đoạn $[l \ldots r]$ - từ mảng trên, ta cộng $\Delta = 4$ vào đoạn $[4\dots 7]$:
-![img](../../uploads/8CQUuuv.png)
+<img src="/uploads/8CQUuuv.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Khi cập nhật, do các phần tử liền kề trong đoạn $[l\dots r]$ đều được cộng cùng một giá trị $\Delta$ nên hiệu giữa chúng thực chất vẫn không đổi. Khác biệt duy nhất khi cập nhật nằm ở 2 biên của đoạn: giữa $(a_{l - 1}, a_l)$ và $(a_r, a_{r+1})$; vì thế ta chỉ cần cập nhật điểm tại 2 biên trên mảng hiệu và dùng truy vấn lấy tổng để tính giá trị hiện tại của $a_i$.
 
@@ -309,7 +306,7 @@ def get(u):
     return ans
 ```
 ## Truy vấn trên đoạn
-![img](../../uploads/K4d4qmh.png)
+<img src="/uploads/K4d4qmh.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Hình trên sẽ giúp ta minh họa trực quan hơn mối quan hệ về tổng các phần tử với mảng $A$ và mảng hiệu $diff$.
 

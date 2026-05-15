@@ -1,8 +1,7 @@
-# Bài 26: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
+﻿# Bài 26: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Số học, HackerEarth Number Theory Series, CP-Algorithms
-
 
 ## 1. Đếm số nguyên tố cùng nhau - Euler Totient
 
@@ -493,8 +492,7 @@ Nếu  f(n) = Σ_{d|n} g(d)   thì   g(n) = Σ_{d|n} μ(d) × f(n/d)
 
 ## 6. Pollard's Rho - Phân tích thừa số lớn
 
-![Pollard Rho](../All_Images_Collected/pollard_rho.png)
-*Minh họa thuật toán Pollard's Rho với Floyd's cycle detection*
+<p align="center"><img src="/All_Images_Collected/pollard_rho.png" alt="Pollard Rho" style="max-width: 700px;" /><br><em>Minh họa thuật toán Pollard's Rho với Floyd's cycle detection</em></p>
 
 ### 6.1 Khi nào dùng?
 

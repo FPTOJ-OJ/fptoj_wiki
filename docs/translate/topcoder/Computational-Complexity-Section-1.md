@@ -1,5 +1,4 @@
-
-
+﻿
 
 Nguồn bài: [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/computational-complexity-section-1/)
 
@@ -144,8 +143,6 @@ Có thể thấy rằng việc xác định chính xác hàm $f$ cho các chươ
 Xét hai thuật toán, một có thời gian chạy $N^2$ và một có thời gian chạy $0.0001N^3$. Dễ nhận thấy rằng với $N > 1000$ thì thuật toán đầu tiên chạy nhanh hơn - khi $N$ tăng, khoảng cách về độ hiệu quả giữa hai thuật toán càng trở nên rõ ràng. Trong khi thuật toán đầu tiên có thể giải quyết bài toán với $N = 20 000$ chỉ trong thời gian tính bằng giây, thuật toán thứ hai phải mất tới vài phút trên các máy tính hiện đại.
 
 Sự khác biệt như trên sẽ luôn xảy ra nếu một trong hai thuật toán có *thời gian chạy* tăng **tiệm cận nhanh hơn** so với *thời gian chạy* của thuật toán còn lại (nói cách khác, khi $N$ đủ lớn để kết quả phép tính giới hạn **lim** của tỷ lệ giữa hai đại lượng này bằng 0 hoặc $\infty$. ND: trong bài này tác giả không nói rõ việc so sánh độ phức tạp theo phép tính giới hạn, chỉ cần hiểu khái niệm **tiệm cận** có nghĩa là **kích cỡ đầu vào đủ lớn**. Như vậy **tiệm cận nhanh hơn** có nghĩa là **nhanh hơn khi đầu vào đủ lớn**). Bất kể các hằng số nhận giá trị nào, một thuật toán có *thời gian chạy* tỷ lệ (thuận) với $N^2$ sẽ **luôn luôn hiệu quả hơn** một thuật toán khác có *thời gian chạy* tỷ lệ với $N^3$ trong **hầu hết các trường hợp của tập đầu vào**. Nhận định này chính là ý tưởng chủ đạo để xây dựng định nghĩa chính thức của các khái niệm.
-
-
 
 ## Các khái niệm cơ bản
 

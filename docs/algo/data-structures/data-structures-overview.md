@@ -1,5 +1,4 @@
-
-
+﻿
 
 Mặc dù máy tính đã có thể xử lý hàng triệu phép tính mỗi giây, nhưng khi một bài toán trở phức tạp, cách tổ chức dữ liệu vẫn vô cùng quan trọng.
 
@@ -49,7 +48,8 @@ Mảng và danh sách liên kết là 2 cấu trúc dữ liệu nền tảng cho
 </tr>
 <tr>
 <th>Khác</th>
-<td>- Ít bộ nhớ hơn<br/>- Cache locality: các phần tử ở vị trí gần nhau trên bộ nhớ máy tính, nên khi truy cập các phần tử liên tiếp sẽ nhanh hơn</td>
+<td>- Ít bộ nhớ hơn<br/>
+- Cache locality: các phần tử ở vị trí gần nhau trên bộ nhớ máy tính, nên khi truy cập các phần tử liên tiếp sẽ nhanh hơn</td>
 <td></td>
 </tr>
 </table>
@@ -110,14 +110,13 @@ Heap là một cấu trúc dữ liệu cho phép thực hiện các thao tác:
 
 Bạn có thể đọc thêm về Heap [ở đây](../../translate/wcipeg/Binary-Heap.md)
 
-
 **Fibonacci Heap** là một dạng heap có **độ phức tạp** bé hơn. Trong **C++**, CTDL **priority_queue** được cài đặt bằng Fibonacci Heap.
 
 ## 1.4. Cây Tìm Kiếm Nhị Phân
 
 **Cây Tìm Kiếm Nhị Phân** (**BST Binary Search Tree**) là một [cây nhị phân](../../translate/wcipeg/tree.md) có tính chất: Với mỗi giá trị trên đỉnh đang xét, giá trị của mọi đỉnh trên cây con trái luôn nhỏ hơn đỉnh đang xét và giá trị của mọi đỉnh trên cây con phải luôn lớn hơn đỉnh đang xét.
 
-![bst1](../../uploads/bst1.png)
+<img src="/uploads/bst1.png" alt="bst1" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Cây tìm kiếm nhị phân cho phép thực hiện các thao tác:
 
@@ -131,7 +130,7 @@ Trong trường hợp dữ liệu ngẫu nhiên, các thao tác trên có độ 
 Để khắc phục điều này, có rất nhiều CTDL cải tiến từ cây tìm kiếm nhị phân, thường được gọi là các cây nhị phân cân bằng. Khi đó, các thao tác trên có thể được thực hiện với độ phức tạp $\mathcal{O}(\log{N})$. Ví dụ:
 
 - **Cây Đỏ Đen** (Red-Black Tree) là một dạng **cây tìm kiếm nhị phân** (**BST**) mà sau mỗi truy vấn được thực hiện, cây tự cân bằng theo đúng tính chất của nó với độ phức tạp $O(log(N))$. CTDL **set** trong **C++** được cài đặt bằng cây đỏ đen.
-  ![redblack1](../../uploads/redblack1.png)
+  <img src="/uploads/redblack1.png" alt="redblack1" style="max-width: 700px; display: block; margin: 0 auto;" />
 - **Splay tree**, [Skip list](Skip-Lists.md), **Treap** thường được dùng trong các kỳ thi bởi cài đặt đơn giản.
 
 ## 1.5. Bảng băm (Hash Tables)
@@ -140,7 +139,7 @@ Bảng băm là một CTDL thường được sử dụng như một từ điể
 
 Bảng băm hoạt động dựa trên hàm Hash: Hash là quá trình khởi tạo một giá trị khóa (thường là 32 bit hoặc 64 bit) từ một phần dữ liệu. Nó có thể là $n$ bit đầu tiên của dữ liệu, $n$ bit cuối cùng, giá trị mod cho một số nguyên tố nào đó. Dựa theo giá trị hash, dữ liệu được chia vào các **bucket**:
 
-![/uploads/data_structures_hash_table_hash_function.png](../../uploads/data_structures_hash_table_hash_function.png)
+<img src="/uploads/data_structures_hash_table_hash_function.png" alt="/uploads/data_structures_hash_table_hash_function.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Trong trường hợp hàm Hash hoạt động tốt, mỗi bucket có rất ít phần tử, độ phức tạp của các thao tác trên Hash table như sau:
 
@@ -190,7 +189,7 @@ Khi đó, ta có: $f(i, j) = f(i-1, j) + f(i, j-1) - f(i-1, j-1) + A(i, j)$.
 
 Giải thích công thức trên:
 
-![/uploads/2DPartialSum_small.png](../../uploads/2DPartialSum_small.png)
+<img src="/uploads/2DPartialSum_small.png" alt="/uploads/2DPartialSum_small.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 đỏ = xanh da trời + vàng - tím + xanh lá
 
@@ -255,7 +254,6 @@ Bạn có thể đọc thêm ở: [Thuật toán phân tách cây](heavy-light-d
 Persistent Data Structures là những cấu trúc dữ liệu được dùng khi chúng ta cần có **toàn bộ lịch sử** của các thay đổi trên 1 cấu trúc dữ liệu.
 
 Bạn có thể  đọc thêm ở: [Persistent Data Structures](persistent-data-structures.md)
-
 
 ## 3. CTDL xâu
 

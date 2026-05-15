@@ -35,8 +35,8 @@ theme:
         icon: material/weather-night
         name: Chuyển sang chế độ sáng
 
-repo_url: https://github.com/KienPC1234/fptoj_wiki
-repo_name: KienPC1234/fptoj_wiki
+repo_url: https://github.com/FPTOJ-OJ/fptoj_wiki
+repo_name: FPTOJ-OJ/fptoj_wiki
 edit_uri: edit/master/docs
 
 nav:
@@ -239,11 +239,11 @@ nav:
           - "Phần C — STL Cơ bản":
               - "C09: pair & tuple": coding/cpp/C09-pair-tuple.md
               - "C10: Vector nâng cao": coding/cpp/C10-vector-nang-cao.md
-              - "C11: sort & \<algorithm\>": coding/cpp/C11-sort-algorithm.md
+              - "C11: sort & <algorithm>": coding/cpp/C11-sort-algorithm.md
           - "Phần D — STL Nâng cao":
               - "C12: set & map": coding/cpp/C12-set-map.md
               - "C13: queue, stack, deque": coding/cpp/C13-queue-stack-deque.md
-              - "C14: \<algorithm\> nâng cao": coding/cpp/C14-algorithm-nang-cao.md
+              - "C14: <algorithm> nâng cao": coding/cpp/C14-algorithm-nang-cao.md
               - "C15: Mẹo thi đấu C++": coding/cpp/C15-meo-thi-dau-cpp.md
   - Ngôn Ngữ Lập Trình:
     - Con trỏ trong C/C++: languages/cpp/pointers.md
@@ -331,7 +331,7 @@ markdown_extensions:
 
 extra:
   giscus:
-    repo: KienPC1234/fptoj_wiki
+    repo: FPTOJ-OJ/fptoj_wiki
     repo_id: R_kgDOOEBMFA
     category: General
     category_id: DIC_kwDOOEBMFM4C8yFI

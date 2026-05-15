@@ -1,4 +1,4 @@
-
+﻿
 Người viết: Nguyễn Minh Nhật - HUS High School for Gifted Students
 
 Reviewer:
@@ -6,8 +6,6 @@ Reviewer:
 - Hồ Ngọc Vĩnh Phát - VNUHCM - University of Science
 - Nguyễn Đức Kiên - VNU - University of Engineering and Technology
 - Lê Minh Hoàng - VNUHCM - University of Science
-
-
 
 ## Giới thiệu
 

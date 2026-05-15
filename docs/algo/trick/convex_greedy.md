@@ -1,15 +1,13 @@
-
+﻿
 **Người viết:**
 - Đặng Đoàn Đức Trung - UT Austin
 
 **Reviewer:**
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 
-
-
 ## Giới thiệu
 
-![Convex Hull Trick](../../All_Images_Collected/convex_hull_trick.png)
+<img src="/All_Images_Collected/convex_hull_trick.png" alt="Convex Hull Trick" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Mục đích của bài viết này là để giới thiệu cho mọi người về một mô típ đã xuất hiện trong nhiều bài tập trung bình khó tới khó -- tối ưu tổng của một số hàm lồi cho trước. Ý tưởng giải chung của các bài toán này thường là như nhau: tham lam trên chi phí tăng của các hàm lồi này (ta sẽ định nghĩa chi phí tăng ở phần tiếp theo).
 

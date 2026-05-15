@@ -1,5 +1,4 @@
-
-
+﻿
 
 ## Giới thiệu
 MITM là một kỹ thuật tìm kiếm được sử dụng khi đầu vào nhỏ nhưng không đủ nhỏ để có thể quay lui (backtracking). Trước khi tiếp tục về kỹ thuật MITM, chúng ta cần xem xét bài toán đơn giản sau:
