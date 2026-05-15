@@ -196,6 +196,55 @@ nav:
         - Meet In The Middle (MITM): algo/trick/mitm.md
         - Rời rạc hoá và ứng dụng: algo/trick/Roi-rac-hoa-va-ung-dung.md
 
+  - Lập Trình Cơ Bản:
+      - Tổng quan: coding/index.md
+      - "🐍 Chương 1 — Python cho Thi Đấu":
+          - Tổng quan: coding/python/index.md
+          - "Phần A — Cơ bản":
+              - "P01: Cài đặt & Hello World": coding/python/P01-cai-dat.md
+              - "P02: Biến & Kiểu dữ liệu": coding/python/P02-bien-kieu-du-lieu.md
+              - "P03: Nhập/Xuất dữ liệu": coding/python/P03-nhap-xuat.md
+              - "P04: Toán tử & Biểu thức": coding/python/P04-toan-tu.md
+              - "P05: Câu lệnh điều kiện": coding/python/P05-dieu-kien.md
+              - "P06: Vòng lặp — Cơ bản": coding/python/P06-vong-lap-co-ban.md
+              - "P07: Vòng lặp — Nâng cao": coding/python/P07-vong-lap-nang-cao.md
+              - "P08: String (Xâu ký tự)": coding/python/P08-string.md
+          - "Phần B — Cấu trúc dữ liệu":
+              - "P09: List & Array 1D": coding/python/P09-list-array-1d.md
+              - "P10: Array 2D & Matrix": coding/python/P10-array-2d.md
+              - "P11: Dict & Set": coding/python/P11-dict-set.md
+              - "P12: Tuple": coding/python/P12-tuple.md
+              - "P13: Hàm (Function)": coding/python/P13-ham.md
+          - "Phần C — Thư viện thi đấu":
+              - "P14: collections": coding/python/P14-collections.md
+              - "P15: heapq": coding/python/P15-heapq.md
+              - "P16: itertools": coding/python/P16-itertools.md
+              - "P17: bisect": coding/python/P17-bisect.md
+              - "P18: math & Các hàm built-in": coding/python/P18-math-builtins.md
+          - "Phần D — Tổng hợp":
+              - "P19: Kỹ thuật thi đấu Python": coding/python/P19-ky-thuat-thi-dau.md
+              - "P20: Bài tập tổng hợp": coding/python/P20-bai-tap-tong-hop.md
+      - "⚡ Chương 2 — C++ cho Thi Đấu":
+          - Tổng quan: coding/cpp/index.md
+          - "Phần A — Cơ bản":
+              - "C01: Tại sao C++?": coding/cpp/C01-tai-sao-cpp.md
+              - "C02: Cú pháp cơ bản": coding/cpp/C02-cu-phap-co-ban.md
+              - "C03: Điều kiện & Vòng lặp": coding/cpp/C03-dieu-kien-vong-lap.md
+              - "C04: Mảng & Vector": coding/cpp/C04-mang-vector.md
+              - "C05: String": coding/cpp/C05-string.md
+          - "Phần B — Kỹ thuật":
+              - "C06: Hàm trong C++": coding/cpp/C06-ham.md
+              - "C07: Template & Fast I/O": coding/cpp/C07-template-fast-io.md
+              - "C08: Reference & Pointer": coding/cpp/C08-reference-pointer.md
+          - "Phần C — STL Cơ bản":
+              - "C09: pair & tuple": coding/cpp/C09-pair-tuple.md
+              - "C10: Vector nâng cao": coding/cpp/C10-vector-nang-cao.md
+              - "C11: sort & \<algorithm\>": coding/cpp/C11-sort-algorithm.md
+          - "Phần D — STL Nâng cao":
+              - "C12: set & map": coding/cpp/C12-set-map.md
+              - "C13: queue, stack, deque": coding/cpp/C13-queue-stack-deque.md
+              - "C14: \<algorithm\> nâng cao": coding/cpp/C14-algorithm-nang-cao.md
+              - "C15: Mẹo thi đấu C++": coding/cpp/C15-meo-thi-dau-cpp.md
   - Ngôn Ngữ Lập Trình:
     - Con trỏ trong C/C++: languages/cpp/pointers.md
     - Xâu trong C++: languages/cpp/string.md

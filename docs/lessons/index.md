@@ -2,6 +2,9 @@
 
 Bộ bài học **Lập trình thi đấu** được biên soạn dành cho người mới bắt đầu, từ các kiến thức nền tảng đến nâng cao. Mỗi bài học đều có giải thích trực quan, ví dụ minh hoạ và code mẫu.
 
+!!! warning "Học code trước khi học thuật toán!"
+    Nếu bạn **chưa biết lập trình**, hãy học [**Chương 1: Python cho Thi Đấu**](../coding/python/index.md) hoặc [**Chương 2: C++ cho Thi Đấu**](../coding/cpp/index.md) **TRƯỚC** khi bắt đầu học thuật toán. Việc nắm vững cú pháp và cách sử dụng ngôn ngữ lập trình sẽ giúp bạn hiểu thuật toán nhanh hơn rất nhiều!
+
 !!! tip "Học theo thứ tự"
     Hãy học từ **Nhóm 1** trước, rồi dần dần lên nhóm cao hơn. Mỗi nhóm có độ khó tăng dần.
 
