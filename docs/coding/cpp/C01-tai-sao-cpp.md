@@ -1,34 +1,37 @@
-# C01: Tại sao C++?
+# C01: Tại sao C++? — Cài đặt & Hello World
 
-> **Tác giả:** Hà Trí Kiên<br>
-> **Chủ đề:** Lợi ích của C++, so sánh với Python, cài đặt
+> **Tác giả:** FPTOJ Wiki<br>
+> **Chủ đề:** Giới thiệu C++, so sánh với Python, cài đặt, IDE, chương trình đầu tiên
 
 ---
 
-## 1. Tổng quan
+## Bạn sẽ học được gì?
 
-C++ là ngôn ngữ **phổ biến nhất** trong competitive programming. Tại sao?
+Sau bài này, bạn có thể:
+
+- Hiểu tại sao C++ phổ biến trong thi đấu
+- Cài đặt trình biên dịch C++ trên máy tính
+- Viết và chạy chương trình C++ đầu tiên
+- Chọn IDE phù hợp cho thi đấu
+
+---
+
+## 1. Tại sao chọn C++?
 
 ```mermaid
-flowchart TD
-    A["C++"] --> B["Nhanh hơn Python 10-100 lần"]
-    A --> C["STL mạnh mẽ"]
-    A --> D["Kiểm soát bộ nhớ tốt"]
-    A --> E["Phổ biến nhất trong thi đấu"]
+flowchart LR
+    A["C++"] --> B["Nhanh gấp 100 lần Python"]
+    A --> C["STL — thư viện mạnh mẽ"]
+    A --> D["Phổ biến nhất trong thi đấu"]
+    A --> E["Kiểm soát bộ nhớ tốt"]
 ```
 
----
-
-## 2. So sánh Python và C++
-
-| | Python | C++ |
-|---|--------|-----|
-| **Tốc độ** | Chậm (~10^6 phép tính/giây) | Nhanh (~10^8 phép tính/giây) |
+| Tiêu chí | Python | C++ |
+|----------|--------|-----|
+| **Tốc độ** | Chậm (~10^6 phép tính/giây) | **Nhanh** (~10^8 phép tính/giây) |
 | **Cú pháp** | Đơn giản, dễ đọc | Phức tạp hơn |
-| **Kiểu dữ liệu** | Tự động, linh hoạt | Phải khai báo, nghiêm ngặt |
 | **Compile** | Chạy trực tiếp | Phải compile trước |
-| **Bộ nhớ** | Tự quản lý | Chủ động hơn |
-| **Thư viện** | Nhiều built-in | STL rất mạnh |
+| **Thư viện** | Nhiều built-in | **STL rất mạnh** |
 | **Đệ quy** | Giới hạn ~1000 lớp | Giới hạn lớn hơn nhiều |
 
 !!! tip "Khi nào dùng Python, khi nào dùng C++?"
@@ -37,31 +40,63 @@ flowchart TD
 
 ---
 
-## 3. Cài đặt C++
+## 2. Cài đặt C++
 
-### Cách 1: MinGW (Windows)
+### Cách 1: MinGW (Windows) — Khuyến nghị
 
-1. Tải [MinGW](https://www.mingw-w64.org/)
-2. Cài đặt, chọn architecture: x86_64
-3. Thêm `C:\mingw64\bin` vào PATH
-4. Kiểm tra:
+!!! info "MinGW là gì?"
+    MinGW là bộ công cụ biên dịch C/C++ trên Windows. Đây là cách **phổ biến nhất** để cài GCC trên Windows.
+
+#### Bước 1: Tải MinGW
+
+Tải bản build chính thức từ GitHub:
+
+**[niXman/mingw-builds-binaries/releases](https://github.com/niXman/mingw-builds-binaries/releases)**
+
+!!! warning "Chọn đúng bản tải về"
+    Nếu bạn dùng **Windows 64-bit** (hầu hết máy hiện đại), hãy tải:
+
+    | Phiên bản | Mô tả | Link tải |
+    |-----------|-------|----------|
+    | **`x86_64-16.1.0-release-seh-ucrt-rt_v14-rev0.7z`** | **Khuyến nghị** — 64-bit, SEH, UCRT | [Tải về](https://github.com/niXman/mingw-builds-binaries/releases/download/16.1.0-rt_v14-rev0/x86_64-16.1.0-release-seh-ucrt-rt_v14-rev0.7z) |
+
+    - **x86_64** = 64-bit (phù hợp hầu hết máy)
+    - **seh** = cơ chế exception handling tốt nhất cho 64-bit
+    - **ucrt** = Universal C Runtime (hiện đại, đi kèm Windows 10+)
+    - **Dung lượng:** ~102 MB
+
+#### Bước 2: Giải nén
+
+1. Tải file `.7z` về (dùng [7-Zip](https://www.7-zip.org/) để giải nén)
+2. Giải nén vào ổ `C:\` → được thư mục `C:\mingw64\`
+
+!!! tip "Nên giải nén vào đâu?"
+    - **Tốt nhất:** `C:\mingw64\` (đường dẫn ngắn, không có dấu cách)
+    - **Tránh:** `C:\Program Files\` (có dấu cách sẽ gây lỗi)
+
+#### Bước 3: Thêm vào PATH
+
+1. Mở **Start** → tìm **"Edit the system environment variables"**
+2. Nhấn **"Environment Variables"**
+3. Trong phần **System variables**, tìm biến `Path` → nhấn **Edit**
+4. Nhấn **New** → thêm: `C:\mingw64\bin`
+5. Nhấn **OK** ở tất cả cửa sổ
+
+#### Bước 4: Kiểm tra
+
+Mở **Command Prompt** (hoặc PowerShell), gõ:
 
 ```bash
 g++ --version
 ```
 
-### Cách 2: MSYS2 (Windows)
+Nếu thấy thông tin phiên bản GCC là đã thành công:
 
-1. Tải [MSYS2](https://www.msys2.org/)
-2. Cài đặt, chạy:
-
-```bash
-pacman -S mingw-w64-x86_64-gcc
+```
+g++ (x86_64-posix-seh-rev0, Built by MinGW-Builds project) 16.1.0
 ```
 
-3. Thêm `C:\msys64\mingw64\bin` vào PATH
-
-### Cách 3: GCC (Linux/Mac)
+### Cách 2: GCC (Linux/Mac)
 
 ```bash
 # Ubuntu/Debian
@@ -71,18 +106,18 @@ sudo apt install g++
 brew install gcc
 ```
 
-### Cách 4: Online
+### Cách 3: Online (Không cần cài đặt)
 
-- **[Godbolt](https://godbolt.org/)** — Compiler online
-- **[Replit](https://replit.com/)** — IDE online
+- **[Godbolt](https://godbolt.org/)** — Compiler online, xem assembly
+- **[Replit](https://replit.com/)** — IDE online miễn phí
 - **[OnlineGDB](https://www.onlinegdb.com/)** — Chạy C++ online
 
 ---
 
-## 4. IDE / Text Editor
+## 3. IDE / Text Editor
 
 !!! question "Nên chọn IDE nào?"
-    Nếu bạn **chưa biết chọn gì**, hãy dùng **Code::Blocks** hoặc **Dev-C++**. Đây là 2 IDE **phổ biến nhất** trong thi đấu lập trình tại Việt Nam, **được phép** dùng trong hầu hết kỳ thi (HSG, VOI, IOI).
+    Nếu bạn **chưa biết chọn gì**, hãy dùng **Code::Blocks** hoặc **Dev-C++**. Đây là 2 IDE **phổ biến nhất** trong thi đấu lập trình tại Việt Nam.
 
 ### Code::Blocks (Rất khuyến nghị)
 
@@ -98,8 +133,6 @@ brew install gcc
     - **Nhẹ**, không tốn tài nguyên máy
     - **Đã có sẵn compiler** MinGW (không cần cài thêm)
     - **Debug** dễ dàng (F8 chạy từng dòng, F4 chạy đến con trỏ)
-    - **Hỗ trợ** code completion, syntax highlighting
-    - Phù hợp cho **cả người mới** và **thi đấu chuyên nghiệp**
 
 ### Dev-C++ (Cũng rất tốt)
 
@@ -108,53 +141,9 @@ brew install gcc
 3. Tạo file mới → Chọn **"C++ Source File"**
 4. Gõ code, nhấn **F11** để compile và chạy
 
-!!! tip "Dev-C++"
-    - **Nhẹ hơn** Code::Blocks
-    - **Đơn giản** hơn Code::Blocks
-    - **Được dùng** trong nhiều kỳ thi
-    - **Đã có sẵn** compiler MinGW
-    - Phù hợp cho **người mới bắt đầu**
-
-### So sánh Code::Blocks và Dev-C++
-
-| | Code::Blocks | Dev-C++ |
-|---|--------------|---------|
-| **Dung lượng** | ~100MB | ~50MB |
-| **Giao diện** | Nhiều tính năng | Đơn giản |
-| **Debug** | Mạnh mẽ (F8, F4) | Cơ bản |
-| **Code completion** | Có | Có |
-| **Phổ biến trong thi đấu** | Rất phổ biến | Phổ biến |
-| **Được phép trong thi đấu** | ✅ Hầu hết kỳ thi | ✅ Hầu hết kỳ thi |
-
-!!! tip "Lời khuyên cho các em"
-    - **Người mới bắt đầu:** Dùng **Dev-C++** (đơn giản, nhẹ)
-    - **Muốn debug tốt hơn:** Dùng **Code::Blocks** (debug mạnh mẽ)
-    - **Thi đấu chuyên nghiệp:** Dùng **Code::Blocks** (phổ biến nhất)
-    - **Không nên dùng VS Code** cho thi đấu (không được phép trong nhiều kỳ thi)
-
-### VS Code (Không khuyến nghị cho thi đấu)
-
-1. Tải [VS Code](https://code.visualstudio.com/)
-2. Cài extension "C/C++" của Microsoft
-3. Cài extension "Code Runner" (tùy chọn)
-4. Tạo file `.cpp`, nhấn **F5** để chạy
-
-!!! warning "VS Code"
-    - **Mạnh mẽ** nhưng **phức tạp** cho người mới
-    - Cần **cài thêm compiler** (MinGW/MSYS2)
-    - **Không được dùng** trong nhiều kỳ thi
-    - Phù hợp cho **dự án lớn**, không phải thi đấu
-
-### Online IDE (Nếu không muốn cài đặt)
-
-- **[Godbolt](https://godbolt.org/)** — Compiler online, xem assembly
-- **[Replit](https://replit.com/)** — IDE online miễn phí
-- **[OnlineGDB](https://www.onlinegdb.com/)** — Chạy C++ online
-- **[Ideone](https://ideone.com/)** — Chạy code online
-
 ---
 
-## 5. Chương trình đầu tiên: Hello World
+## 4. Chương trình đầu tiên: Hello World
 
 ```cpp
 #include <iostream>
@@ -166,31 +155,54 @@ int main() {
 }
 ```
 
-### Giải thích
+### Giải thích từng dòng
 
 ```cpp
-#include <iostream>  // Thư viện nhập/xuất
-using namespace std; // Dùng std mà không cần ghi std::
+#include <iostream>    // 1. Thêm thư viện nhập/xuất (input/output)
+using namespace std;   // 2. Dùng std mà không cần ghi std:: trước mỗi lệnh
 
-int main() {         // Hàm chính
-    cout << "Hello World!" << endl;  // In ra màn hình
-    return 0;        // Kết thúc chương trình
+int main() {           // 3. Hàm chính — chương trình bắt đầu từ đây
+    cout << "Hello World!" << endl;  // 4. In ra màn hình
+    return 0;          // 5. Kết thúc chương trình, trả về 0 (thành công)
 }
 ```
+
+| Lệnh | Ý nghĩa |
+|------|----------|
+| `#include <iostream>` | Thêm thư viện nhập/xuất |
+| `using namespace std;` | Để không phải viết `std::cout` mà chỉ cần `cout` |
+| `int main()` | Hàm chính, mọi chương trình C++ đều bắt đầu từ đây |
+| `cout << "..."` | In ra màn hình |
+| `endl` | Xuống dòng |
+| `return 0;` | Kết thúc chương trình |
 
 ### Compile và chạy
 
 ```bash
-# Compile
+# Bước 1: Compile — chuyển code thành file thực thi
 g++ -o hello hello.cpp
 
-# Chạy
+# Bước 2: Chạy file thực thi
 ./hello
 ```
 
+Output:
+```
+Hello World!
+```
+
+!!! tip "So sánh với Python"
+    | Python | C++ |
+    |--------|-----|
+    | `print("Hello World!")` | `cout << "Hello World!" << endl;` |
+    | Chạy trực tiếp | Phải compile trước |
+    | Ngắn gọn | Dài hơn nhưng nhanh hơn |
+
 ---
 
-## 6. Template thi đấu C++
+## 5. Template thi đấu C++
+
+Khi thi đấu, hãy dùng template này để code chạy nhanh nhất:
 
 ```cpp
 #include <bits/stdc++.h>
@@ -206,36 +218,47 @@ int main() {
 }
 ```
 
-!!! tip "Tại sao cần template?"
-    - `#include <bits/stdc++.h>` — Include TẤT CẢ thư viện chuẩn
-    - `ios_base::sync_with_stdio(false)` — Tắt đồng bộ I/O → nhanh hơn
-    - `cin.tie(NULL)` — Tách cin và cout → nhanh hơn
+### Giải thích template
+
+| Lệnh | Ý nghĩa |
+|------|----------|
+| `#include <bits/stdc++.h>` | Include **tất cả** thư viện chuẩn (tiện hơn include từng cái) |
+| `ios_base::sync_with_stdio(false)` | **Tắt** đồng bộ C và C++ I/O → **nhanh hơn** |
+| `cin.tie(NULL)` | **Tách** cin và cout → **nhanh hơn** |
+
+!!! warning "Khi dùng template này"
+    - **Không** dùng `scanf`/`printf` (C-style I/O) cùng với `cin`/`cout`
+    - **Không** dùng `puts`/`gets` cùng với `cout`/`cin`
 
 ---
 
-## 7. Compile với tối ưu
+## 6. Compile với tối ưu
 
 ```bash
-# Compile bình thường
+# Compile bình thường (dùng khi debug)
 g++ -o solution solution.cpp
 
-# Compile với tối ưu (thi đấu)
+# Compile với tối ưu tốc độ (dùng khi thi đấu)
 g++ -O2 -o solution solution.cpp
 
-# Compile với tất cả cảnh báo
+# Compile với tất cả cảnh báo (dùng khi debug)
 g++ -Wall -Wextra -o solution solution.cpp
 
 # Compile với C++17
 g++ -std=c++17 -o solution solution.cpp
+
+# Kết hợp: tối ưu + C++17
+g++ -O2 -std=c++17 -o solution solution.cpp
 ```
 
 !!! tip "Trong thi đấu"
     - Luôn compile với `-O2` để tối ưu tốc độ
     - Dùng C++17 hoặc C++20 nếu được phép
+    - Code trên Code::Blocks/Dev-C++ đã tự động tối ưu
 
 ---
 
-## 8. So sánh code Python vs C++
+## 7. So sánh code Python vs C++
 
 ### Hello World
 
@@ -248,7 +271,7 @@ g++ -std=c++17 -o solution solution.cpp
 === "C++"
 
     ```cpp
-    #include <iostream>
+    #include <bits/stdc++.h>
     using namespace std;
     
     int main() {
@@ -284,32 +307,15 @@ g++ -std=c++17 -o solution solution.cpp
     }
     ```
 
-### Vòng lặp
-
-=== "Python"
-
-    ```python
-    for i in range(10):
-        print(i)
-    ```
-
-=== "C++"
-
-    ```cpp
-    for (int i = 0; i < 10; i++) {
-        cout << i << endl;
-    }
-    ```
-
 ---
 
-## 9. Lưu ý / Cạm bẫy hay gặp
+## 8. Lưu ý / Cạm bẫy hay gặp
 
 ### Bẫy 1: Quên include
 
 ```cpp
 // SAI: Quên include
-// cout << "Hello";  // Lỗi compile!
+cout << "Hello";  // Lỗi compile!
 
 // ĐÚNG
 #include <iostream>
@@ -321,44 +327,39 @@ cout << "Hello";
 
 ```cpp
 // SAI: Không có using namespace std
-// cout << "Hello";  // Lỗi compile!
+cout << "Hello";  // Lỗi compile!
 
-// ĐÚNG
+// ĐÚNG: Thêm using namespace std
 using namespace std;
 cout << "Hello";
 
-// Hoặc dùng std::
+// HOẶC: Dùng std::
 std::cout << "Hello";
 ```
 
-### Bẫy 3: Quên return 0
-
-```cpp
-// C++ cũ: phải có return 0
-int main() {
-    // ...
-    return 0;
-}
-
-// C++11+: có thể bỏ return 0
-int main() {
-    // ...
-}
-```
-
-### Bẫy 4: Chấm phẩy
+### Bẫy 3: Quên chấm phẩy
 
 ```cpp
 // SAI: Quên chấm phẩy
-// int x = 5  // Lỗi compile!
+int x = 5  // Lỗi compile!
 
 // ĐÚNG
 int x = 5;
 ```
 
+### Bẫy 4: Dùng = thay vì ==
+
+```cpp
+// SAI: Dùng = (gán) thay vì == (so sánh)
+if (x = 5) { ... }  // Luôn đúng!
+
+// ĐÚNG
+if (x == 5) { ... }
+```
+
 ---
 
-## 10. Bài tập thực hành
+## 9. Bài tập thực hành
 
 ### Bài 1: Hello World
 Viết chương trình in "Hello World!".
@@ -378,31 +379,7 @@ Viết chương trình in "Hello World!".
     }
     ```
 
-### Bài 2: Tổng 2 số
-Đọc 2 số nguyên a, b. In ra a + b.
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        ios_base::sync_with_stdio(false);
-        cin.tie(NULL);
-        
-        int a, b;
-        cin >> a >> b;
-        cout << a + b << endl;
-        
-        return 0;
-    }
-    ```
-
-### Bài 3: In tên
+### Bài 2: In tên
 Đọc tên. In ra "Hello {tên}!".
 
 ```cpp
@@ -418,19 +395,9 @@ Viết chương trình in "Hello World!".
         string name;
         cin >> name;
         cout << "Hello " << name << "!" << endl;
-        
         return 0;
     }
     ```
-
----
-
-## 11. Bài tập luyện tập
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [AtCoder - A + B](https://atcoder.jp/contests/abc086/tasks/abc086_a) | AtCoder | ⭐ | Nhập/xuất cơ bản |
-| [CSES - Weird Algorithm](https://cses.fi/problemset/task/1068) | CSES | ⭐ | Chương trình đầu tiên |
 
 ---
 

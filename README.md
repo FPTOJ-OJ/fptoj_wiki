@@ -1,7 +1,7 @@
 # 🚀 FPTOJ WIKI
 
 [![Site](https://img.shields.io/badge/Site-wiki.fptoj.com-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://wiki.fptoj.com)
-[![GitHub](https://img.shields.io/badge/GitHub-KienPC1234/fptoj_wiki-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KienPC1234/fptoj_wiki)
+[![GitHub](https://img.shields.io/badge/GitHub-FPTOJ--OJ/fptoj_wiki-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/FPTOJ-OJ/fptoj_wiki)
 
 Welcome to **FPTOJ Wiki** - a knowledge repository for Algorithms and Competitive Programming for everyone.
 
@@ -14,28 +14,28 @@ Welcome to **FPTOJ Wiki** - a knowledge repository for Algorithms and Competitiv
 
 FPTOJ Wiki was built with the goal of sharing computer science knowledge with everyone. We focus on systematizing lessons from basic to advanced, helping learners have a clear roadmap for conquering algorithms.
 
-### 🐍 Lập trình Cơ Bản (Mới!)
+### 🐍 Basic Programming (New!)
 
-> **Dành cho:** Người chưa biết gì về lập trình, học sinh cấp 2–3
+> **Target Audience:** Absolute beginners, middle and high school students
 
-Bộ bài học lập trình từ **con số 0** đến thi đấu competitive programming:
+A comprehensive programming curriculum from **scratch** to competitive programming:
 
-#### Chương 1: Python cho Thi Đấu (20 bài)
-- **Phần A — Cơ bản** (8 bài): Cài đặt, biến, nhập/xuất, toán tử, điều kiện, vòng lặp, string
-- **Phần B — Cấu trúc dữ liệu** (5 bài): List, array 2D, dict, set, tuple, hàm
-- **Phần C — Thư viện thi đấu** (5 bài): collections, heapq, itertools, bisect, math
-- **Phần D — Tổng hợp** (2 bài): Kỹ thuật thi đấu, bài tập tổng hợp
+#### Chapter 1: Python for Competitive Programming (20 lessons)
+- **Part A — Basics** (8 lessons): Setup, variables, input/output, operators, conditionals, loops, strings
+- **Part B — Data Structures** (5 lessons): Lists, 2D arrays, dicts, sets, tuples, functions
+- **Part C — Competitive Libraries** (5 lessons): collections, heapq, itertools, bisect, math
+- **Part D — Summary** (2 lessons): Competitive techniques, comprehensive exercises
 
-#### Chương 2: C++ cho Thi Đấu (15 bài)
-- **Phần A — Cơ bản** (5 bài): Cú pháp, điều kiện, vòng lặp, mảng, string
-- **Phần B — Kỹ thuật** (3 bài): Hàm, template, fast I/O, reference, pointer
-- **Phần C — STL Cơ bản** (3 bài): pair, tuple, vector, sort, algorithm
-- **Phần D — STL Nâng cao** (4 bài): set, map, queue, stack, deque, algorithm nâng cao
+#### Chapter 2: C++ for Competitive Programming (15 lessons)
+- **Part A — Basics** (5 lessons): Syntax, conditionals, loops, arrays, strings
+- **Part B — Techniques** (3 lessons): Functions, templates, fast I/O, references, pointers
+- **Part C — Basic STL** (3 lessons): pairs, tuples, vectors, sorting, algorithms
+- **Part D — Advanced STL** (4 lessons): sets, maps, queues, stacks, deques, advanced algorithms
 
 > [!TIP]
-> Nếu bạn **chưa biết lập trình**, hãy học [Lập trình Cơ Bản](docs/coding/index.md) **TRƯỚC** khi bắt đầu học thuật toán!
+> If you **don't know how to program yet**, please study [Basic Programming](docs/coding/index.md) **BEFORE** starting the algorithms section!
 
-### ⭐ Các nhóm bài học thuật toán
+### ⭐ Algorithm Lesson Groups
 
 - **⭐ Group 1 — Introduction**: Environment setup, Complexity, Sorting, Binary Search.
 - **⭐⭐ Groups 2 & 3**: Basic techniques, Data Structures (DSU, Segment Tree, BIT...).
@@ -63,7 +63,7 @@ To run the Wiki locally, you need to install Python and follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/KienPC1234/fptoj_wiki.git
+   git clone https://github.com/FPTOJ-OJ/fptoj_wiki.git
    cd fptoj_wiki
    ```
 

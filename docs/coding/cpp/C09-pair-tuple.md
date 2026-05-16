@@ -1,300 +1,165 @@
 # C09: pair & tuple
 
-> **Tác giả:** Hà Trí Kiên<br>
-> **Chủ đề:** pair, tuple, make_pair, structured bindings
+> **Tác giả:** FPTOJ Wiki<br>
+> **Chủ đề:** pair, tuple, structured bindings
 
 ---
 
-## 1. Tổng quan
+## Bạn sẽ học được gì?
 
-`pair` và `tuple` dùng để nhóm nhiều giá trị thành 1 đơn vị.
+Sau bài này, bạn có thể:
 
-```cpp
-pair<int, int> p = {1, 2};
-tuple<int, string, double> t = {1, "Alice", 3.14};
-```
+- Sử dụng `pair` để lưu 2 giá trị
+- Sử dụng `tuple` để lưu nhiều giá trị
+- Dùng structured bindings (C++17)
 
 ---
 
-## 2. pair
+## 1. pair — Lưu 2 giá trị
 
-### 2.1. Khai báo
-
-```cpp
-#include <utility>
-
-// Cách 1
-pair<int, int> p = {1, 2};
-
-// Cách 2: make_pair
-pair<int, int> p = make_pair(1, 2);
-
-// Cách 3: Kiểu khác nhau
-pair<string, int> p = {"Alice", 90};
-```
-
-### 2.2. Truy cập
+### Khai báo
 
 ```cpp
-pair<int, int> p = {1, 2};
-
-cout << p.first << endl;   // 1
-cout << p.second << endl;  // 2
+pair<int, int> p1 = {1, 2};
+pair<string, int> p2 = {"Nam", 15};
+pair<int, string> p3 = make_pair(1, "Hello");
 ```
 
-### 2.3. Sửa giá trị
+### Truy cập
 
 ```cpp
-pair<int, int> p = {1, 2};
-p.first = 10;
-p.second = 20;
+pair<string, int> p = {"Nam", 15};
+
+cout << p.first << endl;   // "Nam"
+cout << p.second << endl;  // 15
 ```
 
-### 2.4. So sánh
+### So sánh pair
 
 ```cpp
 pair<int, int> a = {1, 2};
 pair<int, int> b = {1, 3};
-pair<int, int> c = {2, 1};
 
-// So sánh theo first trước, sau đó second
-cout << (a < b) << endl;  // 1 (true) — a.second < b.second
-cout << (a < c) << endl;  // 1 (true) — a.first < c.first
+// So sánh theo first trước, nếu bằng thì so sánh second
+cout << (a < b) << endl;  // 1 (true) vì a.second < b.second
 ```
 
-### 2.5.Ứng dụng
+### pair trong thi đấu
 
 ```cpp
-// Lưu tọa độ
-pair<int, int> point = {x, y};
+// Lưu tọa độ điểm
+pair<int, int> point = {3, 5};
 
-// Lưu (giá trị, index)
-pair<int, int> p = {arr[i], i};
+// Lưu {giá trị, chỉ số}
+pair<int, int> valIdx = {100, 5};
 
-// Sắp xếp theo nhiều tiêu chí
-vector<pair<int, int>> arr = {{3, 1}, {1, 3}, {2, 2}};
-sort(arr.begin(), arr.end());
-// Kết quả: {{1, 3}, {2, 2}, {3, 1}}
+// Sắp xếp vector pair
+vector<pair<int, int>> v = {{3, 1}, {1, 3}, {2, 2}};
+sort(v.begin(), v.end());
+// v = {{1, 3}, {2, 2}, {3, 1}}
 ```
 
 ---
 
-## 3. tuple
+## 2. tuple — Lưu nhiều giá trị
 
-### 3.1. Khai báo
+### Khai báo
 
 ```cpp
-#include <tuple>
-
-// Cách 1
-tuple<int, string, double> t = {1, "Alice", 3.14};
-
-// Cách 2: make_tuple
-tuple<int, string, double> t = make_tuple(1, "Alice", 3.14);
+tuple<int, string, double> t1 = {1, "Nam", 9.5};
+auto t2 = make_tuple(2, "An", 8.0);
 ```
 
-### 3.2. Truy cập
+### Truy cập
 
 ```cpp
-tuple<int, string, double> t = {1, "Alice", 3.14};
+auto t = make_tuple(1, "Nam", 9.5);
 
-// Cách 1: get<i>
 cout << get<0>(t) << endl;  // 1
-cout << get<1>(t) << endl;  // "Alice"
-cout << get<2>(t) << endl;  // 3.14
+cout << get<1>(t) << endl;  // "Nam"
+cout << get<2>(t) << endl;  // 9.5
+```
 
-// Cách 2: tie
+### tie — Gán tuple vào biến
+
+```cpp
+auto t = make_tuple(1, "Nam", 9.5);
+
 int id;
 string name;
 double score;
 tie(id, name, score) = t;
-```
 
-### 3.3. Structured Bindings (C++17)
-
-```cpp
-// C++17: Rất tiện lợi!
-auto [id, name, score] = t;
 cout << id << " " << name << " " << score << endl;
 ```
 
-### 3.4. So sánh
-
-```cpp
-tuple<int, int, int> a = {1, 2, 3};
-tuple<int, int, int> b = {1, 2, 4};
-
-// So sánh theo thứ tự: first → second → third
-cout << (a < b) << endl;  // 1 (true)
-```
-
 ---
 
-## 4. So sánh pair và tuple
-
-| | pair | tuple |
-|---|------|-------|
-| Số phần tử | 2 | Bất kỳ |
-| Truy cập | `.first`, `.second` | `get<i>()` |
-| Cú pháp | Đơn giản | Phức tạp hơn |
-|Ứng dụng | Cặp giá trị | Nhóm nhiều giá trị |
-
-!!! tip "Trong thi đấu"
-    - Dùng `pair` khi chỉ cần 2 giá trị
-    - Dùng `tuple` khi cần 3+ giá trị
-    - Dùng `struct` khi cần đặt tên rõ ràng
-
----
-
-## 5. So sánh với Python
-
-| Python | C++ | Ghi chú |
-|--------|-----|---------|
-| `(1, 2)` | `pair<int, int>{1, 2}` | |
-| `t[0]` | `get<0>(t)` hoặc `.first` | |
-| `a, b = t` | `auto [a, b] = t;` (C++17) | |
-| `t = (1, "Alice", 3.14)` | `tuple<int, string, double> t = {1, "Alice", 3.14}` | |
-
----
-
-## 6. Pattern thường gặp trong thi đấu
-
-### 6.1. Lưu (giá trị, index)
+## 3. Structured Bindings (C++17)
 
 ```cpp
-vector<pair<int, int>> arr;
-for (int i = 0; i < n; i++) {
-    arr.push_back({arr[i], i});
-}
-sort(arr.begin(), arr.end());
-```
+// Với pair
+pair<int, int> p = {1, 2};
+auto [x, y] = p;
+cout << x << " " << y << endl;  // 1 2
 
-### 6.2. Sắp xếp theo nhiều tiêu chí
+// Với tuple
+auto t = make_tuple(1, "Nam", 9.5);
+auto [id, name, score] = t;
+cout << id << " " << name << " " << score << endl;
 
-```cpp
-vector<pair<int, int>> arr = {{3, 1}, {1, 3}, {2, 2}};
-
-// Sắp xếp theo first tăng dần
-sort(arr.begin(), arr.end());
-
-// Sắp xếp theo first giảm dần
-sort(arr.begin(), arr.end(), greater<pair<int, int>>());
-
-// Sắp xếp theo second
-sort(arr.begin(), arr.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
-    return a.second < b.second;
-});
-```
-
-### 6.3. Trả về nhiều giá trị từ hàm
-
-```cpp
-pair<int, int> minMax(const vector<int>& arr) {
-    return {*min_element(arr.begin(), arr.end()),
-            *max_element(arr.begin(), arr.end())};
-}
-
-int main() {
-    auto [minVal, maxVal] = minMax({3, 1, 4, 1, 5, 9});
-    cout << minVal << " " << maxVal;  // 1 9
-    return 0;
+// Với map
+map<string, int> mp = {{"a", 1}, {"b", 2}};
+for (auto [key, value] : mp) {
+    cout << key << " -> " << value << endl;
 }
 ```
 
-### 6.4. Priority Queue với pair
+!!! tip "Structured bindings rất tiện"
+    Thay vì viết `p.first`, `p.second`, dùng `auto [x, y] = p;` cho ngắn gọn.
+
+---
+
+## 4. Ứng dụng trong thi đấu
+
+### Lưu tọa độ
 
 ```cpp
-// Max-heap theo first, nếu first bằng thì theo second
+pair<int, int> start = {0, 0};
+pair<int, int> finish = {n-1, m-1};
+```
+
+### Sắp xếp đa tiêu chí
+
+```cpp
+// Sắp xếp sinh viên theo điểm giảm dần, nếu bằng thì theo tên tăng dần
+vector<tuple<double, string, int>> students;
+students.push_back({9.5, "Nam", 1});
+students.push_back({8.0, "An", 2});
+students.push_back({9.5, "Binh", 3});
+
+sort(students.begin(), students.end(), greater<>());
+```
+
+### Priority queue với pair
+
+```cpp
+// Max-heap: phần tử có first lớn nhất ở đỉnh
 priority_queue<pair<int, int>> pq;
-pq.push({1, 2});
-pq.push({1, 3});
-pq.push({2, 1});
+pq.push({3, 100});
+pq.push({1, 200});
+pq.push({2, 300});
 
-// Top: {2, 1}
+auto [val, id] = pq.top();  // {3, 100}
 ```
-
----
-
-## 7. Lưu ý / Cạm bẫy hay gặp
-
-### Bẫy 1: So sánh pair
-
-```cpp
-pair<int, int> a = {1, 2};
-pair<int, int> b = {1, 3};
-
-// So sánh theo first trước
-// Nếu first bằng nhau → so sánh second
-// a < b vì a.second < b.second
-```
-
-### Bẫy 2: get với index sai
-
-```cpp
-tuple<int, string> t = {1, "Alice"};
-// get<2>(t);  // Lỗi compile! Chỉ có index 0, 1
-```
-
-### Bẫy 3: tie với số lượng biến không khớp
-
-```cpp
-tuple<int, int, int> t = {1, 2, 3};
-// int a, b;
-// tie(a, b) = t;  // Lỗi! Thiếu 1 biến
-```
-
----
-
-## 8. Bài tập thực hành
-
-### Bài 1: Sắp xếp theo 2 tiêu chí
-Cho n cặp (a, b). Sắp xếp theo a tăng dần, nếu a bằng thì theo b giảm dần.
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        int n;
-        cin >> n;
-        vector<pair<int, int>> arr(n);
-        for (int i = 0; i < n; i++) {
-            cin >> arr[i].first >> arr[i].second;
-        }
-        
-        sort(arr.begin(), arr.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
-            if (a.first != b.first) return a.first < b.first;
-            return a.second > b.second;
-        });
-        
-        for (auto& p : arr) {
-            cout << p.first << " " << p.second << "\n";
-        }
-        return 0;
-    }
-    ```
-
----
-
-## 9. Bài tập luyện tập
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Apartments](https://cses.fi/problemset/task/1084) | CSES | ⭐⭐ | pair, sort |
 
 ---
 
 ## Bài viết liên quan
 
-- [← C08: Reference & Pointer](C08-reference-pointer.md)
+- [C08: Reference & Pointer →](C08-reference-pointer.md)
 - [C10: Vector nâng cao →](C10-vector-nang-cao.md)
 
 ---
 
-**Bài trước:** [C08: Reference & Pointer](C08-reference-pointer.md)<br>
 **Bài tiếp theo:** [C10: Vector nâng cao →](C10-vector-nang-cao.md)

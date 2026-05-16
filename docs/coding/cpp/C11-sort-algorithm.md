@@ -1,61 +1,50 @@
-# C11: sort & \<algorithm\>
+# C11: sort & algorithm
 
-> **Tác giả:** Hà Trí Kiên<br>
-> **Chủ đề:** sort, stable_sort, reverse, unique, next_permutation
-
----
-
-## 1. Tổng quan
-
-`<algorithm>` là thư viện **cực kỳ quan trọng** trong thi đấu C++. Cung cấp nhiều thuật toán sẵn có.
-
-```cpp
-#include <algorithm>
-```
+> **Tác giả:** FPTOJ Wiki<br>
+> **Chủ đề:** sort, reverse, unique, next_permutation, min/max, find, fill
 
 ---
 
-## 2. sort — Sắp xếp
+## Bạn sẽ học được gì?
 
-### 2.1. Cơ bản
+Sau bài này, bạn có thể:
+
+- Sắp xếp mảng với `sort` và comparator tùy chỉnh
+- Sử dụng các hàm algorithm thường dùng
+- Duyệt hoán vị với `next_permutation`
+
+---
+
+## 1. sort — Sắp xếp
+
+### Sắp xếp tăng/giảm dần
 
 ```cpp
-vector<int> v = {3, 1, 4, 1, 5, 9};
+vector<int> a = {5, 2, 8, 1, 9, 3};
 
-// Sắp xếp tăng dần
-sort(v.begin(), v.end());  // {1, 1, 3, 4, 5, 9}
-
-// Sắp xếp giảm dần
-sort(v.begin(), v.end(), greater<int>());  // {9, 5, 4, 3, 1, 1}
+sort(a.begin(), a.end());              // Tăng: {1, 2, 3, 5, 8, 9}
+sort(a.begin(), a.end(), greater<>()); // Giảm: {9, 8, 5, 3, 2, 1}
 ```
 
-### 2.2. Sắp xếp với comparator
+### Sắp xếp mảng tĩnh
 
 ```cpp
-vector<int> v = {3, 1, 4, 1, 5, 9};
+int a[6] = {5, 2, 8, 1, 9, 3};
+sort(a, a + 6);
+```
 
-// Lambda expression
-sort(v.begin(), v.end(), [](int a, int b) {
-    return a > b;  // Giảm dần
+### Custom Comparator
+
+```cpp
+// Sắp xếp pair theo second giảm dần
+vector<pair<int,int>> v = {{1, 3}, {2, 1}, {3, 2}};
+sort(v.begin(), v.end(), [](const auto &x, const auto &y) {
+    return x.second > y.second;
 });
-
-// Sắp xếp theo chữ số cuối
-sort(v.begin(), v.end(), [](int a, int b) {
-    return a % 10 < b % 10;
-});
+// v = {{2, 1}, {3, 2}, {1, 3}}
 ```
 
-### 2.3. Sắp xếp pair
-
-```cpp
-vector<pair<int, int>> v = {{3, 1}, {1, 3}, {2, 2}};
-
-// Sắp xếp theo first, sau đó second
-sort(v.begin(), v.end());
-// {{1, 3}, {2, 2}, {3, 1}}
-```
-
-### 2.4. Sắp xếp struct
+### Sắp xếp struct
 
 ```cpp
 struct Student {
@@ -63,10 +52,10 @@ struct Student {
     int score;
 };
 
-vector<Student> students = {{"Alice", 90}, {"Bob", 85}, {"Charlie", 90}};
+vector<Student> students = {{"Nam", 9}, {"An", 7}, {"Binh", 9}};
 
-// Sắp xếp theo score giảm dần, nếu score bằng thì theo name
-sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
+// Sắp xếp theo điểm giảm dần, nếu bằng thì theo tên tăng dần
+sort(students.begin(), students.end(), [](const Student &a, const Student &b) {
     if (a.score != b.score) return a.score > b.score;
     return a.name < b.name;
 });
@@ -74,71 +63,46 @@ sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
 
 ---
 
-## 3. stable_sort — Sắp xếp ổn định
+## 2. reverse — Đảo ngược
 
 ```cpp
-vector<pair<int, int>> v = {{1, "a"}, {2, "b"}, {1, "c"}};
+vector<int> a = {1, 2, 3, 4, 5};
+reverse(a.begin(), a.end());
+// a = {5, 4, 3, 2, 1}
 
-// sort: Không đảm bảo thứ tự của phần tử bằng nhau
-sort(v.begin(), v.end());
-
-// stable_sort: Giữ nguyên thứ tự của phần tử bằng nhau
-stable_sort(v.begin(), v.end());
+string s = "Hello";
+reverse(s.begin(), s.end());
+// s = "olleH"
 ```
 
 ---
 
-## 4. reverse — Đảo ngược
+## 3. unique — Xóa phần tử trùng lặp
 
 ```cpp
-vector<int> v = {1, 2, 3, 4, 5};
+vector<int> a = {1, 1, 2, 2, 2, 3, 3, 4};
 
-// Đảo ngược tại chỗ
-reverse(v.begin(), v.end());  // {5, 4, 3, 2, 1}
-
-// Đảo ngược một phần
-reverse(v.begin() + 1, v.begin() + 4);  // {5, 2, 3, 4, 1}
+// unique chỉ hoạt động trên mảng đã sắp xếp
+a.erase(unique(a.begin(), a.end()), a.end());
+// a = {1, 2, 3, 4}
 ```
+
+!!! warning "Phải sắp xếp trước"
+    `unique` chỉ xóa các phần tử **liên tiếp** trùng nhau. Phải `sort` trước khi `unique`.
 
 ---
 
-## 5. unique — Xóa trùng liền kề
+## 4. next_permutation — Hoán vị kế tiếp
 
 ```cpp
-vector<int> v = {1, 1, 2, 2, 3, 3, 4, 4};
+vector<int> a = {1, 2, 3};
 
-// unique: Xóa trùng liền kề, trả về iterator đến phần tử mới cuối
-auto it = unique(v.begin(), v.end());
-// v = {1, 2, 3, 4, 3, 3, 4, 4} — Chưa xóa hoàn toàn!
-
-// Phải erase phần thừa
-v.erase(it, v.end());
-// v = {1, 2, 3, 4}
-
-// Kết hợp với sort để xóa TẤT CẢ trùng
-sort(v.begin(), v.end());
-v.erase(unique(v.begin(), v.end()), v.end());
-```
-
-!!! tip "Trong thi đấu"
-    ```cpp
-    // Xóa trùng trong vector
-    sort(v.begin(), v.end());
-    v.erase(unique(v.begin(), v.end()), v.end());
-    ```
-
----
-
-## 6. next_permutation — Sinh hoán vị kế tiếp
-
-```cpp
-vector<int> v = {1, 2, 3};
-
-// Sinh tất cả hoán vị
+// In tất cả hoán vị
 do {
-    for (int x : v) cout << x << " ";
+    for (int x : a) cout << x << " ";
     cout << endl;
-} while (next_permutation(v.begin(), v.end()));
+} while (next_permutation(a.begin(), a.end()));
+// Output:
 // 1 2 3
 // 1 3 2
 // 2 1 3
@@ -148,178 +112,88 @@ do {
 ```
 
 !!! warning "Phải sắp xếp trước"
+    `next_permutation` chỉ tạo hoán vị **lớn hơn**. Nếu mảng chưa sắp xếp, sẽ bỏ lỡ một số hoán vị.
+
+---
+
+## 5. min_element / max_element
+
+```cpp
+vector<int> a = {5, 2, 8, 1, 9, 3};
+
+cout << *min_element(a.begin(), a.end()) << endl;  // 1
+cout << *max_element(a.begin(), a.end()) << endl;  // 9
+
+// Lấy chỉ số
+int minIdx = min_element(a.begin(), a.end()) - a.begin();
+int maxIdx = max_element(a.begin(), a.end()) - a.begin();
+```
+
+---
+
+## 6. find / count / fill
+
+```cpp
+vector<int> a = {1, 2, 3, 4, 5};
+
+// find — Tìm phần tử
+auto it = find(a.begin(), a.end(), 3);
+if (it != a.end()) cout << "Tim thay tai " << it - a.begin() << endl;
+
+// count — Đếm số lần xuất hiện
+int cnt = count(a.begin(), a.end(), 3);
+cout << cnt << endl;  // 1
+
+// fill — Gán giá trị
+fill(a.begin(), a.end(), 0);
+// a = {0, 0, 0, 0, 0}
+```
+
+---
+
+## 7. accumulate — Tổng
+
+```cpp
+vector<int> a = {1, 2, 3, 4, 5};
+
+int sum = accumulate(a.begin(), a.end(), 0);
+cout << sum << endl;  // 15
+
+// Tích
+int product = accumulate(a.begin(), a.end(), 1, multiplies<int>());
+cout << product << endl;  // 120
+```
+
+!!! warning "Tránh tràn số"
     ```cpp
-    vector<int> v = {3, 1, 2};
-    
-    // Nếu không sắp xếp trước, sẽ bỏ lỡ hoán vị
-    do {
-        for (int x : v) cout << x << " ";
-        cout << endl;
-    } while (next_permutation(v.begin(), v.end()));
-    // Chỉ sinh từ {3, 1, 2} trở đi!
-    
-    // ĐÚNG: Sắp xếp trước
-    sort(v.begin(), v.end());
-    do {
-        for (int x : v) cout << x << " ";
-        cout << endl;
-    } while (next_permutation(v.begin(), v.end()));
-    ```
-
-### prev_permutation
-
-```cpp
-vector<int> v = {3, 2, 1};
-
-// Sinh hoán vị trước đó
-do {
-    for (int x : v) cout << x << " ";
-    cout << endl;
-} while (prev_permutation(v.begin(), v.end()));
-```
-
----
-
-## 7. Các hàm khác trong \<algorithm\>
-
-### 7.1. min, max
-
-```cpp
-cout << min(3, 5) << endl;  // 3
-cout << max(3, 5) << endl;  // 5
-
-// Nhiều giá trị
-cout << min({3, 1, 4, 1, 5}) << endl;  // 1
-cout << max({3, 1, 4, 1, 5}) << endl;  // 5
-```
-
-### 7.2. min_element, max_element
-
-```cpp
-vector<int> v = {3, 1, 4, 1, 5, 9};
-
-auto minIt = min_element(v.begin(), v.end());
-auto maxIt = max_element(v.begin(), v.end());
-
-cout << *minIt << endl;  // 1
-cout << *maxIt << endl;  // 9
-cout << minIt - v.begin() << endl;  // 1 (index)
-```
-
-### 7.3. count
-
-```cpp
-vector<int> v = {1, 2, 3, 2, 1};
-
-int cnt = count(v.begin(), v.end(), 2);  // 2
-```
-
-### 7.4. find
-
-```cpp
-vector<int> v = {1, 2, 3, 4, 5};
-
-auto it = find(v.begin(), v.end(), 3);
-if (it != v.end()) {
-    cout << "Tim thay tai vi tri " << it - v.begin() << endl;  // 2
-}
-```
-
-### 7.5. fill
-
-```cpp
-vector<int> v(5);
-
-fill(v.begin(), v.end(), 10);  // {10, 10, 10, 10, 10}
-fill(v.begin(), v.begin() + 3, 0);  // {0, 0, 0, 10, 10}
-```
-
-### 7.6. accumulate
-
-```cpp
-#include <numeric>
-
-vector<int> v = {1, 2, 3, 4, 5};
-
-int sum = accumulate(v.begin(), v.end(), 0);  // 15
-long long sum = accumulate(v.begin(), v.end(), 0LL);  // Tránh tràn
-```
-
----
-
-## 8. So sánh với Python
-
-| Python | C++ | Ghi chú |
-|--------|-----|---------|
-| `arr.sort()` | `sort(v.begin(), v.end());` | |
-| `sorted(arr)` | Không có trực tiếp | Phải copy trước |
-| `arr.reverse()` | `reverse(v.begin(), v.end());` | |
-| `arr.count(x)` | `count(v.begin(), v.end(), x)` | |
-| `arr.index(x)` | `find(v.begin(), v.end(), x)` | |
-| `arr.pop()` | `v.pop_back()` | |
-| Không có | `next_permutation` | Phải tự cài trong Python |
-
----
-
-## 9. Bài tập thực hành
-
-### Bài 1: Sắp xếp theo tổng chữ số
-Cho n số nguyên. Sắp xếp theo tổng chữ số tăng dần.
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int digitSum(int n) {
-        int s = 0;
-        n = abs(n);
-        while (n > 0) {
-            s += n % 10;
-            n /= 10;
-        }
-        return s;
-    }
-    
-    int main() {
-        int n;
-        cin >> n;
-        vector<int> arr(n);
-        for (int i = 0; i < n; i++) cin >> arr[i];
-        
-        sort(arr.begin(), arr.end(), [](int a, int b) {
-            int sa = digitSum(a), sb = digitSum(b);
-            if (sa != sb) return sa < sb;
-            return a < b;
-        });
-        
-        for (int x : arr) cout << x << " ";
-        cout << endl;
-        return 0;
-    }
+    long long sum = accumulate(a.begin(), a.end(), 0LL);
+    //                                     khởi tạo ^^ 0LL
     ```
 
 ---
 
-## 10. Bài tập luyện tập
+## 8. Bảng tổng hợp
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Apartments](https://cses.fi/problemset/task/1084) | CSES | ⭐⭐ | sort |
-| [CSES - Ferris Wheel](https://cses.fi/problemset/task/1090) | CSES | ⭐⭐ | sort, two pointers |
+| Hàm | Mô tả | Độ phức tạp |
+|-----|-------|-------------|
+| `sort` | Sắp xếp | $O(n \log n)$ |
+| `reverse` | Đảo ngược | $O(n)$ |
+| `unique` | Xóa trùng | $O(n)$ |
+| `next_permutation` | Hoán vị kế tiếp | $O(n)$ |
+| `min_element` | Tìm min | $O(n)$ |
+| `max_element` | Tìm max | $O(n)$ |
+| `find` | Tìm phần tử | $O(n)$ |
+| `count` | Đếm | $O(n)$ |
+| `fill` | Gán giá trị | $O(n)$ |
+| `accumulate` | Tổng | $O(n)$ |
 
 ---
 
 ## Bài viết liên quan
 
-- [← C10: Vector nâng cao](C10-vector-nang-cao.md)
+- [C10: Vector nâng cao →](C10-vector-nang-cao.md)
 - [C12: set & map →](C12-set-map.md)
 
 ---
 
-**Bài trước:** [C10: Vector nâng cao](C10-vector-nang-cao.md)<br>
 **Bài tiếp theo:** [C12: set & map →](C12-set-map.md)

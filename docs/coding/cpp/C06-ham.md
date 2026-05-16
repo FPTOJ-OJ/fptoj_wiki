@@ -1,378 +1,277 @@
 # C06: Hàm trong C++
 
-> **Tác giả:** Hà Trí Kiên<br>
-> **Chủ đề:** Định nghĩa hàm, overload, default parameters, inline
+> **Tác giả:** FPTOJ Wiki<br>
+> **Chủ đề:** Định nghĩa hàm, overload, tham trị/tham chiếu, đệ quy, lambda
 
 ---
 
-## 1. Tổng quan
+## Bạn sẽ học được gì?
 
-Hàm trong C++ **bắt buộc khai báo kiểu trả về** và **kiểu tham số**.
+Sau bài này, bạn có thể:
 
-```cpp
-// Cú pháp
-<kiểu_trả về> <tên_hàm>(<tham số>) {
-    // Thân hàm
-    return <giá trị>;
-}
-```
+- Định nghĩa và gọi hàm trong C++
+- Hiểu tham trị vs tham chiếu
+- Sử dụng hàm overload
+- Viết hàm đệ quy
+- Sử dụng lambda cơ bản
 
 ---
 
-## 2. Định nghĩa hàm cơ bản
+## 1. Định nghĩa hàm cơ bản
 
 ```cpp
 // Hàm không trả về giá trị
-void printHello() {
-    cout << "Hello!" << endl;
+void greet(string name) {
+    cout << "Hello " << name << "!" << endl;
 }
 
-// Hàm trả về int
+// Hàm trả về giá trị
 int add(int a, int b) {
     return a + b;
 }
 
-// Hàm trả về double
-double area(double r) {
-    return M_PI * r * r;
+// Hàm với giá trị mặc định
+void printInfo(string name, int age = 18) {
+    cout << name << " " << age << endl;
+}
+
+int main() {
+    greet("Nam");           // Hello Nam!
+    cout << add(3, 5);      // 8
+    printInfo("Nam");       // Nam 18
+    printInfo("Nam", 20);   // Nam 20
+    return 0;
 }
 ```
 
-### Gọi hàm
+!!! note "Khác biệt với Python"
+    | Python | C++ |
+    |--------|-----|
+    | `def add(a, b):` | `int add(int a, int b) {` |
+    | Không cần khai báo kiểu | **Phải khai báo kiểu** trả về |
+    | Thụt lề | Dùng `{` `}` |
+    | `return` tùy chọn | **Phải có `return`** nếu có kiểu trả về |
+
+---
+
+## 2. Truyền tham trị vs Tham chiếu
+
+### Tham trị (Pass by Value) — Sao chép
 
 ```cpp
+void tangMot(int x) {
+    x++;  // Chỉ thay đổi bản sao
+}
+
 int main() {
-    printHello();           // Hello!
-    cout << add(3, 5);     // 8
-    cout << area(5.0);     // 78.5398
+    int a = 5;
+    tangMot(a);
+    cout << a << endl;  // 5 — Giá trị không thay đổi!
     return 0;
+}
+```
+
+### Tham chiếu (Pass by Reference) — Thay đổi trực tiếp
+
+```cpp
+void tangMot(int &x) {
+    x++;  // Thay đổi giá trị gốc
+}
+
+int main() {
+    int a = 5;
+    tangMot(a);
+    cout << a << endl;  // 6 — Giá trị đã thay đổi!
+    return 0;
+}
+```
+
+### const Reference — Chỉ đọc, không sao chép
+
+```cpp
+void print(const string &s) {
+    // s là reference nhưng không thể sửa
+    cout << s << endl;
+    // s += "!";  // Lỗi compile!
+}
+```
+
+!!! tip "Khi nào dùng gì?"
+    - **Tham trị (`int x`):** Kiểu nhỏ (int, char, bool), không cần thay đổi
+    - **Tham chiếu (`int &x`):** Cần thay đổi giá trị
+    - **Const reference (`const int &x`):** Không thay đổi, tránh sao chép (nhanh hơn với object lớn)
+
+### Truyền vector
+
+```cpp
+// SAI: Sao chép toàn bộ vector (chậm)
+void process(vector<int> a) { ... }
+
+// ĐÚNG: Truyền tham chiếu (có thể sửa)
+void process(vector<int> &a) { ... }
+
+// ĐÚNG: Truyền const reference (không sửa, nhanh)
+void print(const vector<int> &a) {
+    for (int x : a) cout << x << " ";
 }
 ```
 
 ---
 
-## 3. Tham số mặc định
+## 3. Hàm Overload — Cùng tên, khác tham số
 
 ```cpp
-// Tham số mặc định phải ở CUỐI
-void greet(string name, string greeting = "Hello") {
-    cout << greeting << ", " << name << "!" << endl;
-}
-
-int main() {
-    greet("Alice");           // Hello, Alice!
-    greet("Alice", "Hi");    // Hi, Alice!
-    return 0;
-}
-```
-
-!!! warning "Tham số mặc định phải ở cuối"
-    ```cpp
-    // SAI
-    // void func(int a = 1, int b) { }  // Lỗi compile!
-    
-    // ĐÚNG
-    void func(int a, int b = 1) { }
-    ```
-
----
-
-## 4. Function Overload
-
-C++ cho phép nhiều hàm **cùng tên** nhưng **khác tham số**:
-
-```cpp
-int add(int a, int b) {
+// Hàm tính tổng 2 số
+int sum(int a, int b) {
     return a + b;
 }
 
-double add(double a, double b) {
-    return a + b;
-}
-
-int add(int a, int b, int c) {
+// Hàm tính tổng 3 số (overload)
+int sum(int a, int b, int c) {
     return a + b + c;
 }
 
+// Hàm tính tổng 2 số thực (overload)
+double sum(double a, double b) {
+    return a + b;
+}
+
 int main() {
-    cout << add(3, 5);        // 8 — gọi hàm int, int
-    cout << add(3.5, 5.5);   // 9.0 — gọi hàm double, double
-    cout << add(1, 2, 3);    // 6 — gọi hàm int, int, int
+    cout << sum(3, 5) << endl;       // 8   — gọi sum(int, int)
+    cout << sum(3, 5, 7) << endl;    // 15  — gọi sum(int, int, int)
+    cout << sum(3.14, 2.71) << endl; // 5.85 — gọi sum(double, double)
     return 0;
 }
 ```
 
 ---
 
-## 5. Truyền tham số
+## 4. Hàm đệ quy
 
-### 5.1. Truyền giá trị (Pass by Value)
-
-```cpp
-void increment(int x) {
-    x++;  // Chỉ thay đổi bản copy
-}
-
-int main() {
-    int a = 5;
-    increment(a);
-    cout << a;  // 5 — a không bị thay đổi
-    return 0;
-}
-```
-
-### 5.2. Truyền tham chiếu (Pass by Reference)
+### Đệ quy cơ bản — Giai thừa
 
 ```cpp
-void increment(int& x) {
-    x++;  // Thay đổi biến gốc
-}
-
-int main() {
-    int a = 5;
-    increment(a);
-    cout << a;  // 6 — a bị thay đổi
-    return 0;
-}
-```
-
-### 5.3. Truyền con trỏ (Pass by Pointer)
-
-```cpp
-void increment(int* x) {
-    (*x)++;  // Thay đổi biến gốc qua con trỏ
-}
-
-int main() {
-    int a = 5;
-    increment(&a);
-    cout << a;  // 6 — a bị thay đổi
-    return 0;
-}
-```
-
-### So sánh
-
-| Cách truyền | Thay đổi gốc? | Sử dụng |
-|-------------|---------------|---------|
-| Pass by Value | ❌ Không | Dữ liệu nhỏ, không cần sửa |
-| Pass by Reference | ✅ Có | Cần sửa dữ liệu, tránh copy |
-| Pass by Pointer | ✅ Có | Có thể NULL, dùng trong C |
-
-!!! tip "Trong thi đấu"
-    - Dùng **reference** (`&`) khi cần sửa dữ liệu
-    - Dùng **const reference** (`const &`) khi chỉ đọc, tránh copy
-
-```cpp
-// Truyền const reference — chỉ đọc, không sửa, không copy
-void printVector(const vector<int>& v) {
-    for (int x : v) {
-        cout << x << " ";
-    }
-}
-```
-
----
-
-## 6. Inline Function
-
-```cpp
-// Inline: trình biên dịch sẽ thay thế trực tiếp (nhanh hơn cho hàm ngắn)
-inline int square(int x) {
-    return x * x;
-}
-```
-
-!!! tip "Khi nào dùng inline?"
-    - Hàm **ngắn** (1-2 dòng)
-    - Gọi **nhiều lần** trong vòng lặp
-    - Không dùng đệ quy
-
----
-
-## 7. Hàm đệ quy
-
-```cpp
-// Giai thừa
 long long factorial(int n) {
-    if (n <= 1) return 1;
-    return n * factorial(n - 1);
+    if (n <= 1) return 1;       // Điều kiện dừng
+    return n * factorial(n - 1); // Gọi đệ quy
 }
 
-// Fibonacci
+int main() {
+    cout << factorial(5) << endl;  // 120
+    return 0;
+}
+```
+
+### Đệ quy — Fibonacci
+
+```cpp
 long long fib(int n) {
     if (n <= 1) return n;
     return fib(n - 1) + fib(n - 2);
 }
-
-// GCD (Euclid)
-int gcd(int a, int b) {
-    if (b == 0) return a;
-    return gcd(b, a % b);
-}
 ```
 
----
-
-## 8. So sánh với Python
-
-| Python | C++ | Ghi chú |
-|--------|-----|---------|
-| `def func(a, b):` | `int func(int a, int b) {` | Phải khai báo kiểu |
-| `return a + b` | `return a + b;` | Giống nhau |
-| Không có overload | Có overload | C++ linh hoạt hơn |
-| `def func(a, b=1):` | `void func(int a, int b = 1) {` | Giống nhau |
-| Truyền giá trị | Truyền giá trị | Giống nhau |
-| Không có reference | Có reference | C++ kiểm soát tốt hơn |
-
----
-
-## 9. Pattern thường gặp trong thi đấu
-
-### 9.1. Hàm solve() cho testcase
-
-```cpp
-void solve() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++) cin >> arr[i];
-    // Xử lý...
-    cout << result << "\n";
-}
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
-    return 0;
-}
-```
-
-### 9.2. Hàm GCD, LCM
-
-```cpp
-int gcd(int a, int b) {
-    while (b) {
-        a %= b;
-        swap(a, b);
-    }
-    return a;
-}
-
-int lcm(int a, int b) {
-    return a / gcd(a, b) * b;  // Tránh tràn số
-}
-```
-
-### 9.3. Hàm kiểm tra số nguyên tố
-
-```cpp
-bool isPrime(int n) {
-    if (n < 2) return false;
-    for (int i = 2; i * i <= n; i++) {
-        if (n % i == 0) return false;
-    }
-    return true;
-}
-```
-
-### 9.4. Hàm lũy thừa nhanh
+### Đệ quy — Lũy thừa nhanh
 
 ```cpp
 long long power(long long base, long long exp, long long mod) {
-    long long result = 1;
-    base %= mod;
-    while (exp > 0) {
-        if (exp & 1) result = result * base % mod;
-        exp >>= 1;
-        base = base * base % mod;
-    }
+    if (exp == 0) return 1;
+    long long half = power(base, exp / 2, mod);
+    long long result = (half * half) % mod;
+    if (exp % 2 == 1) result = (result * base) % mod;
     return result;
 }
 ```
 
----
-
-## 10. Lưu ý / Cạm bẫy hay gặp
-
-### Bẫy 1: Quên return
+### Đệ quy — Tìm kiếm nhị phân
 
 ```cpp
-// SAI
-int add(int a, int b) {
-    a + b;  // Không return!
-}
-
-// ĐÚNG
-int add(int a, int b) {
-    return a + b;
+int binarySearch(const vector<int> &a, int target, int lo, int hi) {
+    if (lo > hi) return -1;
+    int mid = lo + (hi - lo) / 2;
+    if (a[mid] == target) return mid;
+    if (a[mid] < target) return binarySearch(a, target, mid + 1, hi);
+    return binarySearch(a, target, lo, mid - 1);
 }
 ```
 
-### Bẫy 2: Truyền reference không cần thiết
-
-```cpp
-// SAI: Truyền reference cho biến tạm
-// void print(int& x) { cout << x; }
-// print(5);  // Lỗi! 5 là hằng số
-
-// ĐÚNG
-void print(const int& x) { cout << x; }
-void print(int x) { cout << x; }
-```
-
-### Bẫy 3: Đệ quy quá sâu
-
-```cpp
-// SAI: Stack overflow
-void infinite() {
-    infinite();
-}
-
-// ĐÚNG: Giới hạn đệ quy
-// Tăng stack size hoặc dùng iterative
-```
+!!! warning "Hạn chế của đệ quy"
+    - Đệ quy quá sâu → **tràn stack** (stack overflow)
+    - Giới hạn ~10^4 đến 10^5 lớp đệ quy
+    - Nếu cần đệ quy sâu → dùng vòng lặp hoặc tăng kích thước stack
 
 ---
 
-## 11. Bài tập thực hành
-
-### Bài 1: Hàm tính GCD
-Viết hàm tính GCD của 2 số.
+## 5. Hàm utility thường dùng trong thi đấu
 
 ```cpp
-// Code của bạn ở đây
-```
+// GCD (Ước chung lớn nhất)
+long long gcd(long long a, long long b) {
+    while (b) { a %= b; swap(a, b); }
+    return a;
+}
 
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int gcd(int a, int b) {
-        while (b) {
-            a %= b;
-            swap(a, b);
+// LCM (Bội chung nhỏ nhất)
+long long lcm(long long a, long long b) {
+    return a / gcd(a, b) * b;
+}
+
+// Kiểm tra số nguyên tố
+bool isPrime(long long n) {
+    if (n < 2) return false;
+    for (long long i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+// Lũy thừa nhanh modulo
+long long powerMod(long long base, long long exp, long long mod) {
+    long long result = 1;
+    base %= mod;
+    while (exp > 0) {
+        if (exp & 1) result = (result * base) % mod;
+        base = (base * base) % mod;
+        exp >>= 1;
+    }
+    return result;
+}
+
+// Sàng nguyên tố
+vector<bool> sieve(int n) {
+    vector<bool> isPrime(n + 1, true);
+    isPrime[0] = isPrime[1] = false;
+    for (int i = 2; i * i <= n; i++) {
+        if (isPrime[i]) {
+            for (int j = i * i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
         }
-        return a;
     }
-    
-    int main() {
-        int a, b;
-        cin >> a >> b;
-        cout << gcd(a, b) << endl;
-        return 0;
-    }
-    ```
+    return isPrime;
+}
+```
 
-### Bài 2: Hàm kiểm tra palindrome
-Viết hàm kiểm tra xâu có phải palindrome không.
+---
+
+## 6. So sánh Python vs C++
+
+| Python | C++ |
+|--------|-----|
+| `def add(a, b):` | `int add(int a, int b) {` |
+| `return a + b` | `return a + b;` |
+| Không cần kiểu trả về | **Phải khai báo kiểu** |
+| `def f(x=10):` | `void f(int x = 10) {` |
+| `lambda x: x * 2` | `[](int x) { return x * 2; }` |
+| Truyền object (reference) | Truyền tham trị (copy) |
+| `*args` | Overload hoặc template |
+
+---
+
+## 7. Bài tập thực hành
+
+### Bài 1: Viết hàm tìm max
+Viết hàm `findMax` nhận mảng và trả về phần tử lớn nhất.
 
 ```cpp
 // Code của bạn ở đây
@@ -383,36 +282,80 @@ Viết hàm kiểm tra xâu có phải palindrome không.
     #include <bits/stdc++.h>
     using namespace std;
     
-    bool isPalindrome(string s) {
-        string rev = s;
-        reverse(rev.begin(), rev.end());
-        return s == rev;
+    int findMax(const vector<int> &a) {
+        return *max_element(a.begin(), a.end());
     }
     
     int main() {
-        string s;
-        cin >> s;
-        cout << (isPalindrome(s) ? "Palindrome" : "Not palindrome") << endl;
+        vector<int> a = {3, 1, 4, 1, 5, 9};
+        cout << findMax(a) << endl;  // 9
         return 0;
     }
     ```
 
----
+### Bài 2: Viết hàm kiểm tra số nguyên tố
+Viết hàm `isPrime` nhận số nguyên, trả về `true` nếu là số nguyên tố.
 
-## 12. Bài tập luyện tập
+```cpp
+// Code của bạn ở đây
+```
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Weird Algorithm](https://cses.fi/problemset/task/1068) | CSES | ⭐ | Hàm đệ quy |
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    bool isPrime(int n) {
+        if (n < 2) return false;
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+    
+    int main() {
+        for (int i = 1; i <= 20; i++) {
+            if (isPrime(i)) cout << i << " ";
+        }
+        cout << endl;
+        // Output: 2 3 5 7 11 13 17 19
+        return 0;
+    }
+    ```
+
+### Bài 3: Hoán đổi 2 số
+Viết hàm `swap2` nhận 2 số nguyên và hoán đổi giá trị của chúng.
+
+```cpp
+// Code của bạn ở đây
+```
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    void swap2(int &a, int &b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+    
+    int main() {
+        int a = 5, b = 10;
+        swap2(a, b);
+        cout << a << " " << b << endl;  // 10 5
+        return 0;
+    }
+    ```
 
 ---
 
 ## Bài viết liên quan
 
-- [← C05: String](C05-string.md)
+- [C05: String →](C05-string.md)
 - [C07: Template & Fast I/O →](C07-template-fast-io.md)
 
 ---
 
-**Bài trước:** [C05: String](C05-string.md)<br>
 **Bài tiếp theo:** [C07: Template & Fast I/O →](C07-template-fast-io.md)

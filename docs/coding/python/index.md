@@ -1,6 +1,6 @@
 # Chương 1: Python cho Thi Đấu
 
-> **Dành cho:** Người chưa biết gì về lập trình
+> **Dành cho:** Người chưa biết gì về lập trình<br>
 > **Mục tiêu:** Nắm vững Python để thi đấu competitive programming
 
 ---

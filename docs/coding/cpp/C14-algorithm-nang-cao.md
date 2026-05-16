@@ -1,304 +1,150 @@
-# C14: \<algorithm\> nâng cao
+# C14: algorithm nâng cao
 
-> **Tác giả:** Hà Trí Kiên<br>
-> **Chủ đề:** lower_bound, upper_bound, binary_search, nth_element, __gcd
-
----
-
-## 1. Tổng quan
-
-Các hàm nâng cao trong `<algorithm>` rất quan trọng cho thi đấu.
+> **Tác giả:** FPTOJ Wiki<br>
+> **Chủ đề:** lower_bound, upper_bound, nth_element, gcd, rotate, LIS
 
 ---
 
-## 2. lower_bound & upper_bound
+## Bạn sẽ học được gì?
 
-### 2.1. lower_bound — Tìm phần tử đầu tiên >= x
+Sau bài này, bạn có thể:
 
-```cpp
-vector<int> v = {1, 2, 3, 3, 3, 4, 5};
-
-auto it = lower_bound(v.begin(), v.end(), 3);
-cout << *it << endl;           // 3
-cout << it - v.begin() << endl; // 2 (index)
-```
-
-### 2.2. upper_bound — Tìm phần tử đầu tiên > x
-
-```cpp
-vector<int> v = {1, 2, 3, 3, 3, 4, 5};
-
-auto it = upper_bound(v.begin(), v.end(), 3);
-cout << *it << endl;           // 4
-cout << it - v.begin() << endl; // 5 (index)
-```
-
-### 2.3. Đếm số phần tử trong khoảng [l, r]
-
-```cpp
-vector<int> v = {1, 2, 3, 3, 3, 4, 5};
-int l = 3, r = 4;
-
-int count = upper_bound(v.begin(), v.end(), r) - lower_bound(v.begin(), v.end(), l);
-cout << count << endl;  // 4 (3, 3, 3, 4)
-```
-
-### 2.4. Trong set/map
-
-```cpp
-set<int> s = {1, 3, 5, 7, 9};
-
-auto it = s.lower_bound(4);  // Trỏ đến 5
-auto it = s.upper_bound(5);  // Trỏ đến 7
-```
-
-!!! warning "Phải sắp xếp trước"
-    lower_bound/upper_bound chỉ hoạt động đúng trên **mảng đã sắp xếp**.
+- Tìm kiếm nhị phân với `lower_bound`/`upper_bound`
+- Tìm median với `nth_element`
+- Tính GCD/LCM với `__gcd`
+- Giải bài LIS (Dãy con tăng dài nhất)
 
 ---
 
-## 3. binary_search — Kiểm tra tồn tại
+## 1. lower_bound / upper_bound
 
 ```cpp
-vector<int> v = {1, 2, 3, 4, 5};
+vector<int> a = {1, 3, 5, 5, 7, 9};
 
-if (binary_search(v.begin(), v.end(), 3)) {
-    cout << "Tim thay" << endl;
-} else {
-    cout << "Khong tim thay" << endl;
+// lower_bound: phần tử đầu tiên >= x
+auto lb = lower_bound(a.begin(), a.end(), 5);
+cout << lb - a.begin() << endl;  // 2 (chỉ số)
+
+// upper_bound: phần tử đầu tiên > x
+auto ub = upper_bound(a.begin(), a.end(), 5);
+cout << ub - a.begin() << endl;  // 4 (chỉ số)
+
+// Đếm số phần tử = x
+int cnt = ub - lb;  // 2
+
+// Đếm số phần tử trong [l, r]
+int l = 3, r = 7;
+int cnt2 = upper_bound(a.begin(), a.end(), r) 
+         - lower_bound(a.begin(), a.end(), l);
+```
+
+!!! warning "Mảng phải đã sắp xếp"
+    `lower_bound`/`upper_bound` chỉ hoạt động trên mảng **đã sắp xếp tăng dần**.
+
+---
+
+## 2. nth_element — Tìm phần tử thứ k
+
+```cpp
+vector<int> a = {5, 2, 8, 1, 9, 3};
+
+// Tìm phần tử nhỏ thứ 3 (chỉ số 2)
+nth_element(a.begin(), a.begin() + 2, a.end());
+cout << a[2] << endl;  // 3
+
+// Tìm median
+nth_element(a.begin(), a.begin() + a.size() / 2, a.end());
+cout << a[a.size() / 2] << endl;  // median
+```
+
+---
+
+## 3. GCD / LCM
+
+```cpp
+// __gcd hoạt động trên mọi trình biên dịch
+cout << __gcd(12, 18) << endl;  // 6
+
+// C++17: std::gcd, std::lcm
+cout << gcd(12, 18) << endl;    // 6
+cout << lcm(4, 6) << endl;      // 12
+
+// GCD nhiều số
+vector<int> a = {12, 18, 24};
+int g = 0;
+for (int x : a) g = __gcd(g, x);
+```
+
+---
+
+## 4. rotate — Xoay mảng
+
+```cpp
+vector<int> a = {1, 2, 3, 4, 5};
+
+// Xoay trái 2 vị trí
+rotate(a.begin(), a.begin() + 2, a.end());
+// a = {3, 4, 5, 1, 2}
+```
+
+---
+
+## 5. LIS — Dãy con tăng dài nhất
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int lis(const vector<int> &a) {
+    vector<int> tail;
+    
+    for (int x : a) {
+        auto it = lower_bound(tail.begin(), tail.end(), x);
+        if (it == tail.end()) {
+            tail.push_back(x);
+        } else {
+            *it = x;
+        }
+    }
+    
+    return tail.size();
 }
-```
 
-!!! warning "Phải sắp xếp trước"
-    binary_search chỉ hoạt động đúng trên **mảng đã sắp xếp**.
-
----
-
-## 4. nth_element — Phần tử thứ n
-
-```cpp
-vector<int> v = {3, 1, 4, 1, 5, 9, 2, 6};
-
-// Sắp xếp sao cho phần tử thứ n đúng vị trí
-nth_element(v.begin(), v.begin() + 3, v.end());
-// v[3] là phần tử nhỏ thứ 4
-// Các phần tử bên trái < v[3], bên phải > v[3]
-```
-
-### Ứng dụng: Tìm median
-
-```cpp
-vector<int> v = {3, 1, 4, 1, 5, 9, 2, 6};
-int n = v.size();
-
-nth_element(v.begin(), v.begin() + n / 2, v.end());
-int median = v[n / 2];
-```
-
----
-
-## 5. __gcd — Ước chung lớn nhất
-
-```cpp
-#include <algorithm>
-
-cout << __gcd(12, 8) << endl;  // 4
-cout << __gcd(0, 5) << endl;   // 5
-```
-
-!!! tip "__gcd vs gcd"
-    - `__gcd` là extension của GCC, không phải chuẩn C++
-    - Từ C++17, dùng `std::gcd` trong `<numeric>`
-
-```cpp
-#include <numeric>
-
-cout << gcd(12, 8) << endl;  // 4
-cout << lcm(4, 6) << endl;   // 12 (C++17)
+int main() {
+    vector<int> a = {10, 9, 2, 5, 3, 7, 101, 18};
+    cout << lis(a) << endl;  // 4 (dãy: 2, 3, 7, 101)
+    return 0;
+}
 ```
 
 ---
 
 ## 6. Các hàm khác
 
-### 6.1. minmax_element
-
 ```cpp
-vector<int> v = {3, 1, 4, 1, 5, 9};
+vector<int> a = {1, 2, 3, 4, 5};
 
-auto [minIt, maxIt] = minmax_element(v.begin(), v.end());
-cout << *minIt << " " << *maxIt << endl;  // 1 9
+// is_sorted — Kiểm tra đã sắp xếp
+cout << is_sorted(a.begin(), a.end()) << endl;  // 1
+
+// is_sorted_until — Tìm vị trí đầu tiên chưa sắp xếp
+auto it = is_sorted_until(a.begin(), a.end());
+
+// minmax — Tìm min và max cùng lúc
+auto [mn, mx] = minmax({3, 1, 4, 1, 5, 9});
+cout << mn << " " << mx << endl;  // 1 9
+
+// clamp (C++17) — Giới hạn giá trị
+int x = clamp(15, 0, 10);  // x = 10
 ```
-
-### 6.2. is_sorted
-
-```cpp
-vector<int> v1 = {1, 2, 3, 4, 5};
-vector<int> v2 = {1, 3, 2, 4, 5};
-
-cout << is_sorted(v1.begin(), v1.end()) << endl;  // 1 (true)
-cout << is_sorted(v2.begin(), v2.end()) << endl;  // 0 (false)
-```
-
-### 6.3. rotate
-
-```cpp
-vector<int> v = {1, 2, 3, 4, 5};
-
-// Xoay trái 2 vị trí
-rotate(v.begin(), v.begin() + 2, v.end());
-// v = {3, 4, 5, 1, 2}
-```
-
-### 6.4. shuffle
-
-```cpp
-#include <random>
-
-vector<int> v = {1, 2, 3, 4, 5};
-
-random_device rd;
-mt19937 g(rd());
-shuffle(v.begin(), v.end(), g);
-```
-
----
-
-## 7. So sánh với Python
-
-| Python | C++ | Ghi chú |
-|--------|-----|---------|
-| `bisect_left(arr, x)` | `lower_bound(v.begin(), v.end(), x)` | |
-| `bisect_right(arr, x)` | `upper_bound(v.begin(), v.end(), x)` | |
-| `x in arr` | `binary_search(v.begin(), v.end(), x)` | |
-| `math.gcd(a, b)` | `__gcd(a, b)` hoặc `gcd(a, b)` | |
-| `sorted(arr)` | `sort(v.begin(), v.end())` | C++ sắp xếp tại chỗ |
-| `arr[::-1]` | `reverse(v.begin(), v.end())` | |
-
----
-
-## 8. Pattern thường gặp trong thi đấu
-
-### 8.1. Tìm kiếm nhị phân
-
-```cpp
-vector<int> v = {1, 2, 3, 4, 5};
-int target = 3;
-
-auto it = lower_bound(v.begin(), v.end(), target);
-if (it != v.end() && *it == target) {
-    cout << "Tim thay tai vi tri " << it - v.begin() << endl;
-}
-```
-
-### 8.2. Đếm phần tử trong khoảng
-
-```cpp
-vector<int> v = {1, 2, 3, 3, 3, 4, 5};
-int l = 3, r = 4;
-
-int count = upper_bound(v.begin(), v.end(), r) - lower_bound(v.begin(), v.end(), l);
-```
-
-### 8.3. LIS (Longest Increasing Subsequence)
-
-```cpp
-vector<int> arr = {10, 9, 2, 5, 3, 7, 101, 18};
-vector<int> tails;
-
-for (int x : arr) {
-    auto it = lower_bound(tails.begin(), tails.end(), x);
-    if (it == tails.end()) {
-        tails.push_back(x);
-    } else {
-        *it = x;
-    }
-}
-
-cout << tails.size() << endl;  // 4
-```
-
----
-
-## 9. Lưu ý / Cạm bẫy hay gặp
-
-### Bẫy 1: Phải sắp xếp trước
-
-```cpp
-vector<int> v = {3, 1, 4, 1, 5};
-// lower_bound sẽ không đúng!
-// Phải sort trước
-sort(v.begin(), v.end());
-```
-
-### Bẫy 2: lower_bound trả về iterator
-
-```cpp
-vector<int> v = {1, 2, 3, 4, 5};
-auto it = lower_bound(v.begin(), v.end(), 3);
-
-// it là iterator, không phải index!
-int index = it - v.begin();  // Chuyển sang index
-```
-
-### Bẫy 3: Kiểm tra iterator hợp lệ
-
-```cpp
-vector<int> v = {1, 2, 3, 4, 5};
-auto it = lower_bound(v.begin(), v.end(), 10);
-
-if (it != v.end()) {
-    cout << *it << endl;  // Không chạy vì it = v.end()
-}
-```
-
----
-
-## 10. Bài tập thực hành
-
-### Bài 1: Tìm kiếm nhị phân
-Cho mảng đã sắp xếp và target. Kiểm tra target có trong mảng không.
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        int n, target;
-        cin >> n >> target;
-        vector<int> v(n);
-        for (int i = 0; i < n; i++) cin >> v[i];
-        
-        if (binary_search(v.begin(), v.end(), target)) {
-            cout << "Tim thay" << endl;
-        } else {
-            cout << "Khong tim thay" << endl;
-        }
-        return 0;
-    }
-    ```
-
----
-
-## 11. Bài tập luyện tập
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Concert Tickets](https://cses.fi/problemset/task/1091) | CSES | ⭐⭐ | lower_bound |
 
 ---
 
 ## Bài viết liên quan
 
-- [← C13: queue, stack, deque](C13-queue-stack-deque.md)
+- [C13: queue, stack, deque →](C13-queue-stack-deque.md)
 - [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
 
 ---
 
-**Bài trước:** [C13: queue, stack, deque](C13-queue-stack-deque.md)<br>
 **Bài tiếp theo:** [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)

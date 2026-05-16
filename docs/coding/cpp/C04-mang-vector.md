@@ -1,306 +1,454 @@
 # C04: Mảng & Vector
 
-> **Tác giả:** Hà Trí Kiên<br>
-> **Chủ đề:** Mảng tĩnh, vector, các thao tác cơ bản
+> **Tác giả:** FPTOJ Wiki<br>
+> **Chủ đề:** Mảng tĩnh, vector, sắp xếp, tìm kiếm, prefix sum, two pointers
 
 ---
 
-## 1. Tổng quan
+## Bạn sẽ học được gì?
 
-Mảng và vector là cấu trúc dữ liệu **cơ bản nhất** trong C++. Vector linh hoạt hơn mảng tĩnh.
+Sau bài này, bạn có thể:
 
-```mermaid
-flowchart LR
-    A["Mảng tĩnh"] --> B["Kích thước cố định"]
-    C["Vector"] --> D["Kích thước động"]
-```
+- Khai báo và sử dụng mảng tĩnh (`int a[N]`)
+- Sử dụng `vector` — cấu trúc dữ liệu linh hoạt nhất
+- Sắp xếp mảng với `sort`
+- Tìm kiếm nhị phân với `lower_bound`/`upper_bound`
+- Áp dụng prefix sum và two pointers
 
 ---
 
-## 2. Mảng tĩnh (Array)
+## 1. Mảng tĩnh (Array)
 
-### 2.1. Khai báo
-
-```cpp
-int arr[5];              // Mảng 5 phần tử, chưa khởi tạo
-int arr[5] = {1, 2, 3, 4, 5};  // Khởi tạo sẵn
-int arr[5] = {1, 2};    // {1, 2, 0, 0, 0} — phần còn lại = 0
-int arr[] = {1, 2, 3};  // Tự động xác định kích thước = 3
-```
-
-### 2.2. Truy cập
+### Khai báo mảng
 
 ```cpp
-int arr[5] = {10, 20, 30, 40, 50};
+// Khai báo mảng 1000 phần tử (giá trị không xác định)
+int a[1000];
 
-cout << arr[0] << endl;  // 10
-cout << arr[2] << endl;  // 30
-cout << arr[4] << endl;  // 50
+// Khai báo và khởi tạo
+int b[5] = {10, 20, 30, 40, 50};
 
-// Sửa phần tử
-arr[2] = 300;
+// Khai báo toàn bộ giá trị 0
+int c[1000] = {0};
+
+// Khai báo toàn bộ giá trị -1 (trick)
+int d[1000];
+memset(d, -1, sizeof(d));
 ```
 
-!!! warning "Truy cập ngoài phạm vi"
+!!! warning "Kích thước mảng tĩnh"
+    - Mảng tĩnh phải khai báo kích thước **cố định** tại compile time
+    - Không thể thay đổi kích thước sau khi khai báo
+    - Nếu cần mảng động → dùng `vector`
+    - Khai báo **ngoài hàm main** để có kích thước lớn hơn (~10^7)
+
+### Truy cập phần tử
+
+```cpp
+int a[5] = {10, 20, 30, 40, 50};
+
+cout << a[0] << endl;  // 10 (phần tử đầu tiên, chỉ số từ 0)
+cout << a[4] << endl;  // 50 (phần tử cuối cùng)
+
+a[2] = 100;  // Gán giá trị mới
+```
+
+!!! danger "Truy cập ngoài phạm vi — Undefined Behavior"
     ```cpp
-    int arr[5] = {1, 2, 3, 4, 5};
-    // cout << arr[10];  // Undefined behavior! Có thể crash hoặc trả về rác
+    int a[5] = {10, 20, 30, 40, 50};
+    cout << a[5] << endl;  // LỖI! Chỉ số hợp lệ: 0 đến 4
     ```
 
-### 2.3. Duyệt
+### Duyệt mảng
 
 ```cpp
-int arr[5] = {1, 2, 3, 4, 5};
-int n = 5;
+int a[5] = {10, 20, 30, 40, 50};
 
-// Cách 1: Dùng index
-for (int i = 0; i < n; i++) {
-    cout << arr[i] << " ";
+// Cách 1: Dùng chỉ số
+for (int i = 0; i < 5; i++) {
+    cout << a[i] << " ";
 }
 
-// Cách 2: Range-based for (C++11)
-for (int x : arr) {
+// Cách 2: Dùng range-based for (C++11)
+for (int x : a) {
     cout << x << " ";
+}
+
+// Cách 3: Dùng sizeof để lấy kích thước
+int n = sizeof(a) / sizeof(a[0]);
+for (int i = 0; i < n; i++) {
+    cout << a[i] << " ";
 }
 ```
 
-### 2.4. Mảng 2D
+### Mảng 2 chiều
 
 ```cpp
-int matrix[3][4];  // 3 hàng, 4 cột
+int a[100][100];  // Mảng 100x100
 
 // Khởi tạo
-int matrix[3][4] = {
+int b[3][4] = {
     {1, 2, 3, 4},
     {5, 6, 7, 8},
     {9, 10, 11, 12}
 };
 
-// Truy cập
-cout << matrix[1][2] << endl;  // 7
-
 // Duyệt
 for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 4; j++) {
-        cout << matrix[i][j] << " ";
+        cout << b[i][j] << " ";
     }
     cout << endl;
 }
 ```
 
+### Mảng tĩnh vs Vector
+
+| Mảng tĩnh | Vector |
+|-----------|--------|
+| Kích thước cố định | **Kích thước linh hoạt** |
+| Không thể xóa phần tử | **Có thể xóa phần tử** |
+| Nhanh hơn một chút | Hơi chậm hơn (không đáng kể) |
+| Phải biết kích thước trước | **Tự động mở rộng** |
+
+!!! tip "Khi nào dùng mảng tĩnh?"
+    - Kích thước **cố định** và **biết trước** → mảng tĩnh
+    - Cần **thêm/xóa** phần tử → vector
+    - Không chắc → **dùng vector** (an toàn hơn)
+
 ---
 
-## 3. Vector — Mảng động
+## 2. Vector — Mảng động
 
-### 3.1. Khai báo
+### Khai báo vector
 
 ```cpp
 #include <vector>
 
-vector<int> v;                // Vector rỗng
-vector<int> v(5);             // 5 phần tử, giá trị 0
-vector<int> v(5, 10);         // 5 phần tử, giá trị 10
-vector<int> v = {1, 2, 3, 4, 5};  // Khởi tạo sẵn
+vector<int> a;              // Vector rỗng
+vector<int> b(10);          // 10 phần tử, giá trị 0
+vector<int> c(10, 5);       // 10 phần tử, giá trị 5
+vector<int> d = {1, 2, 3};  // Khởi tạo với giá trị
 
-// Vector 2D
-vector<vector<int>> matrix(n, vector<int>(m));  // n hàng, m cột
-vector<vector<int>> matrix(n, vector<int>(m, 0));  // n hàng, m cột, giá trị 0
+// Vector 2 chiều
+vector<vector<int>> matrix(3, vector<int>(4, 0));  // 3x4, giá trị 0
 ```
 
-### 3.2. Các phương thức thường dùng
+### Các thao tác cơ bản
 
 ```cpp
-vector<int> v = {1, 2, 3};
+vector<int> a;
 
-// Thêm phần tử
-v.push_back(4);       // {1, 2, 3, 4}
-v.emplace_back(5);    // {1, 2, 3, 4, 5} — nhanh hơn push_back
+// Thêm phần tử vào cuối
+a.push_back(10);
+a.push_back(20);
+a.push_back(30);
+// a = {10, 20, 30}
 
-// Xóa phần tử
-v.pop_back();         // {1, 2, 3, 4}
-v.erase(v.begin() + 1);  // {1, 3, 4} — xóa tại vị trí 1
-v.clear();            // Xóa tất cả
+// Lấy kích thước
+cout << a.size() << endl;  // 3
 
-// Truy cập
-cout << v[0] << endl;     // 1 — không kiểm tra biên
-cout << v.at(0) << endl;  // 1 — kiểm tra biên (chậm hơn)
-cout << v.front() << endl; // Phần tử đầu
-cout << v.back() << endl;  // Phần tử cuối
+// Truy cập phần tử
+cout << a[0] << endl;      // 10
+cout << a.at(1) << endl;   // 20 (an toàn hơn, có kiểm tra biên)
+cout << a.front() << endl; // 10 (phần tử đầu)
+cout << a.back() << endl;  // 30 (phần tử cuối)
 
-// Kích thước
-cout << v.size() << endl;  // Số phần tử
-cout << v.empty() << endl; // true nếu rỗng
+// Xóa phần tử cuối
+a.pop_back();
+// a = {10, 20}
 
-// Resize
-v.resize(10);         // Thay đổi kích thước thành 10
-v.resize(10, 5);      // Thay đổi kích thước thành 10, phần mới = 5
+// Kiểm tra rỗng
+if (a.empty()) {
+    cout << "Vector rong" << endl;
+}
+
+// Xóa toàn bộ
+a.clear();
 ```
 
-### 3.3. Duyệt
+### Thêm/xóa tại vị trí bất kỳ
 
 ```cpp
-vector<int> v = {1, 2, 3, 4, 5};
+vector<int> a = {1, 2, 3, 4, 5};
 
-// Cách 1: Index
-for (int i = 0; i < v.size(); i++) {
-    cout << v[i] << " ";
+// Thêm tại vị trí 2
+a.insert(a.begin() + 2, 10);
+// a = {1, 2, 10, 3, 4, 5}
+
+// Xóa tại vị trí 1
+a.erase(a.begin() + 1);
+// a = {1, 10, 3, 4, 5}
+
+// Xóa từ vị trí 1 đến 3
+a.erase(a.begin() + 1, a.begin() + 3);
+// a = {1, 4, 5}
+```
+
+### Duyệt vector
+
+```cpp
+vector<int> a = {10, 20, 30, 40, 50};
+
+// Cách 1: Dùng chỉ số (phổ biến nhất trong thi đấu)
+for (int i = 0; i < (int)a.size(); i++) {
+    cout << a[i] << " ";
 }
 
 // Cách 2: Range-based for
-for (int x : v) {
+for (int x : a) {
     cout << x << " ";
 }
 
-// Cách 3: Iterator
-for (auto it = v.begin(); it != v.end(); it++) {
-    cout << *it << " ";
+// Cách 3: Range-based for với const reference (nhanh nhất)
+for (const auto &x : a) {
+    cout << x << " ";
 }
 
-// Cách 4: Reverse
-for (auto it = v.rbegin(); it != v.rend(); it++) {
+// Cách 4: Iterator
+for (auto it = a.begin(); it != a.end(); ++it) {
     cout << *it << " ";
 }
 ```
 
-### 3.4. Sắp xếp
+!!! tip "Dùng `(int)a.size()` để tránh cảnh báo"
+    `a.size()` trả về `size_t` (unsigned), so sánh với `int` có thể gây cảnh báo.
+
+---
+
+## 3. Sắp xếp với sort
+
+### Sắp xếp tăng/giảm dần
 
 ```cpp
-vector<int> v = {3, 1, 4, 1, 5, 9};
+vector<int> a = {5, 2, 8, 1, 9, 3};
 
-// Sắp xếp tăng dần
-sort(v.begin(), v.end());  // {1, 1, 3, 4, 5, 9}
+sort(a.begin(), a.end());              // Tăng: {1, 2, 3, 5, 8, 9}
+sort(a.begin(), a.end(), greater<>()); // Giảm: {9, 8, 5, 3, 2, 1}
+```
 
-// Sắp xếp giảm dần
-sort(v.begin(), v.end(), greater<int>());  // {9, 5, 4, 3, 1, 1}
+### Sắp xếp mảng tĩnh
 
-// Sắp xếp với comparator
-sort(v.begin(), v.end(), [](int a, int b) {
-    return a > b;  // Giảm dần
+```cpp
+int a[6] = {5, 2, 8, 1, 9, 3};
+sort(a, a + 6);  // a + 6 là vị trí sau phần tử cuối
+```
+
+### Sắp xếp một phần mảng
+
+```cpp
+vector<int> a = {5, 2, 8, 1, 9, 3};
+
+// Sắp xếp từ chỉ số 1 đến 4 (không bao gồm 4)
+sort(a.begin() + 1, a.begin() + 4);
+// a = {5, 1, 2, 8, 9, 3}
+```
+
+### Custom Comparator
+
+```cpp
+// Sắp xếp pair theo second giảm dần
+vector<pair<int,int>> v = {{1, 3}, {2, 1}, {3, 2}};
+sort(v.begin(), v.end(), [](const auto &x, const auto &y) {
+    return x.second > y.second;
+});
+// v = {{2, 1}, {3, 2}, {1, 3}}
+```
+
+### Sắp xếp struct
+
+```cpp
+struct Student {
+    string name;
+    int score;
+};
+
+vector<Student> students = {{"Nam", 9}, {"An", 7}, {"Binh", 9}};
+
+// Sắp xếp theo điểm giảm dần, nếu bằng thì theo tên tăng dần
+sort(students.begin(), students.end(), [](const Student &a, const Student &b) {
+    if (a.score != b.score) return a.score > b.score;
+    return a.name < b.name;
 });
 ```
 
----
-
-## 4. So sánh với Python
-
-| Python | C++ | Ghi chú |
-|--------|-----|---------|
-| `arr = [0] * n` | `vector<int> arr(n);` | |
-| `arr = []` | `vector<int> arr;` | |
-| `arr.append(x)` | `arr.push_back(x);` | |
-| `arr.pop()` | `arr.pop_back();` | |
-| `len(arr)` | `arr.size()` | |
-| `arr[i]` | `arr[i]` | Giống nhau |
-| `arr.sort()` | `sort(arr.begin(), arr.end());` | |
-| `arr[::-1]` | `reverse(arr.begin(), arr.end());` | |
-
----
-
-## 5. Pattern thường gặp trong thi đấu
-
-### 5.1. Đọc mảng
+### stable_sort — Giữ thứ tự tương đối
 
 ```cpp
-int n;
-cin >> n;
-vector<int> arr(n);
-for (int i = 0; i < n; i++) {
-    cin >> arr[i];
+vector<pair<int,int>> v = {{1, 'a'}, {2, 'b'}, {1, 'c'}};
+stable_sort(v.begin(), v.end(), [](const auto &x, const auto &y) {
+    return x.first < y.first;
+});
+// Thứ tự của (1,'a') và (1,'c') được giữ nguyên
+```
+
+---
+
+## 4. Tìm kiếm nhị phân với STL
+
+### lower_bound — Tìm vị trí đầu tiên >= x
+
+```cpp
+vector<int> a = {1, 3, 5, 7, 9};
+
+auto it = lower_bound(a.begin(), a.end(), 5);
+cout << *it << endl;           // 5
+cout << it - a.begin() << endl; // 2 (chỉ số)
+
+// Tìm phần tử không tồn tại
+auto it2 = lower_bound(a.begin(), a.end(), 4);
+cout << *it2 << endl;          // 5 (phần tử đầu tiên >= 4)
+```
+
+### upper_bound — Tìm vị trí đầu tiên > x
+
+```cpp
+vector<int> a = {1, 3, 5, 5, 7, 9};
+
+auto it = upper_bound(a.begin(), a.end(), 5);
+cout << *it << endl;           // 7
+cout << it - a.begin() << endl; // 4 (chỉ số)
+```
+
+### Đếm số phần tử trong đoạn [l, r]
+
+```cpp
+vector<int> a = {1, 3, 5, 5, 7, 9};
+
+int l = 3, r = 7;
+int cnt = upper_bound(a.begin(), a.end(), r) 
+        - lower_bound(a.begin(), a.end(), l);
+cout << cnt << endl;  // 4 (phần tử 3, 5, 5, 7)
+```
+
+!!! warning "Yêu cầu mảng đã sắp xếp"
+    `lower_bound`/`upper_bound` chỉ hoạt động đúng trên mảng **đã sắp xếp tăng dần**.
+
+### binary_search — Kiểm tra tồn tại
+
+```cpp
+vector<int> a = {1, 3, 5, 7, 9};
+
+if (binary_search(a.begin(), a.end(), 5)) {
+    cout << "Tim thay" << endl;
 }
 ```
 
-### 5.2. Đọc matrix
+---
+
+## 5. Các hàm tiện ích
 
 ```cpp
-int n, m;
-cin >> n >> m;
-vector<vector<int>> matrix(n, vector<int>(m));
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-        cin >> matrix[i][j];
+vector<int> a = {5, 2, 8, 1, 9, 3};
+
+// Tìm max, min
+cout << *max_element(a.begin(), a.end()) << endl;  // 9
+cout << *min_element(a.begin(), a.end()) << endl;  // 1
+
+// Tổng các phần tử
+int sum = accumulate(a.begin(), a.end(), 0);
+cout << sum << endl;  // 28
+
+// Đếm số phần tử thỏa mãn điều kiện
+int cnt = count_if(a.begin(), a.end(), [](int x) { return x > 5; });
+cout << cnt << endl;  // 2
+
+// Tìm phần tử đầu tiên thỏa mãn điều kiện
+auto it = find_if(a.begin(), a.end(), [](int x) { return x % 2 == 0; });
+if (it != a.end()) cout << *it << endl;  // 2
+
+// Kiểm tra đã sắp xếp
+cout << is_sorted(a.begin(), a.end()) << endl;  // 0
+
+// Đảo ngược
+reverse(a.begin(), a.end());
+
+// Xóa phần tử trùng (phải sort trước)
+sort(a.begin(), a.end());
+a.erase(unique(a.begin(), a.end()), a.end());
+```
+
+---
+
+## 6. Prefix Sum — Tổng tiền tố
+
+### Prefix sum 1D
+
+```cpp
+vector<int> a = {1, 2, 3, 4, 5};
+
+// Xây dựng prefix sum
+vector<int> pref(a.size() + 1, 0);
+for (int i = 0; i < (int)a.size(); i++) {
+    pref[i + 1] = pref[i] + a[i];
+}
+// pref = {0, 1, 3, 6, 10, 15}
+
+// Tính tổng đoạn [l, r] (0-indexed)
+int l = 1, r = 3;
+int sumLR = pref[r + 1] - pref[l];
+cout << sumLR << endl;  // 2 + 3 + 4 = 9
+```
+
+### Ứng dụng: Đếm số phần tử trong đoạn
+
+```cpp
+// Cho mảng a và nhiều truy vấn [l, r], tính tổng đoạn [l, r]
+// Dùng prefix sum để trả lời mỗi truy vấn O(1)
+```
+
+---
+
+## 7. Two Pointers — Hai con trỏ
+
+### Bài toán: Tìm cặp có tổng = X
+
+```cpp
+vector<int> a = {1, 2, 3, 4, 5, 6};
+int target = 7;
+
+// Mảng phải đã sắp xếp
+sort(a.begin(), a.end());
+
+int l = 0, r = a.size() - 1;
+while (l < r) {
+    int sum = a[l] + a[r];
+    if (sum == target) {
+        cout << "Tim thay: " << a[l] << " + " << a[r] << endl;
+        l++; r--;
+    } else if (sum < target) {
+        l++;
+    } else {
+        r--;
     }
 }
 ```
 
-### 5.3. Tạo vector từ input
+### Bài toán: Mảng con có tổng = X
 
 ```cpp
-// Đọc n phần tử vào vector
-int n;
-cin >> n;
-vector<int> arr(n);
-for (int& x : arr) {
-    cin >> x;
+vector<int> a = {1, 2, 3, 7, 5};
+int target = 12;
+
+int l = 0, sum = 0;
+for (int r = 0; r < (int)a.size(); r++) {
+    sum += a[r];
+    while (sum > target) {
+        sum -= a[l];
+        l++;
+    }
+    if (sum == target) {
+        cout << "Tim thay tu vi tri " << l << " den " << r << endl;
+    }
 }
 ```
 
-### 5.4. Sắp xếp và tìm kiếm
-
-```cpp
-vector<int> arr = {3, 1, 4, 1, 5, 9};
-
-// Sắp xếp
-sort(arr.begin(), arr.end());
-
-// Tìm kiếm nhị phân
-bool found = binary_search(arr.begin(), arr.end(), 4);
-
-// Tìm vị trí
-auto it = lower_bound(arr.begin(), arr.end(), 4);
-int pos = it - arr.begin();
-```
-
 ---
 
-## 6. Lưu ý / Cạm bẫy hay gặp
+## 8. Bài tập thực hành
 
-### Bẫy 1: Vector 2D khởi tạo sai
-
-```cpp
-// SAI: Không khởi tạo kích thước
-// vector<vector<int>> matrix;
-// matrix[0][0] = 1;  // Lỗi!
-
-// ĐÚNG
-vector<vector<int>> matrix(n, vector<int>(m));
-```
-
-### Bẫy 2: Truy cập ngoài phạm vi
-
-```cpp
-vector<int> v = {1, 2, 3};
-// cout << v[10];  // Undefined behavior!
-```
-
-### Bẫy 3: push_back vs emplace_back
-
-```cpp
-// push_back: tạo đối tượng trước, rồi copy vào vector
-v.push_back(10);
-
-// emplace_back: tạo đối tượng trực tiếp trong vector (nhanh hơn)
-v.emplace_back(10);
-```
-
-### Bẫy 4: size() trả về unsigned
-
-```cpp
-vector<int> v = {1, 2, 3};
-
-// SAI: So sánh int với size()
-// for (int i = 0; i < v.size() - 1; i++) { ... }
-// v.size() - 1 có thể là số rất lớn nếu v rỗng!
-
-// ĐÚNG
-for (int i = 0; i < (int)v.size() - 1; i++) { ... }
-```
-
----
-
-## 7. Bài tập thực hành
-
-### Bài 1: Đọc và in mảng
-Đọc n số nguyên. In ra mảng.
+### Bài 1: Tìm số lớn nhất
+Đọc $n$ số nguyên. In ra số lớn nhất.
 
 ```cpp
 // Code của bạn ở đây
@@ -314,20 +462,42 @@ for (int i = 0; i < (int)v.size() - 1; i++) { ... }
     int main() {
         int n;
         cin >> n;
-        vector<int> arr(n);
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+        cout << *max_element(a.begin(), a.end()) << endl;
+        return 0;
+    }
+    ```
+
+### Bài 2: Sắp xếp và in
+Đọc $n$ số nguyên. In ra mảng đã sắp xếp tăng dần.
+
+```cpp
+// Code của bạn ở đây
+```
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+        sort(a.begin(), a.end());
         for (int i = 0; i < n; i++) {
-            cin >> arr[i];
-        }
-        for (int x : arr) {
-            cout << x << " ";
+            if (i > 0) cout << " ";
+            cout << a[i];
         }
         cout << endl;
         return 0;
     }
     ```
 
-### Bài 2: Tìm số lớn nhất
-Đọc n số nguyên. Tìm số lớn nhất.
+### Bài 3: Đếm tần suất
+Đọc $n$ số nguyên (mỗi số từ 1 đến 100). In ra số xuất hiện nhiều nhất.
 
 ```cpp
 // Code của bạn ở đây
@@ -341,132 +511,26 @@ for (int i = 0; i < (int)v.size() - 1; i++) { ... }
     int main() {
         int n;
         cin >> n;
-        vector<int> arr(n);
+        map<int, int> freq;
         for (int i = 0; i < n; i++) {
-            cin >> arr[i];
+            int x;
+            cin >> x;
+            freq[x]++;
         }
-        cout << *max_element(arr.begin(), arr.end()) << endl;
-        return 0;
-    }
-    ```
-
-### Bài 3: Sắp xếp mảng
-Đọc n số nguyên. Sắp xếp tăng dần và in ra.
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        int n;
-        cin >> n;
-        vector<int> arr(n);
-        for (int i = 0; i < n; i++) {
-            cin >> arr[i];
-        }
-        sort(arr.begin(), arr.end());
-        for (int x : arr) {
-            cout << x << " ";
-        }
-        cout << endl;
-        return 0;
-    }
-    ```
-
----
-
-## 8. Bài tập luyện tập
-
-### Bài 4: Đếm số dương
-Cho mảng arr gồm n số nguyên. Đếm số phần tử dương.
-
-```
-Input:
-5
--1 2 -3 4 -5
-
-Output:
-2
-```
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        int n;
-        cin >> n;
-        vector<int> arr(n);
-        for (int i = 0; i < n; i++) cin >> arr[i];
-        
-        int count = 0;
-        for (int x : arr) {
-            if (x > 0) count++;
-        }
-        cout << count << endl;
-        return 0;
-    }
-    ```
-
-### Bài 5: Tìm vị trí phần tử lớn nhất
-Cho mảng arr gồm n số nguyên. Tìm vị trí (index) của phần tử lớn nhất.
-
-```
-Input:
-5
-3 1 4 1 5
-
-Output:
-4
-```
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        int n;
-        cin >> n;
-        vector<int> arr(n);
-        for (int i = 0; i < n; i++) cin >> arr[i];
-        
-        int maxIdx = 0;
-        for (int i = 1; i < n; i++) {
-            if (arr[i] > arr[maxIdx]) {
-                maxIdx = i;
+        int best = -1, bestCnt = 0;
+        for (auto [val, cnt] : freq) {
+            if (cnt > bestCnt) {
+                bestCnt = cnt;
+                best = val;
             }
         }
-        cout << maxIdx << endl;
+        cout << best << endl;
         return 0;
     }
     ```
 
-### Bài 6: Xoay mảng sang phải
-Cho mảng arr gồm n phần tử và số k. Xoay mảng sang phải k vị trí.
-
-```
-Input:
-5 2
-1 2 3 4 5
-
-Output:
-4 5 1 2 3
-```
+### Bài 4: Prefix sum
+Đọc $n$ số nguyên và $q$ truy vấn. Mỗi truy vấn cho $l$, $r$. In ra tổng đoạn $[l, r]$.
 
 ```cpp
 // Code của bạn ở đây
@@ -478,56 +542,24 @@ Output:
     using namespace std;
     
     int main() {
-        int n, k;
-        cin >> n >> k;
-        vector<int> arr(n);
-        for (int i = 0; i < n; i++) cin >> arr[i];
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
         
-        k = k % n;
-        reverse(arr.begin(), arr.end());
-        reverse(arr.begin(), arr.begin() + k);
-        reverse(arr.begin() + k, arr.end());
-        
-        for (int x : arr) cout << x << " ";
-        cout << endl;
-        return 0;
-    }
-    ```
-
-### Bài 7: Trộn 2 mảng đã sắp xếp
-Cho 2 mảng đã sắp xếp. Trộn thành 1 mảng đã sắp xếp.
-
-```
-Input:
-3 4
-1 3 5
-2 4 6 8
-
-Output:
-1 2 3 4 5 6 8
-```
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        int n, m;
-        cin >> n >> m;
-        vector<int> a(n), b(m);
+        int n;
+        cin >> n;
+        vector<int> a(n);
         for (int i = 0; i < n; i++) cin >> a[i];
-        for (int i = 0; i < m; i++) cin >> b[i];
         
-        vector<int> result;
-        merge(a.begin(), a.end(), b.begin(), b.end(), back_inserter(result));
+        vector<long long> pref(n + 1, 0);
+        for (int i = 0; i < n; i++) pref[i + 1] = pref[i] + a[i];
         
-        for (int x : result) cout << x << " ";
-        cout << endl;
+        int q;
+        cin >> q;
+        while (q--) {
+            int l, r;
+            cin >> l >> r;
+            cout << pref[r + 1] - pref[l] << endl;
+        }
         return 0;
     }
     ```
@@ -536,10 +568,9 @@ Output:
 
 ## Bài viết liên quan
 
-- [← C03: Điều kiện & Vòng lặp](C03-dieu-kien-vong-lap.md)
+- [C03: Điều kiện & Vòng lặp →](C03-dieu-kien-vong-lap.md)
 - [C05: String →](C05-string.md)
 
 ---
 
-**Bài trước:** [C03: Điều kiện & Vòng lặp](C03-dieu-kien-vong-lap.md)<br>
 **Bài tiếp theo:** [C05: String →](C05-string.md)

@@ -1,6 +1,6 @@
 # Chương 2: C++ cho Thi Đấu
 
-> **Dành cho:** Người đã vững Python
+> **Dành cho:** Người đã vững Python<br>
 > **Mục tiêu:** Nắm vững C++ và STL để thi đấu competitive programming
 
 ---
@@ -54,10 +54,18 @@ flowchart TD
         C14["C14: algorithm nâng cao"]
         C15["C15: Mẹo thi đấu C++"]
     end
+    subgraph E2["Phần E — Tổng hợp & Nâng cao ⭐⭐⭐"]
+        C16["C16: Bài tập tổng hợp"]
+        C17["C17: Thuật toán STL & Số học"]
+        C18["C18: Xử lý xâu nâng cao"]
+        C19["C19: Matrix & Grid Pattern"]
+        C20["C20: Lambda & Iterator"]
+    end
     C01 --> C02 --> C03 --> C04 --> C05
     C05 --> C06 --> C07 --> C08
     C08 --> C09 --> C10 --> C11
     C11 --> C12 --> C13 --> C14 --> C15
+    C15 --> C16 --> C17 --> C18 --> C19 --> C20
 ```
 
 ---
@@ -98,6 +106,22 @@ flowchart TD
 | C13 | [queue, stack, deque](C13-queue-stack-deque.md) | `queue`, `stack`, `deque`, `priority_queue` | deque, heapq Python |
 | C14 | [algorithm nâng cao](C14-algorithm-nang-cao.md) | `lower_bound`, `upper_bound`, `next_permutation` | bisect, itertools |
 | C15 | [Mẹo thi đấu C++](C15-meo-thi-dau-cpp.md) | Trick, macro, cheat sheet | Bảng so sánh |
+
+### Phần E — Tổng hợp & Nâng cao ⭐⭐⭐
+
+| # | Bài học | Mô tả | So sánh Python |
+|---|---------|-------|----------------|
+| C16 | [Bài tập tổng hợp](C16-bai-tap-tong-hop.md) | 18 bài tập từ dễ đến khó, 20 bài CSES | [P20](../python/P20-bai-tap-tong-hop.md) |
+| C17 | [Thuật toán STL & Số học](C17-thuat-toan-stl.md) | `<numeric>`, bitmask, modular, sieve | [P16](../python/P16-itertools.md), [P18](../python/P18-math-builtins.md) |
+| C18 | [Xử lý xâu nâng cao](C18-xu-ly-xau-nang-cao.md) | stringstream, getline, regex, pattern | [P08](../python/P08-string.md) |
+| C19 | [Matrix & Grid Pattern](C19-matrix-pattern.md) | BFS/DFS lưới, prefix sum 2D, flood fill | [P10](../python/P10-array-2d.md) |
+| C20 | [Lambda & Iterator](C20-lambda-iterator.md) | Lambda, iterator pattern, erase-remove | [P13](../python/P13-ham.md) |
+
+### Phần F — Tham chiếu nhanh
+
+| # | Bài học | Mô tả | So sánh Python |
+|---|---------|-------|----------------|
+| C21 | [Tham chiếu nhanh](C21-tham-chieu-nhanh.md) | memset, memcpy, scanf/printf nâng cao, auto, freopen, bitset, tips | — |
 
 ---
 

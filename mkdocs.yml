@@ -245,6 +245,13 @@ nav:
               - "C13: queue, stack, deque": coding/cpp/C13-queue-stack-deque.md
               - "C14: <algorithm> nâng cao": coding/cpp/C14-algorithm-nang-cao.md
               - "C15: Mẹo thi đấu C++": coding/cpp/C15-meo-thi-dau-cpp.md
+          - "Phần E — Tổng hợp & Nâng cao":
+              - "C16: Bài tập tổng hợp": coding/cpp/C16-bai-tap-tong-hop.md
+              - "C17: Thuật toán STL & Số học": coding/cpp/C17-thuat-toan-stl.md
+              - "C18: Xử lý xâu nâng cao": coding/cpp/C18-xu-ly-xau-nang-cao.md
+              - "C19: Matrix & Grid Pattern": coding/cpp/C19-matrix-pattern.md
+              - "C20: Lambda & Iterator": coding/cpp/C20-lambda-iterator.md
+              - "C21: Tham chiếu nhanh (memset, scanf, tips)": coding/cpp/C21-tham-chieu-nhanh.md
   - Ngôn Ngữ Lập Trình:
     - Con trỏ trong C/C++: languages/cpp/pointers.md
     - Xâu trong C++: languages/cpp/string.md
