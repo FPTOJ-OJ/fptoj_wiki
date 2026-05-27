@@ -1,4 +1,4 @@
-﻿
+
 Bài viết được sưu tầm và bổ sung từ bài viết *"Một số bài toán quy hoạch động kinh điển"* của thầy Nguyễn Thanh Tùng, *Tạp chí Tin học và Nhà trường* số $1$, năm $2005$.
 
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội

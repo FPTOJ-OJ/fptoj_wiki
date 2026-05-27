@@ -1,4 +1,4 @@
-﻿
+
 **Tác giả:** 
 - Trần Hoài An - THPT Hoàng Lê Kha, Tây Ninh
 
@@ -716,13 +716,13 @@ Thuật toán Dijkstra:
 - [Codeforces - Dijsktra?](https://codeforces.com/problemset/problem/20/C) (truy vết đường đi)
 - [CSES - Flight Discount](https://cses.fi/problemset/task/1195)
 - [Codeforces - Reducing Delivery Cost](https://codeforces.com/problemset/problem/1433/G)
-- [Các bài theo tag trên VNOJ](https://oj.vnoi.info/problems/?type=24&point_start=&point_end=)
+- [Các bài theo tag trên VNOJ](https://oj.vnoi.info/problem/?type=24&point_start=&point_end=)
 
 Thuật toán Floyd-Warshall:
 
 - [CSES - Shortest Route II](https://cses.fi/problemset/task/1672) (trọng số không âm)
 - [Kattis - allpairspath](https://open.kattis.com/problems/allpairspath) (trọng số có thể âm)
 - [Codeforces - Greg and Graph](https://codeforces.com/problemset/problem/295/B)
-- [Các bài theo tag trên VNOJ](https://oj.vnoi.info/problems/?type=56&point_start=&point_end=)
+- [Các bài theo tag trên VNOJ](https://oj.vnoi.info/problem/?type=56&point_start=&point_end=)
 ---
 > :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

@@ -1,4 +1,4 @@
-﻿
+
 **Nguồn**: [P3G](http://wcipeg.com/wiki/Convex_hull_trick)
 
 **Tác giả**: Phan Minh Hoàng + Lê Anh Đức

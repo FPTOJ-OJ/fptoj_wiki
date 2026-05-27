@@ -508,9 +508,10 @@ sys.setrecursionlimit(10**6)
 ### Bài 1: Hàm tính giai thừa
 Viết hàm tính n!
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="120" data-hint="Đệ quy: if n &lt;= 1 return 1, else return n * factorial(n-1)"></div>
+
 ```python
 def factorial(n):
-    # Code của bạn ở đây
     pass
 
 n = int(input())
@@ -531,9 +532,10 @@ print(factorial(n))
 ### Bài 2: Hàm kiểm tra palindrome
 Viết hàm kiểm tra xâu có phải palindrome không.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="racecar" data-expected="True" data-hint="So sánh s với s[::-1]"></div>
+
 ```python
 def is_palindrome(s):
-    # Code của bạn ở đây
     pass
 
 s = input()
@@ -552,9 +554,10 @@ print(is_palindrome(s))
 ### Bài 3: Hàm tìm ước chung lớn nhất
 Viết hàm tính GCD của 2 số.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12 8" data-expected="4" data-hint="Dùng thuật toán Euclid: while b: a, b = b, a % b"></div>
+
 ```python
 def gcd(a, b):
-    # Code của bạn ở đây
     pass
 
 a, b = map(int, input().split())
@@ -575,9 +578,10 @@ print(gcd(a, b))
 ### Bài 4: Hàm phân tích thừa số
 Viết hàm phân tích thừa số nguyên tố.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="60" data-expected="[2, 2, 3, 5]" data-hint="Duyệt d từ 2, chia n cho d khi chia hết, tăng d lên"></div>
+
 ```python
 def prime_factors(n):
-    # Code của bạn ở đây
     pass
 
 n = int(input())
@@ -605,9 +609,10 @@ print(prime_factors(n))
 ### Bài 5: Hàm tính tổ hợp
 Viết hàm tính C(n, k).
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5 2" data-expected="10" data-hint="Đệ quy: C(n,k) = C(n-1,k-1) + C(n-1,k), base case k==0 hoặc k==n trả 1"></div>
+
 ```python
 def comb(n, k):
-    # Code của bạn ở đây
     pass
 
 n, k = map(int, input().split())
@@ -623,6 +628,8 @@ print(comb(n, k))
             return 1
         return comb(n - 1, k - 1) + comb(n - 1, k)
     
+    # Lưu ý: Hàm đệ quy này có độ phức tạp O(2^n), chỉ dùng cho n nhỏ.
+    # Với n lớn, dùng math.comb(n, k) hoặc DP.
     n, k = map(int, input().split())
     print(comb(n, k))
     ```

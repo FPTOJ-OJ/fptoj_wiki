@@ -1,46 +1,45 @@
-# C01: Tại sao C++? — Cài đặt & Hello World
+# C01: Cài đặt C++ & Hello World
 
-> **Tác giả:** FPTOJ Wiki<br>
-> **Chủ đề:** Giới thiệu C++, so sánh với Python, cài đặt, IDE, chương trình đầu tiên
-
----
-
-## Bạn sẽ học được gì?
-
-Sau bài này, bạn có thể:
-
-- Hiểu tại sao C++ phổ biến trong thi đấu
-- Cài đặt trình biên dịch C++ trên máy tính
-- Viết và chạy chương trình C++ đầu tiên
-- Chọn IDE phù hợp cho thi đấu
+> **Bạn sẽ học được:** Cài đặt C++, viết chương trình đầu tiên, hiểu tại sao C++ phổ biến trong thi đấu<br>
+> **Yêu cầu:** Biết sử dụng máy tính cơ bản<br>
+> **Thời gian:** 30 phút
 
 ---
 
-## 1. Tại sao chọn C++?
+## Tại sao phải học C++?
+
+### Câu chuyện: Cuộc thi chạy
+
+Hãy tưởng tượng bạn tham gia một cuộc thi chạy:
+
+- **Python** = Người chạy bộ (dễ bắt đầu, nhưng chậm)
+- **C++** = Xe đua (phải học lái, nhưng **nhanh gấp 100 lần**)
+
+Trong thi đấu lập trình, tốc độ **rất quan trọng**. Một bài toán Python chạy 10 giây có thể bị **TLE** (Time Limit Exceeded), nhưng C++ chỉ chạy mất **0.1 giây**.
 
 ```mermaid
 flowchart LR
-    A["C++"] --> B["Nhanh gấp 100 lần Python"]
-    A --> C["STL — thư viện mạnh mẽ"]
-    A --> D["Phổ biến nhất trong thi đấu"]
-    A --> E["Kiểm soát bộ nhớ tốt"]
+    A["🐍 Python<br>10 giây → TLE ❌"] -->|"Chuyển sang C++"| B["⚡ C++<br>0.1 giây → AC ✅"]
 ```
 
-| Tiêu chí | Python | C++ |
-|----------|--------|-----|
-| **Tốc độ** | Chậm (~10^6 phép tính/giây) | **Nhanh** (~10^8 phép tính/giây) |
-| **Cú pháp** | Đơn giản, dễ đọc | Phức tạp hơn |
-| **Compile** | Chạy trực tiếp | Phải compile trước |
-| **Thư viện** | Nhiều built-in | **STL rất mạnh** |
-| **Đệ quy** | Giới hạn ~1000 lớp | Giới hạn lớn hơn nhiều |
+### Bảng so sánh chi tiết
 
-!!! tip "Khi nào dùng Python, khi nào dùng C++?"
-    - **Dùng Python khi:** Học thuật toán mới, viết nhanh prototype, bài không yêu cầu tốc độ
-    - **Dùng C++ khi:** Thi đấu chính thức, bài yêu cầu tốc độ, cần STL nâng cao
+| Tiêu chí | Python | C++ | Ai thắngở |
+|----------|--------|-----|-----------|
+| **Tốc độ** | ~10⁶ phép tính/giây | **~10⁸ phép tính/giây** | C++ 🏆 |
+| **Cú pháp** | Đơn giản, dễ đọc | Phức tạp hơn | Python 🏆 |
+| **Compile** | Chạy trực tiếp | Phải compile trước | Python 🏆 |
+| **Thư viện** | Nhiều built-in | **STL rất mạnh** | C++ 🏆 |
+| **Đệ quy** | Giới hạn ~1000 lớp | Giới hạn lớn hơn | C++ 🏆 |
+| **Phổ biến** | Ít người thi đấu | **Hầu hết thí sinh** | C++ 🏆 |
+
+!!! tip "Kết luận"
+    **Python** phù hợp để **học thuật toán** (dễ hiểu, dễ viết).<br>
+    **C++** phù hợp để **thi đấu** (nhanh, mạnh, phổ biến).
 
 ---
 
-## 2. Cài đặt C++
+## Cài đặt C++
 
 ### Cách 1: MinGW (Windows) — Khuyến nghị
 
@@ -114,10 +113,10 @@ brew install gcc
 
 ---
 
-## 3. IDE / Text Editor
+## Chọn IDE / Text Editor
 
 !!! question "Nên chọn IDE nào?"
-    Nếu bạn **chưa biết chọn gì**, hãy dùng **Code::Blocks** hoặc **Dev-C++**. Đây là 2 IDE **phổ biến nhất** trong thi đấu lập trình tại Việt Nam.
+    Nếu bạn **chưa biết chọn gì**, hãy dùng **Code::Blocks**. Đây là IDE **phổ biến nhất** trong thi đấu lập trình tại Việt Nam.
 
 ### Code::Blocks (Rất khuyến nghị)
 
@@ -143,10 +142,12 @@ brew install gcc
 
 ---
 
-## 4. Chương trình đầu tiên: Hello World
+## Chương trình đầu tiên: Hello World
+
+### Code
 
 ```cpp
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
@@ -157,24 +158,27 @@ int main() {
 
 ### Giải thích từng dòng
 
-```cpp
-#include <iostream>    // 1. Thêm thư viện nhập/xuất (input/output)
-using namespace std;   // 2. Dùng std mà không cần ghi std:: trước mỗi lệnh
-
-int main() {           // 3. Hàm chính — chương trình bắt đầu từ đây
-    cout << "Hello World!" << endl;  // 4. In ra màn hình
-    return 0;          // 5. Kết thúc chương trình, trả về 0 (thành công)
-}
+```mermaid
+flowchart TD
+    A["#include &lt;bits/stdc++.h&gt;"] -->|"Thêm thư viện"| B["using namespace std;"]
+    B -->|"Dùng std::"| C["int main() {"]
+    C -->|"Hàm chính"| D["cout << 'Hello World!' << endl;"]
+    D -->|"In ra màn hình"| E["return 0;"]
+    E -->|"Kết thúc"| F["}"]
 ```
 
-| Lệnh | Ý nghĩa |
-|------|----------|
-| `#include <iostream>` | Thêm thư viện nhập/xuất |
-| `using namespace std;` | Để không phải viết `std::cout` mà chỉ cần `cout` |
-| `int main()` | Hàm chính, mọi chương trình C++ đều bắt đầu từ đây |
-| `cout << "..."` | In ra màn hình |
-| `endl` | Xuống dòng |
-| `return 0;` | Kết thúc chương trình |
+| Dòng code | Ý nghĩa | So sánh Python |
+|-----------|---------|----------------|
+| `#include <bits/stdc++.h>` | Thêm **tất cả** thư viện chuẩn | Không cần trong Python |
+| `using namespace std;` | Để không phải viết `std::cout` | Không cần trong Python |
+| `int main()` | Hàm chính — chương trình bắt đầu từ đây | Không cần trong Python |
+| `cout << "Hello World!" << endl;` | In ra màn hình + xuống dòng | `print("Hello World!")` |
+| `return 0;` | Kết thúc chương trình (0 = thành công) | Không cần trong Python |
+
+!!! tip "Hiểu đơn giản"
+    - `cout` = **c**haracter **out**put = in ký tự ra màn hình
+    - `<<` = mũi tên chỉ hướng: dữ liệu **chảy từ** biến **ra** màn hình
+    - `endl` = **end** **l**ine = xuống dòng
 
 ### Compile và chạy
 
@@ -191,18 +195,67 @@ Output:
 Hello World!
 ```
 
-!!! tip "So sánh với Python"
-    | Python | C++ |
-    |--------|-----|
-    | `print("Hello World!")` | `cout << "Hello World!" << endl;` |
-    | Chạy trực tiếp | Phải compile trước |
-    | Ngắn gọn | Dài hơn nhưng nhanh hơn |
+!!! warning "Lưu ý khi compile"
+    - File code phải có đuôi `.cpp` (ví dụ: `hello.cpp`)
+    - Nếu dùng Code::Blocks/Dev-C++, chỉ cần nhấn **F9** hoặc **F11**
+    - Nếu compile lỗi, đọc thông báo lỗi để sửa
 
 ---
 
-## 5. Template thi đấu C++
+## Template thi đấu C++
 
-Khi thi đấu, hãy dùng template này để code chạy nhanh nhất:
+Khi thi đấu, **luôn dùng template này** để code chạy nhanh nhất:
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    return 0;
+}
+```
+
+### Giải thích template
+
+| Lệnh | Ý nghĩa | Tại sao cầnở |
+|------|---------|--------------|
+| `#include <bits/stdc++.h>` | Include **tất cả** thư viện chuẩn | Tiện hơn include từng cái |
+| `ios_base::sync_with_stdio(false)` | **Tắt** đồng bộ C và C++ I/O | **Nhanh hơn** ~2-3 lần |
+| `cin.tie(NULL)` | **Tách** cin và cout | **Nhanh hơn** khi nhập/xuất nhiều |
+
+!!! warning "Khi dùng template này"
+    - **Không** dùng `scanf`/`printf` (C-style I/O) cùng với `cin`/`cout`
+    - **Không** dùng `puts`/`gets` cùng với `cout`/`cin`
+
+!!! tip "Ghi nhớ template"
+    Hãy **copy template này vào file template.cpp** trong thư mục thi đấu. Mỗi lần bắt đầu bài mới, chỉ cần copy-paste.
+
+---
+
+## Đọc dữ liệu và in ra — Bài toán đầu tiên
+
+### Bài toán: Đọc 2 số và in tổng
+
+**Input:**
+```
+3 5
+```
+**Output:**
+```
+8
+```
+
+### Cách suy nghĩ (Step-by-step)
+
+```mermaid
+flowchart TD
+    A["Bước 1: Đọc 2 số"] --> B["Bước 2: Tính tổng"]
+    B --> C["Bước 3: In kết quả"]
+```
+
+### Code
 
 ```cpp
 #include <bits/stdc++.h>
@@ -212,75 +265,15 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    // Code của bạn ở đây
+    int a, b;           // Khai báo 2 biến nguyên
+    cin >> a >> b;      // Đọc 2 số từ bàn phím
+    cout << a + b << endl;  // In tổng ra màn hình
     
     return 0;
 }
 ```
 
-### Giải thích template
-
-| Lệnh | Ý nghĩa |
-|------|----------|
-| `#include <bits/stdc++.h>` | Include **tất cả** thư viện chuẩn (tiện hơn include từng cái) |
-| `ios_base::sync_with_stdio(false)` | **Tắt** đồng bộ C và C++ I/O → **nhanh hơn** |
-| `cin.tie(NULL)` | **Tách** cin và cout → **nhanh hơn** |
-
-!!! warning "Khi dùng template này"
-    - **Không** dùng `scanf`/`printf` (C-style I/O) cùng với `cin`/`cout`
-    - **Không** dùng `puts`/`gets` cùng với `cout`/`cin`
-
----
-
-## 6. Compile với tối ưu
-
-```bash
-# Compile bình thường (dùng khi debug)
-g++ -o solution solution.cpp
-
-# Compile với tối ưu tốc độ (dùng khi thi đấu)
-g++ -O2 -o solution solution.cpp
-
-# Compile với tất cả cảnh báo (dùng khi debug)
-g++ -Wall -Wextra -o solution solution.cpp
-
-# Compile với C++17
-g++ -std=c++17 -o solution solution.cpp
-
-# Kết hợp: tối ưu + C++17
-g++ -O2 -std=c++17 -o solution solution.cpp
-```
-
-!!! tip "Trong thi đấu"
-    - Luôn compile với `-O2` để tối ưu tốc độ
-    - Dùng C++17 hoặc C++20 nếu được phép
-    - Code trên Code::Blocks/Dev-C++ đã tự động tối ưu
-
----
-
-## 7. So sánh code Python vs C++
-
-### Hello World
-
-=== "Python"
-
-    ```python
-    print("Hello World!")
-    ```
-
-=== "C++"
-
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        cout << "Hello World!" << endl;
-        return 0;
-    }
-    ```
-
-### Đọc 2 số và in tổng
+### So sánh với Python
 
 === "Python"
 
@@ -307,66 +300,153 @@ g++ -O2 -std=c++17 -o solution solution.cpp
     }
     ```
 
+!!! tip "Nhớ"
+    | Python | C++ |
+    |--------|-----|
+    | `input().split()` | `cin >> a >> b` |
+    | `print(x)` | `cout << x << endl` |
+    | `int(x)` | Không cần (đã khai báo `int`) |
+
 ---
 
-## 8. Lưu ý / Cạm bẫy hay gặp
+## Common Mistakes — Lỗi thường gặp
 
-### Bẫy 1: Quên include
+### Lỗi 1: Quên `#include`
 
 ```cpp
-// SAI: Quên include
-cout << "Hello";  // Lỗi compile!
+// ❌ SAI: Quên include
+cout << "Hello";  // Lỗi compile: 'cout' was not declared
 
-// ĐÚNG
-#include <iostream>
+// ✅ ĐÚNG
+#include <bits/stdc++.h>
 using namespace std;
 cout << "Hello";
 ```
 
-### Bẫy 2: Quên using namespace std
+### Lỗi 2: Quên `using namespace std`
 
 ```cpp
-// SAI: Không có using namespace std
-cout << "Hello";  // Lỗi compile!
+// ❌ SAI: Không có using namespace std
+cout << "Hello";  // Lỗi compile: 'cout' was not declared in this scope
 
-// ĐÚNG: Thêm using namespace std
+// ✅ ĐÚNG: Thêm using namespace std
 using namespace std;
 cout << "Hello";
 
-// HOẶC: Dùng std::
+// ✅ HOẶC: Dùng std::
 std::cout << "Hello";
 ```
 
-### Bẫy 3: Quên chấm phẩy
+### Lỗi 3: Quên chấm phẩy
 
 ```cpp
-// SAI: Quên chấm phẩy
-int x = 5  // Lỗi compile!
+// ❌ SAI: Quên chấm phẩy
+int x = 5  // Lỗi compile: expected ';' before...
 
-// ĐÚNG
+// ✅ ĐÚNG
 int x = 5;
 ```
 
-### Bẫy 4: Dùng = thay vì ==
+### Lỗi 4: Dùng `=` thay vì `==`
 
 ```cpp
-// SAI: Dùng = (gán) thay vì == (so sánh)
-if (x = 5) { ... }  // Luôn đúng!
+// ❌ SAI: Dùng = (gán) thay vì == (so sánh)
+if (x = 5) { ... }  // Luôn đúng! (gán x = 5, rồi kiểm tra x)
 
-// ĐÚNG
+// ✅ ĐÚNG
 if (x == 5) { ... }
 ```
 
+### Lỗi 5: Quên `return 0`
+
+```cpp
+// ❌ SAI: Quên return 0
+int main() {
+    cout << "Hello";
+}  // Chương trình vẫn chạy nhưng không tốt
+
+// ✅ ĐÚNG
+int main() {
+    cout << "Hello";
+    return 0;
+}
+```
+
+!!! tip "Mẹo tránh lỗi"
+    - Luôn dùng **template thi đấu** (đã có sẵn `return 0`)
+    - Nếu compile lỗi, đọc **dòng lỗi** (thường chỉ ra đúng dòng bị sai)
+    - Nếu không hiểu lỗi, **copy lỗi vào Google** để tìm cách sửa
+
 ---
 
-## 9. Bài tập thực hành
+## Debug — Tìm và sửa lỗi
+
+### Khi compile lỗi
+
+```mermaid
+flowchart TD
+    A["Compile lỗi"] --> B["Đọc thông báo lỗi"]
+    B --> C{"Hiểu lỗi không?"}
+    C -->|"Có"| D["Sửa lỗi"]
+    C -->|"Không"| E["Copy lỗi vào Google"]
+    E --> F["Tìm giải pháp trên Stack Overflow"]
+    F --> D
+    D --> G["Compile lại"]
+    G --> H{"Thành công?"}
+    H -->|"Có"| I["Chạy thử"]
+    H -->|"Không"| B
+```
+
+### Các lỗi compile phổ biến
+
+| Thông báo lỗi | Nguyên nhân | Cách sửa |
+|---------------|-------------|----------|
+| `'cout' was not declared` | Quên `#include <bits/stdc++.h>` | Thêm include |
+| `expected ';' before` | Quên chấm phẩy | Thêm `;` |
+| `expected '}'` | Quên đóng ngoặc | Thêm `}` |
+| `lvalue required` | Dùng `=` thay vì `==` | Đổi thành `==` |
+| `undefined reference to 'main'` | Không có hàm `main` | Thêm `int main() {}` |
+
+### Khi chạy sai kết quả
+
+1. **In ra các biến trung gian** để kiểm tra
+2. **Chạy thử với input nhỏ** trước
+3. **Kiểm tra logic** từng bước
+
+---
+
+## Compile với tối ưu
+
+```bash
+# Compile bình thường (dùng khi debug)
+g++ -o solution solution.cpp
+
+# Compile với tối ưu tốc độ (dùng khi thi đấu)
+g++ -O2 -o solution solution.cpp
+
+# Compile với tất cả cảnh báo (dùng khi debug)
+g++ -Wall -Wextra -o solution solution.cpp
+
+# Compile với C++17
+g++ -std=c++17 -o solution solution.cpp
+
+# Kết hợp: tối ưu + C++17
+g++ -O2 -std=c++17 -o solution solution.cpp
+```
+
+!!! tip "Trong thi đấu"
+    - Luôn compile với `-O2` để tối ưu tốc độ
+    - Dùng C++17 hoặc C++20 nếu được phép
+    - Code trên Code::Blocks/Dev-C++ đã tự động tối ưu
+
+---
+
+## Bài tập thực hành
 
 ### Bài 1: Hello World
 Viết chương trình in "Hello World!".
 
-```cpp
-// Code của bạn ở đây
-```
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="" data-expected="Hello World!" data-hint="Dùng cout &lt;&lt; &quot;Hello World!&quot; &lt;&lt; endl;"></div>
 
 ??? tip "Lời giải"
     ```cpp
@@ -380,11 +460,12 @@ Viết chương trình in "Hello World!".
     ```
 
 ### Bài 2: In tên
-Đọc tên. In ra "Hello {tên}!".
+Đọc tên từ bàn phím. In ra "Hello {tên}!".
 
-```cpp
-// Code của bạn ở đây
-```
+**Input:** `Nam`<br>
+**Output:** `Hello Nam!`
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="Nam" data-expected="Hello Nam!" data-hint="Đọc tên bằng cin, in ra bằng cout với &quot;Hello &quot; và &quot;!&quot;"></div>
 
 ??? tip "Lời giải"
     ```cpp
@@ -399,13 +480,71 @@ Viết chương trình in "Hello World!".
     }
     ```
 
+### Bài 3: Tính tổng 2 số
+Đọc 2 số nguyên a, b. In ra tổng a + b.
+
+**Input:** `3 5`<br>
+**Output:** `8`
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3 5" data-expected="8" data-hint="Đọc 2 số bằng cin &gt;&gt; a &gt;&gt; b, in tổng bằng cout"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
+        int a, b;
+        cin >> a >> b;
+        cout << a + b << endl;
+        
+        return 0;
+    }
+    ```
+
+### Bài 4: Tính diện tích hình tròn
+Đọc bán kính r. Tính diện tích S = π × r². In ra 2 chữ số sau dấu phẩy.
+
+**Input:** `5`<br>
+**Output:** `78.54`
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5" data-expected="78.54" data-hint="Dùng fixed &lt;&lt; setprecision(2) và M_PI để tính diện tích"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        double r;
+        cin >> r;
+        cout << fixed << setprecision(2) << M_PI * r * r << endl;
+        return 0;
+    }
+    ```
+
+---
+
+## Tóm tắt bài học
+
+| Nội dung | Chi tiết |
+|----------|----------|
+| **Tại sao C++?** | Nhanh hơn Python ~100 lần, STL mạnh mẽ |
+| **Cài đặt** | MinGW + Code::Blocks (hoặc Dev-C++) |
+| **Hello World** | `cout << "Hello" << endl;` |
+| **Template thi đấu** | `#include <bits/stdc++.h>` + `ios_base::sync_with_stdio(false)` + `cin.tie(NULL)` |
+| **Nhập/xuất** | `cin >> x` / `cout << x << endl` |
+
 ---
 
 ## Bài viết liên quan
 
-- [Chương 2: C++ cho Thi Đấu](index.md)
-- [C02: Cú pháp cơ bản →](C02-cu-phap-co-ban.md)
+- [index.md](index.md) — Tổng quan C++ cho Thi Đấu
+- [C02: Biến & Kiểu dữ liệu →](C02-cu-phap-co-ban.md)
 
 ---
 
-**Bài tiếp theo:** [C02: Cú pháp cơ bản →](C02-cu-phap-co-ban.md)
+**Bài tiếp theo:** [C02: Biến & Kiểu dữ liệu →](C02-cu-phap-co-ban.md)

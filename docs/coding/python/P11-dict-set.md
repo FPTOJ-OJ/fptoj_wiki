@@ -169,7 +169,7 @@ s.add(2)         # {1, 2, 3, 4} (không thêm trùng)
 # Xóa
 s.remove(3)      # {1, 2, 4} — KeyError nếu không có!
 s.discard(3)     # {1, 2, 4} — Không lỗi nếu không có
-s.pop()          # Xóa và trả về 1 phần tử任意
+s.pop()          # Xóa và trả về 1 phần tử
 s.clear()        # Xóa tất cả
 ```
 
@@ -189,7 +189,7 @@ print(a.intersection(b))
 
 # Hiệu (Difference)
 print(a - b)     # {1, 2, 3}
-print(a.difference(b)
+print(a.difference(b))
 
 # Hiệu đối xứng (Symmetric Difference)
 print(a ^ b)     # {1, 2, 3, 6, 7, 8}
@@ -502,9 +502,12 @@ print(most[1])  # 3 — count
 ### Bài 1: Đếm tần suất
 Cho mảng arr. Đếm tần suất xuất hiện của mỗi phần tử.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1 2 2 3 3 3" data-expected="1: 1
+2: 2
+3: 3" data-hint="Dùng dict hoặc collections.Counter để đếm"></div>
+
 ```python
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -518,9 +521,10 @@ arr = list(map(int, input().split()))
 ### Bài 2: Tìm phần tử xuất hiện nhiều nhất
 Cho mảng arr. Tìm phần tử xuất hiện nhiều nhất.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1 3 2 3 3 2 2 2" data-expected="2" data-hint="Dùng Counter(arr).most_common(1)[0][0]"></div>
+
 ```python
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -533,9 +537,10 @@ arr = list(map(int, input().split()))
 ### Bài 3: Kiểm tra trùng lặp
 Cho mảng arr. Kiểm tra có phần tử trùng không.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1 2 3 2" data-expected="Co phan tu trung" data-hint="So sánh len(arr) với len(set(arr))"></div>
+
 ```python
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -549,10 +554,12 @@ arr = list(map(int, input().split()))
 ### Bài 4: Two Sum
 Cho mảng arr và target. Tìm 2 số có tổng bằng target.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2 7 11 15
+9" data-expected="0 1" data-hint="Dùng dict để lưu index, kiểm tra complement = target - x"></div>
+
 ```python
 arr = list(map(int, input().split()))
 target = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -569,9 +576,12 @@ target = int(input())
 ### Bài 5: Nhóm từ theo chữ cái đầu
 Cho list từ. Nhóm các từ theo chữ cái đầu.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="apple banana cherry avocado blueberry" data-expected="a: ['apple', 'avocado']
+b: ['banana', 'blueberry']
+c: ['cherry']" data-hint="Dùng defaultdict(list), thêm từ vào groups[word[0]]"></div>
+
 ```python
 words = input().split()
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

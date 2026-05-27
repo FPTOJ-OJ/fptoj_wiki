@@ -219,7 +219,7 @@ arr3 = list(reversed(arr))  # [1, 2, 3, 4, 5]
 ```python
 arr = [1, 2, 3, 4, 5]
 
-# SHALLOW COPY (tham chiếu)
+# Gán tham chiếu (không phải copy!)
 arr2 = arr           # arr2 trỏ cùng vùng nhớ!
 arr2.append(6)
 print(arr)           # [1, 2, 3, 4, 5, 6] — arr cũng bị thay đổi!
@@ -510,10 +510,12 @@ arr = []
 ### Bài 1: Đảo ngược mảng
 Đọc mảng. In ra mảng đảo ngược.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
+1 2 3 4 5" data-expected="5 4 3 2 1" data-hint="Dùng arr[::-1] hoặc reversed()"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -524,10 +526,12 @@ arr = list(map(int, input().split()))
 ### Bài 2: Tìm số lớn thứ 2
 Đọc mảng. Tìm số lớn thứ 2 (khác số lớn nhất).
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
+3 1 4 1 5" data-expected="4" data-hint="Dùng set() để loại trùng, sort giảm dần, lấy phần tử thứ 2"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -540,10 +544,12 @@ arr = list(map(int, input().split()))
 ### Bài 3: Xóa phần tử trùng
 Đọc mảng. Xóa các phần tử trùng, giữ thứ tự xuất hiện.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6
+1 2 2 3 3 3" data-expected="1 2 3" data-hint="Dùng set để theo dõi đã thấy, duyệt mảng và chỉ thêm phần tử chưa thấy"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -560,10 +566,12 @@ arr = list(map(int, input().split()))
 ### Bài 4: Sắp xếp theo tổng chữ số
 Đọc mảng. Sắp xếp theo tổng chữ số tăng dần.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
+13 4 21 100 7" data-expected="100 21 4 13 7" data-hint="Viết hàm tính tổng chữ số, dùng arr.sort(key=...)"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -578,11 +586,14 @@ arr = list(map(int, input().split()))
 ### Bài 5: Two Sum
 Đọc mảng và target. Tìm 2 số có tổng bằng target.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
+2 7 11 15 3
+9" data-expected="0 1" data-hint="Dùng dict để lưu index đã thấy, kiểm tra complement = target - x"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
 target = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -612,10 +623,12 @@ Output:
 2
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
+-1 2 -3 4 -5" data-expected="2" data-hint="Dùng sum(1 for x in arr if x &gt; 0)"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -647,10 +660,12 @@ Output:
 2
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
+3 1 4 1 5" data-expected="4" data-hint="Dùng arr.index(max(arr))"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -681,10 +696,12 @@ Output:
 5 1 2 3 4
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5 2
+1 2 3 4 5" data-expected="4 5 1 2 3" data-hint="Dùng arr[-k:] + arr[:-k], nhớ k = k % n"></div>
+
 ```python
 n, k = map(int, input().split())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -710,10 +727,14 @@ Output:
 3: 3
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6
+1 2 2 3 3 3" data-expected="1: 1
+2: 2
+3: 3" data-hint="Dùng dict để đếm, duyệt arr và tăng count cho mỗi phần tử"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -744,11 +765,14 @@ Output:
 1 2 3 4 5 6 8
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3 4
+1 3 5
+2 4 6 8" data-expected="1 2 3 4 5 6 8" data-hint="Dùng sorted(a + b) hoặc merge hai mảng đã sắp xếp"></div>
+
 ```python
 n, m = map(int, input().split())
 a = list(map(int, input().split()))
 b = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

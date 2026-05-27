@@ -1,45 +1,131 @@
-<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
-<script>
-  var giscus = document.createElement("script")
-  giscus.src = "https://giscus.app/client.js"
-  giscus.setAttribute("data-repo", "{{ config.extra.giscus.repo }}")
-  giscus.setAttribute("data-repo-id", "{{ config.extra.giscus.repo_id }}")
-  giscus.setAttribute("data-category", "{{ config.extra.giscus.category }}")
-  giscus.setAttribute("data-category-id", "{{ config.extra.giscus.category_id }}")
-  giscus.setAttribute("data-mapping", "pathname")
-  giscus.setAttribute("data-strict", "0")
-  giscus.setAttribute("data-reactions-enabled", "1")
-  giscus.setAttribute("data-emit-metadata", "0")
-  giscus.setAttribute("data-input-position", "bottom")
-  giscus.setAttribute("data-lang", "vi")
-  giscus.setAttribute("crossorigin", "anonymous")
-  giscus.async = true
-
-  // Xác định theme ban đầu
-  var palette = __md_get("__palette")
-  if (palette && typeof palette.color === "object") {
-    var theme = palette.color.scheme === "slate" ? "dark" : "light"
-    giscus.setAttribute("data-theme", theme)
-  } else {
-    giscus.setAttribute("data-theme", "light")
+{% set cusdis = config.extra.cusdis %}
+{% if not page.is_homepage %}
+<hr>
+<h2 id="__comments">💬 Bình luận</h2>
+<style>
+  .cusdis {
+    margin-top: 1em;
+    width: 100%;
+    max-width: 100%;
   }
+  #cusdis_thread {
+    width: 100%;
+  }
+  #cusdis_thread iframe {
+    width: 100% !important;
+    min-width: 100% !important;
+    border: none !important;
+    overflow: hidden !important;
+    display: block !important;
+    background: transparent !important;
+  }
+  [data-md-color-scheme="slate"] .cusdis,
+  [data-md-color-scheme="dark"] .cusdis {
+    color-scheme: dark;
+  }
+</style>
+<div class="cusdis">
+  <div id="cusdis_thread"
+    data-host="{{ cusdis.host }}"
+    data-app-id="{{ cusdis.app_id }}"
+    data-page-id="{{ page.abs_url|url }}"
+    data-page-url="{{ page.abs_url|url }}"
+    data-page-title="{{ page.title }}"
+    data-theme="light"
+  ></div>
+</div>
+<script>
+  (function() {
+    var host = '{{ cusdis.host }}';
+    var lang = '{{ cusdis.lang }}';
 
-  // Chèn script vào sau tiêu đề bình luận
-  document.getElementById("__comments").after(giscus)
+    // Load language
+    var langScript = document.createElement('script');
+    langScript.src = host + '/js/widget/lang/' + lang + '.js';
+    langScript.async = false;
+    document.head.appendChild(langScript);
 
-  // Lắng nghe sự kiện đổi theme để cập nhật Giscus ngay lập tức
-  var ref = document.querySelector("[data-md-color-scheme]")
-  new MutationObserver(function() {
-    var palette = __md_get("__palette")
-    var theme = (palette && palette.color && palette.color.scheme === "slate") ? "dark" : "light"
-    
-    // Gửi thông điệp tới giscus iframe để đổi theme
-    var frame = document.querySelector(".giscus-frame")
-    if (frame) {
-      frame.contentWindow.postMessage(
-        { giscus: { setConfig: { theme } } },
-        "https://giscus.app"
-      )
+    // Load widget
+    var widgetScript = document.createElement('script');
+    widgetScript.src = host + '/js/cusdis.es.js';
+    widgetScript.async = true;
+    document.head.appendChild(widgetScript);
+
+    // --- Theme sync ---
+    function getTheme() {
+      var scheme = document.documentElement.getAttribute('data-md-color-scheme');
+      if (!scheme) {
+        var palette = document.querySelector('[data-md-color-scheme]');
+        if (palette) scheme = palette.getAttribute('data-md-color-scheme');
+      }
+      return scheme === 'slate' || scheme === 'dark' ? 'dark' : 'light';
     }
-  }).observe(ref, { attributes: true, attributeFilter: ["data-md-color-scheme"] })
+
+    function applyTheme(theme) {
+      var el = document.getElementById('cusdis_thread');
+      if (!el) return;
+      el.setAttribute('data-theme', theme);
+      // Use CUSDIS API if available
+      try {
+        if (window.CUSDIS && window.CUSDIS.setTheme) {
+          window.CUSDIS.setTheme(theme);
+        }
+      } catch(e) {}
+    }
+
+    // Apply initial theme
+    applyTheme(getTheme());
+
+    // Listen for scheme changes
+    var observer = new MutationObserver(function() {
+      applyTheme(getTheme());
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-md-color-scheme', 'data-user-color-scheme']
+    });
+    // Also watch the body/parent for scheme changes
+    var body = document.querySelector('[data-md-color-scheme]');
+    if (body && body !== document.documentElement) {
+      new MutationObserver(function() {
+        applyTheme(getTheme());
+      }).observe(body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
+    }
+
+    // --- Iframe resize (remove scrollbar) ---
+    window.addEventListener('message', function(e) {
+      if (!e.data) return;
+      var iframe = document.querySelector('#cusdis_thread iframe');
+      if (!iframe) return;
+      // Cusdis sends height updates via postMessage
+      if (e.data.type === 'cusdis' && e.data.payload) {
+        if (e.data.payload.height) {
+          iframe.style.height = e.data.payload.height + 'px';
+        }
+      }
+      // Fallback: direct height
+      if (e.data.height) {
+        iframe.style.height = e.data.height + 'px';
+      }
+    });
+
+    // Force iframe resize on load
+    var checkIframe = setInterval(function() {
+      var iframe = document.querySelector('#cusdis_thread iframe');
+      if (iframe) {
+        iframe.style.overflow = 'hidden';
+        iframe.onload = function() {
+          try {
+            var doc = iframe.contentDocument || iframe.contentWindow.document;
+            if (doc && doc.body) {
+              iframe.style.height = doc.body.scrollHeight + 'px';
+            }
+          } catch(e) {}
+        };
+        clearInterval(checkIframe);
+      }
+    }, 200);
+  })();
 </script>
+<noscript>Vui lòng bật JavaScript để xem bình luận</noscript>
+{% endif %}

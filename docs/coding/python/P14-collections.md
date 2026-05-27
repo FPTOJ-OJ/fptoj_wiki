@@ -326,10 +326,9 @@ Cho xâu s. Tìm ký tự xuất hiện nhiều nhất.
 ```python
 from collections import Counter
 s = input()
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import Counter
     cnt = Counter(s)
@@ -350,10 +349,9 @@ for _ in range(m):
     graph[v].append(u)
 
 start = int(input())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import deque
     
@@ -379,10 +377,9 @@ Cho list từ. Nhóm các từ có cùng ký tự khi sắp xếp.
 from collections import defaultdict
 
 words = input().split()
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import defaultdict
     
@@ -417,10 +414,9 @@ Output: hello 2
 ```python
 from collections import Counter
 s = input()
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import Counter
     
@@ -455,10 +451,9 @@ Khong phai hoan vi
 from collections import Counter
 s1 = input()
 s2 = input()
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import Counter
     
@@ -487,10 +482,9 @@ Output:
 ```python
 from collections import defaultdict
 n = int(input())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import defaultdict
     
@@ -522,10 +516,9 @@ Output: l 3
 ```python
 from collections import Counter
 s = input()
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import Counter
     

@@ -43,7 +43,6 @@ nav:
   - Trang chủ: 
       - Home: index.md
       - Giới thiệu: about.md
-      - Test Markdown: markdown.md
   - Bài Học:
       - Tổng hợp bài học: lessons/index.md
       - "⭐ Nhóm 1 — Nhập môn (Bài 1-6)":
@@ -97,6 +96,27 @@ nav:
           - Sinh testcase & Stress test: lessons/37-sinh-testcase.md
           - Debug & Mẹo thi đấu: lessons/38-debug-meo.md
           - Tổ chức code & Nộp bài: lessons/39-to-chuc-code.md
+      - "⭐⭐⭐⭐ Nhóm 10 — Đồ thị nâng cao":
+          - SCC & Cầu & Khớp: lessons/40-scc-bridges.md
+          - Network Flow (Luồng cực đại): lessons/41-network-flow.md
+          - Bipartite Matching & Hungarian: lessons/42-bipartite-matching.md
+          - 2-SAT: lessons/43-2sat.md
+      - "⭐⭐⭐⭐ Nhóm 11 — Cây nâng cao":
+          - Euler Tour trên cây: lessons/44-euler-tour-tree.md
+          - Centroid Decomposition: lessons/45-centroid-decomposition.md
+          - Heavy-Light Decomposition: lessons/46-hld.md
+      - "⭐⭐⭐⭐ Nhóm 12 — Quy hoạch động nâng cao":
+          - DP trên cây: lessons/47-dp-on-trees.md
+          - Digit DP: lessons/48-digit-dp.md
+          - Interval DP: lessons/49-interval-dp.md
+          - Tối ưu DP (Knuth, D&C, CHT): lessons/50-dp-optimization.md
+      - "⭐⭐⭐⭐ Nhóm 13 — Xâu nâng cao":
+          - Aho-Corasick: lessons/51-aho-corasick.md
+          - Suffix Automaton: lessons/52-suffix-automaton.md
+      - "⭐⭐⭐⭐ Nhóm 14 — Kỹ thuật nâng cao":
+          - Chia căn & Mo's Algorithm: lessons/53-sqrt-mo.md
+          - Convex Hull Trick & Li Chao Tree: lessons/54-convex-hull-trick.md
+          - Ternary Search: lessons/55-ternary-search.md
   - Thuật Toán:
       - Cơ Bản:
         - Đệ quy và Thuật toán quay lui: algo/basic/backtracking.md
@@ -252,6 +272,7 @@ nav:
               - "C19: Matrix & Grid Pattern": coding/cpp/C19-matrix-pattern.md
               - "C20: Lambda & Iterator": coding/cpp/C20-lambda-iterator.md
               - "C21: Tham chiếu nhanh (memset, scanf, tips)": coding/cpp/C21-tham-chieu-nhanh.md
+              - "C22: Struct & Operator Overloading": coding/cpp/C22-struct-operator-overloading.md
   - Ngôn Ngữ Lập Trình:
     - Con trỏ trong C/C++: languages/cpp/pointers.md
     - Xâu trong C++: languages/cpp/string.md
@@ -337,11 +358,10 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra:
-  giscus:
-    repo: FPTOJ-OJ/fptoj_wiki
-    repo_id: R_kgDOOEBMFA
-    category: General
-    category_id: DIC_kwDOOEBMFM4C8yFI
+  cusdis:
+    host: https://cusdis.com
+    app_id: bc6a42af-d165-45eb-a516-028294bfa409
+    lang: vi
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js
@@ -349,6 +369,19 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
   - js/jquery-3.7.1.min.js
   - js/webjs.js
-  
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/clike/clike.min.js
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/matchbrackets.min.js
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/closebrackets.min.js
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.js
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/anyword-hint.min.js
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/selection/active-line.min.js
+  - js/cp-compiler.js
+  - js/cp-playground.js
+
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.css
+  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/theme/monokai.min.css

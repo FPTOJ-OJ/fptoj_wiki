@@ -38,7 +38,7 @@ Giải thích từng vị trí:
 - `π[4]=2`: "aabaa" → tiền tố "aa" = hậu tố "aa", độ dài **2**
 - `π[6]=3`: "aabaaab" → tiền tố "aab" = hậu tố "aab", độ dài **3**
 
-### Minh họa từng bước tính `π` cho "aabăaab"
+### Minh họa từng bước tính `π` cho "aabaaab"
 
 ```
 Bước i=1: xét 'a'. j = π[0] = 0.
@@ -174,7 +174,7 @@ Thực tế: pos = i - 2*m = i - 4
   i=8: pos = 8-4 = 4 → T[4..5]="ab" ✓
   i=11: pos = 11-4 = 7 → T[7..8]="ab" ✓
 
-Đượng dần thiết lập T[1]="aabcabaab":
+Dòng text: T="aabcabaab":
   vị trí 0: 'a'
   vị trí 1: 'a' → "aa" không match "ab"
   vị trí 2: 'b' → 'a' không match 'a' được, 'b' không match 'a'

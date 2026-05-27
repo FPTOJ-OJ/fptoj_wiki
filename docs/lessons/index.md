@@ -133,6 +133,67 @@ Bộ bài học **Lập trình thi đấu** được biên soạn dành cho ngư
 
 ---
 
+## Nhóm 10: Đồ thị nâng cao (Bài 40 - 43)
+
+> Các thuật toán đồ thị **nâng cao**, cần thiết cho ICPC/VOI.
+
+| # | Bài học | Mô tả | Độ khó |
+|---|---------|-------|--------|
+| 40 | [SCC & Cầu & Khớp](40-scc-bridges.md) | Tarjan, Kosaraju, bridges, articulation points | ⭐⭐⭐⭐ |
+| 41 | [Network Flow](41-network-flow.md) | Edmonds-Karp, Dinic, Min-Cost Max-Flow | ⭐⭐⭐⭐ |
+| 42 | [Bipartite Matching & Hungarian](42-bipartite-matching.md) | Kuhn's, Hopcroft-Karp, ghép cặp | ⭐⭐⭐⭐ |
+| 43 | [2-SAT](43-2sat.md) | Bài toán thỏa mãn logic, implication graph, SCC | ⭐⭐⭐⭐ |
+
+---
+
+## Nhóm 11: Cây nâng cao (Bài 44 - 46)
+
+> Các kỹ thuật **xử lý cây** nâng cao, xuất hiện rất thường xuyên.
+
+| # | Bài học | Mô tả | Độ khó |
+|---|---------|-------|--------|
+| 44 | [Euler Tour trên cây](44-euler-tour-tree.md) | Flatten cây thành mảng, subtree/path query, LCA | ⭐⭐⭐⭐ |
+| 45 | [Centroid Decomposition](45-centroid-decomposition.md) | Phân tách trọng tâm, đếm đường đi trên cây | ⭐⭐⭐⭐ |
+| 46 | [Heavy-Light Decomposition](46-hld.md) | Phân rã cây, truy vấn đường đi O(log²N) | ⭐⭐⭐⭐ |
+
+---
+
+## Nhóm 12: Quy hoạch động nâng cao (Bài 47 - 50)
+
+> Các dạng **DP nâng cao**, thường xuất hiện trong bài khó.
+
+| # | Bài học | Mô tả | Độ khó |
+|---|---------|-------|--------|
+| 47 | [DP trên cây](47-dp-on-trees.md) | Subtree DP, rerooting, tree knapsack | ⭐⭐⭐⭐ |
+| 48 | [Digit DP](48-digit-dp.md) | Đếm số theo chữ số, memoization trên digit | ⭐⭐⭐⭐ |
+| 49 | [Interval DP](49-interval-dp.md) | Matrix chain, merge stones, boolean parenthesization | ⭐⭐⭐⭐ |
+| 50 | [Tối ưu DP](50-dp-optimization.md) | Knuth's, Divide & Conquer DP, CHT, Alien's trick | ⭐⭐⭐⭐⭐ |
+
+---
+
+## Nhóm 13: Xâu nâng cao (Bài 51 - 52)
+
+> Các thuật toán **xử lý xâu** nâng cao.
+
+| # | Bài học | Mô tả | Độ khó |
+|---|---------|-------|--------|
+| 51 | [Aho-Corasick](51-aho-corasick.md) | Tìm nhiều mẫu trong xâu, failure links | ⭐⭐⭐⭐ |
+| 52 | [Suffix Automaton](52-suffix-automaton.md) | Máy trạng thái hậu tố, O(N) construction | ⭐⭐⭐⭐⭐ |
+
+---
+
+## Nhóm 14: Kỹ thuật nâng cao (Bài 53 - 55)
+
+> Các **kỹ thuật** và **cấu trúc dữ liệu** nâng cao.
+
+| # | Bài học | Mô tả | Độ khó |
+|---|---------|-------|--------|
+| 53 | [Chia căn & Mo's Algorithm](53-sqrt-mo.md) | Sqrt decomposition, offline queries, Hilbert curve | ⭐⭐⭐⭐ |
+| 54 | [Convex Hull Trick & Li Chao Tree](54-convex-hull-trick.md) | Tối ưu DP với đường thẳng, CHT động | ⭐⭐⭐⭐ |
+| 55 | [Ternary Search](55-ternary-search.md) | Tìm kiếm tam phân, hàm unimodal | ⭐⭐⭐ |
+
+---
+
 ## Lộ trình học đề xuất
 
 ### Người mới bắt đầu (0-3 tháng)
@@ -147,10 +208,16 @@ Nhóm 1 → Nhóm 2 → Nhóm 3 (chỉ Hash Table, Queue)
 Nhóm 3 (tiếp) → Nhóm 4 → Nhóm 5 → Nhóm 9
 ```
 
-### Nâng cao (6+ tháng)
+### Nâng cao (6-12 tháng)
 
 ```
-Nhóm 6 → Nhóm 7 → Nhóm 8
+Nhóm 6 → Nhóm 7 → Nhóm 8 → Nhóm 10 → Nhóm 12 (Bài 47-49)
+```
+
+### Chuyên sâu (12+ tháng)
+
+```
+Nhóm 11 → Nhóm 12 (Bài 50) → Nhóm 13 → Nhóm 14
 ```
 
 ---

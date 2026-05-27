@@ -384,6 +384,8 @@ Python không có con trỏ thủ công. Dùng class như ví dụ trên. Hoặc
 | [LeetCode - Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) | LC | ⭐⭐ | Phát hiện chu trình (Floyd) |
 | [LeetCode - Remove Nth Node](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | LC | ⭐⭐ | Two pointers |
 | [LeetCode - LRU Cache](https://leetcode.com/problems/lru-cache/) | LC | ⭐⭐⭐ | Doubly LL + HashMap |
+| [CSES - Josephus Problem I](https://cses.fi/problemset/task/2162) | CSES | ⭐⭐ | Vòng tròn xóa người |
+| [CSES - Josephus Problem II](https://cses.fi/problemset/task/2163) | CSES | ⭐⭐⭐ | Josephus với skip |
 
 ---
 

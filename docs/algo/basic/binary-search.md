@@ -1,4 +1,4 @@
-﻿
+
 **Nguồn**: [Topcoder](https://www.topcoder.com/thrive/articles/Binary%20Search)
 
 **Người dịch**:

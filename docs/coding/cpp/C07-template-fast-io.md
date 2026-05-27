@@ -34,7 +34,7 @@ typedef pair<ll,ll> pll;
 #define fi first
 #define se second
 
-const int INF = 1e9 + 7;
+const int INF = 2e9;
 const ll LINF = 1e18;
 const int MOD = 1e9 + 7;
 // ===== END TEMPLATE =====
@@ -42,9 +42,6 @@ const int MOD = 1e9 + 7;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
-    // Code của bạn ở đây
-    
     return 0;
 }
 ```
@@ -121,7 +118,7 @@ a.pb(10);
 ```cpp
 ios_base::sync_with_stdio(false);
 cin.tie(NULL);
-cout.tie(NULL);  // Không bắt buộc nhưng nên thêm
+// cout.tie(NULL);  // Không cần thiết — cout không tied đến input stream nào
 ```
 
 !!! warning "Lưu ý khi tắt sync"

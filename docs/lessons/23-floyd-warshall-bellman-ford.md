@@ -1,4 +1,4 @@
-﻿# Bài 23: Floyd-Warshall & Bellman-Ford
+# Bài 23: Floyd-Warshall & Bellman-Ford
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Các thuật toán về tìm đường đi ngắn nhất
@@ -183,7 +183,7 @@ Muốn biết đường đi ngắn nhất từ i đến j đi qua những đỉn
                     if dist[i][k] + dist[k][j] < dist[i][j]:
                         dist[i][j] = dist[i][k] + dist[k][j]
                         nxt[i][j] = nxt[i][k]
-    return nxt
+        return nxt
 
     def get_path(u, v, nxt):
         if nxt[u][v] == -1:
@@ -320,6 +320,9 @@ Khi đồ thị thưa (E << V²), dùng Johnson thay vì Floyd-Warshall:
 | [VNOJ - QBMST](https://oj.vnoi.info/problem/qbmst) | VNOJ | ⭐⭐ | MST cơ bản |
 | [VNOJ - DIJKSTRA](https://oj.vnoi.info/problem/dijkstra) | VNOJ | ⭐⭐ | Dijkstra trực tiếp |
 | [VNOJ - TOPOSORT](https://oj.vnoi.info/problem/toposort) | VNOJ | ⭐⭐ | Topo sort |
+| [LeetCode - Network Delay Time](https://leetcode.com/problems/network-delay-time/) | LeetCode | ⭐⭐ | Dijkstra/Floyd |
+| [LeetCode - Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | LeetCode | ⭐⭐⭐ | Bellman-Ford variant |
+| [LeetCode - Find the City](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/) | LeetCode | ⭐⭐ | Floyd-Warshall |
 
 ## Bài viết liên quan
 
@@ -336,4 +339,4 @@ Khi đồ thị thưa (E << V²), dùng Johnson thay vì Floyd-Warshall:
 - [GeeksforGeeks - Floyd-Warshall](https://www.geeksforgeeks.org/dsa/floyd-warshall-algorithm-dp-16/)
 - [USACO Guide - Shortest Paths](https://usaco.guide/gold/shortest-paths)
 
-**Chúc mừng! Bạn đã hoàn thành toàn bộ 23 bài học CP!**
+**Chúc mừng! Bạn đã hoàn thành bài học về Floyd-Warshall & Bellman-Ford!**

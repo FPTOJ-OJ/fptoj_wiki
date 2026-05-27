@@ -1,4 +1,4 @@
-﻿
+
 **Tác giả**: Vũ *chipchip* Phúc Hoàng
 
 A: *"Mày AC bài Z kiểu gì thế? Tao dùng set không được."*  

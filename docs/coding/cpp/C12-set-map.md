@@ -1,251 +1,330 @@
-# C12: set & map
+# C12: Set & Map — Tập hợp và Bản đồ
 
-> **Tác giả:** FPTOJ Wiki<br>
-> **Chủ đề:** set, multiset, map, unordered_set, unordered_map
-
----
-
-## Bạn sẽ học được gì?
-
-Sau bài này, bạn có thể:
-
-- Sử dụng `set` và `multiset` để lưu tập hợp
-- Sử dụng `map` để lưu bảng ánh xạ
-- Hiểu `unordered_*` (hash) vs `ordered_*` (BST)
+> **Bạn sẽ học được:** set, multiset, map, unordered_set, unordered_map<br>
+> **Yêu cầu:** Đã học C10 (Vector nâng cao)<br>
+> **Thời gian:** 60 phút
 
 ---
 
-## 1. set — Tập hợp (không trùng lặp)
+## Set — Tập hợp
 
-### Thao tác cơ bản
+### Analogies: Set = Túi không trùng
+
+```mermaid
+flowchart LR
+    A["Set"] -->|"Không trùng"| B["1, 2, 3, 4, 5"]
+    C["Thêm 3"] -->|"3 đã có"| B
+```
+
+### Sử dụng Set
 
 ```cpp
 set<int> s;
 
 // Thêm phần tử
-s.insert(3);
 s.insert(1);
-s.insert(4);
-s.insert(1);  // Không thêm được vì đã có 1
-// s = {1, 3, 4}
+s.insert(2);
+s.insert(3);
+s.insert(2);  // Không thêm vì 2 đã có
 
-// Kiểm tra tồn tại
-cout << s.count(3) << endl;   // 1 (tồn tại)
-cout << s.count(5) << endl;   // 0 (không tồn tại)
+// Kiểm tra phần tử
+if (s.count(2)) cout << "2 co trong set";
+if (s.find(2) != s.end()) cout << "2 co trong set";
 
 // Xóa phần tử
-s.erase(3);
-// s = {1, 4}
+s.erase(2);
 
 // Kích thước
-cout << s.size() << endl;     // 2
+cout << s.size() << endl;
 
 // Kiểm tra rỗng
-if (s.empty()) cout << "Rong" << endl;
+if (s.empty()) cout << "Rong";
 ```
 
-### Duyệt set
+### Duyệt Set
 
 ```cpp
-set<int> s = {3, 1, 4, 1, 5, 9};
+set<int> s = {5, 2, 8, 1, 9, 3};
 
-// Duyệt tăng dần (tự động sắp xếp)
-for (int x : s) cout << x << " ";
-// Output: 1 3 4 5 9
+// Duyệt (tự động sắp xếp tăng dần)
+for (int x : s) {
+    cout << x << " ";
+}
+// Output: 1 2 3 5 8 9
 ```
 
-### Tìm kiếm nhị phân
+### Set trong thi đấu
 
 ```cpp
-set<int> s = {1, 3, 5, 7, 9};
+// Loại bỏ trùng trong mảng
+vector<int> a = {1, 2, 3, 2, 1, 4, 5, 4};
+set<int> s(a.begin(), a.end());
+// s = {1, 2, 3, 4, 5}
 
-auto it = s.find(5);  // Tìm phần tử 5
-if (it != s.end()) cout << "Tim thay" << endl;
-
-// lower_bound: phần tử đầu tiên >= x
-auto lb = s.lower_bound(4);
-cout << *lb << endl;  // 5
-
-// upper_bound: phần tử đầu tiên > x
-auto ub = s.upper_bound(5);
-cout << *ub << endl;  // 7
+// Kiểm tra phần tử tồn tại
+if (s.count(3)) cout << "3 ton tai";
 ```
 
 ---
 
-## 2. multiset — Tập hợp (có trùng lặp)
+## Multiset — Tập hợp có trùng
+
+### Analogies: Multiset = Túi có thể trùng
 
 ```cpp
 multiset<int> ms;
 
-ms.insert(3);
+// Thêm phần tử (có thể trùng)
 ms.insert(1);
-ms.insert(4);
-ms.insert(1);  // Thêm được vì cho phép trùng
-// ms = {1, 1, 3, 4}
+ms.insert(2);
+ms.insert(2);
+ms.insert(3);
+// ms = {1, 2, 2, 3}
 
 // Đếm số lần xuất hiện
-cout << ms.count(1) << endl;  // 2
+cout << ms.count(2) << endl;  // 2
 
-// Xóa TẤT CẢ phần tử có giá trị 1
-ms.erase(1);
-// ms = {3, 4}
+// Xóa tất cả phần tử có giá trị 2
+ms.erase(2);
+// ms = {1, 3}
 
-// Xóa 1 phần tử có giá trị 1
-ms.erase(ms.find(1));
+// Xóa chỉ 1 phần tử có giá trị 2 (cẩn thận: UB nếu phần tử không tồn tại!)
+auto it = ms.find(2);
+if (it != ms.end()) ms.erase(it);
 ```
 
-### multiset trong thi đấu
+### Multiset trong thi đấu
 
 ```cpp
 // Tìm K phần tử nhỏ nhất
 multiset<int> ms = {5, 2, 8, 1, 9, 3};
+
 int k = 3;
-auto it = ms.begin();
-for (int i = 0; i < k; i++) {
-    cout << *it << " ";
-    ++it;
+int count = 0;
+for (int x : ms) {
+    cout << x << " ";
+    count++;
+    if (count == k) break;
 }
 // Output: 1 2 3
 ```
 
 ---
 
-## 3. map — Bảng ánh xạ (key → value)
+## Map — Bản đồ
 
-### Thao tác cơ bản
+### Analogies: Map = Từ điển
+
+```mermaid
+flowchart LR
+    A["Map"] -->|"Key → Value"| B["'Nam' → 9"]
+    A --> C["'An' → 7"]
+    A --> D["'Binh' → 8"]
+```
+
+### Sử dụng Map
 
 ```cpp
-map<string, int> mp;
+map<string, int> m;
 
-// Thêm/sửa
-mp["Nam"] = 15;
-mp["An"] = 12;
-mp["Binh"] = 18;
+// Thêm phần tử
+m["Nam"] = 9;
+m["An"] = 7;
+m["Binh"] = 8;
 
 // Truy cập
-cout << mp["Nam"] << endl;    // 15
-cout << mp.at("An") << endl;  // 12
+cout << m["Nam"] << endl;  // 9
 
-// Kiểm tra tồn tại
-if (mp.count("Nam")) cout << "Ton tai" << endl;
-if (mp.find("Nam") != mp.end()) cout << "Ton tai" << endl;
+// Kiểm tra key tồn tại
+if (m.count("Nam")) cout << "Nam ton tai";
+if (m.find("Nam") != m.end()) cout << "Nam ton tai";
 
-// Xóa
-mp.erase("An");
+// Xóa phần tử
+m.erase("Nam");
 
 // Kích thước
-cout << mp.size() << endl;
+cout << m.size() << endl;
 ```
 
-### Duyệt map
+### Duyệt Map
 
 ```cpp
-map<string, int> mp = {{"Nam", 15}, {"An", 12}, {"Binh", 18}};
+map<string, int> m = {{"Nam", 9}, {"An", 7}, {"Binh", 8}};
 
-// Duyệt theo key tăng dần
-for (auto [key, value] : mp) {
-    cout << key << " -> " << value << endl;
+// Duyệt (tự động sắp xếp theo key)
+for (auto &[key, value] : m) {
+    cout << key << ": " << value << endl;
+}
+// Output:
+// An: 7
+// Binh: 8
+// Nam: 9
+```
+
+### Map trong thi đấu
+
+```cpp
+// Đếm tần suất xuất hiện
+vector<int> a = {1, 2, 3, 2, 1, 4, 5, 4};
+map<int, int> freq;
+
+for (int x : a) {
+    freq[x]++;
 }
 
-// Duyệt bằng iterator
-for (auto it = mp.begin(); it != mp.end(); ++it) {
-    cout << it->first << " -> " << it->second << endl;
+for (auto &[key, value] : freq) {
+    cout << key << " xuat hien " << value << " lan" << endl;
 }
 ```
 
-!!! warning "mp[key] tự tạo phần tử mới"
+---
+
+## Unordered Set/Map — Không sắp xếp
+
+### So sánh
+
+| Cấu trúc | Sắp xếp | Thời gian | Dùng khi |
+|----------|---------|-----------|----------|
+| **set** | Có | O(log n) | Cần duyệt theo thứ tự |
+| **unordered_set** | Không | O(1) trung bình | Chỉ cần kiểm tra tồn tại |
+| **map** | Có | O(log n) | Cần duyệt theo key |
+| **unordered_map** | Không | O(1) trung bình | Chỉ cần truy cập nhanh |
+
+### Sử dụng Unordered
+
+```cpp
+unordered_set<int> us;
+us.insert(1);
+us.insert(2);
+us.insert(3);
+
+if (us.count(2)) cout << "2 ton tai";
+
+unordered_map<string, int> um;
+um["Nam"] = 9;
+um["An"] = 7;
+
+cout << um["Nam"] << endl;
+```
+
+!!! tip "Khi nào dùng unordered?"
+    - Dùng `unordered_*` khi **không cần sắp xếp** và cần **tốc độ nhanh**
+    - Dùng `set/map` khi **cần duyệt theo thứ tự**
+
+---
+
+## Common Mistakes — Lỗi thường gặp
+
+### Lỗi 1: Map tự tạo key mới
+
+```cpp
+map<string, int> m;
+
+// ❌ SAI: Tự tạo key "Nam" với giá trị 0
+cout << m["Nam"] << endl;  // 0 (tự tạo!)
+
+// ✅ ĐÚNG: Kiểm tra trước
+if (m.count("Nam")) cout << m["Nam"];
+```
+
+### Lỗi 2: Xóa trong vòng lặp
+
+```cpp
+set<int> s = {1, 2, 3, 4, 5};
+
+// ❌ SAI: Iterator invalidated
+for (auto it = s.begin(); it != s.end(); it++) {
+    if (*it % 2 == 0) s.erase(it);  // Lỗi!
+}
+
+// ✅ ĐÚNG
+for (auto it = s.begin(); it != s.end(); ) {
+    if (*it % 2 == 0) it = s.erase(it);
+    else it++;
+}
+```
+
+---
+
+## Bài tập thực hành
+
+### Bài 1: Đếm tần suất
+Đọc n số nguyên. Đếm số lần xuất hiện của mỗi số.
+
+**Input:** `5 1 2 3 2 1`<br>
+**Output:**
+```
+1: 2
+2: 2
+3: 1
+```
+
+???? tip "Lời giải"
     ```cpp
-    map<string, int> mp;
-    // mp["XYZ"] sẽ tạo phần tử {"XYZ", 0} nếu chưa tồn tại!
-    // Dùng mp.count("XYZ") hoặc mp.find("XYZ") để kiểm tra trước
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        int n;
+        cin >> n;
+        map<int, int> freq;
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+            freq[x]++;
+        }
+        for (auto &[key, value] : freq) {
+            cout << key << ": " << value << endl;
+        }
+        return 0;
+    }
+    ```
+
+### Bài 2: Tìm phần tử xuất hiện 1 lần
+Đọc n số nguyên. Tìm phần tử xuất hiện đúng 1 lần.
+
+**Input:** `5 1 2 3 2 1`<br>
+**Output:** `3`
+
+???? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        int n;
+        cin >> n;
+        map<int, int> freq;
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+            freq[x]++;
+        }
+        for (auto &[key, value] : freq) {
+            if (value == 1) cout << key << endl;
+        }
+        return 0;
+    }
     ```
 
 ---
 
-## 4. unordered_set / unordered_map — Hash
+## Tóm tắt bài học
 
-| | `set`/`map` | `unordered_set`/`unordered_map` |
-|---|-------------|--------------------------------|
-| **Cấu trúc** | BST (cây đỏ-đen) | Hash table |
-| **Sắp xếp** | **Có** (tăng dần) | **Không** |
-| **Trung bình** | $O(\log n)$ | $O(1)$ |
-| **Worst case** | $O(\log n)$ | $O(n)$ |
-| **Dùng khi** | Cần duyệt theo thứ tự | Cần tốc độ nhanh |
-
-```cpp
-unordered_set<int> us;
-us.insert(3);
-us.insert(1);
-us.insert(4);
-
-unordered_map<string, int> ump;
-ump["Nam"] = 15;
-ump["An"] = 12;
-```
-
-!!! tip "Chọn loại nào?"
-    - Cần **sắp xếp** → dùng `set`/`map`
-    - Cần **tốc độ** → dùng `unordered_set`/`unordered_map`
-    - Không chắc → dùng `set`/`map` (an toàn hơn)
-
----
-
-## 5. Ứng dụng trong thi đấu
-
-### Đếm tần suất
-
-```cpp
-vector<int> a = {1, 3, 2, 3, 3, 2, 1};
-map<int, int> freq;
-
-for (int x : a) freq[x]++;
-
-for (auto [val, cnt] : freq) {
-    cout << val << ": " << cnt << endl;
-}
-```
-
-### Tìm phần tử xuất hiện nhiều nhất
-
-```cpp
-map<int, int> freq;
-for (int x : a) freq[x]++;
-
-int bestVal = -1, bestCnt = 0;
-for (auto [val, cnt] : freq) {
-    if (cnt > bestCnt) {
-        bestCnt = cnt;
-        bestVal = val;
-    }
-}
-```
-
-### Nhóm phần tử theo tính chất
-
-```cpp
-// Nhóm từ theo ký tự đầu
-map<char, vector<string>> groups;
-words = {"apple", "banana", "avocado", "blueberry", "cherry"};
-
-for (const string &w : words) {
-    groups[w[0]].push_back(w);
-}
-
-for (auto [ch, ws] : groups) {
-    cout << ch << ": ";
-    for (const string &w : ws) cout << w << " ";
-    cout << endl;
-}
-```
+| Nội dung | Chi tiết |
+|----------|----------|
+| **Set** | Tập hợp không trùng, tự sắp xếp |
+| **Multiset** | Tập hợp có trùng |
+| **Map** | Bản đồ key → value |
+| **Unordered** | Không sắp xếp, nhanh hơn |
 
 ---
 
 ## Bài viết liên quan
 
-- [C11: sort & algorithm →](C11-sort-algorithm.md)
-- [C13: queue, stack, deque →](C13-queue-stack-deque.md)
+- [C10: Vector nâng cao ←](C10-vector-nang-cao.md)
+- [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)
 
 ---
 
-**Bài tiếp theo:** [C13: queue, stack, deque →](C13-queue-stack-deque.md)
+**Bài tiếp theo:** [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)

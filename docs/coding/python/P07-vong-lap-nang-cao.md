@@ -384,7 +384,7 @@ sorted_words = sorted(words, key=len)  # Theo độ dài
 # Sắp xếp theo nhiều tiêu chí
 students = [("Alice", 90), ("Bob", 85), ("Charlie", 90)]
 sorted_students = sorted(students, key=lambda x: (-x[1], x[0]))
-# [(-90, "Alice"), (-90, "Charlie"), (-85, "Bob")]
+# [("Charlie", 90), ("Alice", 90), ("Bob", 85)]
 ```
 
 ---
@@ -516,9 +516,10 @@ print(matrix)  # [[1, 0, 0], [0, 0, 0], [0, 0, 0]]
 ### Bài 1: Tạo list bình phương
 Tạo list chứa bình phương của các số từ 1 đến n.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="[1, 4, 9, 16, 25]" data-hint="Dùng list comprehension: [i ** 2 for i in range(1, n + 1)]"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -531,9 +532,10 @@ n = int(input())
 ### Bài 2: Lọc số chẵn
 Cho list arr. Lọc ra các số chẵn.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1 2 3 4 5" data-expected="[2, 4]" data-hint="Dùng list comprehension với điều kiện if x % 2 == 0"></div>
+
 ```python
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -546,10 +548,12 @@ arr = list(map(int, input().split()))
 ### Bài 3: Tổng 2 vector
 Cho 2 vector a, b. Tạo vector c = a + b.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1 2 3
+4 5 6" data-expected="[5, 7, 9]" data-hint="Dùng zip() hoặc list comprehension: [x + y for x, y in zip(a, b)]"></div>
+
 ```python
 a = list(map(int, input().split()))
 b = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -563,9 +567,10 @@ b = list(map(int, input().split()))
 ### Bài 4: Đếm số dương
 Cho mảng arr. Đếm số phần tử dương.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="-1 2 -3 4 -5" data-expected="2" data-hint="Dùng sum(1 for x in arr if x &gt; 0) hoặc len([x for x in arr if x &gt; 0])"></div>
+
 ```python
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -578,9 +583,12 @@ arr = list(map(int, input().split()))
 ### Bài 5: Tạo ma trận đơn vị
 Tạo ma trận đơn vị kích thước n × n.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3" data-expected="1 0 0
+0 1 0
+0 0 1" data-hint="Dùng list comprehension lồng: [[1 if i == j else 0 for j in range(n)] for i in range(n)]"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

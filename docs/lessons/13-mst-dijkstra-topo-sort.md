@@ -1,4 +1,4 @@
-﻿# Bài 13: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
+# Bài 13: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây khung nhỏ nhất, Đường đi ngắn nhất, Sắp xếp Tô-pô
@@ -401,8 +401,6 @@ return (edges_used == n - 1) ? mst_weight : -1;
 // SAI: Không kiểm tra visited → đỉnh bị xử lý nhiều lần
 if (visited[u]) continue;  // ← PHẢI CÓ DÒNG NÀY
 ```
-
----
 
 ---
 

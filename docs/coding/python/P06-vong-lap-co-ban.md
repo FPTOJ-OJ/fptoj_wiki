@@ -517,7 +517,7 @@ for x in arr[:]:  # arr[:] là bản copy
 ### Bẫy 4: break chỉ thoát vòng lặp gần nhất
 
 ```python
-# break chỉ thoát vòng lặp NGOÀI CÙNG mà nó nằm trong
+# break chỉ thoát vòng lặp TRONG CÙNG mà nó nằm trong
 for i in range(3):
     for j in range(3):
         if j == 1:
@@ -544,9 +544,10 @@ else:
 ### Bài 1: In số từ 1 đến n
 Đọc số nguyên n. In ra các số từ 1 đến n.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="1 2 3 4 5" data-hint="Dùng for i in range(1, n+1) với end=' '"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -559,9 +560,10 @@ n = int(input())
 ### Bài 2: Tính tổng 1 + 2 + ... + n
 Đọc số nguyên n. Tính tổng S = 1 + 2 + ... + n.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="15" data-hint="Dùng công thức n*(n+1)//2 hoặc vòng for"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -578,10 +580,6 @@ n = int(input())
 ### Bài 3: In bảng cửu chương
 In bảng cửu chương từ 1 đến 9.
 
-```python
-# Code của bạn ở đây
-```
-
 ??? tip "Lời giải"
     ```python
     for i in range(1, 10):
@@ -593,10 +591,11 @@ In bảng cửu chương từ 1 đến 9.
 ### Bài 4: Tìm số lớn nhất trong mảng
 Đọc n số nguyên. Tìm số lớn nhất.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5\n3 1 4 1 5" data-expected="5" data-hint="Dùng max(arr)"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -613,9 +612,10 @@ arr = list(map(int, input().split()))
 ### Bài 5: Collatz Conjecture
 Cho số nguyên n. Nếu n chẵn, chia đôi. Nếu n lẻ, nhân 3 cộng 1. Lặp cho đến khi n = 1.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6" data-expected="6 3 10 5 16 8 4 2 1" data-hint="Dùng while n != 1, in n với end=' '"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -647,9 +647,10 @@ Input: 100
 Output: 3
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12345" data-expected="5" data-hint="Dùng while n > 0: count += 1; n //= 10"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -675,9 +676,10 @@ Input: 1000
 Output: 1
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12345" data-expected="54321" data-hint="result = result * 10 + n % 10; n //= 10"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -703,9 +705,10 @@ Input: 12
 Output: Khong phai so hoan hao
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6" data-expected="So hoan hao" data-hint="Tổng các ước từ 1 đến n-1, kiểm tra bằng n"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -734,9 +737,10 @@ Output:
 1 2 3 4 5
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="1\n1 2\n1 2 3\n1 2 3 4\n1 2 3 4 5" data-hint="2 vòng for lồng nhau"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -761,9 +765,10 @@ Input: 7
 Output: 1 7
 ```
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12" data-expected="1 2 3 4 6 12" data-hint="Dùng for i in range(1, n+1), nếu n % i == 0 thì in"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

@@ -440,6 +440,9 @@ Vòng trong chạy n/1 + n/2 + n/3 + ... + n/n = n × (1 + 1/2 + 1/3 + ... + 1/n
 | [CSES - Weird Algorithm](https://cses.fi/problemset/task/1068) | CSES | ⭐ | Độ phức tạp cơ bản |
 | [CSES - Repetitions](https://cses.fi/problemset/task/1069) | CSES | ⭐ | Độ phức tạp tuyến tính |
 | [CSES - Increasing Array](https://cses.fi/problemset/task/1094) | CSES | ⭐ | Phân tích độ phức tạp |
+| [LeetCode - Two Sum](https://leetcode.com/problems/two-sum/) | LeetCode | ⭐ | O(N) complexity |
+| [LeetCode - Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | LeetCode | ⭐ | O(N) vs O(N²) |
+| [LeetCode - Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | LeetCode | ⭐⭐ | Kadane's O(N) |
 
 ## Bài viết liên quan
 

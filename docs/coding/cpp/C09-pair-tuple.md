@@ -1,165 +1,281 @@
-# C09: pair & tuple
+# C09: Pair & Tuple — Gom nhóm dữ liệu
 
-> **Tác giả:** FPTOJ Wiki<br>
-> **Chủ đề:** pair, tuple, structured bindings
-
----
-
-## Bạn sẽ học được gì?
-
-Sau bài này, bạn có thể:
-
-- Sử dụng `pair` để lưu 2 giá trị
-- Sử dụng `tuple` để lưu nhiều giá trị
-- Dùng structured bindings (C++17)
+> **Bạn sẽ học được:** pair, tuple, structured bindings — gom nhóm nhiều giá trị<br>
+> **Yêu cầu:** Đã học C06 (Hàm)<br>
+> **Thời gian:** 30 phút
 
 ---
 
-## 1. pair — Lưu 2 giá trị
+## Pair — Gom 2 giá trị
 
-### Khai báo
+### Analogies: Pair = Cặp đôi
 
-```cpp
-pair<int, int> p1 = {1, 2};
-pair<string, int> p2 = {"Nam", 15};
-pair<int, string> p3 = make_pair(1, "Hello");
+```mermaid
+flowchart LR
+    A["Pair"] -->|"Như cặp đôi"| B["first = Giá trị 1"]
+    A --> C["second = Giá trị 2"]
 ```
 
-### Truy cập
+### Khai báo và sử dụng
 
 ```cpp
-pair<string, int> p = {"Nam", 15};
+// Khai báo pair
+pair<int, int> p = {3, 5};
 
-cout << p.first << endl;   // "Nam"
-cout << p.second << endl;  // 15
+// Truy cập
+cout << p.first << endl;   // 3
+cout << p.second << endl;  // 5
+
+// Sửa giá trị
+p.first = 10;
+p.second = 20;
+```
+
+### Pair trong thi đấu
+
+```cpp
+// Lưu tọa độ điểm
+pair<int, int> diem = {3, 5};
+
+// Lưu tên và điểm
+pair<string, int> sv = {"Nam", 9};
+
+// Lưu kết quả bài toán
+pair<int, int> ketQua = {soLonNhat, soNhoNhat};
 ```
 
 ### So sánh pair
 
 ```cpp
-pair<int, int> a = {1, 2};
+pair<int, int> a = {1, 5};
 pair<int, int> b = {1, 3};
+pair<int, int> c = {2, 1};
 
 // So sánh theo first trước, nếu bằng thì so sánh second
-cout << (a < b) << endl;  // 1 (true) vì a.second < b.second
+if (a < b) cout << "a < b";  // false (1==1, 5>3)
+if (b < a) cout << "b < a";  // true
+if (a < c) cout << "a < c";  // true (1<2)
 ```
 
-### pair trong thi đấu
+!!! tip "Sắp xếp vector pair"
+    ```cpp
+    vector<pair<int, int>> v = {{3, 1}, {1, 5}, {2, 3}};
+    
+    // Sắp xếp theo first tăng dần
+    sort(v.begin(), v.end());
+    // Kết quả: {{1,5}, {2,3}, {3,1}}
+    
+    // Sắp xếp theo second tăng dần
+    sort(v.begin(), v.end(), [](pair<int,int> a, pair<int,int> b) {
+        return a.second < b.second;
+    });
+    // Kết quả: {{3,1}, {2,3}, {1,5}}
+    ```
+
+### make_pair — Tạo pair nhanh
 
 ```cpp
-// Lưu tọa độ điểm
-pair<int, int> point = {3, 5};
+// Cách 1: Dùng {}
+pair<int, int> p1 = {3, 5};
 
-// Lưu {giá trị, chỉ số}
-pair<int, int> valIdx = {100, 5};
+// Cách 2: Dùng make_pair
+pair<int, int> p2 = make_pair(3, 5);
 
-// Sắp xếp vector pair
-vector<pair<int, int>> v = {{3, 1}, {1, 3}, {2, 2}};
-sort(v.begin(), v.end());
-// v = {{1, 3}, {2, 2}, {3, 1}}
+// Cả hai đều giống nhau
 ```
 
 ---
 
-## 2. tuple — Lưu nhiều giá trị
+## Tuple — Gom nhiều giá trị
 
-### Khai báo
+### Analogies: Tuple = Nhóm bạn
 
-```cpp
-tuple<int, string, double> t1 = {1, "Nam", 9.5};
-auto t2 = make_tuple(2, "An", 8.0);
+```mermaid
+flowchart LR
+    A["Tuple"] -->|"Nhóm nhiều người"| B["get<0>(t) = Giá trị 1"]
+    A --> C["get<1>(t) = Giá trị 2"]
+    A --> D["get<2>(t) = Giá trị 3"]
 ```
 
-### Truy cập
+### Khai báo và sử dụng
 
 ```cpp
-auto t = make_tuple(1, "Nam", 9.5);
+// Khai báo tuple 3 giá trị
+tuple<int, string, double> t = {1, "Nam", 9.5};
 
+// Truy cập (dùng get)
 cout << get<0>(t) << endl;  // 1
 cout << get<1>(t) << endl;  // "Nam"
 cout << get<2>(t) << endl;  // 9.5
+
+// Sửa giá trị
+get<0>(t) = 2;
+get<1>(t) = "An";
 ```
 
-### tie — Gán tuple vào biến
+### Tuple trong thi đấu
 
 ```cpp
-auto t = make_tuple(1, "Nam", 9.5);
+// Lưu cạnh đồ thị: (u, v, trọng số)
+tuple<int, int, int> canh = {1, 2, 5};
 
-int id;
-string name;
-double score;
-tie(id, name, score) = t;
+// Lưu kết quả: (điểm, tên, tuổi)
+tuple<int, string, int> ketQua = {9, "Nam", 15};
+```
 
-cout << id << " " << name << " " << score << endl;
+### Sắp xếp tuple
+
+```cpp
+vector<tuple<int, int, int>> edges = {{1, 2, 5}, {2, 3, 3}, {1, 3, 7}};
+
+// Sắp xếp theo trọng số (phần tử thứ 3)
+sort(edges.begin(), edges.end(), [](tuple<int,int,int> a, tuple<int,int,int> b) {
+    return get<2>(a) < get<2>(b);
+});
 ```
 
 ---
 
-## 3. Structured Bindings (C++17)
+## Structured Bindings (C++17)
+
+### Giải nhanh pair/tuple
 
 ```cpp
 // Với pair
-pair<int, int> p = {1, 2};
-auto [x, y] = p;
-cout << x << " " << y << endl;  // 1 2
+pair<int, int> p = {3, 5};
 
+// Cách cũ
+int a = p.first, b = p.second;
+
+// Cách mới (C++17)
+auto [a, b] = p;  // a = 3, b = 5
+```
+
+```cpp
 // Với tuple
-auto t = make_tuple(1, "Nam", 9.5);
-auto [id, name, score] = t;
-cout << id << " " << name << " " << score << endl;
+tuple<int, string, double> t = {1, "Nam", 9.5};
 
-// Với map
-map<string, int> mp = {{"a", 1}, {"b", 2}};
-for (auto [key, value] : mp) {
-    cout << key << " -> " << value << endl;
+// Cách cũ
+int id = get<0>(t);
+string name = get<1>(t);
+double score = get<2>(t);
+
+// Cách mới (C++17)
+auto [id, name, score] = t;
+```
+
+### Dùng trong vòng lặp
+
+```cpp
+vector<pair<int, int>> v = {{1, 5}, {2, 3}, {3, 1}};
+
+// Cách cũ
+for (auto &p : v) {
+    cout << p.first << " " << p.second << endl;
+}
+
+// Cách mới (C++17)
+for (auto &[x, y] : v) {
+    cout << x << " " << y << endl;
 }
 ```
 
-!!! tip "Structured bindings rất tiện"
-    Thay vì viết `p.first`, `p.second`, dùng `auto [x, y] = p;` cho ngắn gọn.
+---
+
+## Common Mistakes — Lỗi thường gặp
+
+### Lỗi 1: Quên first/second
+
+```cpp
+pair<int, int> p = {3, 5};
+
+// ❌ SAI
+cout << p[0] << endl;  // Không có []
+
+// ✅ ĐÚNG
+cout << p.first << endl;
+```
+
+### Lỗi 2: Tuple quá nhiều phần tử
+
+```cpp
+// ❌ Khó đọc: Tuple 5 phần tử
+tuple<int, int, int, int, int> t = {1, 2, 3, 4, 5};
+
+// ✅ Nên dùng struct
+struct Data {
+    int a, b, c, d, e;
+};
+```
 
 ---
 
-## 4. Ứng dụng trong thi đấu
+## Bài tập thực hành
 
-### Lưu tọa độ
+### Bài 1: Sắp xếp cặp số
+Đọc n cặp số (a, b). Sắp xếp theo a tăng dần, nếu a bằng thì theo b giảm dần.
 
-```cpp
-pair<int, int> start = {0, 0};
-pair<int, int> finish = {n-1, m-1};
+**Input:**
+```
+3
+1 5
+2 3
+1 2
+```
+**Output:**
+```
+1 5
+1 2
+2 3
 ```
 
-### Sắp xếp đa tiêu chí
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3
+1 5
+2 3
+1 2" data-expected="1 5
+1 2
+2 3" data-hint="Sắp xếp theo first tăng dần, nếu first bằng thì second giảm dần"></div>
 
-```cpp
-// Sắp xếp sinh viên theo điểm giảm dần, nếu bằng thì theo tên tăng dần
-vector<tuple<double, string, int>> students;
-students.push_back({9.5, "Nam", 1});
-students.push_back({8.0, "An", 2});
-students.push_back({9.5, "Binh", 3});
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        int n;
+        cin >> n;
+        vector<pair<int, int>> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i].first >> v[i].second;
+        
+        sort(v.begin(), v.end(), [](pair<int,int> a, pair<int,int> b) {
+            if (a.first != b.first) return a.first < b.first;
+            return a.second > b.second;
+        });
+        
+        for (auto &[x, y] : v) cout << x << " " << y << endl;
+        return 0;
+    }
+    ```
 
-sort(students.begin(), students.end(), greater<>());
-```
+---
 
-### Priority queue với pair
+## Tóm tắt bài học
 
-```cpp
-// Max-heap: phần tử có first lớn nhất ở đỉnh
-priority_queue<pair<int, int>> pq;
-pq.push({3, 100});
-pq.push({1, 200});
-pq.push({2, 300});
-
-auto [val, id] = pq.top();  // {3, 100}
-```
+| Nội dung | Chi tiết |
+|----------|----------|
+| **Pair** | `pair<int, int> p = {3, 5};` |
+| **Truy cập** | `p.first`, `p.second` |
+| **Tuple** | `tuple<int, string, double> t = {1, "Nam", 9.5};` |
+| **Structured Bindings** | `auto [a, b] = p;` (C++17) |
+| **So sánh** | So sánh first trước, nếu bằng thì second |
 
 ---
 
 ## Bài viết liên quan
 
-- [C08: Reference & Pointer →](C08-reference-pointer.md)
-- [C10: Vector nâng cao →](C10-vector-nang-cao.md)
+- [C07: Template & Fast I/O ←](C07-template-fast-io.md)
+- [C11: Sort & Algorithm →](C11-sort-algorithm.md)
 
 ---
 
-**Bài tiếp theo:** [C10: Vector nâng cao →](C10-vector-nang-cao.md)
+**Bài tiếp theo:** [C11: Sort & Algorithm →](C11-sort-algorithm.md)

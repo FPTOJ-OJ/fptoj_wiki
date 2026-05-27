@@ -11,20 +11,20 @@ Cho cây N đỉnh. Có Q câu hỏi: "Tổ tiên chung gần nhất (LCA) của
 
 **LCA (Lowest Common Ancestor)** = nút là tổ tiên chung của cả u và v, và **xa gốc nhất**.
 
+```mermaid
+graph TD
+    n1(("1")) --- n2(("2"))
+    n1(("1")) --- n3(("3"))
+    n2(("2")) --- n4(("4"))
+    n2(("2")) --- n5(("5"))
+    n3(("3")) --- n6(("6"))
+    n5(("5")) --- n7(("7"))
 ```
-        1
-       / \
-      2   3
-     / \   \
-    4   5   6
-       /
-      7
 
 LCA(4, 7) = 2   (cả 4 và 7 đều có tổ tiên là 2, nhưng 2 gần hơn 1)
 LCA(4, 5) = 2
 LCA(7, 6) = 1   (tổ tiên chung duy nhất là gốc)
 LCA(4, 4) = 4   (chính nó)
-```
 
 ### Tại sao LCA quan trọng?
 
@@ -73,15 +73,16 @@ up[v][k] = up[ up[v][k-1] ][k-1]
 
 ### Minh họa
 
+```mermaid
+graph TD
+    n1(("1<br>depth=0")) --- n2(("2<br>depth=1"))
+    n1(("1<br>depth=0")) --- n3(("3<br>depth=1"))
+    n2(("2<br>depth=1")) --- n4(("4<br>depth=2"))
+    n2(("2<br>depth=1")) --- n5(("5<br>depth=2"))
+    n4(("4<br>depth=2")) --- n7(("7<br>depth=3"))
 ```
-Cây:        1  (depth=0)
-           / \
-          2   3  (depth=1)
-         / \
-        4   5  (depth=2)
-       /
-      7  (depth=3)
 
+```
 Bảng up:
           up[v][0]  up[v][1]  up[v][2]
 v=7:      4         2         1
@@ -312,14 +313,20 @@ int dist(int u, int v) {
     int w = lca(u, v);
     return depth[u] + depth[v] - 2 * depth[w];
 }
+```
 
-// Ví dụ: dist(4, 6) trong cây:
-//        1
-//       / \
-//      2   3
-//     / \   \
-//    4   5   6
-//
+Ví dụ: dist(4, 6) trong cây:
+
+```mermaid
+graph TD
+    n1(("1")) --- n2(("2"))
+    n1(("1")) --- n3(("3"))
+    n2(("2")) --- n4(("4"))
+    n2(("2")) --- n5(("5"))
+    n3(("3")) --- n6(("6"))
+```
+
+```cpp
 // LCA(4, 6) = 1, depth[4]=2, depth[6]=2, depth[1]=0
 // dist = 2 + 2 - 2*0 = 4 ✅ (đường: 4→2→1→3→6)
 ```
@@ -362,6 +369,9 @@ Gốc có `up[root][0] = 0` (không có cha). Đảm bảo đỉnh 0 không có 
 | [CSES - Distance Queries](https://cses.fi/problemset/task/1135) | CSES | ⭐⭐ | Khoảng cách cây |
 | [CSES - Path Queries](https://cses.fi/problemset/task/1138) | CSES | ⭐⭐⭐ | Cộng trên đường đi |
 | [SPOJ - LCA](https://www.spoj.com/problems/LCA/) | SPOJ | ⭐⭐ | LCA cơ bản |
+| [LeetCode - Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | LC | ⭐⭐ | LCA cơ bản |
+| [LeetCode - Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node/) | LC | ⭐⭐⭐ | Binary Lifting |
+| [CSES - Planets Queries I](https://cses.fi/problemset/task/1750) | CSES | ⭐⭐ | Binary Lifting trên đồ thị hàm |
 
 ---
 

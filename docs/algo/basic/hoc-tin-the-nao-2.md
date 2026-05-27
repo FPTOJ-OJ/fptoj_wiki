@@ -1,4 +1,4 @@
-﻿
+
 Tác giả: Nguyễn Xuân Khánh
 
 Trong bài viết này mình sẽ cố gắng trả lời ngắn gọn và đơn giản những câu hỏi mà mình nghĩ rằng sẽ có ích đối với các bạn đặc biệt có đam mê đối với Tin học, nhưng mới tiếp xúc và không biết phải bắt đầu từ đâu. Trọng tâm của mình sẽ là việc học thuật toán để tham gia các kì thi quốc gia, tuy nhiên mình cũng sẽ cố gắng gợi mở thêm nhiều hướng khác trong phạm trù kinh nghiệm của mình.

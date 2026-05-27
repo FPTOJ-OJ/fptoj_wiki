@@ -25,11 +25,7 @@ Output:
 15
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -48,11 +44,7 @@ Output:
 5
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -71,11 +63,7 @@ Output:
 2 3
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -96,11 +84,7 @@ Output:
 5 4 3 2 1
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -120,11 +104,7 @@ Output:
 2
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -155,11 +135,7 @@ Output:
 0 1
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -185,11 +161,7 @@ Output:
 a 5
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import Counter
     s = input()
@@ -210,11 +182,7 @@ Output:
 10 6 45 123 789
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -238,11 +206,7 @@ Output:
 4
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import bisect
     
@@ -274,11 +238,7 @@ Output:
 4
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import deque
     
@@ -324,11 +284,7 @@ Output:
 0 1 3 5
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import heapq
     
@@ -372,11 +328,7 @@ Output:
 28
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     n, m = map(int, input().split())
     matrix = [list(map(int, input().split())) for _ in range(n)]
@@ -402,11 +354,7 @@ Output:
 120
 ```
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     MOD = 10**9 + 7
     

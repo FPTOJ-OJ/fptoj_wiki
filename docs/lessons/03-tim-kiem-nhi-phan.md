@@ -1,4 +1,4 @@
-﻿# Bài 3: Tìm Kiếm Nhị Phân - Chia Để Trị Trong 20 Bước!
+# Bài 3: Tìm Kiếm Nhị Phân - Chia Để Trị Trong 20 Bước!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Tìm kiếm nhị phân, Topcoder - Binary Search

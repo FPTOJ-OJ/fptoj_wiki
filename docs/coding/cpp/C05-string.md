@@ -1,326 +1,327 @@
-# C05: String — Xử lý chuỗi trong C++
+# C05: String — Xử lý chuỗi ký tự
 
-> **Tác giả:** FPTOJ Wiki<br>
-> **Chủ đề:** Chuỗi `string`, các phương thức, xử lý xâu thi đấu
-
----
-
-## Bạn sẽ học được gì?
-
-Sau bài này, bạn có thể:
-
-- Khai báo và sử dụng `string` trong C++
-- Các phương thức thường dùng: `length`, `substr`, `find`, `replace`
-- Chuyển đổi giữa `string` và số
-- Xử lý chuỗi trong thi đấu
+> **Bạn sẽ học được:** Khai báo string, các phương thức, xử lý chuỗi trong thi đấu<br>
+> **Yêu cầu:** Đã học C04 (Mảng & Vector)<br>
+> **Thời gian:** 45 phút
 
 ---
 
-## 1. Khai báo string
+## String là gì?
 
-```cpp
-#include <string>
+### Analogies: String = Chuỗi hạt
 
-string s1 = "Hello";           // Khởi tạo từ chuỗi literal
-string s2;                     // Chuỗi rỗng
-string s3(5, 'A');             // "AAAAA" (5 ký tự 'A')
-string s4 = s1;                // Sao chép s1
+```mermaid
+flowchart LR
+    A["String"] -->|"Như chuỗi hạt"| B["Mỗi hạt = 1 ký tự"]
+    B --> C["Có chỉ số: 0, 1, 2..."]
 ```
 
+| Khái niệm | Analogies | Ví dụ |
+|-----------|-----------|-------|
+| **String** | Chuỗi hạt | `"Hello"` |
+| **Ký tự** | Mỗi hạt | `'H'`, `'e'`, `'l'`, `'l'`, `'o'` |
+| **Chỉ số** | Vị trí hạt | `s[0]='H'`, `s[1]='e'` |
+| **Độ dài** | Số hạt | `s.length() = 5` |
+
 ---
 
-## 2. Các thao tác cơ bản
+## Khai báo String
 
-### Độ dài và truy cập
+```cpp
+// Cách 1: Khai báo rỗng
+string s;
+
+// Cách 2: Khai báo và khởi tạo
+string s = "Hello";
+
+// Cách 3: Khai báo n ký tự giống nhau
+string s(5, 'a');  // "aaaaa"
+
+// Cách 4: Copy từ string khác
+string s2 = s;
+```
+
+!!! tip "String vs char[]"
+    ```cpp
+    // char[] — kiểu C cũ (ít dùng)
+    char s[] = "Hello";
+    
+    // string — kiểu C++ (nên dùng)
+    string s = "Hello";
+    ```
+    **Ưu tiên dùng `string`** vì dễ sử dụng hơn nhiều!
+
+---
+
+## Truy cập ký tự
 
 ```cpp
 string s = "Hello";
 
-cout << s.length() << endl;   // 5 (hoặc s.size())
-cout << s[0] << endl;         // 'H' (ký tự đầu)
-cout << s[4] << endl;         // 'o' (ký tự cuối)
-cout << s.front() << endl;    // 'H' (ký tự đầu)
-cout << s.back() << endl;     // 'o' (ký tự cuối)
+cout << s[0] << endl;  // 'H' (ký tự đầu tiên)
+cout << s[1] << endl;  // 'e'
+cout << s[4] << endl;  // 'o' (ký tự cuối cùng)
+
+// Sửa ký tự
+s[0] = 'h';
+cout << s << endl;  // "hello"
+```
+
+!!! warning "Chỉ số bắt đầu từ 0"
+    ```cpp
+    string s = "Hello";
+    // s[0]='H', s[1]='e', s[2]='l', s[3]='l', s[4]='o'
+    // KHÔNG CÓ s[5]! (truy cập ngoài chuỗi → lỗi)
+    ```
+
+---
+
+## Các phương thức cơ bản
+
+### Độ dài chuỗi
+
+```cpp
+string s = "Hello";
+
+cout << s.length() << endl;   // 5 (cách 1)
+cout << s.size() << endl;     // 5 (cách 2)
 ```
 
 ### Nối chuỗi
 
 ```cpp
-string s = "Hello";
-s += " World";           // s = "Hello World"
-s += '!';                // s = "Hello World!"
-s.append("!!!");         // s = "Hello World!!!!"
+string s1 = "Hello";
+string s2 = " World";
+
+// Cách 1: Dùng +
+string s3 = s1 + s2;  // "Hello World"
+
+// Cách 2: Dùng +=
+s1 += s2;  // s1 = "Hello World"
 ```
 
-### Cắt chuỗi (substr)
+### Cắt chuỗi
 
 ```cpp
 string s = "Hello World";
 
-cout << s.substr(0, 5) << endl;   // "Hello" (từ vị trí 0, lấy 5 ký tự)
-cout << s.substr(6) << endl;      // "World" (từ vị trí 6 đến hết)
-cout << s.substr(3, 4) << endl;   // "lo W" (từ vị trí 3, lấy 4 ký tự)
+// Cắt từ vị trí pos, độ dài len
+string sub = s.substr(6, 5);  // "World"
+
+// Cắt từ vị trí pos đến hết
+string sub2 = s.substr(6);  // "World"
 ```
 
-### Tìm kiếm (find)
+### Tìm kiếm
 
 ```cpp
 string s = "Hello World";
 
-// Tìm chuỗi con
-int pos = s.find("World");
-if (pos != string::npos) {
-    cout << "Tim thay tai vi tri: " << pos << endl;  // 6
-}
+// Tìm chuỗi con (trả về vị trí, hoặc string::npos nếu không tìm thấy)
+int pos = s.find("World");  // 6
+if (pos != string::npos) cout << "Tim thay tai vi tri " << pos;
 
 // Tìm từ vị trí nào
-int pos2 = s.find("l", 4);  // Tìm 'l' từ vị trí 4
-cout << pos2 << endl;        // 9
-
-// Không tìm thấy
-int pos3 = s.find("xyz");
-if (pos3 == string::npos) {
-    cout << "Khong tim thay" << endl;
-}
+int pos2 = s.find("l", 4);  // Tìm 'l' từ vị trí 4 → 9
 ```
 
-### Thay thế (replace)
+### So sánh
 
 ```cpp
-string s = "Hello World";
-s.replace(6, 5, "C++");  // Thay 5 ký tự từ vị trí 6 bằng "C++"
-cout << s << endl;        // "Hello C++"
+string s1 = "Hello";
+string s2 = "Hello";
+string s3 = "World";
+
+if (s1 == s2) cout << "Bang nhau";  // true
+if (s1 != s3) cout << "Khac nhau";  // true
+if (s1 < s3) cout << "Hello truoc World";  // true (theo từ điển)
 ```
 
-### Chèn và xóa
+### Các hàm khác
 
 ```cpp
 string s = "Hello World";
 
-// Chèn
-s.insert(5, ",");          // s = "Hello, World"
+// Chuyển hoa
+string upper = s;
+transform(upper.begin(), upper.end(), upper.begin(), ::toupper);
+// "HELLO WORLD"
 
-// Xóa
-s.erase(5, 2);             // Xóa 2 ký tự từ vị trí 5: s = "Hello World"
+// Chuyển thường
+string lower = s;
+transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+// "hello world"
+
+// Kiểm tra rỗng
+if (s.empty()) cout << "Rong";
+
+// Xóa tất cả
+s.clear();
 ```
 
 ---
 
-## 3. Chuyển đổi kiểu
+## Nhập chuỗi
 
-### String → Số
-
-```cpp
-string s1 = "123";
-string s2 = "3.14";
-string s3 = "FF";
-
-int a = stoi(s1);           // 123
-long long b = stoll(s1);    // 123
-double c = stod(s2);        // 3.14
-int d = stoi(s3, nullptr, 16);  // 255 (hex → int)
-```
-
-### Số → String
+### Nhập 1 từ (không có dấu cách)
 
 ```cpp
-int a = 123;
-double b = 3.14;
-
-string s1 = to_string(a);   // "123"
-string s2 = to_string(b);   // "3.140000"
+string s;
+cin >> s;  // Chỉ đọc đến dấu cách
+cout << s << endl;
 ```
 
-### Chuyển đổi ký tự
+### Nhập cả dòng
 
 ```cpp
-char c = 'A';
-char lower = tolower(c);    // 'a'
-char upper = toupper(c);    // 'A'
-
-// char → int
-char digit = '7';
-int num = digit - '0';      // 7
-
-// int → char
-int n = 7;
-char ch = n + '0';          // '7'
-
-// Kiểm tra ký tự
-isdigit('7');   // true
-isalpha('A');   // true
-isalnum('A');   // true
-isspace(' ');   // true
+string s;
+getline(cin, s);  // Đọc cả dòng (bao gồm dấu cách)
+cout << s << endl;
 ```
+
+!!! warning "Lỗi khi dùng getline sau cin"
+    ```cpp
+    int n;
+    cin >> n;          // Đọc số, để lại '\n' trong buffer
+    
+    string s;
+    getline(cin, s);   // Đọc '\n' còn sót → s rỗng!
+    
+    // ✅ ĐÚNG: Xóa buffer trước
+    cin.ignore();
+    getline(cin, s);
+    ```
 
 ---
 
-## 4. Xử lý chuỗi thi đấu
-
-### Tách từ
-
-```cpp
-string s = "Hello World C++ Programming";
-stringstream ss(s);
-string word;
-
-while (ss >> word) {
-    cout << word << endl;
-}
-// Output:
-// Hello
-// World
-// C++
-// Programming
-```
-
-### Tách theo delimiter
-
-```cpp
-string s = "apple,banana,cherry";
-stringstream ss(s);
-string token;
-
-while (getline(ss, token, ',')) {
-    cout << token << endl;
-}
-// Output:
-// apple
-// banana
-// cherry
-```
-
-### Đếm tần suất ký tự
-
-```cpp
-string s = "abracadabra";
-int cnt[256] = {0};
-for (char c : s) cnt[(unsigned char)c]++;
-
-cout << 'a' << ": " << cnt['a'] << endl;  // 5
-cout << 'b' << ": " << cnt['b'] << endl;  // 2
-```
-
-### Kiểm tra palindrome
-
-```cpp
-string s = "abcba";
-string rev = s;
-reverse(rev.begin(), rev.end());
-if (s == rev) {
-    cout << "Palindrome" << endl;
-}
-```
-
-### Đảo ngược chuỗi
+## Duyệt chuỗi
 
 ```cpp
 string s = "Hello";
-reverse(s.begin(), s.end());
-cout << s << endl;  // "olleH"
+
+// Cách 1: Dùng chỉ số
+for (int i = 0; i < s.length(); i++) {
+    cout << s[i] << " ";
+}
+
+// Cách 2: Dùng range-based for
+for (char c : s) {
+    cout << c << " ";
+}
 ```
 
-### Sắp xếp ký tự
+---
+
+## Bài toán kinh điển
+
+### Bài toán 1: Đếm ký tự
 
 ```cpp
-string s = "programming";
-sort(s.begin(), s.end());
-cout << s << endl;  // "aggimmnoprr"
-```
+string s;
+cin >> s;
 
-### Đếm số từ
-
-```cpp
-string s = "Hello World C++";
-stringstream ss(s);
-string word;
 int count = 0;
-while (ss >> word) count++;
-cout << count << endl;  // 3
+for (char c : s) {
+    if (c == 'a') count++;
+}
+cout << count << endl;
 ```
 
-### Chuyển chữ hoa/thường
+### Bài toán 2: Kiểm tra palindrome
 
 ```cpp
-string s = "Hello World";
+string s;
+cin >> s;
 
-// Chuyển tất cả sang chữ hoa
-transform(s.begin(), s.end(), s.begin(), ::toupper);
-cout << s << endl;  // "HELLO WORLD"
-
-// Chuyển tất cả sang chữ thường
-transform(s.begin(), s.end(), s.begin(), ::tolower);
-cout << s << endl;  // "hello world"
-```
-
-### Xóa khoảng trắng
-
-```cpp
-string s = "  Hello World  ";
-
-// Xóa khoảng trắng đầu và cuối
-s.erase(s.begin(), find_if(s.begin(), s.end(), [](unsigned char ch) {
-    return !isspace(ch);
-}));
-s.erase(find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
-    return !isspace(ch);
-}).base(), s.end());
-// s = "Hello World"
-```
-
-### Tìm tất cả vị trí của chuỗi con
-
-```cpp
-string s = "abcabcabc";
-string pattern = "abc";
-
-vector<int> positions;
-size_t pos = s.find(pattern);
-while (pos != string::npos) {
-    positions.push_back(pos);
-    pos = s.find(pattern, pos + 1);
+bool isPalindrome = true;
+int n = s.length();
+for (int i = 0; i < n / 2; i++) {
+    if (s[i] != s[n - 1 - i]) {
+        isPalindrome = false;
+        break;
+    }
 }
 
-for (int p : positions) {
-    cout << "Tim thay tai " << p << endl;
+if (isPalindrome) cout << "Palindrome";
+else cout << "Khong phai";
+```
+
+### Bài toán 3: Đảo ngược chuỗi
+
+```cpp
+string s;
+cin >> s;
+
+reverse(s.begin(), s.end());
+cout << s << endl;
+```
+
+### Bài toán 4: Kiểm tra chuỗi con
+
+```cpp
+string s, sub;
+cin >> s >> sub;
+
+if (s.find(sub) != string::npos) {
+    cout << "Tim thay";
+} else {
+    cout << "Khong tim thay";
 }
-// Output:
-// Tim thay tai 0
-// Tim thay tai 3
-// Tim thay tai 6
 ```
 
 ---
 
-## 5. So sánh Python vs C++
+## Common Mistakes — Lỗi thường gặp
 
-| Thao tác | Python | C++ |
-|----------|--------|-----|
-| Độ dài | `len(s)` | `s.length()` |
-| Ký tự đầu | `s[0]` | `s[0]` |
-| Cắt chuỗi | `s[1:5]` | `s.substr(1, 4)` |
-| Tìm kiếm | `s.find("abc")` | `s.find("abc")` |
-| Thay thế | `s.replace("a", "b")` | `s.replace(pos, len, "b")` |
-| Nối chuỗi | `s1 + s2` | `s1 + s2` |
-| Đảo ngược | `s[::-1]` | `reverse(s.begin(), s.end())` |
-| Tách từ | `s.split()` | `stringstream` + `>>` |
-| Tách theo delimiter | `s.split(",")` | `getline(ss, token, ',')` |
-| Chữ hoa | `s.upper()` | `transform(... ::toupper)` |
-| Chữ thường | `s.lower()` | `transform(... ::tolower)` |
-| Kiểm tra chữ số | `s.isdigit()` | `isdigit(c)` |
-| Kiểm tra chữ cái | `s.isalpha()` | `isalpha(c)` |
-| Nối list thành string | `" ".join(arr)` | stringstream |
+### Lỗi 1: Truy cập ngoài chuỗi
+
+```cpp
+string s = "Hello";
+
+// ❌ SAI: Truy cập s[5] (ngoài chuỗi)
+cout << s[5] << endl;  // Lỗi runtime hoặc giá trị rác!
+
+// ✅ ĐÚNG: Chỉ truy cập s[0] đến s[4]
+for (int i = 0; i < s.length(); i++) cout << s[i];
+```
+
+### Lỗi 2: Quên getline
+
+```cpp
+// ❌ SAI: Chỉ đọc 1 từ
+string s;
+cin >> s;  // "Hello World" → chỉ đọc "Hello"
+
+// ✅ ĐÚNG: Đọc cả dòng
+string s;
+getline(cin, s);  // "Hello World"
+```
+
+### Lỗi 3: So sánh string bằng `==`
+
+```cpp
+// ✅ C++ cho phép so sánh string bằng ==
+string s1 = "Hello";
+string s2 = "Hello";
+if (s1 == s2) cout << "Bang nhau";  // OK!
+
+// ❌ Nhưng với char[] thì không được!
+char s3[] = "Hello";
+char s4[] = "Hello";
+if (s3 == s4) cout << "Sai!";  // So sánh địa chỉ, không phải nội dung!
+```
 
 ---
 
-## 6. Bài tập thực hành
+## Bài tập thực hành
 
-### Bài 1: Đếm từ
-Đọc một dòng văn bản. In ra số từ trong dòng.
+### Bài 1: Đếm chữ hoa
+Đọc chuỗi s. Đếm số ký tự viết hoa.
 
-```cpp
-// Code của bạn ở đây
-```
+**Input:** `HelloWorld`<br>
+**Output:** `2`
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="HelloWorld" data-expected="2" data-hint="Dùng isupper(c) để kiểm tra ký tự hoa"></div>
 
 ??? tip "Lời giải"
     ```cpp
@@ -328,73 +329,24 @@ for (int p : positions) {
     using namespace std;
     
     int main() {
-        string line;
-        getline(cin, line);
-        stringstream ss(line);
-        string word;
+        string s;
+        cin >> s;
         int count = 0;
-        while (ss >> word) count++;
+        for (char c : s) {
+            if (isupper(c)) count++;
+        }
         cout << count << endl;
         return 0;
     }
     ```
 
 ### Bài 2: Kiểm tra palindrome
-Đọc chuỗi $s$. In ra "Yes" nếu $s$ là palindrome, "No" nếu không.
+Đọc chuỗi s. Kiểm tra s có phải palindrome không.
 
-```cpp
-// Code của bạn ở đây
-```
+**Input:** `abcba`<br>
+**Output:** `YES`
 
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        string s;
-        cin >> s;
-        string t = s;
-        reverse(t.begin(), t.end());
-        cout << (s == t ? "Yes" : "No") << endl;
-        return 0;
-    }
-    ```
-
-### Bài 3: Chuyển đổi số
-Đọc một dòng chứa các số nguyên cách nhau bởi dấu phẩy. In ra tổng.
-
-**Input:** `10,20,30,40` → **Output:** `100`
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int main() {
-        string line;
-        getline(cin, line);
-        stringstream ss(line);
-        string token;
-        int sum = 0;
-        while (getline(ss, token, ',')) {
-            sum += stoi(token);
-        }
-        cout << sum << endl;
-        return 0;
-    }
-    ```
-
-### Bài 4: Tìm ký tự xuất hiện nhiều nhất
-Đọc chuỗi $s$. In ra ký tự xuất hiện nhiều nhất (nếu bằng nhau, in ký tự nhỏ hơn).
-
-```cpp
-// Code của bạn ở đây
-```
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="abcba" data-expected="YES" data-hint="Đảo ngược chuỗi và so sánh với chuỗi gốc"></div>
 
 ??? tip "Lời giải"
     ```cpp
@@ -404,25 +356,63 @@ for (int p : positions) {
     int main() {
         string s;
         cin >> s;
-        int cnt[256] = {0};
-        for (char c : s) cnt[(unsigned char)c]++;
         
-        char best = 'a';
-        for (char c = 'a'; c <= 'z'; c++) {
-            if (cnt[c] > cnt[(unsigned char)best]) {
-                best = c;
-            }
-        }
-        cout << best << endl;
+        string rev = s;
+        reverse(rev.begin(), rev.end());
+        
+        if (s == rev) cout << "YES" << endl;
+        else cout << "NO" << endl;
+        return 0;
+    }
+    ```
+
+### Bài 3: Đếm từ
+Đọc 1 dòng. Đếm số từ trong dòng.
+
+**Input:** `Hello World`<br>
+**Output:** `2`
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="Hello World" data-expected="2" data-hint="Dùng getline để đọc cả dòng, stringstream để tách từ"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        string s;
+        getline(cin, s);
+        
+        int count = 0;
+        stringstream ss(s);
+        string word;
+        while (ss >> word) count++;
+        
+        cout << count << endl;
         return 0;
     }
     ```
 
 ---
 
+## Tóm tắt bài học
+
+| Nội dung | Chi tiết |
+|----------|----------|
+| **Khai báo** | `string s = "Hello";` |
+| **Độ dài** | `s.length()` hoặc `s.size()` |
+| **Truy cập** | `s[i]` — chỉ số bắt đầu từ 0 |
+| **Nối chuỗi** | `s1 + s2` hoặc `s1 += s2` |
+| **Cắt chuỗi** | `s.substr(pos, len)` |
+| **Tìm kiếm** | `s.find(sub)` |
+| **Nhập dòng** | `getline(cin, s)` |
+| **Duyệt** | `for (char c : s)` |
+
+---
+
 ## Bài viết liên quan
 
-- [C04: Mảng & Vector →](C04-mang-vector.md)
+- [C04: Mảng & Vector ←](C04-mang-vector.md)
 - [C06: Hàm trong C++ →](C06-ham.md)
 
 ---

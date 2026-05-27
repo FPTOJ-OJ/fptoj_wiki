@@ -462,9 +462,10 @@ if abs(0.1 + 0.2 - 0.3) < 1e-9:
 ### Bài 1: Kiểm tra chẵn lẻ
 Đọc số nguyên n. In ra "Chan" nếu chẵn, "Le" nếu lẻ.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="4" data-expected="Chan" data-hint="Dùng n % 2 == 0"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -479,9 +480,10 @@ n = int(input())
 ### Bài 2: Tính lũy thừa modulo
 Đọc a, b, m. Tính (a^b) % m.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2 10 1000" data-expected="24" data-hint="Dùng pow(a, b, m)"></div>
+
 ```python
 a, b, m = map(int, input().split())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -493,9 +495,10 @@ a, b, m = map(int, input().split())
 ### Bài 3: Kiểm tra số nguyên tố
 Đọc số nguyên n. Kiểm tra n có phải số nguyên tố không.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="7" data-expected="SNT" data-hint="Kiểm tra chia hết từ 2 đến căn bậc 2 của n"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -518,9 +521,10 @@ n = int(input())
 ### Bài 4: Lấy chữ số
 Đọc số nguyên n. In ra chữ số đầu tiên và chữ số cuối cùng.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12345" data-expected="Chu so dau: 1, Chu so cuoi: 5" data-hint="Chữ số cuối: n % 10, chữ số đầu: dùng while"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -536,9 +540,10 @@ n = int(input())
 ### Bài 5: Đếm bit 1
 Đọc số nguyên n. Đếm số bit 1 trong biểu diễn nhị phân.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="13" data-expected="3" data-hint="Dùng n &amp; 1 và n >>= 1"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

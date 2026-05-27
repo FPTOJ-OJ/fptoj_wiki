@@ -500,10 +500,14 @@ if 0 <= nx < n and 0 <= ny < m:
 ### Bài 1: In matrix
 Đọc matrix n × m. In ra matrix.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2 3
+1 2 3
+4 5 6" data-expected="1 2 3
+4 5 6" data-hint="Dùng vòng lặp for row in matrix: print(*row)"></div>
+
 ```python
 n, m = map(int, input().split())
 matrix = [list(map(int, input().split())) for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -515,10 +519,15 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 ### Bài 2: Transpose
 Đọc matrix n × m. In ra matrix chuyển vị.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2 3
+1 2 3
+4 5 6" data-expected="1 4
+2 5
+3 6" data-hint="Dùng zip(*matrix) để chuyển vị"></div>
+
 ```python
 n, m = map(int, input().split())
 matrix = [list(map(int, input().split())) for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -531,10 +540,14 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 ### Bài 3: Tổng đường chéo
 Đọc matrix vuông n × n. Tính tổng đường chéo chính.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3
+1 2 3
+4 5 6
+7 8 9" data-expected="15" data-hint="Tổng matrix[i][i] với i từ 0 đến n-1"></div>
+
 ```python
 n = int(input())
 matrix = [list(map(int, input().split())) for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -545,10 +558,14 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 ### Bài 4: Đếm ô trống
 Cho grid n × m gồm '#' (tường) và '.' (trống). Đếm số ô trống.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3 3
+#..
+.#.
+..#" data-expected="6" data-hint="Dùng sum(row.count('.') for row in grid)"></div>
+
 ```python
 n, m = map(int, input().split())
 grid = [input() for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -560,12 +577,16 @@ grid = [input() for _ in range(n)]
 ### Bài 5: Tìm đường đi ngắn nhất
 Cho grid n × m. Tìm đường đi ngắn nhất từ (0,0) đến (n-1,m-1). '#' là tường, '.' là đường đi.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3 3
+...
+.#.
+..." data-expected="4" data-hint="Dùng BFS với deque, duyệt 4 hướng (lên/xuống/trái/phải)"></div>
+
 ```python
 from collections import deque
 
 n, m = map(int, input().split())
 grid = [input() for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

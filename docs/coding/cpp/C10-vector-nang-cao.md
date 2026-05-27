@@ -1,306 +1,308 @@
-# C10: Vector nâng cao
+# C10: Vector nâng cao — Iterator, Resize, 2D Vector
 
-> **Tác giả:** FPTOJ Wiki<br>
-> **Chủ đề:** Iterator, resize/reserve, 2D vector, adjacency list
-
----
-
-## Bạn sẽ học được gì?
-
-Sau bài này, bạn có thể:
-
-- Sử dụng iterator để duyệt vector
-- Hiểu `resize` vs `reserve`
-- Tạo và sử dụng vector 2D
-- Xây dựng adjacency list cho đồ thị
+> **Bạn sẽ học được:** Iterator, resize/reserve, 2D vector, erase/insert<br>
+> **Yêu cầu:** Đã học C04 (Mảng & Vector)<br>
+> **Thời gian:** 45 phút
 
 ---
 
-## 1. Iterator — Con trỏ STL
+## Iterator — Con trỏ vào vector
+
+### Analogies: Iterator = Ngón tay chỉ vào sách
+
+```mermaid
+flowchart LR
+    A["begin()"] -->|"Ngón tay đầu"| B["end()"]
+    B -->|"Ngón tay cuối + 1"| C["Kết thúc"]
+```
+
+### Sử dụng Iterator
 
 ```cpp
 vector<int> a = {10, 20, 30, 40, 50};
 
-// begin() → iterator trỏ đến phần tử đầu
-// end() → iterator trỏ đến vị trí SAU phần tử cuối
+// Iterator trỏ vào phần tử đầu
+auto it = a.begin();
+cout << *it << endl;  // 10
 
-for (auto it = a.begin(); it != a.end(); ++it) {
+// Di chuyển iterator
+it++;
+cout << *it << endl;  // 20
+
+it += 2;
+cout << *it << endl;  // 40
+
+// Iterator trỏ vào phần tử cuối + 1
+auto itEnd = a.end();
+```
+
+### Duyệt vector bằng iterator
+
+```cpp
+vector<int> a = {10, 20, 30, 40, 50};
+
+// Cách 1: Dùng iterator
+for (auto it = a.begin(); it != a.end(); it++) {
     cout << *it << " ";
 }
-// Output: 10 20 30 40 50
-```
 
-### Reverse Iterator
-
-```cpp
-vector<int> a = {10, 20, 30, 40, 50};
-
-for (auto it = a.rbegin(); it != a.rend(); ++it) {
-    cout << *it << " ";
+// Cách 2: Dùng range-based for (khuyến nghị)
+for (int x : a) {
+    cout << x << " ";
 }
-// Output: 50 40 30 20 10
-```
-
-### advance, next, prev, distance
-
-```cpp
-vector<int> a = {10, 20, 30, 40, 50};
-
-// next: iterator cách k vị trí (không thay đổi gốc)
-auto it = next(a.begin(), 2);
-cout << *it << endl;  // 30
-
-// prev: iterator lùi k vị trí
-auto it2 = prev(a.end(), 1);
-cout << *it2 << endl;  // 50
-
-// advance: di chuyển iterator (thay đổi gốc)
-auto it3 = a.begin();
-advance(it3, 3);
-cout << *it3 << endl;  // 40
-
-// distance: khoảng cách giữa 2 iterator
-int d = distance(a.begin(), a.end());
-cout << d << endl;  // 5
 ```
 
 ---
 
-## 2. resize vs reserve
+## Resize & Reserve
 
-### resize — Thay đổi kích thước
+### Resize — Thay đổi kích thước
 
 ```cpp
 vector<int> a;
-a.resize(5);        // a = {0, 0, 0, 0, 0} — 5 phần tử
-a.resize(3);        // a = {0, 0, 0} — cắt bớt
-a.resize(7, 100);   // a = {0, 0, 0, 100, 100, 100, 100}
+
+// Resize thành 5 phần tử (khởi tạo 0)
+a.resize(5);
+// a = {0, 0, 0, 0, 0}
+
+// Resize thành 3 phần tử (cắt bớt)
+a.resize(3);
+// a = {0, 0, 0}
+
+// Resize thành 7 phần tử, thêm giá trị 9
+a.resize(7, 9);
+// a = {0, 0, 0, 9, 9, 9, 9}
 ```
 
-### reserve — Chỉ cấp phát bộ nhớ
+### Reserve — Dự phòng bộ nhớ
 
 ```cpp
 vector<int> a;
-a.reserve(1000);    // cấp phát bộ nhớ cho 1000 phần tử
-// a.size() vẫn = 0, chỉ capacity = 1000
 
-// push_back sẽ không phải cấp phát lại bộ nhớ
+// Dự phòng bộ nhớ cho 1000 phần tử
+a.reserve(1000);
+
+// Thêm 1000 phần tử (không phải cấp phát lại bộ nhớ)
 for (int i = 0; i < 1000; i++) {
-    a.push_back(i);  // Nhanh hơn vì không phải cấp phát lại
+    a.push_back(i);
 }
 ```
 
 !!! tip "Khi nào dùng reserve?"
-    Dùng `reserve` khi biết trước số phần tử sẽ thêm → tránh cấp phát lại nhiều lần → **nhanh hơn**.
+    - Khi biết **chắc chắn** số phần tử sẽ thêm
+    - Tránh cấp phát lại bộ nhớ nhiều lần
+    - Tăng tốc độ thêm phần tử
 
 ---
 
-## 3. Vector 2D
+## 2D Vector — Ma trận động
+
+### Khai báo 2D vector
 
 ```cpp
-// Tạo ma trận n x m, giá trị 0
-int n = 3, m = 4;
-vector<vector<int>> a(n, vector<int>(m, 0));
+// Ma trận 3x4, khởi tạo 0
+vector<vector<int>> a(3, vector<int>(4, 0));
+
+// Ma trận 3x4, chưa khởi tạo
+vector<vector<int>> b(3, vector<int>(4));
+```
+
+### Truy cập và sửa
+
+```cpp
+vector<vector<int>> a(3, vector<int>(4, 0));
 
 // Truy cập
-a[1][2] = 5;
+cout << a[0][0] << endl;  // 0
+cout << a[1][2] << endl;  // 0
 
-// Duyệt
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
+// Sửa
+a[0][0] = 10;
+a[1][2] = 20;
+```
+
+### Duyệt 2D vector
+
+```cpp
+vector<vector<int>> a = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+// Duyệt theo chỉ số
+for (int i = 0; i < a.size(); i++) {
+    for (int j = 0; j < a[i].size(); j++) {
         cout << a[i][j] << " ";
     }
     cout << endl;
 }
-```
 
----
-
-## 4. Biểu diễn đồ thị (Graph Representation)
-
-### 4.1. Ma trận kề (Adjacency Matrix)
-
-```cpp
-// Phù hợp: Đồ thị nhỏ (n <= 1000)
-int n, m;
-cin >> n >> m;
-
-vector<vector<int>> adj(n + 1, vector<int>(n + 1, 0));
-
-for (int i = 0; i < m; i++) {
-    int u, v;
-    cin >> u >> v;
-    adj[u][v] = 1;  // Đồ thị có hướng
-    // adj[v][u] = 1;  // Đồ thị vô hướng
-}
-
-// Kiểm tra cạnh u-v tồn tại: O(1)
-if (adj[u][v]) { ... }
-
-// Duyệt đỉnh kề của u: O(n)
-for (int v = 1; v <= n; v++) {
-    if (adj[u][v]) { ... }
-}
-```
-
-### 4.2. Danh sách kề (Adjacency List) — Phổ biến nhất
-
-```cpp
-// Phù hợp: Đồ thị lớn (n <= 10^5, m <= 2*10^5)
-int n, m;
-cin >> n >> m;
-
-vector<vector<int>> adj(n + 1);  // 1-indexed
-
-for (int i = 0; i < m; i++) {
-    int u, v;
-    cin >> u >> v;
-    adj[u].push_back(v);
-    adj[v].push_back(u);  // Bỏ dòng này nếu đồ thị có hướng
-}
-
-// Duyệt đỉnh kề của u: O(degree(u))
-for (int v : adj[u]) {
-    cout << v << " ";
-}
-```
-
-### 4.3. Danh sách kề có trọng số
-
-```cpp
-int n, m;
-cin >> n >> m;
-
-vector<vector<pair<int,int>>> adj(n + 1);  // {đỉnh, trọng số}
-
-for (int i = 0; i < m; i++) {
-    int u, v, w;
-    cin >> u >> v >> w;
-    adj[u].push_back({v, w});
-    adj[v].push_back({u, w});  // Bỏ nếu có hướng
-}
-
-// Duyệt
-for (auto [v, w] : adj[u]) {
-    cout << "Dinh " << v << ", trong so " << w << endl;
-}
-```
-
-### 4.4. Mảng cạnh (Edge List)
-
-```cpp
-// Phù hợp: Kruskal, Bellman-Ford
-int n, m;
-cin >> n >> m;
-
-struct Edge {
-    int u, v, w;
-};
-
-vector<Edge> edges;
-
-for (int i = 0; i < m; i++) {
-    int u, v, w;
-    cin >> u >> v >> w;
-    edges.push_back({u, v, w});
-}
-
-// Sắp xếp theo trọng số (dùng cho Kruskal)
-sort(edges.begin(), edges.end(), [](const Edge &a, const Edge &b) {
-    return a.w < b.w;
-});
-```
-
-### 4.5. So sánh các cách biểu diễn
-
-| | Ma trận kề | Danh sách kề | Mảng cạnh |
-|---|-----------|---------------|-----------|
-| **Kích thước** | $O(n^2)$ | $O(n + m)$ | $O(m)$ |
-| **Kiểm tra cạnh** | $O(1)$ | $O(\text{degree})$ | $O(m)$ |
-| **Duyệt kề** | $O(n)$ | $O(\text{degree})$ | $O(m)$ |
-| **Thêm cạnh** | $O(1)$ | $O(1)$ | $O(1)$ |
-| **Dùng khi** | $n \leq 1000$ | $n \leq 10^5$ | Kruskal, Bellman |
-
-!!! tip "Chọn cách nào?"
-    - **Không biết chọn gì** → dùng **Danh sách kề** (`vector<vector<int>>`)
-    - Đồ thị **nhỏ** ($n \leq 1000$) → Ma trận kề
-    - Cần **sắp xếp cạnh** → Mảng cạnh
-
-### 4.6. Template đọc đồ thị
-
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    int n, m;
-    cin >> n >> m;
-    
-    // Danh sách kề
-    vector<vector<int>> adj(n + 1);
-    for (int i = 0; i < m; i++) {
-        int u, v;
-        cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-    
-    // BFS từ đỉnh 1
-    vector<int> dist(n + 1, -1);
-    queue<int> q;
-    dist[1] = 0;
-    q.push(1);
-    
-    while (!q.empty()) {
-        int u = q.front(); q.pop();
-        for (int v : adj[u]) {
-            if (dist[v] == -1) {
-                dist[v] = dist[u] + 1;
-                q.push(v);
-            }
-        }
-    }
-    
-    for (int i = 1; i <= n; i++) {
-        cout << dist[i] << " ";
+// Duyệt bằng range-based for
+for (auto &row : a) {
+    for (int x : row) {
+        cout << x << " ";
     }
     cout << endl;
-    
-    return 0;
+}
+```
+
+### Vector không đều (Jagged Array)
+
+```cpp
+// Mỗi hàng có số cột khác nhau
+vector<vector<int>> a;
+a.push_back({1, 2, 3});
+a.push_back({4, 5});
+a.push_back({6, 7, 8, 9});
+
+for (auto &row : a) {
+    for (int x : row) cout << x << " ";
+    cout << endl;
 }
 ```
 
 ---
 
-## 5. Các thao tác khác
+## Erase & Insert
+
+### Xóa phần tử
 
 ```cpp
 vector<int> a = {1, 2, 3, 4, 5};
 
-// assign — Gán lại toàn bộ
-a.assign(3, 10);  // a = {10, 10, 10}
+// Xóa phần tử tại vị trí 2 (index 2)
+a.erase(a.begin() + 2);
+// a = {1, 2, 4, 5}
 
-// swap — Hoán đổi 2 vector
-vector<int> b = {6, 7, 8};
-swap(a, b);  // a = {6, 7, 8}, b = {10, 10, 10}
-
-// shrink_to_fit — Giải phóng bộ nhớ thừa
-vector<int> c;
-c.reserve(1000);
-c.push_back(1);
-c.shrink_to_fit();  // capacity = 1
+// Xóa từ vị trí 1 đến 3
+a.erase(a.begin() + 1, a.begin() + 3);
+// a = {1, 5}
 ```
+
+### Chèn phần tử
+
+```cpp
+vector<int> a = {1, 2, 3, 4, 5};
+
+// Chèn giá trị 10 vào vị trí 2
+a.insert(a.begin() + 2, 10);
+// a = {1, 2, 10, 3, 4, 5}
+
+// Chèn 3 giá trị 7 vào vị trí 0
+a.insert(a.begin(), 3, 7);
+// a = {7, 7, 7, 1, 2, 10, 3, 4, 5}
+```
+
+---
+
+## Common Mistakes — Lỗi thường gặp
+
+### Lỗi 1: Iterator invalidated
+
+```cpp
+vector<int> a = {1, 2, 3, 4, 5};
+
+// ❌ SAI: Iterator invalidated sau khi erase
+for (auto it = a.begin(); it != a.end(); it++) {
+    if (*it % 2 == 0) a.erase(it);  // Lỗi!
+}
+
+// ✅ ĐÚNG
+for (auto it = a.begin(); it != a.end(); ) {
+    if (*it % 2 == 0) it = a.erase(it);
+    else it++;
+}
+```
+
+### Lỗi 2: Truy cập ngoài 2D vector
+
+```cpp
+vector<vector<int>> a(3, vector<int>(4, 0));
+
+// ❌ SAI: Truy cập a[3][4]
+cout << a[3][4] << endl;  // Lỗi!
+
+// ✅ ĐÚNG: Chỉ truy cập a[0..2][0..3]
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 4; j++) {
+        cout << a[i][j] << " ";
+    }
+}
+```
+
+---
+
+## Bài tập thực hành
+
+### Bài 1: Chuyển vị ma trận
+Đọc ma trận m×n. In ra ma trận chuyển vị.
+
+**Input:**
+```
+2 3
+1 2 3
+4 5 6
+```
+**Output:**
+```
+1 4
+2 5
+3 6
+```
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="2 3
+1 2 3
+4 5 6" data-expected="1 4
+2 5
+3 6" data-hint="Đổi thứ tự duyệt: vòng ngoài là cột, vòng trong là hàng"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        int m, n;
+        cin >> m >> n;
+        vector<vector<int>> a(m, vector<int>(n));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                cin >> a[i][j];
+            }
+        }
+        
+        // In ma trận chuyển vị
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i < m; i++) {
+                cout << a[i][j] << " ";
+            }
+            cout << endl;
+        }
+        return 0;
+    }
+    ```
+
+---
+
+## Tóm tắt bài học
+
+| Nội dung | Chi tiết |
+|----------|----------|
+| **Iterator** | `auto it = a.begin();` — con trỏ vào vector |
+| **Resize** | `a.resize(n)` — thay đổi kích thước |
+| **Reserve** | `a.reserve(n)` — dự phòng bộ nhớ |
+| **2D Vector** | `vector<vector<int>> a(m, vector<int>(n))` |
+| **Erase** | `a.erase(a.begin() + i)` — xóa phần tử |
+| **Insert** | `a.insert(a.begin() + i, x)` — chèn phần tử |
 
 ---
 
 ## Bài viết liên quan
 
-- [C09: pair & tuple →](C09-pair-tuple.md)
-- [C11: sort & algorithm →](C11-sort-algorithm.md)
+- [C04: Mảng & Vector ←](C04-mang-vector.md)
+- [C12: Set & Map →](C12-set-map.md)
 
 ---
 
-**Bài tiếp theo:** [C11: sort & algorithm →](C11-sort-algorithm.md)
+**Bài tiếp theo:** [C12: Set & Map →](C12-set-map.md)

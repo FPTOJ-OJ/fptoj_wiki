@@ -14,7 +14,7 @@ Mỗi bài: 10-100 điểm tùy subtask
 Tổng điểm: 100-300 điểm
 
 Mỗi bài có nhiều TESTCASE, mỗi testcase có điểm riêng
-Bạn chỉ được NỘP BÀI 1 LẦN DUY NHẤT (hoặc giới hạn số lần nộp)
+Bạn chỉ được NỘP BÀI 1 LẦN DUY NHẤT (hoặc giới hạn số lần nộp, tùy kỳ thi)
 ```
 
 ### 1.2. Subtask là gì?

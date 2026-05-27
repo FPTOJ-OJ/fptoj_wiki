@@ -509,11 +509,7 @@ bool match(const string &s, const string &pattern) {
 ### Bài 1: Đếm từ
 Đọc một dòng văn bản. In ra số từ trong dòng.
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -537,11 +533,7 @@ bool match(const string &s, const string &pattern) {
 
 **Input:** `10,20,30,40` → **Output:** `100`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -568,11 +560,7 @@ bool match(const string &s, const string &pattern) {
 
 **Input:** `A man, a plan, a canal: Panama` → **Output:** `Yes`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

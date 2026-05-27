@@ -1,4 +1,4 @@
-﻿# Bài 27: Lý Thuyết Trò Chơi - Ai Thắng?
+# Bài 27: Lý Thuyết Trò Chơi - Ai Thắng?
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms, Errichto
@@ -9,12 +9,12 @@
 
 ### Lý thuyết trò chơi trong CP là gì?
 
-Trong competitive programming, "lý thuyết trò chơi" đề cập đến một lớp bài toán where:
+Trong competitive programming, "lý thuyết trò chơi" đề cập đến một lớp bài toán mà:
 
 - Có **2 người chơi luân phiên** thực hiện nước đi
 - Cả hai đều chơi **hoàn hảo** (không bao giờ mắc sai lầm)
 - Trò chơi **không có yếu tố ngẫu nhiên** (deterministic)
-- Trò chơi **kết thúc hữu hạn** (không ai thắng)
+- Trò chơi **kết thúc hữu hạn** (không hòa)
 
 > **Câu hỏi cốt lõi:** Cho trạng thái ban đầu, người đi trước thắng hay người đi sau thắng?<br>
 
@@ -630,6 +630,9 @@ int mex(vector<int>& s) {
 | [Kattis - Game of Stones](https://open.kattis.com/problems/gameofstones) | Kattis | ⭐⭐ | Nim + Subtraction |
 | [DMOJ - Game Theory](https://dmoj.ca/problem/game) | DMOJ | ⭐⭐⭐ | Grundy tổng hợp |
 | [LightOJ - Game Theory](https://lightoj.com/problem/guilty-prince) | LightOJ | ⭐⭐⭐ | Game trên lưới |
+| [VNOJ - Trò chơi với dãy số (nksgame)](https://oj.vnoi.info/problem/nksgame) | VNOJ | ⭐⭐ | Game theory |
+| [VNOJ - NKGAME](https://oj.vnoi.info/problem/nkgame) | VNOJ | ⭐⭐ | Game trên dãy số |
+| [VNOJ - Lò cò (nkjump)](https://oj.vnoi.info/problem/nkjump) | VNOJ | ⭐⭐ | Game + DP |
 
 ---
 

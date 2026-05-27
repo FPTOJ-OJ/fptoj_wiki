@@ -151,14 +151,7 @@ Mỗi hậu tố i được biểu diễn bởi cặp (rank[i], rank[i+4]):
   i=5: (rank[5], -1)      = (0, -1) → "a"
   i=6: (rank[6], -1)      = (2, -1) → "$"
 
-Sắp xếp:
-  (0,-1) < (1,-1) < (1,0) < (2,-1) < (3,-1) < (4,3) < (5,2)
-   i=6     i=3     i=1     i=6→i=6  i=4      i=0     i=2
-
-  Sửa: (0,-1)=i=6, (1,-1)=i=3, (1,0)=i=1, (2,-1)=i=6... 
-  → Kiểm tra lại: i=6 có rank=2, không phải 0.
-
-  Đúng hơn:
+Sắp xếp theo (rank[i], rank[i+k]):
   (0,-1): i=5 (rank[5]=0)   → "a$"
   (1,-1): i=3 (rank[3]=1)   → "ana$"
   (1,0):  i=1 (rank[1]=1, rank[5]=0) → "anana$"
@@ -669,7 +662,7 @@ Tìm giá trị lớn nhất trong LCP array. Vị trí đó cho biết 2 hậu 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
 | [CSES - Substring Queries](https://cses.fi/problemset/task/2110) | CSES | ⭐⭐⭐⭐ | SA + Binary Search |
-| [CSES - String Reorder](https://cses.fi/problemset/task/1753) | CSES | ⭐⭐⭐ | SA + LCP |
+| [CSES - String Matching](https://cses.fi/problemset/task/1753) | CSES | ⭐⭐⭐ | SA + LCP |
 | [VNOJ - NKVWORDS](https://oj.vnoi.info/problem/nkvwords) | VNOJ | ⭐⭐⭐ | SA + LCP |
 | [VNOJ - VOSLIS](https://oj.vnoi.info/problem/voslis) | VNOJ | ⭐⭐⭐⭐ | Xâu con chung dài nhất |
 

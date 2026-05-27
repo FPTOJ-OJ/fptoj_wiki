@@ -1,4 +1,4 @@
-﻿
+
 **Nguồn:** [wcipeg](http://wcipeg.com/wiki/Segment_tree), [cp-algorithms](https://cp-algorithms.com/data_structures/segment_tree.html), [Tất tần tật về Cây Phân Đoạn (Segment Tree) - VNOI](segment-tree-extend.md)
 
 **Tác giả:** 

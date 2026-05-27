@@ -360,7 +360,6 @@ for r = 0 to n-1:
 ## Tài liệu tham khảo
 
 - [VNOI Wiki - Kĩ thuật hai con trỏ](https://wiki.vnoi.info/algo/basic/two-pointers)
-- [CP-Algorithms - Two Pointers](https://usaco.guide/silver/two-pointers)
 - [USACO Guide - Two Pointers](https://usaco.guide/silver/two-pointers)
 - [GeeksforGeeks - Two Pointer Technique](https://www.geeksforgeeks.org/dsa/two-pointers-technique/)
 - [YouTube - Two Pointers (takeuforward)](https://www.youtube.com/watch?v=On03HWe2tZM)

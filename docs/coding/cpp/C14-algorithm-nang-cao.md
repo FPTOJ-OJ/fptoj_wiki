@@ -1,148 +1,272 @@
-# C14: algorithm nâng cao
+# C14: Algorithm nâng cao — lower_bound, upper_bound, next_permutation
 
-> **Tác giả:** FPTOJ Wiki<br>
-> **Chủ đề:** lower_bound, upper_bound, nth_element, gcd, rotate, LIS
+> **Bạn sẽ học được:** lower_bound, upper_bound, next_permutation, binary_search<br>
+> **Yêu cầu:** Đã học C11 (Sort & Algorithm)<br>
+> **Thời gian:** 45 phút
 
----
-
-## Bạn sẽ học được gì?
-
-Sau bài này, bạn có thể:
-
-- Tìm kiếm nhị phân với `lower_bound`/`upper_bound`
-- Tìm median với `nth_element`
-- Tính GCD/LCM với `__gcd`
-- Giải bài LIS (Dãy con tăng dài nhất)
+!!! note "Mở rộng từ C11"
+    Các hàm `lower_bound`, `upper_bound`, `next_permutation`, `binary_search` đã được giới thiệu ở [C11](C11-sort-algorithm.md). Bài này đi sâu hơn với ví dụ thực tế, common mistakes, và bài tập.
 
 ---
 
-## 1. lower_bound / upper_bound
+## Lower_bound — Tìm vị trí đầu tiên >= x
 
-```cpp
-vector<int> a = {1, 3, 5, 5, 7, 9};
+### Analogies: Lower_bound = Tìm sách đầu tiên >= giá
 
-// lower_bound: phần tử đầu tiên >= x
-auto lb = lower_bound(a.begin(), a.end(), 5);
-cout << lb - a.begin() << endl;  // 2 (chỉ số)
-
-// upper_bound: phần tử đầu tiên > x
-auto ub = upper_bound(a.begin(), a.end(), 5);
-cout << ub - a.begin() << endl;  // 4 (chỉ số)
-
-// Đếm số phần tử = x
-int cnt = ub - lb;  // 2
-
-// Đếm số phần tử trong [l, r]
-int l = 3, r = 7;
-int cnt2 = upper_bound(a.begin(), a.end(), r) 
-         - lower_bound(a.begin(), a.end(), l);
+```mermaid
+flowchart LR
+    A["Sách: 10 20 30 40 50"] -->|"lower_bound(25)"| B["Vị trí 2 (giá 30)"]
 ```
 
-!!! warning "Mảng phải đã sắp xếp"
-    `lower_bound`/`upper_bound` chỉ hoạt động trên mảng **đã sắp xếp tăng dần**.
-
----
-
-## 2. nth_element — Tìm phần tử thứ k
+### Sử dụng
 
 ```cpp
-vector<int> a = {5, 2, 8, 1, 9, 3};
+vector<int> a = {10, 20, 30, 40, 50};
 
-// Tìm phần tử nhỏ thứ 3 (chỉ số 2)
-nth_element(a.begin(), a.begin() + 2, a.end());
-cout << a[2] << endl;  // 3
+// Tìm vị trí đầu tiên >= 25
+auto it = lower_bound(a.begin(), a.end(), 25);
+int pos = it - a.begin();
+cout << pos << endl;  // 2 (vì a[2] = 30 >= 25)
 
-// Tìm median
-nth_element(a.begin(), a.begin() + a.size() / 2, a.end());
-cout << a[a.size() / 2] << endl;  // median
+// Tìm trong mảng đã sắp xếp
+int a[] = {10, 20, 30, 40, 50};
+int pos2 = lower_bound(a, a + 5, 25) - a;
+cout << pos2 << endl;  // 2
+```
+
+### Ứng dụng: Tìm kiếm nhị phân
+
+```cpp
+vector<int> a = {10, 20, 30, 40, 50};
+
+// Kiểm tra 30 có trong mảng không
+if (binary_search(a.begin(), a.end(), 30)) {
+    cout << "30 ton tai";
+}
+
+// Tìm vị trí của 30
+int pos = lower_bound(a.begin(), a.end(), 30) - a.begin();
+if (pos < a.size() && a[pos] == 30) {
+    cout << "30 tai vi tri " << pos;
+}
 ```
 
 ---
 
-## 3. GCD / LCM
+## Upper_bound — Tìm vị trí đầu tiên > x
+
+### Analogies: Upper_bound = Tìm sách đầu tiên > giá
+
+```mermaid
+flowchart LR
+    A["Sách: 10 20 30 30 40 50"] -->|"upper_bound(30)"| B["Vị trí 4 (giá 40)"]
+```
+
+### Sử dụng
 
 ```cpp
-// __gcd hoạt động trên mọi trình biên dịch
-cout << __gcd(12, 18) << endl;  // 6
+vector<int> a = {10, 20, 30, 30, 40, 50};
 
-// C++17: std::gcd, std::lcm
-cout << gcd(12, 18) << endl;    // 6
-cout << lcm(4, 6) << endl;      // 12
+// Tìm vị trí đầu tiên > 30
+auto it = upper_bound(a.begin(), a.end(), 30);
+int pos = it - a.begin();
+cout << pos << endl;  // 4 (vì a[4] = 40 > 30)
+```
 
-// GCD nhiều số
-vector<int> a = {12, 18, 24};
-int g = 0;
-for (int x : a) g = __gcd(g, x);
+### Ứng dụng: Đếm số phần tử trong đoạn [l, r]
+
+```cpp
+vector<int> a = {10, 20, 30, 30, 40, 50};
+
+int l = 20, r = 40;
+int count = upper_bound(a.begin(), a.end(), r) - lower_bound(a.begin(), a.end(), l);
+cout << count << endl;  // 4 (20, 30, 30, 40)
 ```
 
 ---
 
-## 4. rotate — Xoay mảng
+## Next_permutation — Sinh hoán vị
+
+### Sử dụng
 
 ```cpp
-vector<int> a = {1, 2, 3, 4, 5};
+vector<int> a = {1, 2, 3};
 
-// Xoay trái 2 vị trí
-rotate(a.begin(), a.begin() + 2, a.end());
-// a = {3, 4, 5, 1, 2}
+// Sinh tất cả hoán vị
+do {
+    for (int x : a) cout << x << " ";
+    cout << endl;
+} while (next_permutation(a.begin(), a.end()));
+```
+
+Output:
+```
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1
+```
+
+!!! warning "Phải sắp xếp trước"
+    Nếu muốn sinh **tất cả** hoán vị, phải sắp xếp mảng tăng dần trước.
+
+### Ứng dụng: Kiểm tra hoán vị
+
+```cpp
+vector<int> a = {3, 1, 2};
+
+// Kiểm tra có phải hoán vị của 1,2,3 không
+sort(a.begin(), a.end());
+if (a == vector<int>{1, 2, 3}) {
+    cout << "La hoan vi";
+}
 ```
 
 ---
 
-## 5. LIS — Dãy con tăng dài nhất
+## Binary_search — Tìm kiếm nhị phân
 
 ```cpp
-#include <bits/stdc++.h>
-using namespace std;
+vector<int> a = {10, 20, 30, 40, 50};
 
-int lis(const vector<int> &a) {
-    vector<int> tail;
+// Kiểm tra 30 có trong mảng không
+if (binary_search(a.begin(), a.end(), 30)) {
+    cout << "30 ton tai";
+}
+
+// Kiểm tra 25 có trong mảng không
+if (!binary_search(a.begin(), a.end(), 25)) {
+    cout << "25 khong ton tai";
+}
+```
+
+---
+
+## So sánh các hàm
+
+| Hàm | Ý nghĩa | Thời gian |
+|-----|---------|-----------|
+| `binary_search` | Kiểm tra tồn tại | O(log n) |
+| `lower_bound` | Vị trí đầu tiên >= x | O(log n) |
+| `upper_bound` | Vị trí đầu tiên > x | O(log n) |
+| `next_permutation` | Hoán vị tiếp theo | O(n) |
+
+---
+
+## Common Mistakes — Lỗi thường gặp
+
+### Lỗi 1: Quên mảng phải sắp xếp
+
+```cpp
+vector<int> a = {5, 2, 8, 1, 9};
+
+// ❌ SAI: Mảng chưa sắp xếp
+int pos = lower_bound(a.begin(), a.end(), 5) - a.begin();
+// Kết quả không chính xác!
+
+// ✅ ĐÚNG
+sort(a.begin(), a.end());
+int pos = lower_bound(a.begin(), a.end(), 5) - a.begin();
+```
+
+### Lỗi 2: Quên kiểm tra bounds
+
+```cpp
+vector<int> a = {10, 20, 30, 40, 50};
+
+// ❌ SAI: Không kiểm tra bounds
+int pos = lower_bound(a.begin(), a.end(), 60) - a.begin();
+cout << a[pos] << endl;  // Truy cập ngoài mảng!
+
+// ✅ ĐÚNG
+int pos = lower_bound(a.begin(), a.end(), 60) - a.begin();
+if (pos < a.size()) cout << a[pos];
+else cout << "Khong tim thay";
+```
+
+---
+
+## Bài tập thực hành
+
+### Bài 1: Tìm kiếm nhị phân
+Đọc mảng đã sắp xếp và số x. Tìm vị trí của x trong mảng.
+
+**Input:**
+```
+5
+10 20 30 40 50
+30
+```
+**Output:** `2`
+
+???? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
     
-    for (int x : a) {
-        auto it = lower_bound(tail.begin(), tail.end(), x);
-        if (it == tail.end()) {
-            tail.push_back(x);
-        } else {
-            *it = x;
-        }
+    int main() {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+        int x;
+        cin >> x;
+        
+        int pos = lower_bound(a.begin(), a.end(), x) - a.begin();
+        if (pos < n && a[pos] == x) cout << pos;
+        else cout << -1;
+        return 0;
     }
-    
-    return tail.size();
-}
+    ```
 
-int main() {
-    vector<int> a = {10, 9, 2, 5, 3, 7, 101, 18};
-    cout << lis(a) << endl;  // 4 (dãy: 2, 3, 7, 101)
-    return 0;
-}
+### Bài 2: Đếm số phần tử trong đoạn
+Đọc mảng đã sắp xếp và 2 số l, r. Đếm số phần tử trong đoạn [l, r].
+
+**Input:**
 ```
+5
+10 20 30 40 50
+20 40
+```
+**Output:** `3`
+
+???? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+        int l, r;
+        cin >> l >> r;
+        
+        int count = upper_bound(a.begin(), a.end(), r) - lower_bound(a.begin(), a.end(), l);
+        cout << count << endl;
+        return 0;
+    }
+    ```
 
 ---
 
-## 6. Các hàm khác
+## Tóm tắt bài học
 
-```cpp
-vector<int> a = {1, 2, 3, 4, 5};
-
-// is_sorted — Kiểm tra đã sắp xếp
-cout << is_sorted(a.begin(), a.end()) << endl;  // 1
-
-// is_sorted_until — Tìm vị trí đầu tiên chưa sắp xếp
-auto it = is_sorted_until(a.begin(), a.end());
-
-// minmax — Tìm min và max cùng lúc
-auto [mn, mx] = minmax({3, 1, 4, 1, 5, 9});
-cout << mn << " " << mx << endl;  // 1 9
-
-// clamp (C++17) — Giới hạn giá trị
-int x = clamp(15, 0, 10);  // x = 10
-```
+| Nội dung | Chi tiết |
+|----------|----------|
+| **lower_bound** | Vị trí đầu tiên >= x |
+| **upper_bound** | Vị trí đầu tiên > x |
+| **binary_search** | Kiểm tra tồn tại |
+| **next_permutation** | Hoán vị tiếp theo |
 
 ---
 
 ## Bài viết liên quan
 
-- [C13: queue, stack, deque →](C13-queue-stack-deque.md)
+- [C12: Set & Map ←](C12-set-map.md)
 - [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
 
 ---

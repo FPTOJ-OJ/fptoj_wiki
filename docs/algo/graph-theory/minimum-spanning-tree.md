@@ -1,4 +1,4 @@
-﻿
+
 **Tác giả**: 
 * Hoàng Việt Cường - Đại học Bách Khoa Hà Nội
 * Phan Thành Long - THPT Chuyên Thái Bình (K17-20)

@@ -259,7 +259,7 @@ import itertools
 
 n = int(input())
 for bits in itertools.product([0, 1], repeat=n):
-    print(bits)
+    print(*bits, sep="")
 ```
 
 ### 11.4. Prefix sum
@@ -324,10 +324,9 @@ Cho n. Sinh tất cả hoán vị của 1, 2, ..., n.
 import itertools
 
 n = int(input())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import itertools
     
@@ -343,10 +342,9 @@ Cho n, k. Sinh tất cả tổ hợp chập k của 1, 2, ..., n.
 import itertools
 
 n, k = map(int, input().split())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import itertools
     
@@ -362,10 +360,9 @@ Cho mảng arr. Tính prefix sum.
 import itertools
 
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import itertools
     

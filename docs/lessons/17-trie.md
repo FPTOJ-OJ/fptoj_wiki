@@ -1,4 +1,4 @@
-﻿# Bài 17: Trie - Cây Tìm Kiếm Tiền Tố
+# Bài 17: Trie - Cây Tìm Kiếm Tiền Tố
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Trie

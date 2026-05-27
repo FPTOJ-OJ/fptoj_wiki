@@ -191,7 +191,7 @@ result = "Xuat sac" if score >= 90 else ("Gioi" if score >= 80 else "Kha")
     }
     
     // Ternary
-    string result = (n > 0) ? "Duong" : "Am";
+    string result = (n > 0) ở "Duong" : "Am";
     
     // switch-case
     switch (n) {
@@ -395,7 +395,7 @@ if True:
     print("Luon chay")
 
 # Cẩn thận với điều kiện luôn đúng/sai
-if n or not n:  # Luôn True (trừ khi n là 0 hoặc "")
+if n or not n:  # Luôn True với MỌI giá trị của n (tautology)
     print("Luon chay")
 ```
 
@@ -406,9 +406,10 @@ if n or not n:  # Luôn True (trừ khi n là 0 hoặc "")
 ### Bài 1: Giá trị tuyệt đối
 Đọc số nguyên n. In ra giá trị tuyệt đối của n.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="-5" data-expected="5" data-hint="Dùng if/else hoặc abs(n)"></div>
+
 ```python
 n = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -424,9 +425,10 @@ n = int(input())
 ### Bài 2: Ngày trong tháng
 Đọc tháng (1-12). In ra số ngày trong tháng (giả sử không nhuận).
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2" data-expected="28" data-hint="Dùng if/elif/else cho các nhóm tháng"></div>
+
 ```python
 month = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -448,9 +450,10 @@ month = int(input())
 - >= 60: D
 - < 60: F
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="85" data-expected="B" data-hint="Dùng if/elif/else từ cao xuống thấp"></div>
+
 ```python
 score = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -471,9 +474,10 @@ score = int(input())
 ### Bài 4: Năm nhuận
 Đọc năm. Kiểm tra năm nhuận.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2024" data-expected="Nam nhuan" data-hint="Chia hết cho 4 và không chia hết cho 100, hoặc chia hết cho 400"></div>
+
 ```python
 year = int(input())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -488,9 +492,10 @@ year = int(input())
 ### Bài 5: Tìm số lớn nhất
 Đọc 3 số nguyên a, b, c. In ra số lớn nhất.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3 7 5" data-expected="7" data-hint="Dùng max(a, b, c) hoặc if/else"></div>
+
 ```python
 a, b, c = map(int, input().split())
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

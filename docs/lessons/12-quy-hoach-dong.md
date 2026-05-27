@@ -1,4 +1,4 @@
-﻿# Bài 12: Quy Hoạch Động (DP) - Từ Nhập Môn Đến Thành Thạo!
+# Bài 12: Quy Hoạch Động (DP) - Từ Nhập Môn Đến Thành Thạo!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Quy hoạch động, Topcoder - DP from Novice to Advanced

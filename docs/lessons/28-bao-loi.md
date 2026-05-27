@@ -1,4 +1,4 @@
-﻿# Bài 28: Bao Lồi (Convex Hull)
+# Bài 28: Bao Lồi (Convex Hull)
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Bao lồi, CP-Algorithms

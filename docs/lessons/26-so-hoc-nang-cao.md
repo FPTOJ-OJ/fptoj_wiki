@@ -1,4 +1,4 @@
-﻿# Bài 26: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
+# Bài 26: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Số học, HackerEarth Number Theory Series, CP-Algorithms
@@ -230,24 +230,6 @@ C(n, k) mod p = Π C(ni, ki) mod p
 
 ### 3.3 Code C++
 
-```cpp
-long long lucasCnk(long long n, long long k, long long p) {
-    if (k == 0) return 1;
-    long long ni = n % p, ki = k % p;
-    if (ki > ni) return 0;
-    return lucasCnk(n / p, k / p, p) * nCk_small(ni, ki, p) % p;
-}
-
-// nCk_small tính trực tiếp cho n, k nhỏ (< p)
-long long nCk_small(long long n, long long k, long long p) {
-    if (k > n) return 0;
-    long long res = 1;
-    for (long long i = 0; i < k; i++) {
-        res = res * (n - i) % p;
-        res = res * powerMod(i + 1, p - 2, p) % p;
-    }
-    return res;
-}
 ```cpp
 long long lucasCnk(long long n, long long k, long long p) {
     if (k == 0) return 1;
@@ -565,66 +547,6 @@ void factorize(long long n, map<long long,int> &factors) {
     factorize(n / d, factors);
 }
 ```
-long long mulMod(long long a, long long b, long long mod) {
-    return (__int128)a * b % mod;
-}
-
-// Miller-Rabin kiểm tra nguyên tố - O(k log^2 n)
-bool millerRabin(long long n) {
-    if (n < 2) return false;
-    if (n == 2 || n == 3) return true;
-    if (n % 2 == 0) return false;
-
-    // Viết n-1 = 2^r * d
-    long long d = n - 1;
-    int r = 0;
-    while (d % 2 == 0) { d /= 2; r++; }
-
-    // Các cơ sở đủ cho n < 2^64
-    vector<long long> bases = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
-    for (long long a : bases) {
-        if (a >= n) continue;
-        long long x = powerMod(a, d, n);
-        if (x == 1 || x == n - 1) continue;
-        bool composite = true;
-        for (int i = 0; i < r - 1; i++) {
-            x = mulMod(x, x, n);
-            if (x == n - 1) { composite = false; break; }
-        }
-        if (composite) return false;
-    }
-    return true;
-}
-
-bool isPrime(long long n) {
-    return millerRabin(n);
-}
-
-long long pollardRho(long long n) {
-    if (n % 2 == 0) return 2;
-    long long x = rand() % (n - 2) + 2;
-    long long y = x;
-    long long c = rand() % (n - 1) + 1;
-    long long d = 1;
-    while (d == 1) {
-        x = (mulMod(x, x, n) + c) % n;
-        y = (mulMod(y, y, n) + c) % n;
-        y = (mulMod(y, y, n) + c) % n;
-        d = __gcd(abs(x - y), n);
-        if (d == n) return pollardRho(n);  // thử lại với c khác
-    }
-    return d;
-}
-
-// Phân tích n thành các thừa số nguyên tố
-void factorize(long long n, map<long long,int> &factors) {
-    if (n == 1) return;
-    if (isPrime(n)) { factors[n]++; return; }  // cần hàm isPrime (Miller-Rabin)
-    long long d = pollardRho(n);
-    factorize(d, factors);
-    factorize(n / d, factors);
-}
-```
 
 ---
 
@@ -821,7 +743,7 @@ RSA sử dụng Euler's Totient:
 | [SPOJ - ETF](https://www.spoj.com/problems/ETF/) | SPOJ | ⭐⭐ | Euler Totient đơn lẻ |
 | [SPOJ - GCDEX](https://www.spoj.com/problems/GCDEX/) | SPOJ | ⭐⭐⭐ | GCD + Euler Totient |
 | [CSES - Exponentiation](https://cses.fi/problemset/task/1095) | CSES | ⭐⭐ | Lũy thừa modulo |
-| [CSES - Exponentiation II](https://cses.fi/problemset/task/1712) | CSES | ⭐⭐⭐ | Euler's theorem |
+| [CSES - Exponentiation II](https://cses.fi/problemset/task/1096) | CSES | ⭐⭐⭐ | Euler's theorem |
 | [CSES - Binomial Coefficients](https://cses.fi/problemset/task/1079) | CSES | ⭐⭐ | Tổ hợp modulo |
 | [SPOJ - NCNK](https://www.spoj.com/problems/NCNK/) | SPOJ | ⭐⭐ | Tổ hợp lớn |
 
@@ -857,6 +779,11 @@ RSA sử dụng Euler's Totient:
 | [CF - Yet Another Number Theory Problem](https://codeforces.com/problemset/problem/1436/D) | CF | ⭐⭐⭐ | Tổng hợp số học |
 | [CSES - NIM Game I](https://cses.fi/problemset/task/1730) | CSES | ⭐⭐ | Game theory + GCD |
 | [SPOJ - GCDEX2](https://www.spoj.com/problems/GCDEX2/) | SPOJ | ⭐⭐⭐⭐ | GCD nâng cao |
+| [LeetCode - Count Primes](https://leetcode.com/problems/count-primes/) | LeetCode | ⭐⭐ | Đếm số nguyên tố |
+| [LeetCode - Ugly Number II](https://leetcode.com/problems/ugly-number-ii/) | LeetCode | ⭐⭐ | Số nguyên tố + DP |
+| [VNOJ - Euler Totient (etf)](https://oj.vnoi.info/problem/etf) | VNOJ | ⭐⭐ | Phi hàm Euler |
+| [VNOJ - Tìm số (findnum)](https://oj.vnoi.info/problem/findnum) | VNOJ | ⭐⭐ | Số học |
+| [VNOJ - Số phong phú (nkabd)](https://oj.vnoi.info/problem/nkabd) | VNOJ | ⭐⭐ | Ước số |
 
 ---
 

@@ -1,4 +1,4 @@
-﻿# Bài 6: Đệ Quy Và Quay Lui - Thử Mọi Con Đường!
+# Bài 6: Đệ Quy Và Quay Lui - Thử Mọi Con Đường!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Đệ quy và thuật toán quay lui
@@ -124,7 +124,7 @@ Xếp 8 quân hậu lên bàn cờ 8×8 sao cho không quân nào ăn được n
 
 ## 4. Bắt tay vào Code nào!
 
-### Ứng dụng 1: Tính giải thừa đơn giản
+### Ứng dụng 1: Tính giai thừa đơn giản
 
 Đây là ví dụ đệ quy đơn giản nhất. Bài toán `n!` được chia thành `n × (n-1)!`. Khi n = 0, trả về 1 (base case). Không có base case → tràn stack!
 
@@ -146,13 +146,13 @@ Nếu bỏ bước 3 (bỏ `used[num] = false`), các lựa chọn khác sẽ kh
 Mỗi hàng chỉ có đúng 1 hậu. Ta xếp từng hàng từ trên xuống:
 - Với mỗi cột của hàng hiện tại: kiểm tra xem có an toàn không (không trùng cột, không trùng đường chéo)
 - Nếu an toàn: đặt hậu, đệ quy xuống hàng tiếp
-- Quáy lui: bỏ hậu, thử cột khác
+- Quay lui: bỏ hậu, thử cột khác
 
 `diag1[row+col]` đại diện đường chéo chính (row+col cố định), `diag2[row-col+n]` đại diện đường chéo phụ (row-col cố định).
 
 ### Ứng dụng 5: Tìm tất cả cách chọn số có tổng = Target
 
-Khác với hoán vị, bài này cho phép chọn một cần tử lặp lại. Ta dùng `startIdx` để tránh chọn ngược lại (tìm tổ hợp, không phải hoán vị).
+Khác với hoán vị, bài này cho phép chọn một phần tử lặp lại. Ta dùng `startIdx` để tránh chọn ngược lại (tìm tổ hợp, không phải hoán vị).
 
 ### Code: Đệ quy và Quay lui
 
@@ -461,8 +461,6 @@ Nếu N lớn (ví dụ N = 100.000), đệ quy có thể tràn stack → chươ
 
 ---
 
----
-
 ## Bài tập luyện tập
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
@@ -472,6 +470,9 @@ Nếu N lớn (ví dụ N = 100.000), đệ quy có thể tràn stack → chươ
 | [LeetCode - Permutations](https://leetcode.com/problems/permutations/) | LC | ⭐⭐ | Sinh hoán vị |
 | [LeetCode - N-Queens](https://leetcode.com/problems/n-queens/) | LC | ⭐⭐⭐ | Xếp hậu |
 | [LeetCode - Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) | LC | ⭐⭐⭐ | Quay lui giải Sudoku |
+| [VNOJ - Đi dạo (Backtrack A)](https://oj.vnoi.info/problem/backtrack_a) | VNOJ | ⭐ | Backtracking cơ bản |
+| [VNOJ - Tháp Hà Nội 2 (Backtrack B)](https://oj.vnoi.info/problem/backtrack_b) | VNOJ | ⭐ | Đệ quy |
+| [VNOJ - Bể chứa nước (Backtrack C)](https://oj.vnoi.info/problem/backtrack_c) | VNOJ | ⭐⭐ | Backtracking |
 
 ## Bài viết liên quan
 

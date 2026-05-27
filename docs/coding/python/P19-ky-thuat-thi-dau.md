@@ -455,11 +455,7 @@ comb(n, k)
 ### Bài 1: Template
 Viết template thi đấu Python đầy đủ.
 
-```python
-# Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import sys
     from collections import *
@@ -487,10 +483,9 @@ Cho mảng arr. Tìm phần tử xuất hiện nhiều nhất.
 
 ```python
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     from collections import Counter
     arr = list(map(int, input().split()))
@@ -504,10 +499,9 @@ Cho mảng arr. Tính tổng đoạn [l, r].
 ```python
 arr = list(map(int, input().split()))
 l, r = map(int, input().split())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     arr = list(map(int, input().split()))
     l, r = map(int, input().split())

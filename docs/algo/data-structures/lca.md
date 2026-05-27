@@ -1,4 +1,4 @@
-﻿
+
 **Tác giả**: Khúc Anh Tuấn
 
 Đôi lời về tác giả: Khúc Anh Tuấn được coi là huyền thoại của Competitive Programming Việt Nam với nhiều thành tích khủng:

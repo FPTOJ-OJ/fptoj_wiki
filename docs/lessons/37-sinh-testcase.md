@@ -29,12 +29,13 @@ Sinh testcase ngẫu nhiên → chạy cả 2 → so output
     #include <bits/stdc++.h>
     using namespace std;
     
+    mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+    
+    int randInt(int l, int r) {
+        return uniform_int_distribution<int>(l, r)(rng);
+    }
+    
     int main() {
-        mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-        int randInt(int l, int r) {
-            return uniform_int_distribution<int>(l, r)(rng);
-        }
-        
         // Sinh số ngẫu nhiên trong [a, b]
         int a = 1, b = 100;
         int random_num = randInt(a, b);
@@ -134,7 +135,7 @@ void genGraph() {
 
 ---
 
-## 4. Stress Test — Kỹ thuật tìm bug hiệu quả nhất
+## 3. Stress Test — Kỹ thuật tìm bug hiệu quả nhất
 
 ### 4.1. Stress Test là gì?
 
@@ -258,7 +259,7 @@ Lặp lại N lần:
 
 ---
 
-## 5. Các dạng testcase cần kiểm tra
+## 4. Các dạng testcase cần kiểm tra
 
 ### 5.1. Edge cases (trường hợp đặc biệt)
 
@@ -292,7 +293,7 @@ Lặp lại N lần:
 
 ---
 
-## 6. Workflow khi gặp WA
+## 5. Workflow khi gặp WA
 
 ```
 1. Đọc lại đề → hiểu đúng bài toán?
@@ -312,7 +313,7 @@ Lặp lại N lần:
 
 ---
 
-## 7. Lưu ý
+## 6. Lưu ý
 
 ### 7.1. Brute force phải CHẮC CHẮN đúng
 
@@ -341,7 +342,7 @@ Sai lầm: Chỉ so sánh giá trị → có thể sai format
 
 ---
 
-## 8. Bài tập luyện tập
+## 7. Bài tập luyện tập
 
 Hãy thử stress test với các bài sau:
 

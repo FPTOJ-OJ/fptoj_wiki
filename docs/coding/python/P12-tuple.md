@@ -314,11 +314,15 @@ sorted_t = tuple(sorted(t))
 ### Bài 1: Lưu tọa độ
 Đọc n cặp tọa độ. Tìm cặp tọa độ gần gốc tọa độ nhất.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3
+1 2
+-1 -1
+0 1" data-expected="(-1, -1)" data-hint="Dùng min() với key tính khoảng cách: math.sqrt(x**2 + y**2)"></div>
+
 ```python
 import math
 n = int(input())
 points = [tuple(map(int, input().split())) for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -331,11 +335,17 @@ points = [tuple(map(int, input().split())) for _ in range(n)]
 ### Bài 2: Đếm cặp
 Đọc n cặp (a, b). Đếm số lần xuất hiện của mỗi cặp.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="4
+1 2
+3 4
+1 2
+3 4" data-expected="(1, 2): 2
+(3, 4): 2" data-hint="Dùng Counter(pairs) để đếm tuple"></div>
+
 ```python
 from collections import Counter
 n = int(input())
 pairs = [tuple(map(int, input().split())) for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -349,13 +359,19 @@ pairs = [tuple(map(int, input().split())) for _ in range(n)]
 ### Bài 3: Sắp xếp học sinh
 Đọc n học sinh (tên, điểm). Sắp xếp theo điểm giảm dần, tên tăng dần.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3
+An 8
+Binh 9
+Anh 9" data-expected="Anh 9
+Binh 9
+An 8" data-hint="Dùng sort với key=lambda x: (-x[1], x[0])"></div>
+
 ```python
 n = int(input())
 students = []
 for _ in range(n):
     name, score = input().split()
     students.append((name, int(score)))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"

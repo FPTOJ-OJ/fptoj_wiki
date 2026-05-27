@@ -1,4 +1,4 @@
-﻿# Bài 16: Hash Table (Bảng Băm)
+# Bài 16: Hash Table (Bảng Băm)
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Bảng băm

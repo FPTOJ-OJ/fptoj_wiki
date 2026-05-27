@@ -65,6 +65,9 @@ check(MAX): Với sức chở MAX, chuyển được trong D ngày không?
 ---
 
 ## 4. Các bài toán kinh điển
+
+### Bài 1: Capacity To Ship Packages
+
 === "C++"
 
     ```cpp
@@ -112,6 +115,9 @@ check(MAX): Với sức chở MAX, chuyển được trong D ngày không?
                 lo = mid + 1
         return lo
     ```
+
+### Bài 2: Koko Eating Bananas
+
 === "C++"
 
     ```cpp
@@ -152,6 +158,9 @@ check(MAX): Với sức chở MAX, chuyển được trong D ngày không?
                 lo = mid + 1
         return lo
     ```
+
+### Bài 3: Aggressive Cows
+
 === "C++"
 
     ```cpp

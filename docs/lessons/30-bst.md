@@ -338,14 +338,6 @@ void inorder(Node* node) {
 }
 // BST → inorder cho dãy TĂNG DẦN!
 ```
-void inorder(Node* node) {
-    if (node == nullptr) return;
-    inorder(node->left);      // Trái
-    cout << node->val << " "; // Gốc
-    inorder(node->right);     // Phải
-}
-// BST → inorder cho dãy TĂNG DẦN!
-```
 
 ### 4.2. Preorder (tiền tố): Gốc → Trái → Phải
 
@@ -357,24 +349,10 @@ void preorder(Node* node) {
     preorder(node->right);    // Phải
 }
 ```
-void preorder(Node* node) {
-    if (node == nullptr) return;
-    cout << node->val << " "; // Gốc
-    preorder(node->left);     // Trái
-    preorder(node->right);    // Phải
-}
-```
 
 ### 4.3. Postorder (hậu tố): Trái → Phải → Gốc
 
 ```cpp
-void postorder(Node* node) {
-    if (node == nullptr) return;
-    postorder(node->left);    // Trái
-    postorder(node->right);   // Phải
-    cout << node->val << " "; // Gốc
-}
-```
 void postorder(Node* node) {
     if (node == nullptr) return;
     postorder(node->left);    // Trái
@@ -452,27 +430,10 @@ void rangeQuery(Node* node, int L, int R) {
     if (R > node->val) rangeQuery(node->right, L, R);
 }
 ```
-void rangeQuery(Node* node, int L, int R) {
-    if (node == nullptr) return;
-    if (L < node->val) rangeQuery(node->left, L, R);
-    if (L <= node->val && node->val <= R)
-        cout << node->val << " ";  // In phần tử trong khoảng
-    if (R > node->val) rangeQuery(node->right, L, R);
-}
-```
 
 ### 6.3. Kiểm tra cây có phải BST
 
 ```cpp
-bool isBST(Node* node, long long minVal, long long maxVal) {
-    if (node == nullptr) return true;
-    if (node->val <= minVal || node->val >= maxVal) return false;
-    return isBST(node->left, minVal, node->val) &&
-           isBST(node->right, node->val, maxVal);
-}
-
-// Gọi: isBST(root, LLONG_MIN, LLONG_MAX)
-```
 bool isBST(Node* node, long long minVal, long long maxVal) {
     if (node == nullptr) return true;
     if (node->val <= minVal || node->val >= maxVal) return false;
@@ -515,6 +476,8 @@ BST cơ bản không lưu trùng. Nếu chèn trùng → bỏ qua (hoặc đếm
 | [LeetCode - Kth Smallest Element in BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | LC | ⭐⭐ | Duyệt inorder |
 | [LeetCode - Insert into BST](https://leetcode.com/problems/insert-into-a-binary-search-tree/) | LC | ⭐ | Chèn BST |
 | [LeetCode - Delete Node in BST](https://leetcode.com/problems/delete-node-in-a-bst/) | LC | ⭐⭐⭐ | Xóa BST |
+| [CSES - Tree Traversals](https://cses.fi/problemset/task/1702) | CSES | ⭐⭐ | BST traversal |
+| [CSES - Distinct Colors](https://cses.fi/problemset/task/1139) | CSES | ⭐⭐⭐ | Subtree query |
 
 ---
 
@@ -525,4 +488,4 @@ BST cơ bản không lưu trùng. Nếu chèn trùng → bỏ qua (hoặc đếm
 - [VNOI Wiki - Cấu trúc dữ liệu tổng quan](https://wiki.vnoi.info/algo/data-structures/overview-data-structures)
 - [YouTube - BST (takeuforward)](https://www.youtube.com/watch?v=pYT9F8_LFTM)
 
-**Bài tiếp theo:** [Sparse Table →](29-sparse-table.md)
+**Bài trước:** [Sparse Table ←](29-sparse-table.md) | **Bài tiếp theo:** [Bao lồi →](28-bao-loi.md)

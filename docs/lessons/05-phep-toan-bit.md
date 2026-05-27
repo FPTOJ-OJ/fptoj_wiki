@@ -1,4 +1,4 @@
-﻿# Bài 5: Phép Toán Bit - Ma Thuật Với 0 và 1!
+# Bài 5: Phép Toán Bit - Ma Thuật Với 0 và 1!
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Phép toán bit
@@ -388,6 +388,7 @@ for (int mask = 0; mask < (1 << n); mask++) {
 | [LeetCode - Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) | LC | ⭐ | Đếm bit |
 | [CF - XOR and OR](https://codeforces.com/) | CF | ⭐⭐ | Bitmask |
 | [LeetCode - Subsets](https://leetcode.com/problems/subsets/) | LC | ⭐⭐ | Duyệt bitmask |
+| [VNOJ - Tổng XOR](https://oj.vnoi.info/problem/tht21_skc_xor) | VNOJ | ⭐⭐ | Phép XOR |
 
 ## Bài viết liên quan
 

@@ -1,4 +1,4 @@
-﻿
+
 Tác giả: Nguyễn Thành Trung (RR)
 
 ## Bài toán mở đầu (TSP)

@@ -67,7 +67,7 @@ hash("abc") = (1 × 31² + 2 × 31¹ + 3 × 31⁰) % MOD
         string text = "aabcabaab";
         string pattern = "ab";
         auto pos = rabinKarp(text, pattern);
-        for (int p : pos) cout << p << " ";  // 2 5 7
+        for (int p : pos) cout << p << " ";  // 1 4 7
     }
     ```
 

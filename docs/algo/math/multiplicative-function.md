@@ -1,4 +1,4 @@
-﻿
+
 **Tác giả**: RR
 
 Trong bài viết này, mình sẽ giới thiệu về hàm nhân tính cũng như ứng dụng của nó trong Competitive Programming (lập trình thi đấu).

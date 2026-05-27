@@ -1,62 +1,92 @@
-# C06: Hàm trong C++
+# C06: Hàm trong C++ — Tái sử dụng code
 
-> **Tác giả:** FPTOJ Wiki<br>
-> **Chủ đề:** Định nghĩa hàm, overload, tham trị/tham chiếu, đệ quy, lambda
-
----
-
-## Bạn sẽ học được gì?
-
-Sau bài này, bạn có thể:
-
-- Định nghĩa và gọi hàm trong C++
-- Hiểu tham trị vs tham chiếu
-- Sử dụng hàm overload
-- Viết hàm đệ quy
-- Sử dụng lambda cơ bản
+> **Bạn sẽ học được:** Định nghĩa hàm, overload, template, đệ quy<br>
+> **Yêu cầu:** Đã học C05 (String)<br>
+> **Thời gian:** 45 phút
 
 ---
 
-## 1. Định nghĩa hàm cơ bản
+## Tại sao cần hàm?
+
+### Analogies: Hàm = Công thức nấu ăn
+
+```mermaid
+flowchart LR
+    A["Hàm"] -->|"Như công thức"| B["Input = Nguyên liệu"]
+    B --> C["Process = Các bước"]
+    C --> D["Output = Món ăn"]
+```
+
+| Khái niệm | Analogies | Ví dụ |
+|-----------|-----------|-------|
+| **Hàm** | Công thức nấu ăn | `int tong(int a, int b)` |
+| **Tham số** | Nguyên liệu | `a`, `b` |
+| **Giá trị trả về** | Món ăn | `return a + b` |
+| **Gọi hàm** | Nấu theo công thức | `int kq = tong(3, 5)` |
+
+!!! tip "Tại sao dùng hàm?"
+    - **Tái sử dụng code**: Viết 1 lần, dùng nhiều lần
+    - **Dễ đọc**: Chia code thành các phần nhỏ
+    - **Dễ debug**: Chỉ cần sửa 1 chỗ
+
+---
+
+## Định nghĩa hàm
+
+### Cú pháp cơ bản
 
 ```cpp
-// Hàm không trả về giá trị
-void greet(string name) {
-    cout << "Hello " << name << "!" << endl;
+kiểu_trả_về tên_hàm(tham_số) {
+    // Code
+    return giá_trị;
 }
+```
 
-// Hàm trả về giá trị
-int add(int a, int b) {
+### Ví dụ 1: Hàm tính tổng
+
+```cpp
+int tong(int a, int b) {
     return a + b;
 }
 
-// Hàm với giá trị mặc định
-void printInfo(string name, int age = 18) {
-    cout << name << " " << age << endl;
-}
-
 int main() {
-    greet("Nam");           // Hello Nam!
-    cout << add(3, 5);      // 8
-    printInfo("Nam");       // Nam 18
-    printInfo("Nam", 20);   // Nam 20
+    int kq = tong(3, 5);
+    cout << kq << endl;  // 8
     return 0;
 }
 ```
 
-!!! note "Khác biệt với Python"
-    | Python | C++ |
-    |--------|-----|
-    | `def add(a, b):` | `int add(int a, int b) {` |
-    | Không cần khai báo kiểu | **Phải khai báo kiểu** trả về |
-    | Thụt lề | Dùng `{` `}` |
-    | `return` tùy chọn | **Phải có `return`** nếu có kiểu trả về |
+### Ví dụ 2: Hàm không trả về giá trị
+
+```cpp
+void inHello(string name) {
+    cout << "Hello " << name << "!" << endl;
+}
+
+int main() {
+    inHello("Nam");  // Hello Nam!
+    return 0;
+}
+```
+
+### Ví dụ 3: Hàm không có tham số
+
+```cpp
+int random100() {
+    return rand() % 100;
+}
+
+int main() {
+    cout << random100() << endl;
+    return 0;
+}
+```
 
 ---
 
-## 2. Truyền tham trị vs Tham chiếu
+## Truyền tham số
 
-### Tham trị (Pass by Value) — Sao chép
+### Truyền giá trị (Pass by Value)
 
 ```cpp
 void tangMot(int x) {
@@ -66,239 +96,260 @@ void tangMot(int x) {
 int main() {
     int a = 5;
     tangMot(a);
-    cout << a << endl;  // 5 — Giá trị không thay đổi!
+    cout << a << endl;  // Vẫn là 5!
     return 0;
 }
 ```
 
-### Tham chiếu (Pass by Reference) — Thay đổi trực tiếp
+### Truyền tham chiếu (Pass by Reference)
 
 ```cpp
 void tangMot(int &x) {
-    x++;  // Thay đổi giá trị gốc
+    x++;  // Thay đổi biến gốc
 }
 
 int main() {
     int a = 5;
     tangMot(a);
-    cout << a << endl;  // 6 — Giá trị đã thay đổi!
+    cout << a << endl;  // Là 6!
     return 0;
 }
 ```
 
-### const Reference — Chỉ đọc, không sao chép
+!!! tip "Khi nào dùng &?"
+    - **Không cần &**: Chỉ đọc giá trị (không thay đổi)
+    - **Cần &**: Muốn thay đổi giá trị
+    - **Cần &**: Truyền mảng, string lớn (tránh copy)
+
+---
+
+## Overload — Nhiều hàm cùng tên
 
 ```cpp
-void print(const string &s) {
-    // s là reference nhưng không thể sửa
-    cout << s << endl;
-    // s += "!";  // Lỗi compile!
+// Hàm tính tổng 2 số
+int tong(int a, int b) {
+    return a + b;
+}
+
+// Hàm tính tổng 3 số (cùng tên, khác tham số)
+int tong(int a, int b, int c) {
+    return a + b + c;
+}
+
+// Hàm tính tổng 2 số thực
+double tong(double a, double b) {
+    return a + b;
+}
+
+int main() {
+    cout << tong(3, 5) << endl;      // 8 (gọi hàm 2 int)
+    cout << tong(3, 5, 7) << endl;   // 15 (gọi hàm 3 int)
+    cout << tong(3.5, 5.5) << endl;  // 9.0 (gọi hàm 2 double)
+    return 0;
 }
 ```
 
-!!! tip "Khi nào dùng gì?"
-    - **Tham trị (`int x`):** Kiểu nhỏ (int, char, bool), không cần thay đổi
-    - **Tham chiếu (`int &x`):** Cần thay đổi giá trị
-    - **Const reference (`const int &x`):** Không thay đổi, tránh sao chép (nhanh hơn với object lớn)
+---
+
+## Hàm với mảng/vector
+
+### Truyền mảng
+
+```cpp
+int timMax(int a[], int n) {
+    int maxVal = a[0];
+    for (int i = 1; i < n; i++) {
+        if (a[i] > maxVal) maxVal = a[i];
+    }
+    return maxVal;
+}
+
+int main() {
+    int a[] = {3, 1, 4, 1, 5, 9};
+    cout << timMax(a, 6) << endl;  // 9
+    return 0;
+}
+```
 
 ### Truyền vector
 
 ```cpp
-// SAI: Sao chép toàn bộ vector (chậm)
-void process(vector<int> a) { ... }
-
-// ĐÚNG: Truyền tham chiếu (có thể sửa)
-void process(vector<int> &a) { ... }
-
-// ĐÚNG: Truyền const reference (không sửa, nhanh)
-void print(const vector<int> &a) {
-    for (int x : a) cout << x << " ";
-}
-```
-
----
-
-## 3. Hàm Overload — Cùng tên, khác tham số
-
-```cpp
-// Hàm tính tổng 2 số
-int sum(int a, int b) {
-    return a + b;
-}
-
-// Hàm tính tổng 3 số (overload)
-int sum(int a, int b, int c) {
-    return a + b + c;
-}
-
-// Hàm tính tổng 2 số thực (overload)
-double sum(double a, double b) {
-    return a + b;
+int timMax(const vector<int>& a) {
+    int maxVal = a[0];
+    for (int x : a) {
+        if (x > maxVal) maxVal = x;
+    }
+    return maxVal;
 }
 
 int main() {
-    cout << sum(3, 5) << endl;       // 8   — gọi sum(int, int)
-    cout << sum(3, 5, 7) << endl;    // 15  — gọi sum(int, int, int)
-    cout << sum(3.14, 2.71) << endl; // 5.85 — gọi sum(double, double)
+    vector<int> a = {3, 1, 4, 1, 5, 9};
+    cout << timMax(a) << endl;  // 9
     return 0;
 }
 ```
 
 ---
 
-## 4. Hàm đệ quy
+## Đệ quy (Recursion)
 
-### Đệ quy cơ bản — Giai thừa
+### Analogies: Đệ quy = Gương chiếu gương
+
+```mermaid
+flowchart TD
+    A["Hàm f(n)"] --> B{"n == 0?"}
+    B -->|"Có"| C["return 0"]
+    B -->|"Không"| D["return f(n-1) + 1"]
+    D --> A
+```
+
+### Ví dụ 1: Tính giai thừa
 
 ```cpp
-long long factorial(int n) {
-    if (n <= 1) return 1;       // Điều kiện dừng
-    return n * factorial(n - 1); // Gọi đệ quy
+int giaiThua(int n) {
+    if (n <= 1) return 1;      // Base case
+    return n * giaiThua(n - 1); // Recursive case
 }
 
 int main() {
-    cout << factorial(5) << endl;  // 120
+    cout << giaiThua(5) << endl;  // 120 (5! = 5*4*3*2*1)
     return 0;
 }
 ```
 
-### Đệ quy — Fibonacci
+### Ví dụ 2: Fibonacci
 
 ```cpp
-long long fib(int n) {
-    if (n <= 1) return n;
-    return fib(n - 1) + fib(n - 2);
+int fib(int n) {
+    if (n <= 1) return n;           // Base case
+    return fib(n - 1) + fib(n - 2); // Recursive case
+}
+
+int main() {
+    cout << fib(10) << endl;  // 55
+    return 0;
 }
 ```
 
-### Đệ quy — Lũy thừa nhanh
-
-```cpp
-long long power(long long base, long long exp, long long mod) {
-    if (exp == 0) return 1;
-    long long half = power(base, exp / 2, mod);
-    long long result = (half * half) % mod;
-    if (exp % 2 == 1) result = (result * base) % mod;
-    return result;
-}
-```
-
-### Đệ quy — Tìm kiếm nhị phân
-
-```cpp
-int binarySearch(const vector<int> &a, int target, int lo, int hi) {
-    if (lo > hi) return -1;
-    int mid = lo + (hi - lo) / 2;
-    if (a[mid] == target) return mid;
-    if (a[mid] < target) return binarySearch(a, target, mid + 1, hi);
-    return binarySearch(a, target, lo, mid - 1);
-}
-```
-
-!!! warning "Hạn chế của đệ quy"
-    - Đệ quy quá sâu → **tràn stack** (stack overflow)
-    - Giới hạn ~10^4 đến 10^5 lớp đệ quy
-    - Nếu cần đệ quy sâu → dùng vòng lặp hoặc tăng kích thước stack
-
----
-
-## 5. Hàm utility thường dùng trong thi đấu
-
-```cpp
-// GCD (Ước chung lớn nhất)
-long long gcd(long long a, long long b) {
-    while (b) { a %= b; swap(a, b); }
-    return a;
-}
-
-// LCM (Bội chung nhỏ nhất)
-long long lcm(long long a, long long b) {
-    return a / gcd(a, b) * b;
-}
-
-// Kiểm tra số nguyên tố
-bool isPrime(long long n) {
-    if (n < 2) return false;
-    for (long long i = 2; i * i <= n; i++) {
-        if (n % i == 0) return false;
-    }
-    return true;
-}
-
-// Lũy thừa nhanh modulo
-long long powerMod(long long base, long long exp, long long mod) {
-    long long result = 1;
-    base %= mod;
-    while (exp > 0) {
-        if (exp & 1) result = (result * base) % mod;
-        base = (base * base) % mod;
-        exp >>= 1;
-    }
-    return result;
-}
-
-// Sàng nguyên tố
-vector<bool> sieve(int n) {
-    vector<bool> isPrime(n + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (int i = 2; i * i <= n; i++) {
-        if (isPrime[i]) {
-            for (int j = i * i; j <= n; j += i) {
-                isPrime[j] = false;
-            }
-        }
-    }
-    return isPrime;
-}
-```
-
----
-
-## 6. So sánh Python vs C++
-
-| Python | C++ |
-|--------|-----|
-| `def add(a, b):` | `int add(int a, int b) {` |
-| `return a + b` | `return a + b;` |
-| Không cần kiểu trả về | **Phải khai báo kiểu** |
-| `def f(x=10):` | `void f(int x = 10) {` |
-| `lambda x: x * 2` | `[](int x) { return x * 2; }` |
-| Truyền object (reference) | Truyền tham trị (copy) |
-| `*args` | Overload hoặc template |
-
----
-
-## 7. Bài tập thực hành
-
-### Bài 1: Viết hàm tìm max
-Viết hàm `findMax` nhận mảng và trả về phần tử lớn nhất.
-
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+!!! warning "Đệ quy có thể chậm"
     ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    
-    int findMax(const vector<int> &a) {
-        return *max_element(a.begin(), a.end());
+    // ❌ Chậm: Tính lại nhiều lần
+    int fib(int n) {
+        if (n <= 1) return n;
+        return fib(n-1) + fib(n-2);  // O(2^n)
     }
     
-    int main() {
-        vector<int> a = {3, 1, 4, 1, 5, 9};
-        cout << findMax(a) << endl;  // 9
-        return 0;
+    // ✅ Nhanh: Dùng memoization
+    int memo[100];
+    int fib(int n) {
+        if (n <= 1) return n;
+        if (memo[n] != -1) return memo[n];
+        return memo[n] = fib(n-1) + fib(n-2);  // O(n)
     }
     ```
 
-### Bài 2: Viết hàm kiểm tra số nguyên tố
-Viết hàm `isPrime` nhận số nguyên, trả về `true` nếu là số nguyên tố.
+---
+
+## Hàm Lambda (C++11)
+
+### Cú pháp cơ bản
 
 ```cpp
-// Code của bạn ở đây
+auto ten_hàm = [](tham_số) -> kiểu_trả_về {
+    // Code
+    return giá_trị;
+};
 ```
+
+### Ví dụ
+
+```cpp
+// Lambda tính tổng
+auto tong = [](int a, int b) -> int {
+    return a + b;
+};
+
+cout << tong(3, 5) << endl;  // 8
+
+// Lambda không có tham số
+auto inHello = []() {
+    cout << "Hello!" << endl;
+};
+
+inHello();  // Hello!
+```
+
+### Lambda trong sort
+
+```cpp
+vector<int> a = {5, 2, 8, 1, 9};
+
+// Sắp xếp tăng dần
+sort(a.begin(), a.end(), [](int x, int y) {
+    return x < y;
+});
+
+// Sắp xếp giảm dần
+sort(a.begin(), a.end(), [](int x, int y) {
+    return x > y;
+});
+```
+
+---
+
+## Common Mistakes — Lỗi thường gặp
+
+### Lỗi 1: Quên return
+
+```cpp
+// ❌ SAI: Không có return
+int tong(int a, int b) {
+    int c = a + b;
+}  // Lỗi compile!
+
+// ✅ ĐÚNG
+int tong(int a, int b) {
+    return a + b;
+}
+```
+
+### Lỗi 2: Truyền mảng không đúng
+
+```cpp
+// ❌ SAI: Không biết kích thước mảng
+void inMang(int a[]) {
+    // Không biết a có bao nhiêu phần tử!
+}
+
+// ✅ ĐÚNG: Truyền thêm kích thước
+void inMang(int a[], int n) {
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+}
+```
+
+### Lỗi 3: Đệ quy không có base case
+
+```cpp
+// ❌ SAI: Không có base case → đệ quy vô hạn
+int f(int n) {
+    return f(n - 1);  // Stack overflow!
+}
+
+// ✅ ĐÚNG
+int f(int n) {
+    if (n <= 0) return 0;  // Base case
+    return f(n - 1);
+}
+```
+
+---
+
+## Bài tập thực hành
+
+### Bài 1: Hàm kiểm tra số nguyên tố
+Viết hàm `isPrime(int n)` trả về true nếu n là số nguyên tố.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7" data-expected="Nguyen to" data-hint="Số nguyên tố: chia hết cho 1 và chính nó, kiểm tra đến căn bậc 2"></div>
 
 ??? tip "Lời giải"
     ```cpp
@@ -314,46 +365,84 @@ Viết hàm `isPrime` nhận số nguyên, trả về `true` nếu là số nguy
     }
     
     int main() {
-        for (int i = 1; i <= 20; i++) {
-            if (isPrime(i)) cout << i << " ";
-        }
-        cout << endl;
-        // Output: 2 3 5 7 11 13 17 19
+        int n;
+        cin >> n;
+        if (isPrime(n)) cout << "Nguyen to";
+        else cout << "Khong phai";
         return 0;
     }
     ```
 
-### Bài 3: Hoán đổi 2 số
-Viết hàm `swap2` nhận 2 số nguyên và hoán đổi giá trị của chúng.
+### Bài 2: Hàm tính GCD
+Viết hàm `gcd(int a, int b)` trả về ước chung lớn nhất.
 
-```cpp
-// Code của bạn ở đây
-```
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12 8" data-expected="4" data-hint="Dùng thuật toán Euclid: gcd(a,b) = gcd(b, a%b)"></div>
 
 ??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
     
-    void swap2(int &a, int &b) {
-        int temp = a;
-        a = b;
-        b = temp;
+    int gcd(int a, int b) {
+        while (b != 0) {
+            int r = a % b;
+            a = b;
+            b = r;
+        }
+        return a;
     }
     
     int main() {
-        int a = 5, b = 10;
-        swap2(a, b);
-        cout << a << " " << b << endl;  // 10 5
+        int a, b;
+        cin >> a >> b;
+        cout << gcd(a, b) << endl;
+        return 0;
+    }
+    ```
+
+### Bài 3: Hàm đảo ngược mảng
+Viết hàm `daoMang(vector<int> &a)` đảo ngược mảng tại chỗ.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="" data-expected="5 4 3 2 1" data-hint="Dùng swap(a[i], a[n-1-i]) để đổi chỗ phần tử đối xứng"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    void daoMang(vector<int> &a) {
+        int n = a.size();
+        for (int i = 0; i < n / 2; i++) {
+            swap(a[i], a[n - 1 - i]);
+        }
+    }
+    
+    int main() {
+        vector<int> a = {1, 2, 3, 4, 5};
+        daoMang(a);
+        for (int x : a) cout << x << " ";  // 5 4 3 2 1
         return 0;
     }
     ```
 
 ---
 
+## Tóm tắt bài học
+
+| Nội dung | Chi tiết |
+|----------|----------|
+| **Định nghĩa** | `kiểu_trả_về tên_hàm(tham_số) { ... }` |
+| **Truyền giá trị** | `void f(int x)` — không thay đổi biến gốc |
+| **Truyền tham chiếu** | `void f(int &x)` — thay đổi biến gốc |
+| **Overload** | Nhiều hàm cùng tên, khác tham số |
+| **Đệ quy** | Hàm gọi chính mình |
+| **Lambda** | `auto f = [](int x) { return x * 2; };` |
+
+---
+
 ## Bài viết liên quan
 
-- [C05: String →](C05-string.md)
+- [C05: String ←](C05-string.md)
 - [C07: Template & Fast I/O →](C07-template-fast-io.md)
 
 ---

@@ -540,4 +540,4 @@ k = length.bit_length() - 1  # ✅
 - [YouTube - Sparse Table (takeuforward)](https://www.youtube.com/watch?v=0jWeUdxJmK4)
 - [VNOI Wiki - Range Minimum Query](https://wiki.vnoi.info/algo/data-structures/rmq)
 
-**Bài trước:** [Cây khoảng →](08c-segment-tree.md) | **Bài tiếp theo:** [Bao lồi →](28-bao-loi.md)
+**Bài trước:** [Cây khoảng →](08c-segment-tree.md) | **Bài tiếp theo:** [BST →](30-bst.md)

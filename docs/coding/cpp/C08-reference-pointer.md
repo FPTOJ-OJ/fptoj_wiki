@@ -88,11 +88,10 @@ cout << &a << endl;   // Địa chỉ của a
 ### Con trỏ NULL
 
 ```cpp
-int *p = NULL;   // Con trỏ không trỏ đến đâu
-// int *p = nullptr;  // C++11 (khuyến nghị)
+int *p = nullptr;   // Con trỏ không trỏ đến đâu (C++11, khuyến nghị)
 
-if (p != NULL) {
-    cout << *p << endl;  // Không chạy vì p là NULL
+if (p != nullptr) {
+    cout << *p << endl;  // Không chạy vì p là nullptr
 }
 ```
 
@@ -188,11 +187,7 @@ int main() {
 ### Bài 1: Hoán đổi 2 số
 Viết hàm `swap2` nhận 2 số nguyên và hoán đổi giá trị của chúng.
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

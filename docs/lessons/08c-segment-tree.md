@@ -324,7 +324,7 @@ void update(int node, int start, int end, int pos, long long val) {
 int main() {
     int n, q;
     cin >> n >> q;
-    int a[n];
+    vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
 
     // Xây cây từ nút gốc (chỉ số 1), quản lý đoạn [0, n-1]
@@ -609,7 +609,7 @@ void pointUpdate(int node, int start, int end, int pos, long long val) {
 int main() {
     int n, q;
     cin >> n >> q;
-    int a[n];
+    vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
 
     // Xây cây (không có lazy ban đầu)

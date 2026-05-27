@@ -256,10 +256,9 @@ import bisect
 
 arr = list(map(int, input().split()))
 target = int(input())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import bisect
     
@@ -281,10 +280,9 @@ import bisect
 
 arr = list(map(int, input().split()))
 l, r = map(int, input().split())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import bisect
     
@@ -302,10 +300,9 @@ Cho mảng arr. Tìm độ dài dãy con tăng dài nhất.
 import bisect
 
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import bisect
     

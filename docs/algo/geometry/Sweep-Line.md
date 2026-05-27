@@ -1,4 +1,4 @@
-﻿
+
 **Nguời viết:** 
 - Ngô Nhật Quang - HUS High School for Gifted Students
 - Bùi Nguyễn Ngọc Thắng - Carnegie Mellon University in Qatar

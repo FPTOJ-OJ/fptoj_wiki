@@ -1,4 +1,4 @@
-﻿
+
 **Tác giả:** 
 - Bùi Nguyễn Đức Tân - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
 - Lê Minh Hoàng - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
@@ -413,6 +413,6 @@ def rangeSum(l, r):
 - [VNOJ - NKINV](https://oj.vnoi.info/problem/nkinv)
 - [VNOJ - INCVN](https://oj.vnoi.info/problem/incvn)
 
-VNOI Online Judge có phân loại riêng các bài tập về BIT, các bạn có thể tham khảo tại [đây](https://oj.vnoi.info/problems/?type=14&point_start=&point_end=).
+VNOI Online Judge có phân loại riêng các bài tập về BIT, các bạn có thể tham khảo tại [đây](https://oj.vnoi.info/problem/?type=14&point_start=&point_end=).
 ---
 > :books: **Xem thêm:** [Tổng hợp bài học](../../lessons/index.md) - Phiên bản biên soạn dễ hiểu hơn.

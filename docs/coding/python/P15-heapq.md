@@ -233,7 +233,7 @@ heap[2] = 0  # Sửa phần tử
 
 ```python
 # heappushpop: thêm TRƯỚC, lấy SAU
-# heapreplace: lấy TRƯỚC, thêm SAOU
+# heapreplace: lấy TRƯỚC, thêm SAU
 ```
 
 ---
@@ -248,10 +248,9 @@ import heapq
 
 arr = list(map(int, input().split()))
 k = int(input())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import heapq
     print(heapq.nlargest(k, arr))
@@ -265,10 +264,9 @@ import heapq
 
 k = int(input())
 lists = [list(map(int, input().split())) for _ in range(k)]
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import heapq
     result = list(heapq.merge(*lists))
@@ -289,10 +287,9 @@ for _ in range(m):
     graph[v].append((u, w))
 
 start = int(input())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import heapq
     

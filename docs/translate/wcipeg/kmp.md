@@ -1,4 +1,4 @@
-﻿
+
 **Nguồn**: [wcipeg](http://wcipeg.com/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)
 
 **Người dịch**: Trần Kim Thạch

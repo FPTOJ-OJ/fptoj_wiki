@@ -404,10 +404,9 @@ print(math.isqrt(16))  # 4 (int)
 import math
 
 a, b = map(int, input().split())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import math
     
@@ -423,10 +422,9 @@ a, b = map(int, input().split())
 import math
 
 n = int(input())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     import math
     
@@ -450,10 +448,9 @@ n = int(input())
 
 ```python
 a, b, m = map(int, input().split())
-# Code của bạn ở đây
 ```
 
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```python
     a, b, m = map(int, input().split())
     print(pow(a, b, m))

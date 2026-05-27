@@ -1,140 +1,240 @@
-# Chương 2: C++ cho Thi Đấu
+# Chương 2: C++ cho Thi Đấu — Từ Zero đến Hero
 
-> **Dành cho:** Người đã vững Python<br>
-> **Mục tiêu:** Nắm vững C++ và STL để thi đấu competitive programming
+> **Dành cho:** Người đã biết Python cơ bản (hoặc ngôn ngữ bất kỳ)<br>
+> **Mục tiêu:** Viết được code C++, sử dụng STL, thi đấu competitive programming hiệu quả
 
 ---
 
-## Tại sao chuyển sang C++?
+## Tại sao học C++?
 
-- **Nhanh hơn Python** ~10-100 lần về tốc độ chạy
-- **STL mạnh mẽ**: Nhiều cấu trúc dữ liệu và thuật toán sẵn có
-- **Phổ biến**: Hầu hết thí sinh thi đấu dùng C++
-- **Kiểm soát bộ nhớ**: Chủ động hơn so với Python
+Nếu Python là **xe đạp** (dễ lái, chậm) thì C++ là **xe máy** (khó hơn một chút, nhưng **nhanh gấp 100 lần**).
 
 ```mermaid
 flowchart LR
-    A["Python<br>Dễ học, chậm"] --> B["C++<br>Nhanh, mạnh"]
-    B --> C["Thi đấu<br>Hiệu quả"]
+    A["🐍 Python<br>Dễ học, chậm"] -->|"Chuyển đổi"| B["⚡ C++<br>Nhanh, mạnh"]
+    B --> C["🏆 Thi đấu<br>Hiệu quả"]
 ```
 
-!!! warning "Lưu ý khi chuyển từ Python sang C++"
-    - C++ **khó hơn** Python về cú pháp
-    - Phải **khai báo kiểu dữ liệu**
-    - Phải **quản lý bộ nhớ** (ít nhất với vector, string)
-    - Phải **compile** trước khi chạy
-    - Nhưng **nhanh hơn rất nhiều**!
+| Tiêu chí | Python | C++ |
+|----------|--------|-----|
+| **Tốc độ** | ~10⁶ phép tính/giây | **~10⁸ phép tính/giây** |
+| **Cú pháp** | Đơn giản | Phức tạp hơn một chút |
+| **Compile** | Chạy trực tiếp | Phải compile trước |
+| **Thư viện** | Nhiều built-in | **STL rất mạnh** |
+| **Đệ quy** | Giới hạn ~1000 lớp | Giới hạn lớn hơn nhiều |
+
+!!! tip "Khi nào dùng Python, khi nào dùng C++?"
+    - **Dùng Python khi:** Học thuật toán mới, viết nhanh prototype, bài không yêu cầu tốc độ
+    - **Dùng C++ khi:** Thi đấu chính thức, bài yêu cầu tốc độ, cần STL nâng cao
 
 ---
 
-## Tổng quan nội dung
+## Lộ trình học C++ cho người mới
+
+!!! info "Học theo thứ tự từ trên xuống"
+    Mỗi nhóm xây dựng trên kiến thức nhóm trước. **Đừng nhảy cóc!**
 
 ```mermaid
 flowchart TD
-    subgraph A2["Phần A — Cơ bản ⭐"]
-        C01["C01: Tại sao C++?"]
-        C02["C02: Cú pháp cơ bản"]
+    subgraph G1["🏠 Nhóm 1 — Bắt đầu (Tuần 1-2)"]
+        C01["C01: Cài đặt & Hello World"]
+        C02["C02: Biến, Kiểu dữ liệu, Nhập/Xuất"]
         C03["C03: Điều kiện & Vòng lặp"]
-        C04["C04: Mảng & Vector"]
-        C05["C05: String"]
     end
-    subgraph B2["Phần B — Kỹ thuật ⭐⭐"]
-        C06["C06: Hàm"]
+    subgraph G2["📦 Nhóm 2 — Xử lý dữ liệu (Tuần 3-4)"]
+        C04["C04: Mảng & Vector"]
+        C05["C05: String (Xâu ký tự)"]
+    end
+    subgraph G3["🔧 Nhóm 3 — Tổ chức code (Tuần 5)"]
+        C06["C06: Hàm trong C++"]
         C07["C07: Template & Fast I/O"]
+    end
+    subgraph G4["⚡ Nhóm 4 — STL cơ bản (Tuần 6-7)"]
+        C09["C09: Pair & Tuple"]
+        C11["C11: Sort & Algorithm"]
+        C13["C13: Queue, Stack, Deque"]
+    end
+    subgraph G5["🚀 Nhóm 5 — STL nâng cao (Tuần 8-9)"]
+        C10["C10: Vector nâng cao"]
+        C12["C12: Set & Map"]
+        C14["C14: Algorithm nâng cao"]
+    end
+    subgraph G6["🏆 Nhóm 6 — Thi đấu (Tuần 10)"]
+        C15["C15: Mẹo thi đấu C++"]
         C08["C08: Reference & Pointer"]
     end
-    subgraph C2["Phần C — STL Cơ bản ⭐⭐"]
-        C09["C09: pair & tuple"]
-        C10["C10: Vector nâng cao"]
-        C11["C11: sort & algorithm"]
-    end
-    subgraph D2["Phần D — STL Nâng cao ⭐⭐⭐"]
-        C12["C12: set & map"]
-        C13["C13: queue, stack, deque"]
-        C14["C14: algorithm nâng cao"]
-        C15["C15: Mẹo thi đấu C++"]
-    end
-    subgraph E2["Phần E — Tổng hợp & Nâng cao ⭐⭐⭐"]
+    subgraph G7["📚 Nhóm 7 — Nâng cao (Tuần 11+)"]
         C16["C16: Bài tập tổng hợp"]
-        C17["C17: Thuật toán STL & Số học"]
+        C17["C17: STL & Số học"]
         C18["C18: Xử lý xâu nâng cao"]
-        C19["C19: Matrix & Grid Pattern"]
+        C19["C19: Matrix & Grid"]
         C20["C20: Lambda & Iterator"]
+        C21["C21: Tham chiếu nhanh"]
+        C22["C22: Struct & Operator Overloading"]
     end
-    C01 --> C02 --> C03 --> C04 --> C05
-    C05 --> C06 --> C07 --> C08
-    C08 --> C09 --> C10 --> C11
-    C11 --> C12 --> C13 --> C14 --> C15
-    C15 --> C16 --> C17 --> C18 --> C19 --> C20
+    G1 --> G2 --> G3 --> G4 --> G5 --> G6 --> G7
 ```
 
 ---
 
-## Danh sách bài học
+## Danh sách bài học chi tiết
 
-### Phần A — Cơ bản ⭐
+### 🏠 Nhóm 1 — Bắt đầu (Tuần 1-2)
 
-| # | Bài học | Mô tả | So sánh Python |
-|---|---------|-------|----------------|
-| C01 | [Tại sao C++?](C01-tai-sao-cpp.md) | Tốc độ, STL, compile, IDE | Python vs C++ |
-| C02 | [Cú pháp cơ bản](C02-cu-phap-co-ban.md) | Biến, kiểu dữ liệu, nhập/xuất | `int x = 5;` vs `x = 5` |
-| C03 | [Điều kiện & Vòng lặp](C03-dieu-kien-vong-lap.md) | if/else, for, while | `for(int i=0;i<n;i++)` vs `for i in range(n)` |
-| C04 | [Mảng & Vector](C04-mang-vector.md) | Mảng tĩnh, vector | `vector<int> a(n)` vs `a = [0]*n` |
-| C05 | [String](C05-string.md) | Chuỗi C++ | `string s` vs `s = ""` |
+> **Mục tiêu:** Viết được chương trình C++ đơn giản, hiểu cú pháp cơ bản
 
-### Phần B — Kỹ thuật ⭐⭐
+| # | Bài học | Bạn sẽ học được | So sánh Python |
+|---|---------|-----------------|----------------|
+| C01 | [Cài đặt & Hello World](C01-tai-sao-cpp.md) | Cài compiler, IDE, chương trình đầu tiên | `print("Hello")` → `cout << "Hello"` |
+| C02 | [Biến & Kiểu dữ liệu](C02-cu-phap-co-ban.md) | Khai báo biến, nhập/xuất, toán tử | `x = 10` → `int x = 10;` |
+| C03 | [Điều kiện & Vòng lặp](C03-dieu-kien-vong-lap.md) | if/else, for, while | `for i in range(n)` → `for(int i=0;i<n;i++)` |
 
-| # | Bài học | Mô tả | So sánh Python |
-|---|---------|-------|----------------|
-| C06 | [Hàm](C06-ham.md) | Định nghĩa, overload, template | Kiểu dữ liệu rõ ràng |
-| C07 | [Template & Fast I/O](C07-template-fast-io.md) | Template thi đấu, tối ưu I/O | `ios_base::sync_with_stdio(false)` |
-| C08 | [Reference & Pointer](C08-reference-pointer.md) | Tham chiếu, con trỏ | Truyền giá trị vs tham chiếu |
+### 📦 Nhóm 2 — Xử lý dữ liệu (Tuần 3-4)
 
-### Phần C — STL Cơ bản ⭐⭐
+> **Mục tiêu:** Làm việc được với mảng và chuỗi — 2 kiểu dữ liệu phổ biến nhất
 
-| # | Bài học | Mô tả | So sánh Python |
-|---|---------|-------|----------------|
-| C09 | [pair & tuple](C09-pair-tuple.md) | `pair`, `tuple` | Tuple Python |
-| C10 | [Vector nâng cao](C10-vector-nang-cao.md) | `vector`, iterator, resize | List Python |
-| C11 | [sort & algorithm](C11-sort-algorithm.md) | `sort`, `reverse`, `unique` | `sorted()` Python |
+| # | Bài học | Bạn sẽ học được | So sánh Python |
+|---|---------|-----------------|----------------|
+| C04 | [Mảng & Vector](C04-mang-vector.md) | Mảng tĩnh, vector, duyệt, thao tác | `a = [0]*n` → `vector<int> a(n)` |
+| C05 | [String](C05-string.md) | Chuỗi C++, các phương thức | `s = "hello"` → `string s = "hello";` |
 
-### Phần D — STL Nâng cao ⭐⭐⭐
+### 🔧 Nhóm 3 — Tổ chức code (Tuần 5)
 
-| # | Bài học | Mô tả | So sánh Python |
-|---|---------|-------|----------------|
-| C12 | [set & map](C12-set-map.md) | `set`, `multiset`, `map`, `unordered_*` | Dict/Set Python |
-| C13 | [queue, stack, deque](C13-queue-stack-deque.md) | `queue`, `stack`, `deque`, `priority_queue` | deque, heapq Python |
-| C14 | [algorithm nâng cao](C14-algorithm-nang-cao.md) | `lower_bound`, `upper_bound`, `next_permutation` | bisect, itertools |
-| C15 | [Mẹo thi đấu C++](C15-meo-thi-dau-cpp.md) | Trick, macro, cheat sheet | Bảng so sánh |
+> **Mục tiêu:** Viết code sạch, tái sử dụng được, chạy nhanh
 
-### Phần E — Tổng hợp & Nâng cao ⭐⭐⭐
+| # | Bài học | Bạn sẽ học được | So sánh Python |
+|---|---------|-----------------|----------------|
+| C06 | [Hàm trong C++](C06-ham.md) | Định nghĩa hàm, overload, template | `def f(x):` → `int f(int x)` |
+| C07 | [Template & Fast I/O](C07-template-fast-io.md) | Template thi đấu, tối ưu I/O | Tăng tốc nhập/xuất gấp 10 lần |
 
-| # | Bài học | Mô tả | So sánh Python |
-|---|---------|-------|----------------|
-| C16 | [Bài tập tổng hợp](C16-bai-tap-tong-hop.md) | 18 bài tập từ dễ đến khó, 20 bài CSES | [P20](../python/P20-bai-tap-tong-hop.md) |
-| C17 | [Thuật toán STL & Số học](C17-thuat-toan-stl.md) | `<numeric>`, bitmask, modular, sieve | [P16](../python/P16-itertools.md), [P18](../python/P18-math-builtins.md) |
-| C18 | [Xử lý xâu nâng cao](C18-xu-ly-xau-nang-cao.md) | stringstream, getline, regex, pattern | [P08](../python/P08-string.md) |
-| C19 | [Matrix & Grid Pattern](C19-matrix-pattern.md) | BFS/DFS lưới, prefix sum 2D, flood fill | [P10](../python/P10-array-2d.md) |
-| C20 | [Lambda & Iterator](C20-lambda-iterator.md) | Lambda, iterator pattern, erase-remove | [P13](../python/P13-ham.md) |
+### ⚡ Nhóm 4 — STL cơ bản (Tuần 6-7)
 
-### Phần F — Tham chiếu nhanh
+> **Mục tiêu:** Sử dụng được các cấu trúc dữ liệu cơ bản trong thi đấu
 
-| # | Bài học | Mô tả | So sánh Python |
-|---|---------|-------|----------------|
-| C21 | [Tham chiếu nhanh](C21-tham-chieu-nhanh.md) | memset, memcpy, scanf/printf nâng cao, auto, freopen, bitset, tips | — |
+| # | Bài học | Bạn sẽ học được | So sánh Python |
+|---|---------|-----------------|----------------|
+| C09 | [Pair & Tuple](C09-pair-tuple.md) | Gom nhóm 2-3 giá trị | Tuple Python |
+| C11 | [Sort & Algorithm](C11-sort-algorithm.md) | Sắp xếp, reverse, unique | `sorted()` Python |
+| C13 | [Queue, Stack, Deque](C13-queue-stack-deque.md) | Hàng đợi, ngăn xếp, deque | deque, heapq Python |
+
+### 🚀 Nhóm 5 — STL nâng cao (Tuần 8-9)
+
+> **Mục tiêu:** Sử dụng thành thạo các cấu trúc dữ liệu mạnh mẽ
+
+| # | Bài học | Bạn sẽ học được | So sánh Python |
+|---|---------|-----------------|----------------|
+| C10 | [Vector nâng cao](C10-vector-nang-cao.md) | Iterator, resize, 2D vector | List nâng cao |
+| C12 | [Set & Map](C12-set-map.md) | set, multiset, map, unordered_* | Dict/Set Python |
+| C14 | [Algorithm nâng cao](C14-algorithm-nang-cao.md) | lower_bound, upper_bound, next_permutation | bisect, itertools |
+
+### 🏆 Nhóm 6 — Thi đấu (Tuần 10)
+
+> **Mục tiêu:** Sẵn sàng thi đấu, biết các trick quan trọng
+
+| # | Bài học | Bạn sẽ học được |
+|---|---------|-----------------|
+| C15 | [Mẹo thi đấu C++](C15-meo-thi-dau-cpp.md) | Macro, template, cheat sheet, trick hay |
+| C08 | [Reference & Pointer](C08-reference-pointer.md) | Tham chiếu, con trỏ (nâng cao hơn) |
+
+### 📚 Nhóm 7 — Nâng cao (Tuần 11+)
+
+> **Mục tiêu:** Nắm vững các kỹ thuật nâng cao cho bài khó
+
+| # | Bài học | Bạn sẽ học được |
+|---|---------|-----------------|
+| C16 | [Bài tập tổng hợp](C16-bai-tap-tong-hop.md) | 18 bài tập + 20 bài CSES |
+| C17 | [STL & Số học](C17-thuat-toan-stl.md) | numeric, bitmask, modular, sieve |
+| C18 | [Xử lý xâu nâng cao](C18-xu-ly-xau-nang-cao.md) | stringstream, getline, pattern |
+| C19 | [Matrix & Grid](C19-matrix-pattern.md) | BFS/DFS lưới, prefix sum 2D |
+| C20 | [Lambda & Iterator](C20-lambda-iterator.md) | Lambda, iterator, erase-remove |
+| C21 | [Tham chiếu nhanh](C21-tham-chieu-nhanh.md) | memset, memcpy, bitset, tips |
+| C22 | [Struct & Operator Overloading](C22-struct-operator-overloading.md) | Struct, custom comparator |
 
 ---
 
 ## So sánh nhanh Python vs C++
 
-| | Python | C++ |
-|---|--------|-----|
-| Tốc độ | Chậm | Nhanh |
-| Cú pháp | Đơn giản | Phức tạp hơn |
-| Kiểu dữ liệu | Tự động | Phải khai báo |
-| Compile | Không cần | Phải compile |
-| Bộ nhớ | Tự quản lý | Chủ động hơn |
-| Thư viện | Nhiều built-in | STL mạnh mẽ |
+### Hello World
+
+=== "Python"
+
+    ```python
+    print("Hello World!")
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        cout << "Hello World!" << endl;
+        return 0;
+    }
+    ```
+
+### Đọc 2 số và in tổng
+
+=== "Python"
+
+    ```python
+    a, b = map(int, input().split())
+    print(a + b)
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
+        int a, b;
+        cin >> a >> b;
+        cout << a + b << endl;
+        
+        return 0;
+    }
+    ```
+
+### Duyệt mảng
+
+=== "Python"
+
+    ```python
+    a = [1, 2, 3, 4, 5]
+    for x in a:
+        print(x)
+    ```
+
+=== "C++"
+
+    ```cpp
+    vector<int> a = {1, 2, 3, 4, 5};
+    for (int x : a) {
+        cout << x << endl;
+    }
+    ```
+
+---
+
+## Câu hỏi thường gặp
+
+??? question "C++ khó hơn Python nhiều không?"
+    **Không nhiều!** Nếu bạn đã biết Python, bạn chỉ cần học cách khai báo kiểu dữ liệu và một số cú pháp khác. Logic giải thuật vẫn giống nhau.
+
+??? question "Mất bao lâu để học C++?"
+    Nếu bạn đã biết Python, chỉ cần **2-3 tuần** là có thể viết C++ cơ bản. Sau **1-2 tháng** là có thể thi đấu.
+
+??? question "Có cần học hết C++ không?"
+    **Không!** Trong thi đấu, bạn chỉ cần biết khoảng **30% C++** — phần còn lại là thư viện STL. Bài học này tập trung vào phần đó.
+
+??? question "Nên dùng IDE nào?"
+    **Code::Blocks** hoặc **Dev-C++** — cả hai đều miễn phí, đã có sẵn compiler, và được phép dùng trong thi đấu.
 
 ---
 
@@ -150,3 +250,4 @@ flowchart TD
 
 - [Chương 1: Python cho Thi Đấu](../python/index.md)
 - [Tổng quan Lập trình Cơ Bản](../index.md)
+- [Tổng hợp bài học Lập trình thi đấu](../../lessons/index.md)

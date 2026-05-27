@@ -493,9 +493,10 @@ print()  # Xuống dòng cuối cùng
 ### Bài 1: Hello + Tên
 Đọc tên từ bàn phím, in ra "Hello {tên}!"
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="World" data-expected="Hello World!" data-hint="Dùng print(f'Hello {name}!')"></div>
+
 ```python
 name = input()
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -507,9 +508,7 @@ name = input()
 ### Bài 2: Tổng 2 số
 Đọc 2 số nguyên a, b. In ra tổng a + b.
 
-```python
-# Code của bạn ở đây
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3 5" data-expected="8" data-hint="a, b = map(int, input().split())"></div>
 
 ??? tip "Lời giải"
     ```python
@@ -520,10 +519,11 @@ name = input()
 ### Bài 3: Tổng mảng
 Đọc n số nguyên. In ra tổng của chúng.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5\n1 2 3 4 5" data-expected="15" data-hint="Dùng sum(arr)"></div>
+
 ```python
 n = int(input())
 arr = list(map(int, input().split()))
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -534,10 +534,11 @@ arr = list(map(int, input().split()))
 ### Bài 4: In matrix
 Đọc matrix n × m. In ra matrix (mỗi hàng trên 1 dòng).
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2 3\n1 2 3\n4 5 6" data-expected="1 2 3\n4 5 6" data-hint="Dùng vòng for để in từng hàng"></div>
+
 ```python
 n, m = map(int, input().split())
 matrix = [list(map(int, input().split())) for _ in range(n)]
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -562,9 +563,7 @@ Output:
 11
 ```
 
-```python
-# Code của bạn ở đây
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3\n1 2\n3 4\n5 6" data-expected="3\n7\n11" data-hint="Đọc T, dùng vòng for T lần"></div>
 
 ??? tip "Lời giải"
     ```python

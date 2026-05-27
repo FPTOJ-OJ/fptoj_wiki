@@ -562,7 +562,8 @@ int main() {
 | `partial_sum` | `<numeric>` | Prefix sum | $O(n)$ |
 | `adjacent_difference` | `<numeric>` | Hiệu kề nhau | $O(n)$ |
 | `iota` | `<numeric>` | Tạo dãy liên tiếp | $O(n)$ |
-| `gcd` / `__gcd` | `<numeric>` | Ước chung lớn nhất | $O(\log n)$ |
+| `gcd` | `<numeric>` (C++17) | Ước chung lớn nhất | $O(\log n)$ |
+| `__gcd` | `<algorithm>` (GCC) | Ước chung lớn nhất | $O(\log n)$ |
 | `lcm` | `<numeric>` | Bội chung nhỏ nhất | $O(\log n)$ |
 | `set_union` | `<algorithm>` | Hợp 2 tập | $O(n)$ |
 | `set_intersection` | `<algorithm>` | Giao 2 tập | $O(n)$ |

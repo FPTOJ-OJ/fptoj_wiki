@@ -363,10 +363,11 @@ print(False + 5)     # 5
 ### Bài 1: Hoán đổi 2 biến
 Cho `a = 5, b = 10`. Hoán đổi giá trị và in ra.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="10 5" data-hint="Dùng a, b = b, a"></div>
+
 ```python
 a = 5
 b = 10
-# Code của bạn ở đây
 print(a, b)  # Phải in ra: 10 5
 ```
 
@@ -378,10 +379,11 @@ print(a, b)  # Phải in ra: 10 5
 ### Bài 2: Tính diện tích hình tròn
 Cho bán kính `r`. Tính diện tích hình tròn (S = π × r²).
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="78.54" data-hint="S = math.pi * r ** 2, in với 2 chữ số thập phân"></div>
+
 ```python
 import math
 r = 5
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -393,9 +395,10 @@ r = 5
 ### Bài 3: Chuyển đổi nhiệt độ
 Cho nhiệt độ `C` độ C. Chuyển sang độ F (F = C × 9/5 + 32).
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="99.5" data-hint="F = C * 9 / 5 + 32"></div>
+
 ```python
 C = 37.5
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -407,9 +410,10 @@ C = 37.5
 ### Bài 4: Kiểm tra kiểu dữ liệu
 Cho biến `x`. In ra kiểu dữ liệu của `x`.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="int" data-hint="Dùng type(x).__name__"></div>
+
 ```python
 x = 42
-# Code của bạn ở đây
 ```
 
 ??? tip "Lời giải"
@@ -423,7 +427,7 @@ x = 42
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
-| [AtCoder - A × B + C](https://atcoder.jp/contests/abc086/tasks/abc086_a) | AtCoder | ⭐ | Biến, phép tính |
+| [AtCoder - Product](https://atcoder.jp/contests/abc086/tasks/abc086_a) | AtCoder | ⭐ | Biến, phép tính |
 | [CSES - Weird Algorithm](https://cses.fi/problemset/task/1068) | CSES | ⭐ | Biến, gán giá trị |
 
 ---

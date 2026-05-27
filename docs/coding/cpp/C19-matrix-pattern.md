@@ -619,11 +619,7 @@ int main() {
 ### Bài 1: Đếm đảo
 Cho lưới $n \times m$ gồm `0` và `1`. Đếm số đảo (vùng `1` liên thông).
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -670,11 +666,7 @@ Cho lưới $n \times m$ gồm `0` và `1`. Đếm số đảo (vùng `1` liên 
 ### Bài 2: Khoảng cách Manhattan
 Cho $n$ điểm trên lưới. Tìm cặp điểm có khoảng cách Manhattan nhỏ nhất.
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

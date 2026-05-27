@@ -1,4 +1,4 @@
-﻿# Bài 7: Mảng, Danh Sách Liên Kết và Stack
+# Bài 7: Mảng, Danh Sách Liên Kết và Stack
 
 > **Tác giả:** Hà Trí Kiên<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Mảng và danh sách liên kết, Stack, Mảng cộng dồn và mảng hiệu

@@ -308,9 +308,7 @@ NAME = "Charlie"
 ### Bài 1: Hello World
 Viết chương trình in ra dòng chữ `Hello World!`
 
-```python
-# Code của bạn ở đây
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="Hello World!" data-hint="Dùng print()"></div>
 
 ??? tip "Lời giải"
     ```python
@@ -320,9 +318,7 @@ Viết chương trình in ra dòng chữ `Hello World!`
 ### Bài 2: In tên
 Viết chương trình in ra tên của bạn.
 
-```python
-# Code của bạn ở đây
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="Nguyen Van A" data-hint="Dùng print() với chuỗi"></div>
 
 ??? tip "Lời giải"
     ```python
@@ -338,9 +334,7 @@ Lop: 10A1
 Truong: THPT ABC
 ```
 
-```python
-# Code của bạn ở đây
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="Ten: Nguyen Van A\nLop: 10A1\nTruong: THPT ABC" data-hint="Dùng 3 lệnh print()"></div>
 
 ??? tip "Lời giải"
     ```python
@@ -352,9 +346,7 @@ Truong: THPT ABC
 ### Bài 4: Tính toán đơn giản
 Viết chương trình tính và in ra kết quả của: `2 + 3 * 4`
 
-```python
-# Code của bạn ở đây
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="14" data-hint="Dùng print(2 + 3 * 4)"></div>
 
 ??? tip "Lời giải"
     ```python
@@ -367,7 +359,7 @@ Viết chương trình tính và in ra kết quả của: `2 + 3 * 4`
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
-| [AtCoder - A + B Problem](https://atcoder.jp/contests/abc086/tasks/abc086_a) | AtCoder | ⭐ | Nhập/xuất cơ bản |
+| [AtCoder - Product](https://atcoder.jp/contests/abc086/tasks/abc086_a) | AtCoder | ⭐ | Nhập/xuất cơ bản |
 | [CSES - Weirdd Algorithm](https://cses.fi/problemset/task/1068) | CSES | ⭐ | Chương trình đầu tiên |
 
 ---

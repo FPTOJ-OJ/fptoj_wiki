@@ -456,6 +456,18 @@ Tạo thư mục thi đấu mẫu và thử workflow:
 | Tạo 5 test cho 1 bài | Luyện sinh test |
 | Chạy stress test | Luyện tìm bug |
 
+### Bài tập thực hành workflow
+
+Sau khi đã setup xong, thử nộp bài trên các nền tảng để quen workflow:
+
+| Bài | Nền tảng | Độ khó | Mục đích |
+|-----|----------|--------|----------|
+| [CSES - Weird Algorithm](https://cses.fi/problemset/task/1068) | CSES | ⭐ | Quen nộp bài online |
+| [CSES - Missing Number](https://cses.fi/problemset/task/1083) | CSES | ⭐ | Luyện đọc input/output |
+| [CSES - Repetitions](https://cses.fi/problemset/task/1069) | CSES | ⭐ | Luyện template + test |
+| [CSES - Increasing Array](https://cses.fi/problemset/task/1094) | CSES | ⭐ | Luyện stress test |
+| [CSES - Permutations](https://cses.fi/problemset/task/1070) | CSES | ⭐ | Luyện edge cases |
+
 ---
 
 ## Tài liệu tham khảo

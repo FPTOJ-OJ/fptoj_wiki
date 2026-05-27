@@ -24,11 +24,7 @@ flowchart TD
 
 Viết chương trình in "Hello World!".
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -45,11 +41,7 @@ Viết chương trình in "Hello World!".
 
 **Input:** `3 5` → **Output:** `8`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -72,11 +64,7 @@ Viết chương trình in "Hello World!".
 
 **Input:** `5` → **Output:** `78.54`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -95,11 +83,7 @@ Viết chương trình in "Hello World!".
 
 **Input:** `3 7 5` → **Output:** `7`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -118,11 +102,7 @@ Viết chương trình in "Hello World!".
 
 **Input:** `4` → **Output:** `Chan`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -146,11 +126,7 @@ Viết chương trình in "Hello World!".
 ```
 **Output:** `15`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -180,11 +156,7 @@ Viết chương trình in "Hello World!".
 
 **Input:** `12345` → **Output:** `5`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -201,11 +173,7 @@ Viết chương trình in "Hello World!".
 
 In bảng cửu chương từ 1 đến 10.
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -232,11 +200,7 @@ In bảng cửu chương từ 1 đến 10.
 
 **Input:** `12345` → **Output:** `54321`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -256,11 +220,7 @@ In bảng cửu chương từ 1 đến 10.
 
 **Input:** `7` → **Output:** `Yes`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -287,11 +247,7 @@ In bảng cửu chương từ 1 đến 10.
 
 **Input:** `12 18` → **Output:** `6`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -315,11 +271,7 @@ In bảng cửu chương từ 1 đến 10.
 ```
 **Output:** `1 1 3 4 5`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -357,11 +309,7 @@ In bảng cửu chương từ 1 đến 10.
 ```
 **Output:** `3`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -396,11 +344,7 @@ In bảng cửu chương từ 1 đến 10.
 
 **Input:** `abcba` → **Output:** `Yes`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -427,16 +371,12 @@ In bảng cửu chương từ 1 đến 10.
 
 **Input:**
 ```
-4 6
+4 9
 2 7 11 15
 ```
-**Output:** `0 1` (vì $a[0] + a[1] = 2 + 7 = 9 \neq 6$... thử lại: $2 + 11 = 13$, $7 + 11 = 18$... hmm, với target=9 thì `0 1`)
+**Output:** `0 1` (vì $a[0] + a[1] = 2 + 7 = 9 = target$)
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -477,11 +417,7 @@ In bảng cửu chương từ 1 đến 10.
 ```
 **Output:** `4` (dãy: 2, 3, 7, 101)
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -521,11 +457,7 @@ Cho lưới $n \times m$, tìm đường đi ngắn nhất từ $(0,0)$ đến $
 ```
 **Output:** `4`
 
-```cpp
-// Code của bạn ở đây
-```
-
-??? tip "Lời giải"
+???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
