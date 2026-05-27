@@ -323,10 +323,7 @@ most = cnt.most_common(1)[0]  # (3, 3) — tuple!
 ### Bài 1: Đếm tần suất
 Cho xâu s. Tìm ký tự xuất hiện nhiều nhất.
 
-```python
-from collections import Counter
-s = input()
-```
+<div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello" data-expected="('l', 2)" data-hint="Dùng Counter(s).most_common(1)[0]"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -338,18 +335,12 @@ s = input()
 ### Bài 2: BFS
 Cho đồ thị. Duyệt BFS từ đỉnh start.
 
-```python
-from collections import deque
-
-n, m = map(int, input().split())
-graph = [[] for _ in range(n)]
-for _ in range(m):
-    u, v = map(int, input().split())
-    graph[u].append(v)
-    graph[v].append(u)
-
-start = int(input())
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="4 4
+0 1
+0 2
+1 2
+2 3
+0" data-expected="0 1 2 3" data-hint="Dùng deque, duyệt hàng xóm và đánh dấu visited"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -373,11 +364,9 @@ start = int(input())
 ### Bài 3: Nhóm từ
 Cho list từ. Nhóm các từ có cùng ký tự khi sắp xếp.
 
-```python
-from collections import defaultdict
-
-words = input().split()
-```
+<div class="cp-pg" data-language="python" data-starter="words = input().split()" data-input="eat tea tan ate nat bat" data-expected="['eat', 'tea', 'ate']
+['tan', 'nat']
+['bat']" data-hint="Dùng defaultdict(list), key = ''.join(sorted(word))"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -399,22 +388,7 @@ words = input().split()
 ### Bài 4: Tìm từ xuất hiện nhiều nhất
 Cho xâu s gồm nhiều từ cách nhau bởi khoảng trắng. Tìm từ xuất hiện nhiều nhất.
 
-```
-Input: apple banana apple cherry banana apple
-
-Output: apple 3
-```
-
-```
-Input: hello world hello
-
-Output: hello 2
-```
-
-```python
-from collections import Counter
-s = input()
-```
+<div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello world hello" data-expected="hello 2" data-hint="Dùng Counter(s.split()).most_common(1)[0]"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -429,29 +403,9 @@ s = input()
 ### Bài 5: Kiểm tra hai xâu là hoán vị
 Cho 2 xâu s1, s2. Kiểm tra s2 có phải hoán vị của s1 không.
 
-```
-Input:
-abc
-cba
-
-Output:
-La hoan vi
-```
-
-```
-Input:
-abc
-abd
-
-Output:
-Khong phai hoan vi
-```
-
-```python
-from collections import Counter
-s1 = input()
-s2 = input()
-```
+<div class="cp-pg" data-language="python" data-starter="s1 = input()
+s2 = input()" data-input="listen
+silent" data-expected="La hoan vi" data-hint="So sánh Counter(s1) == Counter(s2)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -466,23 +420,12 @@ s2 = input()
 ### Bài 6: Nhóm học sinh theo lớp
 Cho n học sinh, mỗi học sinh có tên và lớp. Nhóm các học sinh theo lớp.
 
-```
-Input:
-4
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="4
 Alice 10A1
 Bob 10A2
 Charlie 10A1
-David 10A2
-
-Output:
-10A1: ['Alice', 'Charlie']
-10A2: ['Bob', 'David']
-```
-
-```python
-from collections import defaultdict
-n = int(input())
-```
+David 10A2" data-expected="10A1: ['Alice', 'Charlie']
+10A2: ['Bob', 'David']" data-hint="Dùng defaultdict(list), key là lớp"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -501,22 +444,7 @@ n = int(input())
 ### Bài 7: Tìm ký tự xuất hiện nhiều nhất
 Cho xâu s. Tìm ký tự xuất hiện nhiều nhất (không tính khoảng trắng).
 
-```
-Input: abracadabra
-
-Output: a 5
-```
-
-```
-Input: hello world
-
-Output: l 3
-```
-
-```python
-from collections import Counter
-s = input()
-```
+<div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello world" data-expected="l 3" data-hint="Dùng s.replace(' ', '') rồi Counter"></div>
 
 ???? tip "Lời giải"
     ```python

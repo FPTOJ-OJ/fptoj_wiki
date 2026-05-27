@@ -455,6 +455,10 @@ comb(n, k)
 ### Bài 1: Template
 Viết template thi đấu Python đầy đủ.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1
+3
+1 2 3" data-expected="6" data-hint="Import sys, collections, functools, heapq, bisect, itertools, math"></div>
+
 ???? tip "Lời giải"
     ```python
     import sys
@@ -481,9 +485,8 @@ Viết template thi đấu Python đầy đủ.
 ### Bài 2: Đếm tần suất
 Cho mảng arr. Tìm phần tử xuất hiện nhiều nhất.
 
-```python
-arr = list(map(int, input().split()))
-```
+<div class="cp-pg" data-language="python" data-starter="from collections import Counter
+arr = list(map(int, input().split()))" data-input="1 2 2 3 3 3" data-expected="3" data-hint="Dùng Counter(arr).most_common(1)[0][0]"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -496,10 +499,9 @@ arr = list(map(int, input().split()))
 ### Bài 3: Prefix sum
 Cho mảng arr. Tính tổng đoạn [l, r].
 
-```python
-arr = list(map(int, input().split()))
-l, r = map(int, input().split())
-```
+<div class="cp-pg" data-language="python" data-starter="arr = list(map(int, input().split()))
+l, r = map(int, input().split())" data-input="1 2 3 4 5
+1 3" data-expected="9" data-hint="Tính prefix sum, kết quả = prefix[r+1] - prefix[l]"></div>
 
 ???? tip "Lời giải"
     ```python

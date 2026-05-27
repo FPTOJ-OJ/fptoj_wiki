@@ -251,12 +251,11 @@ if pos < len(arr) and arr[pos] == target:
 ### Bài 1: Tìm kiếm nhị phân
 Cho mảng đã sắp xếp và target. Kiểm tra target có trong mảng không.
 
-```python
-import bisect
+<div class="cp-pg" data-language="python" data-starter="import bisect
 
 arr = list(map(int, input().split()))
-target = int(input())
-```
+target = int(input())" data-input="1 2 3 4 5
+3" data-expected="Tim thay" data-hint="Dùng bisect_left, kiểm tra arr[pos] == target"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -275,12 +274,11 @@ target = int(input())
 ### Bài 2: Đếm phần tử trong khoảng
 Cho mảng đã sắp xếp và khoảng [l, r]. Đếm số phần tử trong khoảng.
 
-```python
-import bisect
+<div class="cp-pg" data-language="python" data-starter="import bisect
 
 arr = list(map(int, input().split()))
-l, r = map(int, input().split())
-```
+l, r = map(int, input().split())" data-input="1 2 3 4 5 6 7
+2 5" data-expected="4" data-hint="Dùng bisect_right(arr, r) - bisect_left(arr, l)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -296,11 +294,9 @@ l, r = map(int, input().split())
 ### Bài 3: LIS
 Cho mảng arr. Tìm độ dài dãy con tăng dài nhất.
 
-```python
-import bisect
+<div class="cp-pg" data-language="python" data-starter="import bisect
 
-arr = list(map(int, input().split()))
-```
+arr = list(map(int, input().split()))" data-input="10 9 2 5 3 7 101 18" data-expected="4" data-hint="Dùng bisect_left trên tails array"></div>
 
 ???? tip "Lời giải"
     ```python

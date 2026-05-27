@@ -546,10 +546,6 @@ else:
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="1 2 3 4 5" data-hint="Dùng for i in range(1, n+1) với end=' '"></div>
 
-```python
-n = int(input())
-```
-
 ??? tip "Lời giải"
     ```python
     n = int(input())
@@ -561,10 +557,6 @@ n = int(input())
 Đọc số nguyên n. Tính tổng S = 1 + 2 + ... + n.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="15" data-hint="Dùng công thức n*(n+1)//2 hoặc vòng for"></div>
-
-```python
-n = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -580,6 +572,8 @@ n = int(input())
 ### Bài 3: In bảng cửu chương
 In bảng cửu chương từ 1 đến 9.
 
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="   1   2   3   4   5   6   7   8   9\n   2   4   6   8  10  12  14  16  18\n   3   6   9  12  15  18  21  24  27\n   4   8  12  16  20  24  28  32  36\n   5  10  15  20  25  30  35  40  45\n   6  12  18  24  30  36  42  48  54\n   7  14  21  28  35  42  49  56  63\n   8  16  24  32  40  48  56  64  72\n   9  18  27  36  45  54  63  72  81" data-hint="Dùng 2 vòng lặp for lồng nhau, f-string với {i*j:4}"></div>
+
 ??? tip "Lời giải"
     ```python
     for i in range(1, 10):
@@ -592,11 +586,6 @@ In bảng cửu chương từ 1 đến 9.
 Đọc n số nguyên. Tìm số lớn nhất.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5\n3 1 4 1 5" data-expected="5" data-hint="Dùng max(arr)"></div>
-
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -613,10 +602,6 @@ arr = list(map(int, input().split()))
 Cho số nguyên n. Nếu n chẵn, chia đôi. Nếu n lẻ, nhân 3 cộng 1. Lặp cho đến khi n = 1.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6" data-expected="6 3 10 5 16 8 4 2 1" data-hint="Dùng while n != 1, in n với end=' '"></div>
-
-```python
-n = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -637,21 +622,7 @@ n = int(input())
 ### Bài 6: Đếm chữ số
 Cho số nguyên dương n. Đếm n có bao nhiêu chữ số.
 
-```
-Input: 12345
-Output: 5
-```
-
-```
-Input: 100
-Output: 3
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12345" data-expected="5" data-hint="Dùng while n > 0: count += 1; n //= 10"></div>
-
-```python
-n = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -666,21 +637,7 @@ n = int(input())
 ### Bài 7: Đảo ngược số
 Cho số nguyên dương n. In ra số đảo ngược.
 
-```
-Input: 12345
-Output: 54321
-```
-
-```
-Input: 1000
-Output: 1
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12345" data-expected="54321" data-hint="result = result * 10 + n % 10; n //= 10"></div>
-
-```python
-n = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -695,21 +652,7 @@ n = int(input())
 ### Bài 8: Kiểm tra số hoàn hảo
 Cho số nguyên dương n. Kiểm tra n có phải số hoàn hảo không (tổng các ước thực sự bằng chính nó).
 
-```
-Input: 6
-Output: So hoan hao
-```
-
-```
-Input: 12
-Output: Khong phai so hoan hao
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6" data-expected="So hoan hao" data-hint="Tổng các ước từ 1 đến n-1, kiểm tra bằng n"></div>
-
-```python
-n = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -727,21 +670,7 @@ n = int(input())
 ### Bài 9: In tam giác số
 Cho số nguyên dương n. In tam giác số như ví dụ.
 
-```
-Input: 5
-Output:
-1
-1 2
-1 2 3
-1 2 3 4
-1 2 3 4 5
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="1\n1 2\n1 2 3\n1 2 3 4\n1 2 3 4 5" data-hint="2 vòng for lồng nhau"></div>
-
-```python
-n = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -755,21 +684,7 @@ n = int(input())
 ### Bài 10: Tìm ước số
 Cho số nguyên dương n. In ra tất cả các ước của n theo thứ tự tăng dần.
 
-```
-Input: 12
-Output: 1 2 3 4 6 12
-```
-
-```
-Input: 7
-Output: 1 7
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12" data-expected="1 2 3 4 6 12" data-hint="Dùng for i in range(1, n+1), nếu n % i == 0 thì in"></div>
-
-```python
-n = int(input())
-```
 
 ??? tip "Lời giải"
     ```python

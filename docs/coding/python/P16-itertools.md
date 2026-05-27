@@ -320,11 +320,14 @@ print(list(perms))  # [] — đã hết!
 ### Bài 1: Sinh hoán vị
 Cho n. Sinh tất cả hoán vị của 1, 2, ..., n.
 
-```python
-import itertools
+<div class="cp-pg" data-language="python" data-starter="import itertools
 
-n = int(input())
-```
+n = int(input())" data-input="3" data-expected="1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1" data-hint="Dùng itertools.permutations(range(1, n+1))"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -338,11 +341,14 @@ n = int(input())
 ### Bài 2: Sinh tổ hợp
 Cho n, k. Sinh tất cả tổ hợp chập k của 1, 2, ..., n.
 
-```python
-import itertools
+<div class="cp-pg" data-language="python" data-starter="import itertools
 
-n, k = map(int, input().split())
-```
+n, k = map(int, input().split())" data-input="4 2" data-expected="1 2
+1 3
+1 4
+2 3
+2 4
+3 4" data-hint="Dùng itertools.combinations(range(1, n+1), k)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -356,11 +362,9 @@ n, k = map(int, input().split())
 ### Bài 3: Prefix sum
 Cho mảng arr. Tính prefix sum.
 
-```python
-import itertools
+<div class="cp-pg" data-language="python" data-starter="import itertools
 
-arr = list(map(int, input().split()))
-```
+arr = list(map(int, input().split()))" data-input="1 2 3 4 5" data-expected="[1, 3, 6, 10, 15]" data-hint="Dùng list(itertools.accumulate(arr))"></div>
 
 ???? tip "Lời giải"
     ```python

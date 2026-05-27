@@ -505,11 +505,6 @@ if 0 <= nx < n and 0 <= ny < m:
 4 5 6" data-expected="1 2 3
 4 5 6" data-hint="Dùng vòng lặp for row in matrix: print(*row)"></div>
 
-```python
-n, m = map(int, input().split())
-matrix = [list(map(int, input().split())) for _ in range(n)]
-```
-
 ??? tip "Lời giải"
     ```python
     for row in matrix:
@@ -524,11 +519,6 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 4 5 6" data-expected="1 4
 2 5
 3 6" data-hint="Dùng zip(*matrix) để chuyển vị"></div>
-
-```python
-n, m = map(int, input().split())
-matrix = [list(map(int, input().split())) for _ in range(n)]
-```
 
 ??? tip "Lời giải"
     ```python
@@ -545,11 +535,6 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 4 5 6
 7 8 9" data-expected="15" data-hint="Tổng matrix[i][i] với i từ 0 đến n-1"></div>
 
-```python
-n = int(input())
-matrix = [list(map(int, input().split())) for _ in range(n)]
-```
-
 ??? tip "Lời giải"
     ```python
     print(sum(matrix[i][i] for i in range(n)))
@@ -562,11 +547,6 @@ Cho grid n × m gồm '#' (tường) và '.' (trống). Đếm số ô trống.
 #..
 .#.
 ..#" data-expected="6" data-hint="Dùng sum(row.count('.') for row in grid)"></div>
-
-```python
-n, m = map(int, input().split())
-grid = [input() for _ in range(n)]
-```
 
 ??? tip "Lời giải"
     ```python
@@ -581,13 +561,6 @@ Cho grid n × m. Tìm đường đi ngắn nhất từ (0,0) đến (n-1,m-1). '
 ...
 .#.
 ..." data-expected="4" data-hint="Dùng BFS với deque, duyệt 4 hướng (lên/xuống/trái/phải)"></div>
-
-```python
-from collections import deque
-
-n, m = map(int, input().split())
-grid = [input() for _ in range(n)]
-```
 
 ??? tip "Lời giải"
     ```python

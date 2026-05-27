@@ -508,10 +508,6 @@ Cho xâu s. Đếm số chữ hoa, chữ thường, chữ số.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="Hello World 123" data-expected="Hoa: 2, Thuong: 8, So: 3" data-hint="Dùng s.isupper(), s.islower(), s.isdigit() với sum()"></div>
 
-```python
-s = input()
-```
-
 ??? tip "Lời giải"
     ```python
     s = input()
@@ -525,10 +521,6 @@ s = input()
 Cho xâu s. Kiểm tra s có phải palindrome không.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="racecar" data-expected="Palindrome" data-hint="So sánh s với s[::-1]"></div>
-
-```python
-s = input()
-```
 
 ??? tip "Lời giải"
     ```python
@@ -544,10 +536,6 @@ Cho xâu s gồm nhiều từ. Đảo ngược thứ tự các từ.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="hello world python" data-expected="python world hello" data-hint="Dùng s.split() rồi đảo ngược: ' '.join(s.split()[::-1])"></div>
 
-```python
-s = input()
-```
-
 ??? tip "Lời giải"
     ```python
     s = input()
@@ -561,11 +549,6 @@ Cho xâu s và số k. Dịch mỗi ký tự sang phải k vị trí (chữ hoa/
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="Hello
 3" data-expected="Khoor" data-hint="Dùng ord() và chr() với modulo 26 cho mỗi ký tự chữ"></div>
-
-```python
-s = input()
-k = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -586,10 +569,6 @@ k = int(input())
 Cho xâu s. Tìm độ dài xâu con dài nhất mà không có ký tự lặp lại.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="abcabcbb" data-expected="3" data-hint="Dùng sliding window: mở rộng bên phải, co bên trái khi gặp ký tự trùng"></div>
-
-```python
-s = input()
-```
 
 ??? tip "Lời giải"
     ```python

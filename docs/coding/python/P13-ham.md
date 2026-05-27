@@ -510,14 +510,6 @@ Viết hàm tính n!
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5" data-expected="120" data-hint="Đệ quy: if n &lt;= 1 return 1, else return n * factorial(n-1)"></div>
 
-```python
-def factorial(n):
-    pass
-
-n = int(input())
-print(factorial(n))
-```
-
 ??? tip "Lời giải"
     ```python
     def factorial(n):
@@ -534,14 +526,6 @@ Viết hàm kiểm tra xâu có phải palindrome không.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="racecar" data-expected="True" data-hint="So sánh s với s[::-1]"></div>
 
-```python
-def is_palindrome(s):
-    pass
-
-s = input()
-print(is_palindrome(s))
-```
-
 ??? tip "Lời giải"
     ```python
     def is_palindrome(s):
@@ -555,14 +539,6 @@ print(is_palindrome(s))
 Viết hàm tính GCD của 2 số.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="12 8" data-expected="4" data-hint="Dùng thuật toán Euclid: while b: a, b = b, a % b"></div>
-
-```python
-def gcd(a, b):
-    pass
-
-a, b = map(int, input().split())
-print(gcd(a, b))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -579,14 +555,6 @@ print(gcd(a, b))
 Viết hàm phân tích thừa số nguyên tố.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="60" data-expected="[2, 2, 3, 5]" data-hint="Duyệt d từ 2, chia n cho d khi chia hết, tăng d lên"></div>
-
-```python
-def prime_factors(n):
-    pass
-
-n = int(input())
-print(prime_factors(n))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -610,14 +578,6 @@ print(prime_factors(n))
 Viết hàm tính C(n, k).
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5 2" data-expected="10" data-hint="Đệ quy: C(n,k) = C(n-1,k-1) + C(n-1,k), base case k==0 hoặc k==n trả 1"></div>
-
-```python
-def comb(n, k):
-    pass
-
-n, k = map(int, input().split())
-print(comb(n, k))
-```
 
 ??? tip "Lời giải"
     ```python

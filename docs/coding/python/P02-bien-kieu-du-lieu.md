@@ -363,13 +363,8 @@ print(False + 5)     # 5
 ### Bài 1: Hoán đổi 2 biến
 Cho `a = 5, b = 10`. Hoán đổi giá trị và in ra.
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="10 5" data-hint="Dùng a, b = b, a"></div>
-
-```python
-a = 5
-b = 10
-print(a, b)  # Phải in ra: 10 5
-```
+<div class="cp-pg" data-language="python" data-starter="a = 5
+b = 10" data-input="" data-expected="10 5" data-hint="Dùng a, b = b, a"></div>
 
 ??? tip "Lời giải"
     ```python
@@ -381,11 +376,6 @@ Cho bán kính `r`. Tính diện tích hình tròn (S = π × r²).
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="78.54" data-hint="S = math.pi * r ** 2, in với 2 chữ số thập phân"></div>
 
-```python
-import math
-r = 5
-```
-
 ??? tip "Lời giải"
     ```python
     s = math.pi * r ** 2
@@ -395,11 +385,7 @@ r = 5
 ### Bài 3: Chuyển đổi nhiệt độ
 Cho nhiệt độ `C` độ C. Chuyển sang độ F (F = C × 9/5 + 32).
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="99.5" data-hint="F = C * 9 / 5 + 32"></div>
-
-```python
-C = 37.5
-```
+<div class="cp-pg" data-language="python" data-starter="C = 37.5" data-input="" data-expected="99.5" data-hint="F = C * 9 / 5 + 32"></div>
 
 ??? tip "Lời giải"
     ```python
@@ -410,11 +396,7 @@ C = 37.5
 ### Bài 4: Kiểm tra kiểu dữ liệu
 Cho biến `x`. In ra kiểu dữ liệu của `x`.
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="int" data-hint="Dùng type(x).__name__"></div>
-
-```python
-x = 42
-```
+<div class="cp-pg" data-language="python" data-starter="x = 42" data-input="" data-expected="int" data-hint="Dùng type(x).__name__"></div>
 
 ??? tip "Lời giải"
     ```python

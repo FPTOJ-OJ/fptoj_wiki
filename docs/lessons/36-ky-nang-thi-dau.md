@@ -132,53 +132,15 @@ Khi bắt đầu làm 1 bài:
 
 ---
 
-## 4. Chiến thuật nộp USB (Chỉ được nộp 1 lần!)
-
-### 4.1. Chuẩn bị TRƯỚC khi thi
-
-```
-1. Tạo thư mục trên USB:
-   HSG_TIN/
-   ├── bai1/
-   │   ├── bai1.cpp
-   │   ├── bai1.in   (test input)
-   │   └── bai1.out  (expected output)
-   ├── bai2/
-   │   ├── bai2.cpp
-   │   └── ...
-   ├── bai3/
-   │   └── ...
-   └── template.cpp  (template chung)
-
-2. Copy template vào mỗi file
-3. Kiểm tra USB hoạt động tốt
-4. Mang USB dự phòng (nếu được)
-```
-
-### 4.2. Trong khi thi
-
-```
-1. Code trong thư mục bai1/, bai2/, bai3/
-2. Test kỹ với sample + edge cases
-3. KHÔNG nộp ngay khi code xong
-4. Làm xong tất cả bài → kiểm tra lại → rồi mới nộp
-
-Thứ tự nộp:
-  bai1.cpp → bai2.cpp → bai3.cpp
-  (nộp TẤT CẢ bài đã làm, kể cả brute force)
-```
-
-### 4.3. Checklist trước khi nộp USB
+### 4. Checklist trước khi nộp USB
 
 ```
 □ Tên file đúng? (bai1.cpp, bai2.cpp, ...)
 □ File compile được? (chạy thử trên máy)
 □ Output đúng format? (khoảng trắng, xuống dòng)
 □ Đã xóa debug macro/in?
-□ Đã tắt freopen?
 □ Đã kiểm tra edge case? (N=0, N=1, all same)
 □ Đã nộp CẢ bài brute force? (lấy điểm subtask)
-□ USB hoạt động? (copy thử file ra đọc lại)
 ```
 
 ---

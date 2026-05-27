@@ -506,10 +506,6 @@ Cho mảng arr. Đếm tần suất xuất hiện của mỗi phần tử.
 2: 2
 3: 3" data-hint="Dùng dict hoặc collections.Counter để đếm"></div>
 
-```python
-arr = list(map(int, input().split()))
-```
-
 ??? tip "Lời giải"
     ```python
     from collections import Counter
@@ -523,10 +519,6 @@ Cho mảng arr. Tìm phần tử xuất hiện nhiều nhất.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1 3 2 3 3 2 2 2" data-expected="2" data-hint="Dùng Counter(arr).most_common(1)[0][0]"></div>
 
-```python
-arr = list(map(int, input().split()))
-```
-
 ??? tip "Lời giải"
     ```python
     from collections import Counter
@@ -538,10 +530,6 @@ arr = list(map(int, input().split()))
 Cho mảng arr. Kiểm tra có phần tử trùng không.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="1 2 3 2" data-expected="Co phan tu trung" data-hint="So sánh len(arr) với len(set(arr))"></div>
-
-```python
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -556,11 +544,6 @@ Cho mảng arr và target. Tìm 2 số có tổng bằng target.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2 7 11 15
 9" data-expected="0 1" data-hint="Dùng dict để lưu index, kiểm tra complement = target - x"></div>
-
-```python
-arr = list(map(int, input().split()))
-target = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -579,10 +562,6 @@ Cho list từ. Nhóm các từ theo chữ cái đầu.
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="apple banana cherry avocado blueberry" data-expected="a: ['apple', 'avocado']
 b: ['banana', 'blueberry']
 c: ['cherry']" data-hint="Dùng defaultdict(list), thêm từ vào groups[word[0]]"></div>
-
-```python
-words = input().split()
-```
 
 ??? tip "Lời giải"
     ```python

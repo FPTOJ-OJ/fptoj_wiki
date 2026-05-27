@@ -513,11 +513,6 @@ arr = []
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
 1 2 3 4 5" data-expected="5 4 3 2 1" data-hint="Dùng arr[::-1] hoặc reversed()"></div>
 
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
-
 ??? tip "Lời giải"
     ```python
     print(*arr[::-1])
@@ -528,11 +523,6 @@ arr = list(map(int, input().split()))
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
 3 1 4 1 5" data-expected="4" data-hint="Dùng set() để loại trùng, sort giảm dần, lấy phần tử thứ 2"></div>
-
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -546,11 +536,6 @@ arr = list(map(int, input().split()))
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6
 1 2 2 3 3 3" data-expected="1 2 3" data-hint="Dùng set để theo dõi đã thấy, duyệt mảng và chỉ thêm phần tử chưa thấy"></div>
-
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -569,11 +554,6 @@ arr = list(map(int, input().split()))
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
 13 4 21 100 7" data-expected="100 21 4 13 7" data-hint="Viết hàm tính tổng chữ số, dùng arr.sort(key=...)"></div>
 
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
-
 ??? tip "Lời giải"
     ```python
     def digit_sum(n):
@@ -589,12 +569,6 @@ arr = list(map(int, input().split()))
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
 2 7 11 15 3
 9" data-expected="0 1" data-hint="Dùng dict để lưu index đã thấy, kiểm tra complement = target - x"></div>
-
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-target = int(input())
-```
 
 ??? tip "Lời giải"
     ```python
@@ -614,22 +588,8 @@ target = int(input())
 ### Bài 6: Đếm số dương
 Cho mảng arr gồm n số nguyên. Đếm số phần tử dương.
 
-```
-Input:
-5
--1 2 -3 4 -5
-
-Output:
-2
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
 -1 2 -3 4 -5" data-expected="2" data-hint="Dùng sum(1 for x in arr if x &gt; 0)"></div>
-
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -642,31 +602,8 @@ arr = list(map(int, input().split()))
 ### Bài 7: Tìm vị trí phần tử lớn nhất
 Cho mảng arr gồm n số nguyên. Tìm vị trí (index) của phần tử lớn nhất.
 
-```
-Input:
-5
-3 1 4 1 5
-
-Output:
-4
-```
-
-```
-Input:
-5
-1 2 3 2 1
-
-Output:
-2
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5
 3 1 4 1 5" data-expected="4" data-hint="Dùng arr.index(max(arr))"></div>
-
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -678,31 +615,8 @@ arr = list(map(int, input().split()))
 ### Bài 8: Xoay mảng sang phải
 Cho mảng arr gồm n phần tử và số k. Xoay mảng sang phải k vị trí.
 
-```
-Input:
-5 2
-1 2 3 4 5
-
-Output:
-4 5 1 2 3
-```
-
-```
-Input:
-5 1
-1 2 3 4 5
-
-Output:
-5 1 2 3 4
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5 2
 1 2 3 4 5" data-expected="4 5 1 2 3" data-hint="Dùng arr[-k:] + arr[:-k], nhớ k = k % n"></div>
-
-```python
-n, k = map(int, input().split())
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -716,26 +630,10 @@ arr = list(map(int, input().split()))
 ### Bài 9: Đếm số lần xuất hiện
 Cho mảng arr gồm n số nguyên. Đếm số lần xuất hiện của mỗi phần tử theo thứ tự xuất hiện.
 
-```
-Input:
-6
-1 2 2 3 3 3
-
-Output:
-1: 1
-2: 2
-3: 3
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="6
 1 2 2 3 3 3" data-expected="1: 1
 2: 2
 3: 3" data-hint="Dùng dict để đếm, duyệt arr và tăng count cho mỗi phần tử"></div>
-
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python
@@ -755,25 +653,9 @@ arr = list(map(int, input().split()))
 ### Bài 10: Trộn 2 mảng đã sắp xếp
 Cho 2 mảng đã sắp xếp. Trộn thành 1 mảng đã sắp xếp.
 
-```
-Input:
-3 4
-1 3 5
-2 4 6 8
-
-Output:
-1 2 3 4 5 6 8
-```
-
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3 4
 1 3 5
 2 4 6 8" data-expected="1 2 3 4 5 6 8" data-hint="Dùng sorted(a + b) hoặc merge hai mảng đã sắp xếp"></div>
-
-```python
-n, m = map(int, input().split())
-a = list(map(int, input().split()))
-b = list(map(int, input().split()))
-```
 
 ??? tip "Lời giải"
     ```python

@@ -400,11 +400,10 @@ print(math.isqrt(16))  # 4 (int)
 ### Bài 1: GCD và LCM
 Đọc 2 số a, b. Tính GCD và LCM.
 
-```python
-import math
+<div class="cp-pg" data-language="python" data-starter="import math
 
-a, b = map(int, input().split())
-```
+a, b = map(int, input().split())" data-input="12 8" data-expected="GCD: 4
+LCM: 24" data-hint="Dùng math.gcd(a, b), LCM = a*b // gcd"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -418,11 +417,9 @@ a, b = map(int, input().split())
 ### Bài 2: Kiểm tra số nguyên tố
 Đọc số n. Kiểm tra n có phải số nguyên tố không.
 
-```python
-import math
+<div class="cp-pg" data-language="python" data-starter="import math
 
-n = int(input())
-```
+n = int(input())" data-input="17" data-expected="SNT" data-hint="Duyệt từ 2 đến math.isqrt(n), kiểm tra n % i == 0"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -446,9 +443,7 @@ n = int(input())
 ### Bài 3: Lũy thừa modulo
 Đọc a, b, m. Tính (a^b) % m.
 
-```python
-a, b, m = map(int, input().split())
-```
+<div class="cp-pg" data-language="python" data-starter="a, b, m = map(int, input().split())" data-input="2 10 1000" data-expected="24" data-hint="Dùng pow(a, b, m)"></div>
 
 ???? tip "Lời giải"
     ```python

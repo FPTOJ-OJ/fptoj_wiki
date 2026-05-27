@@ -326,13 +326,7 @@ Viết chương trình in ra tên của bạn.
     ```
 
 ### Bài 3: In nhiều dòng
-Viết chương trình in ra:
-
-```
-Ten: Nguyen Van A
-Lop: 10A1
-Truong: THPT ABC
-```
+Viết chương trình in ra: `Ten: Nguyen Van A`, `Lop: 10A1`, `Truong: THPT ABC` (mỗi dòng một dòng).
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="Ten: Nguyen Van A\nLop: 10A1\nTruong: THPT ABC" data-hint="Dùng 3 lệnh print()"></div>
 

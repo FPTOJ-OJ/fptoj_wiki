@@ -16,14 +16,9 @@ Bài này tổng hợp các bài tập **từ dễ đến khó** để luyện t
 ### Bài 1: Tổng dãy số
 Cho n số nguyên. Tính tổng.
 
-```
-Input:
-5
-1 2 3 4 5
-
-Output:
-15
-```
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+arr = list(map(int, input().split()))" data-input="5
+1 2 3 4 5" data-expected="15" data-hint="Dùng sum(arr)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -35,14 +30,9 @@ Output:
 ### Bài 2: Tìm số lớn nhất
 Cho n số nguyên. Tìm số lớn nhất.
 
-```
-Input:
-5
-3 1 4 1 5
-
-Output:
-5
-```
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+arr = list(map(int, input().split()))" data-input="5
+3 1 4 1 5" data-expected="5" data-hint="Dùng max(arr)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -54,14 +44,9 @@ Output:
 ### Bài 3: Đếm chẵn lẻ
 Cho n số nguyên. Đếm số chẵn và số lẻ.
 
-```
-Input:
-5
-1 2 3 4 5
-
-Output:
-2 3
-```
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+arr = list(map(int, input().split()))" data-input="5
+1 2 3 4 5" data-expected="2 3" data-hint="Dùng sum(1 for x in arr if x % 2 == 0)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -75,14 +60,9 @@ Output:
 ### Bài 4: Đảo ngược mảng
 Cho n số nguyên. In ra mảng đảo ngược.
 
-```
-Input:
-5
-1 2 3 4 5
-
-Output:
-5 4 3 2 1
-```
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+arr = list(map(int, input().split()))" data-input="5
+1 2 3 4 5" data-expected="5 4 3 2 1" data-hint="Dùng arr[::-1]"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -94,15 +74,11 @@ Output:
 ### Bài 5: Tìm kiếm
 Cho n số nguyên và target. Tìm vị trí đầu tiên của target.
 
-```
-Input:
-5
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+arr = list(map(int, input().split()))
+target = int(input())" data-input="5
 1 2 3 4 5
-3
-
-Output:
-2
-```
+3" data-expected="2" data-hint="Dùng enumerate, tìm i đầu tiên mà arr[i] == target"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -125,15 +101,11 @@ Output:
 ### Bài 6: Two Sum
 Cho n số nguyên và target. Tìm 2 số có tổng bằng target.
 
-```
-Input:
-5
-2 7 11 15 1
-9
-
-Output:
-0 1
-```
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+arr = list(map(int, input().split()))
+target = int(input())" data-input="5
+2 7 11 15 3
+9" data-expected="0 1" data-hint="Dùng dict để lưu index đã thấy"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -153,13 +125,7 @@ Output:
 ### Bài 7: Đếm tần suất
 Cho xâu s. Tìm ký tự xuất hiện nhiều nhất.
 
-```
-Input:
-abracadabra
-
-Output:
-a 5
-```
+<div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello" data-expected="l 2" data-hint="Dùng Counter(s).most_common(1)[0]"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -173,14 +139,9 @@ a 5
 ### Bài 8: Sắp xếp theo tổng chữ số
 Cho n số nguyên. Sắp xếp theo tổng chữ số tăng dần.
 
-```
-Input:
-5
-123 45 6 789 10
-
-Output:
-10 6 45 123 789
-```
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+arr = list(map(int, input().split()))" data-input="5
+13 4 21 100 7" data-expected="100 21 4 13 7" data-hint="Viết hàm digit_sum, dùng arr.sort(key=...)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -197,14 +158,11 @@ Output:
 ### Bài 9: Longest Increasing Subsequence
 Cho mảng arr. Tìm độ dài dãy con tăng dài nhất.
 
-```
-Input:
-8
-10 9 2 5 3 7 101 18
+<div class="cp-pg" data-language="python" data-starter="import bisect
 
-Output:
-4
-```
+n = int(input())
+arr = list(map(int, input().split()))" data-input="8
+10 9 2 5 3 7 101 18" data-expected="4" data-hint="Dùng bisect_left trên tails array"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -227,16 +185,13 @@ Output:
 ### Bài 10: BFS trên grid
 Cho grid n × m. Tìm đường đi ngắn nhất từ (0,0) đến (n-1,m-1).
 
-```
-Input:
-3 3
+<div class="cp-pg" data-language="python" data-starter="from collections import deque
+
+n, m = map(int, input().split())
+grid = [input() for _ in range(n)]" data-input="3 3
 ...
 .#.
-...
-
-Output:
-4
-```
+..." data-expected="4" data-hint="Dùng BFS với 4 hướng, bỏ qua ô '#'"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -270,19 +225,22 @@ Output:
 ### Bài 11: Dijkstra
 Cho đồ thị có trọng số. Tìm đường đi ngắn nhất từ đỉnh start.
 
-```
-Input:
-4 5
+<div class="cp-pg" data-language="python" data-starter="import heapq
+
+n, m = map(int, input().split())
+graph = [[] for _ in range(n)]
+for _ in range(m):
+    u, v, w = map(int, input().split())
+    graph[u].append((v, w))
+    graph[v].append((u, w))
+
+start = int(input())" data-input="4 5
 0 1 1
 0 2 5
 1 2 2
 1 3 6
 2 3 2
-0
-
-Output:
-0 1 3 5
-```
+0" data-expected="0 1 3 5" data-hint="Dùng heapq, dist[] khởi tạo inf, relax edges"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -316,17 +274,12 @@ Output:
 ### Bài 12: Prefix sum 2D
 Cho matrix n × m. Tính tổng hình chữ nhật (r1,c1) → (r2,c2).
 
-```
-Input:
-3 3
+<div class="cp-pg" data-language="python" data-starter="n, m = map(int, input().split())
+matrix = [list(map(int, input().split())) for _ in range(n)]" data-input="3 3
 1 2 3
 4 5 6
 7 8 9
-1 1 2 2
-
-Output:
-28
-```
+1 1 2 2" data-expected="28" data-hint="Tính prefix 2D, dùng công thức inclusion-exclusion"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -346,13 +299,7 @@ Output:
 ### Bài 13: Tổ hợp modulo
 Tính C(n, k) % (10^9 + 7).
 
-```
-Input:
-10 3
-
-Output:
-120
-```
+<div class="cp-pg" data-language="python" data-starter="n, k = map(int, input().split())" data-input="10 3" data-expected="120" data-hint="Dùng Fermat's little theorem cho mod inverse"></div>
 
 ???? tip "Lời giải"
     ```python

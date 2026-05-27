@@ -319,12 +319,6 @@ sorted_t = tuple(sorted(t))
 -1 -1
 0 1" data-expected="(-1, -1)" data-hint="Dùng min() với key tính khoảng cách: math.sqrt(x**2 + y**2)"></div>
 
-```python
-import math
-n = int(input())
-points = [tuple(map(int, input().split())) for _ in range(n)]
-```
-
 ??? tip "Lời giải"
     ```python
     import math
@@ -341,12 +335,6 @@ points = [tuple(map(int, input().split())) for _ in range(n)]
 1 2
 3 4" data-expected="(1, 2): 2
 (3, 4): 2" data-hint="Dùng Counter(pairs) để đếm tuple"></div>
-
-```python
-from collections import Counter
-n = int(input())
-pairs = [tuple(map(int, input().split())) for _ in range(n)]
-```
 
 ??? tip "Lời giải"
     ```python
@@ -365,14 +353,6 @@ Binh 9
 Anh 9" data-expected="Anh 9
 Binh 9
 An 8" data-hint="Dùng sort với key=lambda x: (-x[1], x[0])"></div>
-
-```python
-n = int(input())
-students = []
-for _ in range(n):
-    name, score = input().split()
-    students.append((name, int(score)))
-```
 
 ??? tip "Lời giải"
     ```python

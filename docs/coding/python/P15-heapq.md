@@ -243,12 +243,9 @@ heap[2] = 0  # Sửa phần tử
 ### Bài 1: Tìm K phần tử lớn nhất
 Cho mảng arr và số K. Tìm K phần tử lớn nhất.
 
-```python
-import heapq
-
-arr = list(map(int, input().split()))
-k = int(input())
-```
+<div class="cp-pg" data-language="python" data-starter="arr = list(map(int, input().split()))
+k = int(input())" data-input="3 1 4 1 5 9 2 6
+3" data-expected="[9, 6, 5]" data-hint="Dùng heapq.nlargest(k, arr)"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -259,12 +256,11 @@ k = int(input())
 ### Bài 2: Merge K sorted lists
 Cho K mảng đã sắp xếp. Trộn thành 1 mảng đã sắp xếp.
 
-```python
-import heapq
-
-k = int(input())
-lists = [list(map(int, input().split())) for _ in range(k)]
-```
+<div class="cp-pg" data-language="python" data-starter="k = int(input())
+lists = [list(map(int, input().split())) for _ in range(k)]" data-input="3
+1 4 7
+2 5 8
+3 6 9" data-expected="[1, 2, 3, 4, 5, 6, 7, 8, 9]" data-hint="Dùng list(heapq.merge(*lists))"></div>
 
 ???? tip "Lời giải"
     ```python
@@ -276,18 +272,15 @@ lists = [list(map(int, input().split())) for _ in range(k)]
 ### Bài 3: Dijkstra
 Cho đồ thị có trọng số. Tìm đường đi ngắn nhất từ đỉnh start.
 
-```python
-import heapq
-
-n, m = map(int, input().split())
-graph = [[] for _ in range(n)]
-for _ in range(m):
-    u, v, w = map(int, input().split())
-    graph[u].append((v, w))
-    graph[v].append((u, w))
-
-start = int(input())
-```
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5 7
+0 1 4
+0 2 1
+1 3 1
+2 1 2
+2 3 5
+3 4 3
+0 4 10
+0" data-expected="[0, 3, 1, 4, 7]" data-hint="Dùng heapq, dist[] khởi tạo inf, relax edges"></div>
 
 ???? tip "Lời giải"
     ```python

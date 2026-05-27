@@ -495,10 +495,6 @@ print()  # Xuống dòng cuối cùng
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="World" data-expected="Hello World!" data-hint="Dùng print(f'Hello {name}!')"></div>
 
-```python
-name = input()
-```
-
 ??? tip "Lời giải"
     ```python
     name = input()
@@ -521,11 +517,6 @@ name = input()
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5\n1 2 3 4 5" data-expected="15" data-hint="Dùng sum(arr)"></div>
 
-```python
-n = int(input())
-arr = list(map(int, input().split()))
-```
-
 ??? tip "Lời giải"
     ```python
     print(sum(arr))
@@ -536,11 +527,6 @@ arr = list(map(int, input().split()))
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="2 3\n1 2 3\n4 5 6" data-expected="1 2 3\n4 5 6" data-hint="Dùng vòng for để in từng hàng"></div>
 
-```python
-n, m = map(int, input().split())
-matrix = [list(map(int, input().split())) for _ in range(n)]
-```
-
 ??? tip "Lời giải"
     ```python
     for row in matrix:
@@ -549,19 +535,6 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 
 ### Bài 5: Tính tổng nhiều testcase
 Cho số lượng testcase T. Mỗi testcase đọc 2 số a, b. In ra a + b.
-
-```
-Input:
-3
-1 2
-3 4
-5 6
-
-Output:
-3
-7
-11
-```
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3\n1 2\n3 4\n5 6" data-expected="3\n7\n11" data-hint="Đọc T, dùng vòng for T lần"></div>
 
