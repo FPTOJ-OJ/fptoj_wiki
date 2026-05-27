@@ -314,7 +314,7 @@ a %= 5; // a = 3 (lấy dư 5)
 
 ```cpp
 int x = 10;
-string result = (x > 0) ở "Duong" : "Am";
+string result = (x > 0) ? "Duong" : "Am";
 // Nếu x > 0 thì result = "Duong", ngược lại result = "Am"
 ```
 

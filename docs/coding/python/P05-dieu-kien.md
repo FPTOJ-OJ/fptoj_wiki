@@ -191,7 +191,7 @@ result = "Xuat sac" if score >= 90 else ("Gioi" if score >= 80 else "Kha")
     }
     
     // Ternary
-    string result = (n > 0) ở "Duong" : "Am";
+    string result = (n > 0) ? "Duong" : "Am";
     
     // switch-case
     switch (n) {

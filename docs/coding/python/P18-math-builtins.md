@@ -42,6 +42,12 @@ print(math.comb(10, 10))    # 1
 print(math.perm(10, 3))     # 720
 ```
 
+| Hàm | Công thức | Ví dụ |
+|-----|-----------|-------|
+| `math.factorial(n)` | $n!$ | $5! = 120$ |
+| `math.comb(n, k)` | $C(n,k) = \frac{n!}{k!(n-k)!}$ | $C(10,3) = 120$ |
+| `math.perm(n, k)` | $P(n,k) = \frac{n!}{(n-k)!}$ | $P(10,3) = 720$ |
+
 ### 2.3. GCD và LCM
 
 ```python
@@ -55,6 +61,11 @@ print(math.gcd(0, 5))       # 5
 print(math.lcm(4, 6))       # 12
 print(math.lcm(12, 8))      # 24
 ```
+
+| Hàm | Toán học | Độ phức tạp |
+|-----|----------|-------------|
+| `math.gcd(a, b)` | $\gcd(a, b)$ | $O(\log(\min(a,b)))$ |
+| `math.lcm(a, b)` | $\text{lcm}(a,b) = \frac{a \cdot b}{\gcd(a,b)}$ | $O(\log(\min(a,b)))$ |
 
 ### 2.4. Căn bậc hai và lũy thừa
 
@@ -75,6 +86,16 @@ print(2 ** 10)               # 1024 (trả về int)
 print(pow(2, 10, 1000))      # 24 (2^10 % 1000)
 ```
 
+| Hàm | Toán học | Ghi chú |
+|-----|----------|---------|
+| `math.sqrt(x)` | $\sqrt{x}$ | Trả về float |
+| `math.isqrt(x)` | $\lfloor\sqrt{x}\rfloor$ | Trả về int, $O(\log x)$ |
+| `pow(a, b, m)` | $a^b \mod m$ | $O(\log b)$, rất nhanh |
+
+!!! info "Giải thích ký hiệu"
+    - `$\lfloor x \rfloor$` là hàm floor — làm tròn xuống đến số nguyên gần nhất. Ví dụ: $\lfloor 4.7 \rfloor = 4$, $\lfloor \sqrt{17} \rfloor = 4$.
+    - `$a^b \mod m$` nghĩa là tính $a$ mũ $b$, rồi lấy phần dư khi chia cho $m$. Ví dụ: $2^{10} \mod 1000 = 1024 \mod 1000 = 24$.
+
 ### 2.5. Logarit
 
 ```python
@@ -92,6 +113,13 @@ print(math.log2(8))          # 3.0
 # Logarit cơ số tùy ý
 print(math.log(8, 2))        # 3.0
 ```
+
+| Hàm | Toán học | Ví dụ |
+|-----|----------|-------|
+| `math.log(x)` | $\ln x$ | $\ln 100 \approx 4.605$ |
+| `math.log10(x)` | $\log_{10} x$ | $\log_{10} 100 = 2$ |
+| `math.log2(x)` | $\log_2 x$ | $\log_2 8 = 3$ |
+| `math.log(x, base)` | $\log_{\text{base}} x$ | $\log_2 8 = 3$ |
 
 ### 2.6. Làm tròn
 
@@ -350,7 +378,7 @@ print(pow(2, 10, 1000))  # 24
 
 | Python | C++ | Ghi chú |
 |--------|-----|---------|
-| `math.gcd` | `__gcd` hoặc `gcd` (C++17) | Cùng chức năng |
+| `math.gcd` | `__gcd` (GCC) | Cùng chức năng |
 | `math.lcm` | `lcm` (C++17) | |
 | `math.sqrt` | `sqrt` | |
 | `math.isqrt` | `(int)sqrt` | |

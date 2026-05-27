@@ -403,7 +403,8 @@ Viết hàm `gcd(int a, int b)` trả về ước chung lớn nhất.
 ### Bài 3: Hàm đảo ngược mảng
 Viết hàm `daoMang(vector<int> &a)` đảo ngược mảng tại chỗ.
 
-<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="" data-expected="5 4 3 2 1" data-hint="Dùng swap(a[i], a[n-1-i]) để đổi chỗ phần tử đối xứng"></div>
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
+1 2 3 4 5" data-expected="5 4 3 2 1" data-hint="Viết hàm daoMang(vector&lt;int&gt; &amp;a), dùng swap(a[i], a[n-1-i])"></div>
 
 ??? tip "Lời giải"
     ```cpp
@@ -418,9 +419,12 @@ Viết hàm `daoMang(vector<int> &a)` đảo ngược mảng tại chỗ.
     }
     
     int main() {
-        vector<int> a = {1, 2, 3, 4, 5};
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
         daoMang(a);
-        for (int x : a) cout << x << " ";  // 5 4 3 2 1
+        for (int x : a) cout << x << " ";
         return 0;
     }
     ```

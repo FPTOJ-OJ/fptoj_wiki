@@ -515,6 +515,8 @@ arr = []
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    arr = list(map(int, input().split()))
     print(*arr[::-1])
     ```
 
@@ -526,6 +528,8 @@ arr = []
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    arr = list(map(int, input().split()))
     unique_arr = list(set(arr))
     unique_arr.sort(reverse=True)
     print(unique_arr[1])
@@ -539,6 +543,8 @@ arr = []
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    arr = list(map(int, input().split()))
     seen = set()
     result = []
     for x in arr:
@@ -556,6 +562,9 @@ arr = []
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    arr = list(map(int, input().split()))
+    
     def digit_sum(n):
         return sum(int(d) for d in str(abs(n)))
     
@@ -572,6 +581,9 @@ arr = []
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    arr = list(map(int, input().split()))
+    target = int(input())
     seen = {}
     for i, x in enumerate(arr):
         complement = target - x

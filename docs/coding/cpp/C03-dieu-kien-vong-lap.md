@@ -107,7 +107,7 @@ if (x > 0) {
 }
 
 // Viết ngắn gọn:
-string result = (x > 0) ở "Duong" : "Am";
+string result = (x > 0) ? "Duong" : "Am";
 ```
 
 !!! tip "Dùng ternary khi chỉ có 2 trường hợp"

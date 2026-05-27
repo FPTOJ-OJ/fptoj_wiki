@@ -13,7 +13,7 @@ Bộ bài học này được thiết kế để đưa bạn **từ con số 0**
 
 ---
 
-## 🐍 Chương 1: Python cho Thi Đấu (20 bài)
+## Chương 1: Python cho Thi Đấu (20 bài)
 
 > **Phù hợp cho:** Người chưa biết gì về lập trình<br>
 > **Sau khi học xong:** Viết được code Python, giải bài thi đấu cơ bản
@@ -60,7 +60,7 @@ Bộ bài học này được thiết kế để đưa bạn **từ con số 0**
 
 ---
 
-## ⚡ Chương 2: C++ cho Thi Đấu (21 bài)
+## Chương 2: C++ cho Thi Đấu (21 bài)
 
 > **Phù hợp cho:** Người đã vững Python<br>
 > **Sau khi học xong:** Viết được code C++, sử dụng STL, thi đấu hiệu quả

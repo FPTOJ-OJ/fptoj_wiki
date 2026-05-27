@@ -289,7 +289,35 @@ next_permutation(a.begin(), a.end());
 ## Bài tập thực hành
 
 ### Bài 1: Template
-Tạo file `template.cpp` với template thi đấu đầy đủ.
+Tạo file `template.cpp` với template thi đấu đầy đủ. Dùng template để đọc $n$ số nguyên và in tổng.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\ntypedef long long ll;\n#define REP(i, n) for (int i = 0; i &lt; (n); i++)\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(NULL);\n    \n    // Viết code ở đây\n    \n    return 0;\n}" data-input="5
+1 2 3 4 5" data-expected="15" data-hint="Dùng REP(i, n) để đọc và cộng dồn"></div>
+
+???? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    typedef long long ll;
+    #define REP(i, n) for (int i = 0; i < (n); i++)
+    
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
+        int n;
+        cin >> n;
+        ll sum = 0;
+        int x;
+        REP(i, n) {
+            cin >> x;
+            sum += x;
+        }
+        cout << sum << endl;
+        return 0;
+    }
+    ```
 
 ### Bài 2: Viết ngắn gọn
 Viết lại đoạn code sau bằng macro:
@@ -303,6 +331,9 @@ for (int i = 0; i < v.size(); i++) {
 }
 ```
 
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\n#define pb push_back\n#define fi first\n#define se second\n#define pii pair&lt;int, int&gt;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="" data-expected="1 2
+3 4" data-hint="Dùng pb, fi, se, structured binding"></div>
+
 ???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
@@ -312,7 +343,6 @@ for (int i = 0; i < v.size(); i++) {
     #define fi first
     #define se second
     #define pii pair<int, int>
-    #define vi vector<int>
     
     int main() {
         vector<pii> v;

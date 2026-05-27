@@ -274,8 +274,9 @@ struct Data {
 ## Bài viết liên quan
 
 - [C07: Template & Fast I/O ←](C07-template-fast-io.md)
-- [C11: Sort & Algorithm →](C11-sort-algorithm.md)
+- [C10: Vector nâng cao →](C10-vector-nang-cao.md)
 
 ---
 
-**Bài tiếp theo:** [C11: Sort & Algorithm →](C11-sort-algorithm.md)
+**Bài trước:** [C07: Template & Fast I/O](C07-template-fast-io.md)<br>
+**Bài tiếp theo:** [C10: Vector nâng cao →](C10-vector-nang-cao.md)

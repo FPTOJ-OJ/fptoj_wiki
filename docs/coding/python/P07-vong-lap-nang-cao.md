@@ -9,6 +9,15 @@
 
 Bài này học các kỹ thuật **nâng cao** với vòng lặp, giúp viết code **ngắn hơn, nhanh hơn, Pythonic hơn**.
 
+```mermaid
+flowchart LR
+    A["Vòng lặp thường"] --> B["enumerate / zip"]
+    A --> C["List Comprehension"]
+    A --> D["Generator Expression"]
+    C --> E["Tạo list trong bộ nhớ"]
+    D --> F["Tạo từng phần tử khi cần"]
+```
+
 ---
 
 ## 2. enumerate() — Duyệt với index

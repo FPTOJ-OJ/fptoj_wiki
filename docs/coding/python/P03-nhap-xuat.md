@@ -519,6 +519,8 @@ print()  # Xuống dòng cuối cùng
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    arr = list(map(int, input().split()))
     print(sum(arr))
     ```
 
@@ -529,6 +531,8 @@ print()  # Xuống dòng cuối cùng
 
 ??? tip "Lời giải"
     ```python
+    n, m = map(int, input().split())
+    matrix = [list(map(int, input().split())) for _ in range(n)]
     for row in matrix:
         print(*row)
     ```

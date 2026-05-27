@@ -509,6 +509,8 @@ bool match(const string &s, const string &pattern) {
 ### Bài 1: Đếm từ
 Đọc một dòng văn bản. In ra số từ trong dòng.
 
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="Hello World from FPTOJ" data-expected="4" data-hint="Dùng getline + stringstream, đếm số từ bằng ss &gt;&gt; word"></div>
+
 ???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
@@ -531,7 +533,7 @@ bool match(const string &s, const string &pattern) {
 ### Bài 2: Chuyển đổi số
 Đọc một dòng chứa các số nguyên cách nhau bởi dấu phẩy. In ra tổng.
 
-**Input:** `10,20,30,40` → **Output:** `100`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="10,20,30,40" data-expected="100" data-hint="Dùng getline(cin, line, ',') hoặc stringstream tách dấu phẩy"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -558,7 +560,7 @@ bool match(const string &s, const string &pattern) {
 ### Bài 3: Kiểm tra palindrome
 Đọc chuỗi, bỏ qua khoảng trắng và ký tự đặc biệt. Kiểm tra palindrome.
 
-**Input:** `A man, a plan, a canal: Panama` → **Output:** `Yes`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="A man, a plan, a canal: Panama" data-expected="Yes" data-hint="Lọc ký tự alphanumeric, chuyển lowercase, so sánh với đảo ngược"></div>
 
 ???? tip "Lời giải"
     ```cpp

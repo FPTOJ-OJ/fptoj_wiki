@@ -24,6 +24,8 @@ flowchart TD
 
 Viết chương trình in "Hello World!".
 
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="" data-expected="Hello World!" data-hint="Dùng cout"></div>
+
 ???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
@@ -39,7 +41,7 @@ Viết chương trình in "Hello World!".
 
 Đọc 2 số nguyên $a$, $b$. In ra $a + b$.
 
-**Input:** `3 5` → **Output:** `8`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3 5" data-expected="8" data-hint="Đọc a, b bằng cin, in a + b"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -62,7 +64,7 @@ Viết chương trình in "Hello World!".
 
 Đọc bán kính $r$. Tính diện tích $S = \pi \times r^2$. In ra 2 chữ số sau dấu phẩy.
 
-**Input:** `5` → **Output:** `78.54`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5" data-expected="78.54" data-hint="Dùng fixed &lt;&lt; setprecision(2) và M_PI"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -81,7 +83,7 @@ Viết chương trình in "Hello World!".
 
 Đọc 3 số nguyên $a$, $b$, $c$. In ra số lớn nhất.
 
-**Input:** `3 7 5` → **Output:** `7`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3 7 5" data-expected="7" data-hint="Dùng max({a, b, c})"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -100,7 +102,7 @@ Viết chương trình in "Hello World!".
 
 Đọc số nguyên $n$. In ra "Chan" nếu $n$ chẵn, "Le" nếu $n$ lẻ.
 
-**Input:** `4` → **Output:** `Chan`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4" data-expected="Chan" data-hint="Dùng n % 2 == 0"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -119,12 +121,8 @@ Viết chương trình in "Hello World!".
 
 Đọc số nguyên $n$, sau đó đọc $n$ số nguyên. In ra tổng.
 
-**Input:**
-```
-5
-1 2 3 4 5
-```
-**Output:** `15`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
+1 2 3 4 5" data-expected="15" data-hint="Dùng long long sum, cộng dồn trong vòng lặp"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -154,7 +152,7 @@ Viết chương trình in "Hello World!".
 
 Đọc số nguyên $n$. In ra số chữ số của $n$.
 
-**Input:** `12345` → **Output:** `5`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12345" data-expected="5" data-hint="Đọc dạng string, in s.length()"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -171,7 +169,18 @@ Viết chương trình in "Hello World!".
 
 ### Bài 8: In bảng cửu chương
 
-In bảng cửu chương từ 1 đến 10.
+Đọc số $n$. In bảng cửu chương của $n$ (từ 1 đến 10).
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5" data-expected="5 x 1 = 5
+5 x 2 = 10
+5 x 3 = 15
+5 x 4 = 20
+5 x 5 = 25
+5 x 6 = 30
+5 x 7 = 35
+5 x 8 = 40
+5 x 9 = 45
+5 x 10 = 50" data-hint="Vòng for từ 1 đến 10, in n x i = n*i"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -179,12 +188,10 @@ In bảng cửu chương từ 1 đến 10.
     using namespace std;
     
     int main() {
+        int n;
+        cin >> n;
         for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 10; j++) {
-                cout << i << " x " << j << " = " << i * j;
-                if (j < 10) cout << "  |  ";
-            }
-            cout << endl;
+            cout << n << " x " << i << " = " << n * i << endl;
         }
         return 0;
     }
@@ -198,7 +205,7 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc số nguyên $n$. In ra số đảo ngược.
 
-**Input:** `12345` → **Output:** `54321`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12345" data-expected="54321" data-hint="Đọc dạng string, dùng reverse"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -218,7 +225,7 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc số nguyên $n$. In ra "Yes" nếu $n$ là số nguyên tố, "No" nếu không.
 
-**Input:** `7` → **Output:** `Yes`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7" data-expected="Yes" data-hint="Số nguyên tố: chia hết cho 1 và chính nó, kiểm tra đến sqrt(n)"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -245,7 +252,7 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc 2 số nguyên $a$, $b$. In ra ước chung lớn nhất.
 
-**Input:** `12 18` → **Output:** `6`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12 18" data-expected="6" data-hint="Dùng __gcd(a, b) trong &lt;algorithm&gt;"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -264,12 +271,8 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc $n$ số nguyên. In ra mảng đã sắp xếp tăng dần.
 
-**Input:**
-```
-5
-3 1 4 1 5
-```
-**Output:** `1 1 3 4 5`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
+3 1 4 1 5" data-expected="1 1 3 4 5" data-hint="Dùng sort(a.begin(), a.end())"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -302,12 +305,8 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc $n$ số nguyên (mỗi số từ 1 đến 100). In ra số xuất hiện nhiều nhất.
 
-**Input:**
-```
-7
-1 3 2 3 3 2 1
-```
-**Output:** `3`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7
+1 3 2 3 3 2 1" data-expected="3" data-hint="Dùng map&lt;int,int&gt; đếm tần suất, tìm max"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -342,7 +341,7 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc chuỗi $s$. In ra "Yes" nếu $s$ là palindrome, "No" nếu không.
 
-**Input:** `abcba` → **Output:** `Yes`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="abcba" data-expected="Yes" data-hint="So sánh s với reverse(s)"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -369,12 +368,8 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc $n$ số nguyên và số $target$. Tìm 2 vị trí $i$, $j$ sao cho $a[i] + a[j] = target$.
 
-**Input:**
-```
-4 9
-2 7 11 15
-```
-**Output:** `0 1` (vì $a[0] + a[1] = 2 + 7 = 9 = target$)
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4 9
+2 7 11 15" data-expected="0 1" data-hint="Dùng map lưu vị trí, tìm need = target - a[i]"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -410,12 +405,8 @@ In bảng cửu chương từ 1 đến 10.
 
 Đọc $n$ số nguyên. Tìm độ dài dãy con tăng dài nhất.
 
-**Input:**
-```
-7
-10 9 2 5 3 7 101
-```
-**Output:** `4` (dãy: 2, 3, 7, 101)
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7
+10 9 2 5 3 7 101" data-expected="4" data-hint="Dùng lower_bound trên mảng lis, thay thế hoặc push_back"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -448,14 +439,10 @@ In bảng cửu chương từ 1 đến 10.
 
 Cho lưới $n \times m$, tìm đường đi ngắn nhất từ $(0,0)$ đến $(n-1,m-1)$. `0` = đi được, `1` = tường.
 
-**Input:**
-```
-3 3
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3 3
 0 0 0
 0 1 0
-0 0 0
-```
-**Output:** `4`
+0 0 0" data-expected="4" data-hint="BFS 4 hướng, dùng dist[][] đánh dấu khoảng cách"></div>
 
 ???? tip "Lời giải"
     ```cpp

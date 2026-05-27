@@ -19,19 +19,19 @@ Trong thi đấu lập trình, tốc độ **rất quan trọng**. Một bài to
 
 ```mermaid
 flowchart LR
-    A["🐍 Python<br>10 giây → TLE ❌"] -->|"Chuyển sang C++"| B["⚡ C++<br>0.1 giây → AC ✅"]
+    A["Python<br>10 giay -> TLE"] -->|"Chuyen sang C++"| B["C++<br>0.1 giay -> AC"]
 ```
 
 ### Bảng so sánh chi tiết
 
-| Tiêu chí | Python | C++ | Ai thắngở |
+| Tiêu chí | Python | C++ | Ai thắng? |
 |----------|--------|-----|-----------|
-| **Tốc độ** | ~10⁶ phép tính/giây | **~10⁸ phép tính/giây** | C++ 🏆 |
-| **Cú pháp** | Đơn giản, dễ đọc | Phức tạp hơn | Python 🏆 |
-| **Compile** | Chạy trực tiếp | Phải compile trước | Python 🏆 |
-| **Thư viện** | Nhiều built-in | **STL rất mạnh** | C++ 🏆 |
-| **Đệ quy** | Giới hạn ~1000 lớp | Giới hạn lớn hơn | C++ 🏆 |
-| **Phổ biến** | Ít người thi đấu | **Hầu hết thí sinh** | C++ 🏆 |
+| **Tốc độ** | ~10⁶ phép tính/giây | **~10⁸ phép tính/giây** | C++ |
+| **Cú pháp** | Đơn giản, dễ đọc | Phức tạp hơn | Python |
+| **Compile** | Chạy trực tiếp | Phải compile trước | Python |
+| **Thư viện** | Nhiều built-in | **STL rất mạnh** | C++ |
+| **Đệ quy** | Giới hạn ~1000 lớp | Giới hạn lớn hơn | C++ |
+| **Phổ biến** | Ít người thi đấu | **Hầu hết thí sinh** | C++ |
 
 !!! tip "Kết luận"
     **Python** phù hợp để **học thuật toán** (dễ hiểu, dễ viết).<br>
@@ -219,7 +219,7 @@ int main() {
 
 ### Giải thích template
 
-| Lệnh | Ý nghĩa | Tại sao cầnở |
+| Lệnh | Ý nghĩa | Tại sao cần? |
 |------|---------|--------------|
 | `#include <bits/stdc++.h>` | Include **tất cả** thư viện chuẩn | Tiện hơn include từng cái |
 | `ios_base::sync_with_stdio(false)` | **Tắt** đồng bộ C và C++ I/O | **Nhanh hơn** ~2-3 lần |

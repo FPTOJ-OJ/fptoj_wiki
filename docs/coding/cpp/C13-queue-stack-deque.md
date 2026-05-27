@@ -340,8 +340,7 @@ cout << minPQ.top() << endl;  // 1
 ### Bài 1: Kiểm tra palindrome bằng stack
 Đọc chuỗi s. Kiểm tra s có phải palindrome không (dùng stack).
 
-**Input:** `abcba`<br>
-**Output:** `YES`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="abcba" data-expected="YES" data-hint="Đẩy từng ký tự vào stack, rồi pop ra để tạo chuỗi đảo"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -370,8 +369,8 @@ cout << minPQ.top() << endl;  // 1
 ### Bài 2: Tìm K phần tử lớn nhất
 Đọc n số nguyên và số k. Tìm k phần tử lớn nhất.
 
-**Input:** `5 3 5 2 8 1 9`<br>
-**Output:** `9 8 5`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5 3
+5 2 8 1 9" data-expected="9 8 5" data-hint="Dùng min-heap (priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt;), giữ size k"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -416,9 +415,10 @@ cout << minPQ.top() << endl;  // 1
 
 ## Bài viết liên quan
 
-- [C11: Sort & Algorithm ←](C11-sort-algorithm.md)
-- [C10: Vector nâng cao →](C10-vector-nang-cao.md)
+- [C12: Set & Map ←](C12-set-map.md)
+- [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)
 
 ---
 
-**Bài tiếp theo:** [C10: Vector nâng cao →](C10-vector-nang-cao.md)
+**Bài trước:** [C12: Set & Map](C12-set-map.md)<br>
+**Bài tiếp theo:** [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)

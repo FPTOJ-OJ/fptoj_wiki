@@ -17,7 +17,17 @@ from collections import deque, Counter, defaultdict, OrderedDict, namedtuple
 
 ## 2. deque — Hàng đợi hai đầu
 
-deque (double-ended queue) cho phép thêm/xóa ở **cả 2 đầu** với độ phức tạp **O(1)**.
+deque (double-ended queue) cho phép thêm/xóa ở **cả 2 đầu** với độ phức tạp $O(1)$.
+
+```mermaid
+flowchart LR
+    subgraph "deque"
+        A["appendleft()"] --> B["[1, 2, 3, 4]"]
+        B --> C["pop()"]
+        B --> D["popleft()"]
+        E["append()"] --> B
+    end
+```
 
 ```python
 from collections import deque

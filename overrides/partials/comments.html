@@ -1,131 +1,234 @@
-{% set cusdis = config.extra.cusdis %}
 {% if not page.is_homepage %}
+{% set isso_host = config.extra.isso_host | default("https://wikicomments.fptoj.com/") %}
 <hr>
-<h2 id="__comments">💬 Bình luận</h2>
+<div>
+  <h2 id="__comments">💬 Bình luận</h2>
+
+ <script data-isso="{{ isso_host }}"
+          data-isso-require-author="true"
+          data-isso-require-email="false"
+          src="{{ isso_host }}js/embed.min.js"></script>
+            
+<section id="isso-thread" 
+          data-isso-id="{{ page.url }}" 
+          data-title="{{ page.title }}"></section>
+</div>
+
 <style>
-  .cusdis {
-    margin-top: 1em;
-    width: 100%;
-    max-width: 100%;
+  [data-md-color-scheme="slate"] #isso-thread,
+  [data-md-color-scheme="slate"] .isso-thread {
+    --isso-bg: #1e1e2e;
+    --isso-text: #cdd6f4;
+    --isso-border: #45475a;
   }
-  #cusdis_thread {
-    width: 100%;
+
+  [data-md-color-scheme="slate"] .isso-comment,
+  [data-md-color-scheme="slate"] #isso-root .isso-comment {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border-color: #45475a;
   }
-  #cusdis_thread iframe {
-    width: 100% !important;
-    min-width: 100% !important;
-    border: none !important;
-    overflow: hidden !important;
-    display: block !important;
-    background: transparent !important;
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-text-wrapper,
+  [data-md-color-scheme="slate"] #isso-root .isso-text-wrapper {
+    background: #181825;
+    border: 1px solid #45475a;
+    color: #cdd6f4;
   }
-  [data-md-color-scheme="slate"] .cusdis,
-  [data-md-color-scheme="dark"] .cusdis {
-    color-scheme: dark;
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-text {
+    color: #cdd6f4;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-text p {
+    color: #cdd6f4;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment header,
+  [data-md-color-scheme="slate"] #isso-root .isso-comment header {
+    color: #a6adc8;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment header a,
+  [data-md-color-scheme="slate"] #isso-root .isso-comment header a {
+    color: #89b4fa;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment header .isso-author {
+    color: #cba6f7;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-date {
+    color: #6c7086;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-nav a,
+  [data-md-color-scheme="slate"] #isso-root .isso-nav a {
+    color: #89b4fa;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-votes,
+  [data-md-color-scheme="slate"] #isso-root .isso-votes {
+    color: #a6adc8;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-votes button,
+  [data-md-color-scheme="slate"] #isso-root .isso-votes button {
+    color: #a6adc8;
+    border-color: #45475a;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-votes button:hover,
+  [data-md-color-scheme="slate"] #isso-root .isso-votes button:hover {
+    color: #89b4fa;
+  }
+
+  [data-md-color-scheme="slate"] .isso-followup .isso-comment,
+  [data-md-color-scheme="slate"] #isso-root .isso-followup .isso-comment {
+    border-color: #313244;
+  }
+
+
+  [data-md-color-scheme="slate"] .isso-postbox .isso-textarea,
+  [data-md-color-scheme="slate"] #isso-root .isso-textarea {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border: 1px solid #45475a;
+    border-radius: 4px;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox .isso-textarea:focus,
+  [data-md-color-scheme="slate"] #isso-root .isso-textarea:focus {
+    border-color: #89b4fa;
+    outline: none;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox .isso-preview,
+  [data-md-color-scheme="slate"] #isso-root .isso-preview {
+    background: #1e1e2e;
+    border-color: #45475a;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox .isso-preview .isso-comment,
+  [data-md-color-scheme="slate"] #isso-root .isso-preview .isso-comment {
+    background: #1e1e2e;
+    border-color: #45475a;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox .isso-preview .isso-text,
+  [data-md-color-scheme="slate"] #isso-root .isso-preview .isso-text {
+    color: #cdd6f4;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox label,
+  [data-md-color-scheme="slate"] #isso-root .isso-postbox label {
+    color: #a6adc8;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox input[type="text"],
+  [data-md-color-scheme="slate"] .isso-postbox input[type="email"],
+  [data-md-color-scheme="slate"] #isso-root input[type="text"],
+  [data-md-color-scheme="slate"] #isso-root input[type="email"] {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border: 1px solid #45475a;
+    border-radius: 4px;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox input[type="text"]:focus,
+  [data-md-color-scheme="slate"] .isso-postbox input[type="email"]:focus,
+  [data-md-color-scheme="slate"] #isso-root input[type="text"]:focus,
+  [data-md-color-scheme="slate"] #isso-root input[type="email"]:focus {
+    border-color: #89b4fa;
+    outline: none;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox input[type="submit"],
+  [data-md-color-scheme="slate"] #isso-root input[type="submit"] {
+    background: #89b4fa;
+    color: #1e1e2e;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox input[type="submit"]:hover,
+  [data-md-color-scheme="slate"] #isso-root input[type="submit"]:hover {
+    background: #74c7ec;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox input[type="button"],
+  [data-md-color-scheme="slate"] #isso-root input[type="button"] {
+    background: #313244;
+    color: #cdd6f4;
+    border: 1px solid #45475a;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+
+  [data-md-color-scheme="slate"] .isso-postbox input[type="button"]:hover,
+  [data-md-color-scheme="slate"] #isso-root input[type="button"]:hover {
+    background: #45475a;
+  }
+
+  [data-md-color-scheme="slate"] .isso-thread-heading,
+  [data-md-color-scheme="slate"] #isso-root h4 {
+    color: #a6adc8;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment a,
+  [data-md-color-scheme="slate"] #isso-root .isso-comment a {
+    color: #89b4fa;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment a:hover,
+  [data-md-color-scheme="slate"] #isso-root .isso-comment a:hover {
+    color: #74c7ec;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-text code,
+  [data-md-color-scheme="slate"] #isso-root .isso-text code {
+    background: #313244;
+    color: #f38ba8;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-text pre,
+  [data-md-color-scheme="slate"] #isso-root .isso-text pre {
+    background: #11111b;
+    border: 1px solid #45475a;
+    border-radius: 4px;
+    color: #cdd6f4;
+  }
+
+  [data-md-color-scheme="slate"] .isso-comment .isso-text blockquote,
+  [data-md-color-scheme="slate"] #isso-root .isso-text blockquote {
+    border-left: 3px solid #89b4fa;
+    color: #a6adc8;
+  }
+
+  [data-md-color-scheme="slate"] .isso-powered-by,
+  [data-md-color-scheme="slate"] #isso-root .isso-powered-by {
+    color: #6c7086;
+  }
+
+  [data-md-color-scheme="slate"] .isso-powered-by a,
+  [data-md-color-scheme="slate"] #isso-root .isso-powered-by a {
+    color: #6c7086;
+  }
+
+  [data-md-color-scheme="slate"] .isso-notification-section,
+  [data-md-color-scheme="slate"] #isso-root .isso-notification-section {
+    color: #a6adc8;
+  }
+
+  [data-md-color-scheme="slate"] .isso-notification-section input[type="checkbox"],
+  [data-md-color-scheme="slate"] #isso-root .isso-notification-section input[type="checkbox"] {
+    accent-color: #89b4fa;
   }
 </style>
-<div class="cusdis">
-  <div id="cusdis_thread"
-    data-host="{{ cusdis.host }}"
-    data-app-id="{{ cusdis.app_id }}"
-    data-page-id="{{ page.abs_url|url }}"
-    data-page-url="{{ page.abs_url|url }}"
-    data-page-title="{{ page.title }}"
-    data-theme="light"
-  ></div>
-</div>
-<script>
-  (function() {
-    var host = '{{ cusdis.host }}';
-    var lang = '{{ cusdis.lang }}';
-
-    // Load language
-    var langScript = document.createElement('script');
-    langScript.src = host + '/js/widget/lang/' + lang + '.js';
-    langScript.async = false;
-    document.head.appendChild(langScript);
-
-    // Load widget
-    var widgetScript = document.createElement('script');
-    widgetScript.src = host + '/js/cusdis.es.js';
-    widgetScript.async = true;
-    document.head.appendChild(widgetScript);
-
-    // --- Theme sync ---
-    function getTheme() {
-      var scheme = document.documentElement.getAttribute('data-md-color-scheme');
-      if (!scheme) {
-        var palette = document.querySelector('[data-md-color-scheme]');
-        if (palette) scheme = palette.getAttribute('data-md-color-scheme');
-      }
-      return scheme === 'slate' || scheme === 'dark' ? 'dark' : 'light';
-    }
-
-    function applyTheme(theme) {
-      var el = document.getElementById('cusdis_thread');
-      if (!el) return;
-      el.setAttribute('data-theme', theme);
-      // Use CUSDIS API if available
-      try {
-        if (window.CUSDIS && window.CUSDIS.setTheme) {
-          window.CUSDIS.setTheme(theme);
-        }
-      } catch(e) {}
-    }
-
-    // Apply initial theme
-    applyTheme(getTheme());
-
-    // Listen for scheme changes
-    var observer = new MutationObserver(function() {
-      applyTheme(getTheme());
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-md-color-scheme', 'data-user-color-scheme']
-    });
-    // Also watch the body/parent for scheme changes
-    var body = document.querySelector('[data-md-color-scheme]');
-    if (body && body !== document.documentElement) {
-      new MutationObserver(function() {
-        applyTheme(getTheme());
-      }).observe(body, { attributes: true, attributeFilter: ['data-md-color-scheme'] });
-    }
-
-    // --- Iframe resize (remove scrollbar) ---
-    window.addEventListener('message', function(e) {
-      if (!e.data) return;
-      var iframe = document.querySelector('#cusdis_thread iframe');
-      if (!iframe) return;
-      // Cusdis sends height updates via postMessage
-      if (e.data.type === 'cusdis' && e.data.payload) {
-        if (e.data.payload.height) {
-          iframe.style.height = e.data.payload.height + 'px';
-        }
-      }
-      // Fallback: direct height
-      if (e.data.height) {
-        iframe.style.height = e.data.height + 'px';
-      }
-    });
-
-    // Force iframe resize on load
-    var checkIframe = setInterval(function() {
-      var iframe = document.querySelector('#cusdis_thread iframe');
-      if (iframe) {
-        iframe.style.overflow = 'hidden';
-        iframe.onload = function() {
-          try {
-            var doc = iframe.contentDocument || iframe.contentWindow.document;
-            if (doc && doc.body) {
-              iframe.style.height = doc.body.scrollHeight + 'px';
-            }
-          } catch(e) {}
-        };
-        clearInterval(checkIframe);
-      }
-    }, 200);
-  })();
-</script>
-<noscript>Vui lòng bật JavaScript để xem bình luận</noscript>
 {% endif %}

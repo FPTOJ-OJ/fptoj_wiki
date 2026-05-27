@@ -35,9 +35,9 @@ for perm in itertools.permutations(arr):
 ```
 
 !!! tip "Số hoán vị"
-    - n phần tử: n! hoán vị
-    - n phần tử, chập k: n!/(n-k)! hoán vị
-    - Cẩn thận khi n lớn (10! = 3,628,800)
+    - $n$ phần tử: $n!$ hoán vị
+    - $n$ phần tử, chập $k$: $\frac{n!}{(n-k)!}$ hoán vị
+    - Cẩn thận khi $n$ lớn ($10! = 3{,}628{,}800$)
 
 ---
 
@@ -58,11 +58,14 @@ combs = list(itertools.combinations_with_replacement(arr, 2))
 
 ### So sánh
 
-| Hàm | Mô tả | Ví dụ (arr=[1,2,3], k=2) |
-|-----|--------|--------------------------|
-| `combinations` | Tổ hợp, không lặp, không xét thứ tự | (1,2), (1,3), (2,3) |
-| `combinations_with_replacement` | Tổ hợp, có lặp | (1,1), (1,2), (1,3), (2,2), (2,3), (3,3) |
-| `permutations` | Hoán vị, không lặp, xét thứ tự | (1,2), (2,1), (1,3), (3,1), (2,3), (3,2) |
+| Hàm | Toán học | Mô tả | Ví dụ (arr=[1,2,3], k=2) |
+|-----|----------|--------|--------------------------|
+| `combinations` | $C(n,k)$ | Tổ hợp, không lặp, không xét thứ tự | (1,2), (1,3), (2,3) |
+| `combinations_with_replacement` | $C(n+k-1,k)$ | Tổ hợp, có lặp (chọn lại được) | (1,1), (1,2), (1,3), (2,2), (2,3), (3,3) |
+| `permutations` | $P(n,k)$ | Hoán vị, không lặp, xét thứ tự | (1,2), (2,1), (1,3), (3,1), (2,3), (3,2) |
+
+!!! info "Tại sao tổ hợp có lặp là $C(n+k-1,k)$?"
+    Khi chọn $k$ phần tử từ $n$ phần tử **có thể chọn lại**, ta quy về bài toán: đếm số nghiệm không âm của $x_1 + x_2 + \cdots + x_n = k$ (trong đó $x_i$ là số lần chọn phần tử thứ $i$). Số nghiệm này bằng $C(n+k-1, k)$.
 
 ---
 

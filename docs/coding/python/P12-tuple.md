@@ -9,6 +9,15 @@
 
 Tuple giống như list nhưng **immutable** (không thể thay đổi sau khi tạo). Tuple thường dùng để lưu dữ liệu không cần thay đổi.
 
+```mermaid
+flowchart TD
+    A["Dữ liệu"] --> B{"Cần thay đổi?"}
+    B -->|"Có"| C["List [1, 2, 3]"]
+    B -->|"Không"| D["Tuple (1, 2, 3)"]
+    C --> E["Mutable, chậm hơn"]
+    D --> F["Immutable, nhanh hơn, làm key được"]
+```
+
 ```python
 t = (1, 2, 3, 4, 5)
 ```

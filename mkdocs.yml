@@ -45,78 +45,92 @@ nav:
       - Giới thiệu: about.md
   - Bài Học:
       - Tổng hợp bài học: lessons/index.md
-      - "⭐ Nhóm 1 — Nhập môn (Bài 1-6)":
-          - Setup môi trường thi đấu: lessons/35-setup-moi-truong.md
-          - Độ phức tạp thời gian: lessons/01-do-phuc-tap-thoi-gian.md
-          - Thuật toán sắp xếp: lessons/02-thuat-toan-sap-xep.md
-          - Tìm kiếm nhị phân: lessons/03-tim-kiem-nhi-phan.md
-          - Phép toán bit: lessons/05-phep-toan-bit.md
-          - Đệ quy và quay lui: lessons/06-de-quy-va-quay-lui.md
+      - Lộ trình học: lessons/roadmap.md
+      - "⭐ Nhóm 1 — Nhập môn":
+          - Setup môi trường thi đấu: lessons/setup-moi-truong.md
+          - Độ phức tạp thời gian: lessons/do-phuc-tap-thoi-gian.md
+          - Thuật toán sắp xếp: lessons/thuat-toan-sap-xep.md
+          - Tìm kiếm nhị phân: lessons/tim-kiem-nhi-phan.md
+          - Phép toán bit: lessons/phep-toan-bit.md
+          - Đệ quy và quay lui: lessons/de-quy-va-quay-lui.md
       - "⭐⭐ Nhóm 2 — Kỹ thuật cơ bản":
-          - Kĩ thuật hai con trỏ: lessons/04-ky-thuat-hai-con-tro.md
-          - Mảng, Stack, Prefix Sum: lessons/07-mang-stack-prefix-sum.md
-          - Lũy thừa nhị phân & Sàng nguyên tố: lessons/11-luy-thua-nhi-phan-sang-nguyen-to.md
+          - Kĩ thuật hai con trỏ: lessons/ky-thuat-hai-con-tro.md
+          - Mảng, Stack, Prefix Sum: lessons/mang-stack-prefix-sum.md
+          - Lũy thừa nhị phân & Sàng nguyên tố: lessons/luy-thua-nhi-phan-sang-nguyen-to.md
       - "⭐⭐ Nhóm 3 — Cấu trúc dữ liệu cơ bản":
-          - Linked List chi tiết: lessons/33-linked-list.md
-          - Queue cơ bản: lessons/34-queue.md
-          - Hash Table: lessons/16-hash-table.md
-          - Deque & Sliding Window: lessons/15-deque-sliding-window.md
-          - Trie: lessons/17-trie.md
-          - Heap (Hàng đợi ưu tiên): lessons/08a-heap.md
-          - DSU (Gộp tập hợp): lessons/08b-dsu.md
-          - Segment Tree (Cây phân đoạn): lessons/08c-segment-tree.md
-          - Fenwick Tree (BIT): lessons/08d-fenwick-tree.md
+          - Linked List chi tiết: lessons/linked-list.md
+          - Queue cơ bản: lessons/queue.md
+          - Hash Table: lessons/hash-table.md
+          - Heap (Hàng đợi ưu tiên): lessons/heap.md
+          - DSU (Gộp tập hợp): lessons/dsu.md
+          - Deque & Sliding Window: lessons/deque-sliding-window.md
+          - Trie: lessons/trie.md
+          - Segment Tree (Cây phân đoạn): lessons/segment-tree.md
+          - Fenwick Tree (BIT): lessons/fenwick-tree.md
       - "⭐⭐⭐ Nhóm 4 — Thuật toán đồ thị":
-          - BFS/DFS trên đồ thị: lessons/10-bfs-dfs-do-thi.md
-          - MST, Dijkstra, Topo Sort: lessons/13-mst-dijkstra-topo-sort.md
-          - Floyd-Warshall & Bellman-Ford: lessons/23-floyd-warshall-bellman-ford.md
-          - LCA & Binary Lifting: lessons/31-lca-binary-lifting.md
+          - BFS/DFS trên đồ thị: lessons/bfs-dfs-do-thi.md
+          - MST, Dijkstra, Topo Sort: lessons/mst-dijkstra-topo-sort.md
+          - Floyd-Warshall & Bellman-Ford: lessons/floyd-warshall-bellman-ford.md
+          - LCA & Binary Lifting: lessons/lca-binary-lifting.md
       - "⭐⭐⭐ Nhóm 5 — Quy hoạch động & Tham lam":
-          - Greedy: lessons/21-greedy.md
-          - Quy hoạch động: lessons/12-quy-hoach-dong.md
-          - Binary Search on Answer: lessons/25-binary-search-on-answer.md
+          - Greedy: lessons/greedy.md
+          - Quy hoạch động: lessons/quy-hoach-dong.md
+          - Binary Search on Answer: lessons/binary-search-on-answer.md
       - "⭐⭐⭐ Nhóm 6 — Xử lý xâu":
-          - KMP - Tìm xâu: lessons/09-kmp-tim-xau.md
-          - Hash xâu & Z-algorithm: lessons/14-hash-xau-z-algorithm.md
-          - Manacher: lessons/20-manacher.md
-          - Suffix Array: lessons/32-suffix-array.md
+          - KMP - Tìm xâu: lessons/kmp-tim-xau.md
+          - Hash xâu & Z-algorithm: lessons/hash-xau-z-algorithm.md
+          - Manacher: lessons/manacher.md
+          - Suffix Array: lessons/suffix-array.md
       - "⭐⭐⭐ Nhóm 7 — Toán & Số học":
-          - Euclid & Modular Inverse: lessons/18-euclid-modular-inverse.md
-          - Tổ hợp & Xác suất: lessons/19-to-hop-xac-suat.md
-          - Số học nâng cao: lessons/26-so-hoc-nang-cao.md
-          - Lý thuyết trò chơi: lessons/27-ly-thuyet-tro-choi.md
-      - "⭐⭐⭐⭐ Nhóm 8 — Hình học & Nâng cao":
-          - Hình học cơ bản: lessons/22-hinh-hoc-co-ban.md
-          - Stack nâng cao: lessons/24-stack-nang-cao.md
-          - Binary Search Tree (BST): lessons/30-bst.md
-          - Sparse Table (RMQ): lessons/29-sparse-table.md
-          - Bao lồi: lessons/28-bao-loi.md
-      - "🏆 Nhóm 9 — Kỹ năng thi đấu":
-          - Kỹ năng thi đấu: lessons/36-ky-nang-thi-dau.md
-          - Sinh testcase & Stress test: lessons/37-sinh-testcase.md
-          - Debug & Mẹo thi đấu: lessons/38-debug-meo.md
-          - Tổ chức code & Nộp bài: lessons/39-to-chuc-code.md
+          - Euclid & Modular Inverse: lessons/euclid-modular-inverse.md
+          - Tổ hợp & Xác suất: lessons/to-hop-xac-suat.md
+          - Số học nâng cao: lessons/so-hoc-nang-cao.md
+          - Lý thuyết trò chơi: lessons/ly-thuyet-tro-choi.md
+          - Sàng nâng cao & Hàm ước: lessons/sang-nang-cao-ham-uoc.md
+          - Nguyên lý bao hàm - loại trừ: lessons/nguyen-ly-bao-ham-loai-tru.md
+          - Đếm đường đi trên lưới: lessons/dem-duong-di-luoi.md
+          - Nhân ma trận & Lũy thừa ma trận: lessons/nhan-ma-tran.md
+          - Logarithm rời rạc (BSGS): lessons/logarithm-roi-rac.md
+          - Căn nguyên thủy & Dấu hiệu bình phương: lessons/can-nguyen-thuy.md
+          - NTT & Nhân đa thức: lessons/ntt-nhan-da-thuc.md
+          - Khử Gauss & Đại số tuyến tính: lessons/khu-gauss.md
+      - "⭐⭐⭐⭐ Nhóm 8 — Hình học":
+          - Hình học cơ bản: lessons/hinh-hoc-co-ban.md
+          - Phương trình đường thẳng & Giao điểm: lessons/phuong-trinh-duong-thang.md
+          - Hình học đường tròn: lessons/hinh-hoc-duong-tron.md
+          - Định lý Pick & Đếm điểm nguyên: lessons/dinh-ly-pick.md
+          - Góc & Phép quay: lessons/goc-phep-quay.md
+          - Sắp xếp cực & Quét góc: lessons/sap-xep-cuc.md
+          - Bao lồi: lessons/bao-loi.md
+          - Stack nâng cao: lessons/stack-nang-cao.md
+          - Binary Search Tree (BST): lessons/bst.md
+          - Sparse Table (RMQ): lessons/sparse-table.md
+      - "🏆 Kỹ năng thi đấu":
+          - Kỹ năng thi đấu: lessons/ky-nang-thi-dau.md
+          - Sinh testcase & Stress test: lessons/sinh-testcase.md
+          - Debug & Mẹo thi đấu: lessons/debug-meo.md
+          - Tổ chức code & Nộp bài: lessons/to-chuc-code.md
       - "⭐⭐⭐⭐ Nhóm 10 — Đồ thị nâng cao":
-          - SCC & Cầu & Khớp: lessons/40-scc-bridges.md
-          - Network Flow (Luồng cực đại): lessons/41-network-flow.md
-          - Bipartite Matching & Hungarian: lessons/42-bipartite-matching.md
-          - 2-SAT: lessons/43-2sat.md
+          - SCC & Cầu & Khớp: lessons/scc-bridges.md
+          - Network Flow (Luồng cực đại): lessons/network-flow.md
+          - Bipartite Matching & Hungarian: lessons/bipartite-matching.md
+          - 2-SAT: lessons/2sat.md
       - "⭐⭐⭐⭐ Nhóm 11 — Cây nâng cao":
-          - Euler Tour trên cây: lessons/44-euler-tour-tree.md
-          - Centroid Decomposition: lessons/45-centroid-decomposition.md
-          - Heavy-Light Decomposition: lessons/46-hld.md
+          - Euler Tour trên cây: lessons/euler-tour-tree.md
+          - Centroid Decomposition: lessons/centroid-decomposition.md
+          - Heavy-Light Decomposition: lessons/hld.md
       - "⭐⭐⭐⭐ Nhóm 12 — Quy hoạch động nâng cao":
-          - DP trên cây: lessons/47-dp-on-trees.md
-          - Digit DP: lessons/48-digit-dp.md
-          - Interval DP: lessons/49-interval-dp.md
-          - Tối ưu DP (Knuth, D&C, CHT): lessons/50-dp-optimization.md
+          - DP trên cây: lessons/dp-on-trees.md
+          - Digit DP: lessons/digit-dp.md
+          - Interval DP: lessons/interval-dp.md
+          - Tối ưu DP (Knuth, D&C, CHT): lessons/dp-optimization.md
       - "⭐⭐⭐⭐ Nhóm 13 — Xâu nâng cao":
-          - Aho-Corasick: lessons/51-aho-corasick.md
-          - Suffix Automaton: lessons/52-suffix-automaton.md
+          - Aho-Corasick: lessons/aho-corasick.md
+          - Suffix Automaton: lessons/suffix-automaton.md
       - "⭐⭐⭐⭐ Nhóm 14 — Kỹ thuật nâng cao":
-          - Chia căn & Mo's Algorithm: lessons/53-sqrt-mo.md
-          - Convex Hull Trick & Li Chao Tree: lessons/54-convex-hull-trick.md
-          - Ternary Search: lessons/55-ternary-search.md
+          - Chia căn & Mo's Algorithm: lessons/sqrt-mo.md
+          - Convex Hull Trick & Li Chao Tree: lessons/convex-hull-trick.md
+          - Ternary Search: lessons/ternary-search.md
   - Thuật Toán:
       - Cơ Bản:
         - Đệ quy và Thuật toán quay lui: algo/basic/backtracking.md
@@ -358,10 +372,7 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra:
-  cusdis:
-    host: https://cusdis.com
-    app_id: bc6a42af-d165-45eb-a516-028294bfa409
-    lang: vi
+  isso_host: https://wikicomments.fptoj.com/
 
 extra_javascript:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js
@@ -369,19 +380,6 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
   - js/jquery-3.7.1.min.js
   - js/webjs.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/clike/clike.min.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/matchbrackets.min.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/closebrackets.min.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/anyword-hint.min.js
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/selection/active-line.min.js
-  - js/cp-compiler.js
-  - js/cp-playground.js
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.css
-  - https://cdn.jsdelivr.net/npm/codemirror@5.65.18/theme/monokai.min.css

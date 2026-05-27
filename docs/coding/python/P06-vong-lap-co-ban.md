@@ -589,13 +589,9 @@ In bảng cửu chương từ 1 đến 9.
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    arr = list(map(int, input().split()))
     print(max(arr))
-    # Hoặc:
-    # max_val = arr[0]
-    # for x in arr:
-    #     if x > max_val:
-    #         max_val = x
-    # print(max_val)
     ```
 
 ### Bài 5: Collatz Conjecture

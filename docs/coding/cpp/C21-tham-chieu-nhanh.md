@@ -507,7 +507,7 @@ assert(n < 0);  // CRASH! Chương trình dừng và báo lỗi
 | `max({a, b, c})` | `<algorithm>` | Max nhiều giá trị |
 | `min({a, b, c})` | `<algorithm>` | Min nhiều giá trị |
 | `abs(x)` | `<cstdlib>` | Giá trị tuyệt đối |
-| `__gcd(a, b)` | `<algorithm>` | GCD |
+| `__gcd(a, b)` | `<algorithm>` | GCD (GCC extension) |
 | `tolower(c)` | `<cctype>` | Chữ thường |
 | `toupper(c)` | `<cctype>` | Chữ hoa |
 | `isdigit(c)` | `<cctype>` | Kiểm tra chữ số |

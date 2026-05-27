@@ -5,7 +5,7 @@ $(document).ready(function () {
   $("link[rel='icon']").remove();
   $("head").append(`<link rel="icon" type="image/svg+xml" href="${favicon}">`);
 
-  // 3. Optimized KaTeX rendering
+  // 2. Optimized KaTeX rendering
   if (typeof renderMathInElement === 'function') {
     renderMathInElement(document.body, {
       delimiters: [
@@ -24,7 +24,7 @@ $(document).ready(function () {
     });
   }
 
-  // 4. Render Mermaid diagrams
+  // 3. Render Mermaid diagrams
   if (typeof mermaid !== 'undefined') {
     mermaid.initialize({
       startOnLoad: false,
@@ -36,5 +36,50 @@ $(document).ready(function () {
     } catch (e) {
       console.error('Mermaid error:', e);
     }
+  }
+
+  // 4. Lazy-load CodeMirror only when .cp-pg exists on page
+  if (document.querySelector('.cp-pg')) {
+    var cmCSS = [
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.css',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/theme/monokai.min.css'
+    ];
+    var cmJS = [
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/clike/clike.min.js',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/python/python.min.js',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/matchbrackets.min.js',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/edit/closebrackets.min.js',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.js',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/anyword-hint.min.js',
+      'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/selection/active-line.min.js',
+      '/js/cp-compiler.js',
+      '/js/cp-playground.js'
+    ];
+
+    function loadCSS(href) {
+      if (document.querySelector('link[href="' + href + '"]')) return;
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    }
+
+    function loadScriptsSequentially(scripts, index) {
+      if (index >= scripts.length) return;
+      var src = scripts[index];
+      if (document.querySelector('script[src="' + src + '"]')) {
+        loadScriptsSequentially(scripts, index + 1);
+        return;
+      }
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = function() { loadScriptsSequentially(scripts, index + 1); };
+      document.head.appendChild(s);
+    }
+
+    cmCSS.forEach(loadCSS);
+    loadScriptsSequentially(cmJS, 0);
   }
 });

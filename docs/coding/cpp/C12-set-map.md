@@ -249,15 +249,12 @@ for (auto it = s.begin(); it != s.end(); ) {
 ## Bài tập thực hành
 
 ### Bài 1: Đếm tần suất
-Đọc n số nguyên. Đếm số lần xuất hiện của mỗi số.
+Đọc $n$ số nguyên. Đếm số lần xuất hiện của mỗi số.
 
-**Input:** `5 1 2 3 2 1`<br>
-**Output:**
-```
-1: 2
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
+1 2 3 2 1" data-expected="1: 2
 2: 2
-3: 1
-```
+3: 1" data-hint="Dùng map&lt;int,int&gt;, mỗi lần đọc x thì freq[x]++"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -281,10 +278,10 @@ for (auto it = s.begin(); it != s.end(); ) {
     ```
 
 ### Bài 2: Tìm phần tử xuất hiện 1 lần
-Đọc n số nguyên. Tìm phần tử xuất hiện đúng 1 lần.
+Đọc $n$ số nguyên. Tìm phần tử xuất hiện đúng 1 lần.
 
-**Input:** `5 1 2 3 2 1`<br>
-**Output:** `3`
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
+1 2 3 2 1" data-expected="3" data-hint="Dùng map đếm tần suất, duyệt map in phần tử có value == 1"></div>
 
 ???? tip "Lời giải"
     ```cpp

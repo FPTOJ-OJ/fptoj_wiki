@@ -26,7 +26,7 @@ For **absolute beginners**. Learn programming from scratch before diving into al
 
 39+ lessons from basic to advanced, with detailed explanations, code samples, and diagrams.
 
-🔗 **[View all lessons →](docs/lessons/index.md)**
+🔗 **[View all lessons →](docs/lessons/index.md)** · **[Interactive roadmap →](docs/lessons/roadmap.md)**
 
 | Group | Topics |
 |-------|--------|
@@ -46,24 +46,6 @@ In-depth articles from the VNOI library and other sources. See the [VNOI Roadmap
 
 ---
 
-## Comments
-
-The wiki uses [Cusdis](https://cusdis.com) for comments. Every article has a **💬 Comments** section at the bottom for questions and feedback.
-
-Configuration in `mkdocs.yml`:
-
-```yaml
-extra:
-  cusdis:
-    host: https://cusdis.com
-    app_id: <your-app-id>
-    lang: vi
-```
-
-The comment widget is customized in `overrides/partials/comments.html` with dark mode support and automatic theme syncing with Material for MkDocs.
-
----
-
 ## Tech Stack
 
 | Tool | Purpose |
@@ -71,12 +53,23 @@ The comment widget is customized in `overrides/partials/comments.html` with dark
 | [MkDocs](https://www.mkdocs.org/) | Static site generator |
 | [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) | Responsive theme with dark mode |
 | [KaTeX](https://katex.org/) | Math rendering |
-| [Cusdis](https://cusdis.com) | Self-hosted comment system |
+| [Isso-comments](https://isso-comments.de/) | Self-hosted comment system |
 | Cloudflare Pages | Hosting & auto-deploy |
 
 ---
 
-## Local Development
+## Configuration
+
+### Change Isso Comments Domain
+
+The comment system uses [Isso](https://isso-comments.de/). To change the Isso server URL, edit `mkdocs.yml`:
+
+```yaml
+extra:
+  isso_host: https://your-isso-server.com/
+```
+
+The value must end with `/`. The JS embed script is loaded from `{isso_host}js/embed.min.js`.
 
 Requires Python 3.8+
 
@@ -106,4 +99,4 @@ Built on top of content from the **VNOI** community. Special thanks to [VNOI Wik
 
 ---
 
-Made with ❤️ by **KienPC** and **FPTOJ Team**.
+Made with ❤️ by **Ha Tri Kien** and **FPTOJ Team**.

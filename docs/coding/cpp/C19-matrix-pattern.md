@@ -619,6 +619,12 @@ int main() {
 ### Bài 1: Đếm đảo
 Cho lưới $n \times m$ gồm `0` và `1`. Đếm số đảo (vùng `1` liên thông).
 
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4 5
+1 1 0 0 0
+1 1 0 0 0
+0 0 1 0 0
+0 0 0 1 1" data-expected="3" data-hint="Dùng BFS/DFS, gặp 1 thì quét hết vùng liên thông"></div>
+
 ???? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
@@ -665,6 +671,12 @@ Cho lưới $n \times m$ gồm `0` và `1`. Đếm số đảo (vùng `1` liên 
 
 ### Bài 2: Khoảng cách Manhattan
 Cho $n$ điểm trên lưới. Tìm cặp điểm có khoảng cách Manhattan nhỏ nhất.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4
+0 0
+1 1
+3 3
+1 0" data-expected="1" data-hint="Duyệt tất cả cặp (i,j), tính |x1-x2| + |y1-y2|"></div>
 
 ???? tip "Lời giải"
     ```cpp

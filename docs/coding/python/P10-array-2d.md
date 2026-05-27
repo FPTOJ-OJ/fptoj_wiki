@@ -507,6 +507,8 @@ if 0 <= nx < n and 0 <= ny < m:
 
 ??? tip "Lời giải"
     ```python
+    n, m = map(int, input().split())
+    matrix = [list(map(int, input().split())) for _ in range(n)]
     for row in matrix:
         print(*row)
     ```
@@ -522,6 +524,8 @@ if 0 <= nx < n and 0 <= ny < m:
 
 ??? tip "Lời giải"
     ```python
+    n, m = map(int, input().split())
+    matrix = [list(map(int, input().split())) for _ in range(n)]
     transposed = list(map(list, zip(*matrix)))
     for row in transposed:
         print(*row)
@@ -537,6 +541,8 @@ if 0 <= nx < n and 0 <= ny < m:
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    matrix = [list(map(int, input().split())) for _ in range(n)]
     print(sum(matrix[i][i] for i in range(n)))
     ```
 
@@ -550,6 +556,8 @@ Cho grid n × m gồm '#' (tường) và '.' (trống). Đếm số ô trống.
 
 ??? tip "Lời giải"
     ```python
+    n, m = map(int, input().split())
+    grid = [input() for _ in range(n)]
     count = sum(row.count('.') for row in grid)
     print(count)
     ```
@@ -564,6 +572,11 @@ Cho grid n × m. Tìm đường đi ngắn nhất từ (0,0) đến (n-1,m-1). '
 
 ??? tip "Lời giải"
     ```python
+    from collections import deque
+    
+    n, m = map(int, input().split())
+    grid = [input() for _ in range(n)]
+    
     dx = [0, 0, 1, -1]
     dy = [1, -1, 0, 0]
     

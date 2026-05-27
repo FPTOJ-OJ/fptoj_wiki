@@ -130,6 +130,7 @@ int main() {
     iota(a.begin(), a.end(), 5);
     
     // Hữu ích khi cần mảng chỉ số
+    int n = 10;
     vector<int> idx(n);
     iota(idx.begin(), idx.end(), 0);
     sort(idx.begin(), idx.end(), [&](int i, int j) {
@@ -147,12 +148,12 @@ int main() {
 using namespace std;
 
 int main() {
-    // __gcd hoạt động trên mọi trình biên dịch
+    // __gcd hoạt động trên mọi trình biên dịch (GCC extension)
     cout << __gcd(12, 18) << endl;  // 6
     
-    // C++17: std::gcd, std::lcm
-    cout << gcd(12, 18) << endl;    // 6
-    cout << lcm(4, 6) << endl;      // 12
+    // C++17: std::gcd, std::lcm (trong <numeric>)
+    // cout << gcd(12, 18) << endl;  // Cần C++17
+    // cout << lcm(4, 6) << endl;    // Cần C++17
     
     // GCD nhiều số
     vector<int> a = {12, 18, 24};
@@ -555,6 +556,10 @@ int main() {
 ---
 
 ## 6. Bảng tổng hợp hàm
+
+!!! info "Độ phức tạp trong bảng"
+    - $O(n)$: Duyệt qua $n$ phần tử — tuyến tính.
+    - $O(\log n)$: Chia đôi liên tục — rất nhanh, ngay cả với số lớn ($10^{18}$ chỉ cần ~60 bước).
 
 | Hàm | Thư viện | Mô tả | Độ phức tạp |
 |-----|----------|-------|-------------|

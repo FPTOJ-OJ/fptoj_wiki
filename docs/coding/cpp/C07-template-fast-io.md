@@ -17,6 +17,17 @@ Sau bài này, bạn có thể:
 
 ## 1. Template thi đấu
 
+```mermaid
+flowchart TD
+    A["#include <bits/stdc++.h>"] --> B["using namespace std;"]
+    B --> C["typedef & #define"]
+    C --> D["const INF, MOD"]
+    D --> E["int main()"]
+    E --> F["ios_base::sync_with_stdio(false)"]
+    F --> G["cin.tie(NULL)"]
+    G --> H["Code bài giải"]
+```
+
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
@@ -62,9 +73,24 @@ pii p = {1, 2};        // Thay vì pair<int,int> p = {1, 2};
 vi a = {1, 2, 3};      // Thay vì vector<int> a = {1, 2, 3};
 ```
 
+| typedef | Kiểu gốc | Ý nghĩa |
+|---------|----------|---------|
+| `ll` | `long long` | Số nguyên 64-bit |
+| `pii` | `pair<int,int>` | Cặp số nguyên |
+| `pll` | `pair<ll,ll>` | Cặp số nguyên lớn |
+| `vi` | `vector<int>` | Mảng động số nguyên |
+| `vvi` | `vector<vector<int>>` | Ma trận động |
+
 ---
 
 ## 3. Macro — Tự động thay thế
+
+```mermaid
+flowchart LR
+    A["REP(i, n)"] -->|"Macro expand"| B["for (int i = 0; i < n; i++)"]
+    C["all(v)"] -->|"Macro expand"| D["(v).begin(), (v).end()"]
+    E["pb(x)"] -->|"Macro expand"| F["push_back(x)"]
+```
 
 ### Macro viết tắt
 
@@ -127,6 +153,8 @@ cin.tie(NULL);
 
 ### Fast Input với getchar
 
+Đọc số nguyên nhanh — độ phức tạp $O(\log_{10} n)$ vì xử lý từng chữ số một (số $n$ có $\lfloor \log_{10} n \rfloor + 1$ chữ số).
+
 ```cpp
 // Đọc số nguyên nhanh
 int readInt() {
@@ -146,6 +174,8 @@ int readInt() {
 
 ### Fast Output với putchar
 
+In số nguyên nhanh — cùng độ phức tạp $O(\log_{10} n)$ vì in từng chữ số.
+
 ```cpp
 // In số nguyên nhanh
 void writeInt(long long x) {
@@ -155,6 +185,36 @@ void writeInt(long long x) {
 }
 ```
 
+### So sánh Python
+
+=== "Python"
+
+    ```python
+    import sys
+    input = sys.stdin.readline  # Tương tự tắt sync trong C++
+    
+    n = int(input())
+    arr = list(map(int, input().split()))
+    ```
+
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
+        int n;
+        cin >> n;
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++) cin >> arr[i];
+        return 0;
+    }
+    ```
+
 ---
 
 ## 5. Khi nào dùng gì?
@@ -162,17 +222,94 @@ void writeInt(long long x) {
 | Tình huống | Nên dùng |
 |------------|----------|
 | Thi đấu bình thường | `cin`/`cout` + tắt sync |
-| Input rất lớn (>10^6 số) | `scanf`/`printf` hoặc `getchar` |
+| Input rất lớn ($>10^6$ số) | `scanf`/`printf` hoặc `getchar` |
 | Output rất lớn | `printf` hoặc `putchar` |
 | Debug | `cin`/`cout` (bật sync) |
 
 ---
 
+## 6. Bài tập thực hành
+
+### Bài 1: Template hoàn chỉnh
+Viết chương trình đọc $n$ số nguyên và in tổng của chúng. Dùng template thi đấu.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\ntypedef long long ll;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(NULL);\n    \n    // Viết code ở đây\n    \n    return 0;\n}" data-input="5
+1 2 3 4 5" data-expected="15" data-hint="Đọc n, dùng vòng lặp cộng dồn vào sum (kiểu ll)"></div>
+
+???? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    typedef long long ll;
+    
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
+        int n;
+        cin >> n;
+        ll sum = 0;
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+            sum += x;
+        }
+        cout << sum << endl;
+        return 0;
+    }
+    ```
+
+### Bài 2: Fast I/O vs Normal
+So sánh tốc độ: đọc $10^6$ số nguyên bằng `cin` (có sync) và `cin` (tắt sync).
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\ntypedef long long ll;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(NULL);\n    \n    // Viết code ở đây\n    \n    return 0;\n}" data-input="5
+1000000 2000000 3000000 4000000 5000000" data-expected="15000000" data-hint="Dùng ll cho sum, đọc n rồi cộng dồn"></div>
+
+???? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    typedef long long ll;
+    
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        
+        int n;
+        cin >> n;
+        ll sum = 0;
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+            sum += x;
+        }
+        cout << sum << endl;
+        return 0;
+    }
+    ```
+
+---
+
+## Tóm tắt bài học
+
+| Nội dung | Chi tiết |
+|----------|----------|
+| **Template** | `#include <bits/stdc++.h>` + tắt sync |
+| **typedef** | `ll`, `pii`, `vi` — viết ngắn hơn |
+| **Macro** | `REP`, `FOR`, `all`, `pb` — code nhanh |
+| **Fast I/O** | `sync_with_stdio(false)` + `cin.tie(NULL)` |
+| **Khi nào dùng** | Thi đấu: tắt sync. Debug: bật sync |
+
+---
+
 ## Bài viết liên quan
 
-- [C06: Hàm trong C++ →](C06-ham.md)
+- [C06: Hàm trong C++ ←](C06-ham.md)
 - [C08: Reference & Pointer →](C08-reference-pointer.md)
 
 ---
 
+**Bài trước:** [C06: Hàm trong C++](C06-ham.md)<br>
 **Bài tiếp theo:** [C08: Reference & Pointer →](C08-reference-pointer.md)

@@ -374,10 +374,12 @@ b = 10" data-input="" data-expected="10 5" data-hint="Dùng a, b = b, a"></div>
 ### Bài 2: Tính diện tích hình tròn
 Cho bán kính `r`. Tính diện tích hình tròn (S = π × r²).
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="" data-expected="78.54" data-hint="S = math.pi * r ** 2, in với 2 chữ số thập phân"></div>
+<div class="cp-pg" data-language="python" data-starter="import math" data-input="5" data-expected="78.54" data-hint="S = math.pi * r ** 2, in với 2 chữ số thập phân"></div>
 
 ??? tip "Lời giải"
     ```python
+    import math
+    r = float(input())
     s = math.pi * r ** 2
     print(f"{s:.2f}")
     ```
@@ -385,10 +387,11 @@ Cho bán kính `r`. Tính diện tích hình tròn (S = π × r²).
 ### Bài 3: Chuyển đổi nhiệt độ
 Cho nhiệt độ `C` độ C. Chuyển sang độ F (F = C × 9/5 + 32).
 
-<div class="cp-pg" data-language="python" data-starter="C = 37.5" data-input="" data-expected="99.5" data-hint="F = C * 9 / 5 + 32"></div>
+<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="37.5" data-expected="99.5" data-hint="F = C * 9 / 5 + 32"></div>
 
 ??? tip "Lời giải"
     ```python
+    C = float(input())
     F = C * 9 / 5 + 32
     print(f"{F:.1f}")
     ```

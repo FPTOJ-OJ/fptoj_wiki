@@ -380,7 +380,46 @@ struct Interval {
 
 ---
 
-## 6. Bài tập
+## 6. Bài tập thực hành
+
+### Bài 1: Sắp xếp sinh viên
+Đọc $n$ sinh viên (tên, điểm). Sắp xếp theo điểm giảm dần, nếu bằng điểm thì theo tên tăng dần.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nstruct Student {\n    string name;\n    int score;\n};\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3
+Nam 8
+An 10
+Binh 8" data-expected="An 10
+Binh 8
+Nam 8" data-hint="Dùng sort với lambda: so sánh score trước, nếu bằng so sánh name"></div>
+
+???? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+    
+    struct Student {
+        string name;
+        int score;
+    };
+    
+    int main() {
+        int n;
+        cin >> n;
+        
+        vector<Student> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i].name >> a[i].score;
+        
+        sort(a.begin(), a.end(), [](const Student &x, const Student &y) {
+            if (x.score != y.score) return x.score > y.score;
+            return x.name < y.name;
+        });
+        
+        for (auto &s : a) cout << s.name << " " << s.score << endl;
+        return 0;
+    }
+    ```
+
+### Bài 2: Bài tập trên CSES
 
 | Bài | Độ khó | Gợi ý |
 |-----|--------|-------|

@@ -28,9 +28,9 @@ auto it = lower_bound(a.begin(), a.end(), 25);
 int pos = it - a.begin();
 cout << pos << endl;  // 2 (vì a[2] = 30 >= 25)
 
-// Tìm trong mảng đã sắp xếp
-int a[] = {10, 20, 30, 40, 50};
-int pos2 = lower_bound(a, a + 5, 25) - a;
+// Tìm trong mảng tĩnh
+int b[] = {10, 20, 30, 40, 50};
+int pos2 = lower_bound(b, b + 5, 25) - b;
 cout << pos2 << endl;  // 2
 ```
 
@@ -163,12 +163,12 @@ if (!binary_search(a.begin(), a.end(), 25)) {
 vector<int> a = {5, 2, 8, 1, 9};
 
 // ❌ SAI: Mảng chưa sắp xếp
-int pos = lower_bound(a.begin(), a.end(), 5) - a.begin();
+int pos1 = lower_bound(a.begin(), a.end(), 5) - a.begin();
 // Kết quả không chính xác!
 
 // ✅ ĐÚNG
 sort(a.begin(), a.end());
-int pos = lower_bound(a.begin(), a.end(), 5) - a.begin();
+int pos2 = lower_bound(a.begin(), a.end(), 5) - a.begin();
 ```
 
 ### Lỗi 2: Quên kiểm tra bounds
@@ -181,8 +181,8 @@ int pos = lower_bound(a.begin(), a.end(), 60) - a.begin();
 cout << a[pos] << endl;  // Truy cập ngoài mảng!
 
 // ✅ ĐÚNG
-int pos = lower_bound(a.begin(), a.end(), 60) - a.begin();
-if (pos < a.size()) cout << a[pos];
+int p = lower_bound(a.begin(), a.end(), 60) - a.begin();
+if (p < a.size()) cout << a[p];
 else cout << "Khong tim thay";
 ```
 
@@ -193,13 +193,9 @@ else cout << "Khong tim thay";
 ### Bài 1: Tìm kiếm nhị phân
 Đọc mảng đã sắp xếp và số x. Tìm vị trí của x trong mảng.
 
-**Input:**
-```
-5
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
 10 20 30 40 50
-30
-```
-**Output:** `2`
+30" data-expected="2" data-hint="Dùng lower_bound, kiểm tra a[pos] == x"></div>
 
 ???? tip "Lời giải"
     ```cpp
@@ -222,15 +218,11 @@ else cout << "Khong tim thay";
     ```
 
 ### Bài 2: Đếm số phần tử trong đoạn
-Đọc mảng đã sắp xếp và 2 số l, r. Đếm số phần tử trong đoạn [l, r].
+Đọc mảng đã sắp xếp và 2 số l, r. Đếm số phần tử trong đoạn $[l, r]$.
 
-**Input:**
-```
-5
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
 10 20 30 40 50
-20 40
-```
-**Output:** `3`
+20 40" data-expected="3" data-hint="Dùng upper_bound(r) - lower_bound(l)"></div>
 
 ???? tip "Lời giải"
     ```cpp
