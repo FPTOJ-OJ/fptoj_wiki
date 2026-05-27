@@ -1,96 +1,109 @@
-# 🚀 FPTOJ WIKI
+# FPTOJ Wiki
 
 [![Site](https://img.shields.io/badge/Site-wiki.fptoj.com-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://wiki.fptoj.com)
 [![GitHub](https://img.shields.io/badge/GitHub-FPTOJ--OJ/fptoj_wiki-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/FPTOJ-OJ/fptoj_wiki)
 
-Welcome to **FPTOJ Wiki** - a knowledge repository for Algorithms and Competitive Programming for everyone.
+A competitive programming and algorithms wiki for students and enthusiasts. All content is in Vietnamese.
 
-> [!IMPORTANT]
-> **FPTOJ Wiki** is a fork of [VNOI Wiki](https://wiki.vnoi.info/), built and customized to best serve middle and high school students.
-
----
-
-## 📖 Introduction
-
-FPTOJ Wiki was built with the goal of sharing computer science knowledge with everyone. We focus on systematizing lessons from basic to advanced, helping learners have a clear roadmap for conquering algorithms.
-
-### 🐍 Basic Programming (New!)
-
-> **Target Audience:** Absolute beginners, middle and high school students
-
-A comprehensive programming curriculum from **scratch** to competitive programming:
-
-#### Chapter 1: Python for Competitive Programming (20 lessons)
-- **Part A — Basics** (8 lessons): Setup, variables, input/output, operators, conditionals, loops, strings
-- **Part B — Data Structures** (5 lessons): Lists, 2D arrays, dicts, sets, tuples, functions
-- **Part C — Competitive Libraries** (5 lessons): collections, heapq, itertools, bisect, math
-- **Part D — Summary** (2 lessons): Competitive techniques, comprehensive exercises
-
-#### Chapter 2: C++ for Competitive Programming (15 lessons)
-- **Part A — Basics** (5 lessons): Syntax, conditionals, loops, arrays, strings
-- **Part B — Techniques** (3 lessons): Functions, templates, fast I/O, references, pointers
-- **Part C — Basic STL** (3 lessons): pairs, tuples, vectors, sorting, algorithms
-- **Part D — Advanced STL** (4 lessons): sets, maps, queues, stacks, deques, advanced algorithms
-
-> [!TIP]
-> If you **don't know how to program yet**, please study [Basic Programming](docs/coding/index.md) **BEFORE** starting the algorithms section!
-
-### ⭐ Algorithm Lesson Groups
-
-- **⭐ Group 1 — Introduction**: Environment setup, Complexity, Sorting, Binary Search.
-- **⭐⭐ Groups 2 & 3**: Basic techniques, Data Structures (DSU, Segment Tree, BIT...).
-- **⭐⭐⭐ Groups 4 & 5**: Graphs, Dynamic Programming, Greedy.
-- **⭐⭐⭐ Groups 6 & 7**: String Processing (KMP, Hash, Suffix Array), Math & Arithmetic.
-- **⭐⭐⭐⭐ Group 8**: Geometry & Advanced Data Structures.
-- **🏆 Group 9**: Competitive Skills & Tips.
+> **FPTOJ Wiki** is a fork of [VNOI Wiki](https://wiki.vnoi.info/), maintained and customized by the FPTOJ community.
 
 ---
 
-## 🛠️ Technologies Used
+## Content
 
-The project is built using modern technologies:
+### Basic Programming
 
-- **[MkDocs](https://www.mkdocs.org/)**: Powerful static site generator.
-- **[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)**: Modern, responsive theme with dark mode support.
-- **[KaTeX](https://katex.org/)**: Smooth mathematical formula rendering.
-- **[Giscus](https://giscus.app/)**: Comment system based on GitHub Discussions.
+For **absolute beginners**. Learn programming from scratch before diving into algorithms.
 
----
+| Track | Lessons | Topics |
+|-------|---------|--------|
+| [Python for Competitive Programming](docs/coding/python/index.md) | 20 | Variables, loops, lists, dicts, sets, functions, collections, heapq, itertools |
+| [C++ for Competitive Programming](docs/coding/cpp/index.md) | 17 | Syntax, arrays, strings, pointers, fast I/O, STL (vector, map, set, queue) |
 
-## 💻 Local Development
+> Study this section **first** if you have no programming experience.
 
-To run the Wiki locally, you need to install Python and follow these steps:
+### Algorithm Lessons
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/FPTOJ-OJ/fptoj_wiki.git
-   cd fptoj_wiki
-   ```
+39+ lessons from basic to advanced, with detailed explanations, code samples, and diagrams.
 
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+🔗 **[View all lessons →](docs/lessons/index.md)**
 
-3. **Start the server**:
-   ```bash
-   python -m mkdocs serve
-   ```
-   Or run the `serve.bat` file (on Windows).
+| Group | Topics |
+|-------|--------|
+| Intro (⭐) | Complexity, Sorting, Binary Search, Recursion, Bitwise |
+| Techniques (⭐⭐) | Two Pointers, Prefix Sum, Binary Exponentiation |
+| Data Structures | Heap, DSU, Segment Tree, Fenwick Tree, Trie, Hash Table |
+| Graphs | BFS/DFS, Dijkstra, MST, Floyd-Warshall, LCA |
+| DP & Greedy | Dynamic Programming, Greedy, Binary Search on Answer |
+| Strings | KMP, Z-algorithm, Manacher, Suffix Array |
+| Math | Euclidean GCD, Modular Inverse, Combinatorics, Number Theory |
 
-Visit `http://127.0.0.1:8000` to see the results.
+### Algorithm Archive (from VNOI)
 
----
+In-depth articles from the VNOI library and other sources. See the [VNOI Roadmap](https://roadmap.sh/r/vnoi-roadmap) for a complete study guide.
 
-## 🤝 Contribution
-
-We always welcome contributions from the community. If you find a bug or want to add content, please create a **Pull Request** or open an **Issue** on GitHub.
+🔗 **[Full table of contents →](docs/index.md)**
 
 ---
 
-## 📜 Credits
+## Comments
 
-This project is inherited and developed based on the excellent content from the **VNOI** community. We would like to express our sincere thanks to the [VNOI Wiki](https://wiki.vnoi.info/) team for their invaluable contributions to the Vietnamese Computer Science community.
+The wiki uses [Cusdis](https://cusdis.com) for comments. Every article has a **💬 Comments** section at the bottom for questions and feedback.
+
+Configuration in `mkdocs.yml`:
+
+```yaml
+extra:
+  cusdis:
+    host: https://cusdis.com
+    app_id: <your-app-id>
+    lang: vi
+```
+
+The comment widget is customized in `overrides/partials/comments.html` with dark mode support and automatic theme syncing with Material for MkDocs.
 
 ---
-Created with ❤️ by **KienPC** and **FPTOJ Team**.
+
+## Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| [MkDocs](https://www.mkdocs.org/) | Static site generator |
+| [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) | Responsive theme with dark mode |
+| [KaTeX](https://katex.org/) | Math rendering |
+| [Cusdis](https://cusdis.com) | Self-hosted comment system |
+| Cloudflare Pages | Hosting & auto-deploy |
+
+---
+
+## Local Development
+
+Requires Python 3.8+
+
+```bash
+git clone https://github.com/FPTOJ-OJ/fptoj_wiki.git
+cd fptoj_wiki
+pip install -r requirements.txt
+python -m mkdocs serve
+```
+
+Or run `serve.bat` on Windows. Visit `http://127.0.0.1:8000`.
+
+---
+
+## Contributing
+
+Contributions are welcome:
+
+- **Pull Request** — fix bugs or add content
+- **Issue** — report problems or suggest new articles
+
+---
+
+## Credits
+
+Built on top of content from the **VNOI** community. Special thanks to [VNOI Wiki](https://wiki.vnoi.info/) for their invaluable contributions to Vietnamese CS education.
+
+---
+
+Made with ❤️ by **KienPC** and **FPTOJ Team**.
