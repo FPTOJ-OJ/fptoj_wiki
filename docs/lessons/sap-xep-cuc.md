@@ -7,7 +7,71 @@
 
 ### 1.1 Ý tưởng
 
-Sắp xếp các điểm theo **góc** từ một điểm gốc (thường là gốc tọa độ hoặc điểm có tung độ nhỏ nhất). Đây là bước quan trọng trong nhiều thuật toán hình học.
+Sắp xếp các điểm theo **góc** từ một điểm gốc (thường là gốc tọa độ hoặc điểm có tung độ nhỏ nhất). Đây là bước quan trọng trong nhiều thuật toán hình học phức tạp (như tìm bao lồi Graham Scan).
+
+**Minh họa trực quan:**
+Dưới đây là một tập hợp điểm được xếp thứ tự tăng dần từ `#1` đến `#5` theo góc lượng giác của chúng so với điểm gốc $O(0,0)$ (từ $0$ đến $2\pi$):
+
+```matplotlib
+# Tập hợp điểm mẫu
+points = [
+    (1, 3, 'P1'),
+    (3, 1, 'P2'),
+    (-2, 2, 'P3'),
+    (-1, -2, 'P4'),
+    (2, -1, 'P5')
+]
+O = np.array([0, 0])
+
+# Hàm tính góc trong khoảng [0, 2*pi)
+def get_angle(p):
+    angle = np.arctan2(p[1], p[0])
+    if angle < 0:
+        angle += 2 * np.pi
+    return angle
+
+# Sắp xếp các điểm theo góc lượng giác
+sorted_points = sorted(points, key=get_angle)
+
+fig, ax = plt.subplots(figsize=(6.5, 6.5))
+
+# Vẽ hệ trục tọa độ Oxy
+ax.axhline(0, color='gray', alpha=0.3)
+ax.axvline(0, color='gray', alpha=0.3)
+
+# Vẽ điểm gốc O
+ax.scatter([0], [0], color='#d73a49', s=120, zorder=5)
+ax.text(0.15, -0.3, 'O(0,0) [Gốc]', color='#d73a49', fontweight='bold', fontsize=10)
+
+# Vẽ các tia nối từ gốc tới điểm và cung góc tương ứng
+colors = plt.cm.rainbow(np.linspace(0, 0.85, len(sorted_points)))
+for i, (x, y, label) in enumerate(sorted_points):
+    color = colors[i]
+    angle = get_angle((x, y))
+    
+    # Vẽ tia từ O
+    ax.plot([0, x], [0, y], color=color, linestyle='--', alpha=0.6, lw=1.5)
+    # Vẽ điểm P
+    ax.scatter([x], [y], color=color, s=80, zorder=5)
+    
+    # Nhãn tên điểm và số thứ tự sau khi sắp xếp
+    ax.text(x + 0.15, y, f'{label} (Rank #{i+1})', color=color, fontweight='bold', fontsize=10)
+    
+    # Vẽ cung tròn biểu diễn độ lớn góc quay
+    r = 0.5 + i * 0.15
+    arc_angles = np.linspace(0, angle, 50)
+    ax.plot(r * np.cos(arc_angles), r * np.sin(arc_angles), color=color, alpha=0.4, lw=1)
+
+ax.set_aspect('equal')
+ax.set_xlim(-3, 4)
+ax.set_ylim(-3, 4)
+ax.set_xlabel('Trục hoành X')
+ax.set_ylabel('Trục tung Y')
+ax.set_title('Sắp xếp cực (Polar Sort) theo góc lượng giác tăng dần CCW')
+ax.grid(True, alpha=0.2, linestyle=':')
+plt.tight_layout()
+```
+
 
 ### 1.2 Dùng atan2
 

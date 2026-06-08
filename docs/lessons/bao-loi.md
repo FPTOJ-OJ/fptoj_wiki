@@ -1,6 +1,6 @@
 # Bài 28: Bao Lồi (Convex Hull)
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Bao lồi, CP-Algorithms
 
 ---
@@ -14,6 +14,50 @@ Cho $N$ điểm trong mặt phẳng. **Bao lồi** (Convex Hull) là đa giác l
 Ẩn dụ đơn giản: bạn có $N$ viên kẹo rải trên bàn, lấy một sợi dây thun bọc quanh tất cả. Sợi dây sẽ tự "tì" vào những viên kẹo ở ngoài cùng. Đường dây tạo thành chính là bao lồi.
 
 <p align="center"><img src="/uploads/img/convex-hull.svg" alt="Convex Hull" style="max-width: 700px;" /><br><em>Hình minh họa bao lồi bao quanh một tập điểm</em></p>
+
+```matplotlib
+np.random.seed(42)
+pts = np.array([[2,1],[3,3],[5,5],[7,2],[8,4],[1,4],[4,0],[6,6],[9,1],[0,3],
+                [3.5,2.5],[6,1],[5,3],[2,5],[8,6],[1,2],[7,5],[4,4],[9,3],[0,0]])
+
+def cross(O, A, B):
+    return (A[0]-O[0])*(B[1]-O[1]) - (A[1]-O[1])*(B[0]-O[0])
+
+sorted_pts = sorted(map(tuple, pts))
+lower = []
+for p in sorted_pts:
+    while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
+        lower.pop()
+    lower.append(p)
+upper = []
+for p in reversed(sorted_pts):
+    while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
+        upper.pop()
+    upper.append(p)
+lower_hull = np.array(lower)
+upper_hull = np.array(upper)
+
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.scatter(pts[:,0], pts[:,1], s=50, color='#6c757d', zorder=5)
+for i, (x, y) in enumerate(pts):
+    ax.annotate(f'P{i}', (x, y), textcoords='offset points', xytext=(5, 5), fontsize=7, color='#adb5bd')
+
+ax.plot(lower_hull[:,0], lower_hull[:,1], 'o-', color='#2196F3', linewidth=2.5,
+        markersize=8, label='Nửa dưới (Lower hull)', zorder=4)
+ax.plot(upper_hull[:,0], upper_hull[:,1], 'o-', color='#f44336', linewidth=2.5,
+        markersize=8, label='Nửa trên (Upper hull)', zorder=4)
+
+hull_all = np.array(lower[:-1] + upper[:-1] + [lower[0]])
+ax.fill(hull_all[:,0], hull_all[:,1], alpha=0.1, color='#4CAF50')
+ax.plot(hull_all[:,0], hull_all[:,1], '--', color='#4CAF50', linewidth=1.5, alpha=0.6, label='Bao lồi hoàn chỉnh')
+
+ax.set_xlabel('x'); ax.set_ylabel('y')
+ax.set_title("Bao lồi - Andrew's Monotone Chain")
+ax.legend(loc='upper left', fontsize=9)
+ax.grid(True, alpha=0.3)
+ax.set_aspect('equal')
+plt.tight_layout()
+```
 
 ### Tính chất của đa giác lồi
 

@@ -1,6 +1,6 @@
-﻿# Bài 8d: Fenwick Tree (BIT) — Cây Chỉ Số Nhị Phân
+# Bài 8d: Fenwick Tree (BIT) — Cây Chỉ Số Nhị Phân
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms, Topcoder
 
 ---
@@ -34,6 +34,40 @@ Với mảng thường, mỗi truy vấn tổng prefix mất $O(N)$. Nếu có $
 | Bộ nhớ | $O(N)$ | $O(N)$ | $O(4N)$ |
 | Độ dài code | Ngắn | Ngắn (~10 dòng) | Dài (~40 dòng) |
 | Hỗ trợ min/max | Không | Không (trực tiếp) | Có |
+
+```matplotlib
+import math
+
+N_values = [10, 100, 1000, 10000, 100000]
+labels = ['10', '100', '1K', '10K', '100K']
+
+prefix_query = [1] * len(N_values)
+prefix_update = N_values[:]
+bit_seg_ops = [math.log2(n) for n in N_values]
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+axes[0].plot(labels, prefix_query, 'o-', label='Prefix Sum (O(1))', linewidth=2, markersize=6)
+axes[0].plot(labels, bit_seg_ops, 's-', label='BIT / Segment Tree (O(log N))', linewidth=2, markersize=6)
+axes[0].set_title('Độ phức tạp Truy vấn', fontweight='bold')
+axes[0].set_xlabel('Kích thước N')
+axes[0].set_ylabel('Số bước (log scale)')
+axes[0].set_yscale('log')
+axes[0].legend()
+axes[0].grid(True, alpha=0.3)
+
+axes[1].plot(labels, prefix_update, 'o-', label='Prefix Sum (O(N))', linewidth=2, markersize=6)
+axes[1].plot(labels, bit_seg_ops, 's-', label='BIT / Segment Tree (O(log N))', linewidth=2, markersize=6)
+axes[1].set_title('Độ phức tạp Cập nhật', fontweight='bold')
+axes[1].set_xlabel('Kích thước N')
+axes[1].set_ylabel('Số bước (log scale)')
+axes[1].set_yscale('log')
+axes[1].legend()
+axes[1].grid(True, alpha=0.3)
+
+plt.suptitle('So sánh Độ phức tạp: Prefix Sum vs BIT vs Segment Tree', fontsize=13, fontweight='bold')
+plt.tight_layout()
+```
 
 ---
 
@@ -74,7 +108,50 @@ Bảng các giá trị lowbit thường dùng:
 
 Quy luật: số lẻ luôn có lowbit $= 1$. Số chẵn có lowbit dài hơn, phụ thuộc vào số bit $0$ ở cuối.
 
+```matplotlib
+fig, axes = plt.subplots(1, 2, figsize=(13, 4))
+
+N = 16
+indices = list(range(1, N + 1))
+lowbits = [i & (-i) for i in indices]
+
+colors = ['#e74c3c' if lb == 1 else '#3498db' if lb == 2 else '#2ecc71' if lb == 4 else '#f39c12' if lb == 8 else '#9b59b6' for lb in lowbits]
+bars = axes[0].bar(indices, lowbits, color=colors, edgecolor='none', alpha=0.85)
+axes[0].set_title('Giá trị lowbit = i & (-i) với i từ 1 đến 16', fontweight='bold')
+axes[0].set_xlabel('Chỉ số i')
+axes[0].set_ylabel('lowbit(i)')
+axes[0].set_xticks(indices)
+axes[0].set_yticks([1, 2, 4, 8, 16])
+axes[0].grid(True, axis='y', alpha=0.3)
+
+for bar, lb in zip(bars, lowbits):
+    axes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1, str(lb),
+                ha='center', va='bottom', fontsize=8, fontweight='bold')
+
+ax = axes[1]
+ax.set_xlim(0, N + 1)
+ax.set_ylim(0, N + 1)
+
+for i in indices:
+    lb = i & (-i)
+    start = i - lb + 1
+    end = i
+    ax.barh(i, lb, left=start - 1, height=0.6, align='center', alpha=0.7,
+            color=colors[i-1])
+    ax.text(i - lb/2 + 0.5, i, f'BIT[{i}]', ha='center', va='center', fontsize=7)
+
+ax.set_title('Phạm vi quản lý của từng BIT[i] (N=16)', fontweight='bold')
+ax.set_xlabel('Chỉ số mảng a[]')
+ax.set_ylabel('BIT[i]')
+ax.set_yticks(indices)
+ax.set_xticks(range(1, N + 1))
+ax.grid(True, axis='x', alpha=0.2)
+
+plt.tight_layout()
+```
+
 ### Cấu trúc BIT
+
 
 Mỗi vị trí $i$ trong BIT lưu tổng của một đoạn con:
 

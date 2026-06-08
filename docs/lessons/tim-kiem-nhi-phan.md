@@ -1,6 +1,6 @@
 # Bài 3: Tìm Kiếm Nhị Phân - Chia Để Trị Trong 20 Bước!
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Tìm kiếm nhị phân, Topcoder - Binary Search
 
 ---
@@ -72,6 +72,48 @@ flowchart TD
 | 1 | 0 | 10 | 5 | 41 | $41 < 55$ | lo = 6 |
 | 2 | 6 | 10 | 8 | 72 | $72 > 55$ | hi = 7 |
 | 3 | 6 | 7 | 6 | 55 | $55 = 55$ | **Tìm thấy!** |
+
+```matplotlib
+a = [0, 5, 13, 19, 21, 41, 55, 68, 72, 81, 98]
+target = 55
+
+fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+
+lo, hi, mid = 0, 10, 5
+colors = ['gray'] * len(a)
+for i in range(lo, hi + 1):
+    colors[i] = 'blue'
+colors[mid] = 'orange'
+colors[a.index(target)] = 'green'
+axs[0].bar(range(len(a)), a, color=colors, alpha=0.7)
+axs[0].set_title('Bước 1: lo=0, hi=10, mid=5 (a[mid]=41 < 55) -> lo=6')
+axs[0].set_xticks(range(len(a)))
+axs[0].set_xticklabels(a)
+
+lo, hi, mid = 6, 10, 8
+colors = ['gray'] * len(a)
+for i in range(lo, hi + 1):
+    colors[i] = 'blue'
+colors[mid] = 'orange'
+colors[a.index(target)] = 'green'
+axs[1].bar(range(len(a)), a, color=colors, alpha=0.7)
+axs[1].set_title('Bước 2: lo=6, hi=10, mid=8 (a[mid]=72 > 55) -> hi=7')
+axs[1].set_xticks(range(len(a)))
+axs[1].set_xticklabels(a)
+
+lo, hi, mid = 6, 7, 6
+colors = ['gray'] * len(a)
+for i in range(lo, hi + 1):
+    colors[i] = 'blue'
+colors[mid] = 'orange'
+axs[2].bar(range(len(a)), a, color=colors, alpha=0.7)
+axs[2].set_title('Bước 3: lo=6, hi=7, mid=6 (a[mid]=55 == 55) -> Tìm thấy!')
+axs[2].set_xticks(range(len(a)))
+axs[2].set_xticklabels(a)
+
+plt.tight_layout()
+```
+
 
 ### Tìm kiếm nhị phân tổng quát - "Ma thuật" thực sự!
 

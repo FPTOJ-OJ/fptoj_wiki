@@ -1,12 +1,11 @@
 # Bài 35: Setup Môi Trường Thi Đấu - Từ Đầu Đến Cuối
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
+## 1. Tại sao phải chuẩn bị "vũ khí" trước khi ra trận?
 
-## 1. Tại sao phải setup trước?
+Hãy tưởng tượng bạn bước vào phòng thi, thời gian bắt đầu đếm ngược. Trong khi đối thủ đã code rào rào, bạn vẫn đang hì hục tìm cách cài đặt phần mềm... Đó là một cơn ác mộng! 
 
-Bạn có 5 phút đầu giờ thi. Nếu chưa setup → mất thời gian copy-paste, tìm lỗi compile. Setup sẵn → bắt đầu code ngay!
-
-**Mục tiêu:** Cài đặt xong từ A → Z: có trình biên dịch, có editor, có template, biết compile và chạy code.
+**Mục tiêu của bài này:** Giúp bạn trang bị đầy đủ "vũ khí" từ A đến Z: cài đặt trình biên dịch, phần mềm viết code (editor), và có sẵn một bộ khung code (template) để chỉ việc copy-paste và chiến!
 
 ---
 
@@ -95,6 +94,21 @@ solution.exe < input.txt > output.txt
 | `-O2` | Tối ưu hóa tốc độ (quan trọng khi thi!) |
 | `-Wall` | Hiển thị tất cả cảnh báo |
 | `-o solution.exe` | Đặt tên file output |
+
+**Sơ đồ quy trình Viết code ➔ Biên dịch ➔ Chạy kiểm thử:**
+```mermaid
+graph TD
+    A["Gõ Code (VS Code, Code::Blocks, Dev-C++)"] -->|Lưu thành| B["Mã nguồn: solution.cpp"]
+    B -->|Chạy lệnh g++| C["Biên dịch (Compilation)"]
+    C -->|Thành công| D["File thực thi: solution.exe"]
+    C -->|Thất bại (Syntax Error)| A
+    
+    subgraph Chạy & Kiểm thử (Execution)
+        D --> E["Chạy chương trình: solution.exe"]
+        IN["Dữ liệu mẫu: input.txt"] -->|Đọc đầu vào '<'| E
+        E -->|Ghi kết quả '>'| OUT["Kết quả ra: output.txt"]
+    end
+```
 
 ---
 

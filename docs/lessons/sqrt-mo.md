@@ -1,6 +1,6 @@
 # Bài 53: Chia căn & Mo's Algorithm - Xử lý truy vấn!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
 
 ---
@@ -24,6 +24,40 @@ Xét bài toán: cho mảng `A[0..N-1]`, có `Q` truy vấn:
 Cách trực tiếp: mỗi truy vấn tổng mất `O(N)`, tổng `O(NQ)` → TLE nếu `N, Q` lớn.
 
 **Ý tưởng chia căn:** Chia mảng thành các khối kích thước `√N`. Mỗi khối lưu tổng của khối đó. Khi truy vấn, chỉ cần cộng tổng các khối đầy đủ + các phần tử lẻ ở hai đầu.
+
+```matplotlib
+N = np.linspace(100, 100000, 100)
+naive = N
+sqrt_N = np.sqrt(N)
+mo = N * np.sqrt(N)
+seg_tree = np.log2(N)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.plot(N, naive, label='Brute force $O(N)$', color='#e74c3c', linewidth=2)
+ax1.plot(N, sqrt_N, label='Sqrt $O(\\sqrt{N})$', color='#2ecc71', linewidth=2)
+ax1.plot(N, seg_tree, label='Segment Tree $O(\\log N)$', color='#3498db', linewidth=2)
+ax1.set_xlabel('N (kích thước mảng)')
+ax1.set_ylabel('Thời gian mỗi truy vấn')
+ax1.set_title('So sánh thời gian mỗi truy vấn')
+ax1.legend(fontsize=9)
+ax1.grid(True, alpha=0.3)
+
+Q = np.linspace(100, 100000, 100)
+brute_total = N * Q / 1000
+sqrt_total = (N + Q) * np.sqrt(N) / 1000
+mo_total = (N + Q) * np.sqrt(N) / 1000
+
+ax2.plot(Q, brute_total, label='Brute force $O(NQ)$', color='#e74c3c', linewidth=2)
+ax2.plot(Q, sqrt_total, label='Sqrt/Mo\'s $O((N+Q)\\sqrt{N})$', color='#2ecc71', linewidth=2)
+ax2.set_xlabel('Q (số truy vấn)')
+ax2.set_ylabel('Tổng thời gian (nghìn phép)')
+ax2.set_title('Tổng thời gian xử lý Q truy vấn\n(N = 10000)')
+ax2.legend(fontsize=9)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+```
 
 ### 1.2. Cấu trúc khối
 

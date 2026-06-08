@@ -1,6 +1,6 @@
 # Bài 25: Binary Search on Answer - Tìm Kiếm Trên Đáp Án!
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Tìm kiếm nhị phân
 
 ## 1. Đây là gì?
@@ -65,6 +65,35 @@ check(MAX): Với sức chở MAX, chuyển được trong D ngày không?
 ---
 
 ## 4. Các bài toán kinh điển
+
+```matplotlib
+iterations = list(range(1, 9))
+search_space = [100, 50, 25, 12, 6, 3, 2, 1]
+lo_vals = [1, 1, 1, 1, 1, 1, 2, 2]
+hi_vals = [100, 50, 25, 12, 6, 3, 2, 2]
+mid_vals = [50, 25, 12, 6, 3, 2, 2, 2]
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.fill_between(iterations, lo_vals, hi_vals, alpha=0.3, color='#3498db', label='Khoảng tìm kiếm [lo, hi]')
+ax1.plot(iterations, mid_vals, 'ro-', linewidth=2, markersize=6, label='mid (giá trị thử)')
+ax1.set_xlabel('Lần lặp')
+ax1.set_ylabel('Giá trị')
+ax1.set_title('Binary Search on Answer: Khoảng tìm kiếm thu hẹp')
+ax1.legend(fontsize=9)
+ax1.grid(True, alpha=0.3)
+
+ax2.plot(iterations, search_space, 's-', color='#e74c3c', linewidth=2, markersize=6)
+ax2.set_xlabel('Lần lặp')
+ax2.set_ylabel('Kích thước khoảng tìm kiếm')
+ax2.set_title('Kích thước khoảng tìm kiếm giảm một nửa mỗi bước')
+ax2.set_yscale('log')
+ax2.grid(True, alpha=0.3)
+for i, v in enumerate(search_space):
+    ax2.text(i + 1, v * 1.2, str(v), ha='center', fontsize=8)
+
+plt.tight_layout()
+```
 
 ### Bài 1: Capacity To Ship Packages
 

@@ -1,6 +1,6 @@
 # Bài 31: LCA & Binary Lifting — Tổ tiên chung gần nhất
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
 
 ---
@@ -90,6 +90,86 @@ graph TD
 | 1 | 0 | 0 | 0 |
 
 Ví dụ: $\text{up}[7][2] = \text{up}[\text{up}[7][1]][1] = \text{up}[2][1] = 1$. Từ đỉnh 7, nhảy $4$ bước lên trên = đỉnh 1.
+
+```matplotlib
+plt.figure(figsize=(10, 8))
+
+# Tree structure: 1 -> 2, 3; 2 -> 4, 5; 4 -> 7
+positions = {
+    1: (5, 7),
+    2: (3, 5),
+    3: (7, 5),
+    4: (1.5, 3),
+    5: (4.5, 3),
+    7: (1.5, 1),
+}
+
+# Draw edges
+edges = [(1, 2), (1, 3), (2, 4), (2, 5), (4, 7)]
+for u, v in edges:
+    ux, uy = positions[u]
+    vx, vy = positions[v]
+    plt.plot([ux, vx], [uy, vy], color='#7f8c8d', linewidth=2.5, zorder=1)
+
+# Node 7 is the starting point
+start = 7
+sx, sy = positions[start]
+
+# Ancestors at different distances
+# up[7][0] = 4 (distance 1)
+anc1 = 4
+ax1, ay1 = positions[anc1]
+plt.plot([sx, ax1], [sy, ay1], color='#3498db', linewidth=4, zorder=2)
+plt.annotate('', xy=(ax1, ay1 + 0.15), xytext=((sx + ax1) / 2, (sy + ay1) / 2 + 0.3),
+             arrowprops=dict(arrowstyle='->', color='#3498db', lw=2))
+
+# up[7][1] = 2 (distance 2)
+anc2 = 2
+ax2, ay2 = positions[anc2]
+plt.plot([sx, ax2], [sy, ay2], color='#e74c3c', linewidth=4, linestyle='--', zorder=2, alpha=0.8)
+
+# up[7][2] = 1 (distance 4)
+anc4 = 1
+ax4, ay4 = positions[anc4]
+plt.plot([sx, ax4], [sy, ay4], color='#2ecc71', linewidth=4, linestyle='-.', zorder=2, alpha=0.8)
+
+# Draw nodes
+for node, (nx, ny) in positions.items():
+    if node == start:
+        color = '#9b59b6'
+    elif node == anc1:
+        color = '#3498db'
+    elif node == anc2:
+        color = '#e74c3c'
+    elif node == anc4:
+        color = '#2ecc71'
+    else:
+        color = '#95a5a6'
+    plt.plot(nx, ny, 'o', color=color, markersize=25, zorder=3)
+    plt.text(nx, ny, str(node), ha='center', va='center',
+             fontsize=14, fontweight='bold', color='white', zorder=4)
+
+# Legend
+from matplotlib.lines import Line2D
+legend_elements = [
+    Line2D([0], [0], marker='o', color='w', markerfacecolor='#9b59b6', markersize=14, label='Đỉnh 7 (nút đang xét)'),
+    Line2D([0], [0], color='#3498db', linewidth=4, label='up[7][0] = 4 (nhảy 1 bước)'),
+    Line2D([0], [0], color='#e74c3c', linewidth=4, linestyle='--', label='up[7][1] = 2 (nhảy 2 bước)'),
+    Line2D([0], [0], color='#2ecc71', linewidth=4, linestyle='-.', label='up[7][2] = 1 (nhảy 4 bước)'),
+]
+plt.legend(handles=legend_elements, loc='upper right', fontsize=10)
+
+# Distance labels on edges
+plt.text((sx + ax1) / 2 + 0.4, (sy + ay1) / 2, '2⁰ = 1', fontsize=11, color='#3498db', fontweight='bold')
+plt.text((sx + ax2) / 2 + 0.8, (sy + ay2) / 2 + 0.3, '2¹ = 2', fontsize=11, color='#e74c3c', fontweight='bold')
+plt.text((sx + ax4) / 2 + 1.2, (sy + ay4) / 2, '2² = 4', fontsize=11, color='#2ecc71', fontweight='bold')
+
+plt.title('Binary Lifting: Nhảy theo lũy thừa 2 từ đỉnh 7', fontsize=14)
+plt.xlim(-0.5, 8.5)
+plt.ylim(0, 8.5)
+plt.axis('off')
+plt.tight_layout()
+```
 
 ### Tìm LCA bằng Binary Lifting
 

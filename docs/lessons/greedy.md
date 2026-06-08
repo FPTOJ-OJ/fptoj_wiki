@@ -1,6 +1,6 @@
 # Bài 21: Greedy (Tham Lam) - Chọn Tốt Nhất Mỗi Bước!
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Tham lam
 
 ## 1. Chuyện gì đang xảy ra?
@@ -50,7 +50,65 @@ Greedy **không phải lúc nào cũng đúng!** Chỉ đúng khi bài toán có
 
 Có N hoạt động, mỗi hoạt động có thời gian bắt đầu và kết thúc. Chọn nhiều hoạt động nhất sao cho không trùng thời gian.
 
-**Greedy:** Sắp xếp theo thời gian kết thúc, chọn hoạt động kết thúc sớm nhất mà không trùng.
+**Greedy:** Sắp xếp các hoạt động theo thời gian kết thúc tăng dần. Lần lượt chọn hoạt động đầu tiên kết thúc sớm nhất, sau đó chọn hoạt động tiếp theo bắt đầu sau khi hoạt động trước đó kết thúc.
+
+**Minh họa trực quan:**
+Trong ví dụ dưới đây, các hoạt động màu **xanh lá** được thuật toán chọn (không giao nhau và tối ưu số lượng), các hoạt động màu **đỏ** bị loại bỏ do bị trùng chéo thời gian:
+
+```matplotlib
+activities = [
+    (1, 4, 'A1'),
+    (3, 5, 'A2'),
+    (0, 6, 'A3'),
+    (5, 7, 'A4'),
+    (3, 9, 'A5'),
+    (5, 9, 'A6'),
+    (6, 10, 'A7'),
+    (8, 11, 'A8'),
+    (2, 14, 'A9'),
+    (12, 16, 'A10')
+]
+
+# Sắp xếp theo thời gian kết thúc
+sorted_acts = sorted(activities, key=lambda x: x[1])
+
+# Chạy Greedy để tìm các hoạt động được chọn
+selected = []
+last_end = -1
+for act in sorted_acts:
+    if act[0] >= last_end:
+        selected.append(act)
+        last_end = act[1]
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+for i, (start, end, label) in enumerate(sorted_acts):
+    is_selected = (start, end, label) in selected
+    # Màu xanh lá cho chọn, màu đỏ mờ cho loại
+    color = '#2ea44f' if is_selected else '#d73a49'
+    alpha = 0.95 if is_selected else 0.4
+    linewidth = 4.5 if is_selected else 2.0
+    
+    # Vẽ khoảng thời gian hoạt động
+    ax.plot([start, end], [i, i], color=color, linewidth=linewidth, alpha=alpha)
+    # Vẽ điểm mốc bắt đầu/kết thúc
+    ax.scatter([start, end], [i, i], color=color, s=50, alpha=alpha, zorder=3)
+    # Ghi nhãn hoạt động
+    ax.text(start - 0.2, i, label, ha='right', va='center', 
+            fontweight='bold' if is_selected else 'normal', fontsize=10)
+    # Ghi chú mốc thời gian [start, end]
+    ax.text((start + end)/2, i + 0.18, f'[{start}, {end}]', ha='center', va='bottom', 
+            fontsize=8, color=color, alpha=alpha)
+
+ax.set_yticks(range(len(sorted_acts)))
+ax.set_yticklabels([act[2] for act in sorted_acts])
+ax.set_xlabel('Trục thời gian t')
+ax.set_title('Thuật toán Tham Lam cho bài toán Activity Selection (Đã sắp xếp tăng dần theo End Time)')
+ax.grid(True, axis='x', alpha=0.3, linestyle='--')
+ax.set_xlim(-1.5, 18)
+ax.set_ylim(-1, len(sorted_acts))
+plt.tight_layout()
+```
 
 ```cpp
 int maxActivities(vector<pair<int,int>>& activities) {

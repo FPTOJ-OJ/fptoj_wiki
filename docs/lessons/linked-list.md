@@ -1,6 +1,6 @@
 # Bài 33: Linked List — Danh Sách Liên Kết
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** GeeksforGeeks, CP-Algorithms
 
 ---

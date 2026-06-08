@@ -1,6 +1,6 @@
 # Bài 15: Deque & Sliding Window
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Deque, Hàng đợi hai đầu
 
 ---

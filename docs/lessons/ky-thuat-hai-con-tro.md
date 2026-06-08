@@ -1,6 +1,6 @@
 # Bài 4: Kĩ Thuật Hai Con Trỏ - Biến $O(N^2)$ Thành $O(N)$
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Kĩ thuật hai con trỏ
 
 ---
@@ -66,6 +66,43 @@ Với $N = 10^6$ $\Rightarrow$ khoảng $5 \times 10^{11}$ phép tính $\Rightar
 | 3 | 1 | 5 | 5 | 12 | 17 | $17 > 16$ | Giảm $R$ |
 | 4 | 1 | 4 | 5 | 10 | 15 | $15 < 16$ | Tăng $L$ |
 | 5 | 2 | 4 | 6 | 10 | 16 | $16 = 16$ | Tìm thấy! |
+
+```matplotlib
+a = [2, 5, 6, 8, 10, 12, 15]
+X = 16
+
+fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+
+L, R = 0, 6
+colors = ['gray'] * len(a)
+colors[L] = 'blue'
+colors[R] = 'orange'
+axs[0].bar(range(len(a)), a, color=colors, alpha=0.7)
+axs[0].set_title('Bước 1: L=0 (2), R=6 (15) | Tổng = 17 > 16 -> Giảm R')
+axs[0].set_xticks(range(len(a)))
+axs[0].set_xticklabels(a)
+
+L, R = 1, 4
+colors = ['gray'] * len(a)
+colors[L] = 'blue'
+colors[R] = 'orange'
+axs[1].bar(range(len(a)), a, color=colors, alpha=0.7)
+axs[1].set_title('Bước 2: L=1 (5), R=4 (10) | Tổng = 15 < 16 -> Tăng L')
+axs[1].set_xticks(range(len(a)))
+axs[1].set_xticklabels(a)
+
+L, R = 2, 4
+colors = ['gray'] * len(a)
+colors[L] = 'green'
+colors[R] = 'green'
+axs[2].bar(range(len(a)), a, color=colors, alpha=0.7)
+axs[2].set_title('Bước 3: L=2 (6), R=4 (10) | Tổng = 16 == 16 -> Tìm thấy!')
+axs[2].set_xticks(range(len(a)))
+axs[2].set_xticklabels(a)
+
+plt.tight_layout()
+```
+
 
 ### 2.3. Bài toán đoạn con có tổng $\le S$ dài nhất (Sliding Window)
 

@@ -1,0 +1,39 @@
+/* Matplotlib chart styling — width based on container, not browser edge */
+img.mpl-plot {
+  width: 100%;
+  max-width: calc(100% - 2rem);
+  height: auto;
+  display: block;
+  margin: 1.2em auto 1.2em 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: max-width 0.35s ease, box-shadow 0.35s ease;
+}
+
+img.mpl-plot:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Tablet */
+@media (max-width: 960px) {
+  img.mpl-plot {
+    max-width: calc(100% - 1.5rem);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  img.mpl-plot {
+    max-width: calc(100% - 1rem);
+    margin: 1em auto;
+  }
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] img.mpl-plot {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-md-color-scheme="slate"] img.mpl-plot:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}

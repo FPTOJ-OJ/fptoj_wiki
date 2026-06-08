@@ -1,6 +1,6 @@
 # Bài 17: Trie - Cây Tìm Kiếm Tiền Tố
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Trie, CP-Algorithms, USACO Guide
 
 ---

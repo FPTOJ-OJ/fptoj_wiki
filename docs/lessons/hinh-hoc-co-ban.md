@@ -1,6 +1,6 @@
 # Bài 22: Hình Học Cơ Bản
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Hình học tính toán
 
 ---
@@ -114,6 +114,41 @@ Dấu của tích có hướng cho biết **hướng quay** từ $\vec{A}$ sang 
 - $\vec{A} \times \vec{B} < 0$: $\vec{B}$ nằm bên **phải** $\vec{A}$ (quay theo chiều kim đồng hồ — CW)
 
 Hình dung đơn giản: khi quẹo xe từ hướng $\vec{A}$ sang $\vec{B}$, cross > 0 là quẹo trái, cross < 0 là quẹo phải, cross = 0 là đi thẳng.
+
+```matplotlib
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+ax = axes[0]
+A = np.array([0, 0])
+B = np.array([3, 0])
+C_ccw = np.array([2, 3])
+ax.annotate('', xy=B, xytext=A, arrowprops=dict(arrowstyle='->', color='#2196F3', lw=2.5))
+ax.annotate('', xy=C_ccw, xytext=A, arrowprops=dict(arrowstyle='->', color='#f44336', lw=2.5))
+ax.plot(*A, 'ko', markersize=8, zorder=5); ax.annotate('O', A, textcoords='offset points', xytext=(-12, -12), fontsize=11, fontweight='bold')
+ax.plot(*B, 'ko', markersize=8, zorder=5); ax.annotate('A', B, textcoords='offset points', xytext=(5, -12), fontsize=10)
+ax.plot(*C_ccw, 'ko', markersize=8, zorder=5); ax.annotate('B', C_ccw, textcoords='offset points', xytext=(5, 5), fontsize=10)
+arc_ccw = np.linspace(0, np.arctan2(3, 2), 30)
+ax.plot(0.8*np.cos(arc_ccw), 0.8*np.sin(arc_ccw), color='#4CAF50', lw=2)
+ax.set_title('Cross > 0: Quay trái (CCW)', fontsize=12, color='#4CAF50', fontweight='bold')
+ax.set_xlim(-0.5, 4); ax.set_ylim(-0.5, 3.5)
+ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+
+ax = axes[1]
+C_cw = np.array([2, -3])
+ax.annotate('', xy=B, xytext=A, arrowprops=dict(arrowstyle='->', color='#2196F3', lw=2.5))
+ax.annotate('', xy=C_cw, xytext=A, arrowprops=dict(arrowstyle='->', color='#f44336', lw=2.5))
+ax.plot(*A, 'ko', markersize=8, zorder=5); ax.annotate('O', A, textcoords='offset points', xytext=(-12, 8), fontsize=11, fontweight='bold')
+ax.plot(*B, 'ko', markersize=8, zorder=5); ax.annotate('A', B, textcoords='offset points', xytext=(5, 8), fontsize=10)
+ax.plot(*C_cw, 'ko', markersize=8, zorder=5); ax.annotate('B', C_cw, textcoords='offset points', xytext=(5, -10), fontsize=10)
+arc_cw = np.linspace(0, -np.arctan2(3, 2), 30)
+ax.plot(0.8*np.cos(arc_cw), 0.8*np.sin(arc_cw), color='#FF5722', lw=2)
+ax.set_title('Cross < 0: Quay phải (CW)', fontsize=12, color='#FF5722', fontweight='bold')
+ax.set_xlim(-0.5, 4); ax.set_ylim(-3.5, 0.5)
+ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+
+fig.suptitle('Tích có hướng (Cross Product) - Hướng quay', fontsize=14, fontweight='bold', y=1.02)
+plt.tight_layout()
+```
 
 ### Phân tích tính đúng đắn
 

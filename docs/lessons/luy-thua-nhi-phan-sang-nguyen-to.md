@@ -1,6 +1,6 @@
 # Bài 11: Lũy Thừa Nhị Phân & Sàng Nguyên Tố
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Lũy thừa nhị phân, Sàng nguyên tố
 
 ---
@@ -38,6 +38,37 @@ a^b = \begin{cases} (a^{b/2})^2 & \text{nếu } b \text{ chẵn} \\ (a^{\lfloor 
 $$
 
 Mỗi bước **chia đôi** số mũ → chỉ cần $O(\log b)$ bước.
+
+```matplotlib
+b = np.linspace(1, 1000, 200)
+naive = b
+binary_exp = np.log2(b)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.plot(b, naive, label='Naive $O(b)$', color='#e74c3c', linewidth=2)
+ax1.plot(b, binary_exp, label='Binary Exp $O(\\log b)$', color='#2ecc71', linewidth=2)
+ax1.set_xlabel('Số mũ b')
+ax1.set_ylabel('Số phép nhân')
+ax1.set_title('So sánh số phép nhân')
+ax1.legend(fontsize=10)
+ax1.grid(True, alpha=0.3)
+
+N = np.arange(2, 1001)
+is_prime = np.ones(len(N), dtype=bool)
+for i in range(2, int(np.sqrt(1000)) + 1):
+    if is_prime[i - 2]:
+        is_prime[i*i - 2::i] = False
+prime_count = np.cumsum(is_prime)
+
+ax2.plot(N, prime_count, color='#9b59b6', linewidth=2)
+ax2.set_xlabel('N')
+ax2.set_ylabel('Số nguyên tố ≤ N')
+ax2.set_title('Số nguyên tố đếm được bởi Sàng Eratosthenes')
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+```
 
 #### Kết nối với biểu diễn nhị phân
 

@@ -1,6 +1,6 @@
 # Bài 38: Debug & Mẹo Thi Đấu
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, Codeforces blogs, Kinh nghiệm thi đấu
 
 ## 1. Các loại lỗi thường gặp

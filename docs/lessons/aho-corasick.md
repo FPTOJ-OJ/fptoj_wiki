@@ -1,6 +1,6 @@
 # Bài 51: Aho-Corasick — Tìm Nhiều Mẫu Cùng Lúc
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, e-maxx
 
 ---

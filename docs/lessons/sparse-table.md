@@ -1,6 +1,6 @@
 # Bài 29: Sparse Table - Truy vấn Min/Max O(1)
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Sparse Table, VNOI Wiki
 
 ---
@@ -49,6 +49,78 @@ Ví dụ: $[2, 7]$, $\text{len} = 6$, $k = \lfloor \log_2(6) \rfloor = 2$
 - Đoạn 1: $[2, 2 + 4 - 1] = [2, 5]$ (dài 4)
 - Đoạn 2: $[7 - 4 + 1, 7] = [4, 7]$ (dài 4)
 - Giao: $[4, 5]$ bao phủ $[2, 7]$
+
+```matplotlib
+plt.figure(figsize=(11, 5))
+
+arr = [3, 1, 4, 1, 5, 9, 2, 6]
+n = len(arr)
+
+# Draw array cells
+cell_w = 1.0
+cell_h = 0.8
+y_base = 2.5
+
+for i, val in enumerate(arr):
+    rect = plt.Rectangle((i * cell_w, y_base), cell_w, cell_h,
+                          facecolor='#ecf0f1', edgecolor='#2c3e50', linewidth=2)
+    plt.gca().add_patch(rect)
+    plt.text(i * cell_w + cell_w / 2, y_base + cell_h / 2, str(val),
+             ha='center', va='center', fontsize=14, fontweight='bold')
+
+# Index labels
+for i in range(n):
+    plt.text(i * cell_w + cell_w / 2, y_base - 0.3, f'[{i}]',
+             ha='center', va='center', fontsize=11, color='#7f8c8d')
+
+# Query interval [2, 7]
+l, r = 2, 7
+query_rect = plt.Rectangle((l * cell_w - 0.05, y_base - 0.1), (r - l + 1) * cell_w + 0.1, cell_h + 0.2,
+                             facecolor='none', edgecolor='#2c3e50', linewidth=2.5, linestyle='-')
+plt.gca().add_patch(query_rect)
+plt.text((l + r) / 2 * cell_w + cell_w / 2, y_base + cell_h + 0.35,
+         f'Truy vấn [{l}, {r}]', ha='center', fontsize=12, fontweight='bold', color='#2c3e50')
+
+# Interval 1: [2, 5] (length 4)
+i1_l, i1_r = 2, 5
+y1 = 1.2
+rect1 = plt.Rectangle((i1_l * cell_w, y1), (i1_r - i1_l + 1) * cell_w, 0.6,
+                        facecolor='#3498db', edgecolor='#2980b9', linewidth=2, alpha=0.7)
+plt.gca().add_patch(rect1)
+plt.text((i1_l + i1_r) / 2 * cell_w + cell_w / 2, y1 + 0.3,
+         f'Đoạn 1: [{i1_l}, {i1_r}] (2² = 4)', ha='center', va='center',
+         fontsize=11, fontweight='bold', color='white')
+
+# Interval 2: [4, 7] (length 4)
+i2_l, i2_r = 4, 7
+y2 = 0.2
+rect2 = plt.Rectangle((i2_l * cell_w, y2), (i2_r - i2_l + 1) * cell_w, 0.6,
+                        facecolor='#e74c3c', edgecolor='#c0392b', linewidth=2, alpha=0.7)
+plt.gca().add_patch(rect2)
+plt.text((i2_l + i2_r) / 2 * cell_w + cell_w / 2, y2 + 0.3,
+         f'Đoạn 2: [{i2_r - 3}, {i2_r}] (2² = 4)', ha='center', va='center',
+         fontsize=11, fontweight='bold', color='white')
+
+# Overlap highlight
+overlap_l, overlap_r = 4, 5
+overlap_rect = plt.Rectangle((overlap_l * cell_w - 0.03, y1 - 0.03),
+                               (overlap_r - overlap_l + 1) * cell_w + 0.06, 0.66,
+                               facecolor='#f39c12', edgecolor='#e67e22', linewidth=2.5, alpha=0.4)
+plt.gca().add_patch(overlap_rect)
+
+# Annotations
+plt.annotate('', xy=(overlap_l * cell_w + cell_w / 2, y1 - 0.15),
+             xytext=(overlap_r * cell_w + cell_w / 2, y1 - 0.15),
+             arrowprops=dict(arrowstyle='<->', color='#e67e22', lw=2))
+plt.text((overlap_l + overlap_r) / 2 * cell_w + cell_w / 2, y1 - 0.4,
+         'Giao nhau', ha='center', fontsize=10, color='#e67e22', fontweight='bold')
+
+plt.xlim(-0.5, 9)
+plt.ylim(-0.8, 4.2)
+plt.title('Sparse Table: Truy vấn min[2, 7] = min(Đoạn 1, Đoạn 2)', fontsize=13)
+plt.axis('off')
+plt.tight_layout()
+```
 
 ---
 

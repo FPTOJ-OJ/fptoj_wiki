@@ -1,6 +1,6 @@
 # Bài 7: Mảng, Stack, Prefix Sum và Difference Array
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 >
 > **Nội dung tham khảo từ:** VNOI Wiki — Mảng và danh sách liên kết, Stack, Mảng cộng dồn và mảng hiệu
 

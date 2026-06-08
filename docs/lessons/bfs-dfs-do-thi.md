@@ -1,6 +1,6 @@
 # Bài 10: BFS & DFS - Duyệt Đồ Thị
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - BFS, Cây DFS và ứng dụng, CP-Algorithms
 
 ## 1. Đồ thị là gì?
@@ -383,6 +383,37 @@ Thứ tự thăm: $1 \to 2 \to 4 \to 5 \to 3$.
 - Tìm **thành phần liên thông**
 - Bài toán cần **quay lui** (backtracking)
 - Đồ thị rất **sâu** (ít tốn bộ nhớ hơn BFS)
+
+```matplotlib
+V = np.linspace(10, 10000, 100)
+E_sparse = V * 2
+E_dense = V**2 / 4
+
+bfs_sparse = V + E_sparse
+dfs_sparse = V + E_sparse
+bfs_dense = V + E_dense
+dfs_dense = V + E_dense
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.plot(V, bfs_sparse, label='BFS (thưa, E≈2V)', color='#3498db', linewidth=2)
+ax1.plot(V, dfs_sparse, label='DFS (thưa, E≈2V)', color='#e74c3c', linewidth=2, linestyle='--')
+ax1.set_xlabel('Số đỉnh V')
+ax1.set_ylabel('Thời gian O(V+E)')
+ax1.set_title('BFS vs DFS trên đồ thị thưa')
+ax1.legend(fontsize=9)
+ax1.grid(True, alpha=0.3)
+
+ax2.plot(V, bfs_dense, label='BFS (dày, E≈V²/4)', color='#3498db', linewidth=2)
+ax2.plot(V, dfs_dense, label='DFS (dày, E≈V²/4)', color='#e74c3c', linewidth=2, linestyle='--')
+ax2.set_xlabel('Số đỉnh V')
+ax2.set_ylabel('Thời gian O(V+E)')
+ax2.set_title('BFS vs DFS trên đồ thị dày')
+ax2.legend(fontsize=9)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+```
 
 ---
 

@@ -1,6 +1,6 @@
 # Bài 14: Hash Xâu & Z-Algorithm
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Hash, Z-function
 
 ---

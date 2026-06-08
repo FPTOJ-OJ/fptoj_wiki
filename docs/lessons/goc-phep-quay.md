@@ -70,6 +70,63 @@ $$x' = x\cos\theta - y\sin\theta$$
 
 $$y' = x\sin\theta + y\cos\theta$$
 
+**Minh họa trực quan (Phép quay điểm quanh gốc tọa độ):**
+```matplotlib
+# Tọa độ điểm gốc
+O = np.array([0, 0])
+P = np.array([3, 2])
+
+# Góc quay (60 độ) đổi sang radian
+theta_deg = 60
+theta = np.radians(theta_deg)
+
+# Ma trận xoay
+R = np.array([[np.cos(theta), -np.sin(theta)],
+              [np.sin(theta),  np.cos(theta)]])
+P_rot = R.dot(P)
+
+fig, ax = plt.subplots(figsize=(6, 6))
+
+# Vẽ trục Oxy
+ax.axhline(0, color='gray', alpha=0.3)
+ax.axvline(0, color='gray', alpha=0.3)
+
+# Vẽ các vector mũi tên chỉ vị trí điểm trước và sau xoay
+ax.annotate('', xy=P, xytext=O, arrowprops=dict(arrowstyle="->", color='#3399ff', lw=2.5, mutation_scale=15))
+ax.annotate('', xy=P_rot, xytext=O, arrowprops=dict(arrowstyle="->", color='#2ea44f', lw=2.5, mutation_scale=15))
+
+# Vẽ điểm P và P'
+ax.scatter([P[0], P_rot[0]], [P[1], P_rot[1]], color=['#3399ff', '#2ea44f'], s=80, zorder=5)
+
+# Nhãn tên điểm và tọa độ
+ax.text(P[0] + 0.15, P[1], f'P({P[0]}, {P[1]})', color='#3399ff', fontweight='bold', fontsize=10)
+ax.text(P_rot[0] + 0.15, P_rot[1] + 0.15, f"P'({P_rot[0]:.2f}, {P_rot[1]:.2f})", color='#2ea44f', fontweight='bold', fontsize=10)
+ax.text(0.1, -0.25, 'O(0,0)', fontsize=9)
+
+# Vẽ cung góc quay theta
+r_arc = 1.2
+# Góc của P và P' so với trục hoành
+phi_start = np.arctan2(P[1], P[0])
+phi_end = np.arctan2(P_rot[1], P_rot[0])
+angles = np.linspace(phi_start, phi_end, 50)
+arc_x = r_arc * np.cos(angles)
+arc_y = r_arc * np.sin(angles)
+ax.plot(arc_x, arc_y, color='#ff9933', linestyle='--', lw=2)
+ax.text(r_arc * np.cos(angles[25]) + 0.25, r_arc * np.sin(angles[25]) + 0.1, r'$\theta = 60^\circ$', 
+        color='#ff9933', fontweight='bold', fontsize=11)
+
+# Căn chỉnh hiển thị trục tỷ lệ 1:1
+ax.set_aspect('equal')
+ax.set_xlim(-1, 5)
+ax.set_ylim(-1, 5)
+ax.set_xlabel('Trục hoành X')
+ax.set_ylabel('Trục tung Y')
+ax.set_title('Phép quay điểm P một góc 60° CCW quanh gốc tọa độ O')
+ax.grid(True, alpha=0.3, linestyle=':')
+plt.tight_layout()
+```
+
+
 === "C++"
 
     ```cpp

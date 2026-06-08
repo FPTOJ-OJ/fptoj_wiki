@@ -1,6 +1,6 @@
 # Bài 24: Stack Nâng Cao - Expression Parsing & Ứng Dụng
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Stack, CP-Algorithms
 
 ---

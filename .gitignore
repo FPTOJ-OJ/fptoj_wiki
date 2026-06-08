@@ -4,3 +4,11 @@ log.txt
 __pycache__/
 *.py[codz]
 *$py.class
+scratch
+docs/uploads/matplotlib/*.svg
+docs/uploads/matplotlib/*.webp
+scripts/.env
+node_modules/
+package-lock.json
+package.json
+GuideToCompetitiveProgramming_output

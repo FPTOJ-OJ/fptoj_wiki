@@ -1,6 +1,6 @@
 # Bài 55: Ternary Search - Tìm kiếm tam phân
 
-> **Tác giả:** FPTOJ Wiki
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, e-maxx
 
 ---
@@ -50,6 +50,51 @@ Hàm $f(x) = -(x - 3)^2 + 10$ là unimodal với đỉnh tại $x = 3$, $f(3) = 
 | $f(x)$ | 1 | 6 | 9 | 10 | 9 | 6 | 1 |
 
 Hàm tăng từ $x = 0$ đến $x = 3$, sau đó giảm. Đỉnh duy nhất tại $x = 3$.
+
+```matplotlib
+def f(x):
+    return -(x - 3)**2 + 10
+
+x = np.linspace(0, 6, 200)
+y = f(x)
+
+fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+
+ax = axes[0]
+ax.plot(x, y, color='#2196F3', linewidth=2.5, label=r'$f(x) = -(x-3)^2 + 10$')
+ax.plot(3, 10, 'r*', markersize=15, zorder=5, label='Đỉnh: x=3, f=10')
+ax.axvline(x=3, color='red', linestyle='--', alpha=0.4)
+ax.set_xlabel('x'); ax.set_ylabel('f(x)')
+ax.set_title('Hàm unimodal (đơn đỉnh)', fontweight='bold')
+ax.legend(fontsize=9); ax.grid(True, alpha=0.3)
+
+ax = axes[1]
+ax.plot(x, y, color='#2196F3', linewidth=2, alpha=0.5)
+
+l, r = 0.0, 6.0
+colors_iter = ['#f44336', '#FF9800', '#4CAF50', '#9C27B0']
+for step in range(4):
+    m1 = l + (r - l) / 3
+    m2 = r - (r - l) / 3
+    c = colors_iter[step]
+    ax.axvspan(l, m1, alpha=0.15, color='#888888')
+    ax.axvspan(m2, r, alpha=0.15, color='#888888')
+    ax.axvline(m1, color=c, linestyle='--', linewidth=1.5, alpha=0.8)
+    ax.axvline(m2, color=c, linestyle='--', linewidth=1.5, alpha=0.8)
+    ax.plot(m1, f(m1), 'o', color=c, markersize=8, zorder=5)
+    ax.plot(m2, f(m2), 's', color=c, markersize=8, zorder=5)
+    ax.annotate(f'm1={m1:.2f}', (m1, f(m1)), textcoords='offset points', xytext=(-15, 10), fontsize=8, color=c)
+    ax.annotate(f'm2={m2:.2f}', (m2, f(m2)), textcoords='offset points', xytext=(5, 10), fontsize=8, color=c)
+    if f(m1) < f(m2):
+        l = m1
+    else:
+        r = m2
+
+ax.set_xlabel('x'); ax.set_ylabel('f(x)')
+ax.set_title('Các bước Ternary Search', fontweight='bold')
+ax.grid(True, alpha=0.3)
+plt.tight_layout()
+```
 
 ---
 

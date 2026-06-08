@@ -1,6 +1,6 @@
 # Bài 40: SCC & Cầu & Khớp - Thành phần liên thông mạnh!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây DFS, CP-Algorithms
 
 ---
@@ -117,6 +117,31 @@ Quay lui từ 1: low[1] = min(1, low[2]) = min(1, 1) = 1 == num[1] = 1 → GỐC
 ```
 
 Kết quả: 2 SCC → {1, 2, 3}, {4, 5, 6}.
+
+```matplotlib
+steps = ['Thăm 1', 'Thăm 2', 'Thăm 3', 'Thăm 4', 'Thăm 5', 'Thăm 6',
+         'Quay lui 6', 'Quay lui 5', 'Quay lui 4\n(SCC {4,5,6})',
+         'Quay lui 3', 'Quay lui 2', 'Quay lui 1\n(SCC {1,2,3})']
+num_vals = [1, 2, 3, 4, 5, 6, 6, 5, 4, 3, 2, 1]
+low_vals = [1, 2, 1, 4, 4, 4, 4, 4, 4, 1, 1, 1]
+
+fig, ax = plt.subplots(figsize=(10, 5))
+x = np.arange(len(steps))
+ax.plot(x, num_vals, 'o-', label='num[u]', color='#3498db', linewidth=2, markersize=6)
+ax.plot(x, low_vals, 's--', label='low[u]', color='#e74c3c', linewidth=2, markersize=6)
+
+for i in range(len(steps)):
+    if 'SCC' in steps[i]:
+        ax.axvspan(i - 0.3, i + 0.3, alpha=0.2, color='#2ecc71')
+
+ax.set_xticks(x)
+ax.set_xticklabels(steps, rotation=45, ha='right', fontsize=8)
+ax.set_ylabel('Giá trị')
+ax.set_title('Thuật toán Tarjan: num[u] và low[u] qua từng bước')
+ax.legend(fontsize=10)
+ax.grid(True, alpha=0.3)
+plt.tight_layout()
+```
 
 ### Code hoàn chỉnh
 

@@ -1,6 +1,6 @@
 # Bài 18: Euclid & Modular Inverse
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Euclid, Nghịch đảo modulo
 
 ---

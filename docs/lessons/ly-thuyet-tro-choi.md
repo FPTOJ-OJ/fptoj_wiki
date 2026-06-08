@@ -1,6 +1,6 @@
 # Bài 27: Lý Thuyết Trò Chơi — Sprague-Grundy & Nim
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 > **Tham khảo:** VNOI Wiki, CP-Algorithms, Errichto
 
 ---

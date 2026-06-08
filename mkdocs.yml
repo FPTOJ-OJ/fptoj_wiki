@@ -52,39 +52,64 @@ nav:
           - Thuật toán sắp xếp: lessons/thuat-toan-sap-xep.md
           - Tìm kiếm nhị phân: lessons/tim-kiem-nhi-phan.md
           - Phép toán bit: lessons/phep-toan-bit.md
+          - Fun with Bits: lessons/fun-with-bits.md
           - Đệ quy và quay lui: lessons/de-quy-va-quay-lui.md
       - "⭐⭐ Nhóm 2 — Kỹ thuật cơ bản":
           - Kĩ thuật hai con trỏ: lessons/ky-thuat-hai-con-tro.md
           - Mảng, Stack, Prefix Sum: lessons/mang-stack-prefix-sum.md
           - Lũy thừa nhị phân & Sàng nguyên tố: lessons/luy-thua-nhi-phan-sang-nguyen-to.md
+          - Chia đôi tập (Meet in the Middle): lessons/meet-in-the-middle.md
+          - Rời rạc hoá (Nén số): lessons/discretization.md
       - "⭐⭐ Nhóm 3 — Cấu trúc dữ liệu cơ bản":
           - Linked List chi tiết: lessons/linked-list.md
           - Queue cơ bản: lessons/queue.md
           - Hash Table: lessons/hash-table.md
           - Heap (Hàng đợi ưu tiên): lessons/heap.md
           - DSU (Gộp tập hợp): lessons/dsu.md
+          - DSU Rollback: lessons/dsu-rollback.md
           - Deque & Sliding Window: lessons/deque-sliding-window.md
           - Trie: lessons/trie.md
           - Segment Tree (Cây phân đoạn): lessons/segment-tree.md
+          - Cải tiến Segment Tree (Lazy Propagation): lessons/improved-seg-tree.md
           - Fenwick Tree (BIT): lessons/fenwick-tree.md
+          - BIT 2D (Fenwick Tree 2D): lessons/bit-2d.md
+          - Sparse Table (RMQ): lessons/sparse-table.md
+          - Persistent Segment Tree: lessons/persistent-segment-tree.md
+          - Skip List: lessons/skip-list.md
+          - 'Nhảy nhị phân với bộ nhớ O(n)': lessons/binary-lifting-array.md
+          - Static Wavelet Tree: lessons/wavelet-tree.md
+          - Interval Tree: lessons/interval-tree.md
       - "⭐⭐⭐ Nhóm 4 — Thuật toán đồ thị":
           - BFS/DFS trên đồ thị: lessons/bfs-dfs-do-thi.md
+          - BFS 0-1: lessons/bfs-01.md
           - MST, Dijkstra, Topo Sort: lessons/mst-dijkstra-topo-sort.md
           - Floyd-Warshall & Bellman-Ford: lessons/floyd-warshall-bellman-ford.md
+          - SPFA: lessons/spfa.md
+          - Đường đi - Chu trình Euler: lessons/euler-circuit.md
           - LCA & Binary Lifting: lessons/lca-binary-lifting.md
       - "⭐⭐⭐ Nhóm 5 — Quy hoạch động & Tham lam":
           - Greedy: lessons/greedy.md
+          - Matroid: lessons/matroid.md
           - Quy hoạch động: lessons/quy-hoach-dong.md
+          - Quy hoạch động Bitmask: lessons/bitmask-dp.md
+          - Quy hoạch động trên DAG: lessons/dp-on-dag.md
           - Binary Search on Answer: lessons/binary-search-on-answer.md
       - "⭐⭐⭐ Nhóm 6 — Xử lý xâu":
           - KMP - Tìm xâu: lessons/kmp-tim-xau.md
           - Hash xâu & Z-algorithm: lessons/hash-xau-z-algorithm.md
           - Manacher: lessons/manacher.md
           - Suffix Array: lessons/suffix-array.md
+          - Palindrome Tree (Eertree): lessons/palindrome-tree.md
+          - Suffix Tree: lessons/suffix-tree.md
       - "⭐⭐⭐ Nhóm 7 — Toán & Số học":
           - Euclid & Modular Inverse: lessons/euclid-modular-inverse.md
           - Tổ hợp & Xác suất: lessons/to-hop-xac-suat.md
           - Số học nâng cao: lessons/so-hoc-nang-cao.md
+          - Hàm Phi Euler & Hàm Nhân Tính: lessons/phi-euler.md
+          - Định lý Wilson & Lucas: lessons/wilson-lucas.md
+          - Định lý Thặng dư Trung Hoa (CRT): lessons/crt.md
+          - Hàm Mobius & Hàm Nhân Tính: lessons/mobius-multiplicative.md
+          - Giai thừa mod & Căn bậc 2 mod: lessons/factorial-sqrt-mod.md
           - Lý thuyết trò chơi: lessons/ly-thuyet-tro-choi.md
           - Sàng nâng cao & Hàm ước: lessons/sang-nang-cao-ham-uoc.md
           - Nguyên lý bao hàm - loại trừ: lessons/nguyen-ly-bao-ham-loai-tru.md
@@ -102,6 +127,7 @@ nav:
           - Góc & Phép quay: lessons/goc-phep-quay.md
           - Sắp xếp cực & Quét góc: lessons/sap-xep-cuc.md
           - Bao lồi: lessons/bao-loi.md
+          - Thuật toán đường quét (Sweep Line): lessons/sweep-line.md
           - Stack nâng cao: lessons/stack-nang-cao.md
           - Binary Search Tree (BST): lessons/bst.md
           - Sparse Table (RMQ): lessons/sparse-table.md
@@ -119,11 +145,15 @@ nav:
           - Euler Tour trên cây: lessons/euler-tour-tree.md
           - Centroid Decomposition: lessons/centroid-decomposition.md
           - Heavy-Light Decomposition: lessons/hld.md
+          - Bài toán Lubenica - RMQ trên cây: lessons/lubenica-rmq-tree.md
       - "⭐⭐⭐⭐ Nhóm 12 — Quy hoạch động nâng cao":
           - DP trên cây: lessons/dp-on-trees.md
           - Digit DP: lessons/digit-dp.md
           - Interval DP: lessons/interval-dp.md
           - Tối ưu DP (Knuth, D&C, CHT): lessons/dp-optimization.md
+          - Quy hoạch động SOS: lessons/sos-dp.md
+          - Kĩ thuật Bao lồi trong QHĐ: lessons/dp-convex-hull.md
+          - Tối ưu DP 1 chiều (1D1D): lessons/dp-1d1d.md
       - "⭐⭐⭐⭐ Nhóm 13 — Xâu nâng cao":
           - Aho-Corasick: lessons/aho-corasick.md
           - Suffix Automaton: lessons/suffix-automaton.md
@@ -131,6 +161,8 @@ nav:
           - Chia căn & Mo's Algorithm: lessons/sqrt-mo.md
           - Convex Hull Trick & Li Chao Tree: lessons/convex-hull-trick.md
           - Ternary Search: lessons/ternary-search.md
+          - Giải thuật cắt tỉa Alpha-Beta: lessons/alpha-beta.md
+          - Local Search: lessons/local-search.md
   - Thuật Toán:
       - Cơ Bản:
         - Đệ quy và Thuật toán quay lui: algo/basic/backtracking.md
@@ -378,8 +410,11 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.js
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/contrib/auto-render.min.js
   - https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js
+  - js/mermaid-init.js
   - js/jquery-3.7.1.min.js
   - js/webjs.js
+  - js/matplotlib-theme.js
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css
+  - css/matplotlib.css

@@ -1,6 +1,6 @@
 # Bài 23: Floyd-Warshall & Bellman-Ford
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Các thuật toán về tìm đường đi ngắn nhất
 
 ---
@@ -436,6 +436,47 @@ Khi đồ thị thưa ($m \ll n^2$), Floyd-Warshall $O(n^3)$ lãng phí. Johnson
 | Có trọng số âm | **Bellman-Ford** |
 | Cần đường đi ngắn nhất mọi cặp, $n \leq 500$ | **Floyd-Warshall** |
 | Cần phát hiện chu trình âm | **Bellman-Ford** hoặc **Floyd-Warshall** |
+
+```matplotlib
+n = np.linspace(2, 200, 100)
+m_sparse = n * np.log2(n)
+m_dense = n**2
+
+bfs = n + m_sparse
+dijkstra = m_sparse * np.log2(n)
+bellman_ford = n * m_sparse
+floyd = n**3
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.plot(n, bfs, label='BFS $O(V+E)$', color='#2ecc71', linewidth=2)
+ax1.plot(n, dijkstra, label='Dijkstra $O(E\\log V)$', color='#3498db', linewidth=2)
+ax1.plot(n, bellman_ford, label='Bellman-Ford $O(VE)$', color='#e67e22', linewidth=2)
+ax1.plot(n, floyd, label='Floyd-Warshall $O(V^3)$', color='#e74c3c', linewidth=2)
+ax1.set_xlabel('Số đỉnh V')
+ax1.set_ylabel('Số phép tính (thang log)')
+ax1.set_title('So sánh thuật toán đường đi ngắn nhất\n(đồ thị thưa, E ≈ V·log V)')
+ax1.set_yscale('log')
+ax1.legend(fontsize=8)
+ax1.grid(True, alpha=0.3)
+
+n2 = np.arange(2, 501)
+bf_n2 = n2 * (n2 * np.log2(n2))
+fw_n2 = n2**3
+cross_idx = np.argmin(np.abs(bf_n2 - fw_n2))
+
+ax2.plot(n2, bf_n2, label='Bellman-Ford $O(VE)$', color='#e67e22', linewidth=2)
+ax2.plot(n2, fw_n2, label='Floyd-Warshall $O(V^3)$', color='#e74c3c', linewidth=2)
+ax2.axvline(x=n2[cross_idx], color='gray', linestyle='--', alpha=0.5)
+ax2.set_xlabel('Số đỉnh V')
+ax2.set_ylabel('Số phép tính (thang log)')
+ax2.set_title('Bellman-Ford vs Floyd-Warshall\n(đồ thị thưa)')
+ax2.set_yscale('log')
+ax2.legend(fontsize=9)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+```
 
 ---
 

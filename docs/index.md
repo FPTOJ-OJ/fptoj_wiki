@@ -137,7 +137,7 @@ Dưới đây là tập hợp các bài viết chuyên sâu từ thư viện VNO
 ## Kỹ Năng & Chia Sẻ Kinh Nghiệm
 
 - **Về cách học Tin học:** [Tôi đã học Tin như thế nào (Phần 1)](algo/basic/hoc-tin-the-nao-1.md) | [(Phần 2)](algo/basic/hoc-tin-the-nao-2.md) | [Hoài niệm về Pascal](others/Pascal-Vi-sao.md)
-- **Kĩ năng thi cử:** [Viết trình chấm](algo/skill/viet-trinh-cham.md) | [Tổng hợp lời khuyên](algo/skill/Ki-nang-thi-cu.md) | [Kinh nghiệm thi VOI](algo/skill/Kinh-nghiem-thi-VOI.md) | [Phỏng vấn Team IOI 2017](Phỏng-vấn-team-IOI-VN-2017.md)
+- **Kĩ năng thi cử:** [Hướng dẫn Lập trình Thi đấu](guide/guide-to-competitive-programming.md) | [Viết trình chấm](algo/skill/viet-trinh-cham.md) | [Tổng hợp lời khuyên](algo/skill/Ki-nang-thi-cu.md) | [Kinh nghiệm thi VOI](algo/skill/Kinh-nghiem-thi-VOI.md) | [Phỏng vấn Team IOI 2017](Phỏng-vấn-team-IOI-VN-2017.md)
 
 ---
 

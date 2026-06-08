@@ -1,6 +1,6 @@
 # Bài 36: Kỹ Năng Thi Đấu HSG Tin Học Việt Nam
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** Kinh nghiệm thi HSG, VOI, VNOI
 
 ## 1. Cấu trúc đề thi HSG Tin học Việt Nam

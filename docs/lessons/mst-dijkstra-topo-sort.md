@@ -1,6 +1,6 @@
 # Bài 13: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây khung nhỏ nhất, Đường đi ngắn nhất, Sắp xếp Tô-pô
 
 ---
@@ -210,9 +210,49 @@ graph LR
 
 Kruskal phù hợp khi đồ thị thưa ($m \approx n$). Prim với heap phù hợp khi đồ thị trung bình. Prim với ma trận kề phù hợp khi đồ thị rất dày ($m \approx n^2$).
 
+```matplotlib
+import math
+
+n_vals = [100, 500, 1000, 5000, 10000]
+labels = ['100', '500', '1K', '5K', '10K']
+
+m_sparse = n_vals
+m_dense = [n**2 for n in n_vals]
+
+def kruskal_cost(n, m): return m * math.log2(m) if m > 1 else 1
+def prim_heap_cost(n, m): return (n + m) * math.log2(n) if n > 1 else 1
+def prim_matrix_cost(n, m): return n**2
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4.5))
+
+axes[0].plot(labels, [kruskal_cost(n, m) for n, m in zip(n_vals, m_sparse)], 'o-', label='Kruskal O(m log m)', linewidth=2, markersize=6)
+axes[0].plot(labels, [prim_heap_cost(n, m) for n, m in zip(n_vals, m_sparse)], 's-', label='Prim + heap O((n+m) log n)', linewidth=2, markersize=6)
+axes[0].plot(labels, [prim_matrix_cost(n, m) for n, m in zip(n_vals, m_sparse)], '^-', label='Prim + ma trận O(n²)', linewidth=2, markersize=6)
+axes[0].set_title('Đồ thị thưa (m ≈ n)', fontweight='bold')
+axes[0].set_xlabel('Số đỉnh n')
+axes[0].set_ylabel('Chi phí (log scale)')
+axes[0].set_yscale('log')
+axes[0].legend(fontsize=8)
+axes[0].grid(True, alpha=0.3)
+
+axes[1].plot(labels, [kruskal_cost(n, m) for n, m in zip(n_vals, m_dense)], 'o-', label='Kruskal O(m log m)', linewidth=2, markersize=6)
+axes[1].plot(labels, [prim_heap_cost(n, m) for n, m in zip(n_vals, m_dense)], 's-', label='Prim + heap O((n+m) log n)', linewidth=2, markersize=6)
+axes[1].plot(labels, [prim_matrix_cost(n, m) for n, m in zip(n_vals, m_dense)], '^-', label='Prim + ma trận O(n²)', linewidth=2, markersize=6)
+axes[1].set_title('Đồ thị dày (m ≈ n²)', fontweight='bold')
+axes[1].set_xlabel('Số đỉnh n')
+axes[1].set_ylabel('Chi phí (log scale)')
+axes[1].set_yscale('log')
+axes[1].legend(fontsize=8)
+axes[1].grid(True, alpha=0.3)
+
+plt.suptitle('So sánh độ phức tạp MST: Kruskal vs Prim theo mật độ đồ thị', fontsize=11, fontweight='bold')
+plt.tight_layout()
+```
+
 !!! tip "Thử tương tác"
     - [Kruskal's MST](https://algorithm-visualizer.org/greedy/kruskals-minimum-spanning-tree)
     - [Prim's MST](https://algorithm-visualizer.org/greedy/prims-minimum-spanning-tree)
+
 
 ---
 

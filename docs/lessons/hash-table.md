@@ -1,6 +1,6 @@
 # Bài 16: Hash Table (Bảng Băm)
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Bảng băm
 
 ---
@@ -105,6 +105,38 @@ Khi xung đột, ta tìm một ô trống khác trong bảng theo một quy tắ
 $$\alpha = \frac{N}{M}$$
 
 Khi $\alpha$ vượt quá ngưỡng (thường là 0.75), hiệu suất giảm do xung đột tăng. Lúc này cần **rehashing**: tạo bảng mới lớn gấp đôi, rồi đưa tất cả phần tử sang.
+
+```matplotlib
+import numpy as np
+
+alpha = np.linspace(0.01, 0.95, 100)
+
+chaining = 1 + alpha
+open_addr = 1.0 / (1.0 - alpha)
+
+fig, ax = plt.subplots(figsize=(10, 5))
+
+ax.plot(alpha, chaining, label='Chaining: 1 + α', linewidth=2.5, color='#3498db')
+ax.plot(alpha, open_addr, label='Open Addressing: 1/(1-α)', linewidth=2.5, color='#e74c3c')
+
+ax.axvline(x=0.75, color='gray', linestyle='--', alpha=0.7, label='Ngưỡng khuyến nghị α = 0.75')
+ax.axvspan(0.75, 0.95, alpha=0.08, color='red')
+
+ax.annotate('α = 0.75\nOpen Addressing ≈ 4 probes',
+            xy=(0.75, 4.0), xytext=(0.5, 6),
+            fontsize=11, color='#e74c3c', fontweight='bold',
+            arrowprops=dict(arrowstyle='->', color='#e74c3c', lw=1.5))
+
+ax.set_xlabel('Load Factor α = N/M', fontsize=12)
+ax.set_ylabel('Số lần trung bình (avg probes)', fontsize=12)
+ax.set_title('Hiệu suất Hash Table theo Load Factor', fontsize=14, fontweight='bold')
+ax.set_xlim(0, 0.95)
+ax.set_ylim(0, 12)
+ax.legend(fontsize=11, loc='upper left')
+ax.grid(True, alpha=0.3)
+
+plt.tight_layout()
+```
 
 ### Thư viện chuẩn
 

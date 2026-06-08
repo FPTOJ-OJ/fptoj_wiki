@@ -27,6 +27,70 @@ Sử dụng biến đổi Fourier nhanh (FFT) hoặc biến đổi số nguyên 
 2. Nhân hai đa thức trong không gian giá trị - O(n)
 3. Chuyển ngược lại - O(n log n)
 
+```matplotlib
+import numpy as np
+
+A = np.array([1, 2, 3])
+B = np.array([4, 5])
+
+n = max(len(A), len(B))
+N = 1
+while N < len(A) + len(B):
+    N <<= 1
+
+A_pad = np.zeros(N)
+B_pad = np.zeros(N)
+A_pad[:len(A)] = A
+B_pad[:len(B)] = B
+
+fft_A = np.fft.fft(A_pad)
+fft_B = np.fft.fft(B_pad)
+fft_C = fft_A * fft_B
+C = np.real(np.fft.ifft(fft_C))
+
+fig, axes = plt.subplots(3, 1, figsize=(12, 7))
+
+x_A = np.arange(len(A))
+x_B = np.arange(len(B))
+x_C = np.arange(len(A) + len(B) - 1)
+
+ax = axes[0]
+ax.bar(x_A - 0.15, A, 0.3, label='A(x) = 1 + 2x + 3x²', color='#3498db', alpha=0.85, edgecolor='white')
+ax.bar(x_B + 0.15, B, 0.3, label='B(x) = 4 + 5x', color='#e74c3c', alpha=0.85, edgecolor='white')
+for i, v in enumerate(A):
+    ax.text(i - 0.15, v + 0.15, str(v), ha='center', fontsize=12, fontweight='bold', color='#3498db')
+for i, v in enumerate(B):
+    ax.text(i + 0.15, v + 0.15, str(v), ha='center', fontsize=12, fontweight='bold', color='#e74c3c')
+ax.set_title('Không gian hệ số (Coefficient Domain)', fontsize=13, fontweight='bold')
+ax.set_xlabel('Bậc x^i', fontsize=11)
+ax.set_ylabel('Hệ số', fontsize=11)
+ax.legend(fontsize=11)
+ax.grid(True, alpha=0.3, axis='y')
+
+ax = axes[1]
+x_fft = np.arange(N)
+w = 0.35
+ax.bar(x_fft - w/2, np.abs(fft_A), w, label='|FFT(A)|', color='#3498db', alpha=0.85, edgecolor='white')
+ax.bar(x_fft + w/2, np.abs(fft_B), w, label='|FFT(B)|', color='#e74c3c', alpha=0.85, edgecolor='white')
+ax.set_title('Không gian giá trị (Value Domain) — Nhân điểm tại đây!', fontsize=13, fontweight='bold')
+ax.set_xlabel('Điểm mẫu', fontsize=11)
+ax.set_ylabel('|Giá trị|', fontsize=11)
+ax.legend(fontsize=11)
+ax.grid(True, alpha=0.3, axis='y')
+
+ax = axes[2]
+ax.bar(x_C, C[:len(x_C)], 0.6, color='#2ecc71', alpha=0.85, edgecolor='white')
+for i, v in enumerate(C[:len(x_C)]):
+    ax.text(i, v + 0.3, str(int(round(v))), ha='center', fontsize=13, fontweight='bold', color='#2ecc71')
+ax.set_title('Kết quả: C(x) = A(x)·B(x) = 4 + 13x + 17x² + 15x³', fontsize=13, fontweight='bold')
+ax.set_xlabel('Bậc x^i', fontsize=11)
+ax.set_ylabel('Hệ số', fontsize=11)
+ax.grid(True, alpha=0.3, axis='y')
+
+fig.suptitle('NTT/FFT: Nhân đa thức qua không gian giá trị', fontsize=14, fontweight='bold')
+plt.tight_layout()
+```
+
 ### 2.2 Sử dụng trong thi đấu
 
 Trong thi đấu, thường dùng **NTT** (Number Theoretic Transform) thay vì FFT để tránh lỗi số thực.

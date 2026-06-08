@@ -15,6 +15,36 @@ Ví dụ: Fibonacci: $F(n) = F(n-1) + F(n-2)$, cần tính $F(10^{18})$.
 
 Đệ quy → quá chậm. Quy hoạch động → không đủ bộ nhớ. **Lũy thừa ma trận** giải quyết trong $O(k^3 \log n)$.
 
+```matplotlib
+n = np.arange(0, 30)
+fib = [0, 1]
+for i in range(2, 30):
+    fib.append(fib[-1] + fib[-2])
+fib = np.array(fib)
+
+naive_steps = n
+matrix_steps = np.log2(np.maximum(n, 1)) * 8
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.plot(n, fib, 'o-', color='#9b59b6', linewidth=2, markersize=4)
+ax1.set_xlabel('n')
+ax1.set_ylabel('F(n)')
+ax1.set_title('Dãy Fibonacci tăng exponentially')
+ax1.grid(True, alpha=0.3)
+ax1.set_yscale('log')
+
+ax2.plot(n[1:], naive_steps[1:], label='DP $O(n)$', color='#e74c3c', linewidth=2)
+ax2.plot(n[1:], matrix_steps[1:], label='Ma trận lũy thừa $O(\\log n)$', color='#2ecc71', linewidth=2)
+ax2.set_xlabel('n')
+ax2.set_ylabel('Số phép tính')
+ax2.set_title('So sánh số phép tính: DP vs Ma trận lũy thừa')
+ax2.legend(fontsize=10)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+```
+
 ### 1.2 Các ứng dụng phổ biến
 
 - Tính số Fibonacci, tribonacci, ... cho $n$ rất lớn

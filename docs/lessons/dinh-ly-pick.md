@@ -31,6 +31,56 @@ Tam giác $(0,0), (4,0), (0,3)$:
 - $B = 5 + 2 + 4 - 3 = 8$ (trừ 3 đỉnh bị đếm trùng)
 - $I = 6 - 8/2 + 1 = 3$
 
+```matplotlib
+fig, ax = plt.subplots(figsize=(7, 6))
+
+tri = np.array([[0, 0], [4, 0], [0, 3], [0, 0]])
+ax.fill(tri[:,0], tri[:,1], alpha=0.12, color='#2196F3')
+ax.plot(tri[:,0], tri[:,1], '-', color='#2196F3', linewidth=2.5)
+
+for gx in range(0, 5):
+    ax.axvline(gx, color='#555', linewidth=0.5, alpha=0.4)
+for gy in range(0, 4):
+    ax.axhline(gy, color='#555', linewidth=0.5, alpha=0.4)
+
+boundary = set()
+for (x1, y1), (x2, y2) in [((0,0),(4,0)), ((4,0),(0,3)), ((0,3),(0,0))]:
+    from math import gcd
+    g = gcd(abs(x2-x1), abs(y2-y1))
+    for t in range(g + 1):
+        boundary.add((x1 + t*(x2-x1)//g, y1 + t*(y2-y1)//g))
+
+interior = []
+for x in range(5):
+    for y in range(4):
+        if (x, y) in boundary:
+            continue
+        d1 = (x - 0)*(0 - 0) - (y - 0)*(4 - 0)
+        d2 = (x - 4)*(3 - 0) - (y - 0)*(0 - 4)
+        d3 = (x - 0)*(0 - 3) - (y - 3)*(0 - 0)
+        if d1 >= 0 and d2 >= 0 and d3 >= 0:
+            interior.append((x, y))
+
+bx, by = zip(*boundary)
+ax.scatter(bx, by, s=100, color='#2196F3', zorder=5, edgecolors='white', linewidths=1.5, label=f'Boundary B = {len(boundary)}')
+if interior:
+    ix, iy = zip(*interior)
+    ax.scatter(ix, iy, s=100, color='#f44336', zorder=5, edgecolors='white', linewidths=1.5, marker='D', label=f'Interior I = {len(interior)}')
+
+ax.annotate('I = 3', (1, 1), fontsize=13, fontweight='bold', color='#f44336', ha='center')
+ax.annotate('B = 8', (2, -0.35), fontsize=13, fontweight='bold', color='#2196F3', ha='center')
+
+for vx, vy in [(0, 0), (4, 0), (0, 3)]:
+    ax.plot(vx, vy, 'ko', markersize=7, zorder=6)
+    ax.annotate(f'({vx},{vy})', (vx, vy), textcoords='offset points', xytext=(8, 8), fontsize=9, fontweight='bold')
+
+ax.set_xlim(-0.5, 4.8); ax.set_ylim(-0.7, 3.8)
+ax.set_aspect('equal')
+ax.set_title("Định lý Pick: S = I + B/2 - 1 = 3 + 4 - 1 = 6", fontsize=12, fontweight='bold')
+ax.legend(loc='upper right', fontsize=10)
+plt.tight_layout()
+```
+
 ---
 
 ## 2. Đếm điểm nguyên trên đoạn

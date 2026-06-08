@@ -1,419 +1,386 @@
-﻿# Bài 8a: Heap (Đống) - Hàng Đợi Ưu Tiên
+# Bài 8a: Heap (Đống) - Hàng Đợi Ưu Tiên
 
-> **Tác giả:** Hà Trí Kiên<br>
-> **Nội dung tham khảo từ:** VNOI Wiki - Binary Heap
+> **Tác giả:** FPTOJ Team<br>
+> **Nội dung tham khảo từ:** VNOI Wiki - Binary Heap, CP-Algorithms
 
 ---
 
-## 1. Bài toán
+## 1. Bản chất vấn đề
 
-Bạn có N bệnh nhân, mỗi người có mức độ nặng khác nhau. Ai nặng nhất → khám trước! Không phải FIFO (vào trước ra trước) mà là **ai ưu tiên nhất ra trước!**
+### Hàng đợi ưu tiên (Priority Queue)
+Trong thực tế cuộc sống, ta thường gặp tình huống cần quản lý một danh sách công việc hoặc đối tượng và luôn muốn lấy ra đối tượng có mức độ ưu tiên lớn nhất (hoặc nhỏ nhất) trước tiên.
+Ví dụ điển hình là phòng cấp cứu của bệnh viện: bệnh nhân có tình trạng nguy kịch nhất luôn được đưa vào khám trước, bất kể họ đến trước hay sau. Đây chính là mô hình **Hàng đợi ưu tiên (Priority Queue)**.
 
-Đây là mô hình **hàng đợi ưu tiên (Priority Queue)** — khác với hàng đợi thường (queue).
+### So sánh Queue vs Priority Queue
 
-## 2. So sánh: Queue vs Priority Queue
+| Tiêu chí | Queue (Hàng đợi thường) | Priority Queue (Hàng đợi ưu tiên) |
+|:---|:---:|:---:|
+| **Nguyên tắc hoạt động** | FIFO: Vào trước, ra trước | Phần tử có mức độ ưu tiên cao nhất ra trước |
+| **Độ phức tạp thêm phần tử** | $O(1)$ | $O(\log N)$ |
+| **Độ phức tạp xem cực trị** | $O(1)$ (phần tử ở đầu hàng) | $O(1)$ (phần tử có độ ưu tiên cao nhất) |
+| **Độ phức tạp lấy cực trị ra** | $O(1)$ | $O(\log N)$ |
+| **Mô hình thực tế** | Hàng người xếp hàng mua vé | Phòng cấp cứu bệnh viện |
 
-| | Queue (hàng đợi thường) | Priority Queue (hàng đợi ưu tiên) |
-|--|------------------------|-----------------------------------|
-| Nguyên tắc | FIFO: Vào trước, ra trước | Ưu tiên nhất ra trước |
-| Thao tác thêm | O(1) | O(log N) |
-| Thao tác lấy | O(1) | O(log N) |
-| Lấy min/max | O(N) | **O(1)** |
-| Ví dụ | Hàng người xếp vé | Bệnh viện cấp cứu |
+**Binary Heap (Đống nhị phân)** là cấu trúc dữ liệu tối ưu nhất dùng để cài đặt Priority Queue.
 
-## 3. Binary Heap là gì?
+---
 
-Binary Heap là cách cài đặt Priority Queue bằng **cây nhị phân đầy đủ** lưu trong mảng.
+## 2. Binary Heap là gì?
 
-**Hai tính chất quan trọng:**
+Binary Heap là một cây nhị phân lưu trữ các phần tử của mảng và thỏa mãn hai tính chất cốt lõi sau:
 
-1. **Cây nhị phân đầy đủ:** Mỗi nút có tối đa 2 con. Các tầng được lấp đầy từ trái sang phải.
-2. **Tính chất đống:** Nút cha luôn lớn hơn (max-heap) hoặc nhỏ hơn (min-heap) cả 2 con.
+1.  **Cây nhị phân đầy đủ (Complete Binary Tree):** Tất cả các tầng của cây đều được lấp đầy từ trái sang phải, riêng tầng cuối cùng có thể chưa đầy nhưng bắt buộc phải điền từ trái sang.
+2.  **Tính chất đống (Heap Property):** 
+    *   **Max-Heap:** Giá trị tại nút cha luôn lớn hơn hoặc bằng giá trị tại các nút con của nó. Phần tử lớn nhất nằm ở nút gốc.
+    *   **Min-Heap:** Giá trị tại nút cha luôn nhỏ hơn hoặc bằng giá trị tại các nút con của nó. Phần tử nhỏ nhất nằm ở nút gốc.
 
-## 4. Tại sao lưu trong mảng?
+---
 
-Thay vì dùng con trỏ (như cây nhị phân thường), Binary Heap lưu trực tiếp trong mảng:
+## 3. Biểu diễn Heap dưới dạng mảng 0-indexed
 
-```
-Mảng: [90, 80, 70, 50, 60, 65]
-Chỉ số: 0   1   2   3   4   5
+Nhờ tính chất là một cây nhị phân đầy đủ, ta có thể lưu trữ Binary Heap trực tiếp dưới dạng một mảng tĩnh một chiều mà không cần dùng đến hệ thống con trỏ liên kết.
 
-Quy tắc: Với nút tại chỉ số i:
-  - Con trái:  2*i + 1
-  - Con phải:  2*i + 2
-  - Cha:       (i - 1) / 2
-```
+### Định vị cha - con trên mảng
+Xét mảng $a[0 \ldots N-1]$ lưu trữ cây Heap, với phần tử gốc nằm tại vị trí chỉ số $0$. Với một nút nằm tại vị trí chỉ số $i$, chỉ số các nút liên quan được xác định bằng công thức:
+*   Con trái: $2i + 1$
+*   Con phải: $2i + 2$
+*   Cha trực tiếp: $\lfloor \frac{i - 1}{2} \rfloor$
 
-Cây tương ứng:
+### Chứng minh công thức chỉ số cha con trên mảng
+Ta chứng minh bằng quy nạp toán học cho cây nhị phân đầy đủ biểu diễn dưới dạng mảng 0-indexed:
 
-```mermaid
-graph TD
-    90(("90")) --> 80(("80"))
-    90(("90")) --> 70(("70"))
-    80(("80")) --> 50(("50"))
-    80(("80")) --> 60(("60"))
-    70(("70")) --> 65(("65"))
-```
+1.  **Trường hợp cơ sở:**
+    *   Nút gốc nằm ở tầng $0$, chỉ số $0$.
+    *   Tầng $1$ có $2$ nút: index $1$ (con trái) và index $2$ (con phải).
+    *   Thử lại công thức cho nút gốc $i = 0$:
+        *   Con trái: $2(0) + 1 = 1$ (Đúng).
+        *   Con phải: $2(0) + 2 = 2$ (Đúng).
+2.  **Bước quy nạp:**
+    *   Giả sử tầng $d$ có các nút chạy từ chỉ số $start_d$ đến $end_d$. Tầng này chứa $2^d$ nút và bắt đầu tại chỉ số $start_d = 2^d - 1$.
+    *   Tầng kế tiếp $d+1$ sẽ bắt đầu tại chỉ số:
+        $$start_{d+1} = start_d + 2^d = 2^d - 1 + 2^d = 2^{d+1} - 1$$
+    *   Xét nút thứ $k$ (với $0 \leq k < 2^d$) ở tầng $d$. Chỉ số của nút này trên mảng là:
+        $$i = start_d + k = 2^d - 1 + k$$
+    *   Hai nút con của nó ở tầng $d+1$ sẽ là nút thứ $2k$ và $2k+1$ tính từ đầu tầng $d+1$.
+    *   Chỉ số của nút con trái:
+        $$index_{left} = start_{d+1} + 2k = (2^{d+1} - 1) + 2k = 2(2^d - 1 + k) + 1 = 2i + 1$$
+    *   Chỉ số của nút con phải:
+        $$index_{right} = index_{left} + 1 = 2i + 2$$
+3.  **Công thức xác định cha:**
+    *   Với nút con trái $L = 2i+1 \implies i = \frac{L-1}{2}$.
+    *   Với nút con phải $R = 2i+2 \implies i = \frac{R-2}{2}$.
+    *   Vì phép chia số nguyên tự động lấy phần sàn, ta luôn có:
+        $$\lfloor \frac{L-1}{2} \rfloor = i \quad \text{và} \quad \lfloor \frac{R-1}{2} \rfloor = \lfloor \frac{2i+1}{2} \rfloor = i$$
+    *   Do đó, cha của nút $i$ bất kỳ luôn nằm tại chỉ số $\lfloor \frac{i-1}{2} \rfloor$.
 
-**Tại sao hay?** Không cần con trỏ! Truy cập con/cha chỉ bằng phép tính chỉ số → O(1), tiết kiệm bộ nhớ.
+### Ví dụ minh họa Max-Heap
+Mảng lưu trữ: `[90, 80, 70, 50, 60, 65]` ứng với chỉ số $0$ đến $5$:
 
-<p align="center"><img src="/uploads/img/gif/heap.gif" alt="Binary Heap - VisuAlgo" style="max-width: 700px;" /><br><em>Minh họa thao tác trên Heap (Nguồn: VisuAlgo)</em></p>
+| Chỉ số $i$ | $0$ | $1$ | $2$ | $3$ | $4$ | $5$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Giá trị $a[i]$ | $90$ | $80$ | $70$ | $50$ | $60$ | $65$ |
 
-## 5. Hai thao tác cốt lõi
-
-### 5.1. Thao tác "đẩy lên" (sift-up / bubble-up) — khi thêm phần tử
-
-**Bước 1:** Thêm phần tử vào cuối mảng (vị trí lá cuối cùng)
-
-**Bước 2:** So sánh với cha. Nếu vi phạm tính chất đống → đổi chỗ với cha
-
-**Lặp lại** bước 2 cho đến khi đúng vị trí
-
-**Ví dụ: Thêm 85 vào max-heap [90, 80, 70, 50, 60, 65]:**
-
-```mermaid
-graph TD
-    90(("90")) --> 80(("80"))
-    90(("90")) --> 70(("70"))
-    80(("80")) --> 50(("50"))
-    80(("80")) --> 60(("60"))
-    70(("70")) --> 65(("65"))
-    70(("70")) -->|"mới thêm"| 85(("85"))
-```
-
-Mảng: `[90, 80, 70, 50, 60, 65, 85]`
-
-```mermaid
-graph TD
-    90(("90")) --> 80(("80"))
-    90(("90")) --> 85(("85"))
-    80(("80")) --> 50(("50"))
-    80(("80")) --> 60(("60"))
-    85(("85")) --> 65(("65"))
-    85(("85")) -->|"đã lên"| 70(("70"))
-```
-
-Mảng: `[90, 80, 85, 50, 60, 65, 70]`
-
-Bước 3: 85 > cha(90)? → Sai! Dừng.
-
-Kết quả: `[90, 80, 85, 50, 60, 65, 70]`
-
-**Độ phức tạp:** O(log N) — cao nhất bằng chiều cao cây = log₂(N)
-
-### 5.2. Tại sao sift-up là O(log N)?
-
-Mỗi lần sift-up, phần tử di chuyển lên **đúng 1 tầng**. Cây nhị phân đầy đủ N nút có chiều cao chính xác là **⌊log₂(N)⌋**.
-
-- N = 7 → chiều cao 2 → sift-up tối đa 2 lần
-- N = 15 → chiều cao 3 → sift-up tối đa 3 lần
-- N = 10⁶ → chiều cao ~20 → sift-up tối đa 20 lần
-
-Đây là lý do Heap rất nhanh trong thực tế: dù N lớn, số bước sift-up vẫn rất nhỏ.
-
-### 5.3. Thao tác "đẩy xuống" (sift-down / heapify) — khi lấy phần tử lớn nhất
-
-**Bước 1:** Lấy phần tử gốc (lớn nhất) ra
-
-**Bước 2:** Đưa phần tử cuối cùng lên gốc
-
-**Bước 3:** So sánh với 2 con. Đổi chỗ với con lớn hơn. Lặp lại cho đến khi đúng
-
-**Ví dụ: Lấy max từ heap [90, 80, 85, 50, 60, 65, 70]:**
-
-Bước 1: Lấy 90 ra. Đưa 70 lên gốc → `[70, 80, 85, 50, 60, 65]`
+Cấu trúc cây nhị phân tương ứng:
 
 ```mermaid
 graph TD
-    85(("85")) --> 80(("80"))
-    85(("85")) --> 70(("70"))
-    80(("80")) --> 50(("50"))
-    80(("80")) --> 60(("60"))
-    70(("70")) --> 65(("65"))
+    90(("90 (Gốc - index 0)")) --> 80(("80 (index 1)"))
+    90 --> 70(("70 (index 2)"))
+    80 --> 50(("50 (index 3)"))
+    80 --> 60(("60 (index 4)"))
+    70 --> 65(("65 (index 5)"))
 ```
 
-Mảng: `[85, 80, 70, 50, 60, 65]`
+---
 
-Bước 3: 70 tại index 2, chỉ có 1 con là 65. 70 > 65 → Đã đúng vị trí. Dừng.
+## 4. Hai thao tác cốt lõi trên Heap
 
-Kết quả: Heap = `[85, 80, 70, 50, 60, 65]`, trả về 90
+Để duy trì các tính chất đống sau mỗi lần thêm hoặc xóa phần tử, ta sử dụng hai phép biến đổi:
 
-## 6. Code: Heap
+### 4.1. Thao tác đẩy lên (Sift-Up) — Khi thêm phần tử
+Khi chèn một phần tử có giá trị $val$ vào Heap:
+1.  Ta thêm phần tử đó vào cuối mảng (vị trí lá trống ngoài cùng bên trái) để giữ nguyên tính chất cây nhị phân đầy đủ.
+2.  So sánh phần tử vừa chèn với cha của nó: nếu giá trị của nó lớn hơn cha (ở Max-Heap), ta đổi chỗ hai phần tử này.
+3.  Lặp lại quá trình so sánh và đổi chỗ hướng lên trên cho đến khi gặp nút gốc hoặc khi phần tử mới nhỏ hơn hoặc bằng cha.
 
-=== "C++ (thủ công)"
+#### Minh họa: Thêm $85$ vào Max-Heap `[90, 80, 70, 50, 60, 65]`
+Thêm $85$ vào cuối mảng tại chỉ số $6$. Cha của $85$ nằm ở chỉ số $\lfloor \frac{6-1}{2} \rfloor = 2$ (giá trị $70$). Do $85 > 70$, ta tiến hành đổi chỗ:
+
+```mermaid
+graph TD
+    subgraph Truoc ["Trước khi đổi chỗ (85 chèn ở lá cuối)"]
+        t1(("90")) --> t2(("80"))
+        t1 --> t3(("70 (Cha)"))
+        t2 --> t4(("50"))
+        t2 --> t5(("60"))
+        t3 --> t6(("65"))
+        t3 -->|"mới chèn"| t7(("85 (Con)"))
+    end
+    subgraph Sau ["Sau khi đổi chỗ (85 di chuyển lên)"]
+        s1(("90")) --> s2(("80"))
+        s1 --> s3(("85"))
+        s2 --> s4(("50"))
+        s2 --> s5(("60"))
+        s3 --> s6(("65"))
+        s3 --> s7(("70"))
+    end
+```
+
+Mảng kết quả: `[90, 80, 85, 50, 60, 65, 70]`
+
+*   **Độ phức tạp thời gian:** $O(\log N)$ vì số tầng tối đa phần tử phải di chuyển chính là chiều cao của cây $H \approx \log_2 N$.
+
+---
+
+### 4.2. Thao tác đẩy xuống (Sift-Down / Heapify) — Khi lấy cực trị ra
+Để xóa phần tử lớn nhất ra khỏi Max-Heap:
+1.  Ta lấy giá trị tại gốc (chỉ số $0$) ra để trả về.
+2.  Đưa phần tử ở cuối mảng lên thay thế vị trí nút gốc để đảm bảo cây nhị phân đầy đủ, sau đó xóa phần tử cuối đi.
+3.  Tại nút gốc mới, ta so sánh nó với hai con trực tiếp của nó. Đổi chỗ nút này với con có giá trị **lớn hơn** (đối với Max-Heap).
+4.  Lặp lại việc so sánh và đẩy xuống cho đến khi nút này lớn hơn tất cả các con của nó hoặc khi nó chạm đáy (lá).
+
+#### Minh họa: Lấy giá trị lớn nhất ($90$) từ Max-Heap `[90, 80, 85, 50, 60, 65, 70]`
+Đưa giá trị cuối cùng ($70$) lên gốc. Lúc này gốc có giá trị $70$, hai con là $80$ (trái) và $85$ (phải). Do $85$ lớn nhất, ta đổi chỗ $70$ và $85$:
+
+```mermaid
+graph TD
+    subgraph Goc ["Gốc mới sau khi đổi 70 lên"]
+        g1(("70 (Gốc)")) --> g2(("80"))
+        g1 --> g3(("85 (Con lớn nhất)"))
+        g2 --> g4(("50"))
+        g2 --> g5(("60"))
+        g3 --> g6(("65"))
+    end
+    subgraph Heapify ["Sau khi đẩy 70 xuống"]
+        h1(("85 (Gốc)")) --> h2(("80"))
+        h1 --> h3(("70"))
+        h2 --> h4(("50"))
+        h2 --> h5(("60"))
+        h3 --> h6(("65"))
+    end
+```
+
+Mảng kết quả: `[85, 80, 70, 50, 60, 65]`
+
+*   **Độ phức tạp thời gian:** $O(\log N)$ vì ta chỉ di chuyển dọc xuống một nhánh của cây chiều cao $H \approx \log_2 N$.
+
+---
+
+## 5. Cài đặt Binary Heap thủ công và Thư viện chuẩn
+
+=== "C++ (Tự cài đặt)"
 
     ```cpp
-    struct MaxHeap {
-        vector<int> a;  // Mảng lưu heap, a[0] là phần tử lớn nhất
+    #include <vector>
+    #include <iostream>
+    #include <algorithm>
 
-        // Tính chỉ số con trái, con phải, cha dựa trên công thức cây nhị phân
-        int left(int i)  { return 2 * i + 1; }     // Con trái của nút i
-        int right(int i) { return 2 * i + 2; }     // Con phải của nút i
-        int parent(int i) { return (i - 1) / 2; }  // Cha của nút i
+    using namespace std;
 
-        // Thêm phần tử vào heap — O(log N)
-        void push(int val) {
-            a.push_back(val);          // Bước 1: Thêm vào cuối mảng (lá cuối cùng)
-            // Bước 2: Sift-up — đẩy phần tử mới lên cho đến khi đúng vị trí
-            int i = a.size() - 1;      // Chỉ số phần tử vừa thêm
-            while (i > 0 && a[parent(i)] < a[i]) {  // Nếu cha nhỏ hơn con → vi phạm max-heap
-                swap(a[parent(i)], a[i]);            // Đổi chỗ cha và con
-                i = parent(i);                       // Di chuyển lên tầng trên
-            }
-        }
+    class MaxHeap {
+    private:
+        vector<int> a;
 
-        // Lấy và xóa phần tử lớn nhất — O(log N)
-        int pop() {
-            int maxVal = a[0];         // Phần tử lớn nhất luôn ở gốc (a[0])
-            a[0] = a.back();           // Đưa phần tử cuối lên thay thế gốc
-            a.pop_back();              // Xóa phần tử cuối (đã chuyển lên gốc)
+        int left(int i) { return 2 * i + 1; }
+        int right(int i) { return 2 * i + 2; }
+        int parent(int i) { return (i - 1) / 2; }
 
-            // Bước 3: Sift-down — đẩy phần tử mới ở gốc xuống cho đến khi đúng vị trí
-            heapify(0);
-            return maxVal;             // Trả về giá trị lớn nhất đã lấy
-        }
+        // Đẩy xuống từ chỉ số i - O(log N)
+        void sift_down(int i) {
+            int largest = i;
+            int l = left(i);
+            int r = right(i);
 
-        // Đẩy xuống từ chỉ số i — khôi phục tính chất đống
-        void heapify(int i) {
-            int largest = i;           // Giả sử nút hiện tại là lớn nhất
-            int l = left(i);           // Chỉ số con trái
-            int r = right(i);          // Chỉ số con phải
-
-            // So sánh với con trái (nếu tồn tại)
-            if (l < (int)a.size() && a[l] > a[largest])
+            if (l < (int)a.size() && a[l] > a[largest]) {
                 largest = l;
-            // So sánh với con phải (nếu tồn tại)
-            if (r < (int)a.size() && a[r] > a[largest])
+            }
+            if (r < (int)a.size() && a[r] > a[largest]) {
                 largest = r;
+            }
 
-            // Nếu con lớn hơn cha → đổi chỗ và tiếp tục đẩy xuống
             if (largest != i) {
-                swap(a[i], a[largest]);    // Đổi chỗ với con lớn nhất
-                heapify(largest);          // Đệ quy tiếp tục đẩy xuống
+                swap(a[i], a[largest]);
+                sift_down(largest); // Đệ quy đẩy xuống tiếp
             }
         }
 
-        int top() { return a[0]; }        // Xem phần tử lớn nhất — O(1), không xóa
-        int size() { return a.size(); }   // Số phần tử trong heap
-        bool empty() { return a.empty(); } // Kiểm tra heap rỗng
+        // Đẩy lên từ chỉ số i - O(log N)
+        void sift_up(int i) {
+            while (i > 0 && a[parent(i)] < a[i]) {
+                swap(a[parent(i)], a[i]);
+                i = parent(i);
+            }
+        }
+
+    public:
+        void push(int val) {
+            a.push_back(val);
+            sift_up(a.size() - 1);
+        }
+
+        int pop() {
+            if (a.empty()) throw runtime_error("Heap is empty!");
+            int max_val = a[0];
+            a[0] = a.back();
+            a.pop_back();
+            if (!a.empty()) {
+                sift_down(0);
+            }
+            return max_val;
+        }
+
+        int top() {
+            if (a.empty()) throw runtime_error("Heap is empty!");
+            return a[0];
+        }
+
+        int size() { return a.size(); }
+        bool empty() { return a.empty(); }
     };
     ```
 
-=== "C++ (thư viện)"
+=== "C++ (priority_queue)"
 
     ```cpp
     #include <queue>
     #include <iostream>
+
     using namespace std;
 
     int main() {
-        // Max-Heap (mặc định trong C++ — phần tử lớn nhất ở top)
-        priority_queue<int> maxHeap;
-        maxHeap.push(5);    // Thêm 5 — O(log N)
-        maxHeap.push(10);   // Thêm 10
-        maxHeap.push(3);    // Thêm 3
-        cout << maxHeap.top();  // 10 (phần tử lớn nhất) — O(1)
-        maxHeap.pop();          // Xóa phần tử lớn nhất — O(log N)
+        // Max-Heap mặc định (phần tử lớn nhất ở top)
+        priority_queue<int> max_heap;
+        max_heap.push(5);
+        max_heap.push(10);
+        max_heap.push(3);
+        cout << "Max-Heap Top: " << max_heap.top() << "\n"; // In ra 10
+        max_heap.pop();
 
-        // Min-Heap (dùng greater<> — phần tử nhỏ nhất ở top)
-        priority_queue<int, vector<int>, greater<int>> minHeap;
-        minHeap.push(5);
-        minHeap.push(10);
-        minHeap.push(3);
-        cout << minHeap.top();  // 3 (phần tử nhỏ nhất)
+        // Min-Heap (phần tử nhỏ nhất ở top)
+        priority_queue<int, vector<int>, greater<int>> min_heap;
+        min_heap.push(5);
+        min_heap.push(10);
+        min_heap.push(3);
+        cout << "Min-Heap Top: " << min_heap.top() << "\n"; // In ra 3
+        return 0;
     }
     ```
 
-=== "Python"
+=== "Python (heapq)"
 
     ```python
     import heapq
 
-    # Python CHỈ có min-heap. Muốn max-heap → đảo dấu!
+    # Thư viện heapq của Python mặc định cài đặt MIN-HEAP.
+    min_heap = []
+    heapq.heappush(min_heap, 5)
+    heapq.heappush(min_heap, 10)
+    heapq.heappush(min_heap, 3)
+    print("Min-Heap Top:", min_heap[0])  # Giá trị nhỏ nhất: 3 - O(1)
+    print("Pop:", heapq.heappop(min_heap))  # Lấy 3 ra - O(log N)
 
-    # Min-Heap
-    minHeap = []
-    heapq.heappush(minHeap, 5)    # Thêm 5 — O(log N)
-    heapq.heappush(minHeap, 10)   # Thêm 10
-    heapq.heappush(minHeap, 3)    # Thêm 3
-    print(minHeap[0])              # 3 (phần tử nhỏ nhất) — O(1)
-    heapq.heappop(minHeap)         # Xóa phần tử nhỏ nhất — O(log N)
-
-    # Max-Heap (mẹo: đảo dấu khi push, đảo dấu lại khi pop)
-    maxHeap = []
-    heapq.heappush(maxHeap, -5)    # Push -5 (thay vì 5)
-    heapq.heappush(maxHeap, -10)   # Push -10 (thay vì 10)
-    heapq.heappush(maxHeap, -3)    # Push -3 (thay vì 3)
-    print(-maxHeap[0])              # 10 (phần tử lớn nhất) — nhớ đảo dấu lại!
+    # Muốn dùng Max-Heap trong Python: Ta thực hiện đảo dấu của phần tử khi chèn và lấy ra.
+    max_heap = []
+    heapq.heappush(max_heap, -5)
+    heapq.heappush(max_heap, -10)
+    heapq.heappush(max_heap, -3)
+    print("Max-Heap Top:", -max_heap[0])  # In ra giá trị lớn nhất: 10
     ```
 
-## 7. Min-Heap vs Max-Heap: So sánh chi tiết
+---
 
-### 7.1. Định nghĩa
+## 6. Sắp xếp bằng Heap (Heap Sort)
 
-| | Max-Heap | Min-Heap |
-|--|----------|----------|
-| Tính chất đống | Cha **lớn hơn** con | Cha **nhỏ hơn** con |
-| Phần tử ở gốc | **Lớn nhất** | **Nhỏ nhất** |
-| Ứng dụng chính | Lấy phần tử lớn nhất | Lấy phần tử nhỏ nhất |
+### Ý tưởng thuật toán
+Heap Sort là thuật toán sắp xếp tại chỗ (in-place) có độ phức tạp thời gian ổn định là **$O(N \log N)$** trong mọi trường hợp:
 
-### 7.2. Minh họa
+1.  **Xây dựng Max-Heap (Heapify):** Chuyển mảng đầu vào thành Max-Heap. Thay vì gọi `push` từng phần tử mất $O(N \log N)$, ta gọi `sift_down` từ các phần tử không phải là lá (chỉ số $\lfloor N/2 \rfloor - 1$ ngược về $0$). Thao tác xây dựng này chỉ tốn thời gian **$O(N)$**.
+2.  **Sắp xếp mảng:** Lần lượt đổi chỗ phần tử gốc (lớn nhất) với phần tử cuối cùng của mảng, giảm kích thước Heap đi $1$ và gọi `sift_down` tại gốc để thiết lập lại tính chất Heap. Lặp lại quá trình này cho đến khi kích thước Heap bằng $1$.
 
-**Max-Heap** — cha luôn lớn hơn con:
+### Chứng minh toán học: Xây dựng Heap bằng phương pháp Bottom-up có độ phức tạp $O(N)$
+Tại sao việc xây dựng Heap từ một mảng bằng cách duyệt từ lá lên gốc chỉ mất thời gian $O(N)$ thay vì $O(N \log N)$? Dưới đây là chứng minh toán học chi tiết:
 
-```mermaid
-graph TD
-    90(("90")) --> 80(("80"))
-    90(("90")) --> 70(("70"))
-    80(("80")) --> 50(("50"))
-    80(("80")) --> 60(("60"))
-    70(("70")) --> 65(("65"))
-```
+1.  Xét một cây nhị phân đầy đủ có chiều cao $H$ chứa $N$ nút. Ta có:
+    $$N \approx 2^{H+1} - 1 \implies H \approx \log_2 N$$
+2.  Ở một tầng $d$ bất kỳ (với gốc là tầng $0$, các lá là tầng $H$), số lượng nút tối đa ở tầng đó là $2^d$.
+3.  Khi gọi hàm `sift_down` tại một nút ở tầng $d$, nút đó di chuyển xuống tối đa đến tầng lá $H$. Do đó, số bước di chuyển tối đa là $H - d$.
+4.  Tổng chi phí xây dựng Heap là tổng chi phí gọi `sift_down` cho tất cả các nút:
+    $$S = \sum_{d=0}^{H} 2^d \times (H - d)$$
+5.  Đặt $k = H - d$. Khi $d$ chạy từ $0$ đến $H$, thì $k$ chạy từ $H$ về $0$. Ta có:
+    $$2^d = 2^{H-k} = \frac{2^H}{2^k}$$
+    Thay vào biểu thức của $S$:
+    $$S = \sum_{k=0}^{H} \frac{2^H}{2^k} \times k = 2^H \sum_{k=0}^{H} \frac{k}{2^k}$$
+6.  Xét chuỗi số vô hạn:
+    $$C = \sum_{k=0}^{\infty} \frac{k}{2^k} = \frac{1}{2} + \frac{2}{4} + \frac{3}{8} + \frac{4}{16} + \cdots$$
+    Ta tính tổng chuỗi này bằng phương pháp sai phân:
+    $$\frac{1}{2} C = \sum_{k=0}^{\infty} \frac{k}{2^{k+1}} = \sum_{k=1}^{\infty} \frac{k-1}{2^k}$$
+    Trừ hai phương trình:
+    $$C - \frac{1}{2} C = \sum_{k=1}^{\infty} \frac{k - (k - 1)}{2^k} = \sum_{k=1}^{\infty} \frac{1}{2^k} = 1 \implies C = 2$$
+7.  Do đó:
+    $$S < 2^H \sum_{k=0}^{\infty} \frac{k}{2^k} = 2^H \times 2 = 2^{H+1}$$
+8.  Vì $N \approx 2^{H+1} - 1$, ta có:
+    $$S < 2N = O(N)$$
 
-**Min-Heap** — cha luôn nhỏ hơn con:
+Như vậy, độ phức tạp thời gian để xây dựng Heap bằng thuật toán Bottom-up chỉ là $O(N)$.
 
-```mermaid
-graph TD
-    10(("10")) --> 20(("20"))
-    10(("10")) --> 30(("30"))
-    20(("20")) --> 50(("50"))
-    20(("20")) --> 40(("40"))
-    30(("30")) --> 35(("35"))
-```
+### Minh họa từng bước Heap Sort trên mảng `[4, 10, 3, 5, 1]`
 
-### 7.3. Khi nào dùng loại nào?
+*   **Bước 1 (Xây Max-Heap):** Thực hiện heapify tại chỉ số $1$, rồi chỉ số $0$.
+    Mảng ban đầu $\to$ Max-Heap: `[10, 5, 3, 4, 1]`
+*   **Bước 2 (Trích xuất cực trị về cuối):**
 
-| Tình huống | Dùng loại nào | Lý do |
-|-----------|---------------|-------|
-| Tìm K phần tử **lớn nhất** | Min-Heap size K | Loại dần phần tử nhỏ → giữ lại K phần tử lớn |
-| Tìm K phần tử **nhỏ nhất** | Max-Heap size K | Loại dần phần tử lớn → giữ lại K phần tử nhỏ |
-| Hàng đợi ưu tiên: người nặng nhất đi trước | Max-Heap | Cần lấy phần tử lớn nhất |
-| Hàng đợi ưu tiên: người nhẹ nhất đi trước | Min-Heap | Cần lấy phần tử nhỏ nhất |
-| Sắp xếp tăng dần (Heap Sort) | Max-Heap | Lấy max ra đầu mảng, lặp lại |
-| Dijkstra (tìm đường ngắn nhất) | Min-Heap | Cần lấy đỉnh có khoảng cách nhỏ nhất |
+| Vòng lặp | Trạng thái đổi chỗ gốc và cuối | Mảng sau Heapify | Phần tử đã được sắp xếp cố định |
+|:---:|:---|:---|:---|
+| Khởi đầu | — | `[10, 5, 3, 4, 1]` | `[]` |
+| Lần 1 | Đổi $10 \leftrightarrow 1 \to$ `[1, 5, 3, 4, 10]` | `[5, 4, 3, 1, 10]` | `[10]` |
+| Lần 2 | Đổi $5 \leftrightarrow 1 \to$ `[1, 4, 3, 5, 10]` | `[4, 1, 3, 5, 10]` | `[5, 10]` |
+| Lần 3 | Đổi $4 \leftrightarrow 3 \to$ `[3, 1, 4, 5, 10]` | `[3, 1, 4, 5, 10]` | `[4, 5, 10]` |
+| Lần 4 | Đổi $3 \leftrightarrow 1 \to$ `[1, 3, 4, 5, 10]` | `[1, 3, 4, 5, 10]` | `[3, 4, 5, 10]` |
 
-### 7.4. Chuyển đổi giữa Min-Heap và Max-Heap
+Mảng được sắp xếp tăng dần hoàn chỉnh: `[1, 3, 4, 5, 10]`.
 
-```cpp
-// Cách 1: Dùng comparator
-priority_queue<int, vector<int>, greater<int>> minHeap;  // Min-Heap
-priority_queue<int, vector<int>, less<int>> maxHeap;     // Max-Heap (mặc định)
+---
 
-// Cách 2: Đảo dấu (dùng cho Python hoặc khi không muốn dùng comparator)
-// Push: nhân -1, Pop: nhân -1 lại
-```
-
-## 8. Ứng dụng: Tìm K phần tử lớn nhất
-
-**Bài toán:** Cho mảng N phần tử, tìm K phần tử lớn nhất.
-
-**Ý tưởng:** Dùng min-heap kích thước K. Khi thêm phần tử mới, nếu heap lớn hơn K → loại phần tử nhỏ nhất (vì nó "yếu nhất" trong K+1 phần tử).
+### Cài đặt thuật toán Heap Sort
 
 === "C++"
 
     ```cpp
-    // O(N log K) — nhanh hơn sort O(N log N) khi K << N
-    vector<int> findTopK(vector<int>& a, int k) {
-        // Min-Heap: phần tử nhỏ nhất ở trên cùng
-        priority_queue<int, vector<int>, greater<int>> minHeap;
-    
-        for (int x : a) {
-            minHeap.push(x);                  // Thêm phần tử mới vào heap
-            if ((int)minHeap.size() > k)
-                minHeap.pop();                // Heap quá lớn → loại phần tử nhỏ nhất
-        }
-    
-        // Heap hiện tại chứa đúng K phần tử lớn nhất
-        vector<int> result;
-        while (!minHeap.empty()) {
-            result.push_back(minHeap.top());  // Lấy từng phần tử từ nhỏ đến lớn
-            minHeap.pop();
-        }
-        return result;  // Kết quả: K phần tử lớn nhất (chưa sắp xếp)
-    }
-    ```
+    #include <vector>
+    #include <algorithm>
 
-=== "Python"
+    using namespace std;
 
-    ```python
-    import heapq
-    
-    def find_top_k(a, k):
-        minHeap = []
-        for x in a:
-            heapq.heappush(minHeap, x)       # Thêm phần tử mới
-            if len(minHeap) > k:
-                heapq.heappop(minHeap)        # Loại phần tử nhỏ nhất
-        return sorted(minHeap, reverse=True)  # Sắp xếp giảm dần để in ra
-    ```
+    void sift_down(vector<int>& a, int n, int i) {
+        int largest = i;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
 
-## 9. Heap Sort — Sắp xếp bằng Heap
-
-### 9.1. Ý tưởng
-
-Heap Sort là thuật toán sắp xếp **O(N log N)**, không cần thêm bộ nhớ (in-place), dựa trên 2 bước:
-
-1. **Xây Max-Heap** từ mảng ban đầu — O(N)
-2. **Lặp N lần:** Lấy phần tử lớn nhất (gốc) ra cuối mảng, giảm kích thước heap, heapify lại — O(N log N)
-
-### 9.2. Minh họa
-
-```
-Mảng ban đầu: [4, 10, 3, 5, 1]
-
-Bước 1: Xây Max-Heap → [10, 5, 3, 4, 1]
-
-Bước 2: Lấy max ra cuối:
-  Lần 1: swap(a[0], a[4]) → [1, 5, 3, 4, | 10]  // 10 đã đúng vị trí
-         heapify(0, size=4) → [5, 4, 3, 1, | 10]
-
-  Lần 2: swap(a[0], a[3]) → [1, 4, 3, | 5, 10]   // 5 đã đúng vị trí
-         heapify(0, size=3) → [4, 1, 3, | 5, 10]
-
-  Lần 3: swap(a[0], a[2]) → [3, 1, | 4, 5, 10]   // 4 đã đúng vị trí
-         heapify(0, size=2) → [3, 1, | 4, 5, 10]
-
-  Lần 4: swap(a[0], a[1]) → [1, | 3, 4, 5, 10]   // 3 đã đúng vị trí
-
-Kết quả: [1, 3, 4, 5, 10] ✅
-```
-
-### 9.3. Code: Heap Sort
-
-=== "C++"
-
-    ```cpp
-    void heapify(vector<int>& a, int n, int i) {
-        int largest = i;          // Giả sử nút i là lớn nhất
-        int l = 2 * i + 1;        // Con trái
-        int r = 2 * i + 2;        // Con phải
-
-        // So sánh với con trái
-        if (l < n && a[l] > a[largest])
+        if (l < n && a[l] > a[largest]) {
             largest = l;
-        // So sánh với con phải
-        if (r < n && a[r] > a[largest])
+        }
+        if (r < n && a[r] > a[largest]) {
             largest = r;
+        }
 
-        // Nếu cần đổi chỗ → đệ quy heapify tiếp
         if (largest != i) {
             swap(a[i], a[largest]);
-            heapify(a, n, largest);  // Đảm bảo cây con cũng đúng tính chất đống
+            sift_down(a, n, largest);
         }
     }
 
     void heapSort(vector<int>& a) {
         int n = a.size();
 
-        // Bước 1: Xây Max-Heap — bắt đầu từ nút lá cuối cùng lên gốc
-        // Chỉ cần heapify các nút có con (từ n/2 - 1 về 0)
-        for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(a, n, i);
+        // Bước 1: Xây dựng Max-Heap từ mảng ban đầu - O(N)
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            sift_down(a, n, i);
+        }
 
-        // Bước 2: Trích xuất từng phần tử lớn nhất ra cuối mảng
+        // Bước 2: Đổi chỗ phần tử gốc ra cuối mảng và heapify lại - O(N log N)
         for (int i = n - 1; i > 0; i--) {
-            swap(a[0], a[i]);     // Đưa phần tử lớn nhất (gốc) về vị trí đúng
-            heapify(a, i, 0);     // Heapify lại phần còn lại (giảm kích thước đi 1)
+            swap(a[0], a[i]);
+            sift_down(a, i, 0); // Giới hạn kích thước heap giảm dần xuống i
         }
     }
     ```
@@ -421,10 +388,10 @@ Kết quả: [1, 3, 4, 5, 10] ✅
 === "Python"
 
     ```python
-    def heapify(a, n, i):
-        largest = i              # Giả sử nút i là lớn nhất
-        l = 2 * i + 1            # Con trái
-        r = 2 * i + 2            # Con phải
+    def sift_down(a, n, i):
+        largest = i
+        l = 2 * i + 1
+        r = 2 * i + 2
 
         if l < n and a[l] > a[largest]:
             largest = l
@@ -432,123 +399,114 @@ Kết quả: [1, 3, 4, 5, 10] ✅
             largest = r
 
         if largest != i:
-            a[i], a[largest] = a[largest], a[i]  # Đổi chỗ
-            heapify(a, n, largest)                # Đệ quy tiếp
+            a[i], a[largest] = a[largest], a[i]
+            sift_down(a, n, largest)
 
     def heap_sort(a):
         n = len(a)
 
-        # Bước 1: Xây Max-Heap
+        # Bước 1: Xây dựng Max-Heap - O(N)
         for i in range(n // 2 - 1, -1, -1):
-            heapify(a, n, i)
+            sift_down(a, n, i)
 
-        # Bước 2: Trích xuất từng phần tử lớn nhất
+        # Bước 2: Di chuyển gốc về cuối và heapify lại - O(N log N)
         for i in range(n - 1, 0, -1):
-            a[0], a[i] = a[i], a[0]  # Đưa max về cuối
-            heapify(a, i, 0)          # Heapify phần còn lại
+            a[0], a[i] = a[i], a[0]
+            sift_down(a, i, 0)
     ```
 
-### 9.5. Độ phức tạp
+---
 
-| Bước | Độ phức tạp | Giải thích |
-|------|-------------|-----------|
-| Xây Max-Heap | O(N) | Tổng chi phí heapify tất cả nút = O(N) (không phải O(N log N)!) |
-| Trích xuất N lần | O(N log N) | Mỗi lần heapify tốn O(log N), lặp N lần |
-| **Tổng** | **O(N log N)** | Luôn luôn O(N log N), không phụ thuộc dữ liệu đầu vào |
-| Bộ nhớ | O(1) | In-place, không cần mảng phụ |
+## 7. Ứng dụng nâng cao: Tìm $K$ phần tử lớn nhất trong mảng
 
-**Ưu điểm:** O(N log N) ổn định, in-place, không cần thêm bộ nhớ.
+### Bài toán
+Cho mảng gồm $N$ phần tử, ta cần tìm $K$ phần tử có giá trị lớn nhất trong mảng ($K \ll N$).
 
-**Nhược điểm:** Không ổn định (không giữ nguyên thứ tự phần tử bằng nhau), cache locality kém hơn Quick Sort.
+### Giải pháp tối ưu với Heap
+*   **Hướng ngây thơ:** Sắp xếp toàn bộ mảng theo thứ tự giảm dần và lấy ra $K$ phần tử đầu tiên. Thời gian thực thi là $O(N \log N)$.
+*   **Hướng tối ưu:** Sử dụng cấu trúc **Min-Heap** có kích thước tối đa là $K$:
+    1.  Duyệt qua từng phần tử $x$ của mảng.
+    2.  Thêm $x$ vào Min-Heap.
+    3.  Nếu số phần tử trong Min-Heap vượt quá $K$ (đạt $K + 1$), ta loại bỏ phần tử nhỏ nhất ra khỏi Heap (sử dụng `pop`). Phần tử bị loại này chắc chắn không thuộc nhóm $K$ phần tử lớn nhất.
+    4.  Kết thúc duyệt, Min-Heap sẽ chứa đúng $K$ phần tử lớn nhất.
 
-## 10. `std::make_heap`, `std::push_heap`, `std::pop_heap` trong C++
+*   **Độ phức tạp thời gian:** $O(N \log K)$. Do $K \ll N$, thuật toán này tối ưu hơn rất nhiều so với việc sắp xếp mảng.
 
-C++ cung cấp các hàm thao tác trực tiếp trên mảng (không cần `priority_queue`):
+---
 
-```cpp
-#include <algorithm>
-#include <vector>
-#include <iostream>
-using namespace std;
+### Cài đặt Tìm $K$ phần tử lớn nhất
 
-int main() {
-    vector<int> v = {3, 1, 4, 1, 5, 9};
+=== "C++"
 
-    // make_heap: Chuyển mảng thành Max-Heap — O(N)
-    make_heap(v.begin(), v.end());
-    // v hiện tại: [9, 5, 4, 1, 1, 3] (max-heap)
+    ```cpp
+    #include <queue>
+    #include <vector>
 
-    // push_heap: Thêm phần tử vào heap
-    // Bước 1: Thêm vào cuối mảng
-    v.push_back(10);
-    // Bước 2: Đẩy lên đúng vị trí — O(log N)
-    push_heap(v.begin(), v.end());
-    // v hiện tại: [10, 9, 4, 5, 1, 3, 1] (max-heap)
+    using namespace std;
 
-    // pop_heap: Lấy phần tử lớn nhất ra cuối mảng
-    // Bước 1: Đưa gốc ra cuối, phần tử cuối lên gốc — O(log N)
-    pop_heap(v.begin(), v.end());
-    // v hiện tại: [9, 5, 4, 1, 1, 3, 10] (phần tử lớn nhất ở cuối)
-    // Bước 2: Xóa phần tử cuối
-    v.pop_back();
-    // v hiện tại: [9, 5, 4, 1, 1, 3] (max-heap hợp lệ)
+    vector<int> findTopK(const vector<int>& a, int k) {
+        // Sử dụng Min-Heap để giữ lại các phần tử lớn nhất
+        priority_queue<int, vector<int>, greater<int>> min_heap;
 
-    // Min-Heap với comparator
-    vector<int> v2 = {3, 1, 4, 1, 5, 9};
-    make_heap(v2.begin(), v2.end(), greater<int>());
-    // v2: [1, 1, 4, 3, 5, 9] (min-heap)
-}
-```
+        for (int x : a) {
+            min_heap.push(x);
+            if ((int)min_heap.size() > k) {
+                min_heap.pop(); // Loại bỏ phần tử nhỏ nhất khi kích thước vượt quá K
+            }
+        }
 
-**Lưu ý quan trọng:**
+        vector<int> result;
+        while (!min_heap.empty()) {
+            result.push_back(min_heap.top());
+            min_heap.pop();
+        }
+        return result; // Trả về K phần tử lớn nhất (đã được sắp xếp tăng dần)
+    }
+    ```
 
-- `push_heap` và `pop_heap` **không tự thêm/xóa phần tử**. Bạn phải tự `push_back`/`pop_back` trước.
-- `make_heap`, `push_heap`, `pop_heap` thao tác trực tiếp trên mảng → linh hoạt hơn `priority_queue` nhưng dễ sai hơn.
-- Trong thi đấu, thường dùng `priority_queue` cho gọn.
+=== "Python"
 
-## 11. Khi nào dùng Heap?
+    ```python
+    import heapq
 
-| Tình huống | Dùng Heap? |
-|-----------|-----------|
-| Cần lấy min/max liên tục | ✅ O(1) cho xem, O(log N) cho xóa |
-| Tìm K phần tử lớn/nhỏ nhất | ✅ O(N log K) |
-| Hàng đợi ưu tiên (mô phỏng sự kiện) | ✅ |
-| Heap Sort | ✅ O(N log N), in-place |
-| Dijkstra (tìm đường ngắn nhất) | ✅ Min-Heap |
-| Cần tìm phần tử bất kỳ trong heap | ❌ Không hỗ trợ — phải dùng `set` |
-| Cần xóa phần tử ở giữa | ❌ Không hỗ trợ — phải dùng `set` hoặc `multiset` |
+    def find_top_k(a, k):
+        min_heap = []
+        for x in a:
+            heapq.heappush(min_heap, x)
+            if len(min_heap) > k:
+                heapq.heappop(min_heap) # Loại bỏ phần tử nhỏ nhất
+        
+        # Trả về các phần tử được sắp xếp giảm dần
+        return sorted(min_heap, reverse=True)
+    ```
 
-## 12. Bài tập luyện tập
+---
 
-### Cơ bản
+## 8. Khi nào nên sử dụng Heap?
 
-| Bài | Nền tảng | Độ khó | Ghi chú |
-|-----|----------|--------|---------|
-| [LeetCode - Kth Largest Element](https://leetcode.com/problems/kth-largest-element-in-an-array/) | LeetCode | ⭐⭐ | Min-Heap size K |
-| [LeetCode - Last Stone Weight](https://leetcode.com/problems/last-stone-weight/) | LeetCode | ⭐⭐ | Max-Heap đơn giản |
-| [LeetCode - Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | LeetCode | ⭐⭐ | Min-Heap + Hash Map |
+| Tình huống bài toán | Phù hợp dùng Heap? | Giải pháp thay thế |
+|:---|:---:|:---|
+| Tìm giá trị Min hoặc Max liên tục khi mảng thay đổi | **Cực kỳ phù hợp** | Cây đỏ đen (C++ `std::set`), Segment Tree |
+| Cần sắp xếp mảng một cách ổn định không tốn bộ nhớ phụ | **Phù hợp** | Quick Sort, Merge Sort |
+| Tìm $K$ phần tử lớn nhất/nhỏ nhất | **Cực kỳ phù hợp** | Thuật toán Quick Select |
+| Lấy phần tử ngẫu nhiên hoặc theo chỉ số bất kỳ | **Không hỗ trợ** | Mảng tĩnh (Array) |
+| Xóa phần tử ở giữa hoặc tìm kiếm giá trị xác định | **Không hỗ trợ** | Cây tự cân bằng (Balanced BST) |
 
-### Trung bình
+---
 
-| Bài | Nền tảng | Độ khó | Ghi chú |
-|-----|----------|--------|---------|
-| [CSES - Concert Tickets](https://cses.fi/problemset/task/1091) | CSES | ⭐⭐ | Multiset / Heap |
-| [LeetCode - Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) | LeetCode | ⭐⭐⭐ | 2 Heap (max-heap + min-heap) |
-| [LeetCode - Task Scheduler](https://leetcode.com/problems/task-scheduler/) | LeetCode | ⭐⭐⭐ | Greedy + Heap |
+## 9. Bài tập luyện tập nâng cao
 
-### Nâng cao
-
-| Bài | Nền tảng | Độ khó | Ghi chú |
-|-----|----------|--------|---------|
-| [CSES - Sliding Median](https://cses.fi/problemset/task/1076) | CSES | ⭐⭐⭐ | 2 Heap (max-heap bên trái, min-heap bên phải) |
-| [LeetCode - Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) | LeetCode | ⭐⭐⭐ | Min-Heap gộp K danh sách |
-| [LeetCode - Smallest Range Covering Elements from K Lists](https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/) | LeetCode | ⭐⭐⭐⭐ | Min-Heap + Sliding Window |
+| Tên bài tập | Nền tảng | Độ khó | Hướng dẫn sơ lược |
+|:---|:---:|:---:|:---|
+| [LeetCode - Kth Largest Element](https://leetcode.com/problems/kth-largest-element-in-an-array/) | LeetCode | ⭐⭐ | Sử dụng Min-Heap kích thước $K$ để tìm phần tử lớn thứ $K$. |
+| [LeetCode - Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | LeetCode | ⭐⭐ | Kết hợp Hash Map đếm tần suất và Min-Heap kích thước $K$. |
+| [LeetCode - Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) | LeetCode | ⭐⭐⭐ | Sử dụng kết hợp song song $2$ Heap: Max-Heap lưu nửa nhỏ, Min-Heap lưu nửa lớn. |
+| [CSES - Concert Tickets](https://cses.fi/problemset/task/1091) | CSES | ⭐⭐ | Quản lý giá vé bằng cấu trúc Heap hoặc Multi-set để tìm giá vé lớn nhất $\leq x$. |
 
 ---
 
 ## Tài liệu tham khảo
 
-- [VNOI Wiki - Binary Heap](https://wiki.vnoi.info/algo/data-structures/binary-heap)
-- [CP-Algorithms - Heap](https://cp-algorithms.com/data_structures/heap.html)
-- [GeeksforGeeks - Heap Sort](https://www.geeksforgeeks.org/heap-sort/)
-- [C++ Reference - make_heap](https://en.cppreference.com/w/cpp/algorithm/make_heap)
+*   [VNOI Wiki - Binary Heap](https://wiki.vnoi.info/algo/data-structures/binary-heap)
+*   [CP-Algorithms - Heap](https://cp-algorithms.com/data_structures/heap.html)
+*   [GeeksforGeeks - Heap Sort Algorithm](https://www.geeksforgeeks.org/heap-sort/)

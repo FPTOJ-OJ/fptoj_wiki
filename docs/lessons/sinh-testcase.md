@@ -1,6 +1,6 @@
 # Bài 37: Sinh Testcase & Stress Test
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** Codeforces blogs, USACO Guide
 
 ## 1. Tại sao phải sinh testcase?

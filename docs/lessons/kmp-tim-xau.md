@@ -1,6 +1,6 @@
 # Bài 9: KMP - Tìm Xâu Mẫu O(N + M)!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki, USACO Guide
 
 ---

@@ -4,3 +4,8 @@ pymdown-extensions
 pygments
 pyyaml
 mkdocs-mermaid2-plugin
+matplotlib
+seaborn
+numpy
+scipy
+Pillow

@@ -1,6 +1,6 @@
 # Bài 1: Độ Phức Tạp Thời Gian
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Độ phức tạp thời gian, Topcoder - Computational Complexity
 
 ---
@@ -82,6 +82,30 @@ Hãy tưởng tượng máy tính chạy khoảng $10^8$ phép tính/giây. Bả
 | $O(N^3)$ | Bậc 3 | $500$ | 3 vòng lặp lồng nhau |
 | $O(2^N)$ | Mũ | $20$ | Quay lui thử mọi trường hợp |
 | $O(N!)$ | Giai thừa | $11$ | Sinh tất cả hoán vị |
+
+```matplotlib
+import math
+
+N = list(range(2, 51))
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+ax.plot(N, [1]*len(N), label='O(1)', linewidth=2)
+ax.plot(N, [math.log2(n) for n in N], label='O(log N)', linewidth=2)
+ax.plot(N, N, label='O(N)', linewidth=2)
+ax.plot(N, [n*math.log2(n) for n in N], label='O(N log N)', linewidth=2)
+ax.plot(N, [n**2 for n in N], label='O(N²)', linewidth=2)
+ax.plot(N, [n**3 for n in N], label='O(N³)', linewidth=2)
+
+ax.set_xlabel('N (Kích thước dữ liệu)')
+ax.set_ylabel('Số phép tính T (log scale)')
+ax.set_title('So sánh tốc độ các Độ Phức Tạp (Big-O)')
+ax.set_yscale('log')
+ax.set_xlim(2, 50)
+ax.legend(loc='upper left')
+ax.grid(True, alpha=0.3, which='both')
+plt.tight_layout()
+```
 
 ### Cách tính O-lớn cho code - 3 quy tắc vàng
 

@@ -1,6 +1,6 @@
 # Bài 19: Tổ Hợp & Xác Suất
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cách tính số tổ hợp, Xác suất
 
 ---

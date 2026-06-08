@@ -1,6 +1,6 @@
 # Bài 43: 2-SAT - Logic & Đồ thị!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, USACO Guide
 
 ---

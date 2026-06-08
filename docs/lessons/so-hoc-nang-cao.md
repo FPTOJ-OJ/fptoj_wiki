@@ -1,6 +1,6 @@
 # Bài 26: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Số học, HackerEarth Number Theory Series, CP-Algorithms
 
 ---

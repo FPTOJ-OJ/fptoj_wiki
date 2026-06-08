@@ -1,6 +1,6 @@
 # Bài 20: Manacher - Tìm Palindrome Dài Nhất
 
-> **Tác giả:** Hà Trí Kiên
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Manacher
 
 ## Bản chất vấn đề

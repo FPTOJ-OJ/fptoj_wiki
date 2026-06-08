@@ -1,6 +1,6 @@
 # Bài 52: Suffix Automaton - Máy trạng thái hậu tố!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, e-maxx
 
 ---
