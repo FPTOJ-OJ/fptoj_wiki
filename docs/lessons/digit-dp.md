@@ -1,6 +1,6 @@
 # Bài 48: Digit DP
 
-> **Tác giả:** FPTOJ Wiki
+> **Tác giả:** FPTOJ Team<br>
 > **Tham khảo:** CP-Algorithms, USACO Guide
 
 ---
@@ -67,14 +67,54 @@ graph TD
     A3 --> B3["pos=1: d=0..9 (10 số)"]
     A4 --> B4["pos=1: d=0..7 (8 số)"]
 
-    style ROOT fill:#4CAF50,color:#fff
-    style A4 fill:#FF9800,color:#fff
-    style B4 fill:#FF9800,color:#fff
+
 ```
 
 Khi $d_0 = 4$ (bằng đúng chữ số đầu của $N$), ta vẫn bị ràng buộc: $d_1$ chỉ được chọn từ $0$ đến $7$. Khi $d_0 < 4$, $d_1$ được chọn tự do từ $0$ đến $9$.
 
 Tổng số: $10 + 10 + 10 + 10 + 8 = 48$ số (từ $0$ đến $47$).
+
+```matplotlib
+import numpy as np
+
+N = 47
+digits = [4, 7]
+n = len(digits)
+
+fig, ax = plt.subplots(figsize=(10, 5))
+
+pos_labels = ['pos=0\n(d₀=4)', 'pos=1\n(d₁=7)']
+tight_branches = [5, 8]
+free_branches = [10, 10]
+
+x = np.arange(n)
+width = 0.35
+
+bars1 = ax.bar(x - width/2, tight_branches, width, label='tight=1 (bó buộc)', color='#e74c3c', alpha=0.85, edgecolor='white')
+bars2 = ax.bar(x + width/2, free_branches, width, label='tight=0 (tự do)', color='#2ecc71', alpha=0.85, edgecolor='white')
+
+for bar, val in zip(bars1, tight_branches):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.2, str(val),
+            ha='center', fontsize=13, fontweight='bold', color='#e74c3c')
+for bar, val in zip(bars2, free_branches):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.2, str(val),
+            ha='center', fontsize=13, fontweight='bold', color='#2ecc71')
+
+ax.set_xlabel('Vị trí chữ số', fontsize=12)
+ax.set_ylabel('Số lựa chọn chữ số', fontsize=12)
+ax.set_title(f'Digit DP: Số lựa chọn tại mỗi vị trí (N={N})\ntight=1 chỉ chọn 0..d[pos], tight=0 chọn tự do 0..9', fontsize=13, fontweight='bold')
+ax.set_xticks(x)
+ax.set_xticklabels(pos_labels, fontsize=12)
+ax.set_ylim(0, 12)
+ax.set_yticks(range(11))
+ax.legend(fontsize=11, loc='upper right')
+ax.grid(True, axis='y', alpha=0.3)
+
+ax.axhline(y=10, color='gray', linestyle=':', alpha=0.5)
+ax.text(n - 0.3, 10.3, 'Giới hạn tối đa = 10', fontsize=9, color='gray')
+
+plt.tight_layout()
+```
 
 ### State của Digit DP
 

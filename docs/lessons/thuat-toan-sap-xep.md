@@ -1,6 +1,6 @@
 # Bài 2: Thuật Toán Sắp Xếp - Ai Là Vua Tốc Độ?
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán sắp xếp
 
 ## 1. Chuyện gì đang xảy ra?
@@ -70,7 +70,7 @@ Sắp xếp theo điểm tăng dần:
 | **Vun đống** (Heap Sort) | $O(N \log N)$ | Không | Không tốn bộ nhớ thêm |
 | **Nhanh** (Quick Sort) | $O(N \log N)$ TB | Không | Nhanh nhất thực tế, worst $O(N^2)$ |
 
-<p align="center"><img src="/uploads/img/gif/sorting.gif" alt="Các thuật toán sắp xếp - VisuAlgo" style="max-width: 700px;" /><br><em>Minh họa các thuật toán sắp xếp (Nguồn: VisuAlgo)</em></p>
+
 
 !!! tip "Thử tương tác"
     <iframe src="https://visualgo.net/en/sorting" style="width: 100%; height: 500px; border: 1px solid #ccc; border-radius: 8px;"></iframe>
@@ -214,6 +214,41 @@ Sắp xếp mảng $[5, 3, 8, 1]$:
 | 2 | $[3, 5, 8]$ | $[1]$ | $8$ đã đúng vị trí | $[3, 5, 8, 1]$ |
 | 3 | $[1, 3, 5, 8]$ | $[]$ | Chèn $1$ vào đầu | $[1, 3, 5, 8]$ |
 
+```matplotlib
+arr = [5, 3, 8, 1]
+fig, axs = plt.subplots(1, 4, figsize=(12, 3))
+
+axs[0].bar(range(len(arr)), arr, color=['green', 'red', 'red', 'red'], alpha=0.7)
+axs[0].set_title('Bước 0: [5] | [3, 8, 1]')
+axs[0].set_xticks(range(len(arr)))
+axs[0].set_xticklabels(arr)
+axs[0].set_ylim(0, 9)
+
+arr_1 = [3, 5, 8, 1]
+axs[1].bar(range(len(arr_1)), arr_1, color=['green', 'green', 'red', 'red'], alpha=0.7)
+axs[1].set_title('Bước 1: Chèn 3')
+axs[1].set_xticks(range(len(arr_1)))
+axs[1].set_xticklabels(arr_1)
+axs[1].set_ylim(0, 9)
+
+arr_2 = [3, 5, 8, 1]
+axs[2].bar(range(len(arr_2)), arr_2, color=['green', 'green', 'green', 'red'], alpha=0.7)
+axs[2].set_title('Bước 2: Giữ 8')
+axs[2].set_xticks(range(len(arr_2)))
+axs[2].set_xticklabels(arr_2)
+axs[2].set_ylim(0, 9)
+
+arr_3 = [1, 3, 5, 8]
+axs[3].bar(range(len(arr_3)), arr_3, color=['green', 'green', 'green', 'green'], alpha=0.7)
+axs[3].set_title('Bước 3: Chèn 1')
+axs[3].set_xticks(range(len(arr_3)))
+axs[3].set_xticklabels(arr_3)
+axs[3].set_ylim(0, 9)
+
+plt.tight_layout()
+```
+
+
 #### Phân tích tính đúng đắn
 
 **Bất biến (Invariant):** Tại bước $i$, đoạn $a[0..i-1]$ đã được sắp xếp.
@@ -317,8 +352,7 @@ graph TD
     n35["[3,5]"] --- n18["[1,8]"]
     n1358["[1,3,5,8]"]
 
-    style n5381 fill:#f9f,stroke:#333
-    style n1358 fill:#6f6,stroke:#333,color:#fff
+
 ```
 
 #### Phân tích tính đúng đắn
@@ -453,8 +487,7 @@ graph TD
     H --> K["[8]"]
     H --> L["[9]"]
 
-    style A fill:#f9f,stroke:#333
-    style C fill:#ff9,stroke:#333
+
 ```
 
 Kết quả: $[1, 2, 3, 5, 7, 8, 9]$

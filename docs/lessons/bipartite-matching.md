@@ -1,6 +1,6 @@
 # Bài 42: Bipartite Matching - Ghép cặp trên đồ thị hai phía
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, USACO Guide
 
 ---
@@ -54,12 +54,6 @@ graph LR
     H2 --- D3
     H3 --- D1
     H3 --- D3
-    style H1 fill:#4CAF50,color:#fff
-    style H2 fill:#4CAF50,color:#fff
-    style H3 fill:#4CAF50,color:#fff
-    style D1 fill:#2196F3,color:#fff
-    style D2 fill:#2196F3,color:#fff
-    style D3 fill:#2196F3,color:#fff
 ```
 
 Một maximum matching có thể là: Học sinh 1 ghép Dự án B, Học sinh 2 ghép Dự án C, Học sinh 3 ghép Dự án A (ghép được 3 cặp).
@@ -110,10 +104,6 @@ graph LR
         A5((u2)) -.- B5((v))
         A6((u)) -.- B6((v2))
     end
-    style A1 fill:#4CAF50,color:#fff
-    style B1 fill:#2196F3,color:#fff
-    style A2 fill:#ccc,color:#333
-    style B2 fill:#ccc,color:#333
 ```
 
 ### Pseudocode
@@ -583,12 +573,6 @@ graph LR
     B --- E
     B --- F
     C --- D
-    style A fill:#4CAF50,color:#fff
-    style B fill:#f44336,color:#fff
-    style C fill:#f44336,color:#fff
-    style D fill:#4CAF50,color:#fff
-    style E fill:#f44336,color:#fff
-    style F fill:#f44336,color:#fff
 ```
 
 Trong ví dụ trên, đỉnh xanh lá nằm trong vertex cover, đỉnh đỏ không nằm trong.
@@ -1121,12 +1105,6 @@ flowchart TD
     H --> I
     I -->|Có| J[Dùng định lý König]
     I -->|Không| K[Hoàn thành]
-
-    style A fill:#FF9800,color:#fff
-    style G fill:#4CAF50,color:#fff
-    style H fill:#2196F3,color:#fff
-    style F fill:#9C27B0,color:#fff
-    style K fill:#4CAF50,color:#fff
 ```
 
 ---

@@ -1,6 +1,6 @@
 # Bài 6: Đệ Quy Và Quay Lui
 
-> **Tác giả:** Hà Trí Kiên  
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Đệ quy và thuật toán quay lui
 
 ---
@@ -131,7 +131,7 @@ Xếp $N$ quân hậu lên bàn cờ $N \times N$ sao cho không hai quân hậu
 
 2. **Bước đệ quy đúng:** Giả sử hàm đúng cho input nhỏ hơn (giả thuyết đệ quy), thì công thức đệ quy cho ra kết quả đúng cho input hiện tại.
 
-Với giai thừa: Giả sử `factorial(n-1)` trả về đúng $(n-1)!$, thì `factorial(n) = n × factorial(n-1) = n × (n-1)! = n!$. Đúng.
+Với giai thừa: Giả sử `factorial(n-1)` trả về đúng $(n-1)!$, thì `factorial(n) = n × factorial(n-1) = n × (n-1)! = n!` đúng.
 
 ### Tại sao quay lui đúng?
 

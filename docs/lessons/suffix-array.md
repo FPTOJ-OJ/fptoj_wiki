@@ -1,6 +1,6 @@
 # Bài 32: Suffix Array — Mảng Hậu Tố
 
-> **Tác giả:** Hà Trí Kiên  
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
 
 ---
@@ -34,13 +34,13 @@ Ví dụ với $S = \text{"banana\$"}$ (ký tự $\$$ là terminator, nhỏ hơn
 | 3 | ana$ |
 | 4 | na$ |
 | 5 | a$ |
-| 6 | $ |
+| 6 | \$ |
 
 Sắp xếp theo thứ tự từ điển:
 
 | Thứ tự | Chỉ số $SA[i]$ | Hậu tố |
 |:------:|:---------------:|:--------|
-| 0 | 6 | $ |
+| 0 | 6 | \$ |
 | 1 | 5 | a$ |
 | 2 | 3 | ana$ |
 | 3 | 1 | anana$ |
@@ -83,7 +83,7 @@ Bước 1 ($k=1$): Sắp xếp theo 1 ký tự
 | 3 | a | 1 |
 | 4 | n | 3 |
 | 5 | a | 1 |
-| 6 | $ | 0 |
+| 6 | \$ | 0 |
 
 Sắp xếp theo $rank$: $SA = [6, 1, 3, 5, 0, 2, 4]$
 
@@ -192,13 +192,13 @@ Ví dụ với $S = \text{"banana\$"}$, $SA = [6, 5, 3, 1, 0, 4, 2]$:
 
 | $i$ | $SA[i]$ | Hậu tố | $LCP[i]$ | Giải thích |
 |:---:|:-------:|:--------|:---------:|:------------|
-| 0 | 6 | $ | 0 | Không có hậu tố trước |
-| 1 | 5 | a$ | 0 | lcp($, a$) = 0 |
-| 2 | 3 | ana$ | 1 | lcp(a$, ana$) = 1 |
-| 3 | 1 | anana$ | 3 | lcp(ana$, anana$) = 3 |
-| 4 | 0 | banana$ | 0 | lcp(anana$, banana$) = 0 |
-| 5 | 4 | na$ | 0 | lcp(banana$, na$) = 0 |
-| 6 | 2 | nana$ | 2 | lcp(na$, nana$) = 2 |
+| 0 | 6 | \$ | 0 | Không có hậu tố trước |
+| 1 | 5 | a\$ | 0 | lcp(\$, a\$) = 0 |
+| 2 | 3 | ana\$ | 1 | lcp(a\$, ana\$) = 1 |
+| 3 | 1 | anana\$ | 3 | lcp(ana\$, anana\$) = 3 |
+| 4 | 0 | banana\$ | 0 | lcp(anana\$, banana\$) = 0 |
+| 5 | 4 | na\$ | 0 | lcp(banana\$, na\$) = 0 |
+| 6 | 2 | nana\$ | 2 | lcp(na\$, nana\$) = 2 |
 
 $LCP = [0, 0, 1, 3, 0, 0, 2]$
 
@@ -216,12 +216,12 @@ Duyệt $i = 0, 1, \ldots, 6$:
 
 | $i$ | $rank[i]$ | $j = SA[rank[i]-1]$ | So sánh | $LCP[rank[i]]$ | $k$ sau |
 |:---:|:---------:|:--------------------:|:--------|:---------------:|:-------:|
-| 0 | 4 | SA[3] = 1 | banana$ vs anana$: khác ngay | $LCP[4]=0$ | 0 |
-| 1 | 3 | SA[2] = 3 | anana$ vs ana$: 3 ký tự giống | $LCP[3]=3$ | 2 |
-| 2 | 6 | SA[5] = 4 | nana$ vs banana$: khác ngay | $LCP[6]=0$ | 0 |
-| 3 | 2 | SA[1] = 5 | ana$ vs a$: 1 ký tự giống | $LCP[2]=1$ | 0 |
-| 4 | 5 | SA[4] = 0 | na$ vs banana$: khác ngay | $LCP[5]=0$ | 0 |
-| 5 | 1 | SA[0] = 6 | a$ vs $: khác ngay | $LCP[1]=0$ | 0 |
+| 0 | 4 | SA[3] = 1 | banana\$ vs anana\$: khác ngay | $LCP[4]=0$ | 0 |
+| 1 | 3 | SA[2] = 3 | anana\$ vs ana\$: 3 ký tự giống | $LCP[3]=3$ | 2 |
+| 2 | 6 | SA[5] = 4 | nana\$ vs banana\$: khác ngay | $LCP[6]=0$ | 0 |
+| 3 | 2 | SA[1] = 5 | ana\$ vs a\$: 1 ký tự giống | $LCP[2]=1$ | 0 |
+| 4 | 5 | SA[4] = 0 | na\$ vs banana\$: khác ngay | $LCP[5]=0$ | 0 |
+| 5 | 1 | SA[0] = 6 | a\$ vs \$: khác ngay | $LCP[1]=0$ | 0 |
 | 6 | 0 | Bỏ qua | — | — | — |
 
 Kết quả: $LCP = [0, 0, 1, 3, 0, 0, 2]$

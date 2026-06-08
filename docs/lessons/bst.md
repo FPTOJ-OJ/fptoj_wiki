@@ -1,6 +1,6 @@
 # Bài 30: Binary Search Tree (BST) - Cây Tìm Kiếm Nhị Phân
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, GeeksforGeeks - BST
 
 ---
@@ -52,7 +52,6 @@ graph TD
     A(("8 → đi trái")) --> B(("3 → đi phải"))
     B --> C(("6 → đi phải"))
     C --> D(("7 → TÌM THẤY"))
-    style D fill:#4caf50,color:#fff
 ```
 
 ### Thao tác 2: Chèn (Insert)
@@ -68,7 +67,6 @@ graph TD
     E --> F((4))
     E --> G((7))
     F --> H(("5 ← mới"))
-    style H fill:#2196f3,color:#fff
 ```
 
 Quy trình: tại 8 (5 nhỏ hơn, trái) → tại 3 (5 lớn hơn, phải) → tại 6 (5 nhỏ hơn, trái) → tại 4 (5 lớn hơn, phải) → tạo nút 5.

@@ -1,6 +1,6 @@
 # Bài 45: Centroid Decomposition - Phân tách trọng tâm!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
 
 ---
@@ -30,8 +30,6 @@ graph TD
     B --- E((5))
     C --- F((6))
     C --- G((7))
-
-    style A fill:#f96,stroke:#333,stroke-width:2px
 ```
 
 Cây 7 đỉnh. Đỉnh **1** là centroid vì khi loại bỏ nó:
@@ -163,8 +161,6 @@ graph TD
     CT2 --- CT5((5))
     CT3 --- CT6((6))
     CT3 --- CT7((7))
-
-    style CT1 fill:#f96,stroke:#333,stroke-width:2px
 ```
 
 ### Code đầy đủ
@@ -275,6 +271,38 @@ Mỗi đỉnh được thăm $O(\log N)$ lần (kích thước giảm ít nhất
 
 $$T(N) = T(N_1) + T(N_2) + \dots + O(N) = O(N \log N)$$
 
+```matplotlib
+N_values = np.array([10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000])
+centroid_depth = np.log2(N_values)
+naive_depth = N_values
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.bar(range(len(N_values)), centroid_depth, color='#2ecc71', alpha=0.8)
+ax1.set_xticks(range(len(N_values)))
+ax1.set_xticklabels([str(n) for n in N_values], rotation=45)
+ax1.set_xlabel('N (số đỉnh)')
+ax1.set_ylabel('Chiều cao centroid tree')
+ax1.set_title('Chiều cao Centroid Tree = $O(\\log N)$')
+ax1.grid(True, alpha=0.3, axis='y')
+for i, v in enumerate(centroid_depth):
+    ax1.text(i, v + 0.2, f'{v:.1f}', ha='center', fontsize=8)
+
+levels = np.arange(1, 8)
+size_at_level = 100 / (2**levels)
+
+ax2.bar(levels, size_at_level, color='#3498db', alpha=0.8)
+ax2.set_xlabel('Level trong centroid tree')
+ax2.set_ylabel('Kích thước subtree tối đa (%)')
+ax2.set_title('Mỗi level: kích thước giảm một nửa\n(Bắt đầu từ N=100)')
+ax2.set_xticks(levels)
+ax2.grid(True, alpha=0.3, axis='y')
+for i, v in enumerate(size_at_level):
+    ax2.text(i, v + 1, f'{v:.1f}%', ha='center', fontsize=8)
+
+plt.tight_layout()
+```
+
 ---
 
 ## 3. Centroid Tree và các tính chất
@@ -320,8 +348,6 @@ graph TD
     C((Centroid)) --- S1["Subtree 1: cnt1[d]"]
     C --- S2["Subtree 2: cnt2[d]"]
     C --- S3["Subtree 3: cnt3[d]"]
-
-    style C fill:#f96,stroke:#333,stroke-width:2px
 ```
 
 Đường đi qua $C$ giữa subtree $i$ và $j$: $\sum cnt_i[d] \times cnt_j[K-d]$.

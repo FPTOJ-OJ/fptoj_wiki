@@ -36,9 +36,6 @@ graph LR
     B -->|f=9, c=10| C
     C -->|f=10, c=10| t((t))
     B -->|f=0, c=10| t
-
-    style s fill:#4CAF50,color:#fff
-    style t fill:#f44336,color:#fff
 ```
 
 Trong sơ đồ trên, mỗi cạnh hiển thị $f/c$ (luồng hiện tại / dung lượng tối đa).
@@ -80,9 +77,6 @@ graph LR
     s((s)) -->|c=10| B((B))
     A -->|c=5| t((t))
     B -->|c=10| t
-
-    style s fill:#4CAF50,color:#fff
-    style t fill:#f44336,color:#fff
 ```
 
 **Lần 1:** Tìm đường $s \to A \to t$, bottleneck = 5. Đẩy luồng 5.
@@ -90,6 +84,105 @@ graph LR
 **Lần 2:** Tìm đường $s \to B \to t$, bottleneck = 10. Đẩy luồng 10.
 
 Tổng luồng = 15 = dung lượng cắt nhỏ nhất $\{s\}$ vs $\{A, B, t\}$.
+
+```matplotlib
+plt.figure(figsize=(11, 6))
+
+# Node positions
+nodes = {
+    's': (0, 3),
+    'A': (3, 5),
+    'B': (3, 1),
+    'C': (6, 3),
+    't': (9, 3),
+}
+
+# Edges: (from, to, capacity, flow, style)
+edges = [
+    ('s', 'A', 10, 8, '-'),
+    ('s', 'B', 10, 5, '-'),
+    ('A', 'C', 10, 4, '-'),
+    ('A', 'B', 10, 4, '-'),
+    ('B', 'C', 10, 9, '-'),
+    ('C', 't', 10, 10, '-'),
+    ('B', 't', 10, 0, '-'),
+]
+
+# Augmenting path: s -> B -> C -> t
+augmenting = [('s', 'B'), ('B', 'C'), ('C', 't')]
+
+# Draw edges
+for u, v, cap, flow, style in edges:
+    ux, uy = nodes[u]
+    vx, vy = nodes[v]
+
+    # Offset for bidirectional edges
+    is_aug = (u, v) in augmenting
+    color = '#e74c3c' if is_aug else '#34495e'
+    lw = 3.5 if is_aug else 2
+    alpha = 1.0 if is_aug else 0.7
+
+    # Arrow
+    dx, dy = vx - ux, vy - uy
+    length = math.sqrt(dx**2 + dy**2)
+    # Shorten to not overlap nodes
+    shrink = 0.4
+    sx_new = ux + dx / length * shrink
+    sy_new = uy + dy / length * shrink
+    ex_new = vx - dx / length * shrink
+    ey_new = vy - dy / length * shrink
+
+    plt.annotate('', xy=(ex_new, ey_new), xytext=(sx_new, sy_new),
+                 arrowprops=dict(arrowstyle='->', color=color, lw=lw, alpha=alpha))
+
+    # Label: flow/capacity
+    mx = (ux + vx) / 2
+    my = (uy + vy) / 2
+    # Offset label perpendicular to edge
+    offset_x = -dy / length * 0.4
+    offset_y = dx / length * 0.4
+    label = f'f={flow}, c={cap}'
+    plt.text(mx + offset_x, my + offset_y, label, ha='center', va='center',
+             fontsize=9, fontweight='bold', color=color,
+             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=color, alpha=0.9))
+
+# Draw nodes
+for name, (nx, ny) in nodes.items():
+    if name == 's':
+        color = '#27ae60'
+        label_node = 'Nguồn s'
+    elif name == 't':
+        color = '#c0392b'
+        label_node = 'Bể t'
+    else:
+        color = '#2980b9'
+        label_node = name
+
+    plt.plot(nx, ny, 'o', color=color, markersize=30, zorder=5)
+    plt.text(nx, ny, name, ha='center', va='center',
+             fontsize=14, fontweight='bold', color='white', zorder=6)
+
+# Legend
+from matplotlib.lines import Line2D
+legend_elements = [
+    Line2D([0], [0], marker='o', color='w', markerfacecolor='#27ae60', markersize=14, label='Nguồn (s)'),
+    Line2D([0], [0], marker='o', color='w', markerfacecolor='#c0392b', markersize=14, label='Bể (t)'),
+    Line2D([0], [0], color='#e74c3c', linewidth=3.5, label='Đường tăng luồng (augmenting path)'),
+    Line2D([0], [0], color='#34495e', linewidth=2, label='Cạnh thường'),
+]
+plt.legend(handles=legend_elements, loc='upper left', fontsize=10)
+
+# Info box
+plt.text(9, 5.5, 'Tổng luồng = 15\n(= dung lượng cắt nhỏ nhất)',
+         ha='right', va='top', fontsize=11, fontweight='bold',
+         bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffeaa7', edgecolor='#fdcb6e'))
+
+plt.title('Mạng luồng: Đường tăng luồng s → B → C → t (bottleneck = 5)', fontsize=13)
+plt.xlim(-1.5, 10.5)
+plt.ylim(-0.5, 6.5)
+plt.axis('off')
+plt.tight_layout()
+```
 
 ### Phân tích tính đúng đắn
 
@@ -113,9 +206,6 @@ graph LR
     s -->|10| A
     s -->|5| t
     A -->|3| t
-
-    style S fill:#e8f5e9
-    style T fill:#ffebee
 ```
 
 Giá trị cắt = $10 + 5 = 15$. Luồng cực đại không thể vượt quá 15, và ta đã đạt được 15.
@@ -345,10 +435,6 @@ graph LR
     s --> B
     A --> t
     B --> t
-
-    style L0 fill:#e8f5e9
-    style L1 fill:#e3f2fd
-    style L2 fill:#ffebee
 ```
 
 Sau khi blocking flow được tìm, ít nhất một cạnh trên mỗi đường tăng bị đầy. Đồ thị tầng cũ không còn hữu dụng → quay lại giai đoạn 1.
@@ -827,9 +913,6 @@ graph LR
     v1 -->|1| t((t))
     v2 -->|1| t
     v3 -->|1| t
-
-    style s fill:#4CAF50,color:#fff
-    style t fill:#f44336,color:#fff
 ```
 
 Max-flow = 3 → Khớp đôi lớn nhất có 3 cặp.

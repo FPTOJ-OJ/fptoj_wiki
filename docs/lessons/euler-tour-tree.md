@@ -1,6 +1,6 @@
 # Bài 44: Euler Tour trên cây - Biến cây thành mảng!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
 
 ---
@@ -41,8 +41,7 @@ graph TD
     N2 --> N5["5<br/>tin=4, tout=4"]
     N3 --> N6["6<br/>tin=6, tout=6"]
 
-    style N1 fill:#f96,stroke:#333,stroke-width:2px
-    style N2 fill:#69f,stroke:#333,stroke-width:2px
+
 ```
 
 Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
@@ -684,7 +683,7 @@ graph TD
     A --> D["5 (depth=2)"]
     B --> E["6 (depth=2)"]
 
-    style R fill:#f96,stroke:#333,stroke-width:2px
+
 ```
 
 Euler Tour: $E = [1, 2, 4, 2, 5, 2, 1, 3, 6, 3, 1]$

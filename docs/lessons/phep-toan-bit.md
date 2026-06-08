@@ -1,6 +1,6 @@
 # Bài 5: Phép Toán Bit - Ma Thuật Với 0 và 1!
 
-> **Tác giả:** Hà Trí Kiên<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Phép toán bit
 
 ## Bản chất vấn đề
@@ -50,40 +50,98 @@ Quản lý 5 người bạn = bitmask 5 bit:
 | Bit | 4 | 3 | 2 | 1 | 0 |
 |-----|---|---|---|---|---|
 | Người | An | Bình | Chi | Dũng | Em |
-| Giá trị | 1 | 0 | 1 | 0 | 1 |
+| Trạng thái | Đi (1) | Ở nhà (0) | Đi (1) | Ở nhà (0) | Đi (1) |
+| Giá trị bit | $2^4 = 16$ | $0$ | $2^2 = 4$ | $0$ | $2^0 = 1$ |
 
-$10101_2 = 21_{10}$ → Tập hợp $\{Em, Chi, An\}$ được lưu bằng số 21!
+**Trực quan hóa Bitmask dưới dạng tập hợp:**
+```mermaid
+graph LR
+    subgraph Bitmask [Số nguyên 21 = 10101 nhị phân]
+        B4[Bit 4: An = 1]
+        B3[Bit 3: Bình = 0]
+        B2[Bit 2: Chi = 1]
+        B1[Bit 1: Dũng = 0]
+        B0[Bit 0: Em = 1]
+    end
+    subgraph TapHop [Tập hợp những người đi picnic]
+        An((An))
+        Chi((Chi))
+        Em((Em))
+    end
+    B4 -->|1 = Có mặt| An
+    B2 -->|1 = Có mặt| Chi
+    B0 -->|1 = Có mặt| Em
+```
+
+$10101_2 = 1 \times 2^4 + 0 \times 2^3 + 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 = 16 + 0 + 4 + 0 + 1 = 21_{10}$
+→ Tập hợp $\{Em, Chi, An\}$ được lưu bằng số 21!
+
 
 ### 3 phép toán logic cơ bản
 
-**AND ($\&$):** Cả 2 đều bật → bật. (Như "VÀ")
+Các phép toán này tác động lên từng vị trí bit tương ứng độc lập với nhau.
 
-| Toán hạng 1 | 1 | 1 | 1 | 0 | 0 | 1 | 0 | 1 |
-|--------------|---|---|---|---|---|---|---|---|
-| Toán hạng 2 | 1 | 0 | 1 | 0 | 1 | 1 | 1 | 0 |
-| **Kết quả** | **1** | **0** | **1** | **0** | **0** | **1** | **0** | **0** |
+**1. AND (&):** Cả hai bit đều là 1 thì kết quả mới là 1. (Tương đương với phép giao $A \cap B$)
+```mermaid
+graph TD
+    subgraph Phép AND
+        A[Toán hạng A: 1 1 0 1]
+        B[Toán hạng B: 1 0 1 1]
+        AND[Kết quả & : 1 0 0 1]
+        A --> AND
+        B --> AND
+    end
+```
 
-**OR ($|$):** Ít nhất 1 bật → bật. (Như "HOẶC")
+**2. OR (|):** Chỉ cần một trong hai bit là 1 thì kết quả là 1. (Tương đương với phép hợp $A \cup B$)
+```mermaid
+graph TD
+    subgraph Phép OR
+        A[Toán hạng A: 1 1 0 1]
+        B[Toán hạng B: 1 0 1 1]
+        OR[Kết quả | : 1 1 1 1]
+        A --> OR
+        B --> OR
+    end
+```
 
-| Toán hạng 1 | 1 | 1 | 1 | 0 | 0 | 1 | 0 | 1 |
-|--------------|---|---|---|---|---|---|---|---|
-| Toán hạng 2 | 1 | 0 | 1 | 0 | 1 | 1 | 1 | 0 |
-| **Kết quả** | **1** | **1** | **1** | **0** | **1** | **1** | **1** | **1** |
+**3. XOR (^):** Hai bit khác nhau thì kết quả là 1, giống nhau thì kết quả là 0. (Tương đương hiệu đối xứng, hoặc cộng modulo 2)
+```mermaid
+graph TD
+    subgraph Phép XOR
+        A[Toán hạng A: 1 1 0 1]
+        B[Toán hạng B: 1 0 1 1]
+        XOR[Kết quả ^ : 0 1 1 0]
+        A --> XOR
+        B --> XOR
+    end
+```
 
-**XOR ($\wedge$):** Khác nhau → bật. (Như "HOẶC KHÔNG ĐỒNG THỜI")
-
-| Toán hạng 1 | 1 | 1 | 1 | 0 | 0 | 1 | 0 | 1 |
-|--------------|---|---|---|---|---|---|---|---|
-| Toán hạng 2 | 1 | 0 | 1 | 0 | 1 | 1 | 1 | 0 |
-| **Kết quả** | **0** | **1** | **0** | **0** | **1** | **0** | **1** | **1** |
 
 **NOT ($\sim$):** Đảo tất cả $0 \leftrightarrow 1$.
 
 ### Phép dịch bit (Bitshift)
 
-**Dịch trái `<<`:** Nhân với $2^n$. Ví dụ: `5 << 2` = `101 << 2` = `10100` = $20 = 5 \times 4$
+**1. Dịch trái `<<`:** Đẩy các bit sang trái $n$ vị trí, thêm $0$ vào bên phải. (Tương đương nhân với $2^n$).
+* **Ví dụ:** `5 << 2`
+```mermaid
+graph LR
+    subgraph "Dịch trái 5 << 2"
+        direction LR
+        I[Ban đầu: 101 tức là 5] -->|Dịch trái 2 bit| F[Kết quả: 10100 tức là 20]
+    end
+```
 
-**Dịch phải `>>`:** Chia cho $2^n$. Ví dụ: `20 >> 2` = `10100 >> 2` = `101` = $5 = 20 \div 4$
+**2. Dịch phải `>>`:** Đẩy các bit sang phải $n$ vị trí, bỏ các bit bị tràn ra ngoài bên phải. (Tương đương chia nguyên cho $2^n$).
+* **Ví dụ:** `20 >> 2`
+```mermaid
+graph LR
+    subgraph "Dịch phải 20 >> 2"
+        direction LR
+        I[Ban đầu: 10100 tức là 20] -->|Dịch phải 2 bit| F[Kết quả: 101 tức là 5]
+    end
+```
+
 
 ### Các thao tác trên tập hợp
 

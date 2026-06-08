@@ -1,6 +1,6 @@
 # Bài 46: Heavy-Light Decomposition - Phân rã cây!
 
-> **Tác giả:** FPTOJ Wiki<br>
+> **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
 
 ---
@@ -55,9 +55,6 @@ graph TD
     C --> F["4"]
     C --> G["5"]
     G --> H["8"]
-
-    linkStyle 0 stroke:#ff0000,stroke-width:3px
-    linkStyle 1 stroke:#0000ff,stroke-width:1px,stroke-dasharray:5
 ```
 
 Cạnh $(1, 3)$ là heavy edge vì $sz[3] = 7 > sz[2] = 4$.
@@ -70,6 +67,36 @@ Cạnh $(1, 3)$ là heavy edge vì $sz[3] = 7 > sz[2] = 4$.
 **Chứng minh:** Khi đi qua một light edge từ $u$ sang con $v$, ta có $sz[v] \leq sz[u]/2$ (vì $v$ không phải heavy child). Vậy kích thước cây con giảm ít nhất một nửa. Sau tối đa $\log N$ bước, kích thước giảm xuống 1.
 
 Đây chính là "bí mật" khiến HLD hoạt động hiệu quả: mỗi lần nhảy qua light edge, cây con co lại ít nhất một nửa.
+
+```matplotlib
+depth = np.arange(0, 15)
+size_at_depth = 100 / (2**depth)
+light_edges = depth
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.bar(depth, size_at_depth, color='#3498db', alpha=0.8)
+ax1.set_xlabel('Số light edges đã đi qua')
+ax1.set_ylabel('Kích thước subtree tối đa (%)')
+ax1.set_title('Mỗi light edge giảm subtree ít nhất một nửa')
+ax1.grid(True, alpha=0.3, axis='y')
+for i, v in enumerate(size_at_depth[:8]):
+    ax1.text(i, v + 1, f'{v:.0f}%', ha='center', fontsize=8)
+
+N = np.array([100, 500, 1000, 5000, 10000, 50000])
+hld_segments = np.log2(N)
+naive_segments = N
+
+ax2.plot(N, naive_segments, 'o-', label='Naive: $O(N)$ đoạn', color='#e74c3c', linewidth=2)
+ax2.plot(N, hld_segments, 's-', label='HLD: $O(\\log N)$ đoạn', color='#2ecc71', linewidth=2)
+ax2.set_xlabel('N (số đỉnh)')
+ax2.set_ylabel('Số đoạn liên tục trên đường đi')
+ax2.set_title('Số đoạn liên tục cần truy vấn')
+ax2.legend(fontsize=10)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+```
 
 ### Chain Decomposition - Phân rã chuỗi
 
