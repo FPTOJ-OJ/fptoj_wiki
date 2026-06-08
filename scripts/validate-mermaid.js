@@ -1,31 +1,35 @@
 #!/usr/bin/env node
 /**
- * Validate mermaid syntax from stdin or file argument.
- * Usage:
- *   node validate-mermaid.js diagram.mmd
- *   echo "graph LR; A-->B" | node validate-mermaid.js
- *
- * Exit code 0 = valid, 1 = syntax error, 2 = runtime error.
- * Output: JSON { ok: bool, error?: string, diagramType?: string }
+ * Validate mermaid syntax via Node.js mermaid.parse().
+ * Usage: node validate-mermaid.js <file.mmd>
+ * Exit 0 = valid, 1 = syntax error.
+ * Output: JSON { ok, error?, diagramType? }
  */
 const fs = require('fs');
 
 async function main() {
-  let code;
-
-  if (process.argv[2]) {
-    code = fs.readFileSync(process.argv[2], 'utf8');
-  } else {
-    const chunks = [];
-    for await (const chunk of process.stdin) chunks.push(chunk);
-    code = Buffer.concat(chunks).toString('utf8');
+  const file = process.argv[2];
+  if (!file) {
+    console.log(JSON.stringify({ ok: false, error: 'No file argument' }));
+    process.exit(1);
   }
 
-  code = code.trim();
+  const code = fs.readFileSync(file, 'utf8').trim();
   if (!code) {
     console.log(JSON.stringify({ ok: false, error: 'Empty mermaid block' }));
     process.exit(1);
   }
+
+  // Provide DOM env for mermaid (needs DOMPurify, document, etc.)
+  const { JSDOM } = require('jsdom');
+  const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>', {
+    pretendToBeVisual: true,
+  });
+  globalThis.window = dom.window;
+  globalThis.document = dom.window.document;
+  globalThis.navigator = dom.window.navigator;
+  globalThis.DOMParser = dom.window.DOMParser;
+  globalThis.XMLSerializer = dom.window.XMLSerializer;
 
   try {
     const mermaid = await import('mermaid');
@@ -33,13 +37,10 @@ async function main() {
       startOnLoad: false,
       theme: 'default',
     });
-
-    // parse() throws on syntax error when suppressErrors is NOT set
     const { diagramType } = await mermaid.default.parse(code);
     console.log(JSON.stringify({ ok: true, diagramType }));
     process.exit(0);
   } catch (e) {
-    // mermaid parse errors contain "Parse error" or "Syntax error"
     const msg = e.message || String(e);
     console.log(JSON.stringify({ ok: false, error: msg }));
     process.exit(1);

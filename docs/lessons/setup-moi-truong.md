@@ -101,9 +101,9 @@ graph TD
     A["Gõ Code (VS Code, Code::Blocks, Dev-C++)"] -->|Lưu thành| B["Mã nguồn: solution.cpp"]
     B -->|Chạy lệnh g++| C["Biên dịch (Compilation)"]
     C -->|Thành công| D["File thực thi: solution.exe"]
-    C -->|Thất bại (Syntax Error)| A
+    C -->|"Thất bại (Syntax Error)"| A
     
-    subgraph Chạy & Kiểm thử (Execution)
+    subgraph "Chạy & Kiểm thử (Execution)"
         D --> E["Chạy chương trình: solution.exe"]
         IN["Dữ liệu mẫu: input.txt"] -->|Đọc đầu vào '<'| E
         E -->|Ghi kết quả '>'| OUT["Kết quả ra: output.txt"]

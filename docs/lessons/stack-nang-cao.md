@@ -27,7 +27,7 @@ Quy tắc xử lý từng ký tự:
 flowchart LR
     A["Duyệt biểu thức"] --> B{Ký tự là số?}
     B -- "Có" --> C["Push số vào val"]
-    B -- "Không" --> D{ops.top() ưu tiên >= hiện tại?}
+    B -- "Không" --> D{"ops.top() ưu tiên >= hiện tại?"}
     D -- "Có" --> E["Pop ops, pop 2 giá trị từ val, tính toán, push kết quả vào val"]
     E --> D
     D -- "Không" --> F["Push toán tử vào ops"]

@@ -99,7 +99,7 @@ graph TD
     subgraph Phép OR
         A[Toán hạng A: 1 1 0 1]
         B[Toán hạng B: 1 0 1 1]
-        OR[Kết quả | : 1 1 1 1]
+        OR["Kết quả | : 1 1 1 1"]
         A --> OR
         B --> OR
     end
