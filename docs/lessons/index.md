@@ -19,21 +19,21 @@ Dưới đây là sa bàn chiến lược giúp bạn định hướng lộ trì
 graph TD
     Start((Khởi hành)) --> N1
     
-    subgraph Tân thủ [Giai đoạn: Tân thủ]
+    subgraph Giai_đoạn_Tân_thủ[Giai đoạn: Tân thủ]
         N1["🟢 Nhóm 1: Nhập môn<br/>(Nền tảng sống còn)"]:::level1
         N2["🔵 Nhóm 2: Kỹ thuật cơ bản<br/>(Vũ khí thiết yếu)"]:::level2
         N3["🔵 Nhóm 3: CTDL cơ bản<br/>(Túi đồ sinh tồn)"]:::level2
         N1 --> N2 --> N3
     end
 
-    subgraph Trung cấp [Giai đoạn: Đột phá]
+    subgraph Giai_doan_Dot_pha[Giai đoạn: Đột phá]
         N4["🟡 Nhóm 4: Đồ thị cơ bản"]:::level3
         N5["🟡 Nhóm 5: Quy hoạch động"]:::level3
         N3 --> N4
         N3 --> N5
     end
 
-    subgraph Nâng cao [Giai đoạn: Cao thủ]
+    subgraph Giai_doan_Cao_thu[Giai đoạn: Cao thủ]
         N6["🟠 Nhóm 6: Xử lý xâu"]:::level4
         N7["🟠 Nhóm 7: Toán & Số học"]:::level4
         N8["🟠 Nhóm 8: Hình học"]:::level4
@@ -42,7 +42,7 @@ graph TD
         N3 --> N8
     end
     
-    subgraph Trùm cuối [Giai đoạn: Truyền thuyết]
+    subgraph Giai_doan_Truyen_thuyet[Giai đoạn: Truyền thuyết]
         N10["🔴 Nhóm 10, 11, 12, 13, 14<br/>(Đỉnh cao Thuật toán)"]:::level4
         N4 --> N10
         N5 --> N10

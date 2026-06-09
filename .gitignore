@@ -12,3 +12,7 @@ node_modules/
 package-lock.json
 package.json
 GuideToCompetitiveProgramming_output
+# Wrangler cache
+.wrangler/
+# Test files
+_test_*

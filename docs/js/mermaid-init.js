@@ -15,7 +15,11 @@
   }
 
   function renderAll() {
-    mermaid.initialize({ startOnLoad: false, theme: getTheme() });
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: getTheme(),
+      securityLevel: 'loose',
+    });
     mermaid.run();
   }
 
