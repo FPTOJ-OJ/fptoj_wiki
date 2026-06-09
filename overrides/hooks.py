@@ -17,8 +17,6 @@ import hashlib
 import logging
 import subprocess
 import json as _json
-import tempfile
-
 log = logging.getLogger("mkdocs.hooks")
 
 # ---------------------------------------------------------------------------
@@ -326,19 +324,26 @@ def _render_and_save(code, style_dict, out_name_base):
 def on_page_markdown(markdown, page, config, files):
     src = page.file.src_path if page and page.file else '?'
 
-    # --- Mermaid: validate syntax + convert to <div> ---
-    def _replace_mermaid(match):
-        code = match.group(1).rstrip('\n')
-        ok, err = _validate_mermaid(code)
-        if not ok:
-            log.warning('Mermaid syntax error in %s: %s', src, err.split('\n')[0])
-        return f'<div class="mermaid">\n{code}\n</div>'
+    # --- Mermaid: batch validate + convert to <div> ---
+    mermaid_re = r'```mermaid\n(.*?)```'
+    matches = list(re.finditer(mermaid_re, markdown, flags=re.DOTALL))
 
-    markdown = re.sub(
-        r'```mermaid\n(.*?)```',
-        _replace_mermaid,
-        markdown, flags=re.DOTALL,
-    )
+    if matches:
+        codes = [m.group(1).rstrip('\n') for m in matches]
+        results = _validate_mermaid_batch(codes)
+        out = []
+        pos = 0
+        for i, m in enumerate(matches):
+            out.append(markdown[pos:m.start()])
+            code = codes[i]
+            ok, err = results[i] if i < len(results) else (True, '')
+            if not ok:
+                log.warning('Mermaid syntax error [block %d/%d] in %s: %s',
+                            i + 1, len(matches), src, err.split('\n')[0])
+            out.append(f'<div class="mermaid">\n{code}\n</div>')
+            pos = m.end()
+        out.append(markdown[pos:])
+        markdown = ''.join(out)
 
     # --- Matplotlib: compile to WebP ---
     pattern = r'```matplotlib\n(.*?)```'
@@ -396,7 +401,75 @@ def _find_cached(base):
 _MERMAID_VALIDATOR = os.path.normpath(
     os.path.join(os.path.dirname(__file__), '..', 'scripts', 'validate-mermaid.js')
 )
-_mermaid_node_available = None  # cached: True/False
+_mermaid_node_available = None
+_MERMAID_LOCAL_VERSION = None
+_MERMAID_CDN_VERSION = None
+
+
+def _detect_mermaid_versions():
+    """Detect local npm mermaid version and CDN version from extra_javascript."""
+    global _MERMAID_LOCAL_VERSION, _MERMAID_CDN_VERSION
+
+    if _MERMAID_LOCAL_VERSION is not None:
+        return
+
+    # Detect local npm version once
+    try:
+        r = subprocess.run(
+            ['node', '-p', 'require("mermaid/package.json").version'],
+            capture_output=True, text=True, timeout=10,
+        )
+        if r.returncode == 0 and r.stdout.strip():
+            _MERMAID_LOCAL_VERSION = r.stdout.strip()
+    except Exception:
+        pass
+
+    # Detect CDN version from mkdocs.yml
+    try:
+        mkdocs_path = os.path.normpath(
+            os.path.join(os.path.dirname(__file__), '..', 'mkdocs.yml')
+        )
+        with open(mkdocs_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        m = re.search(r'mermaid@([\d.]+(?:-[\w.]+)?)/dist/mermaid', content)
+        if m:
+            _MERMAID_CDN_VERSION = m.group(1)
+    except Exception:
+        pass
+
+
+def _check_mermaid_versions():
+    """Compare local npm mermaid version with CDN. Warn on mismatch."""
+    _detect_mermaid_versions()
+    if not _MERMAID_LOCAL_VERSION:
+        log.warning('Could not detect local mermaid version. Run npm install.')
+        return
+    if not _MERMAID_CDN_VERSION:
+        log.warning('Could not detect CDN mermaid version in mkdocs.yml')
+        return
+
+    local = _MERMAID_LOCAL_VERSION
+    cdn = _MERMAID_CDN_VERSION
+
+    if '.' not in cdn:
+        # Major-only tag (e.g. @11) — check major version match
+        local_major = local.split('.')[0]
+        if local_major != cdn:
+            log.warning(
+                'Mermaid version mismatch: CDN=mermaid@%s (latest %s.x), npm=%s. '
+                'Pin exact version in mkdocs.yml extra_javascript.',
+                cdn, cdn, local,
+            )
+        else:
+            log.info('Mermaid: CDN=%s.* (tracking latest), npm=%s', cdn, local)
+    elif cdn != local:
+        log.warning(
+            'Mermaid version mismatch: CDN=mermaid@%s, npm=%s. '
+            'Update mkdocs.yml or run npm install to sync.',
+            cdn, local,
+        )
+    else:
+        log.info('Mermaid version: %s (CDN == npm)', local)
 
 
 def _is_node_available():
@@ -412,36 +485,60 @@ def _is_node_available():
 
 
 def _validate_mermaid(code):
-    """Validate a mermaid block via Node.js. Returns (ok, error_msg)."""
+    """Validate a single mermaid block via stdin. Returns (ok, error_msg)."""
     if not _is_node_available():
-        return True, ''  # skip validation if node unavailable
+        return True, ''
 
-    tmp = None
     try:
-        fd, tmp = tempfile.mkstemp(suffix='.mmd', text=True)
-        os.close(fd)
-        with open(tmp, 'w', encoding='utf-8') as f:
-            f.write(code)
         r = subprocess.run(
-            ['node', _MERMAID_VALIDATOR, tmp],
+            ['node', _MERMAID_VALIDATOR, '--stdin'],
+            input=code,
             capture_output=True, text=True, timeout=15,
         )
         result = _json.loads(r.stdout.strip()) if r.stdout.strip() else {}
         if result.get('ok'):
             return True, ''
         else:
-            return False, result.get('error', 'Unknown mermaid error')
+            detail = result.get('detail') or result.get('error', 'Unknown mermaid error')
+            return False, detail
     except subprocess.TimeoutExpired:
-        return True, ''  # don't block build on timeout
+        return True, ''
     except Exception:
-        return True, ''  # don't block build on validator failure
-    finally:
-        if tmp and os.path.exists(tmp):
-            os.unlink(tmp)
+        return True, ''
+
+
+def _validate_mermaid_batch(codes):
+    """Validate multiple mermaid blocks in one Node.js invocation.
+
+    codes: list of code strings
+    returns: list of (ok, error_msg)
+    """
+    if not codes:
+        return []
+    if not _is_node_available():
+        return [(True, '') for _ in codes]
+
+    try:
+        payload = _json.dumps([c.rstrip('\n') for c in codes])
+        r = subprocess.run(
+            ['node', _MERMAID_VALIDATOR, '--batch'],
+            input=payload,
+            capture_output=True, text=True, timeout=max(15, 5 * len(codes)),
+        )
+        results = _json.loads(r.stdout.strip()) if r.stdout.strip() else []
+        if not isinstance(results, list):
+            return [(True, '') for _ in codes]
+        return [(res.get('ok', False), res.get('detail') or res.get('error', ''))
+                for res in results]
+    except (subprocess.TimeoutExpired, _json.JSONDecodeError):
+        return [(True, '') for _ in codes]
+    except Exception:
+        return [(True, '') for _ in codes]
 
 
 def on_pre_build(config):
     _used_images.clear()
+    _check_mermaid_versions()
     # MKDOCS_CLEAN_MPL=1 → xóa toàn bộ cache trước khi build
     if os.environ.get('MKDOCS_CLEAN_MPL') == '1' and os.path.isdir(_mpl_image_dir):
         for fname in os.listdir(_mpl_image_dir):
