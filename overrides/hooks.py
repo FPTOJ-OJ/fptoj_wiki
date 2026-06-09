@@ -318,6 +318,22 @@ def _render_and_save(code, style_dict, out_name_base):
         return f'{out_name_base}.webp', 'webp'
 
 
+def _copy_to_site(filename, config):
+    """Copy compiled image from docs/uploads/matplotlib to site/uploads/matplotlib."""
+    import shutil
+    site_dir = config.get('site_dir')
+    if not site_dir or not filename:
+        return
+    dst_dir = os.path.join(site_dir, 'uploads', 'matplotlib')
+    os.makedirs(dst_dir, exist_ok=True)
+    src_path = os.path.join(_mpl_image_dir, filename)
+    dst_path = os.path.join(dst_dir, filename)
+    try:
+        shutil.copy2(src_path, dst_path)
+    except Exception as e:
+        log.warning('Failed to copy %s to site directory: %s', filename, e)
+
+
 # ---------------------------------------------------------------------------
 # MkDocs hooks
 # ---------------------------------------------------------------------------
@@ -376,6 +392,11 @@ def on_page_markdown(markdown, page, config, files):
 
         _used_images.add(light_file)
         _used_images.add(dark_file)
+
+        # Ensure files are copied to the build output directory
+        _copy_to_site(light_file, config)
+        _copy_to_site(dark_file, config)
+
         light_url = f'/uploads/matplotlib/{light_file}'
         dark_url = f'/uploads/matplotlib/{dark_file}'
         return (

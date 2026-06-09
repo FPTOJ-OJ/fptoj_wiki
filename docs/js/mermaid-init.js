@@ -10,7 +10,7 @@
   }
 
   function storeOriginals() {
-    document.querySelectorAll('.mermaid, pre.mermaid').forEach(function (el) {
+    document.querySelectorAll('pre.mermaid, div.mermaid').forEach(function (el) {
       if (!el.hasAttribute('data-original')) {
         var codeEl = el.querySelector('code');
         var text = codeEl ? codeEl.textContent : el.textContent;
@@ -51,7 +51,7 @@
 
       mermaid.initialize(config);
       await mermaid.run({
-        querySelector: '.mermaid, pre.mermaid',
+        querySelector: 'pre.mermaid, div.mermaid',
       });
     } catch (err) {
       console.error('Mermaid render error:', err);
@@ -65,7 +65,7 @@
   }
 
   function resetAndRender() {
-    document.querySelectorAll('.mermaid[data-processed], pre.mermaid[data-processed]').forEach(function (el) {
+    document.querySelectorAll('pre.mermaid[data-processed], div.mermaid[data-processed]').forEach(function (el) {
       el.removeAttribute('data-processed');
       var orig = el.getAttribute('data-original');
       if (orig) {
