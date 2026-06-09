@@ -39,7 +39,7 @@ graph TD
     A["dp[i] = min/max dp[j] + cost(j,i)"] --> B{Cấu trúc cost?}
     B -->|"Interval DP + Quadrangle"| C["Knuth's Optimization"]
     B -->|"Partition DP + Quadrangle"| D["Divide & Conquer DP"]
-    B -->|"cost = m[j]*x[i] + b[j]"| E{Thứ tự m[j]?}
+    B -->|"cost = m[j]*x[i] + b[j]"| E{"Thứ tự m(j)?"}
     E -->|"Đơn điệu"| F["Convex Hull Trick"]
     E -->|"Tùy ý"| G["Li Chao Tree"]
     B -->|"Giới hạn số đoạn + Tính lồi"| H["Alien's Trick"]

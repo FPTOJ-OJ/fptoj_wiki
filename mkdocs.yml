@@ -371,6 +371,8 @@ nav:
       - Bài toán luồng cực đại: translate/wcipeg/Flows.md
       - Thuật toán Knuth-Morris-Pratt (KMP): translate/wcipeg/kmp.md
       - Cây (Tree): translate/wcipeg/tree.md
+    - Sách:
+      - Hướng dẫn Lập trình Thi đấu (Guide to Competitive Programming): guide/guide-to-competitive-programming.md
 
 hooks:
   - overrides/hooks.py

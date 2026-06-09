@@ -23,56 +23,78 @@ function setupDOM() {
   const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>', {
     pretendToBeVisual: true,
   });
-  globalThis.window = dom.window;
-  globalThis.document = dom.window.document;
-  globalThis.navigator = dom.window.navigator;
-  globalThis.DOMParser = dom.window.DOMParser;
-  globalThis.XMLSerializer = dom.window.XMLSerializer;
+  const win = dom.window;
+  globalThis.window = win;
+  globalThis.document = win.document;
+  globalThis.navigator = win.navigator;
+  globalThis.DOMParser = win.DOMParser;
+  globalThis.XMLSerializer = win.XMLSerializer;
+
+  // Provide DOMPurify for mermaid's HTML label sanitization
+  const DOMPurify = require('dompurify')(win);
+  win.DOMPurify = DOMPurify;
+  globalThis.DOMPurify = DOMPurify;
 }
 
-async function parseOne(code, label) {
-  const trimmed = code.trim();
-  if (!trimmed) {
-    return { ok: false, error: 'Empty mermaid block' + (label ? ' (' + label + ')' : '') };
+// --- Error helpers ---
+
+function extractErrorInfo(err, code) {
+  const msg = err.message || String(err);
+  const firstLine = msg.split('\n')[0].trim();
+  const lineMatch = msg.match(/line\s+(\d+)/i);
+  const colMatch = msg.match(/col(?:umn)?\s+(\d+)/i);
+  let detail = firstLine;
+
+  if (lineMatch) {
+    const lineNum = parseInt(lineMatch[1], 10);
+    const lines = code.split('\n');
+    const ctxStart = Math.max(0, lineNum - 2);
+    const ctxEnd = Math.min(lines.length, lineNum + 1);
+    const context = lines.slice(ctxStart, ctxEnd)
+      .map((l, i) => (ctxStart + i + 1) + ': ' + l)
+      .join('\n');
+    detail = firstLine + '\n  Context:\n' + context.replace(/^/gm, '    ');
   }
-  try {
-    const mermaid = await import('mermaid');
-    mermaid.default.initialize({ startOnLoad: false, theme: 'default' });
-    const result = await mermaid.default.parse(trimmed);
-    const diagramType = result.diagramType || 'unknown';
-    return { ok: true, diagramType };
-  } catch (e) {
-    let msg = e.message || String(e);
-    // Extract line/col from mermaid error messages
-    const lineMatch = msg.match(/line\s+(\d+)/i);
-    const colMatch = msg.match(/col(?:umn)?\s+(\d+)/i);
-    const firstLine = msg.split('\n')[0].trim();
-    let detail = firstLine;
-    if (lineMatch) {
-      const lineNum = parseInt(lineMatch[1], 10);
-      const lines = trimmed.split('\n');
-      const ctxStart = Math.max(0, lineNum - 2);
-      const ctxEnd = Math.min(lines.length, lineNum + 1);
-      const context = lines.slice(ctxStart, ctxEnd)
-        .map((l, i) => (ctxStart + i + 1) + ': ' + l)
-        .join('\n');
-      detail = firstLine + '\n  Context:\n' + context.replace(/^/gm, '    ');
-    }
-    return {
-      ok: false,
-      error: firstLine,
-      detail: detail,
-      line: lineMatch ? parseInt(lineMatch[1], 10) : null,
-      col: colMatch ? parseInt(colMatch[1], 10) : null,
-      label: label || null,
-    };
-  }
+
+  return {
+    error: firstLine,
+    detail,
+    line: lineMatch ? parseInt(lineMatch[1], 10) : null,
+    col: colMatch ? parseInt(colMatch[1], 10) : null,
+  };
 }
+
+function emptyResult(label) {
+  return { ok: false, error: 'Empty mermaid block' + (label ? ' (' + label + ')' : '') };
+}
+
+// --- Main validation ---
 
 async function main() {
   const arg = process.argv[2];
-
   setupDOM();
+
+  // Initialize mermaid once (shared across all blocks in batch mode)
+  const mermaid = await import('mermaid');
+  mermaid.default.initialize({
+    startOnLoad: false,
+    theme: 'default',
+    securityLevel: 'loose',
+  });
+
+  async function parseOne(code, label) {
+    const trimmed = code.trim();
+    if (!trimmed) {
+      return { ok: false, ...emptyResult(label) };
+    }
+    try {
+      const result = await mermaid.default.parse(trimmed);
+      return { ok: true, diagramType: result.diagramType || 'unknown' };
+    } catch (e) {
+      const info = extractErrorInfo(e, trimmed);
+      return { ok: false, ...info, label: label || null };
+    }
+  }
 
   // --batch mode: read JSON array of code strings from stdin
   if (arg === '--batch') {
@@ -108,19 +130,18 @@ async function main() {
   }
 
   // File mode (default)
-  const file = arg;
-  if (!file) {
+  if (!arg) {
     console.log(JSON.stringify({ ok: false, error: 'No file argument. Usage: node validate-mermaid.js <file> [--stdin | --batch]' }));
     process.exit(1);
   }
 
-  const code = fs.readFileSync(file, 'utf8').trim();
+  const code = fs.readFileSync(arg, 'utf8').trim();
   if (!code) {
     console.log(JSON.stringify({ ok: false, error: 'Empty mermaid block' }));
     process.exit(1);
   }
 
-  const result = await parseOne(code, file);
+  const result = await parseOne(code, arg);
   console.log(JSON.stringify(result));
   process.exit(result.ok ? 0 : 1);
 }
