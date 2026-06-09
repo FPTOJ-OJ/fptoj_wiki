@@ -625,7 +625,7 @@ Cho lưới $n \times m$ gồm `0` và `1`. Đếm số đảo (vùng `1` liên 
 0 0 1 0 0
 0 0 0 1 1" data-expected="3" data-hint="Dùng BFS/DFS, gặp 1 thì quét hết vùng liên thông"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -678,7 +678,7 @@ Cho $n$ điểm trên lưới. Tìm cặp điểm có khoảng cách Manhattan n
 3 3
 1 0" data-expected="1" data-hint="Duyệt tất cả cặp (i,j), tính |x1-x2| + |y1-y2|"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

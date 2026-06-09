@@ -342,7 +342,7 @@ cout << minPQ.top() << endl;  // 1
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="abcba" data-expected="YES" data-hint="Đẩy từng ký tự vào stack, rồi pop ra để tạo chuỗi đảo"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -372,7 +372,7 @@ cout << minPQ.top() << endl;  // 1
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5 3
 5 2 8 1 9" data-expected="9 8 5" data-hint="Dùng min-heap (priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt;), giữ size k"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

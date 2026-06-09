@@ -256,7 +256,7 @@ for (auto it = s.begin(); it != s.end(); ) {
 2: 2
 3: 1" data-hint="Dùng map&lt;int,int&gt;, mỗi lần đọc x thì freq[x]++"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -283,7 +283,7 @@ for (auto it = s.begin(); it != s.end(); ) {
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
 1 2 3 2 1" data-expected="3" data-hint="Dùng map đếm tần suất, duyệt map in phần tử có value == 1"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

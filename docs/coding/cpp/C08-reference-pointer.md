@@ -257,7 +257,7 @@ Viết hàm `swap2` nhận 2 số nguyên và hoán đổi giá trị của chú
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5 10" data-expected="10 5" data-hint="Viết hàm swap2(int &amp;a, int &amp;b), dùng biến temp"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -283,7 +283,7 @@ Viết hàm `minMax` nhận mảng và trả về min, max qua tham chiếu.
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
 3 1 4 1 5" data-expected="1 5" data-hint="Viết hàm minMax(const vector&lt;int&gt; &amp;a, int &amp;mn, int &amp;mx)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -314,7 +314,7 @@ Viết hàm `minMax` nhận mảng và trả về min, max qua tham chiếu.
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7 3" data-expected="7" data-hint="Tạo int *p = (a &gt; b) ? &amp;a : &amp;b; rồi cout &lt;&lt; *p"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

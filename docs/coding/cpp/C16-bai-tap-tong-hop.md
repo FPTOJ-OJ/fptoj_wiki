@@ -26,7 +26,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="" data-expected="Hello World!" data-hint="Dùng cout"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -43,7 +43,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3 5" data-expected="8" data-hint="Đọc a, b bằng cin, in a + b"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -66,7 +66,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5" data-expected="78.54" data-hint="Dùng fixed &lt;&lt; setprecision(2) và M_PI"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -85,7 +85,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3 7 5" data-expected="7" data-hint="Dùng max({a, b, c})"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -104,7 +104,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4" data-expected="Chan" data-hint="Dùng n % 2 == 0"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -124,7 +124,7 @@ Viết chương trình in "Hello World!".
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
 1 2 3 4 5" data-expected="15" data-hint="Dùng long long sum, cộng dồn trong vòng lặp"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -154,7 +154,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12345" data-expected="5" data-hint="Đọc dạng string, in s.length()"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -182,7 +182,7 @@ Viết chương trình in "Hello World!".
 5 x 9 = 45
 5 x 10 = 50" data-hint="Vòng for từ 1 đến 10, in n x i = n*i"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -207,7 +207,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12345" data-expected="54321" data-hint="Đọc dạng string, dùng reverse"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -227,7 +227,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7" data-expected="Yes" data-hint="Số nguyên tố: chia hết cho 1 và chính nó, kiểm tra đến sqrt(n)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -254,7 +254,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12 18" data-expected="6" data-hint="Dùng __gcd(a, b) trong &lt;algorithm&gt;"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -274,7 +274,7 @@ Viết chương trình in "Hello World!".
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
 3 1 4 1 5" data-expected="1 1 3 4 5" data-hint="Dùng sort(a.begin(), a.end())"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -308,7 +308,7 @@ Viết chương trình in "Hello World!".
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7
 1 3 2 3 3 2 1" data-expected="3" data-hint="Dùng map&lt;int,int&gt; đếm tần suất, tìm max"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -343,7 +343,7 @@ Viết chương trình in "Hello World!".
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="abcba" data-expected="Yes" data-hint="So sánh s với reverse(s)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -371,7 +371,7 @@ Viết chương trình in "Hello World!".
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4 9
 2 7 11 15" data-expected="0 1" data-hint="Dùng map lưu vị trí, tìm need = target - a[i]"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -408,7 +408,7 @@ Viết chương trình in "Hello World!".
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="7
 10 9 2 5 3 7 101" data-expected="4" data-hint="Dùng lower_bound trên mảng lis, thay thế hoặc push_back"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -444,7 +444,7 @@ Cho lưới $n \times m$, tìm đường đi ngắn nhất từ $(0,0)$ đến $
 0 1 0
 0 0 0" data-expected="4" data-hint="BFS 4 hướng, dùng dist[][] đánh dấu khoảng cách"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

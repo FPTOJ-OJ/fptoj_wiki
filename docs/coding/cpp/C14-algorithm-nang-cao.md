@@ -197,7 +197,7 @@ else cout << "Khong tim thay";
 10 20 30 40 50
 30" data-expected="2" data-hint="Dùng lower_bound, kiểm tra a[pos] == x"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -224,7 +224,7 @@ else cout << "Khong tim thay";
 10 20 30 40 50
 20 40" data-expected="3" data-hint="Dùng upper_bound(r) - lower_bound(l)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

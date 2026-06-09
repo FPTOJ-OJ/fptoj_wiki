@@ -114,7 +114,7 @@ Point a = {1, 2}, b = {3, 4};
 Point c = a + b;  // {6, 6}
 ```
 
-???? tip "Tóm tắt các operator thường dùng"
+??? tip "Tóm tắt các operator thường dùng"
     | Operator | Mục đích | Khi nào cần |
     |----------|----------|--------------|
     | `operator<` | So sánh nhỏ hơn | `sort`, `set`, `map`, `priority_queue` |
@@ -241,7 +241,7 @@ mp[{"Binh", 50}] = 85;
 | Khởi tạo | `{a, b}` hoặc constructor | `{a, b}` hoặc `make_pair` | `make_tuple` |
 | Performance | Tương đương | Tương đương | Tương đương |
 
-???? tip "Khi nào dùng gì?"
+??? tip "Khi nào dùng gì?"
     - **2 trường đơn giản** (index, value): `pair` hoặc `tuple`
     - **2-3 trường cần tên rõ ràng**: `struct`
     - **3+ trường**: luôn dùng `struct`
@@ -264,7 +264,7 @@ Edge e = {1, 2, 5};
 cout << e.u << " " << e.v << " " << e.weight << endl;
 ```
 
-???? tip "C++17: Structured Binding"
+??? tip "C++17: Structured Binding"
     ```cpp
     auto [x, y] = make_pair(1, 2);
     auto [a, b, c] = make_tuple(1, 2, 3);
@@ -392,7 +392,7 @@ Binh 8" data-expected="An 10
 Binh 8
 Nam 8" data-hint="Dùng sort với lambda: so sánh score trước, nếu bằng so sánh name"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

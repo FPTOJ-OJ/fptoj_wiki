@@ -511,7 +511,7 @@ bool match(const string &s, const string &pattern) {
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="Hello World from FPTOJ" data-expected="4" data-hint="Dùng getline + stringstream, đếm số từ bằng ss &gt;&gt; word"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -535,7 +535,7 @@ bool match(const string &s, const string &pattern) {
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="10,20,30,40" data-expected="100" data-hint="Dùng getline(cin, line, ',') hoặc stringstream tách dấu phẩy"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -562,7 +562,7 @@ bool match(const string &s, const string &pattern) {
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="A man, a plan, a canal: Panama" data-expected="Yes" data-hint="Lọc ký tự alphanumeric, chuyển lowercase, so sánh với đảo ngược"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;

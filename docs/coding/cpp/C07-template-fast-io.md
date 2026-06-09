@@ -236,7 +236,7 @@ Viết chương trình đọc $n$ số nguyên và in tổng của chúng. Dùng
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\ntypedef long long ll;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(NULL);\n    \n    // Viết code ở đây\n    \n    return 0;\n}" data-input="5
 1 2 3 4 5" data-expected="15" data-hint="Đọc n, dùng vòng lặp cộng dồn vào sum (kiểu ll)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -266,7 +266,7 @@ So sánh tốc độ: đọc $10^6$ số nguyên bằng `cin` (có sync) và `ci
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\ntypedef long long ll;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(NULL);\n    \n    // Viết code ở đây\n    \n    return 0;\n}" data-input="5
 1000000 2000000 3000000 4000000 5000000" data-expected="15000000" data-hint="Dùng ll cho sum, đọc n rồi cộng dồn"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
