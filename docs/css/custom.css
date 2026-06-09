@@ -1,0 +1,96 @@
+/* Matplotlib chart styling — width based on container, not browser edge */
+img.mpl-plot {
+  width: 100%;
+  max-width: calc(100% - 2rem);
+  height: auto;
+  display: block;
+  margin: 1.2em auto 1.2em 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: max-width 0.35s ease, box-shadow 0.35s ease;
+}
+
+img.mpl-plot:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Tablet */
+@media (max-width: 960px) {
+  img.mpl-plot {
+    max-width: calc(100% - 1.5rem);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  img.mpl-plot {
+    max-width: calc(100% - 1rem);
+    margin: 1em auto;
+  }
+}
+
+/* Dark mode for Matplotlib plots */
+[data-md-color-scheme="slate"] img.mpl-plot {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-md-color-scheme="slate"] img.mpl-plot:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* Custom CSS variables for Mermaid diagram levels */
+:root {
+  --mermaid-level1-fill: #e8f5e9;
+  --mermaid-level1-text: #2e7d32;
+  --mermaid-level2-fill: #e3f2fd;
+  --mermaid-level2-text: #1565c0;
+  --mermaid-level3-fill: #fff3e0;
+  --mermaid-level3-text: #ef6c00;
+  --mermaid-level4-fill: #ffebee;
+  --mermaid-level4-text: #c62828;
+}
+
+[data-md-color-scheme="slate"] {
+  --mermaid-level1-fill: #1b5e20;
+  --mermaid-level1-text: #c8e6c9;
+  --mermaid-level2-fill: #0d47a1;
+  --mermaid-level2-text: #bbdefb;
+  --mermaid-level3-fill: #e65100;
+  --mermaid-level3-text: #ffe0b2;
+  --mermaid-level4-fill: #b71c1c;
+  --mermaid-level4-text: #ffcdd2;
+}
+
+/* Mermaid SVG overrides for general aesthetics */
+.mermaid svg {
+  background: transparent !important;
+}
+
+/* Custom level colors overrides for Mermaid SVG elements */
+.level1 rect, .level1 circle, .level1 polygon, .level1 path {
+  fill: var(--mermaid-level1-fill) !important;
+}
+.level1 .nodeLabel, .level1 span {
+  color: var(--mermaid-level1-text) !important;
+}
+
+.level2 rect, .level2 circle, .level2 polygon, .level2 path {
+  fill: var(--mermaid-level2-fill) !important;
+}
+.level2 .nodeLabel, .level2 span {
+  color: var(--mermaid-level2-text) !important;
+}
+
+.level3 rect, .level3 circle, .level3 polygon, .level3 path {
+  fill: var(--mermaid-level3-fill) !important;
+}
+.level3 .nodeLabel, .level3 span {
+  color: var(--mermaid-level3-text) !important;
+}
+
+.level4 rect, .level4 circle, .level4 polygon, .level4 path {
+  fill: var(--mermaid-level4-fill) !important;
+}
+.level4 .nodeLabel, .level4 span {
+  color: var(--mermaid-level4-text) !important;
+}

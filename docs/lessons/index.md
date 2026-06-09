@@ -19,7 +19,7 @@ Dưới đây là sa bàn chiến lược giúp bạn định hướng lộ trì
 graph TD
     Start((Khởi hành)) --> N1
     
-    subgraph Giai_đoạn_Tân_thủ[Giai đoạn: Tân thủ]
+    subgraph Giai_doan_Tan_thu[Giai đoạn: Tân thủ]
         N1["🟢 Nhóm 1: Nhập môn<br/>(Nền tảng sống còn)"]:::level1
         N2["🔵 Nhóm 2: Kỹ thuật cơ bản<br/>(Vũ khí thiết yếu)"]:::level2
         N3["🔵 Nhóm 3: CTDL cơ bản<br/>(Túi đồ sinh tồn)"]:::level2

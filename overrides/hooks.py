@@ -340,7 +340,8 @@ def on_page_markdown(markdown, page, config, files):
             if not ok:
                 log.warning('Mermaid syntax error [block %d/%d] in %s: %s',
                             i + 1, len(matches), src, err.split('\n')[0])
-            out.append(f'<div class="mermaid">\n{code}\n</div>')
+            import html
+            out.append(f'<pre class="mermaid"><code>{html.escape(code)}</code></pre>')
             pos = m.end()
         out.append(markdown[pos:])
         markdown = ''.join(out)
@@ -417,7 +418,7 @@ def _detect_mermaid_versions():
     try:
         r = subprocess.run(
             ['node', '-p', 'require("mermaid/package.json").version'],
-            capture_output=True, text=True, timeout=10,
+            capture_output=True, text=True, encoding='utf-8', timeout=10,
         )
         if r.returncode == 0 and r.stdout.strip():
             _MERMAID_LOCAL_VERSION = r.stdout.strip()
@@ -493,7 +494,7 @@ def _validate_mermaid(code):
         r = subprocess.run(
             ['node', _MERMAID_VALIDATOR, '--stdin'],
             input=code,
-            capture_output=True, text=True, timeout=15,
+            capture_output=True, text=True, encoding='utf-8', timeout=15,
         )
         result = _json.loads(r.stdout.strip()) if r.stdout.strip() else {}
         if result.get('ok'):
@@ -523,7 +524,7 @@ def _validate_mermaid_batch(codes):
         r = subprocess.run(
             ['node', _MERMAID_VALIDATOR, '--batch'],
             input=payload,
-            capture_output=True, text=True, timeout=max(15, 5 * len(codes)),
+            capture_output=True, text=True, encoding='utf-8', timeout=max(15, 5 * len(codes)),
         )
         results = _json.loads(r.stdout.strip()) if r.stdout.strip() else []
         if not isinstance(results, list):

@@ -419,4 +419,4 @@ extra_javascript:
 
 extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css
-  - css/matplotlib.css
+  - css/custom.css
