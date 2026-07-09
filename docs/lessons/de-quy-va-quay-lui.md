@@ -579,16 +579,25 @@ Mỗi lần gọi hàm đệ quy, một frame mới được đẩy vào stack. 
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|---|---|---|---|
-| [CSES - Creating Strings](https://cses.fi/problemset/task/1622) | CSES | ⭐⭐ | Sinh hoán vị |
-| [CSES - Apple Division](https://cses.fi/problemset/task/1623) | CSES | ⭐⭐ | Quay lui chia tập |
-| [LeetCode - Permutations](https://leetcode.com/problems/permutations/) | LC | ⭐⭐ | Sinh hoán vị |
-| [LeetCode - N-Queens](https://leetcode.com/problems/n-queens/) | LC | ⭐⭐⭐ | Xếp hậu |
-| [LeetCode - Sudoku Solver](https://leetcode.com/problems/sudoku-solver/) | LC | ⭐⭐⭐ | Quay lui giải Sudoku |
-| [VNOJ - Đi dạo (Backtrack A)](https://oj.vnoi.info/problem/backtrack_a) | VNOJ | ⭐ | Backtracking cơ bản |
-| [VNOJ - Tháp Hà Nội 2 (Backtrack B)](https://oj.vnoi.info/problem/backtrack_b) | VNOJ | ⭐ | Đệ quy |
-| [VNOJ - Bể chứa nước (Backtrack C)](https://oj.vnoi.info/problem/backtrack_c) | VNOJ | ⭐⭐ | Backtracking |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+| :--- | :--- | :---: | :--- |
+| `rec-fact` | [Tính giai thừa](https://fptoj.com/problem/rec-fact) | ⭐ | Đệ quy |
+| `rec-fibo` | [Số Fibonacci](https://fptoj.com/problem/rec-fibo) | ⭐ | Đệ quy có nhớ |
+| `rec-power` | [Lũy thừa bằng đệ quy](https://fptoj.com/problem/rec-power) | ⭐ | Đệ quy |
+| `rec-digit` | [Đếm chữ số](https://fptoj.com/problem/rec-digit) | ⭐ | Đệ quy |
+| `rec-gcd` | [GCD bằng đệ quy](https://fptoj.com/problem/rec-gcd) | ⭐ | Đệ quy Euclid |
+| `rec-binary` | [Xâu nhị phân](https://fptoj.com/problem/rec-binary) | ⭐⭐ | Quay lui |
+| `rec-perm` | [Hoán vị](https://fptoj.com/problem/rec-perm) | ⭐⭐ | Quay lui |
+| `rec-comb` | [Tổ hợp](https://fptoj.com/problem/rec-comb) | ⭐⭐ | Quay lui |
+| `rec-subsetsum` | [Tổng tập con](https://fptoj.com/problem/rec-subsetsum) | ⭐⭐ | Quay lui |
+| `rec-maze` | [Đếm đường đi](https://fptoj.com/problem/rec-maze) | ⭐⭐ | Đệ quy |
+| `rec-nqueen` | [N-Queens](https://fptoj.com/problem/rec-nqueen) | ⭐⭐⭐ | Quay lui |
+| `rec-knap` | [Knapsack vét cạn](https://fptoj.com/problem/rec-knap) | ⭐⭐⭐ | Quay lui + nhánh cận |
+| `rec-coin` | [Đổi tổng](https://fptoj.com/problem/rec-coin) | ⭐⭐⭐ | Quay lui |
+| `rec-partition` | [Phân hoạch số](https://fptoj.com/problem/rec-partition) | ⭐⭐⭐ | Quay lui |
+| `rec-tower` | [Tháp Hà Nội](https://fptoj.com/problem/rec-tower) | ⭐⭐⭐ | Đệ quy |
+| `rec-sudoku` | [Sudoku](https://fptoj.com/problem/rec-sudoku) | ⭐⭐⭐⭐⭐ | Quay lui |
+| `rec-mcolor` | [Tô màu đồ thị](https://fptoj.com/problem/rec-mcolor) | ⭐⭐⭐⭐⭐ | Quay lui |
 
 ---
 

@@ -596,18 +596,18 @@ Dừng khi khoảng đủ nhỏ ($\varepsilon = 10^{-9}$) hoặc lặp đúng 10
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Distinct Values](https://cses.fi/problemset/task/1621) | CSES | ⭐ | Binary search cơ bản |
-| [CSES - Factory Machines](https://cses.fi/problemset/task/1620) | CSES | ⭐⭐ | BS on answer |
-| [CSES - Array Division](https://cses.fi/problemset/task/1085) | CSES | ⭐⭐⭐ | Tổng max min |
-| [LeetCode 704 - Binary Search](https://leetcode.com/problems/binary-search/) | LC | ⭐ | BS cơ bản |
-| [LeetCode 34 - Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) | LC | ⭐⭐ | lower/upper bound |
-| [LeetCode 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | LC | ⭐⭐ | BS on answer |
-| [LeetCode 1011 - Capacity To Ship](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | LC | ⭐⭐ | BS on answer |
-| [VNOJ - Sort](https://oj.vnoi.info/problem/fc082_sort) | VNOJ | ⭐⭐ | BS + sorting |
-| [VNOJ - VOSTR](https://oj.vnoi.info/problem/vostr) | VNOJ | ⭐⭐⭐ | BS trên xâu |
-| [SPOJ - Aggressive Cows](https://www.spoj.com/problems/AGGRCOW/) | SPOJ | ⭐⭐ | Khoảng cách min |
+| Bài tập | Nền tảng | Độ khó | Chủ đề |
+|---|---|---|---|
+| [FPTOJ - Tìm kiếm cơ bản](https://fptoj.com/problem/bs-basic) | FPTOJ | ⭐ | Tìm kiếm nhị phân cơ bản |
+| [FPTOJ - Đoạn giá trị trùng nhau](https://fptoj.com/problem/bs-first-last) | FPTOJ | ⭐⭐ | lower_bound và upper_bound |
+| [FPTOJ - Căn bậc hai số nguyên](https://fptoj.com/problem/bs-sqrt) | FPTOJ | ⭐⭐ | Chặt nhị phân tìm kiếm nghiệm nguyên |
+| [FPTOJ - Máy cưa gỗ tối ưu](https://fptoj.com/problem/bs-wood) | FPTOJ | ⭐⭐⭐ | Binary Search on Answer |
+| [FPTOJ - Bố trí đàn bò](https://fptoj.com/problem/bs-cows) | FPTOJ | ⭐⭐⭐ | Tối đa hóa khoảng cách tối thiểu |
+| [FPTOJ - Chia mảng tối ưu](https://fptoj.com/problem/bs-split) | FPTOJ | ⭐⭐⭐ | Tối thiểu hóa tổng đoạn con lớn nhất |
+| [FPTOJ - Nhà máy sản xuất](https://fptoj.com/problem/bs-factory) | FPTOJ | ⭐⭐⭐⭐ | Tối ưu hóa thời gian hoàn thành sản phẩm |
+| [FPTOJ - Bảng nhân kì diệu](https://fptoj.com/problem/bs-multiplication) | FPTOJ | ⭐⭐⭐⭐⭐ | Tìm kiếm nhị phân trên không gian nghiệm hai chiều |
+| [FPTOJ - Đếm số ≤ X](https://fptoj.com/problem/bs-upper) | FPTOJ | ⭐ | Đếm phần tử nhỏ hơn hoặc bằng X trong mảng đã sắp xếp |
+| [FPTOJ - Số bị thiếu](https://fptoj.com/problem/bs-miss) | FPTOJ | ⭐ | Tìm số còn thiếu trong dãy 1..N |
 
 ---
 

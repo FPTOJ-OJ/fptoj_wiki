@@ -296,3 +296,20 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
     print(highest_power_of_2(20)) # 16
     print(lowest_power_of_2(20))  # 32
     ```
+
+---
+
+## Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+| :--- | :--- | :---: | :--- |
+| `fun-lsb` | [Bit thấp nhất](https://fptoj.com/problem/fun-lsb) | ⭐ | `n & -n` (LSB) |
+| `fun-clear` | [Xóa bit 1](https://fptoj.com/problem/fun-clear) | ⭐ | `n & (n-1)` |
+| `fun-subsets` | [Đếm tập con](https://fptoj.com/problem/fun-subsets) | ⭐⭐ | Duyệt bitmask |
+| `fun-pairxor` | [Cặp XOR lớn nhất](https://fptoj.com/problem/fun-pairxor) | ⭐⭐⭐ | XOR |
+| `fun-maxand` | [Cặp AND lớn nhất](https://fptoj.com/problem/fun-maxand) | ⭐⭐⭐⭐ | AND |
+
+## Bài viết liên quan
+
+- [Bài 5: Phép toán bit](phep-toan-bit.md)
+- [Bài 6: Đệ quy và quay lui](de-quy-va-quay-lui.md)

@@ -45,6 +45,7 @@ nav:
       - Giới thiệu: about.md
   - Bài Học:
       - Tổng hợp bài học: lessons/index.md
+      - Danh sách bài tập FPTOJ: lessons/cses.md
       - Lộ trình học: lessons/roadmap.md
       - "⭐ Nhóm 1 — Nhập môn":
           - Setup môi trường thi đấu: lessons/setup-moi-truong.md
@@ -373,6 +374,8 @@ nav:
       - Cây (Tree): translate/wcipeg/tree.md
     - Sách:
       - Hướng dẫn Lập trình Thi đấu (Guide to Competitive Programming): guide/guide-to-competitive-programming.md
+    - Setter Guides:
+      - Hướng dẫn viết C++ Generator cho DMOJ: guide/cpp-generator.md
 
 hooks:
   - overrides/hooks.py

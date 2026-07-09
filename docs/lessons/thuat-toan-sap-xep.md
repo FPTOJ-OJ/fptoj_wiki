@@ -898,14 +898,20 @@ Merge Sort cần mảng tạm kích thước $O(N)$. Nếu $N = 10^6$ và mỗi 
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Distinct Numbers](https://cses.fi/problemset/task/1621) | CSES | ⭐ | Sắp xếp + đếm |
-| [CSES - Apartments](https://cses.fi/problemset/task/1084) | CSES | ⭐⭐ | Sắp xếp + tham lam |
-| [CSES - Ferris Wheel](https://cses.fi/problemset/task/1090) | CSES | ⭐⭐ | Sắp xếp + hai con trỏ |
-| [LeetCode - Sort an Array](https://leetcode.com/problems/sort-an-array/) | LC | ⭐⭐ | Cài đặt sắp xếp |
-| [VNOJ - SORTING](https://oj.vnoi.info/problem/fc039_sorting) | VNOJ | ⭐⭐ | Sắp xếp cơ bản |
-| [VNOJ - NKLINEUP](https://oj.vnoi.info/problem/nklineup) | VNOJ | ⭐ | Sắp xếp + tìm max/min |
+Hãy thử sức với các bài tập sắp xếp và tối ưu thuật toán sau đây trên hệ thống tự host:
+
+| Bài | Nền tảng | Độ khó | Mục đích |
+|---|---|---|---|
+| [Sắp xếp dãy số](https://fptoj.com/problem/sort-basic) | FPTOJ | ⭐ | Làm quen với sắp xếp mảng cơ bản tăng dần ~O(N \log N)~ |
+| [Sắp xếp giảm dần](https://fptoj.com/problem/sort-desc) | FPTOJ | ⭐ | Thực hành sắp xếp mảng theo chiều giảm dần |
+| [Số lượng giá trị khác nhau](https://fptoj.com/problem/sort-distinct) | FPTOJ | ⭐⭐ | Sắp xếp mảng để đếm các phần tử khác nhau hiệu quả |
+| [Xếp hạng học sinh](https://fptoj.com/problem/sort-points) | FPTOJ | ⭐⭐ | Thực hành viết hàm so sánh (comparator) tùy biến cho cấu trúc dữ liệu |
+| [Sắp xếp chẵn lẻ](https://fptoj.com/problem/sort-parity) | FPTOJ | ⭐⭐ | Rèn luyện kỹ năng viết custom comparator phức tạp theo điều kiện |
+| [Tìm số trung vị](https://fptoj.com/problem/sort-median) | FPTOJ | ⭐⭐ | Tìm phần tử đứng giữa mảng sau khi đã sắp xếp |
+| [Cặp số gần nhau nhất](https://fptoj.com/problem/sort-closest) | FPTOJ | ⭐⭐⭐ | Tối ưu hóa việc tìm hiệu nhỏ nhất từ ~O(N^2)~ về ~O(N \log N)~ |
+| [Lịch họp tối đa](https://fptoj.com/problem/sort-meetings) | FPTOJ | ⭐⭐⭐ | Ứng dụng sắp xếp trong giải thuật Tham lam (Greedy) chọn khoảng không giao nhau |
+| [Ghép cặp mũ bảo hiểm](https://fptoj.com/problem/sort-pairs) | FPTOJ | ⭐⭐⭐⭐ | Phối hợp Sắp xếp tham lam và kỹ thuật Hai con trỏ (Two Pointers) |
+| [Đếm số cặp nghịch thế](https://fptoj.com/problem/sort-inversions) | FPTOJ | ⭐⭐⭐⭐⭐ | Ứng dụng giải thuật chia để trị của Merge Sort để đếm số cặp nghịch thế |
 
 ## Bài viết liên quan
 

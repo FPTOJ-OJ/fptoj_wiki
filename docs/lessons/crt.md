@@ -164,3 +164,13 @@ $M_i$ chia hết cho $m_j$ (vì $M_i = M / m_i$ chứa $m_j$). Do đó $M_i \cdo
         m.append(mi)
     print(crt(a, m))
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Mô tả |
+|---|---|---|---|
+| [FPTOJ - crt](https://fptoj.com/problem/crt) | FPTOJ | ⭐⭐⭐ | Tìm nghiệm hệ đồng dư với tích moduli $\le 10^{18}$ |
+| [Hackerrank - Number Of Ways](https://www.hackerrank.com/challenges/number-of-ways) | Hackerrank | ⭐⭐⭐⭐ | Ứng dụng CRT giải hệ modular lớn |
+

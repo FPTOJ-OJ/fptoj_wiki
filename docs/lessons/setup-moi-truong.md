@@ -628,13 +628,16 @@ g++ -std=c++17 -O2 -Wall -o solution.exe solution.cpp
 
 ## 15. Bài tập luyện tập
 
-Hãy setup template và thử submit bài đơn giản:
+Hãy setup template, viết code và thử submit các bài tập nhập môn sau đây trên hệ thống tự host để kiểm tra môi trường:
 
-| Bài | Nền tảng | Mục đích |
-|-----|----------|----------|
-| [CSES - Weird Algorithm](https://cses.fi/problemset/task/1068) | CSES | Test template C++ |
-| [CSES - Missing Number](https://cses.fi/problemset/task/1083) | CSES | Test I/O |
-| [CSES - Permutations](https://cses.fi/problemset/task/1070) | CSES | Test logic đơn giản |
+| Bài | Nền tảng | Độ khó | Mục đích |
+|---|---|---|---|
+| [Lời chào từ An](https://fptoj.com/problem/setup-hello) | FPTOJ | ⭐ | Đảm bảo chương trình biên dịch và in kết quả đúng định dạng |
+| [An và chiếc hộp quà](https://fptoj.com/problem/setup-sum) | FPTOJ | ⭐ | Kiểm tra việc đọc dữ liệu nhập từ bàn phím và tính toán cơ bản |
+| [Gia tộc thỏ Bình](https://fptoj.com/problem/setup-fibo) | FPTOJ | ⭐⭐ | Luyện tập cấu trúc vòng lặp và mảng lưu trữ số Fibonacci |
+| [Trò chơi chia kẹo](https://fptoj.com/problem/setup-game) | FPTOJ | ⭐⭐ | Luyện tập phép chia lấy nguyên và chia lấy dư |
+| [Mảnh đất hình tam giác](https://fptoj.com/problem/setup-triangle) | FPTOJ | ⭐⭐⭐ | Rèn luyện câu lệnh điều kiện và kiểm tra tính hợp lệ hình học |
+
 
 ---
 

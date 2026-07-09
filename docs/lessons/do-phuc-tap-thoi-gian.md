@@ -568,14 +568,15 @@ Vòng trong chạy $\frac{n}{1} + \frac{n}{2} + \frac{n}{3} + \ldots + \frac{n}{
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Weird Algorithm](https://cses.fi/problemset/task/1068) | CSES | ⭐ | Độ phức tạp cơ bản |
-| [CSES - Repetitions](https://cses.fi/problemset/task/1069) | CSES | ⭐ | Độ phức tạp tuyến tính |
-| [CSES - Increasing Array](https://cses.fi/problemset/task/1094) | CSES | ⭐ | Phân tích độ phức tạp |
-| [LeetCode - Two Sum](https://leetcode.com/problems/two-sum/) | LeetCode | ⭐ | $O(N)$ complexity |
-| [LeetCode - Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) | LeetCode | ⭐ | $O(N)$ vs $O(N^2)$ |
-| [LeetCode - Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | LeetCode | ⭐⭐ | Kadane's $O(N)$ |
+Hãy thử sức với các bài tập phân tích và tối ưu độ phức tạp thuật toán sau đây trên hệ thống tự host:
+
+| Bài | Nền tảng | Độ khó | Mục đích |
+|---|---|---|---|
+| [An và chiếc máy tính](https://fptoj.com/problem/comp-sum) | FPTOJ | ⭐ | Tối ưu độ phức tạp tính tổng dãy số từ ~O(N)~ về ~O(1)~ |
+| [Đếm cặp số của An](https://fptoj.com/problem/comp-pairs) | FPTOJ | ⭐⭐ | Tối ưu từ thuật toán duyệt cặp ~O(N^2)~ về đếm tần suất ~O(N)~ |
+| [Trò chơi lũy thừa](https://fptoj.com/problem/comp-pow) | FPTOJ | ⭐⭐⭐ | Sử dụng Lũy thừa nhị phân để tối ưu phép tính ~A^B \pmod M~ về ~O(\log B)~ |
+| [Dãy con của Việt](https://fptoj.com/problem/comp-subseg) | FPTOJ | ⭐⭐⭐ | Tìm đoạn con liên tiếp có tổng lớn nhất bằng thuật toán Kadane ~O(N)~ thay vì ~O(N^2)~ |
+| [Số lượng ước số](https://fptoj.com/problem/comp-digits) | FPTOJ | ⭐⭐⭐⭐ | Rút gọn thuật toán đếm ước số tự nhiên từ ~O(\sqrt{N})~ về ~O(1)~ bằng tính chất số chính phương |
 
 ## Bài viết liên quan
 

@@ -444,13 +444,20 @@ Nếu $a[i]$ có thể lên đến $10^9$ và $N$ lên đến $10^6$, tổng có
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Sum of Two Values](https://cses.fi/problemset/task/1640) | CSES | 2 sao | Two Sum |
-| [CSES - Subarray Sums I](https://cses.fi/problemset/task/1660) | CSES | 2 sao | Sliding window |
-| [CSES - Subarray Sums II](https://cses.fi/problemset/task/1661) | CSES | 3 sao | Prefix sum + map |
-| [LeetCode - 3Sum](https://leetcode.com/problems/3sum/) | LC | 3 sao | 3 con trỏ |
-| [VNOJ - NKSGAME](https://oj.vnoi.info/problem/nksgame) | VNOJ | 2 sao | Two pointers |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+| :--- | :--- | :---: | :--- |
+| `tp-pairx` | [Cặp tổng X](https://fptoj.com/problem/tp-pairx) | ⭐ | Two pointers |
+| `tp-merge` | [Trộn hai mảng](https://fptoj.com/problem/tp-merge) | ⭐ | Merge |
+| `tp-maxlen` | [Đoạn con dài nhất](https://fptoj.com/problem/tp-maxlen) | ⭐ | Sliding window |
+| `tp-same` | [Phần tử trùng](https://fptoj.com/problem/tp-same) | ⭐ | Two pointers |
+| `tp-diff` | [Cặp hiệu X](https://fptoj.com/problem/tp-diff) | ⭐⭐ | Two pointers |
+| `tp-subsum` | [Đoạn tổng S](https://fptoj.com/problem/tp-subsum) | ⭐⭐ | Sliding window |
+| `tp-three` | [3Sum](https://fptoj.com/problem/tp-three) | ⭐⭐ | Two pointers + sort |
+| `tp-cntpair` | [Đếm cặp tổng ≤ X](https://fptoj.com/problem/tp-cntpair) | ⭐⭐ | Two pointers |
+| `tp-trap` | [Hứng nước](https://fptoj.com/problem/tp-trap) | ⭐⭐⭐ | Two pointers |
+| `tp-subk` | [Đoạn con K phần tử khác](https://fptoj.com/problem/tp-subk) | ⭐⭐⭐ | Sliding window |
+| `tp-closest` | [3 tổng gần nhất](https://fptoj.com/problem/tp-closest) | ⭐⭐⭐ | Two pointers + sort |
+| `tp-ksum` | [4Sum](https://fptoj.com/problem/tp-ksum) | ⭐⭐⭐ | Two pointers + sort |
 
 ## Bài viết liên quan
 

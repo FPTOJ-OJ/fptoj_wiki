@@ -560,14 +560,13 @@ Trong C++, `~mask` đảo **TẤT CẢ** bit, kể cả bit dấu (32 hoặc 64 
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Bit Strings](https://cses.fi/problemset/task/1715) | CSES | ⭐ | Lũy thừa 2 |
-| [LeetCode - Single Number](https://leetcode.com/problems/single-number/) | LC | ⭐ | XOR |
-| [LeetCode - Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) | LC | ⭐ | Đếm bit |
-| [CF - XOR and OR](https://codeforces.com/) | CF | ⭐⭐ | Bitmask |
-| [LeetCode - Subsets](https://leetcode.com/problems/subsets/) | LC | ⭐⭐ | Duyệt bitmask |
-| [VNOJ - Tổng XOR](https://oj.vnoi.info/problem/tht21_skc_xor) | VNOJ | ⭐⭐ | Phép XOR |
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+| :--- | :--- | :---: | :--- |
+| `bit-single` | [Số duy nhất](https://fptoj.com/problem/bit-single) | ⭐ | XOR tìm số duy nhất |
+| `bit-power` | [Lũy thừa của 2](https://fptoj.com/problem/bit-power) | ⭐ | Kiểm tra lũy thừa 2 |
+| `bit-count` | [Đếm bit 1](https://fptoj.com/problem/bit-count) | ⭐ | Đếm bit 1 |
+| `bit-subset` | [Tập con may mắn](https://fptoj.com/problem/bit-subset) | ⭐⭐⭐ | Duyệt bitmask tìm tập con |
+| `bit-assign` | [Phân công công việc](https://fptoj.com/problem/bit-assign) | ⭐⭐⭐⭐ | Bitmask DP |
 
 ## Bài viết liên quan
 

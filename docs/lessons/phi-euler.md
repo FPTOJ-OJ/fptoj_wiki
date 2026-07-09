@@ -177,3 +177,14 @@ Nếu $\gcd(a, b) = 1$ thì $\varphi(ab) = \varphi(a) \cdot \varphi(b)$.
     for i in range(1, n + 1):
         print(f"phi({i}) = {phi[i]}")
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Mô tả |
+|---|---|---|---|
+| [FPTOJ - phi-euler](https://fptoj.com/problem/phi-euler) | FPTOJ | ⭐⭐ | Tính $\varphi(N)$ với $N \le 10^{12}$ |
+| [CSES - Counting Divisors](https://cses.fi/problemset/task/1713) | CSES | ⭐⭐ | Đếm ước số của $N$ |
+| [CSES - Divisor Analysis](https://cses.fi/problemset/task/2182) | CSES | ⭐⭐⭐ | Phân tích các ước (số lượng, tổng, tích) |
+
