@@ -66,6 +66,22 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 
 ---
 
+## 🟢 1i. Nhóm Mảng cộng dồn & Stack (Prefix Sum & Stack)
+*Kiến thức nền tảng: mảng cộng dồn 1D/2D, Kadane, mảng hiệu (difference array), stack và stack đơn điệu.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ps-sum` | [Truy vấn tổng](https://fptoj.com/problem/ps-sum) | ⭐ | Prefix Sum | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-bracket` | [Ngoặc đơn vui nhộn](https://fptoj.com/problem/st-bracket) | ⭐ | Stack | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-kadane` | [Sòng bạc may rủi](https://fptoj.com/problem/ps-kadane) | ⭐⭐ | Kadane | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-diff` | [Cơn mưa đầu mùa](https://fptoj.com/problem/ps-diff) | ⭐⭐ | Difference Array | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-equal` | [Kho báu dưới lòng đất](https://fptoj.com/problem/ps-equal) | ⭐⭐ | Prefix Sum + HashMap | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-next` | [Đội hình thể thao](https://fptoj.com/problem/st-next) | ⭐⭐ | Stack đơn điệu | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-grid` | [Vườn trái cây](https://fptoj.com/problem/ps-grid) | ⭐⭐ | Prefix Sum 2D | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-paint` | [Tô hàng rào](https://fptoj.com/problem/ps-paint) | ⭐⭐⭐ | Difference + Max | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+
+---
+
 ## 🟡 2. Nhóm Toán học & Số học (Mathematics)
 *Nền tảng số học thiết yếu cho lập trình thi đấu: kiểm tra nguyên tố, sàng, phân tích thừa số, đếm ước, nghịch đảo modulo, tổ hợp, hàm phi Euler và định lý thặng dư Trung Hoa.*
 
@@ -79,6 +95,26 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `math-binom` | [Tổ hợp chập](https://fptoj.com/problem/math-binom) | ⭐⭐⭐ | Lý thuyết số | [Số học nâng cao](so-hoc-nang-cao.md) |
 | `phi-euler` | [Hàm Phi Euler](https://fptoj.com/problem/phi-euler) | ⭐⭐ | Lý thuyết số | [Hàm Phi Euler & Hàm Nhân Tính](phi-euler.md) |
 | `crt` | [Định Lý Thặng Dư Trung Hoa](https://fptoj.com/problem/crt) | ⭐⭐⭐ | Lý thuyết số | [Định lý Thặng dư Trung Hoa (CRT)](crt.md) |
+
+---
+
+## 🟡 2b. Nhóm Lũy thừa nhị phân & Sàng nguyên tố (Binary Exponentiation & Prime Sieve)
+*Thực hành lũy thừa nhị phân, Fermat nhỏ, sàng Eratosthenes, sàng SPF, sàng phân đoạn, ma trận lũy thừa, hàm Euler và nguyên lý bao hàm.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ltht-tprime` | [Số T-prime](https://fptoj.com/problem/ltht-tprime) | ⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-nt-sinhdoi` | [Cặp nguyên tố sinh đôi](https://fptoj.com/problem/ltht-nt-sinhdoi) | ⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-powpow` | [Lũy thừa chồng](https://fptoj.com/problem/ltht-powpow) | ⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-fibo` | [Fibonacci nhanh](https://fptoj.com/problem/ltht-fibo) | ⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-sangdoan` | [Sàng phân đoạn](https://fptoj.com/problem/ltht-sangdoan) | ⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-spf` | [Thừa số nguyên tố nhỏ nhất](https://fptoj.com/problem/ltht-spf) | ⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-phi` | [Hàm Euler](https://fptoj.com/problem/ltht-phi) | ⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-boi-so` | [Bội số trong đoạn](https://fptoj.com/problem/ltht-boi-so) | ⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-lucas` | [Tổ hợp Lucas](https://fptoj.com/problem/ltht-lucas) | ⭐⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-dprime-factor` | [Đếm ước nguyên tố](https://fptoj.com/problem/ltht-dprime-factor) | ⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-gcd-sum` | [Tổng GCD](https://fptoj.com/problem/ltht-gcd-sum) | ⭐⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
+| `ltht-linear-rec` | [Dãy số truy hồi](https://fptoj.com/problem/ltht-linear-rec) | ⭐⭐⭐ | Lý thuyết số | [Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md) |
 
 ---
 
@@ -150,3 +186,31 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `tp-subk` | [Đoạn con K phần tử khác](https://fptoj.com/problem/tp-subk) | ⭐⭐⭐ | Sliding window | [Kỹ thuật hai con trỏ](ky-thuat-hai-con-tro.md) |
 | `tp-closest` | [3 tổng gần nhất](https://fptoj.com/problem/tp-closest) | ⭐⭐⭐ | Two pointers + sort | [Kỹ thuật hai con trỏ](ky-thuat-hai-con-tro.md) |
 | `tp-ksum` | [4Sum](https://fptoj.com/problem/tp-ksum) | ⭐⭐⭐ | Two pointers + sort | [Kỹ thuật hai con trỏ](ky-thuat-hai-con-tro.md) |
+
+---
+
+## 🟢 1j. Nhóm Chia đôi tập (Meet in the Middle)
+*Xử lý bài toán tập con với N ≤ 40 bằng cách chia đôi, sinh tổ hợp từng nửa và ghép kết quả.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `mitm-subset-x` | [Đếm tập con tổng X](https://fptoj.com/problem/mitm-subset-x) | ⭐⭐ | Chia đôi tập | [Meet in the Middle](meet-in-the-middle.md) |
+| `mitm-closest` | [Tập con gần X nhất](https://fptoj.com/problem/mitm-closest) | ⭐⭐ | Chia đôi tập | [Meet in the Middle](meet-in-the-middle.md) |
+| `mitm-range` | [Tập con tổng trong [L, R]](https://fptoj.com/problem/mitm-range) | ⭐⭐ | Chia đôi tập | [Meet in the Middle](meet-in-the-middle.md) |
+| `mitm-knap` | [Cái túi - Meet in the Middle](https://fptoj.com/problem/mitm-knap) | ⭐⭐⭐ | Knapsack | [Meet in the Middle](meet-in-the-middle.md) |
+| `mitm-balanced` | [Chia kẹo](https://fptoj.com/problem/mitm-balanced) | ⭐⭐⭐ | Chia tập | [Meet in the Middle](meet-in-the-middle.md) |
+
+---
+
+## 🟢 1k. Nhóm Rời rạc hoá (Discretization)
+*Thu nhỏ miền giá trị, nén tọa độ, ứng dụng cho bài toán đếm và sweep line.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `disc-basic` | [Rời rạc hoá mảng](https://fptoj.com/problem/disc-basic) | ⭐ | Nén cơ bản | [Rời rạc hoá](discretization.md) |
+| `disc-freq` | [Tần số giá trị](https://fptoj.com/problem/disc-freq) | ⭐ | Nén + đếm | [Rời rạc hoá](discretization.md) |
+| `disc-distinct` | [Số lượng giá trị khác nhau](https://fptoj.com/problem/disc-distinct) | ⭐ | Nén + đếm | [Rời rạc hoá](discretization.md) |
+| `disc-closest` | [Số lớn hơn X gần nhất](https://fptoj.com/problem/disc-closest) | ⭐ | Nén + TKNP | [Rời rạc hoá](discretization.md) |
+| `disc-pair` | [Cặp số bằng nhau](https://fptoj.com/problem/disc-pair) | ⭐ | Nén + tổ hợp | [Rời rạc hoá](discretization.md) |
+| `disc-range-freq` | [Truy vấn tần số trong đoạn](https://fptoj.com/problem/disc-range-freq) | ⭐⭐ | Nén + prefix | [Rời rạc hoá](discretization.md) |
+| `disc-sweep` | [Đoạn phủ dày nhất](https://fptoj.com/problem/disc-sweep) | ⭐⭐ | Nén + diff array | [Rời rạc hoá](discretization.md) |

@@ -771,43 +771,32 @@ Chỉ modulo ở kết quả cuối sẽ gây tràn số ngay. Phải modulo sau
 
 ## Bài tập luyện tập
 
-### Cơ bản — Lũy thừa nhị phân
+### Cơ bản
 
-| Bài | Nền tảng | Độ khó | Chủ đề | Ghi chú |
+| Mã bài | Tên bài tập | Độ khó | Chủ đề | Ghi chú |
 |:---|:---|:---:|:---|:---|
-| [CSES - Exponentiation](https://cses.fi/problemset/task/1095) | CSES | ⭐⭐ | $a^b \bmod p$ | Bài khởi đầu, luyện code |
-| [CSES - Exponentiation II](https://cses.fi/problemset/task/1712) | CSES | ⭐⭐⭐ | $a^{b^c} \bmod p$ | Fermat nhỏ: $a^{b^c \bmod (p-1)}$ |
-| [CSES - Counting Necklaces](https://cses.fi/problemset/task/2209) | CSES | ⭐⭐⭐ | Lũy thừa mod | Ứng dụng power mod |
-| [VNOJ - VPOWER](https://oj.vnoi.info/problem/vpower) | VNOJ | ⭐⭐ | Power mod | Lũy thừa nhị phân cơ bản |
+| `ltht-tprime` | [Số T-prime](https://fptoj.com/problem/ltht-tprime) | ⭐ | T-prime = $p^2$ | Kiểm tra số có đúng 3 ước |
+| `ltht-nt-sinhdoi` | [Cặp nguyên tố sinh đôi](https://fptoj.com/problem/ltht-nt-sinhdoi) | ⭐ | Sàng + đếm | Đếm (p, p+2) cùng nguyên tố |
+| `ltht-powpow` | [Lũy thừa chồng](https://fptoj.com/problem/ltht-powpow) | ⭐⭐ | Fermat nhỏ + binpow | $a^{b^c} \bmod M$ |
+| `ltht-fibo` | [Fibonacci nhanh](https://fptoj.com/problem/ltht-fibo) | ⭐⭐ | Ma trận lũy thừa | $F(n)$ với $n \le 10^{18}$ |
+| `ltht-sangdoan` | [Sàng phân đoạn](https://fptoj.com/problem/ltht-sangdoan) | ⭐⭐ | Sàng phân đoạn | Nguyên tố trong $[L, R]$, $R \le 10^{12}$ |
 
-### Cơ bản — Sàng nguyên tố
+### Trung bình
 
-| Bài | Nền tảng | Độ khó | Chủ đề | Ghi chú |
+| Mã bài | Tên bài tập | Độ khó | Chủ đề | Ghi chú |
 |:---|:---|:---:|:---|:---|
-| [CSES - Primes](https://cses.fi/problemset/task/2162) | CSES | ⭐⭐ | Liệt kê nguyên tố | Sàng Eratosthenes |
-| [CSES - Counting Divisors](https://cses.fi/problemset/task/1713) | CSES | ⭐⭐ | Đếm ước | Sàng đếm ước hoặc SPF |
-| [CSES - Binomial Coefficients](https://cses.fi/problemset/task/1079) | CSES | ⭐⭐ | $\binom{n}{k} \bmod p$ | Precompute fact + inv_fact |
-| [SPOJ - Prime Generator](https://www.spoj.com/problems/PRIME1/) | SPOJ | ⭐⭐ | Sàng phân đoạn | In nguyên tố trong $[m, n]$ |
-| [VNOJ - NTBONUS](https://oj.vnoi.info/problem/ntbonus) | VNOJ | ⭐⭐ | Sàng + đếm | Ứng dụng sàng |
-
-### Trung bình — Kết hợp
-
-| Bài | Nền tảng | Độ khó | Chủ đề | Ghi chú |
-|:---|:---|:---:|:---|:---|
-| [Codeforces - Almost Prime](https://codeforces.com/problemset/problem/26/A) | CF | ⭐⭐ | Đếm thừa số | Sàng + đếm số ước nguyên tố |
-| [Codeforces - T-primes](https://codeforces.com/problemset/problem/230/B) | CF | ⭐⭐ | Kiểm tra T-prime | T-prime = bình phương nguyên tố |
-| [Codeforces - Noldbach Problem](https://codeforces.com/problemset/problem/17/A) | CF | ⭐⭐ | Nguyên tố liên tiếp | Sàng + kiểm tra |
-| [CSES - Common Divisors](https://cses.fi/problemset/task/1081) | CSES | ⭐⭐⭐ | GCD lớn nhất | Sàng ước hoặc sieve-style |
-| [VNOJ - VOMARBLE](https://oj.vnoi.info/problem/vomarble) | VNOJ | ⭐⭐⭐ | Combinatorics | $\binom{n}{k} \bmod p$ |
+| `ltht-spf` | [Thừa số nguyên tố nhỏ nhất](https://fptoj.com/problem/ltht-spf) | ⭐⭐ | Sàng SPF | Precompute SPF, phân tích $O(\log x)$ |
+| `ltht-phi` | [Hàm Euler](https://fptoj.com/problem/ltht-phi) | ⭐⭐ | $\varphi(N)$ | Đếm số nguyên tố cùng nhau với $N$ |
+| `ltht-boi-so` | [Bội số trong đoạn](https://fptoj.com/problem/ltht-boi-so) | ⭐⭐ | Nguyên lý bao hàm | Đếm số chia hết cho ít nhất một số trong tập |
+| `ltht-lucas` | [Tổ hợp Lucas](https://fptoj.com/problem/ltht-lucas) | ⭐⭐⭐ | Lucas + binpow | C(n,k) mod p với n,k ≤ 10¹⁸ |
+| `ltht-dprime-factor` | [Đếm ước nguyên tố](https://fptoj.com/problem/ltht-dprime-factor) | ⭐⭐ | Sàng SPF + đếm | Đếm số có K ước nguyên tố phân biệt |
 
 ### Nâng cao
 
-| Bài | Nền tảng | Độ khó | Chủ đề | Ghi chú |
+| Mã bài | Tên bài tập | Độ khó | Chủ đề | Ghi chú |
 |:---|:---|:---:|:---|:---|
-| [Codeforces - Christmas Trees](https://codeforces.com/problemset/problem/1401/D) | CF | ⭐⭐⭐⭐ | Sắp xếp + chia ước | Sàng thừa số + greedy |
-| [CSES - Prime Multiples](https://cses.fi/problemset/task/2185) | CSES | ⭐⭐⭐⭐ | Nguyên lý bao hàm | Sàng nguyên tố + bitmask |
-| [SPOJ - DIVSUM](https://www.spoj.com/problems/DIVSUM/) | SPOJ | ⭐⭐ | Tổng ước | Sàng tổng ước |
-| [Codeforces - Smash the Rocks](https://codeforces.com/problemset/problem/1606/D) | CF | ⭐⭐⭐⭐ | Matrix exponentiation | Ma trận lũy thừa |
+| `ltht-gcd-sum` | [Tổng GCD](https://fptoj.com/problem/ltht-gcd-sum) | ⭐⭐⭐ | Phi Euler + ước số | S(N) = ∑ gcd(i, N) |
+| `ltht-linear-rec` | [Dãy số truy hồi](https://fptoj.com/problem/ltht-linear-rec) | ⭐⭐⭐ | Ma trận lũy thừa | F(n) = a·F(n-1) + b·F(n-2) |
 
 ---
 

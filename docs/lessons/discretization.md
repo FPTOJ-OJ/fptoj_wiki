@@ -242,3 +242,24 @@ Dùng mảng đếm trên miền giá trị đã rời rạc hoá:
 
     print(f"So phan tu phan biet: {distinct}")
     ```
+
+---
+
+## Bài tập luyện tập
+
+### Cơ bản
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề | Ghi chú |
+|:---|:---|:---:|:---|:---|
+| `disc-basic` | [Rời rạc hoá mảng](https://fptoj.com/problem/disc-basic) | ⭐ | Nén cơ bản | In ra mảng đã rời rạc hoá |
+| `disc-freq` | [Tần số giá trị](https://fptoj.com/problem/disc-freq) | ⭐ | Nén + đếm | Đếm tần số sau khi nén |
+| `disc-distinct` | [Số lượng giá trị khác nhau](https://fptoj.com/problem/disc-distinct) | ⭐ | Nén + đếm | Đếm số giá trị phân biệt |
+| `disc-closest` | [Số lớn hơn X gần nhất](https://fptoj.com/problem/disc-closest) | ⭐ | Nén + TKNP | Tìm số ≥ X nhỏ nhất |
+| `disc-pair` | [Cặp số bằng nhau](https://fptoj.com/problem/disc-pair) | ⭐ | Nén + tổ hợp | Đếm cặp (i,j) bằng nhau |
+
+### Trung bình
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề | Ghi chú |
+|:---|:---|:---:|:---|:---|
+| `disc-range-freq` | [Truy vấn tần số trong đoạn](https://fptoj.com/problem/disc-range-freq) | ⭐⭐ | Nén + prefix | Đếm số lần X trong [l, r] |
+| `disc-sweep` | [Đoạn phủ dày nhất](https://fptoj.com/problem/disc-sweep) | ⭐⭐ | Nén + diff array | Tìm điểm có nhiều đoạn phủ nhất |

@@ -399,3 +399,22 @@ Bài toán: Cho ma trận chi phí $C[N][N]$. Giao mỗi người 1 việc sao c
 
     print(ans)
     ```
+
+---
+
+## Bài tập luyện tập
+
+### Cơ bản
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề | Ghi chú |
+|:---|:---|:---:|:---|:---|
+| `mitm-subset-x` | [Đếm tập con tổng X](https://fptoj.com/problem/mitm-subset-x) | ⭐⭐ | Tổng tập con | Đếm tập con có tổng đúng bằng X |
+| `mitm-closest` | [Tập con gần X nhất](https://fptoj.com/problem/mitm-closest) | ⭐⭐ | Tổng tập con | Tìm tổng tập con gần X nhất |
+| `mitm-range` | [Tập con tổng trong [L, R]](https://fptoj.com/problem/mitm-range) | ⭐⭐ | Tổng tập con | Đếm tập con có tổng trong đoạn |
+
+### Trung bình
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề | Ghi chú |
+|:---|:---|:---:|:---|:---|
+| `mitm-knap` | [Cái túi - Meet in the Middle](https://fptoj.com/problem/mitm-knap) | ⭐⭐⭐ | Knapsack | Chọn đồ tối ưu với N ≤ 40 |
+| `mitm-balanced` | [Chia kẹo](https://fptoj.com/problem/mitm-balanced) | ⭐⭐⭐ | Chia tập | Chia mảng chênh lệch nhỏ nhất |
