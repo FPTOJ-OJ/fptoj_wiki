@@ -225,7 +225,6 @@ $$S(x1,y1,x2,y2) = S(1,1,x2,y2) - S(1,1,x1-1,y2) - S(1,1,x2,y1-1) + S(1,1,x1-1,y
         for j in range(1, m + 1):
             update(i, j, row[j - 1])
 
-    q = int(input())
     for _ in range(q):
         parts = list(map(int, input().split()))
         if parts[0] == 1:
@@ -235,3 +234,29 @@ $$S(x1,y1,x2,y2) = S(1,1,x2,y2) - S(1,1,x1-1,y2) - S(1,1,x2,y1-1) + S(1,1,x1-1,y
             x1, y1, x2, y2 = parts[1], parts[2], parts[3], parts[4]
             print(query_rect(x1, y1, x2, y2))
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`b2d-point-add`](https://fptoj.com/problem/b2d-point-add) | Cập Nhật Điểm Tổng Lưới | ⭐⭐ | Point Update, Range Query cơ bản |
+| [`b2d-range-add`](https://fptoj.com/problem/b2d-range-add) | Cộng Đoạn Lưới Truy Vấn Điểm | ⭐⭐ | Range Update, Point Query (Mảng hiệu 2D) |
+| [`b2d-rect-xor`](https://fptoj.com/problem/b2d-rect-xor) | Tổng XOR Vùng Hình Chữ Nhật | ⭐⭐⭐ | 2D BIT trên phép toán XOR tự nghịch đảo |
+| [`b2d-invert`](https://fptoj.com/problem/b2d-invert) | Lật Bóng Đèn Ma Trận | ⭐⭐⭐ | Đảo trạng thái + Đếm tổng vùng |
+| [`b2d-range-sum`](https://fptoj.com/problem/b2d-range-sum) | Cộng Đoạn Lưới Tính Tổng | ⭐⭐⭐⭐ | Range Update 2D, Range Query 2D (4 BIT 2D) |
+| [`b2d-max-subgrid`](https://fptoj.com/problem/b2d-max-subgrid) | Tổng Lưới Con Lớn Nhất | ⭐⭐⭐⭐ | BIT 2D + Duyệt max lưới con cố định |
+| [`b2d-coord-comp`](https://fptoj.com/problem/b2d-coord-comp) | Ngôi Sao Trên Bầu Trời | ⭐⭐⭐⭐ | Rời rạc hóa tọa độ + BIT 2D |
+| [`b2d-nested-rect`](https://fptoj.com/problem/b2d-nested-rect) | Khung Tranh Bao Nhau | ⭐⭐⭐⭐ | Sorting (Sweep-line) + BIT 2D |
+
+---
+
+## Tài liệu tham khảo
+
+- [CP-Algorithms — Fenwick Tree 2D](https://cp-algorithms.com/data_structures/fenwick.html#multi-dimensional-fenwick-tree)
+- [VNOI Wiki — Fenwick Tree](https://wiki.vnoi.info/algo/data-structures/fenwick)
+- [USACO Guide — 2D Range Queries](https://usaco.guide/plat/2DRQ?lang=cpp)
+
+
+

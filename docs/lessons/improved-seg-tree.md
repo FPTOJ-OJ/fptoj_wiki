@@ -243,3 +243,28 @@ Khi cần truy vấn con:
             l, r = parts[1] - 1, parts[2] - 1
             print(query(1, 0, n - 1, l, r))
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`st-range-mul-add`](https://fptoj.com/problem/st-range-mul-add) | Cộng Nhân Đoạn Tính Tổng | ⭐⭐⭐ | Quản lý đồng thời 2 nhãn lười (cộng & nhân) |
+| [`st-dynamic`](https://fptoj.com/problem/st-dynamic) | Cây Phân Đoạn Động | ⭐⭐⭐ | Dynamic Segment Tree (cấp phát động) |
+| [`st-tree-path`](https://fptoj.com/problem/st-tree-path) | Cập Nhật Đường Đi Trên Cây | ⭐⭐⭐⭐ | Phân rã cây Heavy-Light Decomposition (HLD) |
+| [`st-sweepline-area`](https://fptoj.com/problem/st-sweepline-area) | Hợp Diện Tích Hình Chữ Nhật | ⭐⭐⭐⭐ | Thuật toán Sweep Line quét đĩa |
+| [`st-2d-basic`](https://fptoj.com/problem/st-2d-basic) | Cập Nhật Điểm Tổng Ma Trận Con | ⭐⭐⭐⭐ | 2D Segment Tree (Cây lồng cây 2 chiều) |
+| [`st-persistent-sum`](https://fptoj.com/problem/st-persistent-sum) | Tổng Đoạn Trên Lịch Sử | ⭐⭐⭐⭐ | Cây phân đoạn bền vững (Persistent Segment Tree) |
+| [`st-merge`](https://fptoj.com/problem/st-merge) | Tần Suất Màu Sắc Cây Con | ⭐⭐⭐⭐ | Gộp cây phân đoạn (Segment Tree Merging) |
+| [`st-range-chmin`](https://fptoj.com/problem/st-range-chmin) | Chmin Đoạn Và Tính Tổng | ⭐⭐⭐⭐⭐ | Segment Tree Beats (Cập nhật min đoạn nâng cao) |
+
+---
+
+## 6. Tài liệu tham khảo
+
+*   [CP-Algorithms - Segment Tree Beats](https://cp-algorithms.com/data_structures/segment_tree.html#segment-tree-beats)
+*   [VNOI Wiki - Heavy-Light Decomposition](https://wiki.vnoi.info/algo/data-structures/heavy-light-decomposition)
+*   [VNOI Wiki - Persistent Segment Tree](https://wiki.vnoi.info/algo/data-structures/persistent-segment-tree)
+*   [Codeforces - Segment Tree Merging](https://codeforces.com/blog/entry/19004)
+

@@ -634,21 +634,27 @@ Vòng lặp phải là `i > 0`, không phải `i >= 0`. Nếu $i = 0$: $i - (i \
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Ghi chú |
-|-----|----------|--------|---------|
-| [CSES - Dynamic Range Sum Queries](https://cses.fi/problemset/task/1648) | CSES | Trung bình | BIT cơ bản |
-| [CSES - Salary Queries](https://cses.fi/problemset/task/1144) | CSES | Trung bình+ | BIT + Coordinate Compression |
-| [CSES - Prefix Sum Queries](https://cses.fi/problemset/task/2166) | CSES | Trung bình+ | BIT nâng cao |
-| [CSES - Range Update Queries](https://cses.fi/problemset/task/1651) | CSES | Trung bình+ | BIT range update |
-| [LeetCode - Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | LeetCode | Trung bình+ | BIT / Segment Tree |
-| [SPOJ - UPDATEIT](https://www.spoj.com/problems/UPDATEIT/) | SPOJ | Trung bình | Range Update + Point Query |
-| [SPOJ - HORRIBLE](https://www.spoj.com/problems/HORRIBLE/) | SPOJ | Trung bình+ | Range Update + Range Query |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`bit-point-add`](https://fptoj.com/problem/bit-point-add) | Cộng Điểm Tính Tổng | ⭐⭐ | Point Update, Range Query cơ bản |
+| [`bit-range-add`](https://fptoj.com/problem/bit-range-add) | Cộng Đoạn Truy Vấn Điểm | ⭐⭐ | Range Update, Point Query (Mảng hiệu) |
+| [`bit-range-sum`](https://fptoj.com/problem/bit-range-sum) | Cộng Đoạn Tính Tổng Đoạn | ⭐⭐⭐ | Cập nhật đoạn, tính tổng đoạn (2 BIT) |
+| [`bit-inv-cnt`](https://fptoj.com/problem/bit-inv-cnt) | Đếm Cặp Nghịch Thế | ⭐⭐⭐ | Ứng dụng đếm số cặp nghịch thế |
+| [`bit-salary`](https://fptoj.com/problem/bit-salary) | Quản Lý Mức Lương | ⭐⭐⭐ | BIT + Nén tọa độ |
+| [`bit-distinct`](https://fptoj.com/problem/bit-distinct) | Số Màu Sắc Phân Biệt | ⭐⭐⭐ | Offline Queries + BIT (Quét phải) |
+| [`bit-prefix-max`](https://fptoj.com/problem/bit-prefix-max) | Giá Cổ Phiếu Lớn Nhất | ⭐⭐⭐ | Point Update, Prefix Max Query |
+| [`bit-kth-small`](https://fptoj.com/problem/bit-kth-small) | Tìm Điểm Nhỏ Thứ K | ⭐⭐⭐⭐ | Binary Lifting trên BIT |
+| [`bit-2d-point`](https://fptoj.com/problem/bit-2d-point) | Đếm Cây Nông Trại 2D | ⭐⭐⭐⭐ | 2D Fenwick Tree cơ bản |
+| [`bit-2d-range`](https://fptoj.com/problem/bit-2d-range) | Điều Khiển LED 2D | ⭐⭐⭐⭐ | 2D Fenwick Tree range update |
+| [`bit-lex-min`](https://fptoj.com/problem/bit-lex-min) | Hoán Vị Nhỏ Nhất Từ Điển | ⭐⭐⭐⭐ | Tham lam + BIT đếm dịch chuyển |
+| [`bit-nested`](https://fptoj.com/problem/bit-nested) | Đếm Đoạn Thẳng Bao Nhau | ⭐⭐⭐⭐ | Sorting + BIT đếm đoạn bao |
+
 
 ---
 
 ## Tài liệu tham khảo
 
 - [CP-Algorithms — Fenwick Tree](https://cp-algorithms.com/data_structures/fenwick.html)
-- [Topcoder — Binary Indexed Trees](https://www.topcoder.com/community/competitive-programming/tutorials/binary-indexed-trees/)
 - [VNOI Wiki — Fenwick Tree](https://wiki.vnoi.info/algo/data-structures/fenwick)
-- [USACO Guide — Fenwick Tree](https://usaco.guide/plat/Fenwick?lang=cpp)
+- [USACO Guide — Point Update Range Sum (PURS)](https://usaco.guide/gold/PURS?lang=cpp)
+

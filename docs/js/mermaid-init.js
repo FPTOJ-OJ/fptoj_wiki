@@ -14,7 +14,12 @@
       if (!el.hasAttribute('data-original')) {
         var codeEl = el.querySelector('code');
         var text = codeEl ? codeEl.textContent : el.textContent;
-        el.setAttribute('data-original', text.trim());
+        var trimmed = text.trim();
+        if (!trimmed) {
+          el.classList.remove('mermaid');
+          return;
+        }
+        el.setAttribute('data-original', trimmed);
       }
     });
   }

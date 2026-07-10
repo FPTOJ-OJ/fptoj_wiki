@@ -479,14 +479,16 @@ Cho $X = 5 = (101)_2$ và $A = [3, 10, 5, 25, 2, 8]$. Khi tìm trong Bitwise Tri
 
 ## 8. Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Word Combinations](https://cses.fi/problemset/task/1731) | CSES | ⭐⭐⭐ | Trie + DP |
-| [LeetCode - Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/) | LeetCode | ⭐⭐ | Cài đặt Trie cơ bản |
-| [LeetCode - Word Search II](https://leetcode.com/problems/word-search-ii/) | LeetCode | ⭐⭐⭐ | Trie + Backtracking |
-| [LeetCode - Maximum XOR of Two Numbers](https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/) | LeetCode | ⭐⭐ | Bitwise Trie |
-| [VNOJ - VOI18STR](https://oj.vnoi.info/problem/voi18str) | VNOJ | ⭐⭐⭐ | String + Trie |
-| [CSES - Substring Queries](https://cses.fi/problemset/task/2110) | CSES | ⭐⭐⭐ | Cấu trúc hậu tố |
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+|---|---|---|---|
+| [`trie-insert-search`](https://fptoj.com/problem/trie-insert-search) | Tập Từ Vựng Cây Tiền Tố | ⭐ | Khởi tạo, thêm và tìm kiếm |
+| [`trie-prefix-count`](https://fptoj.com/problem/trie-prefix-count) | Đếm Tần Suất Tiền Tố | ⭐⭐ | Đếm số từ có tiền tố P |
+| [`trie-longest-prefix`](https://fptoj.com/problem/trie-longest-prefix) | Tiền Tố Chung Dài Nhất | ⭐⭐ | So khớp độ dài tiền tố |
+| [`trie-xor-max`](https://fptoj.com/problem/trie-xor-max) | Cặp XOR Lớn Nhất | ⭐⭐⭐ | Bitwise Trie XOR tối đa |
+| [`trie-xor-min`](https://fptoj.com/problem/trie-xor-min) | Cặp XOR Nhỏ Nhất | ⭐⭐⭐ | Bitwise Trie XOR cực tiểu |
+| [`trie-autocomplete`](https://fptoj.com/problem/trie-autocomplete) | Gợi Ý Từ Khóa Autocomplete | ⭐⭐⭐ | Trie lưu trữ best value |
+| [`trie-xor-limit`](https://fptoj.com/problem/trie-xor-limit) | Cặp XOR Giới Hạn | ⭐⭐⭐⭐ | Bitwise Trie đếm số lượng |
+| [`trie-word-break`](https://fptoj.com/problem/trie-word-break) | Phân Tách Từ | ⭐⭐⭐⭐ | Trie kết hợp Quy hoạch động |
 
 ## Bài viết liên quan
 
@@ -501,4 +503,4 @@ Cho $X = 5 = (101)_2$ và $A = [3, 10, 5, 25, 2, 8]$. Khi tìm trong Bitwise Tri
 - [USACO Guide - Trie](https://usaco.gold/adv/trie)
 - [YouTube - Trie Data Structure (takeuforward)](https://www.youtube.com/watch?v=AXjmTQ8LEoI)
 
-**Bài tiếp theo:** [Heap (Hàng đợi ưu tiên) →](heap.md)
+**Bài tiếp theo:** [Segment Tree](segment-tree.md)

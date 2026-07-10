@@ -428,15 +428,16 @@ Tương tự, chỉ cần đảo dấu so sánh ($\ge$ thay vì $\le$).
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|:------:|--------|
-| [LeetCode - Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) | LC | ⭐⭐⭐ | Deque cơ bản |
-| [LeetCode - Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | LC | ⭐⭐ | Stack/Deque |
-| [LeetCode - Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) | LC | ⭐⭐⭐ | Stack đơn điệu |
-| [VNOJ - NKSGAME](https://oj.vnoi.info/problem/nksgame) | VNOJ | ⭐⭐ | Two pointers |
-| [VNOJ - VMQUABEO](https://oj.vnoi.info/problem/vmquabeo) | VNOJ | ⭐⭐⭐ | Sliding window |
-| [CSES - Sliding Window Median](https://cses.fi/problemset/task/1076) | CSES | ⭐⭐⭐ | Sliding window nâng cao |
-| [CSES - Sliding Window Cost](https://cses.fi/problemset/task/1077) | CSES | ⭐⭐⭐ | Sliding window cost |
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+|---|---|---|---|
+| [`dq-basic`](https://fptoj.com/problem/dq-basic) | Mô phỏng Deque Cơ Bản | ⭐ | Thao tác push/pop đầu cuối |
+| [`dq-sliding-max`](https://fptoj.com/problem/dq-sliding-max) | Cửa Sổ Trượt Lớn Nhất | ⭐⭐ | Deque đơn điệu giảm dần |
+| [`dq-sliding-min`](https://fptoj.com/problem/dq-sliding-min) | Cửa Sổ Trượt Nhỏ Nhất | ⭐⭐ | Deque đơn điệu tăng dần |
+| [`dq-sliding-sum`](https://fptoj.com/problem/dq-sliding-sum) | Tổng Cửa Sổ Trượt | ⭐⭐ | Cửa sổ trượt cơ bản |
+| [`dq-first-neg`](https://fptoj.com/problem/dq-first-neg) | Số Âm Đầu Tiên Trong Cửa Sổ | ⭐⭐ | Cửa sổ trượt & Deque |
+| [`dq-longest-distinct`](https://fptoj.com/problem/dq-longest-distinct) | Đoạn Con Không Trùng Lặp Dài Nhất | ⭐⭐⭐ | Sliding Window & Map/Set |
+| [`dq-max-min-sum`](https://fptoj.com/problem/dq-max-min-sum) | Tổng Max Min Của Cửa Sổ | ⭐⭐⭐ | Song song hai Deque |
+| [`dq-diff-limit`](https://fptoj.com/problem/dq-diff-limit) | Chênh Lệch Giới Hạn | ⭐⭐⭐ | Sliding Window & hai Deque |
 
 ## Bài viết liên quan
 

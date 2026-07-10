@@ -256,6 +256,22 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 
 ---
 
+## 🟢 1n. Nhóm Deque & Sliding Window (Hàng đợi hai đầu & Cửa sổ trượt)
+*Deque cơ bản, Deque đơn điệu, cửa sổ trượt max/min/sum, chênh lệch giới hạn, đoạn con không lặp.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dq-basic` | [Mô phỏng Deque Cơ Bản](https://fptoj.com/problem/dq-basic) | ⭐ | Thao tác push/pop đầu cuối | [Deque & Sliding Window](deque-sliding-window.md) |
+| `dq-sliding-max` | [Cửa Sổ Trượt Lớn Nhất](https://fptoj.com/problem/dq-sliding-max) | ⭐⭐ | Deque đơn điệu giảm dần | [Deque & Sliding Window](deque-sliding-window.md) |
+| `dq-sliding-min` | [Cửa Sổ Trượt Nhỏ Nhất](https://fptoj.com/problem/dq-sliding-min) | ⭐⭐ | Deque đơn điệu tăng dần | [Deque & Sliding Window](deque-sliding-window.md) |
+| `dq-sliding-sum` | [Tổng Cửa Sổ Trượt](https://fptoj.com/problem/dq-sliding-sum) | ⭐⭐ | Cửa sổ trượt cơ bản | [Deque & Sliding Window](deque-sliding-window.md) |
+| `dq-first-neg` | [Số Âm Đầu Tiên Trong Cửa Sổ](https://fptoj.com/problem/dq-first-neg) | ⭐⭐ | Cửa sổ trượt & Deque | [Deque & Sliding Window](deque-sliding-window.md) |
+| `dq-longest-distinct` | [Đoạn Con Không Trùng Lặp Dài Nhất](https://fptoj.com/problem/dq-longest-distinct) | ⭐⭐⭐ | Sliding Window & Map/Set | [Deque & Sliding Window](deque-sliding-window.md) |
+| `dq-max-min-sum` | [Tổng Max Min Của Cửa Sổ](https://fptoj.com/problem/dq-max-min-sum) | ⭐⭐⭐ | Song song hai Deque | [Deque & Sliding Window](deque-sliding-window.md) |
+| `dq-diff-limit` | [Chênh Lệch Giới Hạn](https://fptoj.com/problem/dq-diff-limit) | ⭐⭐⭐ | Sliding Window & hai Deque | [Deque & Sliding Window](deque-sliding-window.md) |
+
+---
+
 ## 🟢 1o. Nhóm Heap — Hàng đợi ưu tiên (Priority Queue)
 *Heap cơ bản, K phần tử lớn nhất/nhỏ nhất, Median, Dijkstra, Ugly number, Sliding window median, Task scheduler.*
 
@@ -310,3 +326,99 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `dsur-connect` | [Số vùng kết nối](https://fptoj.com/problem/dsur-connect) | ⭐⭐⭐ | DSU + components | [DSU Rollback](dsu-rollback.md) |
 | `dsur-bipartite` | [Đồ thị hai phía động](https://fptoj.com/problem/dsur-bipartite) | ⭐⭐⭐⭐ | DSU parity | [DSU Rollback](dsu-rollback.md) |
 | `dsur-mst` | [Cây khung động](https://fptoj.com/problem/dsur-mst) | ⭐⭐⭐⭐⭐ | Dynamic MST | [DSU Rollback](dsu-rollback.md) |
+
+---
+
+## 🟢 1r. Nhóm Trie (Cây tiền tố)
+*Thêm/tìm kiếm xâu, đếm tiền tố, Bitwise Trie XOR, Autocomplete, Trie kết hợp quy hoạch động.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `trie-insert-search` | [Tập Từ Vựng Cây Tiền Tố](https://fptoj.com/problem/trie-insert-search) | ⭐ | Thao tác Trie cơ bản | [Trie](trie.md) |
+| `trie-prefix-count` | [Đếm Tần Suất Tiền Tố](https://fptoj.com/problem/trie-prefix-count) | ⭐⭐ | Đếm tiền tố xâu | [Trie](trie.md) |
+| `trie-longest-prefix` | [Tiền Tố Chung Dài Nhất](https://fptoj.com/problem/trie-longest-prefix) | ⭐⭐ | So khớp tiền tố dài nhất | [Trie](trie.md) |
+| `trie-xor-max` | [Cặp XOR Lớn Nhất](https://fptoj.com/problem/trie-xor-max) | ⭐⭐⭐ | Bitwise Trie XOR lớn nhất | [Trie](trie.md) |
+| `trie-xor-min` | [Cặp XOR Nhỏ Nhất](https://fptoj.com/problem/trie-xor-min) | ⭐⭐⭐ | Bitwise Trie XOR nhỏ nhất | [Trie](trie.md) |
+| `trie-autocomplete` | [Gợi Ý Từ Khóa Autocomplete](https://fptoj.com/problem/trie-autocomplete) | ⭐⭐⭐ | Trie lưu giá trị tối ưu | [Trie](trie.md) |
+| `trie-xor-limit` | [Cặp XOR Giới Hạn](https://fptoj.com/problem/trie-xor-limit) | ⭐⭐⭐⭐ | Bitwise Trie đếm số cặp | [Trie](trie.md) |
+| `trie-word-break` | [Phân Tách Từ](https://fptoj.com/problem/trie-word-break) | ⭐⭐⭐⭐ | Trie + Quy hoạch động | [Trie](trie.md) |
+
+---
+
+## 🟢 1s. Nhóm Segment Tree (Cây phân đoạn)
+*Truy vấn tổng/min/max/gcd, Lazy Propagation, đoạn con lớn nhất, Persistent Segment Tree.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `st-sum-query` | [Truy Vấn Tổng Đoạn](https://fptoj.com/problem/st-sum-query) | ⭐ | Segment Tree tính tổng cơ bản | [Segment Tree](segment-tree.md) |
+| `st-min-query` | [Truy Vấn Nhỏ Nhất Đoạn](https://fptoj.com/problem/st-min-query) | ⭐⭐ | Segment Tree tìm cực tiểu | [Segment Tree](segment-tree.md) |
+| `st-max-query` | [Truy Vấn Lớn Nhất Đoạn](https://fptoj.com/problem/st-max-query) | ⭐⭐ | Segment Tree tìm cực đại | [Segment Tree](segment-tree.md) |
+| `st-gcd-query` | [Truy Vấn Ước Chung Lớn Nhất](https://fptoj.com/problem/st-gcd-query) | ⭐⭐ | Segment Tree tìm GCD | [Segment Tree](segment-tree.md) |
+| `st-count-min` | [Tìm Min Và Đếm Tần Suất](https://fptoj.com/problem/st-count-min) | ⭐⭐ | Lưu thông tin phức hợp tại mỗi node | [Segment Tree](segment-tree.md) |
+| `st-kth-zero` | [Tìm Số Không Thứ K](https://fptoj.com/problem/st-kth-zero) | ⭐⭐⭐ | Đi trên cây Segment Tree (Binary Search) | [Segment Tree](segment-tree.md) |
+| `st-inverse-count` | [Đếm Số Cặp Nghịch Thế](https://fptoj.com/problem/st-inverse-count) | ⭐⭐⭐ | Ứng dụng Segment Tree đếm xuôi | [Segment Tree](segment-tree.md) |
+| `st-range-add` | [Cập Nhật Đoạn Cộng Giá Trị](https://fptoj.com/problem/st-range-add) | ⭐⭐⭐ | Lazy Propagation cộng đoạn, truy vấn điểm | [Segment Tree](segment-tree.md) |
+| `st-range-sum` | [Cộng Đoạn Và Tính Tổng](https://fptoj.com/problem/st-range-sum) | ⭐⭐⭐ | Lazy Propagation đầy đủ (cộng & tính tổng) | [Segment Tree](segment-tree.md) |
+| `st-range-min` | [Cộng Đoạn Và Tìm Nhỏ Nhất](https://fptoj.com/problem/st-range-min) | ⭐⭐⭐ | Lazy Propagation cộng & tìm cực tiểu | [Segment Tree](segment-tree.md) |
+| `st-range-set` | [Gán Đoạn Và Tính Tổng](https://fptoj.com/problem/st-range-set) | ⭐⭐⭐ | Lazy Propagation gán trị & tính tổng | [Segment Tree](segment-tree.md) |
+| `st-range-set-min` | [Gán Đoạn Và Tìm Nhỏ Nhất](https://fptoj.com/problem/st-range-set-min) | ⭐⭐⭐ | Lazy Propagation gán trị & tìm cực tiểu | [Segment Tree](segment-tree.md) |
+| `st-distinct-cnt` | [Đếm Giá Trị Phân Biệt Đoạn](https://fptoj.com/problem/st-distinct-cnt) | ⭐⭐⭐ | Kết hợp Offline Queries & Segment Tree | [Segment Tree](segment-tree.md) |
+| `st-max-subarray` | [Đoạn Con Tổng Lớn Nhất](https://fptoj.com/problem/st-max-subarray) | ⭐⭐⭐⭐ | Quản lý tiền tố, hậu tố cực đại tại mỗi node | [Segment Tree](segment-tree.md) |
+| `st-persistent-kth` | [Tìm Phần Tử Nhỏ Thứ K](https://fptoj.com/problem/st-persistent-kth) | ⭐⭐⭐⭐ | Cây phân đoạn bền vững (Persistent Segment Tree) | [Segment Tree](segment-tree.md) |
+
+---
+
+## 🟢 1t. Nhóm Segment Tree nâng cao (Cải tiến)
+*Nhân cộng đoạn lồng nhau, Dynamic Segment Tree, gộp cây phân đoạn, Heavy-Light Decomposition (HLD) trên cây, Segment Tree Beats.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `st-range-mul-add` | [Cộng Nhân Đoạn Tính Tổng](https://fptoj.com/problem/st-range-mul-add) | ⭐⭐⭐ | Quản lý đồng thời 2 nhãn lười | [Cải tiến Segment Tree](improved-seg-tree.md) |
+| `st-dynamic` | [Cây Phân Đoạn Động](https://fptoj.com/problem/st-dynamic) | ⭐⭐⭐ | Cấp phát động node | [Cải tiến Segment Tree](improved-seg-tree.md) |
+| `st-tree-path` | [Cập Nhật Đường Đi Trên Cây](https://fptoj.com/problem/st-tree-path) | ⭐⭐⭐⭐ | HLD + Segment Tree | [Cải tiến Segment Tree](improved-seg-tree.md) |
+| `st-sweepline-area` | [Hợp Diện Tích Hình Chữ Nhật](https://fptoj.com/problem/st-sweepline-area) | ⭐⭐⭐⭐ | Sweep Line quét dọc | [Cải tiến Segment Tree](improved-seg-tree.md) |
+| `st-2d-basic` | [Cập Nhật Điểm Tổng Ma Trận Con](https://fptoj.com/problem/st-2d-basic) | ⭐⭐⭐⭐ | Segment Tree 2 chiều | [Cải tiến Segment Tree](improved-seg-tree.md) |
+| `st-persistent-sum` | [Tổng Đoạn Trên Lịch Sử](https://fptoj.com/problem/st-persistent-sum) | ⭐⭐⭐⭐ | Persistent Segment Tree | [Cải tiến Segment Tree](improved-seg-tree.md) |
+| `st-merge` | [Tần Suất Màu Sắc Cây Con](https://fptoj.com/problem/st-merge) | ⭐⭐⭐⭐ | Segment Tree Merging | [Cải tiến Segment Tree](improved-seg-tree.md) |
+| `st-range-chmin` | [Chmin Đoạn Và Tính Tổng](https://fptoj.com/problem/st-range-chmin) | ⭐⭐⭐⭐⭐ | Segment Tree Beats | [Cải tiến Segment Tree](improved-seg-tree.md) |
+
+---
+
+## 🟢 1u. Nhóm Fenwick Tree (BIT)
+*Cập nhật điểm tính tổng, cập nhật đoạn truy vấn điểm, cập nhật đoạn tính tổng đoạn, đếm cặp nghịch thế, BIT 2D, Binary Lifting trên BIT.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `bit-point-add` | [Cộng Điểm Tính Tổng](https://fptoj.com/problem/bit-point-add) | ⭐⭐ | Point Update, Range Query cơ bản | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-range-add` | [Cộng Đoạn Truy Vấn Điểm](https://fptoj.com/problem/bit-range-add) | ⭐⭐ | Range Update, Point Query (Mảng hiệu) | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-range-sum` | [Cộng Đoạn Tính Tổng Đoạn](https://fptoj.com/problem/bit-range-sum) | ⭐⭐⭐ | Cập nhật đoạn, tính tổng đoạn (2 BIT) | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-inv-cnt` | [Đếm Cặp Nghịch Thế](https://fptoj.com/problem/bit-inv-cnt) | ⭐⭐⭐ | Ứng dụng đếm số cặp nghịch thế | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-salary` | [Quản Lý Mức Lương](https://fptoj.com/problem/bit-salary) | ⭐⭐⭐ | BIT + Nén tọa độ | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-distinct` | [Số Màu Sắc Phân Biệt](https://fptoj.com/problem/bit-distinct) | ⭐⭐⭐ | Offline Queries + BIT (Quét phải) | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-prefix-max` | [Giá Cổ Phiếu Lớn Nhất](https://fptoj.com/problem/bit-prefix-max) | ⭐⭐⭐ | Point Update, Prefix Max Query | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-kth-small` | [Tìm Điểm Nhỏ Thứ K](https://fptoj.com/problem/bit-kth-small) | ⭐⭐⭐⭐ | Binary Lifting trên BIT | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-2d-point` | [Đếm Cây Nông Trại 2D](https://fptoj.com/problem/bit-2d-point) | ⭐⭐⭐⭐ | 2D Fenwick Tree cơ bản | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-2d-range` | [Điều Khiển LED 2D](https://fptoj.com/problem/bit-2d-range) | ⭐⭐⭐⭐ | 2D Fenwick Tree range update | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-lex-min` | [Hoán Vị Nhỏ Nhất Từ Điển](https://fptoj.com/problem/bit-lex-min) | ⭐⭐⭐⭐ | Tham lam + BIT đếm dịch chuyển | [Fenwick Tree (BIT)](fenwick-tree.md) |
+| `bit-nested` | [Đếm Đoạn Thẳng Bao Nhau](https://fptoj.com/problem/bit-nested) | ⭐⭐⭐⭐ | Sorting + BIT đếm đoạn bao | [Fenwick Tree (BIT)](fenwick-tree.md) |
+
+---
+
+## 🟢 1v. Nhóm BIT 2D
+*Cập nhật điểm tính tổng, cập nhật đoạn truy vấn điểm, cập nhật đoạn tính tổng đoạn 2D, BIT 2D trên XOR, rời rạc hóa tọa độ + BIT 2D, sweep-line + BIT 2D.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `b2d-point-add` | [Cập Nhật Điểm Tổng Lưới](https://fptoj.com/problem/b2d-point-add) | ⭐⭐ | Point Update, Range Query cơ bản | [BIT 2D](bit-2d.md) |
+| `b2d-range-add` | [Cộng Đoạn Lưới Truy Vấn Điểm](https://fptoj.com/problem/b2d-range-add) | ⭐⭐ | Range Update, Point Query (Mảng hiệu 2D) | [BIT 2D](bit-2d.md) |
+| `b2d-rect-xor` | [Tổng XOR Vùng Hình Chữ Nhật](https://fptoj.com/problem/b2d-rect-xor) | ⭐⭐⭐ | 2D BIT trên phép toán XOR tự nghịch đảo | [BIT 2D](bit-2d.md) |
+| `b2d-invert` | [Lật Bóng Đèn Ma Trận](https://fptoj.com/problem/b2d-invert) | ⭐⭐⭐ | Đảo trạng thái + Đếm tổng vùng | [BIT 2D](bit-2d.md) |
+| `b2d-range-sum` | [Cộng Đoạn Lưới Tính Tổng](https://fptoj.com/problem/b2d-range-sum) | ⭐⭐⭐⭐ | Range Update 2D, Range Query 2D (4 BIT 2D) | [BIT 2D](bit-2d.md) |
+| `b2d-max-subgrid` | [Tổng Lưới Con Lớn Nhất](https://fptoj.com/problem/b2d-max-subgrid) | ⭐⭐⭐⭐ | BIT 2D + Duyệt max lưới con cố định | [BIT 2D](bit-2d.md) |
+| `b2d-coord-comp` | [Ngôi Sao Trên Bầu Trời](https://fptoj.com/problem/b2d-coord-comp) | ⭐⭐⭐⭐ | Rời rạc hóa tọa độ + BIT 2D | [BIT 2D](bit-2d.md) |
+| `b2d-nested-rect` | [Khung Tranh Bao Nhau](https://fptoj.com/problem/b2d-nested-rect) | ⭐⭐⭐⭐ | Sorting (Sweep-line) + BIT 2D | [BIT 2D](bit-2d.md) |
+
+
+
+
+

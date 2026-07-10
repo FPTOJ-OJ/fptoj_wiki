@@ -869,13 +869,23 @@ Cả hai cấu trúc dữ liệu đều có độ phức tạp thời gian cực
 
 ## 13. Bài tập luyện tập
 
-| Tên bài tập | Nền tảng | Độ khó | Hướng dẫn sơ lược |
-|:---|:---:|:---:|:---|
-| [CSES - Dynamic Range Sum Queries](https://cses.fi/problemset/task/1648) | CSES | ⭐⭐ | Cây Segment Tree cơ bản tính tổng |
-| [CSES - Dynamic Range Min Queries](https://cses.fi/problemset/task/1649) | CSES | ⭐⭐ | Thay phép gộp thành lấy giá trị nhỏ nhất |
-| [CSES - Range Update Queries](https://cses.fi/problemset/task/1651) | CSES | ⭐⭐⭐ | Sử dụng Lazy Propagation cập nhật đoạn |
-| [CSES - Distinct Values Queries](https://cses.fi/problemset/task/1734) | CSES | ⭐⭐⭐ | Kết hợp Offline Query và Segment Tree |
-| [SPOJ - MKTHNUM](https://www.spoj.com/problems/MKTHNUM/) | SPOJ | ⭐⭐⭐⭐ | Áp dụng Persistent Segment Tree để tìm số nhỏ thứ K |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`st-sum-query`](https://fptoj.com/problem/st-sum-query) | Truy Vấn Tổng Đoạn | ⭐ | Segment Tree tính tổng cơ bản |
+| [`st-min-query`](https://fptoj.com/problem/st-min-query) | Truy Vấn Nhỏ Nhất Đoạn | ⭐⭐ | Segment Tree tìm cực tiểu |
+| [`st-max-query`](https://fptoj.com/problem/st-max-query) | Truy Vấn Lớn Nhất Đoạn | ⭐⭐ | Segment Tree tìm cực đại |
+| [`st-gcd-query`](https://fptoj.com/problem/st-gcd-query) | Truy Vấn Ước Chung Lớn Nhất | ⭐⭐ | Segment Tree tìm GCD |
+| [`st-count-min`](https://fptoj.com/problem/st-count-min) | Tìm Min Và Đếm Tần Suất | ⭐⭐ | Lưu thông tin phức hợp tại mỗi node |
+| [`st-kth-zero`](https://fptoj.com/problem/st-kth-zero) | Tìm Số Không Thứ K | ⭐⭐⭐ | Đi trên cây Segment Tree (Binary Search) |
+| [`st-inverse-count`](https://fptoj.com/problem/st-inverse-count) | Đếm Số Cặp Nghịch Thế | ⭐⭐⭐ | Ứng dụng Segment Tree đếm xuôi |
+| [`st-range-add`](https://fptoj.com/problem/st-range-add) | Cập Nhật Đoạn Cộng Giá Trị | ⭐⭐⭐ | Lazy Propagation cộng đoạn, truy vấn điểm |
+| [`st-range-sum`](https://fptoj.com/problem/st-range-sum) | Cộng Đoạn Và Tính Tổng | ⭐⭐⭐ | Lazy Propagation đầy đủ (cộng & tính tổng) |
+| [`st-range-min`](https://fptoj.com/problem/st-range-min) | Cộng Đoạn Và Tìm Nhỏ Nhất | ⭐⭐⭐ | Lazy Propagation cộng & tìm cực tiểu |
+| [`st-range-set`](https://fptoj.com/problem/st-range-set) | Gán Đoạn Và Tính Tổng | ⭐⭐⭐ | Lazy Propagation gán trị & tính tổng |
+| [`st-range-set-min`](https://fptoj.com/problem/st-range-set-min) | Gán Đoạn Và Tìm Nhỏ Nhất | ⭐⭐⭐ | Lazy Propagation gán trị & tìm cực tiểu |
+| [`st-distinct-cnt`](https://fptoj.com/problem/st-distinct-cnt) | Đếm Giá Trị Phân Biệt Đoạn | ⭐⭐⭐ | Kết hợp Offline Queries & Segment Tree |
+| [`st-max-subarray`](https://fptoj.com/problem/st-max-subarray) | Đoạn Con Tổng Lớn Nhất | ⭐⭐⭐⭐ | Quản lý tiền tố, hậu tố cực đại tại mỗi node |
+| [`st-persistent-kth`](https://fptoj.com/problem/st-persistent-kth) | Tìm Phần Tử Nhỏ Thứ K | ⭐⭐⭐⭐ | Cây phân đoạn bền vững (Persistent Segment Tree) |
 
 ---
 
