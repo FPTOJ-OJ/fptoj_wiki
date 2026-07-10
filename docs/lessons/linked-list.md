@@ -513,15 +513,18 @@ Thứ tự này rất quan trọng. Nếu giải phóng trước khi nối, toà
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
+Luyện tập trực tiếp trên [FPTOJ](https://fptoj.com) — tất cả bài đều có testcase đầy đủ và chấm tự động.
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
 |---|---|---|---|
-| [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) | LeetCode | Dễ | Đảo ngược linked list |
-| [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) | LeetCode | Trung bình | Gộp 2 linked list |
-| [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) | LeetCode | Trung bình | Phát hiện chu trình (Floyd) |
-| [Remove Nth Node From End](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) | LeetCode | Trung bình | Two pointers |
-| [LRU Cache](https://leetcode.com/problems/lru-cache/) | LeetCode | Khó | Doubly LL + Hash Map |
-| [Josephus Problem I](https://cses.fi/problemset/task/2162) | CSES | Trung bình | Vòng tròn xóa người |
-| [Josephus Problem II](https://cses.fi/problemset/task/2163) | CSES | Khó | Josephus với skip |
+| [`ll-basic`](https://fptoj.com/problem/ll-basic) | Danh sách liên kết cơ bản | ⭐ | Thao tác cơ bản (push, insert, remove, print) |
+| [`ll-search`](https://fptoj.com/problem/ll-search) | Tìm kiếm trong danh sách | ⭐ | Duyệt tuyến tính |
+| [`ll-reverse`](https://fptoj.com/problem/ll-reverse) | Đảo ngược danh sách | ⭐⭐ | Đảo ngược con trỏ |
+| [`ll-merge`](https://fptoj.com/problem/ll-merge) | Gộp hai danh sách | ⭐⭐ | Merge hai danh sách đã sắp xếp |
+| [`ll-middle`](https://fptoj.com/problem/ll-middle) | Phần tử ở giữa | ⭐⭐ | Two pointers (slow/fast) |
+| [`ll-remove-nth`](https://fptoj.com/problem/ll-remove-nth) | Xóa phần tử thứ N từ cuối | ⭐⭐ | Two pointers |
+| [`ll-cycle`](https://fptoj.com/problem/ll-cycle) | Phát hiện chu trình | ⭐⭐⭐ | Floyd's cycle detection |
+| [`ll-josephus`](https://fptoj.com/problem/ll-josephus) | Josephus Problem | ⭐⭐⭐ | Vòng tròn xóa người |
 
 ---
 
@@ -531,4 +534,4 @@ Thứ tự này rất quan trọng. Nếu giải phóng trước khi nối, toà
 - [CP-Algorithms — Linked List](https://cp-algorithms.com/)
 - [YouTube — Linked List (takeuforward)](https://www.youtube.com/watch?v=Nq7ok6w23SA)
 
-**Bài tiếp theo:** [Bài 34: Queue cơ bản](queue.md)
+**Bài tiếp theo:** [Bài 11: Queue cơ bản](queue.md)

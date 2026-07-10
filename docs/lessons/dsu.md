@@ -588,12 +588,18 @@ Trong Python, giới hạn độ sâu đệ quy mặc định là $1000$. Nếu 
 
 ## 11. Bài tập luyện tập nâng cao
 
-| Bài tập | Nền tảng | Độ khó | Hướng dẫn sơ lược |
-|:---|:---:|:---:|:---|
-| [CSES - Road Construction](https://cses.fi/problemset/task/1676) | CSES | ⭐⭐ | DSU cơ bản để theo dõi số lượng nhóm và kích thước lớn nhất. |
-| [CSES - Road Reparation](https://cses.fi/problemset/task/1675) | CSES | ⭐⭐ | Tìm cây khung nhỏ nhất sử dụng Kruskal kết hợp DSU. |
-| [LeetCode - Number of Provinces](https://leetcode.com/problems/number-of-provinces/) | LeetCode | ⭐⭐ | Đếm số thành phần liên thông vô hướng. |
-| [VNOJ - IOIBIN](https://oj.vnoi.info/problem/ioibin) | VNOJ | ⭐ | Bài tập DSU cơ bản nhất để kiểm tra tính liên thông nhanh. |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dsu-basic` | [Gộp tập hợp cơ bản](https://fptoj.com/problem/dsu-basic) | ⭐ | DSU cơ bản | [DSU](dsu.md) |
+| `dsu-size` | [Kích thước tập hợp](https://fptoj.com/problem/dsu-size) | ⭐ | DSU + size | [DSU](dsu.md) |
+| `dsu-cycle` | [Phát hiện chu trình](https://fptoj.com/problem/dsu-cycle) | ⭐ | DSU + cycle | [DSU](dsu.md) |
+| `dsu-components` | [Số thành phần liên thông](https://fptoj.com/problem/dsu-components) | ⭐ | DSU + components | [DSU](dsu.md) |
+| `dsu-same` | [Quan hệ tương đương](https://fptoj.com/problem/dsu-same) | ⭐ | DSU + query | [DSU](dsu.md) |
+| `dsu-query-size` | [Truy vấn kích thước](https://fptoj.com/problem/dsu-query-size) | ⭐⭐ | DSU + size + query | [DSU](dsu.md) |
+| `dsu-kruskal` | [Cây khung nhỏ nhất](https://fptoj.com/problem/dsu-kruskal) | ⭐⭐ | Kruskal MST | [DSU](dsu.md) |
+| `dsu-max-size` | [Nhóm bạn lớn nhất](https://fptoj.com/problem/dsu-max-size) | ⭐⭐ | DSU + max size | [DSU](dsu.md) |
+| `dsu-enemies` | [Bạn và thù](https://fptoj.com/problem/dsu-enemies) | ⭐⭐⭐ | DSU mở rộng | [DSU](dsu.md) |
+| `dsu-offline` | [Xoá cạnh (offline)](https://fptoj.com/problem/dsu-offline) | ⭐⭐⭐ | DSU offline | [DSU](dsu.md) |
 
 ---
 

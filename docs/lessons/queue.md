@@ -475,17 +475,39 @@ q.popleft()
 
 ---
 
-## 7. Bài tập luyện tập phân cấp
+## 7. Bài tập luyện tập
 
-### 7.1. Cấp độ Cơ bản
-*   [CSES - Message Route](https://cses.fi/problemset/task/1667): BFS cơ bản tìm đường đi ngắn nhất và truy vết đường đi.
-*   [CSES - Labyrinth](https://cses.fi/problemset/task/1193): BFS trên lưới ô vuông 2D tìm đường đi ngắn nhất.
-*   [LeetCode - Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/): Duyệt cây nhị phân theo từng tầng.
+Luyện tập trực tiếp trên [FPTOJ](https://fptoj.com) — tất cả bài đều có testcase đầy đủ và chấm tự động.
 
-### 7.2. Cấp độ Trung bình & Nâng cao
-*   [CSES - Monsters](https://cses.fi/problemset/task/1194): Multi-source BFS (tìm khoảng cách từ nhiều điểm xuất phát của quái vật đồng thời).
-*   [CSES - Course Schedule](https://cses.fi/problemset/task/1679): Thuật toán Kahn tìm thứ tự sắp xếp topo sử dụng Queue.
-*   [CSES - Game Routes](https://cses.fi/problemset/task/1681): Sử dụng BFS kết hợp Quy hoạch động đếm số đường đi trên đồ thị có hướng không chu trình (DAG).
+### 7.1. Cấp độ Cơ bản — Thao tác Queue
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+|---|---|---|---|
+| [`q-basic`](https://fptoj.com/problem/q-basic) | Queue cơ bản | ⭐ | Enqueue, dequeue, front, back |
+| [`q-generate`](https://fptoj.com/problem/q-generate) | Sinh số nhị phân | ⭐ | BFS với queue |
+| [`q-sim`](https://fptoj.com/problem/q-sim) | Mô phỏng hàng chờ | ⭐⭐ | Mô phỏng |
+| [`q-interleave`](https://fptoj.com/problem/q-interleave) | Xen kẽ queue | ⭐⭐ | Thao tác queue |
+| [`q-rotate`](https://fptoj.com/problem/q-rotate) | Xoay hàng đợi | ⭐⭐ | Xoay vòng |
+| [`q-reversal`](https://fptoj.com/problem/q-reversal) | Đảo K phần tử đầu | ⭐⭐ | Stack + Queue |
+| [`q-josephus`](https://fptoj.com/problem/q-josephus) | Josephus với Queue | ⭐⭐ | Mô phỏng vòng tròn |
+| [`q-card`](https://fptoj.com/problem/q-card) | Trò chơi đánh bài | ⭐⭐ | Mô phỏng |
+
+### 7.2. Cấp độ Trung bình — Sliding Window & Ứng dụng
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+|---|---|---|---|
+| [`q-sliding-sum`](https://fptoj.com/problem/q-sliding-sum) | Tổng cửa sổ trượt | ⭐⭐ | Sliding window |
+| [`q-first-neg`](https://fptoj.com/problem/q-first-neg) | Số âm đầu tiên trong cửa sổ | ⭐⭐⭐ | Sliding window |
+| [`q-queue-stack`](https://fptoj.com/problem/q-queue-stack) | Queue bằng hai Stack | ⭐⭐⭐ | Cài đặt amortized O(1) |
+| [`q-topo`](https://fptoj.com/problem/q-topo) | Thứ tự topo | ⭐⭐⭐ | BFS + in-degree |
+
+### 7.3. Cấp độ Nâng cao
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+|---|---|---|---|
+| [`q-sliding-max`](https://fptoj.com/problem/q-sliding-max) | Cửa sổ trượt lớn nhất | ⭐⭐⭐⭐ | Deque đơn điệu |
+| [`q-first-unique`](https://fptoj.com/problem/q-first-unique) | Ký tự đầu tiên không lặp | ⭐⭐⭐⭐ | Queue + đếm tần số |
+| [`q-circular-deque`](https://fptoj.com/problem/q-circular-deque) | Hàng đợi hai đầu vòng | ⭐⭐⭐⭐ | Circular deque |
 
 ---
 

@@ -214,3 +214,99 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `disc-pair` | [Cặp số bằng nhau](https://fptoj.com/problem/disc-pair) | ⭐ | Nén + tổ hợp | [Rời rạc hoá](discretization.md) |
 | `disc-range-freq` | [Truy vấn tần số trong đoạn](https://fptoj.com/problem/disc-range-freq) | ⭐⭐ | Nén + prefix | [Rời rạc hoá](discretization.md) |
 | `disc-sweep` | [Đoạn phủ dày nhất](https://fptoj.com/problem/disc-sweep) | ⭐⭐ | Nén + diff array | [Rời rạc hoá](discretization.md) |
+
+---
+
+## 🟢 1l. Nhóm Linked List (Danh sách liên kết)
+*Thao tác cơ bản, đảo ngược, phát hiện chu trình, gộp danh sách, Two pointers.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ll-basic` | [Danh sách liên kết cơ bản](https://fptoj.com/problem/ll-basic) | ⭐ | Thao tác cơ bản | [Linked List](linked-list.md) |
+| `ll-search` | [Tìm kiếm trong danh sách](https://fptoj.com/problem/ll-search) | ⭐ | Duyệt tuyến tính | [Linked List](linked-list.md) |
+| `ll-reverse` | [Đảo ngược danh sách](https://fptoj.com/problem/ll-reverse) | ⭐⭐ | Đảo ngược con trỏ | [Linked List](linked-list.md) |
+| `ll-merge` | [Gộp hai danh sách](https://fptoj.com/problem/ll-merge) | ⭐⭐ | Merge có thứ tự | [Linked List](linked-list.md) |
+| `ll-middle` | [Phần tử ở giữa](https://fptoj.com/problem/ll-middle) | ⭐⭐ | Two pointers slow/fast | [Linked List](linked-list.md) |
+| `ll-remove-nth` | [Xóa phần tử thứ N từ cuối](https://fptoj.com/problem/ll-remove-nth) | ⭐⭐ | Two pointers | [Linked List](linked-list.md) |
+| `ll-cycle` | [Phát hiện chu trình](https://fptoj.com/problem/ll-cycle) | ⭐⭐⭐ | Floyd's cycle detection | [Linked List](linked-list.md) |
+| `ll-josephus` | [Josephus Problem](https://fptoj.com/problem/ll-josephus) | ⭐⭐⭐ | Linked list vòng tròn | [Linked List](linked-list.md) |
+
+---
+
+## 🟢 1m. Nhóm Queue — Hàng đợi (Queue)
+*Queue cơ bản, mô phỏng, sliding window, deque đơn điệu, BFS ứng dụng.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `q-basic` | [Queue cơ bản](https://fptoj.com/problem/q-basic) | ⭐ | Enqueue, dequeue, front, back | [Queue](queue.md) |
+| `q-generate` | [Sinh số nhị phân](https://fptoj.com/problem/q-generate) | ⭐ | BFS với queue | [Queue](queue.md) |
+| `q-sim` | [Mô phỏng hàng chờ](https://fptoj.com/problem/q-sim) | ⭐⭐ | Mô phỏng | [Queue](queue.md) |
+| `q-interleave` | [Xen kẽ queue](https://fptoj.com/problem/q-interleave) | ⭐⭐ | Thao tác queue | [Queue](queue.md) |
+| `q-rotate` | [Xoay hàng đợi](https://fptoj.com/problem/q-rotate) | ⭐⭐ | Xoay vòng | [Queue](queue.md) |
+| `q-reversal` | [Đảo K phần tử đầu](https://fptoj.com/problem/q-reversal) | ⭐⭐ | Stack + Queue | [Queue](queue.md) |
+| `q-josephus` | [Josephus với Queue](https://fptoj.com/problem/q-josephus) | ⭐⭐ | Mô phỏng vòng tròn | [Queue](queue.md) |
+| `q-card` | [Trò chơi đánh bài](https://fptoj.com/problem/q-card) | ⭐⭐ | Mô phỏng | [Queue](queue.md) |
+| `q-sliding-sum` | [Tổng cửa sổ trượt](https://fptoj.com/problem/q-sliding-sum) | ⭐⭐ | Sliding window | [Queue](queue.md) |
+| `q-first-neg` | [Số âm đầu tiên trong cửa sổ](https://fptoj.com/problem/q-first-neg) | ⭐⭐⭐ | Sliding window | [Queue](queue.md) |
+| `q-queue-stack` | [Queue bằng hai Stack](https://fptoj.com/problem/q-queue-stack) | ⭐⭐⭐ | Amortized O(1) | [Queue](queue.md) |
+| `q-topo` | [Thứ tự topo](https://fptoj.com/problem/q-topo) | ⭐⭐⭐ | BFS + in-degree | [Queue](queue.md) |
+| `q-sliding-max` | [Cửa sổ trượt lớn nhất](https://fptoj.com/problem/q-sliding-max) | ⭐⭐⭐⭐ | Deque đơn điệu | [Queue](queue.md) |
+| `q-first-unique` | [Ký tự đầu tiên không lặp](https://fptoj.com/problem/q-first-unique) | ⭐⭐⭐⭐ | Queue + đếm tần số | [Queue](queue.md) |
+| `q-circular-deque` | [Hàng đợi hai đầu vòng](https://fptoj.com/problem/q-circular-deque) | ⭐⭐⭐⭐ | Circular deque | [Queue](queue.md) |
+
+---
+
+## 🟢 1o. Nhóm Heap — Hàng đợi ưu tiên (Priority Queue)
+*Heap cơ bản, K phần tử lớn nhất/nhỏ nhất, Median, Dijkstra, Ugly number, Sliding window median, Task scheduler.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `heap-basic` | [Heap cơ bản](https://fptoj.com/problem/heap-basic) | ⭐ | Heap cơ bản | [Heap](heap.md) |
+| `heap-kth-min` | [Phần tử nhỏ thứ K](https://fptoj.com/problem/heap-kth-min) | ⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-top-k` | [K phần tử lớn nhất](https://fptoj.com/problem/heap-top-k) | ⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-median` | [Median trong luồng](https://fptoj.com/problem/heap-median) | ⭐⭐⭐ | 2 heaps | [Heap](heap.md) |
+| `heap-merge-sorted` | [Gộp K dãy đã sắp xếp](https://fptoj.com/problem/heap-merge-sorted) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-k-closest` | [K điểm gần gốc nhất](https://fptoj.com/problem/heap-k-closest) | ⭐⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-k-sum` | [Tổng lớn nhất K cặp](https://fptoj.com/problem/heap-k-sum) | ⭐⭐⭐ | Min-heap + sort | [Heap](heap.md) |
+| `heap-nearly-sorted` | [Sắp xếp mảng gần đúng](https://fptoj.com/problem/heap-nearly-sorted) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-reorganize` | [Sắp xếp lại xâu](https://fptoj.com/problem/heap-reorganize) | ⭐⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-task-scheduler` | [Lập lịch tác vụ](https://fptoj.com/problem/heap-task-scheduler) | ⭐⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-ugly-number` | [Số ugly thứ N](https://fptoj.com/problem/heap-ugly-number) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-dijkstra` | [Đường đi ngắn nhất](https://fptoj.com/problem/heap-dijkstra) | ⭐⭐⭐ | Dijkstra | [Heap](heap.md) |
+| `heap-sliding-median` | [Median cửa sổ trượt](https://fptoj.com/problem/heap-sliding-median) | ⭐⭐⭐ | 2 multisets | [Heap](heap.md) |
+| `heap-min-rooms` | [Tối thiểu phòng họp](https://fptoj.com/problem/heap-min-rooms) | ⭐⭐⭐ | Min-heap + sort | [Heap](heap.md) |
+| `heap-kth-stream` | [Phần tử lớn thứ K trong luồng](https://fptoj.com/problem/heap-kth-stream) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
+
+---
+
+## 🟢 1p. Nhóm DSU (Disjoint Set Union)
+*Gộp tập hợp, kiểm tra cùng tập, Kruskal, DSU mở rộng, offline.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dsu-basic` | [Gộp tập hợp cơ bản](https://fptoj.com/problem/dsu-basic) | ⭐ | DSU cơ bản | [DSU](dsu.md) |
+| `dsu-size` | [Kích thước tập hợp](https://fptoj.com/problem/dsu-size) | ⭐ | DSU + size | [DSU](dsu.md) |
+| `dsu-cycle` | [Phát hiện chu trình](https://fptoj.com/problem/dsu-cycle) | ⭐ | DSU + cycle | [DSU](dsu.md) |
+| `dsu-components` | [Số thành phần liên thông](https://fptoj.com/problem/dsu-components) | ⭐ | DSU + components | [DSU](dsu.md) |
+| `dsu-same` | [Quan hệ tương đương](https://fptoj.com/problem/dsu-same) | ⭐ | DSU + query | [DSU](dsu.md) |
+| `dsu-query-size` | [Truy vấn kích thước](https://fptoj.com/problem/dsu-query-size) | ⭐⭐ | DSU + size + query | [DSU](dsu.md) |
+| `dsu-kruskal` | [Cây khung nhỏ nhất](https://fptoj.com/problem/dsu-kruskal) | ⭐⭐ | Kruskal MST | [DSU](dsu.md) |
+| `dsu-max-size` | [Nhóm bạn lớn nhất](https://fptoj.com/problem/dsu-max-size) | ⭐⭐ | DSU + max size | [DSU](dsu.md) |
+| `dsu-enemies` | [Bạn và thù](https://fptoj.com/problem/dsu-enemies) | ⭐⭐⭐ | DSU mở rộng | [DSU](dsu.md) |
+| `dsu-offline` | [Xoá cạnh (offline)](https://fptoj.com/problem/dsu-offline) | ⭐⭐⭐ | DSU offline | [DSU](dsu.md) |
+
+---
+
+## 🟢 1q. Nhóm DSU Rollback (Gộp tập hợp có hoàn tác)
+*DSU Rollback, D&C trên thời gian, đồ thị động, persistent DSU.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dsur-basic` | [Rollback cơ bản](https://fptoj.com/problem/dsur-basic) | ⭐⭐ | DSU Rollback | [DSU Rollback](dsu-rollback.md) |
+| `dsur-sum` | [Tổng nhóm có rollback](https://fptoj.com/problem/dsur-sum) | ⭐⭐ | DSU + sum | [DSU Rollback](dsu-rollback.md) |
+| `dsur-timeline` | [Dòng thời gian](https://fptoj.com/problem/dsur-timeline) | ⭐⭐⭐ | D&C + DSU Rollback | [DSU Rollback](dsu-rollback.md) |
+| `dsur-online` | [Đồ thị động](https://fptoj.com/problem/dsur-online) | ⭐⭐⭐ | Segment Tree + DSU | [DSU Rollback](dsu-rollback.md) |
+| `dsur-persistence` | [Lưu trữ trạng thái](https://fptoj.com/problem/dsur-persistence) | ⭐⭐⭐ | Persistent DSU | [DSU Rollback](dsu-rollback.md) |
+| `dsur-connect` | [Số vùng kết nối](https://fptoj.com/problem/dsur-connect) | ⭐⭐⭐ | DSU + components | [DSU Rollback](dsu-rollback.md) |
+| `dsur-bipartite` | [Đồ thị hai phía động](https://fptoj.com/problem/dsur-bipartite) | ⭐⭐⭐⭐ | DSU parity | [DSU Rollback](dsu-rollback.md) |
+| `dsur-mst` | [Cây khung động](https://fptoj.com/problem/dsur-mst) | ⭐⭐⭐⭐⭐ | Dynamic MST | [DSU Rollback](dsu-rollback.md) |

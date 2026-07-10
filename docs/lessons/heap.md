@@ -496,12 +496,23 @@ Cho mảng gồm $N$ phần tử, ta cần tìm $K$ phần tử có giá trị l
 
 ## 9. Bài tập luyện tập nâng cao
 
-| Tên bài tập | Nền tảng | Độ khó | Hướng dẫn sơ lược |
-|:---|:---:|:---:|:---|
-| [LeetCode - Kth Largest Element](https://leetcode.com/problems/kth-largest-element-in-an-array/) | LeetCode | ⭐⭐ | Sử dụng Min-Heap kích thước $K$ để tìm phần tử lớn thứ $K$. |
-| [LeetCode - Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | LeetCode | ⭐⭐ | Kết hợp Hash Map đếm tần suất và Min-Heap kích thước $K$. |
-| [LeetCode - Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) | LeetCode | ⭐⭐⭐ | Sử dụng kết hợp song song $2$ Heap: Max-Heap lưu nửa nhỏ, Min-Heap lưu nửa lớn. |
-| [CSES - Concert Tickets](https://cses.fi/problemset/task/1091) | CSES | ⭐⭐ | Quản lý giá vé bằng cấu trúc Heap hoặc Multi-set để tìm giá vé lớn nhất $\leq x$. |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `heap-basic` | [Heap cơ bản](https://fptoj.com/problem/heap-basic) | ⭐ | Heap cơ bản | [Heap](heap.md) |
+| `heap-kth-min` | [Phần tử nhỏ thứ K](https://fptoj.com/problem/heap-kth-min) | ⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-top-k` | [K phần tử lớn nhất](https://fptoj.com/problem/heap-top-k) | ⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-median` | [Median trong luồng](https://fptoj.com/problem/heap-median) | ⭐⭐⭐ | 2 heaps | [Heap](heap.md) |
+| `heap-merge-sorted` | [Gộp K dãy đã sắp xếp](https://fptoj.com/problem/heap-merge-sorted) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-k-closest` | [K điểm gần gốc nhất](https://fptoj.com/problem/heap-k-closest) | ⭐⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-k-sum` | [Tổng lớn nhất K cặp](https://fptoj.com/problem/heap-k-sum) | ⭐⭐⭐ | Min-heap + sort | [Heap](heap.md) |
+| `heap-nearly-sorted` | [Sắp xếp mảng gần đúng](https://fptoj.com/problem/heap-nearly-sorted) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-reorganize` | [Sắp xếp lại xâu](https://fptoj.com/problem/heap-reorganize) | ⭐⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-task-scheduler` | [Lập lịch tác vụ](https://fptoj.com/problem/heap-task-scheduler) | ⭐⭐⭐ | Max-heap | [Heap](heap.md) |
+| `heap-ugly-number` | [Số ugly thứ N](https://fptoj.com/problem/heap-ugly-number) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
+| `heap-dijkstra` | [Đường đi ngắn nhất](https://fptoj.com/problem/heap-dijkstra) | ⭐⭐⭐ | Dijkstra | [Heap](heap.md) |
+| `heap-sliding-median` | [Median cửa sổ trượt](https://fptoj.com/problem/heap-sliding-median) | ⭐⭐⭐ | 2 multisets | [Heap](heap.md) |
+| `heap-min-rooms` | [Tối thiểu phòng họp](https://fptoj.com/problem/heap-min-rooms) | ⭐⭐⭐ | Min-heap + sort | [Heap](heap.md) |
+| `heap-kth-stream` | [Phần tử lớn thứ K trong luồng](https://fptoj.com/problem/heap-kth-stream) | ⭐⭐⭐ | Min-heap | [Heap](heap.md) |
 
 ---
 
