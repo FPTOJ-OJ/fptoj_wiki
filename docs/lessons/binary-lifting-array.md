@@ -186,3 +186,27 @@ Nhảy $2^i$ bước từ $v$ = nhảy $2^{i-1}$ bước từ $v$ → đến $u 
                 v = up[v][j]
         print(v)
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`bla-k-step`](https://fptoj.com/problem/bla-k-step) | Nhảy K Bước | ⭐ | Mô phỏng nhảy trên đồ thị hàm số bằng Binary Lifting |
+| [`bla-next-greater`](https://fptoj.com/problem/bla-next-greater) | Nhảy Phải Số Lớn Hơn | ⭐⭐ | Tìm số lớn hơn tiếp theo kết hợp nhảy nhị phân |
+| [`bla-cycle-det`](https://fptoj.com/problem/bla-cycle-det) | Tìm Chu Kỳ | ⭐⭐ | Tìm điểm vào chu kỳ, độ dài và khoảng cách trên đồ thị hàm số |
+| [`bla-min-edge`](https://fptoj.com/problem/bla-min-edge) | Giá Trị Cực Tiểu Khi Nhảy | ⭐⭐⭐ | Truy vấn giá trị cực tiểu trên đường đi của Binary Lifting |
+| [`bla-jump-limit`](https://fptoj.com/problem/bla-jump-limit) | Nhảy Đến Khi Vượt Ngưỡng | ⭐⭐⭐ | Tìm kiếm nhị phân kết hợp tổng lũy lũy thừa 2 trên đường đi |
+| [`bla-reach-steps`](https://fptoj.com/problem/bla-reach-steps) | Số Bước Để Đến V | ⭐⭐⭐ | Tính số bước tối thiểu giữa hai đỉnh hoặc kiểm tra vô nghiệm |
+| [`bla-sliding-sum`](https://fptoj.com/problem/bla-sliding-sum) | Tổng Trượt Vượt Ngưỡng | ⭐⭐⭐ | Tìm vị trí trượt xa nhất có tổng $\ge S$ |
+| [`bla-segment-cover`](https://fptoj.com/problem/bla-segment-cover) | Phủ Đoạn | ⭐⭐⭐⭐ | Chọn ít đoạn thẳng nhất phủ kín khoảng $[A, B]$ |
+| [`bla-partition`](https://fptoj.com/problem/bla-partition) | Phân Hoạch Đoạn Con | ⭐⭐⭐⭐ | Phân chia mảng thành các đoạn có tổng $\le M$ (RMQ + Binary Lifting) |
+| [`bla-kth-distinct`](https://fptoj.com/problem/bla-kth-distinct) | Số Thứ K Khác Biệt | ⭐⭐⭐⭐ | Jump trên mảng với số lượng phần tử phân biệt bằng $D$ |
+
+---
+
+**Bài liên quan:**
+*   [Segment Tree](segment-tree.md)
+*   [Fenwick Tree (BIT)](fenwick-tree.md)
+*   [Lowest Common Ancestor (LCA) trên cây](lca-binary-lifting.md)

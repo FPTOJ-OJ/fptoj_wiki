@@ -364,7 +364,6 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `st-range-set-min` | [Gán Đoạn Và Tìm Nhỏ Nhất](https://fptoj.com/problem/st-range-set-min) | ⭐⭐⭐ | Lazy Propagation gán trị & tìm cực tiểu | [Segment Tree](segment-tree.md) |
 | `st-distinct-cnt` | [Đếm Giá Trị Phân Biệt Đoạn](https://fptoj.com/problem/st-distinct-cnt) | ⭐⭐⭐ | Kết hợp Offline Queries & Segment Tree | [Segment Tree](segment-tree.md) |
 | `st-max-subarray` | [Đoạn Con Tổng Lớn Nhất](https://fptoj.com/problem/st-max-subarray) | ⭐⭐⭐⭐ | Quản lý tiền tố, hậu tố cực đại tại mỗi node | [Segment Tree](segment-tree.md) |
-| `st-persistent-kth` | [Tìm Phần Tử Nhỏ Thứ K](https://fptoj.com/problem/st-persistent-kth) | ⭐⭐⭐⭐ | Cây phân đoạn bền vững (Persistent Segment Tree) | [Segment Tree](segment-tree.md) |
 
 ---
 
@@ -378,7 +377,6 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `st-tree-path` | [Cập Nhật Đường Đi Trên Cây](https://fptoj.com/problem/st-tree-path) | ⭐⭐⭐⭐ | HLD + Segment Tree | [Cải tiến Segment Tree](improved-seg-tree.md) |
 | `st-sweepline-area` | [Hợp Diện Tích Hình Chữ Nhật](https://fptoj.com/problem/st-sweepline-area) | ⭐⭐⭐⭐ | Sweep Line quét dọc | [Cải tiến Segment Tree](improved-seg-tree.md) |
 | `st-2d-basic` | [Cập Nhật Điểm Tổng Ma Trận Con](https://fptoj.com/problem/st-2d-basic) | ⭐⭐⭐⭐ | Segment Tree 2 chiều | [Cải tiến Segment Tree](improved-seg-tree.md) |
-| `st-persistent-sum` | [Tổng Đoạn Trên Lịch Sử](https://fptoj.com/problem/st-persistent-sum) | ⭐⭐⭐⭐ | Persistent Segment Tree | [Cải tiến Segment Tree](improved-seg-tree.md) |
 | `st-merge` | [Tần Suất Màu Sắc Cây Con](https://fptoj.com/problem/st-merge) | ⭐⭐⭐⭐ | Segment Tree Merging | [Cải tiến Segment Tree](improved-seg-tree.md) |
 | `st-range-chmin` | [Chmin Đoạn Và Tính Tổng](https://fptoj.com/problem/st-range-chmin) | ⭐⭐⭐⭐⭐ | Segment Tree Beats | [Cải tiến Segment Tree](improved-seg-tree.md) |
 
@@ -417,6 +415,85 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `b2d-max-subgrid` | [Tổng Lưới Con Lớn Nhất](https://fptoj.com/problem/b2d-max-subgrid) | ⭐⭐⭐⭐ | BIT 2D + Duyệt max lưới con cố định | [BIT 2D](bit-2d.md) |
 | `b2d-coord-comp` | [Ngôi Sao Trên Bầu Trời](https://fptoj.com/problem/b2d-coord-comp) | ⭐⭐⭐⭐ | Rời rạc hóa tọa độ + BIT 2D | [BIT 2D](bit-2d.md) |
 | `b2d-nested-rect` | [Khung Tranh Bao Nhau](https://fptoj.com/problem/b2d-nested-rect) | ⭐⭐⭐⭐ | Sorting (Sweep-line) + BIT 2D | [BIT 2D](bit-2d.md) |
+
+---
+
+## 🟢 1w. Nhóm Persistent Segment Tree (Cây phân đoạn bền vững)
+*Lưu trữ lịch sử các phiên bản để truy vấn trên quá khứ, giải quyết các bài toán online phức tạp.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `st-persistent-sum` | [Tổng Đoạn Trên Lịch Sử](https://fptoj.com/problem/st-persistent-sum) | ⭐⭐⭐⭐ | Persistent Segment Tree cơ bản, cập nhật điểm, rollback | [Persistent Segment Tree](persistent-segment-tree.md) |
+| `pst-history-min` | [Tìm Cực Tiểu Trên Lịch Sử](https://fptoj.com/problem/pst-history-min) | ⭐⭐⭐⭐ | Persistent Segment Tree tìm cực tiểu, rollback | [Persistent Segment Tree](persistent-segment-tree.md) |
+| `st-persistent-kth` | [Tìm Phần Tử Nhỏ Thứ K](https://fptoj.com/problem/st-persistent-kth) | ⭐⭐⭐⭐ | PST kết hợp tần suất tích lũy trên dải giá trị | [Persistent Segment Tree](persistent-segment-tree.md) |
+| `pst-online-distinct` | [Đếm Số Khác Biệt Online](https://fptoj.com/problem/pst-online-distinct) | ⭐⭐⭐⭐ | Truy vấn số phần tử phân biệt trực tuyến dùng PST | [Persistent Segment Tree](persistent-segment-tree.md) |
+| `pst-mex-query` | [Tìm MEX Trên Khoảng Online](https://fptoj.com/problem/pst-mex-query) | ⭐⭐⭐⭐⭐ | Tìm MEX trực tuyến, tìm kiếm nhị phân trên cây PST | [Persistent Segment Tree](persistent-segment-tree.md) |
+
+---
+
+## 🟢 1x. Nhóm Skip List (Danh sách nhảy vọt)
+*Cấu trúc dữ liệu xác suất hỗ trợ chèn, xóa và tìm kiếm trong thời gian logarit.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `sl-insert-search` | [Tìm Kiếm Và Thêm Phần Tử](https://fptoj.com/problem/sl-insert-search) | ⭐ | Thao tác chèn và tìm kiếm trên Skip List / Set | [Skip List](skip-list.md) |
+| `sl-min-max` | [Tìm Min-Max Động](https://fptoj.com/problem/sl-min-max) | ⭐ | Duy trì Min và Max trên tập động dùng Skip List / Multiset | [Skip List](skip-list.md) |
+| `sl-order-statistics` | [Thứ Tự Phần Tử](https://fptoj.com/problem/sl-order-statistics) | ⭐⭐⭐ | Indexed Skip List / Cấu trúc dữ liệu có quản lý kích thước con | [Skip List](skip-list.md) |
+| `sl-pred-succ` | [Tìm Số Kế Cận](https://fptoj.com/problem/sl-pred-succ) | ⭐⭐⭐ | Tìm kiếm láng giềng kế cận (Predecessor & Successor) | [Skip List](skip-list.md) |
+| `sl-range-sum` | [Tổng Trong Khoảng](https://fptoj.com/problem/sl-range-sum) | ⭐⭐⭐ | Augmented Skip List tính tổng đoạn / BIT rời rạc hóa | [Skip List](skip-list.md) |
+| `sl-sliding-median` | [Trung Vị Trượt](https://fptoj.com/problem/sl-sliding-median) | ⭐⭐⭐⭐ | Duy trì cửa sổ trượt và tìm trung vị trong mỗi vị trí | [Skip List](skip-list.md) |
+
+---
+
+## 🟢 1y. Nhóm Nhảy nhị phân trên mảng (Binary Lifting)
+*Nhảy cóc bậc $2^k$ trên đồ thị hàm số và mảng tĩnh để tăng tốc mô phỏng và tìm kiếm.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `bla-k-step` | [Nhảy K Bước](https://fptoj.com/problem/bla-k-step) | ⭐ | Mô phỏng nhảy trên đồ thị hàm số bằng Binary Lifting | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-next-greater` | [Nhảy Phải Số Lớn Hơn](https://fptoj.com/problem/bla-next-greater) | ⭐⭐ | Tìm số lớn hơn tiếp theo kết hợp nhảy nhị phân | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-cycle-det` | [Tìm Chu Kỳ](https://fptoj.com/problem/bla-cycle-det) | ⭐⭐ | Tìm điểm vào chu kỳ, độ dài và khoảng cách trên đồ thị hàm số | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-min-edge` | [Giá Trị Cực Tiểu Khi Nhảy](https://fptoj.com/problem/bla-min-edge) | ⭐⭐⭐ | Truy vấn giá trị cực tiểu trên đường đi của Binary Lifting | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-jump-limit` | [Nhảy Đến Khi Vượt Ngưỡng](https://fptoj.com/problem/bla-jump-limit) | ⭐⭐⭐ | Tìm kiếm nhị phân kết hợp tổng lũy lũy thừa 2 trên đường đi | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-reach-steps` | [Số Bước Để Đến V](https://fptoj.com/problem/bla-reach-steps) | ⭐⭐⭐ | Tính số bước tối thiểu giữa hai đỉnh hoặc kiểm tra vô nghiệm | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-sliding-sum` | [Tổng Trượt Vượt Ngưỡng](https://fptoj.com/problem/bla-sliding-sum) | ⭐⭐⭐ | Tìm vị trí trượt xa nhất có tổng $\ge S$ | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-segment-cover` | [Phủ Đoạn](https://fptoj.com/problem/bla-segment-cover) | ⭐⭐⭐⭐ | Chọn ít đoạn thẳng nhất phủ kín khoảng $[A, B]$ | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-partition` | [Phân Hoạch Đoạn Con](https://fptoj.com/problem/bla-partition) | ⭐⭐⭐⭐ | Phân chia mảng thành các đoạn có tổng $\le M$ (RMQ + Binary Lifting) | [Binary Lifting trên mảng](binary-lifting-array.md) |
+| `bla-kth-distinct` | [Số Thứ K Khác Biệt](https://fptoj.com/problem/bla-kth-distinct) | ⭐⭐⭐⭐ | Jump trên mảng với số lượng phần tử phân biệt bằng $D$ | [Binary Lifting trên mảng](binary-lifting-array.md) |
+
+---
+
+## 🟢 1z. Nhóm Wavelet Tree (Cây Wavelet)
+*Truy vấn thứ tự phân vị và đếm số phần tử trong khoảng giá trị trên đoạn con hiệu quả.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `wt-kth-smallest` | [K-th Smallest Trên Đoạn](https://fptoj.com/problem/wt-kth-smallest) | ⭐ | Tìm số nhỏ thứ $K$ trong đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-count-less` | [Đếm Số Nhỏ Hơn Hoặc Bằng X](https://fptoj.com/problem/wt-count-less) | ⭐ | Đếm số lượng phần tử $\le X$ trong đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-range-freq` | [Tần Suất Xuất Hiện Trong Khoảng](https://fptoj.com/problem/wt-range-freq) | ⭐⭐ | Đếm số lần xuất hiện của phần tử $X$ trong đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-kth-largest` | [K-th Largest Trên Đoạn](https://fptoj.com/problem/wt-kth-largest) | ⭐⭐ | Tìm số lớn thứ $K$ trong đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-range-count-in` | [Đếm Số Trong Đoạn Giá Trị](https://fptoj.com/problem/wt-range-count-in) | ⭐⭐⭐ | Đếm số phần tử có giá trị nằm trong đoạn $[X, Y]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-median-range` | [Số Trung Vị Trên Đoạn](https://fptoj.com/problem/wt-median-range) | ⭐⭐⭐ | Tìm số trung vị trong đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-next-greater-val` | [Giá Trị Kế Tiếp Lớn Hơn](https://fptoj.com/problem/wt-next-greater-val) | ⭐⭐⭐ | Tìm giá trị nhỏ nhất lớn hơn $X$ trong đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-prev-smaller-val` | [Giá Trị Kế Tiếp Nhỏ Hơn](https://fptoj.com/problem/wt-prev-smaller-val) | ⭐⭐⭐ | Tìm giá trị lớn nhất nhỏ hơn $X$ trong đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-percentile` | [Tìm Phân Vị Trên Đoạn](https://fptoj.com/problem/wt-percentile) | ⭐⭐⭐⭐ | Tìm phân vị thứ $P$ trên đoạn $[L, R]$ | [Static Wavelet Tree](wavelet-tree.md) |
+| `wt-rect-count` | [Đếm Điểm Trong Hình Chữ Nhật](https://fptoj.com/problem/wt-rect-count) | ⭐⭐⭐⭐ | 2D Range Counting: Đếm số điểm trong hình chữ nhật $[x_1, x_2] \times [y_1, y_2]$ | [Static Wavelet Tree](wavelet-tree.md) |
+
+---
+
+## 🟢 1z-2. Nhóm Interval Tree (Cây Khoảng)
+*Truy vấn và liệt kê các đoạn thẳng giao nhau, bao phủ hoàn toàn hoặc tìm kiếm hình học đoạn thẳng.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `it-any-intersect` | [Tồn Tại Đoạn Giao Nhau](https://fptoj.com/problem/it-any-intersect) | ⭐ | Kiểm tra tồn tại giao điểm bằng Interval Tree | [Interval Tree](interval-tree.md) |
+| `it-find-all` | [Liệt Kê Các Đoạn Giao Nhau](https://fptoj.com/problem/it-find-all) | ⭐⭐ | Trả về danh sách và checksum các đoạn thẳng giao $[A, B]$ | [Interval Tree](interval-tree.md) |
+| `it-count-intersect` | [Đếm Số Lượng Đoạn Giao Nhau](https://fptoj.com/problem/it-count-intersect) | ⭐⭐ | Đếm số lượng đoạn giao bằng Binary Search | [Interval Tree](interval-tree.md) |
+| `it-point-query` | [Truy Vấn Điểm Thuộc Đoạn](https://fptoj.com/problem/it-point-query) | ⭐⭐ | Tìm các đoạn chứa điểm $X$ bằng Interval Tree | [Interval Tree](interval-tree.md) |
+| `it-max-right-intersect` | [Đoạn Giao Có Mút Phải Lớn Nhất](https://fptoj.com/problem/it-max-right-intersect) | ⭐⭐⭐ | RMQ tiền tố kết hợp Binary Search | [Interval Tree](interval-tree.md) |
+| `it-min-length-intersect` | [Độ Dài Giao Nhỏ Nhất](https://fptoj.com/problem/it-min-length-intersect) | ⭐⭐⭐⭐ | Xử lý offline kết hợp Segment Tree RMQ | [Interval Tree](interval-tree.md) |
+| `it-largest-overlap` | [Phần Giao Nhau Lớn Nhất](https://fptoj.com/problem/it-largest-overlap) | ⭐⭐⭐⭐ | Bài toán hình học quét tuyến tính tối ưu | [Interval Tree](interval-tree.md) |
+| `it-superset-query` | [Truy Vấn Bao Phủ Hoàn Toàn](https://fptoj.com/problem/it-superset-query) | ⭐⭐⭐⭐⭐ | Phép bao phủ 2D: Offline Sweep-line + Segment Tree | [Interval Tree](interval-tree.md) |
 
 
 

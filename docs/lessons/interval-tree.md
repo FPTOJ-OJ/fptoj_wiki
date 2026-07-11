@@ -246,3 +246,24 @@ $k$ = số đoạn giao được tìm thấy.
         for l, r in result:
             print(l, r)
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`it-any-intersect`](https://fptoj.com/problem/it-any-intersect) | Tồn Tại Đoạn Giao Nhau | ⭐ | Kiểm tra tồn tại giao điểm bằng Interval Tree |
+| [`it-find-all`](https://fptoj.com/problem/it-find-all) | Liệt Kê Các Đoạn Giao Nhau | ⭐⭐ | Trả về danh sách và checksum các đoạn thẳng giao $[A, B]$ |
+| [`it-count-intersect`](https://fptoj.com/problem/it-count-intersect) | Đếm Số Lượng Đoạn Giao Nhau | ⭐⭐ | Đếm số lượng đoạn giao bằng Binary Search |
+| [`it-point-query`](https://fptoj.com/problem/it-point-query) | Truy Vấn Điểm Thuộc Đoạn | ⭐⭐ | Tìm các đoạn chứa điểm $X$ bằng Interval Tree |
+| [`it-max-right-intersect`](https://fptoj.com/problem/it-max-right-intersect) | Đoạn Giao Có Mút Phải Lớn Nhất | ⭐⭐⭐ | RMQ tiền tố kết hợp Binary Search |
+| [`it-min-length-intersect`](https://fptoj.com/problem/it-min-length-intersect) | Độ Dài Giao Nhỏ Nhất | ⭐⭐⭐⭐ | Xử lý offline kết hợp Segment Tree RMQ |
+| [`it-largest-overlap`](https://fptoj.com/problem/it-largest-overlap) | Phần Giao Nhau Lớn Nhất | ⭐⭐⭐⭐ | Bài toán hình học quét tuyến tính tối ưu |
+| [`it-superset-query`](https://fptoj.com/problem/it-superset-query) | Truy Vấn Bao Phủ Hoàn Toàn | ⭐⭐⭐⭐⭐ | Phép bao phủ 2D: Offline Sweep-line + Segment Tree |
+
+---
+
+**Bài liên quan:**
+*   [Segment Tree](segment-tree.md)
+*   [Static Wavelet Tree](wavelet-tree.md)

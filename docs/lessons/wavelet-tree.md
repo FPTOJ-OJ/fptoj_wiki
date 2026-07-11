@@ -309,3 +309,26 @@ Khi query trên đoạn $[l, r]$:
             l, r, k = parts[1], parts[2], parts[3]
             print(wt.kth(l, r, k))
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`wt-kth-smallest`](https://fptoj.com/problem/wt-kth-smallest) | K-th Smallest Trên Đoạn | ⭐ | Tìm số nhỏ thứ $K$ trong đoạn $[L, R]$ |
+| [`wt-count-less`](https://fptoj.com/problem/wt-count-less) | Đếm Số Nhỏ Hơn Hoặc Bằng X | ⭐ | Đếm số lượng phần tử $\le X$ trong đoạn $[L, R]$ |
+| [`wt-range-freq`](https://fptoj.com/problem/wt-range-freq) | Tần Suất Xuất Hiện Trong Khoảng | ⭐⭐ | Đếm số lần xuất hiện của phần tử $X$ trong đoạn $[L, R]$ |
+| [`wt-kth-largest`](https://fptoj.com/problem/wt-kth-largest) | K-th Largest Trên Đoạn | ⭐⭐ | Tìm số lớn thứ $K$ trong đoạn $[L, R]$ |
+| [`wt-range-count-in`](https://fptoj.com/problem/wt-range-count-in) | Đếm Số Trong Đoạn Giá Trị | ⭐⭐⭐ | Đếm số phần tử có giá trị nằm trong đoạn $[X, Y]$ |
+| [`wt-median-range`](https://fptoj.com/problem/wt-median-range) | Số Trung Vị Trên Đoạn | ⭐⭐⭐ | Tìm số trung vị trong đoạn $[L, R]$ |
+| [`wt-next-greater-val`](https://fptoj.com/problem/wt-next-greater-val) | Giá Trị Kế Tiếp Lớn Hơn | ⭐⭐⭐ | Tìm giá trị nhỏ nhất lớn hơn $X$ trong đoạn $[L, R]$ |
+| [`wt-prev-smaller-val`](https://fptoj.com/problem/wt-prev-smaller-val) | Giá Trị Kế Tiếp Nhỏ Hơn | ⭐⭐⭐ | Tìm giá trị lớn nhất nhỏ hơn $X$ trong đoạn $[L, R]$ |
+| [`wt-percentile`](https://fptoj.com/problem/wt-percentile) | Tìm Phân Vị Trên Đoạn | ⭐⭐⭐⭐ | Tìm phân vị thứ $P$ trên đoạn $[L, R]$ |
+| [`wt-rect-count`](https://fptoj.com/problem/wt-rect-count) | Đếm Điểm Trong Hình Chữ Nhật | ⭐⭐⭐⭐ | 2D Range Counting: Đếm số điểm trong hình chữ nhật $[x_1, x_2] \times [y_1, y_2]$ |
+
+---
+
+**Bài liên quan:**
+*   [Segment Tree](segment-tree.md)
+*   [Persistent Segment Tree](persistent-segment-tree.md)

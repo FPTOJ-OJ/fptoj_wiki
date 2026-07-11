@@ -308,3 +308,28 @@ Mỗi phiên bản là 1 cây nhị phân đầy đủ. Gốc của phiên bản
             ver, l, r = parts[1] - 1, parts[2] - 1, parts[3] - 1
             print(query(roots[ver], 0, n - 1, l, r))
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`st-persistent-sum`](https://fptoj.com/problem/st-persistent-sum) | Tổng Đoạn Trên Lịch Sử | ⭐⭐⭐⭐ | Persistent Segment Tree cơ bản, cập nhật điểm, rollback |
+| [`pst-history-min`](https://fptoj.com/problem/pst-history-min) | Tìm Cực Tiểu Trên Lịch Sử | ⭐⭐⭐⭐ | Persistent Segment Tree tìm cực tiểu, rollback |
+| [`st-persistent-kth`](https://fptoj.com/problem/st-persistent-kth) | Tìm Phần Tử Nhỏ Thứ K | ⭐⭐⭐⭐ | PST kết hợp tần suất tích lũy trên dải giá trị |
+| [`pst-online-distinct`](https://fptoj.com/problem/pst-online-distinct) | Đếm Số Khác Biệt Online | ⭐⭐⭐⭐ | Truy vấn số phần tử phân biệt trực tuyến dùng PST |
+| [`pst-mex-query`](https://fptoj.com/problem/pst-mex-query) | Tìm MEX Trên Khoảng Online | ⭐⭐⭐⭐⭐ | Tìm MEX trực tuyến, tìm kiếm nhị phân trên cây PST |
+
+---
+
+## 6. Tài liệu tham khảo
+
+*   [VNOI Wiki - Cấu trúc dữ liệu bền vững](https://vnoi.info/wiki/algo/data-structures/persistent-data-structures.md)
+*   [CP-Algorithms - Persistent Segment Tree](https://cp-algorithms.com/data_structures/segment_tree.html#persistent-segment-tree)
+*   [Codeforces - Persistent Segment Tree Tutorial](https://codeforces.com/blog/entry/15890)
+
+**Bài liên quan:**
+*   [Segment Tree](segment-tree.md)
+*   [Cải tiến Segment Tree](improved-seg-tree.md)
+*   [Fenwick Tree (BIT)](fenwick-tree.md)

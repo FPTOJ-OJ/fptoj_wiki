@@ -275,3 +275,28 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
         else:
             print("YES" if sl.search(parts[1]) else "NO")
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
+|---|---|---|---|
+| [`sl-insert-search`](https://fptoj.com/problem/sl-insert-search) | Tìm Kiếm Và Thêm Phần Tử | ⭐ | Thao tác chèn và tìm kiếm trên Skip List / Set |
+| [`sl-min-max`](https://fptoj.com/problem/sl-min-max) | Tìm Min-Max Động | ⭐ | Duy trì Min và Max trên tập động dùng Skip List / Multiset |
+| [`sl-order-statistics`](https://fptoj.com/problem/sl-order-statistics) | Thứ Tự Phần Tử | ⭐⭐⭐ | Indexed Skip List / Cấu trúc dữ liệu có quản lý kích thước con |
+| [`sl-pred-succ`](https://fptoj.com/problem/sl-pred-succ) | Tìm Số Kế Cận | ⭐⭐⭐ | Tìm kiếm láng giềng kế cận (Predecessor & Successor) |
+| [`sl-range-sum`](https://fptoj.com/problem/sl-range-sum) | Tổng Trong Khoảng | ⭐⭐⭐ | Augmented Skip List tính tổng đoạn / BIT rời rạc hóa |
+| [`sl-sliding-median`](https://fptoj.com/problem/sl-sliding-median) | Trung Vị Trượt | ⭐⭐⭐⭐ | Duy trì cửa sổ trượt và tìm trung vị trong mỗi vị trí |
+
+---
+
+## 6. Tài liệu tham khảo
+
+*   [GeeksforGeeks - Skip List](https://www.geeksforgeeks.org/skip-list/)
+*   [Wikipedia - Skip List](https://en.wikipedia.org/wiki/Skip_list)
+
+**Bài liên quan:**
+*   [Linked List chi tiết](linked-list.md)
+*   [Segment Tree](segment-tree.md)
+*   [Fenwick Tree (BIT)](fenwick-tree.md)
