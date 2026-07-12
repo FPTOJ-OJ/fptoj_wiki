@@ -670,3 +670,18 @@ Nếu mảng toàn số âm, Kadane's trả về phần tử lớn nhất (vẫn
 - [YouTube — Prefix Sum (takeuforward)](https://www.youtube.com/watch?v=7pYJ6mYCEQs)
 
 **Bài tiếp theo:** [Heap (Hàng đợi ưu tiên) →](heap.md)
+
+## Bài tập luyện tập bổ sung
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ps-2d-diff` | [Mảng hiệu 2D](https://fptoj.com/problem/ps-2d-diff) | ⭐ | Difference Array 2D | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-max-sub` | [Đoạn tổng lớn](https://fptoj.com/problem/ps-max-sub) | ⭐ | Kadane | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-min-stack` | [Stack min](https://fptoj.com/problem/st-min-stack) | ⭐ | Stack min O(1) | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-sub-sum-k` | [Đoạn tổng K](https://fptoj.com/problem/ps-sub-sum-k) | ⭐⭐ | Prefix Sum + Hashmap | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-balanced` | [Ngoặc nhiều loại](https://fptoj.com/problem/st-balanced) | ⭐⭐ | Stack - Balanced bracket | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-xor-range` | [XOR đoạn](https://fptoj.com/problem/ps-xor-range) | ⭐⭐ | Prefix XOR | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-sliding-stack` | [Stack trượt](https://fptoj.com/problem/st-sliding-stack) | ⭐⭐ | Deque - Sliding max | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-matrix-diff` | [Ma trận hiệu](https://fptoj.com/problem/ps-matrix-diff) | ⭐⭐⭐ | Difference Array 2D + Query | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-max-rect` | [HCN lớn nhất](https://fptoj.com/problem/st-max-rect) | ⭐⭐⭐ | Stack đơn điệu - Histogram | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-median-sliding` | [Trung vị trượt](https://fptoj.com/problem/ps-median-sliding) | ⭐⭐⭐⭐ | Two heaps - Sliding median | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |

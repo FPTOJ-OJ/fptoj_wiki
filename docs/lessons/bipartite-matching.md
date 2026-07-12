@@ -686,7 +686,7 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
 
 **Tối ưu:** Khi tìm được perfect matching trên đồ thị con tight, tổng chi phí bằng $\sum lx[u] + \sum ly[v]$. Vì mọi cạnh trong matching đều tight, đây là nghiệm tối ưu theo nguyên lý đối ngẫu tuyến tính.
 
-**Hội tụ:** Mỗi lần điều chỉnh nhãn,至少 một cạnh mới trở thành tight, mở rộng đồ thị con. Sau tối đa $N^2$ lần điều chỉnh, đồ thị con chứa perfect matching.
+**Hội tụ:** Mỗi lần điều chỉnh nhãn, ít nhất một cạnh mới trở thành tight, mở rộng đồ thị con. Sau tối đa $N^2$ lần điều chỉnh, đồ thị con chứa perfect matching.
 
 ### Đánh giá độ phức tạp
 
@@ -1073,20 +1073,18 @@ Nếu mỗi cạnh có trọng số và cần maximize tổng trọng số → d
 
 ---
 
-## 8. Bài tập luyện tập
+## 8. Bài tập luyện tập (FPTOJ)
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Building Teams](https://cses.fi/problemset/task/1668) | CSES | Trung bình | Kiểm tra đồ thị hai phía |
-| [CSES - School Dance](https://cses.fi/problemset/task/1696) | CSES | Trung bình | Matching cơ bản |
-| [CSES - Distinct Routes II](https://cses.fi/problemset/task/2130) | CSES | Khó | Matching + đường đi |
-| [SPOJ - MATCHING](https://www.spoj.com/problems/MATCHING/) | SPOJ | Khó | Hopcroft-Karp bắt buộc |
-| [SPOJ - ADABLOOM](https://www.spoj.com/problems/ADABLOOM/) | SPOJ | Khó | Matching nâng cao |
-| [CF 498C - Array and Operations](https://codeforces.com/problemset/problem/498/C) | CF | Khó | Matching + số học |
-| [CF 1045I - Palindrome Pairs](https://codeforces.com/problemset/problem/1045/I) | CF | Trung bình | Bitmask + matching |
-| [CF 1139E - Maximize Mex](https://codeforces.com/problemset/problem/1139/E) | CF | Khó | Matching online |
-| [UVa 10080 - Gopher II](https://onlinejudge.org/external/100/10080.pdf) | UVA | Trung bình | Matching cơ bản |
-| [UVa 11159 - Factors and Multiples](https://onlinejudge.org/external/111/11159.pdf) | UVA | Trung bình | Bipartite check + matching |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `match-basic` | [Ghép Cặp Hai Phía Cơ Bản](https://fptoj.com/problem/match-basic) | ⭐⭐⭐ | Kuhn - matching |
+| `match-job` | [Phân Công Công Việc](https://fptoj.com/problem/match-job) | ⭐⭐⭐ | Assignment |
+| `match-cover` | [Tập Đỉnh Bao Nhỏ Nhất](https://fptoj.com/problem/match-cover) | ⭐⭐⭐⭐ | König theorem |
+| `match-domino` | [Xếp Domino Trên Bảng Cờ](https://fptoj.com/problem/match-domino) | ⭐⭐⭐⭐ | Grid matching |
+| `match-max-indep` | [Tập Độc Lập Lớn Nhất](https://fptoj.com/problem/match-max-indep) | ⭐⭐⭐⭐ | Independent set |
+| `match-hopcroft` | [Matching Kích Thước Lớn](https://fptoj.com/problem/match-hopcroft) | ⭐⭐⭐⭐ | Hopcroft-Karp |
+| `match-hungarian` | [Bài Toán Phân Công](https://fptoj.com/problem/match-hungarian) | ⭐⭐⭐⭐ | Hungarian |
+| `match-permut` | [Ghép Cặp Hoán Vị](https://fptoj.com/problem/match-permut) | ⭐⭐⭐⭐ | Permutation matching |
 
 ---
 

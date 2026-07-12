@@ -59,8 +59,9 @@ Xâu ký tự có **nhiều thuật toán chuyên biệt** vì cấu trúc xâu 
 **Cách giải quyết đơn giản:** Dùng mảng đếm 26 phần tử.
 
 ```cpp
-vector<int> cnt(26, 0);
-for (char c : s) cnt[c - 'a']++;
+vector<int> cnt(26, 0);          // Mảng đếm 26 chữ cái, khởi tạo = 0
+for (char c : s)                 // Duyệt từng ký tự trong xâu
+    cnt[c - 'a']++;              // 'a' -> 0, 'b' -> 1, ..., 'z' -> 25
 ```
 
 ### 2.2. Đếm số từ
@@ -70,8 +71,30 @@ for (char c : s) cnt[c - 'a']++;
 **Lưu ý:** Phải xử lý trường hợp **nhiều dấu cách liên tiếp** và **dấu cách đầu/cuối**.
 
 **Hai cách tiếp cận:**
-1. **Duyệt thủ công** với cờ `inWord`
-2. **Dùng `stringstream`** (chậm hơn nhưng code gọn)
+
+1. **Duyệt thủ công** với cờ `inWord`:
+```cpp
+int cnt = 0;                        // Biến đếm số từ
+bool inWord = false;                // Cờ: đang ở trong một từ không?
+for (char c : s) {
+    if (c != ' ') {                 // Gặp ký tự không phải dấu cách
+        if (!inWord) {              // Nếu đang KHÔNG trong từ
+            cnt++;                  // Thì đây là bắt đầu của một từ mới
+            inWord = true;          // Đánh dấu đã vào trong từ
+        }
+    } else {                        // Gặp dấu cách
+        inWord = false;             // Đã ra khỏi từ
+    }
+}
+```
+
+2. **Dùng `stringstream`** (chậm hơn nhưng code gọn):
+```cpp
+stringstream ss(s);                 // Tạo stringstream từ xâu s
+string word;
+int cnt = 0;
+while (ss >> word) cnt++;           // Toán tử >> tự động bỏ qua khoảng trắng
+```
 
 ### 2.3. Kiểm tra palindrome
 
@@ -80,11 +103,12 @@ for (char c : s) cnt[c - 'a']++;
 **Cách giải quyết:** Hai con trỏ, một từ đầu và một từ cuối, so sánh và di chuyển vào trong.
 
 ```cpp
-int l = 0, r = s.size() - 1;
-while (l < r) {
-    if (s[l] != s[r]) return false;
-    l++; r--;
+int l = 0, r = s.size() - 1;     // Hai con trỏ: l từ đầu, r từ cuối
+while (l < r) {                   // Dừng khi l >= r (đã duyệt hết xâu)
+    if (s[l] != s[r]) return false; // Ký tự không khớp -> không phải palindrome
+    l++; r--;                     // Di chuyển con trỏ vào trong
 }
+return true;                      // Tất cả cặp đều khớp -> là palindrome
 ```
 
 ### 2.4. Chuẩn hóa xâu
@@ -95,19 +119,70 @@ while (l < r) {
 - Viết hoa chữ cái đầu, còn lại viết thường
 
 **Cách giải quyết:**
-1. Bỏ khoảng trắng đầu cuối (vòng lặp `while`)
-2. Dùng `stringstream` để tách từ
-3. `toupper`/`tolower` cho mỗi ký tự
+
+```cpp
+string normalize(string s) {
+    // Bước 1: Xóa dấu cách thừa ở đầu
+    while (!s.empty() && s[0] == ' ') s.erase(0, 1);
+    // Bước 2: Xóa dấu cách thừa ở cuối
+    while (!s.empty() && s.back() == ' ') s.pop_back();
+
+    stringstream ss(s);     // Tách từ bằng stringstream
+    string word, result;
+    while (ss >> word) {
+        // Chuyển tất cả ký tự về chữ thường trước
+        for (char& c : word) c = tolower(c);
+        // Viết hoa chữ cái đầu của mỗi từ
+        word[0] = toupper(word[0]);
+        // Thêm từ vào kết quả, cách nhau bởi 1 dấu cách
+        if (!result.empty()) result += ' ';
+        result += word;
+    }
+    return result;
+}
+// Input:  "  ngUYễn   Văn  AN  "
+// Output: "Nguyễn Văn An"
+```
 
 ### 2.5. Sắp xếp theo từ điển
 
 **Cách giải quyết:** Dùng `sort` với comparator mặc định của `string`. So sánh xâu trong C++ đã tự động theo thứ tự từ điển.
+
+**Ví dụ minh họa:**
+
+```cpp
+vector<string> words = {"code", "abc", "z", "abcd", "xyz"};
+sort(words.begin(), words.end()); // Sắp xếp theo từ điển
+// Kết quả: ["abc", "abcd", "code", "xyz", "z"]
+```
 
 ### 2.6. Mã hóa RLE (Run-Length Encoding)
 
 **Ý tưởng:** Biến `aaaa` thành `a4`, `aabbb` thành `a2b3`.
 
 **Cải biến phổ biến:** Nếu xâu nén **dài hơn** xâu gốc, giữ nguyên xâu gốc.
+
+```cpp
+string rle(string s) {
+    string result = "";
+    int n = s.size();
+    for (int i = 0; i < n; ) {       // Duyệt từng ký tự
+        char c = s[i];
+        int cnt = 1;                  // Đếm số lần xuất hiện liên tiếp
+        while (i + 1 < n && s[i + 1] == c) {
+            cnt++;
+            i++;
+        }
+        result += c;                  // Thêm ký tự
+        result += to_string(cnt);     // Thêm số lần xuất hiện
+        i++;
+    }
+    // Nếu xâu nén dài hơn xâu gốc -> trả lại xâu gốc
+    return (result.size() < s.size()) ? result : s;
+}
+// Input:  "aaabbcccc"
+// Output: "a3b2c4"
+```
 
 ### 2.7. Hoán vị (Anagram)
 
@@ -128,30 +203,50 @@ if (a == b) cout << "YES" << endl;
 ### 3.1. Đảo ngược một xâu con
 
 ```cpp
-reverse(s.begin() + l, s.begin() + r + 1);  // Đảo đoạn [l, r]
+// Đảo ngược đoạn từ vị trí l đến r (bao gồm cả l và r)
+reverse(s.begin() + l, s.begin() + r + 1);
+// Ví dụ: s = "abcdef", l=1, r=3 -> s = "adcbef"
 ```
 
 ### 3.2. Tách xâu theo ký tự phân cách
 
 Dùng `stringstream`:
 ```cpp
-stringstream ss(s);
+stringstream ss(s);          // Tạo luồng từ xâu s
 string word;
-while (ss >> word) {
-    // word là một từ
+while (ss >> word) {         // Mỗi lần đọc một từ (bỏ qua khoảng trắng)
+    // Xử lý word: word là một từ đã tách
+}
+```
+**Tách theo ký tự đặc biệt (ví dụ dấu phẩy):**
+```cpp
+string s = "a,b,c,d";
+stringstream ss(s);
+string token;
+while (getline(ss, token, ',')) { // Dùng dấu phẩy làm phân cách
+    cout << token << "\n";         // In ra: a, b, c, d
 }
 ```
 
 ### 3.3. Tìm xâu con (substring)
 
 ```cpp
-string sub = s.substr(pos, len);  // Cắt xâu con từ vị trí pos, độ dài len
+// Cắt xâu con từ vị trí pos, lấy len ký tự
+string sub = s.substr(pos, len);
+// Ví dụ: s = "algorithm", s.substr(2, 3) = "gor"
+// Nếu không truyền len -> cắt từ pos đến hết xâu
+string tail = s.substr(5);  // Từ vị trí 5 đến cuối
 ```
 
 ### 3.4. Tìm vị trí xâu con
 
 ```cpp
-size_t pos = s.find(pattern);  // Trả về npos nếu không tìm thấy
+size_t pos = s.find(pattern);    // Tìm pattern trong s
+if (pos != string::npos) {       // string::npos = "không tìm thấy"
+    // Tìm thấy pattern tại vị trí pos
+}
+// Tìm từ vị trí start trở đi:
+size_t pos2 = s.find(pattern, start);
 ```
 
 ---
@@ -196,6 +291,41 @@ for (char& c : s) c = tolower(c);
 ```cpp
 // SAI: vector<int> cnt; // cnt rỗng, chưa có phần tử nào!
 vector<int> cnt(26, 0);  // Tạo 26 phần tử giá trị 0
+```
+
+---
+
+---
+
+## Kỹ thuật nâng cao bổ sung
+
+### Đếm số lần xuất hiện của mọi ký tự (dùng `map`)
+
+Khi xâu chứa ký tự ngoài bảng chữ cái Latin (unicode, dấu câu), không thể dùng mảng 26 phần tử:
+
+```cpp
+map<char, int> freq;            // Map đếm tần suất cho ký tự bất kỳ
+for (char c : s) freq[c]++;     // Tần suất của từng ký tự riêng biệt
+```
+
+### Kiểm tra ký tự số / chữ cái (dùng built-in)
+
+```cpp
+isalpha(c)   // true nếu c là chữ cái (a-z hoặc A-Z)
+isdigit(c)   // true nếu c là chữ số (0-9)
+isalnum(c)   // true nếu c là chữ cái hoặc chữ số
+isspace(c)   // true nếu c là khoảng trắng, tab, xuống dòng
+```
+
+### Đổi giữa xâu và số
+
+```cpp
+// Xâu -> Số
+int num = stoi("123");          // Chuyển sang int
+long long big = stoll("9999999999"); // Chuyển sang long long
+
+// Số -> Xâu
+string s = to_string(42);       // "42"
 ```
 
 ---

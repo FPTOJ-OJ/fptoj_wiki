@@ -247,30 +247,30 @@ Với $N = 10^5$, $\text{LOG} \approx 17$. Mỗi truy vấn chỉ tốn khoảng
     int depth[MAXN], up[MAXN][LOG];
 
     void dfs(int v, int p) {
-        depth[v] = depth[p] + 1;
-        up[v][0] = p;
+        depth[v] = depth[p] + 1;    // độ sâu của đỉnh v
+        up[v][0] = p;                // cha trực tiếp
         for (int k = 1; k < LOG; k++)
-            up[v][k] = up[up[v][k-1]][k-1];
+            up[v][k] = up[up[v][k-1]][k-1];  // nhảy 2^k bước
         for (int u : adj[v])
             if (u != p) dfs(u, v);
     }
 
     int lca(int u, int v) {
-        if (depth[u] < depth[v]) swap(u, v);
+        if (depth[u] < depth[v]) swap(u, v);  // đảm bảo u sâu hơn v
 
         int diff = depth[u] - depth[v];
-        for (int k = 0; k < LOG; k++)
+        for (int k = 0; k < LOG; k++)          // đưa u lên cùng độ sâu với v
             if (diff & (1 << k))
                 u = up[u][k];
 
-        if (u == v) return u;
+        if (u == v) return u;                   // một đỉnh là tổ tiên của đỉnh kia
 
-        for (int k = LOG - 1; k >= 0; k--)
-            if (up[u][k] != up[v][k]) {
+        for (int k = LOG - 1; k >= 0; k--)     // nhảy từ bit cao xuống thấp
+            if (up[u][k] != up[v][k]) {         // nếu chưa gặp nhau thì nhảy
                 u = up[u][k];
                 v = up[v][k];
             }
-        return up[u][0];
+        return up[u][0];                        // cha trực tiếp là LCA
     }
 
     int main() {
@@ -285,7 +285,7 @@ Với $N = 10^5$, $\text{LOG} \approx 17$. Mỗi truy vấn chỉ tốn khoảng
         }
 
         depth[0] = -1;
-        dfs(1, 0);
+        dfs(1, 0);                               // gốc là đỉnh 1
 
         while (q--) {
             int u, v; cin >> u >> v;
@@ -303,42 +303,42 @@ Với $N = 10^5$, $\text{LOG} \approx 17$. Mỗi truy vấn chỉ tốn khoảng
 
     class LCA:
         def __init__(self, n, root, adj):
-            self.LOG = n.bit_length()
+            self.LOG = n.bit_length()     # số bit cần để biểu diễn n
             self.adj = adj
             self.depth = [0] * (n + 1)
-            self.up = [[0] * self.LOG for _ in range(n + 1)]
+            self.up = [[0] * self.LOG for _ in range(n + 1)]  # bảng up[n+1][LOG]
             self._dfs(root, 0)
 
         def _dfs(self, v, p):
-            self.depth[v] = self.depth[p] + 1
-            self.up[v][0] = p
+            self.depth[v] = self.depth[p] + 1  # độ sâu của đỉnh v
+            self.up[v][0] = p                   # cha trực tiếp
             for k in range(1, self.LOG):
-                self.up[v][k] = self.up[self.up[v][k-1]][k-1]
+                self.up[v][k] = self.up[self.up[v][k-1]][k-1]  # nhảy 2^k bước
             for u in self.adj[v]:
                 if u != p:
                     self._dfs(u, v)
 
         def get_lca(self, u, v):
             if self.depth[u] < self.depth[v]:
-                u, v = v, u
+                u, v = v, u                      # đảm bảo u sâu hơn v
 
             diff = self.depth[u] - self.depth[v]
-            for k in range(self.LOG):
+            for k in range(self.LOG):            # đưa u lên cùng độ sâu với v
                 if diff & (1 << k):
                     u = self.up[u][k]
 
             if u == v:
-                return u
+                return u                          # một đỉnh là tổ tiên của đỉnh kia
 
-            for k in range(self.LOG - 1, -1, -1):
+            for k in range(self.LOG - 1, -1, -1): # nhảy từ bit cao xuống thấp
                 if self.up[u][k] != self.up[v][k]:
                     u = self.up[u][k]
                     v = self.up[v][k]
-            return self.up[u][0]
+            return self.up[u][0]                  # cha trực tiếp là LCA
 
         def distance(self, u, v):
             l = self.get_lca(u, v)
-            return self.depth[u] + self.depth[v] - 2 * self.depth[l]
+            return self.depth[u] + self.depth[v] - 2 * self.depth[l]  # công thức khoảng cách
     ```
 
 ---

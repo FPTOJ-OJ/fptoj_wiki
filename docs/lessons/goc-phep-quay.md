@@ -198,7 +198,7 @@ $(x, y) \to (-x, y)$
 
 $(x, y) \to (x, -y)$
 
-### 4.3 Đối xứng qua đường thẳng任意
+### 4.3 Đối xứng qua đường thẳng bất kỳ
 
 Xem Bài 61 - phần reflectPoint.
 
@@ -254,7 +254,20 @@ Xoay đa giác các góc khác nhau để tìm hình chữ nhật bao nhỏ nh�
 
 ---
 
-## 7. Bài tập luyện tập
+## 7. Bài tập luyện tập (FPTOJ)
+
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `rotate-point` | [Quay điểm quanh gốc tọa độ](https://fptoj.com/problem/rotate-point) | ⭐ | Phép quay |
+| `rotate-angle` | [Góc giữa hai vector](https://fptoj.com/problem/rotate-angle) | ⭐ | Góc vector |
+| `rotate-ccw` | [Xác định hướng quay](https://fptoj.com/problem/rotate-ccw) | ⭐ | Cross product |
+| `rotate-around` | [Quay điểm quanh điểm bất kỳ](https://fptoj.com/problem/rotate-around) | ⭐⭐ | Phép quay |
+| `rotate-sort-angle` | [Sắp xếp theo góc](https://fptoj.com/problem/rotate-sort-angle) | ⭐⭐ | Sắp xếp góc cực |
+| `rotate-clock-angle` | [Góc quay đồng hồ](https://fptoj.com/problem/rotate-clock-angle) | ⭐⭐ | Góc giữa hai vector |
+| `rotate-polar` | [Chuyển đổi tọa độ](https://fptoj.com/problem/rotate-polar) | ⭐ | Tọa độ cực |
+| `rot-tri-rotate` | [Diện tích tam giác sau quay](https://fptoj.com/problem/rot-tri-rotate) | ⭐⭐⭐ | Phép quay + diện tích |
+
+## 8. Bài tập tự luận
 
 ### Bài 1: Quay điểm
 

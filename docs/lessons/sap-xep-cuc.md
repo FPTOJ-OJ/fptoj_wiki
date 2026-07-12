@@ -103,7 +103,7 @@ Hàm `atan2(y, x)` trả về góc từ trục $x$ dương, trong khoảng $(-\p
         points.sort(key=key_func)
     ```
 
-### 1.3 Sắp xếp theo góc từ điểm任意
+### 1.3 Sắp xếp theo góc từ điểm bất kỳ
 
 Chuyển tất cả điểm về tọa độ tương đối so với điểm gốc, rồi sắp xếp.
 
@@ -285,7 +285,20 @@ $$\theta = \min(|\theta_A - \theta_B|, 2\pi - |\theta_A - \theta_B|)$$
 
 ---
 
-## 6. Bài tập luyện tập
+## 6. Bài tập luyện tập (FPTOJ)
+
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `polar-sort-basic` | [Sắp xếp điểm theo góc cực](https://fptoj.com/problem/polar-sort-basic) | ⭐ | Sắp xếp góc (atan2) |
+| `polar-max-half` | [Nửa mặt phẳng chứa nhiều điểm nhất](https://fptoj.com/problem/polar-max-half) | ⭐⭐ | Quét góc + hai con trỏ |
+| `polar-visible` | [Đếm điểm nhìn thấy từ gốc tọa độ](https://fptoj.com/problem/polar-visible) | ⭐⭐ | Góc + GCD |
+| `polar-min-angle` | [Góc nhỏ nhất giữa hai vector](https://fptoj.com/problem/polar-min-angle) | ⭐ | Góc vector |
+| `polar-angular-dist` | [Khoảng cách góc nhỏ nhất](https://fptoj.com/problem/polar-angular-dist) | ⭐⭐ | Góc cực |
+| `polar-same-line` | [Đường thẳng qua gốc chứa nhiều điểm nhất](https://fptoj.com/problem/polar-same-line) | ⭐⭐ | Góc + HashMap |
+| `polar-dominant` | [Đếm điểm trội](https://fptoj.com/problem/polar-dominant) | ⭐⭐⭐ | Góc + sắp xếp |
+| `polar-sector` | [Đèn pha chiếu sáng](https://fptoj.com/problem/polar-sector) | ⭐⭐ | Quét góc |
+
+## 7. Bài tập tự luận
 
 ### Bài 1: Sắp xếp theo góc
 

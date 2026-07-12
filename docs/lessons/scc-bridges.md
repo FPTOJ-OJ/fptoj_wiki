@@ -969,20 +969,18 @@ if (parent == -1 && childCount >= 2)  // ← Phải kiểm tra cả 2 điều ki
 
 ---
 
-## 9. Bài tập luyện tập
+## 9. Bài tập luyện tập (FPTOJ)
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Planets and Kingdoms](https://cses.fi/problemset/task/1683) | CSES | ⭐⭐ | SCC cơ bản |
-| [CSES - Coin Collector](https://cses.fi/problemset/task/1686) | CSES | ⭐⭐⭐ | SCC + DP trên DAG |
-| [CSES - Road Construction](https://cses.fi/problemset/task/1676) | CSES | ⭐⭐ | Bridges |
-| [CF 118E - Bertown roads](https://codeforces.com/problemset/problem/118/E) | CF | ⭐⭐⭐ | Bridges + hướng hóa cạnh |
-| [VNOJ - NKPOLICE](https://oj.vnoi.info/problem/nkpolice) | VNOJ | ⭐⭐⭐ | Articulation points |
-| [CSES - Giant Pizza](https://cses.fi/problemset/task/1684) | CSES | ⭐⭐⭐ | 2-SAT + SCC |
-| [SPOJ - BOTTOM](https://www.spoj.com/problems/BOTTOM/) | SPOJ | ⭐⭐ | SCC (tìm sink components) |
-| [VNOJ - QTGRAPH](https://oj.vnoi.info/problem/qtgraph) | VNOJ | ⭐⭐ | SCC + topo sort |
-| [CF 999E - Reachability from the Capital](https://codeforces.com/problemset/problem/999/E) | CF | ⭐⭐⭐ | SCC + greedy |
-| [CSES - New Flight Routes](https://cses.fi/problemset/task/1685) | CSES | ⭐⭐⭐ | SCC + nối đỉnh |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `scc-tarjan` | [Cụm Liên Lạc Độc Lập](https://fptoj.com/problem/scc-tarjan) | ⭐⭐⭐ | Tarjan - SCC |
+| `scc-condense` | [Đồ Thị Thu Nhỏ](https://fptoj.com/problem/scc-condense) | ⭐⭐⭐ | Đồ thị co - SCC |
+| `scc-max-comp` | [Cụm Liên Lạc Lớn Nhất](https://fptoj.com/problem/scc-max-comp) | ⭐⭐⭐ | SCC lớn nhất |
+| `scc-path` | [Lộ Trình Thông Tin](https://fptoj.com/problem/scc-path) | ⭐⭐⭐⭐ | SCC + DP trên DAG |
+| `bridge-find` | [Đường Quan Trọng](https://fptoj.com/problem/bridge-find) | ⭐⭐⭐ | Cầu (Bridge) |
+| `artic-point` | [Nút Giao Quan Trọng](https://fptoj.com/problem/artic-point) | ⭐⭐⭐ | Khớp (Articulation) |
+| `bridge-2edge` | [Khối Liên Kết Bền Vững](https://fptoj.com/problem/bridge-2edge) | ⭐⭐⭐⭐ | 2-edge-connected |
+| `bridge-connect` | [Xây Dựng Đường Mới](https://fptoj.com/problem/bridge-connect) | ⭐⭐⭐⭐ | Thêm cạnh liên thông |
 
 ---
 

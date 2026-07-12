@@ -897,39 +897,25 @@ Thuật toán stack không đệ quy xử lý được hàng triệu lớp lồn
 
 ---
 
-## 12. Bài tập luyện tập
+## 12. Bài tập luyện tập (FPTOJ)
 
-### Mức cơ bản (⭐ ~ ⭐⭐)
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [LeetCode - Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) | LeetCode | ⭐ | Kiểm tra ngoặc |
-| [LeetCode - Min Stack](https://leetcode.com/problems/min-stack/) | LeetCode | ⭐⭐ | Min Stack $O(1)$ |
-| [LeetCode - Evaluate RPN](https://leetcode.com/problems/evaluate-reverse-polish-notation/) | LeetCode | ⭐⭐ | Tính hậu tố |
-| [LeetCode - Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/) | LeetCode | ⭐⭐ | Stack ↔ Queue |
-| [SPOJ - STPAR](https://www.spoj.com/problems/STPAR/) | SPOJ | ⭐⭐ | Stack sắp xếp |
-| [CSES - Nearest Smaller Values](https://cses.fi/problemset/task/1645) | CSES | ⭐⭐ | Next/Previous Smaller |
-
-### Mức trung bình (⭐⭐⭐)
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [LeetCode - Daily Temperatures](https://leetcode.com/problems/daily-temperatures/) | LeetCode | ⭐⭐⭐ | Next Greater Element |
-| [LeetCode - Next Greater Element II](https://leetcode.com/problems/next-greater-element-ii/) | LeetCode | ⭐⭐⭐ | NGE trên mảng vòng |
-| [LeetCode - Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) | LeetCode | ⭐⭐⭐ | Monotonic Stack |
-| [LeetCode - Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) | LeetCode | ⭐⭐⭐ | Stack hoặc 2 con trỏ |
-| [LeetCode - Basic Calculator](https://leetcode.com/problems/basic-calculator/) | LeetCode | ⭐⭐⭐ | Tính biểu thức + ngoặc |
-| [LeetCode - Remove K Digits](https://leetcode.com/problems/remove-k-digits/) | LeetCode | ⭐⭐⭐ | Monotonic Stack |
-| [CF 280B - Maximum Xor Secondary](https://codeforces.com/problemset/problem/280/B) | CF | ⭐⭐⭐ | Stack đơn điệu |
-
-### Mức khó (⭐⭐⭐⭐ ~ ⭐⭐⭐⭐⭐)
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [LeetCode - Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/) | LeetCode | ⭐⭐⭐⭐ | Largest Rectangle mở rộng |
-| [LeetCode - Basic Calculator II](https://leetcode.com/problems/basic-calculator-ii/) | LeetCode | ⭐⭐⭐⭐ | Biểu thức không ngoặc |
-| [LeetCode - Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) | LeetCode | ⭐⭐⭐⭐ | Stack + DP |
-| [SPOJ - MAXRECT](https://www.spoj.com/problems/MAXRECT/) | SPOJ | ⭐⭐⭐⭐ | Largest Rectangle 2D |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `stk-valid-paren` | [Kiểm tra dãy ngoặc đúng](https://fptoj.com/problem/stk-valid-paren) | ⭐ | Stack - ngoặc |
+| `stk-next-greater` | [Phần tử lớn hơn đầu tiên bên phải](https://fptoj.com/problem/stk-next-greater) | ⭐⭐ | Monotonic Stack (NGE) |
+| `stk-prev-greater` | [Phần tử lớn hơn đầu tiên bên trái](https://fptoj.com/problem/stk-prev-greater) | ⭐⭐ | Monotonic Stack (PGE) |
+| `stk-next-smaller` | [Phần tử nhỏ hơn đầu tiên bên phải](https://fptoj.com/problem/stk-next-smaller) | ⭐⭐ | Monotonic Stack (NSE) |
+| `stk-stock-span` | [Stock Span](https://fptoj.com/problem/stk-stock-span) | ⭐⭐ | Monotonic Stack |
+| `stk-histogram` | [Hình chữ nhật lớn nhất trong biểu đồ](https://fptoj.com/problem/stk-histogram) | ⭐⭐⭐ | Monotonic Stack |
+| `stk-infix-eval` | [Tính giá trị biểu thức trung tố](https://fptoj.com/problem/stk-infix-eval) | ⭐⭐ | Stack - biểu thức |
+| `stk-postfix-eval` | [Tính giá trị biểu thức hậu tố](https://fptoj.com/problem/stk-postfix-eval) | ⭐⭐ | Stack - RPN |
+| `stk-remove-digits` | [Xóa K chữ số để được số nhỏ nhất](https://fptoj.com/problem/stk-remove-digits) | ⭐⭐⭐ | Monotonic Stack |
+| `stk-trap-rain` | [Tính lượng nước hứng được](https://fptoj.com/problem/stk-trap-rain) | ⭐⭐⭐ | Stack |
+| `stk-max-rect-matrix` | [Hình chữ nhật lớn nhất trong ma trận](https://fptoj.com/problem/stk-max-rect-matrix) | ⭐⭐⭐⭐ | Monotonic Stack mở rộng |
+| `stk-calc-w-paren` | [Tính giá trị biểu thức có ngoặc](https://fptoj.com/problem/stk-calc-w-paren) | ⭐⭐⭐⭐ | Stack - biểu thức |
+| `stk-remove-dups` | [Xóa ký tự trùng được xâu nhỏ nhất](https://fptoj.com/problem/stk-remove-dups) | ⭐⭐⭐⭐ | Monotonic Stack |
+| `stk-sum-sub-min` | [Tổng nhỏ nhất các subarray](https://fptoj.com/problem/stk-sum-sub-min) | ⭐⭐⭐⭐ | Monotonic Stack |
+| `stk-longest-paren` | [Dãy ngoặc đúng dài nhất](https://fptoj.com/problem/stk-longest-paren) | ⭐⭐⭐⭐ | Stack + DP |
 
 ---
 

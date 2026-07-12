@@ -769,15 +769,21 @@ Kỹ thuật này hạ độ phức tạp thời gian từ **$O(N^3)$ xuống $O
 
 ---
 
-## 10. Bài tập luyện tập
+## Bài tập luyện tập
 
-| STT | Tên bài toán | Nguồn | Độ khó | Chủ đề |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | [Slimes](https://atcoder.jp/contests/dp/tasks/dp_n) | AtCoder | ★★★ | Merge Stones kinh điển |
-| 2 | [Zuma](https://codeforces.com/problemset/problem/607/B) | Codeforces | ★★★☆ | Triệt tiêu đoạn đối xứng |
-| 3 | [Burst Balloons](https://leetcode.com/problems/burst-balloons/) | LeetCode | ★★★★ | Tính toán ngược từ quả bóng cuối cùng |
-| 4 | [Minimum Cost to Cut a Stick](https://leetcode.com/problems/minimum-cost-to-cut-a-stick/) | LeetCode | ★★★☆ | Chọn điểm cắt tối ưu trên thanh gỗ |
-| 5 | [Polygon](https://codeforces.com/problemset/problem/1099/F) | Codeforces | ★★★★ | Trò chơi tối ưu trên đoạn tròn |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `int-merge-stones` | [Trộn Đá](https://fptoj.com/problem/int-merge-stones) | ⭐⭐ | Trộn các đống đá | [Interval DP](interval-dp.md) |
+| `int-palindrome-cut` | [Cắt Palindrome](https://fptoj.com/problem/int-palindrome-cut) | ⭐⭐⭐ | Cắt xâu thành các palindrome | [Interval DP](interval-dp.md) |
+| `int-matrix-chain` | [Nhân Ma Trận](https://fptoj.com/problem/int-matrix-chain) | ⭐⭐⭐ | Nhân dãy ma trận | [Interval DP](interval-dp.md) |
+| `int-polygon` | [Đa Giác](https://fptoj.com/problem/int-polygon) | ⭐⭐⭐ | Trò chơi trên đa giác | [Interval DP](interval-dp.md) |
+| `int-bracket` | [Ngoặc Đúng](https://fptoj.com/problem/int-bracket) | ⭐⭐ | Dãy ngoặc đúng dài nhất | [Interval DP](interval-dp.md) |
+| `int-palindrome-lps` | [Xâu Con Palindrome Dài Nhất](https://fptoj.com/problem/int-palindrome-lps) | ⭐⭐ | Xâu con đối xứng dài nhất | [Interval DP](interval-dp.md) |
+| `int-burst-balloons` | [Bóng Bay](https://fptoj.com/problem/int-burst-balloons) | ⭐⭐⭐ | Thổi bóng bay | [Interval DP](interval-dp.md) |
+| `int-burst-max` | [Nổ Bóng Max](https://fptoj.com/problem/int-burst-max) | ⭐⭐⭐⭐ | Nổ bóng điểm lớn nhất | [Interval DP](interval-dp.md) |
+| `int-tree-cut` | [Cắt Cây Nhị Phân](https://fptoj.com/problem/int-tree-cut) | ⭐⭐ | Cắt cây nhị phân tìm kiếm | [Interval DP](interval-dp.md) |
+| `int-merge-v2` | [Trộn Đá Nâng Cao](https://fptoj.com/problem/int-merge-v2) | ⭐⭐⭐ | Trộn đá với chi phí tùy chỉnh | [Interval DP](interval-dp.md) |
+| `int-pick-edge` | [Chọn Cạnh](https://fptoj.com/problem/int-pick-edge) | ⭐⭐⭐ | Chọn cạnh tối ưu | [Interval DP](interval-dp.md) |
 
 ---
 

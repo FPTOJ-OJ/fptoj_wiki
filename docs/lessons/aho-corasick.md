@@ -475,13 +475,13 @@ $T = \text{"ushersher"}$, mẫu $= \{$`"he"`, `"she"`, `"his"`, `"hers"`$\}$.
 
 ### Trie lưu đúng tất cả mẫu
 
-**Bệnh đề 1:** Sau bước insert, mỗi mẫu $P_i$ tương ứng chính xác với đường đi từ root đến nút $v$ trong trie, và $v$ nằm trong danh sách $output$ của nút kết thúc.
+**Bổ đề 1:** Sau bước insert, mỗi mẫu $P_i$ tương ứng chính xác với đường đi từ root đến nút $v$ trong trie, và $v$ nằm trong danh sách $output$ của nút kết thúc.
 
 **Chứng minh:** Mỗi ký tự trong $P_i$ tạo đúng một cạnh trong trie. Nút cuối được đánh dấu bằng ID của $P_i$. $\square$
 
 ### Failure link là longest valid suffix
 
-**Bệnh đề 2:** $fail[v]$ trỏ đến nút có độ dài lớn nhất mà xâu tại đó là proper suffix của xâu tại $v$ và cũng là prefix của một mẫu.
+**Bổ đề 2:** $fail[v]$ trỏ đến nút có độ dài lớn nhất mà xâu tại đó là proper suffix của xâu tại $v$ và cũng là prefix của một mẫu.
 
 **Chứng minh:** BFS duyệt theo tầng tăng dần độ dài. Giữ giả thiết đúng cho tất cả nút tầng $< d$. Xét nút $v$ tầng $d$ với cạnh ký tự $c$ từ cha $u$:
 
@@ -495,13 +495,13 @@ Vì BFS đảm bảo $fail[u]$ đã đúng, nên $fail[v]$ cũng đúng. $\squar
 
 ### Dictionary link thu thập đủ mẫu
 
-**Bệnh đề 3:** Tại vị trí $i$ trong text, nếu automaton ở nút $v$, thì **tất cả** mẫu kết thúc tại vị trí $i$ đều nằm trong tập $\{output(v)\} \cup \{output(dict[v])\} \cup \{output(dict[dict[v]])\} \cup \ldots$
+**Bổ đề 3:** Tại vị trí $i$ trong text, nếu automaton ở nút $v$, thì **tất cả** mẫu kết thúc tại vị trí $i$ đều nằm trong tập $\{output(v)\} \cup \{output(dict[v])\} \cup \{output(dict[dict[v]])\} \cup \ldots$
 
 **Chứng minh:** Mẫu $P$ kết thúc tại $i$ khi và chỉ khi suffix của text đến $i$ khớp với $P$. Nút $v$ ứng với suffix dài nhất. Nếu $P$ ngắn hơn, nó ứng với một nút trên failure chain từ $v$. Dictionary link nhảy đúng đến nút gần nhất có $output \neq \emptyset$, nên duyệt dictionary chain sẽ thu thập hết. $\square$
 
 ### Search không bỏ sót
 
-**Bệnh đề 4:** Thuật toán search báo cáo đúng và đủ tất cả $(i, id)$ sao cho mẫu $P_{id}$ kết thúc tại vị trí $i$ trong text.
+**Bổ đề 4:** Thuật toán search báo cáo đúng và đủ tất cả $(i, id)$ sao cho mẫu $P_{id}$ kết thúc tại vị trí $i$ trong text.
 
 **Chứng minh:** Tại mỗi vị trí $i$:
 
@@ -509,7 +509,7 @@ Vì BFS đảm bảo $fail[u]$ đã đúng, nên $fail[v]$ cũng đúng. $\squar
 2. Kiểm tra $output(node)$ → mẫu kết thúc trực tiếp tại $i$
 3. Duyệt dictionary chain → mẫu kết thúc tại $i$ nhưng ngắn hơn suffix tại $node$
 
-Mọi mẫu kết thúc tại $i$ đều ứng với một nút trên failure chain từ $node$ (chứng minh tương tự Bệnh đề 3). Dictionary chain đảm bảo không bỏ sót. $\square$
+Mọi mẫu kết thúc tại $i$ đều ứng với một nút trên failure chain từ $node$ (chứng minh tương tự Bổ đề 3). Dictionary chain đảm bảo không bỏ sót. $\square$
 
 ---
 
@@ -959,19 +959,20 @@ Với $|\Sigma| = 26$ và $M = 10^6$, trie có tới $10^6$ nút, mỗi nút t�
 
 ---
 
-## 12. Bài tập luyện tập
+## Bài tập luyện tập
 
-| Bài | FPTOJ | Độ khó | Chủ đề |
-|-----|-------|--------|--------|
-| `strk-kmp` | [Tìm xâu mẫu bằng KMP](https://fptoj.com/problem/strk-kmp) | ⭐⭐ | Tìm 1 mẫu (KMP) |
-| `strk-occ` | [Đếm lần xuất hiện (KMP)](https://fptoj.com/problem/strk-occ) | ⭐⭐ | Đếm 1 mẫu (KMP) |
-| `strk-zmatch` | [Tìm xâu bằng Z-Algorithm](https://fptoj.com/problem/strk-zmatch) | ⭐⭐ | Tìm 1 mẫu (Z) |
-| `strh-find` | [Tìm xâu con bằng Hash](https://fptoj.com/problem/strh-find) | ⭐⭐ | Tìm 1 mẫu (Hash) |
-| `stra-trie` | [Từ điển bằng Trie](https://fptoj.com/problem/stra-trie) | ⭐⭐ | Lưu trữ và tra từ điển |
-| `stra-prefcnt` | [Đếm tiền tố bằng Trie](https://fptoj.com/problem/stra-prefcnt) | ⭐⭐⭐ | Đếm tiền tố trong tập xâu |
-| `trie-insert-search` | [Tập Từ Vựng Cây Tiền Tố](https://fptoj.com/problem/trie-insert-search) | ⭐ | Thao tác Trie cơ bản |
-| `trie-prefix-count` | [Đếm Tần Suất Tiền Tố](https://fptoj.com/problem/trie-prefix-count) | ⭐⭐ | Đếm từ theo tiền tố |
-| `strb-anagram` | [Hoán vị xâu](https://fptoj.com/problem/strb-anagram) | ⭐⭐ | Hash tần suất |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ac-find-word` | [Tìm từ](https://fptoj.com/problem/ac-find-word) | ⭐ | Aho-Corasick - Tìm từ cơ bản | [Aho-Corasick](aho-corasick.md) |
+| `ac-basic` | [Tìm từ](https://fptoj.com/problem/ac-basic) | ⭐⭐ | Aho-Corasick - Kiểm tra từ xuất hiện | [Aho-Corasick](aho-corasick.md) |
+| `ac-exist` | [Kiểm tra](https://fptoj.com/problem/ac-exist) | ⭐⭐ | Aho-Corasick - Tồn tại từ khóa | [Aho-Corasick](aho-corasick.md) |
+| `ac-count` | [Đếm từ](https://fptoj.com/problem/ac-count) | ⭐⭐ | Aho-Corasick - Đếm số lần xuất hiện | [Aho-Corasick](aho-corasick.md) |
+| `ac-word-max` | [Từ dài nhất](https://fptoj.com/problem/ac-word-max) | ⭐⭐⭐ | Aho-Corasick - Từ dài nhất | [Aho-Corasick](aho-corasick.md) |
+| `ac-word-min` | [Đoạn ngắn](https://fptoj.com/problem/ac-word-min) | ⭐⭐⭐ | Aho-Corasick - Đoạn chứa từ khóa | [Aho-Corasick](aho-corasick.md) |
+| `ac-pattern` | [Pattern](https://fptoj.com/problem/ac-pattern) | ⭐⭐⭐ | Aho-Corasick - Vị trí xuất hiện | [Aho-Corasick](aho-corasick.md) |
+| `ac-dna` | [DNA](https://fptoj.com/problem/ac-dna) | ⭐⭐⭐⭐ | Aho-Corasick + DP - Đếm xâu DNA | [Aho-Corasick](aho-corasick.md) |
+| `ac-bad-words` | [Xóa ít nhất](https://fptoj.com/problem/ac-bad-words) | ⭐⭐⭐⭐ | Aho-Corasick + DP - Xóa ký tự | [Aho-Corasick](aho-corasick.md) |
+| `ac-xor-string` | [XOR xâu](https://fptoj.com/problem/ac-xor-string) | ⭐⭐⭐⭐⭐ | Aho-Corasick - Xâu XOR | [Aho-Corasick](aho-corasick.md) |
 
 ---
 

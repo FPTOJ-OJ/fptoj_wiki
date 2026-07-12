@@ -491,18 +491,22 @@ Cần điều chỉnh quy tắc gán giá trị cho phù hợp với thuật to�
 
 ---
 
-## 8. Bài tập luyện tập
+## 8. Bài tập luyện tập (FPTOJ)
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Giant Pizza](https://cses.fi/problemset/task/1684) | CSES | ⭐⭐⭐ | 2-SAT cơ bản |
-| [CF 1971H - ±1](https://codeforces.com/problemset/problem/1971/H) | CF | ⭐⭐⭐ | 2-SAT |
-| [CF 1215F - Radio Stations](https://codeforces.com/problemset/problem/1215/F) | CF | ⭐⭐⭐⭐ | 2-SAT + intervals |
-| [SPOJ - TOUR](https://www.spoj.com/problems/TOUR/) | SPOJ | ⭐⭐⭐ | 2-SAT application |
-| [VNOJ - VMRELATE](https://oj.vnoi.info/problem/vmrelate) | VNOJ | ⭐⭐⭐ | 2-SAT |
-| [LeetCode - Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/) | LeetCode | ★★★ | Satisfiability |
-
-### Gợi ý giải một số bài
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `twosat-basic` | [Kiểm Tra 2-SAT Cơ Bản](https://fptoj.com/problem/twosat-basic) | ⭐⭐⭐ | 2-SAT - kiểm tra |
+| `twosat-assign` | [Tìm Phép Gán Thỏa Mãn](https://fptoj.com/problem/twosat-assign) | ⭐⭐⭐ | 2-SAT - gán trị |
+| `twosat-impl` | [Hệ Ràng Buộc Kéo Theo](https://fptoj.com/problem/twosat-impl) | ⭐⭐⭐ | Implication graph |
+| `twosat-xor` | [Ràng Buộc XOR](https://fptoj.com/problem/twosat-xor) | ⭐⭐⭐ | XOR + 2-SAT |
+| `twosat-atmost1` | [Tối Đa Một Biến Đúng](https://fptoj.com/problem/twosat-atmost1) | ⭐⭐⭐⭐ | At most one |
+| `twosat-color` | [Tô Màu Có Ràng Buộc](https://fptoj.com/problem/twosat-color) | ⭐⭐⭐⭐ | 2-SAT + tô màu |
+| `twosat-schedule` | [Xếp Lịch Thi Cử](https://fptoj.com/problem/twosat-schedule) | ⭐⭐⭐⭐ | 2-SAT - lịch |
+| `twosat-3col` | [Tô Màu Giới Hạn](https://fptoj.com/problem/twosat-3col) | ⭐⭐⭐⭐ | 2-SAT - tô màu |
+| `twosat-count` | [Đếm Số Phép Gán](https://fptoj.com/problem/twosat-count) | ⭐⭐⭐⭐ | 2-SAT - đếm |
+| `twosat-lexical` | [Phép Gán Từ Điển Nhỏ Nhất](https://fptoj.com/problem/twosat-lexical) | ⭐⭐⭐⭐ | 2-SAT - từ điển |
+| `twosat-max-true` | [Tối Đa Biến True](https://fptoj.com/problem/twosat-max-true) | ⭐⭐⭐⭐ | 2-SAT - tối ưu |
+| `twosat-2cnf` | [Kiểm Tra 2-CNF](https://fptoj.com/problem/twosat-2cnf) | ⭐⭐⭐⭐ | 2-CNF + SCC |
 
 #### CSES - Giant Pizza
 

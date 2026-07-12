@@ -81,7 +81,47 @@ plt.tight_layout()
 - **Priority Queue (min-heap):** Lưu các sự kiện (tọa độ $x$, loại sự kiện, chỉ số đoạn).
 - **Set (BST):** Lưu các đoạn đang hoạt động, sắp xếp theo $y$ tại vị trí quét hiện tại.
 
-### Trace chi tiết
+### Sweep Line 1D: Tìm điểm phủ nhiều đoạn nhất
+
+Bài toán: Cho $N$ đoạn trên trục số $[L_i, R_i]$, tìm số lượng đoạn phủ nhiều nhất tại một điểm.
+
+**Cách làm:** Tại $L_i$ tạo sự kiện +1, tại $R_i$ tạo sự kiện -1. Quét từ trái sang phải, cộng dồn, lấy giá trị lớn nhất.
+
+Ví dụ: Đoạn $[1,4], [2,5], [3,6]$.
+
+| Sự kiện $x$ | Loại | Tổng cộng dồn | Giá trị lớn nhất |
+|-------------|------|---------------|-------------------|
+| 1 | +1 | 1 | 1 |
+| 2 | +1 | 2 | 2 |
+| 3 | +1 | 3 | **3** |
+| 4 | -1 | 2 | 3 |
+| 5 | -1 | 1 | 3 |
+| 6 | -1 | 0 | 3 |
+
+Kết quả: điểm $x=3$ có 3 đoạn phủ.
+
+### Trace chi tiết (Diện tích hợp)
+
+**Ví dụ với 3 hình chữ nhật:**
+
+- HCN1: $(1,1)-(4,3)$
+- HCN2: $(2,2)-(5,4)$
+- HCN3: $(3,0)-(6,3)$
+
+**Danh sách sự kiện** (sau khi sắp xếp):
+
+| $x$ | Type | $y_1$ | $y_2$ | active_len | Diện tích thêm |
+|-----|------|-------|-------|------------|----------------|
+| 1 | +1 | 1 | 3 | 0 → 2 | $0 \cdot (1-1) = 0$ |
+| 2 | +1 | 2 | 4 | 2 → 3 | $2 \cdot (2-1) = 2$ |
+| 3 | +1 | 0 | 3 | 3 → 4 | $3 \cdot (3-2) = 3$ |
+| 4 | -1 | 1 | 3 | 4 → 3 | $4 \cdot (4-3) = 4$ |
+| 5 | -1 | 2 | 4 | 3 → 2 | $3 \cdot (5-4) = 3$ |
+| 6 | -1 | 0 | 3 | 2 → 0 | $2 \cdot (6-5) = 2$ |
+
+**Tổng diện tích:** $0 + 2 + 3 + 4 + 3 + 2 = 14$.
+
+### Trace chi tiết (Giao điểm đoạn thẳng)
 
 **3 đoạn:** $A = [(1,1)-(4,3)]$, $B = [(2,2)-(5,1)]$, $C = [(3,0)-(6,4)]$
 
@@ -126,62 +166,64 @@ Do đó, chỉ cần kiểm tra mỗi đoạn với láng giềng trên/dưới 
     #include <bits/stdc++.h>
     using namespace std;
 
+    // Cấu trúc sự kiện cho Sweep Line
     struct Event {
-        int x, y1, y2, type; // type: +1 (bắt đầu), -1 (kết thúc)
+        int x, y1, y2, type; // type: +1 (bắt đầu HCN), -1 (kết thúc HCN)
         bool operator<(const Event& o) const {
-            if (x != o.x) return x < o.x;
-            return type < o.type;
+            if (x != o.x) return x < o.x;       // Sắp xếp theo tọa độ x tăng dần
+            return type < o.type;                // Sự kiện bắt đầu (-1) trước kết thúc (+1)
         }
     };
 
     int main() {
         int n;
-        cin >> n;
+        cin >> n;                                // Số hình chữ nhật
 
         vector<Event> events;
-        set<int> ycoords;
+        set<int> ycoords;                        // Lưu các tọa độ y để rời rạc hóa
 
         for (int i = 0; i < n; i++) {
             int x1, y1, x2, y2;
-            cin >> x1 >> y1 >> x2 >> y2;
-            events.push_back({x1, y1, y2, 1});
-            events.push_back({x2, y1, y2, -1});
-            ycoords.insert(y1);
-            ycoords.insert(y2);
+            cin >> x1 >> y1 >> x2 >> y2;         // Đọc HCN: (x1,y1) - (x2,y2)
+            events.push_back({x1, y1, y2, 1});   // Sự kiện bắt đầu tại x1
+            events.push_back({x2, y1, y2, -1});  // Sự kiện kết thúc tại x2
+            ycoords.insert(y1);                   // Lưu y1 để rời rạc
+            ycoords.insert(y2);                   // Lưu y2 để rời rạc
         }
 
-        sort(events.begin(), events.end());
+        sort(events.begin(), events.end());       // Sắp xếp sự kiện theo x
 
-        // Rời rạc hoá toạ độ y
+        // Rời rạc hóa tọa độ y
         vector<int> ys(ycoords.begin(), ycoords.end());
-        map<int, int> ytoi;
+        map<int, int> ytoi;                      // Ánh xạ y gốc → chỉ số trong mảng
         for (int i = 0; i < (int)ys.size(); i++) ytoi[ys[i]] = i;
 
-        int m = ys.size();
-        vector<int> cnt(m, 0);
+        int m = ys.size();                       // Số tọa độ y sau rời rạc
+        vector<int> cnt(m, 0);                   // cnt[i] = số HCN đang phủ đoạn [ys[i], ys[i+1]]
 
         long long area = 0;
-        int prev_x = events[0].x;
+        int prev_x = events[0].x;                // Vị trí x trước đó
 
         for (auto& e : events) {
             // Tính diện tích từ prev_x đến e.x
+            // active_len = tổng độ dài các đoạn y đang được phủ
             int active_len = 0;
             for (int i = 0; i < m - 1; i++) {
-                if (cnt[i] > 0) {
+                if (cnt[i] > 0) {               // Đoạn [ys[i], ys[i+1]] đang được phủ
                     active_len += ys[i + 1] - ys[i];
                 }
             }
-            area += (long long)active_len * (e.x - prev_x);
+            area += (long long)active_len * (e.x - prev_x); // Diện tích = dài * rộng
 
-            // Cập nhật cnt
+            // Cập nhật mảng cnt: thêm/xóa HCN tại sự kiện này
             int lo = ytoi[e.y1], hi = ytoi[e.y2];
-            for (int i = lo; i < hi; i++) {
-                cnt[i] += e.type;
+            for (int i = lo; i < hi; i++) {      // Cập nhật các đoạn y bị ảnh hưởng
+                cnt[i] += e.type;                 // +1 nếu bắt đầu, -1 nếu kết thúc
             }
             prev_x = e.x;
         }
 
-        cout << area << "\n";
+        cout << area << "\n";                    // In tổng diện tích
         return 0;
     }
     ```
@@ -193,37 +235,56 @@ Do đó, chỉ cần kiểm tra mỗi đoạn với láng giềng trên/dưới 
     from collections import defaultdict
     input = sys.stdin.readline
 
-    n = int(input())
-    events = []
+    n = int(input())                           # Số hình chữ nhật
+    events = []                                # Danh sách sự kiện (x, type, y1, y2)
     ycoords = set()
 
     for _ in range(n):
-        x1, y1, x2, y2 = map(int, input().split())
-        events.append((x1, 1, y1, y2))
-        events.append((x2, -1, y1, y2))
-        ycoords.add(y1)
+        x1, y1, x2, y2 = map(int, input().split())  # Đọc HCN
+        events.append((x1, 1, y1, y2))          # Sự kiện bắt đầu tại x1
+        events.append((x2, -1, y1, y2))         # Sự kiện kết thúc tại x2
+        ycoords.add(y1)                         # Lưu y để rời rạc hóa
         ycoords.add(y2)
 
-    events.sort()
+    events.sort()                               # Sắp xếp theo x, rồi theo type
+
+    # Rời rạc hóa tọa độ y
     ys = sorted(ycoords)
-    ytoi = {y: i for i, y in enumerate(ys)}
+    ytoi = {y: i for i, y in enumerate(ys)}     # Ánh xạ y → chỉ số
     m = len(ys)
-    cnt = [0] * m
+    cnt = [0] * m                               # cnt[i] = số HCN phủ đoạn [ys[i], ys[i+1]]
 
     area = 0
-    prev_x = events[0][0]
+    prev_x = events[0][0]                       # Vị trí x trước đó
 
     for x, typ, y1, y2 in events:
+        # Tính tổng độ dài y đang được phủ
         active_len = 0
         for i in range(m - 1):
-            if cnt[i] > 0:
+            if cnt[i] > 0:                      # Đoạn đang có HCN phủ
                 active_len += ys[i + 1] - ys[i]
-        area += active_len * (x - prev_x)
+        area += active_len * (x - prev_x)       # Diện tích = dài * (x_mới - x_cũ)
 
+        # Cập nhật mảng phủ
         lo, hi = ytoi[y1], ytoi[y2]
-        for i in range(lo, hi):
-            cnt[i] += typ
+        for i in range(lo, hi):                 # Cập nhật các đoạn từ lo đến hi-1
+            cnt[i] += typ                       # Thêm hoặc xóa HCN
         prev_x = x
 
-    print(area)
+    print(area)                                 # Tổng diện tích hợp
     ```
+
+---
+
+## 5. Bài tập luyện tập (FPTOJ)
+
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `sweep-seg-intersect` | [Giao điểm đoạn thẳng](https://fptoj.com/problem/sweep-seg-intersect) | ⭐⭐ | Sweep Line - giao điểm |
+| `sweep-rect-area` | [Diện tích hợp hình chữ nhật](https://fptoj.com/problem/sweep-rect-area) | ⭐⭐⭐ | Sweep Line - diện tích |
+| `sweep-max-overlap` | [Điểm phủ nhiều đoạn nhất](https://fptoj.com/problem/sweep-max-overlap) | ⭐⭐ | Sweep Line 1D |
+| `sweep-rect-overlap` | [Điểm phủ nhiều hình chữ nhật nhất](https://fptoj.com/problem/sweep-rect-overlap) | ⭐⭐⭐ | Sweep Line 2D |
+| `sweep-pair-count` | [Đếm cặp đoạn giao nhau](https://fptoj.com/problem/sweep-pair-count) | ⭐⭐⭐ | Sweep Line + BIT |
+| `sweep-points-rect` | [Đếm điểm trong hình chữ nhật](https://fptoj.com/problem/sweep-points-rect) | ⭐⭐ | Sweep Line + BIT |
+| `sweep-max-gap` | [Khoảng trống lớn nhất](https://fptoj.com/problem/sweep-max-gap) | ⭐⭐ | Sweep Line 1D |
+| `sweep-camera` | [Đặt camera phủ kín đoạn](https://fptoj.com/problem/sweep-camera) | ⭐⭐⭐ | Sweep Line - phủ đoạn |

@@ -136,26 +136,26 @@ Kết quả: $SA = [6, 5, 3, 1, 0, 4, 2]$
 === "C++"
 
     ```cpp
-    vector<int> buildSA(string s) {
+    vector<int> buildSA(string s) {         // xây dựng Suffix Array bằng phương pháp Doubling
         int n = s.size();
         vector<int> sa(n), rank(n), tmp(n);
         for (int i = 0; i < n; i++) {
-            sa[i] = i;
-            rank[i] = s[i];
+            sa[i] = i;                      // khởi tạo mảng chỉ số
+            rank[i] = s[i];                 // rank ban đầu dựa trên ký tự ASCII
         }
-        for (int k = 1; k < n; k <<= 1) {
+        for (int k = 1; k < n; k <<= 1) {   // nhân đôi độ dài: 1, 2, 4, 8, ...
             auto cmp = [&](int a, int b) {
                 if (rank[a] != rank[b]) return rank[a] < rank[b];
                 int ra = (a + k < n) ? rank[a + k] : -1;
                 int rb = (b + k < n) ? rank[b + k] : -1;
-                return ra < rb;
+                return ra < rb;             // so sánh cặp (rank[i], rank[i+k])
             };
-            sort(sa.begin(), sa.end(), cmp);
+            sort(sa.begin(), sa.end(), cmp); // sắp xếp theo cặp rank
             tmp[sa[0]] = 0;
             for (int i = 1; i < n; i++)
-                tmp[sa[i]] = tmp[sa[i-1]] + (cmp(sa[i-1], sa[i]) ? 1 : 0);
+                tmp[sa[i]] = tmp[sa[i-1]] + (cmp(sa[i-1], sa[i]) ? 1 : 0); // gán rank mới
             rank = tmp;
-            if (rank[sa[n-1]] == n - 1) break;
+            if (rank[sa[n-1]] == n - 1) break; // thoát sớm nếu tất cả rank đã phân biệt
         }
         return sa;
     }
@@ -164,21 +164,21 @@ Kết quả: $SA = [6, 5, 3, 1, 0, 4, 2]$
 === "Python"
 
     ```python
-    def build_sa(s):
+    def build_sa(s):                       # xây dựng Suffix Array bằng Doubling
         n = len(s)
-        sa = list(range(n))
-        rank = [ord(c) for c in s]
+        sa = list(range(n))                # khởi tạo mảng chỉ số
+        rank = [ord(c) for c in s]         # rank ban đầu dựa trên mã ASCII
         tmp = [0] * n
         k = 1
-        while k < n:
-            sa.sort(key=lambda x: (rank[x], rank[x + k] if x + k < n else -1))
+        while k < n:                       # nhân đôi độ dài
+            sa.sort(key=lambda x: (rank[x], rank[x + k] if x + k < n else -1))  # sắp xếp theo cặp
             tmp[sa[0]] = 0
             for i in range(1, n):
                 prev = (rank[sa[i-1]], rank[sa[i-1]+k] if sa[i-1]+k < n else -1)
                 curr = (rank[sa[i]], rank[sa[i]+k] if sa[i]+k < n else -1)
-                tmp[sa[i]] = tmp[sa[i-1]] + (1 if prev < curr else 0)
+                tmp[sa[i]] = tmp[sa[i-1]] + (1 if prev < curr else 0)  # gán rank mới
             rank = tmp[:]
-            if rank[sa[-1]] == n - 1:
+            if rank[sa[-1]] == n - 1:      # thoát sớm nếu tất cả đã phân biệt
                 break
             k <<= 1
         return sa
@@ -231,19 +231,19 @@ Kết quả: $LCP = [0, 0, 1, 3, 0, 0, 2]$
 === "C++"
 
     ```cpp
-    vector<int> buildLCP(string s, vector<int>& sa) {
+    vector<int> buildLCP(string s, vector<int>& sa) {  // Kasai's Algorithm O(N)
         int n = s.size();
         vector<int> rank(n), lcp(n);
         for (int i = 0; i < n; i++)
-            rank[sa[i]] = i;
+            rank[sa[i]] = i;                          // vị trí của hậu tố i trong SA
         int k = 0;
-        for (int i = 0; i < n; i++) {
-            if (rank[i] == 0) { k = 0; continue; }
-            int j = sa[rank[i] - 1];
+        for (int i = 0; i < n; i++) {                 // duyệt hậu tố theo thứ tự gốc
+            if (rank[i] == 0) { k = 0; continue; }    // hậu tố đầu tiên không có LCP
+            int j = sa[rank[i] - 1];                  // hậu tố đứng trước trong SA
             while (i + k < n && j + k < n && s[i + k] == s[j + k])
-                k++;
+                k++;                                  // mở rộng tiền tố chung
             lcp[rank[i]] = k;
-            if (k > 0) k--;
+            if (k > 0) k--;                           // giảm k theo tính chất LCP[i] ≥ LCP[i-1] - 1
         }
         return lcp;
     }
@@ -252,23 +252,23 @@ Kết quả: $LCP = [0, 0, 1, 3, 0, 0, 2]$
 === "Python"
 
     ```python
-    def build_lcp(s, sa):
+    def build_lcp(s, sa):                          # Kasai's Algorithm O(N)
         n = len(s)
         rank = [0] * n
         lcp = [0] * n
         for i in range(n):
-            rank[sa[i]] = i
+            rank[sa[i]] = i                        # vị trí của hậu tố i trong SA
         k = 0
-        for i in range(n):
-            if rank[i] == 0:
+        for i in range(n):                         # duyệt hậu tố theo thứ tự gốc
+            if rank[i] == 0:                       # hậu tố đầu tiên không có LCP
                 k = 0
                 continue
-            j = sa[rank[i] - 1]
+            j = sa[rank[i] - 1]                    # hậu tố đứng trước trong SA
             while i + k < n and j + k < n and s[i + k] == s[j + k]:
-                k += 1
+                k += 1                             # mở rộng tiền tố chung
             lcp[rank[i]] = k
             if k > 0:
-                k -= 1
+                k -= 1                             # giảm k theo tính chất
         return lcp
     ```
 
@@ -279,7 +279,7 @@ Kết quả: $LCP = [0, 0, 1, 3, 0, 0, 2]$
 === "C++"
 
     ```cpp
-    vector<vector<int>> buildSparseTable(vector<int>& lcp) {
+    vector<vector<int>> buildSparseTable(vector<int>& lcp) {  // xây Sparse Table cho RMQ trên LCP
         int n = lcp.size();
         int LOG = 0;
         while ((1 << LOG) <= n) LOG++;
@@ -287,22 +287,22 @@ Kết quả: $LCP = [0, 0, 1, 3, 0, 0, 2]$
         st[0] = lcp;
         for (int j = 1; j < LOG; j++)
             for (int i = 0; i + (1 << j) <= n; i++)
-                st[j][i] = min(st[j-1][i], st[j-1][i + (1 << (j-1))]);
+                st[j][i] = min(st[j-1][i], st[j-1][i + (1 << (j-1))]);  // min trên đoạn 2^j
         return st;
     }
 
-    int query(vector<vector<int>>& st, int l, int r) {
+    int query(vector<vector<int>>& st, int l, int r) {       // truy vấn min trên [l, r]
         if (l > r) swap(l, r);
         int len = r - l + 1;
-        int k = 31 - __builtin_clz(len);
+        int k = 31 - __builtin_clz(len);                     // log2(len)
         return min(st[k][l], st[k][r - (1 << k) + 1]);
     }
 
-    int getLCP(vector<vector<int>>& st, vector<int>& rank, int i, int j) {
+    int getLCP(vector<vector<int>>& st, vector<int>& rank, int i, int j) {  // LCP của hai hậu tố i, j
         int ri = rank[i], rj = rank[j];
         if (ri > rj) swap(ri, rj);
         if (ri == rj) return (int)st[0].size() - ri;
-        return query(st, ri + 1, rj);
+        return query(st, ri + 1, rj);                        // min trên (ri, rj]
     }
     ```
 
@@ -383,10 +383,10 @@ Tìm pattern $P$ trong $S$ bằng binary search trên $SA$. Hậu tố bắt đ�
 === "C++"
 
     ```cpp
-    vector<int> search(string s, vector<int>& sa, string pattern) {
+    vector<int> search(string s, vector<int>& sa, string pattern) {  // tìm pattern bằng binary search trên SA
         int n = s.size(), m = pattern.size();
         int lo = 0, hi = n - 1;
-        while (lo < hi) {
+        while (lo < hi) {                                // binary search tìm vị trí đầu tiên
             int mid = (lo + hi) / 2;
             if (s.compare(sa[mid], min(m, (int)s.size() - sa[mid]), pattern) >= 0)
                 hi = mid;
@@ -395,7 +395,7 @@ Tìm pattern $P$ trong $S$ bằng binary search trên $SA$. Hậu tố bắt đ�
         }
         vector<int> result;
         while (lo < n && s.compare(sa[lo], min(m, (int)s.size() - sa[lo]), pattern) == 0) {
-            result.push_back(sa[lo]);
+            result.push_back(sa[lo]);                    // thu thập tất cả vị trí khớp
             lo++;
         }
         return result;
@@ -405,17 +405,17 @@ Tìm pattern $P$ trong $S$ bằng binary search trên $SA$. Hậu tố bắt đ�
 === "Python"
 
     ```python
-    def search(s, sa, pattern):
+    def search(s, sa, pattern):                        # tìm pattern bằng binary search trên SA
         n, m = len(s), len(pattern)
         lo, hi = 0, n - 1
-        while lo < hi:
+        while lo < hi:                                 # binary search tìm vị trí đầu tiên
             mid = (lo + hi) // 2
             if s[sa[mid]:sa[mid]+m] >= pattern:
                 hi = mid
             else:
                 lo = mid + 1
         result = []
-        while lo < n and s[sa[lo]:sa[lo]+m] == pattern:
+        while lo < n and s[sa[lo]:sa[lo]+m] == pattern:  # thu thập tất cả vị trí khớp
             result.append(sa[lo])
             lo += 1
         return result
@@ -434,18 +434,18 @@ Ghép hai xâu: $T = S_1 + \text{"\$"} + S_2$. Xây dựng $SA$ và $LCP$ cho $T
 === "C++"
 
     ```cpp
-    string longestCommonSubstring(string s1, string s2) {
-        string t = s1 + "$" + s2;
+    string longestCommonSubstring(string s1, string s2) {  // xâu con chung dài nhất
+        string t = s1 + "$" + s2;                          // ghép hai xâu
         int n1 = s1.size(), n = t.size();
         auto sa = buildSA(t);
         auto lcp = buildLCP(t, sa);
         int best = 0, pos = 0;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {                      // duyệt các hậu tố liền kề
             bool inS1 = (sa[i] < n1);
             bool inS2 = (sa[i-1] < n1);
-            if (inS1 != inS2 && lcp[i] > best) {
+            if (inS1 != inS2 && lcp[i] > best) {           // một từ S1, một từ S2
                 best = lcp[i];
-                pos = sa[i];
+                pos = sa[i];                               // lưu vị trí xâu con
             }
         }
         return s1.substr(pos, best);
@@ -455,16 +455,16 @@ Ghép hai xâu: $T = S_1 + \text{"\$"} + S_2$. Xây dựng $SA$ và $LCP$ cho $T
 === "Python"
 
     ```python
-    def longest_common_substring(s1, s2):
-        t = s1 + "$" + s2
+    def longest_common_substring(s1, s2):                  # xâu con chung dài nhất
+        t = s1 + "$" + s2                                  # ghép hai xâu
         n1 = len(s1)
         sa = build_sa(t)
         lcp = build_lcp(t, sa)
         best, pos = 0, 0
-        for i in range(1, len(t)):
+        for i in range(1, len(t)):                         # duyệt các hậu tố liền kề
             in_s1 = sa[i] < n1
             in_s2 = sa[i-1] < n1
-            if in_s1 != in_s2 and lcp[i] > best:
+            if in_s1 != in_s2 and lcp[i] > best:           # một từ S1, một từ S2
                 best = lcp[i]
                 pos = sa[i]
         return s1[pos:pos+best]
@@ -539,9 +539,8 @@ Dùng SA khi cần chính xác 100% hoặc nhiều truy vấn trên cùng xâu. 
 
 | Bài | FPTOJ | Độ khó | Chủ đề |
 |:----|:-----:|:------:|:-------|
-| `stra-lcp` | [LCP RMQ Query](https://fptoj.com/problem/stra-lcp) | ⭐⭐⭐⭐ | SA + LCP + Sparse Table |
-| `stra-dist` | [Đếm xâu con khác nhau](https://fptoj.com/problem/stra-dist) | ⭐⭐⭐⭐ | Công thức SA - LCP |
 | `saf-pal2` | [Palindrome xuất hiện nhiều nhất](https://fptoj.com/problem/saf-pal2) | ⭐⭐⭐⭐ | SA + Hash |
+| `saf-mxrep` | [Xâu con lặp dài nhất 2](https://fptoj.com/problem/saf-mxrep) | ⭐⭐⭐⭐ | SA + LCP nâng cao |
 
 ---
 

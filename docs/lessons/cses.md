@@ -79,6 +79,16 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `st-next` | [Đội hình thể thao](https://fptoj.com/problem/st-next) | ⭐⭐ | Stack đơn điệu | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
 | `ps-grid` | [Vườn trái cây](https://fptoj.com/problem/ps-grid) | ⭐⭐ | Prefix Sum 2D | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
 | `ps-paint` | [Tô hàng rào](https://fptoj.com/problem/ps-paint) | ⭐⭐⭐ | Difference + Max | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-max-sub` | [Đoạn tổng lớn](https://fptoj.com/problem/ps-max-sub) | ⭐ | Kadane | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-2d-diff` | [Mảng hiệu 2D](https://fptoj.com/problem/ps-2d-diff) | ⭐ | Difference Array 2D | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-min-stack` | [Stack min](https://fptoj.com/problem/st-min-stack) | ⭐ | Stack min O(1) | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-sub-sum-k` | [Đoạn tổng K](https://fptoj.com/problem/ps-sub-sum-k) | ⭐⭐ | Prefix Sum + Hashmap | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-balanced` | [Ngoặc nhiều loại](https://fptoj.com/problem/st-balanced) | ⭐⭐ | Stack - Balanced bracket | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-xor-range` | [XOR đoạn](https://fptoj.com/problem/ps-xor-range) | ⭐⭐ | Prefix XOR | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-sliding-stack` | [Stack trượt](https://fptoj.com/problem/st-sliding-stack) | ⭐⭐ | Deque - Sliding max | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-matrix-diff` | [Ma trận hiệu](https://fptoj.com/problem/ps-matrix-diff) | ⭐⭐⭐ | Diff Array 2D + Query | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `st-max-rect` | [HCN lớn nhất](https://fptoj.com/problem/st-max-rect) | ⭐⭐⭐ | Stack - Histogram | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+| `ps-median-sliding` | [Trung vị trượt](https://fptoj.com/problem/ps-median-sliding) | ⭐⭐⭐⭐ | Two heaps - Median | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
 
 ---
 
@@ -238,6 +248,170 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `rec-tower` | [Tháp Hà Nội](https://fptoj.com/problem/rec-tower) | ⭐⭐⭐ | Đệ quy | [Đệ quy & Quay lui](de-quy-va-quay-lui.md) |
 | `rec-sudoku` | [Sudoku](https://fptoj.com/problem/rec-sudoku) | ⭐⭐⭐⭐⭐ | Quay lui | [Đệ quy & Quay lui](de-quy-va-quay-lui.md) |
 | `rec-mcolor` | [Tô màu đồ thị](https://fptoj.com/problem/rec-mcolor) | ⭐⭐⭐⭐⭐ | Quay lui | [Đệ quy & Quay lui](de-quy-va-quay-lui.md) |
+
+---
+## 🟢 1z-3i. Nhóm Quy hoạch động (Dynamic Programming)
+*Luyện tập các kỹ thuật quy hoạch động từ cơ bản đến nâng cao: DP tuyến tính, Knapsack, LIS, LCS, Bitmask DP, Digit DP, DP trên cây, DP trên DAG.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dp-01` | [Số Fibonacci](https://fptoj.com/problem/dp-01) | ⭐ | DP tuyến tính | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-02` | [Dãy Tribonacci](https://fptoj.com/problem/dp-02) | ⭐ | DP tuyến tính | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-03` | [Leo cầu thang](https://fptoj.com/problem/dp-03) | ⭐ | DP tuyến tính | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-04` | [Tên trộm](https://fptoj.com/problem/dp-04) | ⭐ | House Robber | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-05` | [Gieo xúc xắc](https://fptoj.com/problem/dp-05) | ⭐ | DP combo | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-06` | [Đếm cách đổi xu](https://fptoj.com/problem/dp-06) | ⭐⭐ | Coin Change | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-07` | [Đổi xu tối thiểu](https://fptoj.com/problem/dp-07) | ⭐⭐ | Minimizing Coins | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-08` | [Tổng tập con không kề](https://fptoj.com/problem/dp-08) | ⭐⭐ | DP không kề | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-09` | [Cái túi 0/1](https://fptoj.com/problem/dp-09) | ⭐⭐⭐ | 0/1 Knapsack | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-10` | [Cái túi không giới hạn](https://fptoj.com/problem/dp-10) | ⭐⭐⭐ | Unbounded Knapsack | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-11` | [Dãy con tăng dài nhất](https://fptoj.com/problem/dp-11) | ⭐⭐⭐ | LIS | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-12` | [Xâu con chung dài nhất](https://fptoj.com/problem/dp-12) | ⭐⭐⭐ | LCS | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-13` | [Khoảng cách biên tập](https://fptoj.com/problem/dp-13) | ⭐⭐⭐ | Edit Distance | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-14` | [Xâu con đối xứng dài nhất](https://fptoj.com/problem/dp-14) | ⭐⭐⭐ | Palindrome Subseq | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-15` | [Cưa que gỗ](https://fptoj.com/problem/dp-15) | ⭐⭐⭐ | Rod Cutting | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-16` | [Tách từ](https://fptoj.com/problem/dp-16) | ⭐⭐⭐ | Word Break | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-17` | [Tam giác số](https://fptoj.com/problem/dp-17) | ⭐⭐⭐ | Triangle DP | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-18` | [Tập con tổng S](https://fptoj.com/problem/dp-18) | ⭐⭐⭐ | Subset Sum | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-19` | [Phân công công việc](https://fptoj.com/problem/dp-19) | ⭐⭐⭐⭐ | Bitmask DP | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-20` | [Đường đi Hamilton](https://fptoj.com/problem/dp-20) | ⭐⭐⭐⭐ | TSP | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-21` | [Đường đi trong lưới](https://fptoj.com/problem/dp-21) | ⭐⭐⭐⭐ | Grid DP | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-22` | [Chia tập con bằng nhau](https://fptoj.com/problem/dp-22) | ⭐⭐⭐⭐ | Partition Equal | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-23` | [Hình vuông lớn nhất](https://fptoj.com/problem/dp-23) | ⭐⭐⭐⭐ | Max Square | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-24` | [Đoạn con tổng lớn nhất](https://fptoj.com/problem/dp-24) | ⭐⭐⭐⭐ | Kadane | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-25` | [Xâu con đối xứng liên tiếp](https://fptoj.com/problem/dp-25) | ⭐⭐⭐⭐ | Longest Pal Substr | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-26` | [Đếm số đặc biệt](https://fptoj.com/problem/dp-26) | ⭐⭐⭐⭐⭐ | Digit DP | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-27` | [Đường kính cây](https://fptoj.com/problem/dp-27) | ⭐⭐⭐⭐⭐ | DP trên cây | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-28` | [Đường đi lớn nhất trên cây](https://fptoj.com/problem/dp-28) | ⭐⭐⭐⭐⭐ | Tree DP | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-29` | [Đường đi dài nhất trên DAG](https://fptoj.com/problem/dp-29) | ⭐⭐⭐⭐⭐ | DP trên DAG | [Quy hoạch động](quy-hoach-dong.md) |
+| `dp-30` | [Cắt xâu đối xứng](https://fptoj.com/problem/dp-30) | ⭐⭐⭐⭐⭐ | Palindrome Partition | [Quy hoạch động](quy-hoach-dong.md) |
+
+---
+
+## 🟢 1z-3i-2. Nhóm DP Trên Cây (Tree DP)
+*Luyện tập quy hoạch động trên cấu trúc cây.*
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dpt-size` | [Kích thước gia tộc](https://fptoj.com/problem/dpt-size) | ⭐ | Tree DP - Subtree size | [DP trên cây](dp-on-trees.md) |
+| `dpt-diameter` | [Đường kính cây](https://fptoj.com/problem/dpt-diameter) | ⭐⭐ | Tree DP - Đường kính | [DP trên cây](dp-on-trees.md) |
+| `dpt-max-path-sum` | [Đường đi tổng lớn](https://fptoj.com/problem/dpt-max-path-sum) | ⭐⭐⭐ | Tree DP - Max path | [DP trên cây](dp-on-trees.md) |
+| `dpt-center` | [Tâm của cây](https://fptoj.com/problem/dpt-center) | ⭐⭐⭐ | Tree DP - Tâm | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-matching` | [Ghép cặp](https://fptoj.com/problem/dpt-tree-matching) | ⭐⭐⭐ | Tree DP - Matching | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-cover` | [Phủ đỉnh](https://fptoj.com/problem/dpt-tree-cover) | ⭐⭐⭐ | Tree DP - Vertex cover | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-indset` | [Tập độc lập](https://fptoj.com/problem/dpt-tree-indset) | ⭐⭐⭐ | Tree DP - Indep set | [DP trên cây](dp-on-trees.md) |
+| `dpt-k-colors` | [Tô màu cây](https://fptoj.com/problem/dpt-k-colors) | ⭐⭐⭐ | Tree DP - Tô màu | [DP trên cây](dp-on-trees.md) |
+| `dpt-reroot` | [Đổi gốc](https://fptoj.com/problem/dpt-reroot) | ⭐⭐⭐⭐ | Tree DP - Reroot | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-knapsack` | [Ba lô trên cây](https://fptoj.com/problem/dpt-tree-knapsack) | ⭐⭐⭐⭐ | Tree DP - Knapsack | [DP trên cây](dp-on-trees.md) |
+
+---
+
+## 🟢 1z-3i-3. Nhóm Digit DP (Quy hoạch động chữ số)
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dig-count-3` | [Chia hết cho 3](https://fptoj.com/problem/dig-count-3) | ⭐⭐ | Digit DP - Chia hết | [Digit DP](digit-dp.md) |
+| `dig-sum-digit` | [Tổng chữ số K](https://fptoj.com/problem/dig-sum-digit) | ⭐⭐ | Digit DP - Tổng CS | [Digit DP](digit-dp.md) |
+| `dig-not-13` | [Không chứa "13"](https://fptoj.com/problem/dig-not-13) | ⭐⭐ | Digit DP - Xâu cấm | [Digit DP](digit-dp.md) |
+| `dig-no-adj-same` | [CS liền kề khác](https://fptoj.com/problem/dig-no-adj-same) | ⭐⭐ | Digit DP - Kề | [Digit DP](digit-dp.md) |
+| `dig-no-trailing` | [Không 0 cuối](https://fptoj.com/problem/dig-no-trailing) | ⭐⭐ | Digit DP - Đuôi | [Digit DP](digit-dp.md) |
+| `dig-product` | [Tích CS ≤ K](https://fptoj.com/problem/dig-product) | ⭐⭐⭐ | Digit DP - Tích | [Digit DP](digit-dp.md) |
+| `dig-palindrome` | [Đếm số đối xứng](https://fptoj.com/problem/dig-palindrome) | ⭐⭐⭐ | Digit DP - Palindrome | [Digit DP](digit-dp.md) |
+| `dig-div-digit` | [Chia hết CS](https://fptoj.com/problem/dig-div-digit) | ⭐⭐⭐ | Digit DP - Chia hết | [Digit DP](digit-dp.md) |
+| `dig-num-square` | [Bình phương NT](https://fptoj.com/problem/dig-num-square) | ⭐⭐⭐ | Digit DP - BP CS | [Digit DP](digit-dp.md) |
+| `dig-k-digit` | [Số thứ K](https://fptoj.com/problem/dig-k-digit) | ⭐⭐⭐⭐ | Digit DP - Thứ K | [Digit DP](digit-dp.md) |
+| `dig-sum-even` | [Cân bằng CS](https://fptoj.com/problem/dig-sum-even) | ⭐⭐⭐⭐ | Digit DP - Cân bằng | [Digit DP](digit-dp.md) |
+
+---
+
+## 🟢 1z-3i-4. Nhóm Interval DP (Quy hoạch động khoảng)
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `int-merge-stones` | [Trộn đá](https://fptoj.com/problem/int-merge-stones) | ⭐⭐ | Interval DP - Merge | [Interval DP](interval-dp.md) |
+| `int-bracket` | [Ngoặc đúng](https://fptoj.com/problem/int-bracket) | ⭐⭐ | Interval DP - Bracket | [Interval DP](interval-dp.md) |
+| `int-palindrome-lps` | [LPS](https://fptoj.com/problem/int-palindrome-lps) | ⭐⭐ | Interval DP - LPS | [Interval DP](interval-dp.md) |
+| `int-tree-cut` | [Chặt cây](https://fptoj.com/problem/int-tree-cut) | ⭐⭐ | Interval DP - Cut | [Interval DP](interval-dp.md) |
+| `int-palindrome-cut` | [Cắt đối xứng](https://fptoj.com/problem/int-palindrome-cut) | ⭐⭐⭐ | Interval DP - Palin cut | [Interval DP](interval-dp.md) |
+| `int-matrix-chain` | [Nhân ma trận](https://fptoj.com/problem/int-matrix-chain) | ⭐⭐⭐ | Interval DP - MCM | [Interval DP](interval-dp.md) |
+| `int-polygon` | [Đa giác](https://fptoj.com/problem/int-polygon) | ⭐⭐⭐ | Interval DP - Polygon | [Interval DP](interval-dp.md) |
+| `int-burst-balloons` | [Bong bóng](https://fptoj.com/problem/int-burst-balloons) | ⭐⭐⭐ | Interval DP - Balloon | [Interval DP](interval-dp.md) |
+| `int-merge-v2` | [Trộn đá vòng](https://fptoj.com/problem/int-merge-v2) | ⭐⭐⭐ | Interval DP - Vòng | [Interval DP](interval-dp.md) |
+| `int-pick-edge` | [Chọn cạnh](https://fptoj.com/problem/int-pick-edge) | ⭐⭐⭐ | Interval DP - Edge | [Interval DP](interval-dp.md) |
+| `int-burst-max` | [Bong bóng max](https://fptoj.com/problem/int-burst-max) | ⭐⭐⭐⭐ | Interval DP - Max | [Interval DP](interval-dp.md) |
+
+---
+
+## 🟢 1z-3i-5. Nhóm SOS DP (Sum Over Subsets)
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `sos-sum-sub` | [Tổng tập con](https://fptoj.com/problem/sos-sum-sub) | ⭐⭐ | SOS DP - Sum sub | [SOS DP](sos-dp.md) |
+| `sos-max-sub` | [Lớn nhất tập con](https://fptoj.com/problem/sos-max-sub) | ⭐⭐ | SOS DP - Max sub | [SOS DP](sos-dp.md) |
+| `sos-xor-pair` | [Cặp XOR](https://fptoj.com/problem/sos-xor-pair) | ⭐⭐ | SOS DP - XOR pair | [SOS DP](sos-dp.md) |
+| `sos-cnt-sub` | [Đếm tập con](https://fptoj.com/problem/sos-cnt-sub) | ⭐⭐⭐ | SOS DP - AND=0 | [SOS DP](sos-dp.md) |
+| `sos-or-pair` | [Cặp OR](https://fptoj.com/problem/sos-or-pair) | ⭐⭐⭐ | SOS DP - OR pair | [SOS DP](sos-dp.md) |
+| `sos-and-zero` | [AND=0](https://fptoj.com/problem/sos-and-zero) | ⭐⭐⭐ | SOS DP - AND | [SOS DP](sos-dp.md) |
+| `sos-max-xor-sub` | [XOR lớn nhất](https://fptoj.com/problem/sos-max-xor-sub) | ⭐⭐⭐ | SOS DP - Max XOR | [SOS DP](sos-dp.md) |
+| `sos-three-or` | [Ba OR](https://fptoj.com/problem/sos-three-or) | ⭐⭐⭐⭐ | SOS DP - 3 OR | [SOS DP](sos-dp.md) |
+| `sos-four-and` | [Bốn AND](https://fptoj.com/problem/sos-four-and) | ⭐⭐⭐⭐ | SOS DP - 4 AND | [SOS DP](sos-dp.md) |
+| `sos-gcd-set` | [GCD tập con](https://fptoj.com/problem/sos-gcd-set) | ⭐⭐⭐⭐ | SOS DP - GCD | [SOS DP](sos-dp.md) |
+| `sos-seven-and` | [Bảy AND](https://fptoj.com/problem/sos-seven-and) | ⭐⭐⭐⭐⭐ | SOS DP - 7 AND | [SOS DP](sos-dp.md) |
+
+---
+
+## 🟢 1z-3i-6. Nhóm Tối Ưu DP (DP Optimization)
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `opt-dc-basic` | [Chia đoạn](https://fptoj.com/problem/opt-dc-basic) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu DP](dp-optimization.md) |
+| `opt-dc-factory` | [Nhà máy](https://fptoj.com/problem/opt-dc-factory) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu DP](dp-optimization.md) |
+| `opt-cht-basic` | [CHT cơ bản](https://fptoj.com/problem/opt-cht-basic) | ⭐⭐⭐⭐ | CHT | [Tối ưu DP](dp-optimization.md) |
+| `opt-cht-fence` | [Hàng rào](https://fptoj.com/problem/opt-cht-fence) | ⭐⭐⭐⭐ | CHT | [Tối ưu DP](dp-optimization.md) |
+| `opt-cht-land` | [Mua đất](https://fptoj.com/problem/opt-cht-land) | ⭐⭐⭐⭐ | CHT | [Tối ưu DP](dp-optimization.md) |
+| `opt-knuth-basic` | [Knuth](https://fptoj.com/problem/opt-knuth-basic) | ⭐⭐⭐⭐ | Knuth | [Tối ưu DP](dp-optimization.md) |
+| `opt-knuth-merge` | [Trộn Knuth](https://fptoj.com/problem/opt-knuth-merge) | ⭐⭐⭐⭐ | Knuth | [Tối ưu DP](dp-optimization.md) |
+| `opt-alien` | [Aliens](https://fptoj.com/problem/opt-alien) | ⭐⭐⭐⭐ | Alien | [Tối ưu DP](dp-optimization.md) |
+| `opt-dc-xor` | [XOR](https://fptoj.com/problem/opt-dc-xor) | ⭐⭐⭐⭐ | D&C XOR | [Tối ưu DP](dp-optimization.md) |
+| `opt-bookshelf` | [Kệ sách](https://fptoj.com/problem/opt-bookshelf) | ⭐⭐⭐⭐ | CHT | [Tối ưu DP](dp-optimization.md) |
+| `opt-alien-pro` | [Alien pro](https://fptoj.com/problem/opt-alien-pro) | ⭐⭐⭐⭐⭐ | Alien+CHT | [Tối ưu DP](dp-optimization.md) |
+
+---
+
+## 🟢 1z-3i-7. Nhóm DP 1D1D (Divide & Conquer DP)
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `d1d-basic-split` | [Chia đoạn](https://fptoj.com/problem/d1d-basic-split) | ⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-post-office` | [Bưu điện](https://fptoj.com/problem/d1d-post-office) | ⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-factory` | [Nhà máy](https://fptoj.com/problem/d1d-factory) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-painting` | [Tô màu](https://fptoj.com/problem/d1d-painting) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-hat` | [Phát nón](https://fptoj.com/problem/d1d-hat) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-linear-fill` | [Điền số](https://fptoj.com/problem/d1d-linear-fill) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-park` | [Công viên](https://fptoj.com/problem/d1d-park) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-attach` | [Ghép cặp](https://fptoj.com/problem/d1d-attach) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-letter` | [Gửi thư](https://fptoj.com/problem/d1d-letter) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-warehouse` | [Kho hàng](https://fptoj.com/problem/d1d-warehouse) | ⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+| `d1d-cost-k` | [D&C siêu khó](https://fptoj.com/problem/d1d-cost-k) | ⭐⭐⭐⭐⭐ | D&C DP | [Tối ưu 1D1D](dp-1d1d.md) |
+
+---
+
+## 🟢 1z-3i-8. Nhóm DP Convex Hull (Convex Hull Trick)
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ch-line-intro` | [CHT cơ bản](https://fptoj.com/problem/ch-line-intro) | ⭐⭐⭐ | CHT | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-land-acq` | [Mua đất](https://fptoj.com/problem/ch-land-acq) | ⭐⭐⭐ | CHT | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-fence-paint` | [Sơn hàng rào](https://fptoj.com/problem/ch-fence-paint) | ⭐⭐⭐ | CHT | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-circles` | [Hình tròn](https://fptoj.com/problem/ch-circles) | ⭐⭐⭐ | CHT | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-arrange` | [Sắp xếp](https://fptoj.com/problem/ch-arrange) | ⭐⭐⭐ | CHT | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-sawmill` | [Xưởng cưa](https://fptoj.com/problem/ch-sawmill) | ⭐⭐⭐⭐ | CHT | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-cemetery` | [Nghĩa trang](https://fptoj.com/problem/ch-cemetery) | ⭐⭐⭐⭐ | CHT | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-li-chao` | [Li Chao](https://fptoj.com/problem/ch-li-chao) | ⭐⭐⭐⭐ | Li Chao | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-dp-aliens` | [DP Aliens](https://fptoj.com/problem/ch-dp-aliens) | ⭐⭐⭐⭐ | Alien | [DP Convex Hull](dp-convex-hull.md) |
+| `ch-max-rect` | [HCN max](https://fptoj.com/problem/ch-max-rect) | ⭐⭐⭐⭐ | Stack | [DP Convex Hull](dp-convex-hull.md) |
+
+---
 
 ---
 
@@ -769,44 +943,6 @@ Chào mừng các bạn đến với **FPTOJ Problem Set**! Dưới đây là da
 | `grd-min-arrows` | [Bong bóng và mũi tên](https://fptoj.com/problem/grd-min-arrows) | ⭐⭐⭐⭐ | Minimum Arrows | [Greedy](greedy.md) |
 | `grd-partition-labels` | [Chia đoạn ký tự](https://fptoj.com/problem/grd-partition-labels) | ⭐⭐⭐⭐ | Partition Labels | [Greedy](greedy.md) |
 | `grd-wiggle` | [Dãy zigzag](https://fptoj.com/problem/grd-wiggle) | ⭐⭐⭐⭐ | Wiggle Subsequence | [Greedy](greedy.md) |
-
----
-
-## 🟢 1z-3i. Nhóm Quy hoạch động (Dynamic Programming)
-*Luyện tập các kỹ thuật quy hoạch động từ cơ bản đến nâng cao: DP tuyến tính, Knapsack, LIS, LCS, Bitmask DP, Digit DP, DP trên cây, DP trên DAG.*
-
-| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
-| :--- | :--- | :---: | :--- | :--- |
-| `dp-01` | [Số Fibonacci](https://fptoj.com/problem/dp-01) | ⭐ | DP tuyến tính | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-02` | [Dãy Tribonacci](https://fptoj.com/problem/dp-02) | ⭐ | DP tuyến tính | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-03` | [Leo cầu thang](https://fptoj.com/problem/dp-03) | ⭐ | DP tuyến tính | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-04` | [Tên trộm](https://fptoj.com/problem/dp-04) | ⭐ | House Robber | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-05` | [Gieo xúc xắc](https://fptoj.com/problem/dp-05) | ⭐ | DP combo | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-06` | [Đếm cách đổi xu](https://fptoj.com/problem/dp-06) | ⭐⭐ | Coin Change | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-07` | [Đổi xu tối thiểu](https://fptoj.com/problem/dp-07) | ⭐⭐ | Minimizing Coins | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-08` | [Tổng tập con không kề](https://fptoj.com/problem/dp-08) | ⭐⭐ | DP không kề | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-09` | [Cái túi 0/1](https://fptoj.com/problem/dp-09) | ⭐⭐⭐ | 0/1 Knapsack | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-10` | [Cái túi không giới hạn](https://fptoj.com/problem/dp-10) | ⭐⭐⭐ | Unbounded Knapsack | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-11` | [Dãy con tăng dài nhất](https://fptoj.com/problem/dp-11) | ⭐⭐⭐ | LIS | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-12` | [Xâu con chung dài nhất](https://fptoj.com/problem/dp-12) | ⭐⭐⭐ | LCS | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-13` | [Khoảng cách biên tập](https://fptoj.com/problem/dp-13) | ⭐⭐⭐ | Edit Distance | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-14` | [Xâu con đối xứng dài nhất](https://fptoj.com/problem/dp-14) | ⭐⭐⭐ | Palindrome Subseq | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-15` | [Cưa que gỗ](https://fptoj.com/problem/dp-15) | ⭐⭐⭐ | Rod Cutting | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-16` | [Tách từ](https://fptoj.com/problem/dp-16) | ⭐⭐⭐ | Word Break | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-17` | [Tam giác số](https://fptoj.com/problem/dp-17) | ⭐⭐⭐ | Triangle DP | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-18` | [Tập con tổng S](https://fptoj.com/problem/dp-18) | ⭐⭐⭐ | Subset Sum | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-19` | [Phân công công việc](https://fptoj.com/problem/dp-19) | ⭐⭐⭐⭐ | Bitmask DP | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-20` | [Đường đi Hamilton](https://fptoj.com/problem/dp-20) | ⭐⭐⭐⭐ | TSP | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-21` | [Đường đi trong lưới](https://fptoj.com/problem/dp-21) | ⭐⭐⭐⭐ | Grid DP | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-22` | [Chia tập con bằng nhau](https://fptoj.com/problem/dp-22) | ⭐⭐⭐⭐ | Partition Equal | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-23` | [Hình vuông lớn nhất](https://fptoj.com/problem/dp-23) | ⭐⭐⭐⭐ | Max Square | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-24` | [Đoạn con tổng lớn nhất](https://fptoj.com/problem/dp-24) | ⭐⭐⭐⭐ | Kadane | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-25` | [Xâu con đối xứng liên tiếp](https://fptoj.com/problem/dp-25) | ⭐⭐⭐⭐ | Longest Pal Substr | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-26` | [Đếm số đặc biệt](https://fptoj.com/problem/dp-26) | ⭐⭐⭐⭐⭐ | Digit DP | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-27` | [Đường kính cây](https://fptoj.com/problem/dp-27) | ⭐⭐⭐⭐⭐ | DP trên cây | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-28` | [Đường đi lớn nhất trên cây](https://fptoj.com/problem/dp-28) | ⭐⭐⭐⭐⭐ | Tree DP | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-29` | [Đường đi dài nhất trên DAG](https://fptoj.com/problem/dp-29) | ⭐⭐⭐⭐⭐ | DP trên DAG | [Quy hoạch động](quy-hoach-dong.md) |
-| `dp-30` | [Cắt xâu đối xứng](https://fptoj.com/problem/dp-30) | ⭐⭐⭐⭐⭐ | Palindrome Partition | [Quy hoạch động](quy-hoach-dong.md) |
 
 ---
 

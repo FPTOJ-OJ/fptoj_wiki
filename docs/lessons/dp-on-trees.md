@@ -1013,17 +1013,20 @@ Bằng cách sử dụng thứ tự duyệt DFS, ta có thể đánh số lại 
 
 ---
 
-## 9. Bài tập luyện tập
+## Bài tập luyện tập
 
-| STT | Bài toán | Nguồn | Độ khó | Chủ đề |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | [Tree Diameter](https://cses.fi/problemset/task/1131) | CSES | ★★☆ | Đường kính cây |
-| 2 | [Tree Distances I](https://cses.fi/problemset/task/1132) | CSES | ★★★ | Đổi gốc (Rerooting) |
-| 3 | [Tree Distances II](https://cses.fi/problemset/task/1133) | CSES | ★★★ | Đổi gốc (Rerooting) |
-| 4 | [Tree Matching](https://cses.fi/problemset/task/1130) | CSES | ★★★ | Quy hoạch động trên cây cơ bản |
-| 5 | [Subtree Queries](https://cses.fi/problemset/task/1137) | CSES | ★★★ | Euler Tour + Cấu trúc dữ liệu |
-| 6 | [Tree Painting](https://codeforces.com/problemset/problem/1187/E) | Codeforces | ★★★★ | Quy hoạch động đổi gốc nâng cao |
-| 7 | [Apple Tree](https://codeforces.com/problemset/problem/1843/E) | Codeforces | ★★☆ | Đếm số lượng lá trong subtree |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dpt-size` | [Kích Thước Cây Con](https://fptoj.com/problem/dpt-size) | ⭐ | Tính kích thước cây con | [DP trên cây](dp-on-trees.md) |
+| `dpt-diameter` | [Đường Kính Cây](https://fptoj.com/problem/dpt-diameter) | ⭐⭐ | Đường kính của cây | [DP trên cây](dp-on-trees.md) |
+| `dpt-max-path-sum` | [Tổng Đường Đi Lớn Nhất](https://fptoj.com/problem/dpt-max-path-sum) | ⭐⭐⭐ | Đường đi có tổng lớn nhất | [DP trên cây](dp-on-trees.md) |
+| `dpt-center` | [Tâm Cây](https://fptoj.com/problem/dpt-center) | ⭐⭐⭐ | Tìm tâm của cây | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-matching` | [Ghép Cặp Trên Cây](https://fptoj.com/problem/dpt-tree-matching) | ⭐⭐⭐ | Ghép cặp cực đại trên cây | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-cover` | [Phủ Đỉnh Trên Cây](https://fptoj.com/problem/dpt-tree-cover) | ⭐⭐⭐ | Phủ đỉnh nhỏ nhất trên cây | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-indset` | [Tập Độc Lập Trên Cây](https://fptoj.com/problem/dpt-tree-indset) | ⭐⭐⭐ | Tập độc lập lớn nhất trên cây | [DP trên cây](dp-on-trees.md) |
+| `dpt-reroot` | [Đổi Gốc](https://fptoj.com/problem/dpt-reroot) | ⭐⭐⭐⭐ | Kỹ thuật đổi gốc (rerooting) | [DP trên cây](dp-on-trees.md) |
+| `dpt-k-colors` | [Tô Màu Cây](https://fptoj.com/problem/dpt-k-colors) | ⭐⭐⭐ | Tô màu các đỉnh của cây | [DP trên cây](dp-on-trees.md) |
+| `dpt-tree-knapsack` | [Balo Trên Cây](https://fptoj.com/problem/dpt-tree-knapsack) | ⭐⭐⭐⭐ | Quy hoạch động dạng balo trên cây | [DP trên cây](dp-on-trees.md) |
 
 ---
 

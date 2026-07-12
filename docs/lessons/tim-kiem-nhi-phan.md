@@ -496,15 +496,15 @@ Chỉ sử dụng một số biến cố định (`lo`, `hi`, `mid`) → không 
 === "Python"
 
     ```python
-    # SAI: Co the lap vo han khi lo = hi - 1
+    # SAI: Có thể lặp vô hạn khi lo = hi - 1
     while lo < hi:
         mid = lo + (hi - lo) // 2
         if P(mid):
             hi = mid
         else:
-            lo = mid        # SAI! Phai la lo = mid + 1
+            lo = mid        # SAI! Phải là lo = mid + 1
 
-    # DUNG:
+    # ĐÚNG:
     while lo < hi:
         mid = lo + (hi - lo) // 2
         if P(mid):

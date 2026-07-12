@@ -1,4 +1,4 @@
-# Hàm Mobius & Hàm Nhân Tính
+# Hàm Möbius & Hàm Nhân Tính
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Möbius Function, Multiplicative Functions
@@ -114,20 +114,20 @@ $$[n = 1] = \sum_{d | n} \mu(d)$$
         vector<bool> is_prime(n + 1, true);
         vector<int> primes;
 
-        mu[1] = 1;
-        for (int i = 2; i <= n; i++) {
+        mu[1] = 1;                          // μ(1) = 1
+        for (int i = 2; i <= n; i++) {      // duyệt các số từ 2 đến n
             if (is_prime[i]) {
-                primes.push_back(i);
-                mu[i] = -1;
+                primes.push_back(i);        // i là số nguyên tố
+                mu[i] = -1;                 // μ(i) = -1 (1 thừa số nguyên tố)
             }
-            for (int p : primes) {
+            for (int p : primes) {          // duyệt qua các số nguyên tố đã tìm được
                 if (i * p > n) break;
                 is_prime[i * p] = false;
-                if (i % p == 0) {
+                if (i % p == 0) {           // p² | (i*p) → μ = 0
                     mu[i * p] = 0;
                     break;
                 } else {
-                    mu[i * p] = -mu[i];
+                    mu[i * p] = -mu[i];     // nhân thêm thừa số nguyên tố phân biệt
                 }
             }
         }
@@ -146,20 +146,20 @@ $$[n = 1] = \sum_{d | n} \mu(d)$$
     is_prime = [True] * (n + 1)
     primes = []
 
-    mu[1] = 1
-    for i in range(2, n + 1):
+    mu[1] = 1                          # μ(1) = 1
+    for i in range(2, n + 1):          # duyệt các số từ 2 đến n
         if is_prime[i]:
-            primes.append(i)
-            mu[i] = -1
-        for p in primes:
+            primes.append(i)           # i là số nguyên tố
+            mu[i] = -1                 # μ(i) = -1
+        for p in primes:               # duyệt qua các số nguyên tố đã tìm được
             if i * p > n:
                 break
             is_prime[i * p] = False
-            if i % p == 0:
+            if i % p == 0:             # p² | (i*p) → μ = 0
                 mu[i * p] = 0
                 break
             else:
-                mu[i * p] = -mu[i]
+                mu[i * p] = -mu[i]     # nhân thêm thừa số nguyên tố phân biệt
 
     for i in range(1, n + 1):
         print(f"mu({i}) = {mu[i]}")
@@ -242,23 +242,23 @@ Nếu $\gcd(a, b) = 1$, thì $ab$ có bình phương nguyên tố $\iff$ $a$ ho�
         vector<bool> is_prime(n + 1, true);
         vector<int> primes;
 
-        mu[1] = 1;
-        phi[1] = 1;
+        mu[1] = 1;                      // μ(1) = 1
+        phi[1] = 1;                     // φ(1) = 1
 
-        for (int i = 2; i <= n; i++) {
+        for (int i = 2; i <= n; i++) {  // duyệt các số từ 2 đến n
             if (is_prime[i]) {
-                primes.push_back(i);
-                mu[i] = -1;
-                phi[i] = i - 1;
+                primes.push_back(i);    // i là số nguyên tố
+                mu[i] = -1;             // μ(i) = -1
+                phi[i] = i - 1;         // φ(i) = i - 1 (các số < i và nguyên tố cùng nhau)
             }
-            for (int p : primes) {
+            for (int p : primes) {      // duyệt các số nguyên tố
                 if (i * p > n) break;
                 is_prime[i * p] = false;
-                if (i % p == 0) {
+                if (i % p == 0) {       // p² | (i*p) → μ = 0, φ(i*p) = φ(i)*p
                     mu[i * p] = 0;
                     phi[i * p] = phi[i] * p;
                     break;
-                } else {
+                } else {                // p nguyên tố cùng nhau với i
                     mu[i * p] = -mu[i];
                     phi[i * p] = phi[i] * (p - 1);
                 }
@@ -282,20 +282,20 @@ Nếu $\gcd(a, b) = 1$, thì $ab$ có bình phương nguyên tố $\iff$ $a$ ho�
 
     mu[1] = phi[1] = 1
 
-    for i in range(2, n + 1):
+    for i in range(2, n + 1):          # duyệt các số từ 2 đến n
         if is_prime[i]:
-            primes.append(i)
-            mu[i] = -1
-            phi[i] = i - 1
-        for p in primes:
+            primes.append(i)           # i là số nguyên tố
+            mu[i] = -1                 # μ(i) = -1
+            phi[i] = i - 1             # φ(i) = i - 1
+        for p in primes:               # duyệt các số nguyên tố
             if i * p > n:
                 break
             is_prime[i * p] = False
-            if i % p == 0:
+            if i % p == 0:             # p² | (i*p) → μ = 0, φ(i*p) = φ(i)*p
                 mu[i * p] = 0
                 phi[i * p] = phi[i] * p
                 break
-            else:
+            else:                      # p nguyên tố cùng nhau với i
                 mu[i * p] = -mu[i]
                 phi[i * p] = phi[i] * (p - 1)
 

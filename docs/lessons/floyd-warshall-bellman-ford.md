@@ -49,21 +49,21 @@ $$dist[v] \leftarrow dist[u] + w(u, v)$$
     ```cpp
     bool bellmanFord(int n, int s, vector<tuple<int,int,int>>& edges,
                      vector<long long>& dist) {
-        dist.assign(n + 1, LLONG_MAX);
-        dist[s] = 0;
+        dist.assign(n + 1, LLONG_MAX);  // khởi tạo mảng dist
+        dist[s] = 0;                     // khoảng cách từ nguồn đến chính nó
 
-        for (int i = 1; i < n; i++) {
-            for (auto [u, v, w] : edges) {
+        for (int i = 1; i < n; i++) {   // lặp n-1 lần
+            for (auto [u, v, w] : edges) {  // duyệt từng cạnh
                 if (dist[u] != LLONG_MAX && dist[u] + w < dist[v])
-                    dist[v] = dist[u] + w;
+                    dist[v] = dist[u] + w;  // thư giãn cạnh (u,v)
             }
         }
 
-        for (auto [u, v, w] : edges) {
+        for (auto [u, v, w] : edges) {  // kiểm tra chu trình âm
             if (dist[u] != LLONG_MAX && dist[u] + w < dist[v])
-                return true;
+                return true;            // phát hiện chu trình âm
         }
-        return false;
+        return false;                    // không có chu trình âm
     }
     ```
 
@@ -71,18 +71,18 @@ $$dist[v] \leftarrow dist[u] + w(u, v)$$
 
     ```python
     def bellman_ford(n, s, edges):
-        dist = [float('inf')] * (n + 1)
-        dist[s] = 0
+        dist = [float('inf')] * (n + 1)  # khởi tạo mảng dist
+        dist[s] = 0                       # khoảng cách từ nguồn
 
-        for _ in range(n - 1):
-            for u, v, w in edges:
+        for _ in range(n - 1):            # lặp n-1 lần
+            for u, v, w in edges:          # duyệt từng cạnh
                 if dist[u] != float('inf') and dist[u] + w < dist[v]:
-                    dist[v] = dist[u] + w
+                    dist[v] = dist[u] + w  # thư giãn cạnh (u,v)
 
-        for u, v, w in edges:
+        for u, v, w in edges:              # kiểm tra chu trình âm
             if dist[u] != float('inf') and dist[u] + w < dist[v]:
-                return True, dist
-        return False, dist
+                return True, dist          # phát hiện chu trình âm
+        return False, dist                 # không có chu trình âm
     ```
 
 ### Phân tích tính đúng đắn
@@ -169,11 +169,11 @@ graph LR
 
     ```cpp
     void floydWarshall(int n, vector<vector<long long>>& dist) {
-        for (int k = 1; k <= n; k++) {
-            for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= n; j++) {
+        for (int k = 1; k <= n; k++) {          // duyệt đỉnh trung gian k
+            for (int i = 1; i <= n; i++) {      // duyệt đỉnh nguồn i
+                for (int j = 1; j <= n; j++) {  // duyệt đỉnh đích j
                     if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX)
-                        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+                        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);  // cập nhật đường đi ngắn hơn
                 }
             }
         }
@@ -184,11 +184,11 @@ graph LR
 
     ```python
     def floyd_warshall(n, dist):
-        for k in range(1, n + 1):
-            for i in range(1, n + 1):
-                for j in range(1, n + 1):
+        for k in range(1, n + 1):          # duyệt đỉnh trung gian k
+            for i in range(1, n + 1):      # duyệt đỉnh nguồn i
+                for j in range(1, n + 1):  # duyệt đỉnh đích j
                     if dist[i][k] != float('inf') and dist[k][j] != float('inf'):
-                        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+                        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])  # cập nhật đường đi ngắn hơn
     ```
 
 ### Phân tích tính đúng đắn
@@ -221,15 +221,15 @@ Dùng mảng $next[i][j]$ để lưu đỉnh kề tiếp theo trên đường đ
     void floydWithPath(int n, vector<vector<long long>>& dist) {
         for (int i = 1; i <= n; i++)
             for (int j = 1; j <= n; j++)
-                next[i][j] = (i != j && dist[i][j] < LLONG_MAX) ? j : -1;
+                next[i][j] = (i != j && dist[i][j] < LLONG_MAX) ? j : -1;  // khởi tạo mảng next
 
         for (int k = 1; k <= n; k++) {
             for (int i = 1; i <= n; i++) {
                 for (int j = 1; j <= n; j++) {
                     if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX &&
                         dist[i][k] + dist[k][j] < dist[i][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        next[i][j] = next[i][k];
+                        dist[i][j] = dist[i][k] + dist[k][j];  // cập nhật đường đi ngắn hơn
+                        next[i][j] = next[i][k];  // cập nhật đỉnh kế tiếp trên đường đi
                     }
                 }
             }
@@ -237,10 +237,10 @@ Dùng mảng $next[i][j]$ để lưu đỉnh kề tiếp theo trên đường đ
     }
 
     vector<int> getPath(int u, int v) {
-        if (next[u][v] == -1) return {};
+        if (next[u][v] == -1) return {};  // không có đường đi
         vector<int> path = {u};
         while (u != v) {
-            u = next[u][v];
+            u = next[u][v];  // nhảy đến đỉnh kế tiếp
             path.push_back(u);
         }
         return path;
@@ -251,26 +251,26 @@ Dùng mảng $next[i][j]$ để lưu đỉnh kề tiếp theo trên đường đ
 
     ```python
     def floyd_with_path(n, dist):
-        nxt = [[-1] * (n + 1) for _ in range(n + 1)]
+        nxt = [[-1] * (n + 1) for _ in range(n + 1)]  # khởi tạo mảng next
         for i in range(1, n + 1):
             for j in range(1, n + 1):
                 if i != j and dist[i][j] < float('inf'):
-                    nxt[i][j] = j
+                    nxt[i][j] = j  # đỉnh kế tiếp trên đường đi
 
         for k in range(1, n + 1):
             for i in range(1, n + 1):
                 for j in range(1, n + 1):
                     if dist[i][k] + dist[k][j] < dist[i][j]:
-                        dist[i][j] = dist[i][k] + dist[k][j]
-                        nxt[i][j] = nxt[i][k]
+                        dist[i][j] = dist[i][k] + dist[k][j]  # cập nhật đường đi ngắn hơn
+                        nxt[i][j] = nxt[i][k]  # cập nhật đỉnh kế tiếp
         return nxt
 
     def get_path(u, v, nxt):
         if nxt[u][v] == -1:
-            return []
+            return []  # không có đường đi
         path = [u]
         while u != v:
-            u = nxt[u][v]
+            u = nxt[u][v]  # nhảy đến đỉnh kế tiếp
             path.append(u)
         return path
     ```
@@ -298,21 +298,20 @@ Dùng Floyd-Warshall với toán tử $\lor$ thay vì $\min$, $\land$ thay vì $
     bool reach[MAXN][MAXN];
 
     void transitiveClosure(int n) {
-        for (int k = 1; k <= n; k++)
-            for (int i = 1; i <= n; i++)
-                for (int j = 1; j <= n; j++)
-                    reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);
-    }
+        for (int k = 1; k <= n; k++)          // duyệt đỉnh trung gian k
+            for (int i = 1; i <= n; i++)      // duyệt đỉnh nguồn i
+                for (int j = 1; j <= n; j++)  // duyệt đỉnh đích j
+                    reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);  // OR logic thay vì min
     ```
 
 === "Python"
 
     ```python
     def transitive_closure(n, reach):
-        for k in range(1, n + 1):
-            for i in range(1, n + 1):
-                for j in range(1, n + 1):
-                    reach[i][j] = reach[i][j] or (reach[i][k] and reach[k][j])
+        for k in range(1, n + 1):          # duyệt đỉnh trung gian k
+            for i in range(1, n + 1):      # duyệt đỉnh nguồn i
+                for j in range(1, n + 1):  # duyệt đỉnh đích j
+                    reach[i][j] = reach[i][j] or (reach[i][k] and reach[k][j])  # OR logic
     ```
 
 ### 3.2. Tìm chu trình âm và in ra
@@ -324,40 +323,40 @@ Dùng Bellman-Ford kết hợp mảng $parent$ để truy vết chu trình:
     ```cpp
     bool bellmanFordWithPath(int n, int s, vector<tuple<int,int,int>>& edges,
                              vector<long long>& dist, vector<int>& parent) {
-        dist.assign(n + 1, LLONG_MAX);
-        parent.assign(n + 1, -1);
+        dist.assign(n + 1, LLONG_MAX);  // khởi tạo khoảng cách
+        parent.assign(n + 1, -1);        // khởi tạo mảng cha
         dist[s] = 0;
 
         int lastUpdated = -1;
-        for (int i = 1; i < n; i++) {
-            for (auto [u, v, w] : edges) {
+        for (int i = 1; i < n; i++) {       // lặp n-1 lần
+            for (auto [u, v, w] : edges) {   // duyệt từng cạnh
                 if (dist[u] != LLONG_MAX && dist[u] + w < dist[v]) {
-                    dist[v] = dist[u] + w;
-                    parent[v] = u;
+                    dist[v] = dist[u] + w;   // thư giãn cạnh (u,v)
+                    parent[v] = u;           // lưu cha cho truy vết
                 }
             }
         }
 
-        for (auto [u, v, w] : edges) {
+        for (auto [u, v, w] : edges) {       // kiểm tra chu trình âm
             if (dist[u] != LLONG_MAX && dist[u] + w < dist[v]) {
                 parent[v] = u;
-                lastUpdated = v;
+                lastUpdated = v;             // đánh dấu đỉnh trong chu trình âm
                 break;
             }
         }
 
-        if (lastUpdated == -1) return false;
+        if (lastUpdated == -1) return false; // không có chu trình âm
 
         vector<int> cycle;
         int x = lastUpdated;
-        for (int i = 0; i < n; i++) x = parent[x];
+        for (int i = 0; i < n; i++) x = parent[x];  // tìm đỉnh trong chu trình
         int cur = x;
         do {
             cycle.push_back(cur);
             cur = parent[cur];
         } while (cur != x);
         cycle.push_back(x);
-        reverse(cycle.begin(), cycle.end());
+        reverse(cycle.begin(), cycle.end());  // đảo ngược để có thứ tự xuôi
 
         cout << "Chu trinh am: ";
         for (int v : cycle) cout << v << " ";
@@ -369,29 +368,29 @@ Dùng Bellman-Ford kết hợp mảng $parent$ để truy vết chu trình:
 
     ```python
     def bellman_ford_with_path(n, s, edges):
-        dist = [float('inf')] * (n + 1)
-        parent = [-1] * (n + 1)
+        dist = [float('inf')] * (n + 1)  # khởi tạo khoảng cách
+        parent = [-1] * (n + 1)          # khởi tạo mảng cha
         dist[s] = 0
 
         last_updated = -1
-        for _ in range(n - 1):
-            for u, v, w in edges:
+        for _ in range(n - 1):            # lặp n-1 lần
+            for u, v, w in edges:          # duyệt từng cạnh
                 if dist[u] != float('inf') and dist[u] + w < dist[v]:
-                    dist[v] = dist[u] + w
-                    parent[v] = u
+                    dist[v] = dist[u] + w  # thư giãn cạnh (u,v)
+                    parent[v] = u          # lưu cha cho truy vết
 
-        for u, v, w in edges:
+        for u, v, w in edges:              # kiểm tra chu trình âm
             if dist[u] != float('inf') and dist[u] + w < dist[v]:
                 parent[v] = u
-                last_updated = v
+                last_updated = v           # đánh dấu đỉnh trong chu trình âm
                 break
 
         if last_updated == -1:
-            return False, [], dist
+            return False, [], dist         # không có chu trình âm
 
         x = last_updated
         for _ in range(n):
-            x = parent[x]
+            x = parent[x]                  # tìm đỉnh trong chu trình
         cycle = []
         cur = x
         while True:
@@ -400,7 +399,7 @@ Dùng Bellman-Ford kết hợp mảng $parent$ để truy vết chu trình:
             if cur == x:
                 cycle.append(cur)
                 break
-        cycle.reverse()
+        cycle.reverse()                    # đảo ngược để có thứ tự xuôi
         return True, cycle, dist
     ```
 

@@ -824,16 +824,12 @@ Ta thêm một hàm trị tuyệt đối (hình chữ V) có điểm gãy tại 
 
 ---
 
-## 9. Bài tập luyện tập
+## Bài tập luyện tập
 
-| STT | Bài toán | Kỹ thuật áp dụng | Độ khó | Liên kết |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | **Batch Scheduling (IOI 2002)** | Convex Hull Trick | ★★★☆ | [VNOJ - Batch](https://oj.vnoi.info/problem/batch) |
-| 2 | **Commando (APIO 2010)** | Convex Hull Trick | ★★★☆ | [VNOJ - Commando](https://oj.vnoi.info/problem/commando) |
-| 3 | **Yet Another Minimization Problem** | Divide & Conquer DP | ★★★★ | [Codeforces - 868F](https://codeforces.com/problemset/problem/868/F) |
-| 4 | **Slimes (AtCoder DP N)** | Knuth's Optimization | ★★★☆ | [VNOJ - AtCoder DP N](https://oj.vnoi.info/problem/atcoder_dp_n) |
-| 5 | **Sonya and Problem Without a Legend** | Slope Trick | ★★★★ | [Codeforces - 713C](https://codeforces.com/problemset/problem/713/C) |
-| 6 | **Aliens (IOI 2016)** | Alien's Trick + CHT | ★★★★★ | [VNOJ - Aliens](https://oj.vnoi.info/problem/aliens) |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `opt-dc-basic` | [Chia Để Trị Cơ Bản](https://fptoj.com/problem/opt-dc-basic) | ⭐⭐⭐⭐ | Chia để trị trong DP | [Tối ưu DP](dp-optimization.md) |
+| `opt-alien-pro` | [Alien Nâng Cao](https://fptoj.com/problem/opt-alien-pro) | ⭐⭐⭐⭐⭐ | Alien's Trick nâng cao | [Tối ưu DP](dp-optimization.md) |
 
 ---
 

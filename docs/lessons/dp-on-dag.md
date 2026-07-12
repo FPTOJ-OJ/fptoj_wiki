@@ -77,9 +77,58 @@ Bài toán này dùng để lập lịch dự án (Phương pháp Đường găn
 *   **Khởi tạo:** $dp[S] = 0$, tất cả các đỉnh khác khởi tạo bằng $-\infty$ (chưa thể đến được).
 *   **Kết quả:** $\max_{v} dp[v]$ hoặc $dp[T]$ tùy theo yêu cầu đề bài.
 
+### Trace chi tiết: Đường đi dài nhất
+
+Xét đồ thị có 5 đỉnh với trọng số cạnh:
+
+```mermaid
+graph LR
+    S((S)) -->|"w=5"| A((A))
+    S -->|"w=3"| B((B))
+    A -->|"w=2"| T((T))
+    B -->|"w=4"| A
+    B -->|"w=6"| T
+    
+```
+
+| Đỉnh $v$ | Đỉnh vào $u$ | Cạnh $(u,v)$ | $dp[u] + w$ | $dp[v] = \max$ | Ý nghĩa |
+|:---:|:---|:---:|:---:|:---:|:---|
+| **S** | — | — | — | **0** | Khởi tạo nguồn |
+| **A** | S<br>B | $0 + 5 = 5$<br>$3 + 4 = 7$ | $5 \to 7$ | **7** | Qua B dài hơn qua S |
+| **B** | S | $0 + 3 = 3$ | $3$ | **3** | Chỉ có 1 đường |
+| **T** | A<br>B | $7 + 2 = 9$<br>$3 + 6 = 9$ | $9 \to 9$ | **9** | 2 đường bằng nhau: S→B→A→T và S→B→T |
+
+**Code minh họa cho đường đi dài nhất:**
+
+=== "C++"
+    ```cpp
+    // Sử dụng cùng cấu trúc topo sort như trên
+    vector<long long> dp(n, LLONG_MIN);    // dp[v] = đường dài nhất từ s đến v
+    dp[s] = 0;                             // Bắt đầu từ s, độ dài = 0
+
+    for (int u : topo) {                   // Duyệt đỉnh theo thứ tự tô-pô
+        if (dp[u] == LLONG_MIN) continue;  // Bỏ qua đỉnh chưa đến được
+        for (auto [v, w] : adj[u]) {       // Mỗi cạnh u -> v trọng số w
+            dp[v] = max(dp[v], dp[u] + w); // Cập nhật đường dài nhất
+        }
+    }
+    ```
+
+=== "Python"
+    ```python
+    dp = [float('-inf')] * n               # dp[v] = đường dài nhất từ s đến v
+    dp[s] = 0                              # Bắt đầu từ s, độ dài = 0
+
+    for u in topo:                         # Duyệt đỉnh theo thứ tự tô-pô
+        if dp[u] == float('-inf'):
+            continue                       # Bỏ qua đỉnh chưa đến được
+        for v, w in adj[u]:                # Mỗi cạnh u -> v trọng số w
+            dp[v] = max(dp[v], dp[u] + w)  # Cập nhật đường dài nhất
+    ```
+
 ---
 
-## 3. Phân tích tính đúng đắn
+## 4. Phân tích tính đúng đắn
 
 ### Tại sao DP trên topo sort đúng?
 
@@ -100,7 +149,7 @@ Nếu có chu trình, thứ tự tô-pô không tồn tại → không xác đ�
 
 ---
 
-## 4. Đánh giá độ phức tạp
+## 5. Đánh giá độ phức tạp
 
 | Thao tác | Thời gian | Không gian |
 |----------|-----------|------------|
@@ -124,44 +173,47 @@ Nếu có chu trình, thứ tự tô-pô không tồn tại → không xác đ�
         int n, m;
         cin >> n >> m;
 
+        // Danh sách kề và mảng bậc vào
         vector<vector<int>> adj(n);
-        vector<int> in_deg(n, 0);
+        vector<int> in_deg(n, 0);          // in_deg[v] = số cạnh đi vào đỉnh v
 
         for (int i = 0; i < m; i++) {
             int u, v;
             cin >> u >> v;
-            adj[u].push_back(v);
-            in_deg[v]++;
+            adj[u].push_back(v);           // Cạnh u -> v
+            in_deg[v]++;                   // Tăng bậc vào của v
         }
 
         int s, t;
-        cin >> s >> t;
+        cin >> s >> t;                     // Đỉnh nguồn và đỉnh đích
 
-        // Sắp xếp tô-pô (Kahn)
+        // Bước 1: Sắp xếp tô-pô bằng thuật toán Kahn
         queue<int> q;
         for (int i = 0; i < n; i++)
-            if (in_deg[i] == 0) q.push(i);
+            if (in_deg[i] == 0) q.push(i); // Đưa đỉnh có bậc vào = 0 vào queue
 
-        vector<int> topo;
+        vector<int> topo;                  // Lưu thứ tự tô-pô
         while (!q.empty()) {
-            int u = q.front(); q.pop();
-            topo.push_back(u);
-            for (int v : adj[u]) {
-                if (--in_deg[v] == 0) q.push(v);
+            int u = q.front();
+            q.pop();
+            topo.push_back(u);             // Thêm u vào thứ tự tô-pô
+            for (int v : adj[u]) {         // Duyệt đỉnh kề của u
+                if (--in_deg[v] == 0)      // Giảm bậc vào của v, nếu = 0
+                    q.push(v);             // thì đưa v vào queue
             }
         }
 
-        // DP
-        vector<long long> dp(n, 0);
-        dp[s] = 1;
+        // Bước 2: DP trên thứ tự tô-pô
+        vector<long long> dp(n, 0);        // dp[v] = số đường đi từ s đến v
+        dp[s] = 1;                         // Có 1 cách đứng tại s
 
-        for (int u : topo) {
-            for (int v : adj[u]) {
-                dp[v] += dp[u];
+        for (int u : topo) {               // Duyệt đỉnh theo thứ tự tô-pô
+            for (int v : adj[u]) {         // Mọi cạnh u -> v
+                dp[v] += dp[u];            // Cộng dồn số đường đi từ u sang v
             }
         }
 
-        cout << dp[t] << "\n";
+        cout << dp[t] << "\n";             // Kết quả: số đường đi s -> t
         return 0;
     }
     ```
@@ -174,35 +226,70 @@ Nếu có chu trình, thứ tự tô-pô không tồn tại → không xác đ�
     input = sys.stdin.readline
 
     n, m = map(int, input().split())
+    # Danh sách kề và mảng bậc vào
     adj = [[] for _ in range(n)]
-    in_deg = [0] * n
+    in_deg = [0] * n                   # in_deg[v] = số cạnh đi vào đỉnh v
 
     for _ in range(m):
         u, v = map(int, input().split())
-        adj[u].append(v)
-        in_deg[v] += 1
+        adj[u].append(v)               # Cạnh u -> v
+        in_deg[v] += 1                 # Tăng bậc vào của v
 
-    s, t = map(int, input().split())
+    s, t = map(int, input().split())   # Đỉnh nguồn và đỉnh đích
 
-    q = deque(i for i in range(n) if in_deg[i] == 0)
-    topo = []
+    # Bước 1: Sắp xếp tô-pô bằng thuật toán Kahn
+    q = deque(i for i in range(n) if in_deg[i] == 0) # Đỉnh bậc vào = 0
+    topo = []                          # Lưu thứ tự tô-pô
     while q:
         u = q.popleft()
-        topo.append(u)
-        for v in adj[u]:
-            in_deg[v] -= 1
-            if in_deg[v] == 0:
-                q.append(v)
+        topo.append(u)                 # Thêm u vào thứ tự tô-pô
+        for v in adj[u]:               # Duyệt đỉnh kề của u
+            in_deg[v] -= 1             # Giảm bậc vào của v
+            if in_deg[v] == 0:         # Nếu bậc vào = 0
+                q.append(v)            # Đưa v vào queue
 
-    dp = [0] * n
-    dp[s] = 1
+    # Bước 2: DP trên thứ tự tô-pô
+    dp = [0] * n                       # dp[v] = số đường đi từ s đến v
+    dp[s] = 1                          # Có 1 cách đứng tại s
 
-    for u in topo:
-        for v in adj[u]:
-            dp[v] += dp[u]
+    for u in topo:                     # Duyệt đỉnh theo thứ tự tô-pô
+        for v in adj[u]:               # Mọi cạnh u -> v
+            dp[v] += dp[u]             # Cộng dồn số đường đi từ u sang v
 
-    print(dp[t])
+    print(dp[t])                       # Kết quả: số đường đi s -> t
     ```
+
+---
+
+## 6. Cạm bẫy & Mở rộng
+
+### Bẫy 1: Đỉnh nguồn không nằm ở đầu thứ tự tô-pô
+
+Trong code trên, $dp[s] = 1$ được gán trước khi duyệt topo. Dù $s$ có vị trí nào trong mảng `topo`, các cạnh từ $s$ vẫn được xử lý khi đến lượt $s$ — không phụ thuộc vào vị trí của $s$ trong `topo`.
+
+### Bẫy 2: Tràn số với $dp$
+
+Kết quả $dp[v]$ có thể rất lớn (đường đi có thể bùng nổ hàm mũ). Dùng `long long` trong C++ hoặc cài modulo nếu đề yêu cầu.
+
+```cpp
+dp[v] = (dp[v] + dp[u]) % MOD;  // Nếu đề yêu cầu modulo 10^9+7
+```
+
+### Bẫy 3: Đồ thị không liên thông
+
+Nếu tồn tại thành phần liên thông không chứa $S$ hoặc $T$, topo sort vẫn chạy bình thường, nhưng $dp[v] = 0$ với các đỉnh không đến được từ $S$.
+
+### Mở rộng: Đếm đường đi có modulo lớn
+
+Nếu $M$ quá lớn không thể khai báo mảng (VD: $N, M \le 10^5$, modulo $10^9+7$), vẫn dùng DP trên DAG bình thường với modulo.
+
+### Mở rộng: DP trên DAG với trọng số cạnh nhỏ nhất
+
+Thay vì tổng/cực đại, ta có thể tính:
+- **Đường đi có ít cạnh nhất:** $dp[v] = \min(dp[v], dp[u] + 1)$
+- **Đường đi có tích trọng số:** $dp[v] = dp[v] + dp[u] \times w(u,v)$
+
+Miễn là DAG, công thức DP luôn hoạt động.
 
 ---
 
@@ -210,14 +297,14 @@ Nếu có chu trình, thứ tự tô-pô không tồn tại → không xác đ�
 
 | # | Bài | Điểm | Độ khó |
 |:-:|------|:----:|:------:|
-| 1 | [dpg-01 - Đếm Đường Đi Trên Bản Đồ Một Chiều](https://fptoj.problems/problem/dpg-01) | 15 | ⭐⭐ |
-| 2 | [dpg-02 - Tuyến Giao Hàng Rẻ Nhất](https://fptoj.problems/problem/dpg-02) | 15 | ⭐⭐ |
-| 3 | [dpg-03 - Chuyến Phượt Qua Nhiều Điểm Dừng Nhất](https://fptoj.problems/problem/dpg-03) | 20 | ⭐⭐ |
-| 4 | [dpg-04 - Thời Gian Sớm Nhất Hoàn Thành Công Đoạn](https://fptoj.problems/problem/dpg-04) | 20 | ⭐⭐⭐ |
-| 5 | [dpg-05 - Xếp Lịch Học Các Môn Có Tiên Quyết](https://fptoj.problems/problem/dpg-05) | 25 | ⭐⭐⭐ |
-| 6 | [dpg-06 - Hoạt Động Lợi Nhuận Lớn Nhất](https://fptoj.problems/problem/dpg-06) | 25 | ⭐⭐⭐ |
-| 7 | [dpg-07 - Đi Đúng $K$ Bước Qua Bản Đồ](https://fptoj.problems/problem/dpg-07) | 30 | ⭐⭐⭐⭐ |
-| 8 | [dpg-08 - Số Tuyến Đường Giữa Hai Thành Phố](https://fptoj.problems/problem/dpg-08) | 30 | ⭐⭐⭐⭐ |
+| 1 | [dpg-01 - Đếm Đường Đi Trên Bản Đồ Một Chiều](https://fptoj.com/problem/dpg-01) | 15 | ⭐⭐ |
+| 2 | [dpg-02 - Tuyến Giao Hàng Rẻ Nhất](https://fptoj.com/problem/dpg-02) | 15 | ⭐⭐ |
+| 3 | [dpg-03 - Chuyến Phượt Qua Nhiều Điểm Dừng Nhất](https://fptoj.com/problem/dpg-03) | 20 | ⭐⭐ |
+| 4 | [dpg-04 - Thời Gian Sớm Nhất Hoàn Thành Công Đoạn](https://fptoj.com/problem/dpg-04) | 20 | ⭐⭐⭐ |
+| 5 | [dpg-05 - Xếp Lịch Học Các Môn Có Tiên Quyết](https://fptoj.com/problem/dpg-05) | 25 | ⭐⭐⭐ |
+| 6 | [dpg-06 - Hoạt Động Lợi Nhuận Lớn Nhất](https://fptoj.com/problem/dpg-06) | 25 | ⭐⭐⭐ |
+| 7 | [dpg-07 - Đi Đúng $K$ Bước Qua Bản Đồ](https://fptoj.com/problem/dpg-07) | 30 | ⭐⭐⭐⭐ |
+| 8 | [dpg-08 - Số Tuyến Đường Giữa Hai Thành Phố](https://fptoj.com/problem/dpg-08) | 30 | ⭐⭐⭐⭐ |
 
 ## Bài viết liên quan
 

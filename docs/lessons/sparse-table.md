@@ -492,39 +492,25 @@ k = length.bit_length() - 1
 
 ---
 
-## Bài tập luyện tập
+## Bài tập luyện tập (FPTOJ)
 
-### Bài tập cơ bản (Làm quen với Sparse Table)
-
-| # | Bài | Nền tảng | Độ khó | Chủ đề |
-|---|-----|----------|--------|--------|
-| 1 | [CSES - Static Range Minimum Queries](https://cses.fi/problemset/task/1647) | CSES | 2 sao | Sparse Table cơ bản |
-| 2 | [SPOJ - RMQSQ](https://www.spoj.com/problems/RMQSQ/) | SPOJ | 2 sao | RMQ cơ bản |
-| 3 | [CSES - Static Range Sum Queries](https://cses.fi/problemset/task/1646) | CSES | 1 sao | Prefix Sum (so sánh) |
-
-### Bài tập ứng dụng (Áp dụng Sparse Table)
-
-| # | Bài | Nền tảng | Độ khó | Chủ đề |
-|---|-----|----------|--------|--------|
-| 4 | [Codeforces - Maximum of Maximums of Minimums](https://codeforces.com/problemset/problem/872/B) | CF | 2 sao | Sparse Table ứng dụng |
-| 5 | [Codeforces - Minimum Extraction](https://codeforces.com/problemset/problem/1607/D) | CF | 2 sao | Kết hợp Sparse Table |
-| 6 | [VNOJ - Query Min](https://oj.vnoi.info/problem/qmin) | VNOJ | 2 sao | RMQ cơ bản |
-| 7 | [VNOJ - NKLINEUP](https://oj.vnoi.info/problem/nklineup) | VNOJ | 2 sao | Truy vấn max-min |
-
-### Bài tập nâng cao (Kết hợp nhiều kỹ thuật)
-
-| # | Bài | Nền tảng | Độ khó | Chủ đề |
-|---|-----|----------|--------|--------|
-| 8 | [Codeforces - Pair of Numbers](https://codeforces.com/problemset/problem/359/D) | CF | 3 sao | Sparse Table + GCD |
-| 9 | [CSES - Range Queries and Copies](https://cses.fi/problemset/task/2072) | CSES | 3 sao | Không dùng Sparse Table (có update) |
-| 10 | [Codeforces - Yet Another Minimization Problem](https://codeforces.com/problemset/problem/1809/E) | CF | 3 sao | Sparse Table tối ưu |
-
-### Bài tập tham khảo (Không dùng Sparse Table nhưng liên quan)
-
-| # | Bài | Nền tảng | Độ khó | Ghi chú |
-|---|-----|----------|--------|---------|
-| 11 | [CSES - Dynamic Range Minimum Queries](https://cses.fi/problemset/task/1649) | CSES | 2 sao | Dùng Segment Tree (có update) |
-| 12 | [CSES - Range Update Queries](https://cses.fi/problemset/task/1651) | CSES | 2 sao | Dùng Lazy Propagation |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `st-basic-min` | [Truy vấn giá trị nhỏ nhất trên đoạn](https://fptoj.com/problem/st-basic-min) | ⭐ | Sparse Table - Min |
+| `st-basic-max` | [Truy vấn giá trị lớn nhất trên đoạn](https://fptoj.com/problem/st-basic-max) | ⭐ | Sparse Table - Max |
+| `st-basic-gcd` | [Truy vấn GCD trên đoạn](https://fptoj.com/problem/st-basic-gcd) | ⭐ | Sparse Table - GCD |
+| `st-basic-and` | [Truy vấn AND bit trên đoạn](https://fptoj.com/problem/st-basic-and) | ⭐ | Sparse Table - AND |
+| `st-basic-or` | [Truy vấn OR bit trên đoạn](https://fptoj.com/problem/st-basic-or) | ⭐ | Sparse Table - OR |
+| `st-range-min-max` | [Hiệu max-min trên đoạn](https://fptoj.com/problem/st-range-min-max) | ⭐⭐ | Sparse Table - Min + Max |
+| `st-first-min-idx` | [Vị trí đầu tiên của giá trị nhỏ nhất](https://fptoj.com/problem/st-first-min-idx) | ⭐⭐ | Sparse Table - Min index |
+| `st-range-gcd-cnt` | [Đếm số phần tử bằng GCD trên đoạn](https://fptoj.com/problem/st-range-gcd-cnt) | ⭐⭐ | Sparse Table - GCD |
+| `st-kth-min-range` | [Phần tử nhỏ thứ K trên đoạn](https://fptoj.com/problem/st-kth-min-range) | ⭐⭐ | Sparse Table + BS |
+| `st-pair-gcd-max` | [GCD lớn nhất của mọi cặp trên đoạn](https://fptoj.com/problem/st-pair-gcd-max) | ⭐⭐ | Sparse Table - GCD |
+| `st-max-sub-gcd` | [Đoạn con dài nhất có GCD ≥ 2](https://fptoj.com/problem/st-max-sub-gcd) | ⭐⭐⭐ | ST GCD + hai con trỏ |
+| `st-count-ranges` | [Đếm số đoạn có min bằng K](https://fptoj.com/problem/st-count-ranges) | ⭐⭐⭐ | Sparse Table + hai con trỏ |
+| `st-pair-of-nums` | [Đoạn dài nhất mọi số chia hết số đầu](https://fptoj.com/problem/st-pair-of-nums) | ⭐⭐⭐⭐ | ST GCD |
+| `st-longest-eq-gcd` | [Dãy con dài nhất GCD > 1](https://fptoj.com/problem/st-longest-eq-gcd) | ⭐⭐⭐ | Sparse Table + BS |
+| `st-range-lcm` | [Truy vấn LCM trên đoạn](https://fptoj.com/problem/st-range-lcm) | ⭐⭐⭐⭐ | Sparse Table - LCM |
 
 ---
 

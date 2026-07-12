@@ -1336,20 +1336,20 @@ State st[MAXLEN * 2];  // ← KHÔNG PHẢI st[MAXLEN]!
 
 ---
 
-## 11. Bài tập luyện tập
+## Bài tập luyện tập
 
-| Bài | FPTOJ | Độ khó | Chủ đề |
-|-----|-------|--------|--------|
-| `stra-dist` | [Đếm xâu con phân biệt (Suffix Array)](https://fptoj.com/problem/stra-dist) | ⭐⭐⭐⭐ | Đếm xâu con khác nhau |
-| `stra-lcs` | [Xâu con chung dài nhất (Suffix Array)](https://fptoj.com/problem/stra-lcs) | ⭐⭐⭐⭐ | LCS bằng SA |
-| `stra-lcp` | [LCP và truy vấn trên Suffix Array](https://fptoj.com/problem/stra-lcp) | ⭐⭐⭐⭐ | LCP + RMQ |
-| `stra-mana` | [Palindrome dài nhất (Manacher)](https://fptoj.com/problem/stra-mana) | ⭐⭐⭐ | Palindrome dài nhất |
-| `stra-cntpal` | [Đếm palindrome con](https://fptoj.com/problem/stra-cntpal) | ⭐⭐⭐ | Tổng số palindrome |
-| `strh-dist` | [Đếm xâu con phân biệt (Hash)](https://fptoj.com/problem/strh-dist) | ⭐⭐ | Hash + Set |
-| `strh-lcs` | [Xâu con chung dài nhất (Hash)](https://fptoj.com/problem/strh-lcs) | ⭐⭐⭐ | Hash + BS |
-| `strh-repeat` | [Xâu con lặp dài nhất (Hash)](https://fptoj.com/problem/strh-repeat) | ⭐⭐⭐ | Hash + BS |
-| `strk-union` | [Ghép xâu tối ưu bằng KMP](https://fptoj.com/problem/strk-union) | ⭐⭐⭐ | Ghép chuỗi tối ưu |
-| `strk-zmatch` | [Tìm xâu bằng Z-Algorithm](https://fptoj.com/problem/strk-zmatch) | ⭐⭐ | Pattern matching |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `sa-substr` | [Xâu con](https://fptoj.com/problem/sa-substr) | ⭐⭐ | Suffix Automaton - Kiểm tra xâu con | [Suffix Automaton](suffix-automaton.md) |
+| `sa-cnt-substr` | [Đếm xâu con](https://fptoj.com/problem/sa-cnt-substr) | ⭐⭐ | SAM - Số xâu con khác nhau | [Suffix Automaton](suffix-automaton.md) |
+| `sa-occur` | [Số lần](https://fptoj.com/problem/sa-occur) | ⭐⭐⭐ | SAM - Số lần xuất hiện | [Suffix Automaton](suffix-automaton.md) |
+| `sa-short-unique` | [Ngắn nhất](https://fptoj.com/problem/sa-short-unique) | ⭐⭐⭐ | SAM - Xâu con xuất hiện 1 lần | [Suffix Automaton](suffix-automaton.md) |
+| `sa-first-pos` | [Vị trí đầu](https://fptoj.com/problem/sa-first-pos) | ⭐⭐⭐ | SAM - Vị trí xuất hiện đầu | [Suffix Automaton](suffix-automaton.md) |
+| `sa-lcs` | [Xâu chung](https://fptoj.com/problem/sa-lcs) | ⭐⭐⭐⭐ | SAM - Xâu con chung dài nhất | [Suffix Automaton](suffix-automaton.md) |
+| `sa-kth-substr` | [Thứ K](https://fptoj.com/problem/sa-kth-substr) | ⭐⭐⭐⭐ | SAM - Xâu con thứ K | [Suffix Automaton](suffix-automaton.md) |
+| `sa-min-cyclic` | [Xoay vòng](https://fptoj.com/problem/sa-min-cyclic) | ⭐⭐⭐⭐ | SAM - Xoay vòng nhỏ nhất | [Suffix Automaton](suffix-automaton.md) |
+| `sa-k-occur` | [K xuất hiện](https://fptoj.com/problem/sa-k-occur) | ⭐⭐⭐⭐⭐ | SAM - K lần xuất hiện | [Suffix Automaton](suffix-automaton.md) |
+| `sa-substr-all` | [Tất cả xâu con](https://fptoj.com/problem/sa-substr-all) | ⭐⭐⭐⭐⭐ | SAM - Liệt kê xâu con | [Suffix Automaton](suffix-automaton.md) |
 
 ---
 

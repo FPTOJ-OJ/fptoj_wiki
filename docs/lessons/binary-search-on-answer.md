@@ -358,18 +358,18 @@ int maximizeMinimum(int lo, int hi) {
 
 | # | Bài | Điểm | Độ khó |
 |:-:|------|:----:|:------:|
-| 1 | [bsa-01 - Xe Tải Chở Hàng](https://fptoj.problems/problem/bsa-01) | 10 | ⭐⭐ |
-| 2 | [bsa-02 - Khỉ Ăn Chuối](https://fptoj.problems/problem/bsa-02) | 10 | ⭐⭐ |
-| 3 | [bsa-03 - Bò Trong Chuồng](https://fptoj.problems/problem/bsa-03) | 15 | ⭐⭐ |
-| 4 | [bsa-04 - Thả Lưới Cá](https://fptoj.problems/problem/bsa-04) | 15 | ⭐⭐ |
-| 5 | [bsa-05 - Chia Mảng Lớn](https://fptoj.problems/problem/bsa-05) | 15 | ⭐⭐ |
-| 6 | [bsa-06 - Nhà Máy $K$ Máy](https://fptoj.problems/problem/bsa-06) | 20 | ⭐⭐⭐ |
-| 7 | [bsa-07 - Căn Bậc Hai Chính Xác](https://fptoj.problems/problem/bsa-07) | 20 | ⭐⭐ |
-| 8 | [bsa-08 - Hàng Rào Bảo Vệ](https://fptoj.problems/problem/bsa-08) | 20 | ⭐⭐⭐ |
-| 9 | [bsa-09 - Phân Sách Cho $K$ Sinh Viên](https://fptoj.problems/problem/bsa-09) | 25 | ⭐⭐⭐ |
-| 10 | [bsa-10 - Đo Dây Cho Đèn Đường](https://fptoj.problems/problem/bsa-10) | 25 | ⭐⭐⭐ |
-| 11 | [bsa-11 - Robot Cắt Cỏ](https://fptoj.problems/problem/bsa-11) | 30 | ⭐⭐⭐⭐ |
-| 12 | [bsa-12 - Trạm Phát Sóng](https://fptoj.problems/problem/bsa-12) | 30 | ⭐⭐⭐⭐ |
+| 1 | [bsa-01 - Xe Tải Chở Hàng](https://fptoj.com/problem/bsa-01) | 10 | ⭐⭐ |
+| 2 | [bsa-02 - Khỉ Ăn Chuối](https://fptoj.com/problem/bsa-02) | 10 | ⭐⭐ |
+| 3 | [bsa-03 - Bò Trong Chuồng](https://fptoj.com/problem/bsa-03) | 15 | ⭐⭐ |
+| 4 | [bsa-04 - Thả Lưới Cá](https://fptoj.com/problem/bsa-04) | 15 | ⭐⭐ |
+| 5 | [bsa-05 - Chia Mảng Lớn](https://fptoj.com/problem/bsa-05) | 15 | ⭐⭐ |
+| 6 | [bsa-06 - Nhà Máy $K$ Máy](https://fptoj.com/problem/bsa-06) | 20 | ⭐⭐⭐ |
+| 7 | [bsa-07 - Căn Bậc Hai Chính Xác](https://fptoj.com/problem/bsa-07) | 20 | ⭐⭐ |
+| 8 | [bsa-08 - Hàng Rào Bảo Vệ](https://fptoj.com/problem/bsa-08) | 20 | ⭐⭐⭐ |
+| 9 | [bsa-09 - Phân Sách Cho $K$ Sinh Viên](https://fptoj.com/problem/bsa-09) | 25 | ⭐⭐⭐ |
+| 10 | [bsa-10 - Đo Dây Cho Đèn Đường](https://fptoj.com/problem/bsa-10) | 25 | ⭐⭐⭐ |
+| 11 | [bsa-11 - Robot Cắt Cỏ](https://fptoj.com/problem/bsa-11) | 30 | ⭐⭐⭐⭐ |
+| 12 | [bsa-12 - Trạm Phát Sóng](https://fptoj.com/problem/bsa-12) | 30 | ⭐⭐⭐⭐ |
 
 ## Bài viết liên quan
 

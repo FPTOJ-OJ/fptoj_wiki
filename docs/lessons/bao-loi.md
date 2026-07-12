@@ -91,7 +91,7 @@ $$\text{cross}(O, A, B) = (A_x - O_x)(B_y - O_y) - (A_y - O_y)(B_x - O_x)$$
 - $\text{cross}(O, A, B) = 0$: $O$, $A$, $B$ thẳng hàng (collinear)
 - $\text{cross}(O, A, B) < 0$: quay phải (clockwise)
 
-Ẩn dụ: imagine bạn đang lái xe từ $O$ đến $A$, rồi muốn rẽ đến $B$. cross $> 0$ là quẹo trái, cross $= 0$ là đi thẳng, cross $< 0$ là quẹo phải.
+Ẩn dụ: hãy tưởng tượng bạn đang lái xe từ $O$ đến $A$, rồi muốn rẽ đến $B$. cross $> 0$ là quẹo trái, cross $= 0$ là đi thẳng, cross $< 0$ là quẹo phải.
 
 **Tại sao tích có hướng hoạt động?**
 
@@ -656,20 +656,20 @@ Với bao lồi lồi (đã sắp xếp CCW), kiểm tra điểm $P$ có nằm t
 
 ---
 
-## Bài tập luyện tập
+## Bài tập luyện tập (FPTOJ)
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|---|---|---|---|
-| [CSES - Convex Hull](https://cses.fi/problemset/task/2195) | CSES | ⭐⭐ | Bao lồi cơ bản |
-| [Kattis - Convex Hull](https://open.kattis.com/problems/convexhull) | Kattis | ⭐⭐ | Bao lồi cơ bản |
-| [SPOJ - BSHEEP](https://www.spoj.com/problems/BSHEEP/) | SPOJ | ⭐⭐⭐ | Bao lồi + chu vi |
-| [CF - Convex Hull](https://codeforces.com/contest/166/problem/B) | CF | ⭐⭐⭐ | Điểm trong bao lồi |
-| [CF - Wonderful Randomized Sum](https://codeforces.com/contest/186/problem/A) | CF | ⭐⭐⭐ | Ứng dụng bao lồi |
-| [Kattis - Polygon Area](https://open.kattis.com/problems/polygonarea) | Kattis | ⭐⭐ | Diện tích đa giác |
-| [CSES - Maximum Manhattan Distances](https://cses.fi/problemset/task/2194) | CSES | ⭐⭐⭐ | Khoảng cách + bao lồi |
-| [VNOJ - VMHULL](https://oj.vnoi.info/problem/vmhull) | VNOJ | ⭐⭐⭐ | Bao lồi |
-| [VNOJ - VODIVIDING](https://oj.vnoi.info/problem/vodividing) | VNOJ | ⭐⭐⭐ | Geometry + bao lồi |
-| [CF - The Fair Nut and Rectangles](https://codeforces.com/contest/1083/problem/A) | CF | ⭐⭐⭐⭐ | DP + bao lồi |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `hull-build` | [Dựng bao lồi](https://fptoj.com/problem/hull-build) | ⭐⭐ | Andrew's Monotone Chain |
+| `hull-perimeter` | [Chu vi bao lồi](https://fptoj.com/problem/hull-perimeter) | ⭐⭐ | Chu vi đa giác lồi |
+| `hull-area` | [Diện tích bao lồi](https://fptoj.com/problem/hull-area) | ⭐⭐ | Diện tích đa giác lồi |
+| `hull-inside` | [Kiểm tra điểm trong bao lồi](https://fptoj.com/problem/hull-inside) | ⭐⭐⭐ | Binary search + bao lồi |
+| `hull-diameter` | [Đường kính bao lồi](https://fptoj.com/problem/hull-diameter) | ⭐⭐⭐ | Rotating Calipers |
+| `hull-min-rect` | [Hình chữ nhật bao nhỏ nhất](https://fptoj.com/problem/hull-min-rect) | ⭐⭐⭐ | Rotating Calipers |
+| `hull-max-tri` | [Tam giác lớn nhất nội tiếp bao lồi](https://fptoj.com/problem/hull-max-tri) | ⭐⭐⭐ | Bao lồi + ba con trỏ |
+| `hull-points-in` | [Đếm số điểm thuộc bao lồi](https://fptoj.com/problem/hull-points-in) | ⭐⭐ | Bao lồi cơ bản |
+| `hull-max-dist-pair` | [Khoảng cách lớn nhất giữa hai điểm](https://fptoj.com/problem/hull-max-dist-pair) | ⭐⭐⭐⭐ | Rotating Calipers |
+| `hull-ship-pack` | [Chu vi hình chữ nhật bao nhỏ nhất](https://fptoj.com/problem/hull-ship-pack) | ⭐⭐⭐⭐ | Rotating Calipers |
 
 ### Gợi ý tiếp cận
 

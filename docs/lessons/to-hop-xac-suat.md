@@ -610,15 +610,33 @@ for (int i = n - 1; i >= 0; i--)
 
 ## 8. Bài tập luyện tập
 
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `thxs-basic` | [Tổ hợp cơ bản](https://fptoj.com/problem/thxs-basic) | ⭐ | $C_n^k \bmod p$ | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-pascal` | [Tam giác Pascal](https://fptoj.com/problem/thxs-pascal) | ⭐ | $C_n^k$ tam giác Pascal | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-sumcomb` | [Tổng tổ hợp](https://fptoj.com/problem/thxs-sumcomb) | ⭐ | $\sum C_n^i = 2^n$ | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-stars` | [Tổ hợp có lặp](https://fptoj.com/problem/thxs-stars) | ⭐⭐ | $C(n+k-1, k)$ | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-permrep` | [Hoán vị có trùng](https://fptoj.com/problem/thxs-permrep) | ⭐⭐ | $\frac{n!}{\prod cnt_c!}$ | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-prob-basic` | [Xác suất đồng xu](https://fptoj.com/problem/thxs-prob-basic) | ⭐⭐ | $C_n^k / 2^n$ | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-expect` | [Kỳ vọng số lần tung xúc xắc](https://fptoj.com/problem/thxs-expect) | ⭐⭐ | Kỳ vọng DP | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-prob-dp` | [Xác suất có k ngửa liên tiếp](https://fptoj.com/problem/thxs-prob-dp) | ⭐⭐⭐ | Xác suất DP nâng cao | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-catalan` | [Số Catalan](https://fptoj.com/problem/thxs-catalan) | ⭐⭐⭐ | $C_n = \frac{1}{n+1} \binom{2n}{n}$ | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-ballot` | [Định lý Ballot](https://fptoj.com/problem/thxs-ballot) | ⭐⭐⭐ | $\frac{a-b}{a+b}$ | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-stirling` | [Số Stirling loại 2](https://fptoj.com/problem/thxs-stirling) | ⭐⭐⭐⭐ | $S(n,k)$ DP | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-burnside` | [Burnside - Đếm vòng cổ](https://fptoj.com/problem/thxs-burnside) | ⭐⭐⭐⭐ | Burnside's lemma | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-prob-graph` | [Xác suất trên đồ thị](https://fptoj.com/problem/thxs-prob-graph) | ⭐⭐⭐⭐ | Xác suất + DP đồ thị | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-prob-game` | [Xác suất trò chơi tung đồng xu](https://fptoj.com/problem/thxs-prob-game) | ⭐⭐⭐⭐ | Xác suất + Game theory | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-prob-bag` | [Xác suất rút bi không hoàn lại](https://fptoj.com/problem/thxs-prob-bag) | ⭐⭐ | Xác suất + Tổ hợp | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+| `thxs-prob-cards` | [Xác suất bài tây 52 lá](https://fptoj.com/problem/thxs-prob-cards) | ⭐⭐⭐ | Xác suất + Bài toán đếm | [Tổ Hợp & Xác Suất](to-hop-xac-suat.md) |
+
+### Tham khảo thêm
+
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
 | [CSES - Binomial Coefficients](https://cses.fi/problemset/task/1079) | CSES | ⭐⭐ | $C(n,k) \bmod p$ |
 | [CSES - Creating Strings II](https://cses.fi/problemset/task/1716) | CSES | ⭐⭐ | Hoán vị có trùng |
-| [CSES - Distributing Apples](https://cses.fi/problemset/task/1717) | CSES | ⭐⭐ | Tổ hợp có lặp |
 | [VNOJ - Atcoder DP Contest I - Coins](https://oj.vnoi.info/problem/atcoder_dp_i) | VNOJ | ⭐⭐ | Probability DP |
-| [VNOJ - VOMARBLE](https://oj.vnoi.info/problem/vomarble) | VNOJ | ⭐⭐⭐ | Combinatorics |
 | [CSES - Counting Necklaces](https://cses.fi/problemset/task/2111) | CSES | ⭐⭐⭐ | Burnside's lemma |
-| [LeetCode - Unique Paths](https://leetcode.com/problems/unique-paths/) | LC | ⭐⭐ | $C(n,k)$ cơ bản |
 
 ## Bài viết liên quan
 

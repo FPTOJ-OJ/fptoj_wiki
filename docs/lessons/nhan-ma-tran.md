@@ -293,131 +293,16 @@ Với mỗi hàng, trạng thái là bitmask $m$ bit → ma trận chuyển kíc
 
 ## 8. Bài tập luyện tập
 
-### Bài 1: Fibonacci thứ N
-
-**Đề bài:** Tính số Fibonacci thứ $n$ modulo $10^9 + 7$. $F(0) = 0, F(1) = 1, F(n) = F(n-1) + F(n-2)$.
-
-**Input:** Số nguyên $n$ $(0 \leq n \leq 10^{18})$
-
-**Output:** $F(n) \bmod (10^9 + 7)$.
-
-**Ví dụ:**
-
-| Input | Output |
-|-------|--------|
-| `10` | `55` |
-| `100` | `242782308` |
-
-??? tip "Lời giải"
-    Dùng lũy thừa ma trận với ma trận chuyển $\begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}$. Độ phức tạp $O(8 \log n)$.
-    
-    === "C++"
-    
-        ```cpp
-        #include <bits/stdc++.h>
-        using namespace std;
-        const long long MOD = 1e9 + 7;
-    
-        struct Matrix {
-            long long a[2][2];
-            Matrix() { memset(a, 0, sizeof a); }
-        };
-    
-        Matrix multiply(Matrix A, Matrix B) {
-            Matrix C;
-            for (int i = 0; i < 2; i++)
-                for (int k = 0; k < 2; k++)
-                    for (int j = 0; j < 2; j++)
-                        C.a[i][j] = (C.a[i][j] + A.a[i][k] * B.a[k][j]) % MOD;
-            return C;
-        }
-    
-        Matrix powerMatrix(Matrix A, long long b) {
-            Matrix result;
-            result.a[0][0] = result.a[1][1] = 1;
-            while (b > 0) {
-                if (b & 1) result = multiply(result, A);
-                A = multiply(A, A);
-                b >>= 1;
-            }
-            return result;
-        }
-    
-        int main() {
-            long long n; cin >> n;
-            if (n == 0) { cout << 0 << "\n"; return 0; }
-            Matrix T;
-            T.a[0][0] = T.a[0][1] = T.a[1][0] = 1;
-            T.a[1][1] = 0;
-            Matrix R = powerMatrix(T, n - 1);
-            cout << R.a[0][0] << "\n";
-        }
-        ```
----
-
-### Bài 2: Đếm đường đi trong đồ thị
-
-**Đề bài:** Cho đồ thị có hướng gồm $n$ đỉnh và $m$ cạnh. Đếm số đường đi từ đỉnh $1$ đến đỉnh $n$ có độ dài đúng $k$.
-
-**Input:**
-- Dòng 1: 3 số nguyên $n, m, k$ $(2 \leq n \leq 100, 1 \leq m \leq n^2, 1 \leq k \leq 10^9)$
-- $m$ dòng tiếp: 2 số nguyên $u, v$ biểu diễn cạnh từ $u$ đến $v$
-
-**Output:** Số đường đi modulo $10^9 + 7$.
-
-**Ví dụ:**
-
-| Input | Output |
-|-------|--------|
-| `3 4 2`<br>`1 2`<br>`2 3`<br>`1 3`<br>`3 1` | `2` |
-
-**Giải thích:** Các đường đi độ dài 2 từ 1 đến 3: $1 \to 2 \to 3$ và $1 \to 3 \to 1$ (không đúng, cần xem lại).
-
-Đường đi: $1 \to 2 \to 3$ và $1 \to 3 \to 1$ không đến 3. Chỉ có $1 \to 2 \to 3$.
-
-Thực tế: $A^2[1][3] = A[1][1] \cdot A[1][3] + A[1][2] \cdot A[2][3] + A[1][3] \cdot A[3][3] = 0 \cdot 1 + 1 \cdot 1 + 1 \cdot 0 = 1$.
-
-Sửa ví dụ: Input `4 5 2` với cạnh `1 2, 2 4, 1 3, 3 4, 2 3` → Output `2` (đường đi $1 \to 2 \to 4$ và $1 \to 3 \to 4$).
-
-??? tip "Lời giải"
-    Tính $A^k$ với $A$ là ma trận kề. Đáp án = $A^k[1][n]$.
----
-
-### Bài 3: Truy hồi tuyến tính
-
-**Đề bài:** Cho truy hồi $f(n) = 3f(n-1) - 2f(n-2)$ với $f(0) = 0, f(1) = 1$. Tính $f(n) \bmod (10^9 + 7)$.
-
-**Input:** Số nguyên $n$ $(0 \leq n \leq 10^{18})$
-
-**Output:** $f(n) \bmod (10^9 + 7)$.
-
-**Ví dụ:**
-
-| Input | Output |
-|-------|--------|
-| `5` | `31` |
-| `10` | `1023` |
-
-**Giải thích:** $f(0)=0, f(1)=1, f(2)=3, f(3)=7, f(4)=15, f(5)=31$. Công thức: $f(n) = 2^n - 1$.
-
-??? tip "Lời giải"
-    Ma trận chuyển $T = \begin{pmatrix} 3 & -2 \\ 1 & 0 \end{pmatrix}$. Dùng lũy thừa ma trận.
----
-
-### Bài 4: Grid paths lớn
-
-**Đề bài:** Cho lưới $n \times m$. Mỗi bước đi sang phải hoặc xuống. Tính số cách đi từ $(1,1)$ đến $(n,m)$ modulo $10^9 + 7$.
-
-**Input:** 2 số nguyên $n, m$ $(1 \leq n, m \leq 10^6)$
-
-**Output:** Số đường đi modulo $10^9 + 7$.
-
-**Ví dụ:**
-
-| Input | Output |
-|-------|--------|
-| `2 3` | `3` |
-| `100 100` | `754471401` |
-
-??? tip "Lời giải"
-    Đáp án = $C(n+m-2, n-1)$. Dùng factorial + modular inverse.
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `mm-fibo` | [Fibonacci ma trận](https://fptoj.com/problem/mm-fibo) | ⭐⭐ | Ma trận $2\times2$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-stairs` | [Leo cầu thang ma trận](https://fptoj.com/problem/mm-stairs) | ⭐⭐ | Fibonacci ứng dụng | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-tribo` | [Tribonacci ma trận](https://fptoj.com/problem/mm-tribo) | ⭐⭐⭐ | Ma trận $3\times3$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-linear` | [Truy hồi tuyến tính](https://fptoj.com/problem/mm-linear) | ⭐⭐⭐ | $f(n) = af(n-1)+bf(n-2)$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-fibosum` | [Tổng Fibonacci](https://fptoj.com/problem/mm-fibosum) | ⭐⭐⭐ | $S(n) = F(n+2)-1$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-fibonacci-n` | [Fibonacci tổng quát](https://fptoj.com/problem/mm-fibonacci-n) | ⭐⭐⭐ | $F(n)=xF(n-1)+yF(n-2)+z$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-large-grid` | [Lưới $2\times N$](https://fptoj.com/problem/mm-large-grid) | ⭐⭐⭐ | Lưới + ma trận | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-2x2-recur` | [Truy hồi hai biến](https://fptoj.com/problem/mm-2x2-recur) | ⭐⭐⭐⭐ | $[f(n),g(n)]^T$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-graph-path` | [Số đường đi đồ thị ma trận](https://fptoj.com/problem/mm-graph-path) | ⭐⭐⭐⭐ | $A^K$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-walks` | [Walk trên đồ thị](https://fptoj.com/problem/mm-walks) | ⭐⭐⭐⭐ | $A^K$ vô hướng | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+| `mm-hopping` | [Hopping ma trận](https://fptoj.com/problem/mm-hopping) | ⭐⭐⭐⭐ | Truy hồi nhiều bước | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |

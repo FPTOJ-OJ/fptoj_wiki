@@ -89,28 +89,31 @@ Nếu tại nút MIN, giá trị hiện tại $v \le \alpha$ (giá trị tốt n
     #include <bits/stdc++.h>
     using namespace std;
 
-    vector<vector<int>> tree;
-    vector<int> values; // giá trị nút lá
+    vector<vector<int>> tree;   // Cây trò chơi: danh sách kề cha → con
+    vector<int> values;         // Giá trị của các nút lá
 
+    // Hàm Alpha-Beta: duyệt cây trò chơi, trả về giá trị tối ưu
+    // node: nút hiện tại, depth: độ sâu, alpha/beta: cửa sổ cắt tỉa
+    // maximizing: true nếu lượt MAX, false nếu lượt MIN
     int alphaBeta(int node, int depth, int alpha, int beta, bool maximizing) {
-        if (tree[node].empty()) {
-            return values[node]; // giá trị lá
+        if (tree[node].empty()) {               // Nút lá: trả về giá trị cố định
+            return values[node];
         }
 
-        if (maximizing) {
-            int val = INT_MIN;
-            for (int child : tree[node]) {
+        if (maximizing) {                       // Lượt của MAX player
+            int val = INT_MIN;                  // Khởi tạo giá trị thấp nhất có thể
+            for (int child : tree[node]) {      // Duyệt tất cả con
                 val = max(val, alphaBeta(child, depth + 1, alpha, beta, false));
-                alpha = max(alpha, val);
-                if (alpha >= beta) break; // Cắt tỉa Beta
+                alpha = max(alpha, val);         // Cập nhật alpha = giá trị tốt nhất của MAX
+                if (alpha >= beta) break;        // Cắt tỉa Beta: nhánh này vô ích cho MAX
             }
             return val;
-        } else {
-            int val = INT_MAX;
-            for (int child : tree[node]) {
+        } else {                                // Lượt của MIN player
+            int val = INT_MAX;                  // Khởi tạo giá trị cao nhất có thể
+            for (int child : tree[node]) {      // Duyệt tất cả con
                 val = min(val, alphaBeta(child, depth + 1, alpha, beta, true));
-                beta = min(beta, val);
-                if (alpha >= beta) break; // Cắt tỉa Alpha
+                beta = min(beta, val);           // Cập nhật beta = giá trị tốt nhất của MIN
+                if (alpha >= beta) break;        // Cắt tỉa Alpha: nhánh này vô ích cho MIN
             }
             return val;
         }
@@ -125,14 +128,14 @@ Nếu tại nút MIN, giá trị hiện tại $v \le \alpha$ (giá trị tốt n
         tree.resize(9);
         values.resize(9, 0);
 
-        tree[0] = {1, 2};
-        tree[1] = {3, 4, 5};
-        tree[2] = {6, 7, 8};
-        // Giá trị lá
+        tree[0] = {1, 2};       // MAX có 2 lựa chọn
+        tree[1] = {3, 4, 5};    // MIN có 3 lựa chọn nhánh trái
+        tree[2] = {6, 7, 8};    // MIN có 3 lựa chọn nhánh phải
+        // Giá trị các nút lá
         values[3] = 3; values[4] = 5; values[5] = 7;
         values[6] = 2; values[7] = 9; values[8] = 1;
 
-        cout << alphaBeta(0, 0, INT_MIN, INT_MAX, true) << "\n";
+        cout << alphaBeta(0, 0, INT_MIN, INT_MAX, true) << "\n"; // Kết quả = 3
         return 0;
     }
     ```
@@ -141,37 +144,80 @@ Nếu tại nút MIN, giá trị hiện tại $v \le \alpha$ (giá trị tốt n
 
     ```python
     import sys
-    sys.setrecursionlimit(10000)
+    sys.setrecursionlimit(10000)   # Tăng giới hạn đệ quy cho cây lớn
 
+    # Hàm Alpha-Beta: duyệt cây trò chơi, trả về giá trị tối ưu
+    # node: nút hiện tại, depth: độ sâu, alpha/beta: cửa sổ cắt tỉa
+    # maximizing: True nếu MAX, False nếu MIN
     def alpha_beta(node, depth, alpha, beta, maximizing, tree, values):
-        if not tree[node]:
+        if not tree[node]:          # Nút lá: trả về giá trị
             return values[node]
 
-        if maximizing:
-            val = float('-inf')
+        if maximizing:              # Lượt MAX
+            val = float('-inf')     # Khởi tạo giá trị thấp nhất
             for child in tree[node]:
+                # Đệ quy xuống nút MIN con
                 val = max(val, alpha_beta(child, depth + 1, alpha, beta, False, tree, values))
-                alpha = max(alpha, val)
-                if alpha >= beta:
+                alpha = max(alpha, val)   # Cập nhật alpha
+                if alpha >= beta:         # Cắt tỉa Beta
                     break
             return val
-        else:
-            val = float('inf')
+        else:                       # Lượt MIN
+            val = float('inf')      # Khởi tạo giá trị cao nhất
             for child in tree[node]:
+                # Đệ quy xuống nút MAX con
                 val = min(val, alpha_beta(child, depth + 1, alpha, beta, True, tree, values))
-                beta = min(beta, val)
-                if alpha >= beta:
+                beta = min(beta, val)     # Cập nhật beta
+                if alpha >= beta:         # Cắt tỉa Alpha
                     break
             return val
 
-    # Ví dụ: cây trò chơi
+    # Ví dụ cây trò chơi 9 nút (3 tầng)
     tree = {
-        0: [1, 2],
-        1: [3, 4, 5],
-        2: [6, 7, 8],
+        0: [1, 2],          # MAX: 2 lựa chọn → MIN, MIN
+        1: [3, 4, 5],       # MIN trái: 3 lựa chọn
+        2: [6, 7, 8],       # MIN phải: 3 lựa chọn
         3: [], 4: [], 5: [], 6: [], 7: [], 8: []
     }
     values = {3: 3, 4: 5, 5: 7, 6: 2, 7: 9, 8: 1}
 
     print(alpha_beta(0, 0, float('-inf'), float('inf'), True, tree, values))
     ```
+
+### Ví dụ nâng cao: Cây 4 tầng với thứ tự tối ưu
+
+Xét cây trò chơi có độ sâu 4, hệ số phân nhánh 3 (81 nút lá). Nếu sắp xếp con theo thứ tự giảm dần (tốt nhất cho MAX trước), Alpha-Beta chỉ duyệt ~15 nút lá thay vì 81.
+
+```mermaid
+graph TD
+    A["MAX"] --> B1["MIN\n(LÁ: 9)"]
+    A --> B2["MIN\n(LÁ: 5)"]
+    A --> B3["MIN\n(LÁ: 1)"]
+    B1 --> C1["3"]
+    B1 --> C2["7"]
+    B1 --> C3["9"]
+    B2 --> C4["1"]
+    B2 --> C5["4"]
+    B2 --> C6["5"]
+    B3 --> C7["0"]
+    B3 --> C8["-2"]
+    B3 --> C9["1"]
+```
+
+Khi quét từ trái sang phải: nút $B1$ trả về 9 → $\alpha = 9$. Nút $B2$: lá đầu là 1 < 9 → cắt toàn bộ nhánh $B2$. Tương tự $B3$: lá đầu là 0 < 9 → cắt. Chỉ cần đánh giá 1/3 số nút.
+
+---
+
+## Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ab-win-game` | [Trò chơi thắng](https://fptoj.com/problem/ab-win-game) | ⭐ | Alpha-Beta - Trò chơi thắng cơ bản | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-minimax-basic` | [Cây game](https://fptoj.com/problem/ab-minimax-basic) | ⭐⭐ | Alpha-Beta - Minimax cơ bản | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-coin-pick` | [Nhặt xu](https://fptoj.com/problem/ab-coin-pick) | ⭐⭐ | Alpha-Beta - Nhặt xu 2 đầu | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-stone-div` | [Chia đá](https://fptoj.com/problem/ab-stone-div) | ⭐⭐⭐ | Alpha-Beta - Chia đá | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-subtract` | [Trừ số](https://fptoj.com/problem/ab-subtract) | ⭐⭐⭐ | Alpha-Beta - Trừ số | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-prime-game` | [Số nguyên tố](https://fptoj.com/problem/ab-prime-game) | ⭐⭐⭐ | Alpha-Beta - Xóa ước nguyên tố | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-tree-game` | [Game trên cây](https://fptoj.com/problem/ab-tree-game) | ⭐⭐⭐⭐ | Alpha-Beta - Game trên cây | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-coloring` | [Tô màu](https://fptoj.com/problem/ab-coloring) | ⭐⭐⭐⭐ | Alpha-Beta - Tô màu đồ thị | [Alpha-Beta Pruning](alpha-beta.md) |
+| `ab-divisor` | [Ước số](https://fptoj.com/problem/ab-divisor) | ⭐⭐⭐⭐ | Alpha-Beta - Chia ước số | [Alpha-Beta Pruning](alpha-beta.md) |

@@ -120,21 +120,21 @@ Khi duyệt $i$ từ 1 đến $n-2$, mỗi vị trí chỉ cập nhật $C$ và 
     }
 
     pair<int,int> manacher(string s) {
-        string t = preprocess(s);
+        string t = preprocess(s);   // chèn ký tự # để chuyển về palindrome lẻ
         int n = t.length();
         vector<int> P(n, 0);
-        int C = 0, R = 0;
+        int C = 0, R = 0;            // tâm C và biên phải R
 
         for (int i = 1; i < n - 1; i++) {
-            int i_mirror = 2 * C - i;
+            int i_mirror = 2 * C - i; // vị trí đối xứng của i qua C
 
-            if (i < R)
+            if (i < R)                 // tận dụng thông tin đã tính
                 P[i] = min(R - i, P[i_mirror]);
 
-            while (t[i + P[i] + 1] == t[i - P[i] - 1])
+            while (t[i + P[i] + 1] == t[i - P[i] - 1])  // mở rộng palindrome
                 P[i]++;
 
-            if (i + P[i] > R) {
+            if (i + P[i] > R) {        // cập nhật tâm và biên phải
                 C = i;
                 R = i + P[i];
             }
@@ -148,7 +148,7 @@ Khi duyệt $i$ từ 1 đến $n-2$, mỗi vị trí chỉ cập nhật $C$ và 
             }
         }
 
-        int start = (center - maxLen) / 2;
+        int start = (center - maxLen) / 2;  // chuyển về chỉ số trong xâu gốc
         return {start, maxLen};
     }
 
@@ -163,20 +163,20 @@ Khi duyệt $i$ từ 1 đến $n-2$, mỗi vị trí chỉ cập nhật $C$ và 
 
     ```python
     def manacher(s):
-        t = '^#' + '#'.join(s) + '#$'
+        t = '^#' + '#'.join(s) + '#$'  # chèn ký tự # để chuyển về palindrome lẻ
         n = len(t)
         p = [0] * n
-        c, r = 0, 0
+        c, r = 0, 0                      # tâm C và biên phải R
         for i in range(1, n - 1):
-            if i < r:
+            if i < r:                    # tận dụng thông tin đã tính
                 p[i] = min(r - i, p[2 * c - i])
-            while t[i + p[i] + 1] == t[i - p[i] - 1]:
+            while t[i + p[i] + 1] == t[i - p[i] - 1]:  # mở rộng palindrome
                 p[i] += 1
-            if i + p[i] > r:
+            if i + p[i] > r:             # cập nhật tâm và biên phải
                 c, r = i, i + p[i]
         max_len = max(p)
         center = p.index(max_len)
-        start = (center - max_len) // 2
+        start = (center - max_len) // 2  # chuyển về chỉ số trong xâu gốc
         return s[start:start + max_len]
     ```
 

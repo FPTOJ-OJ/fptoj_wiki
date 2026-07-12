@@ -376,3 +376,11 @@ graph TD
 1. **[CSES - Subarray Squares](https://cses.fi/problemset/task/2086)**: Phân chia dãy số thành $K$ đoạn con liên tiếp sao cho tổng bình phương tổng các đoạn nhỏ nhất.
 2. **[SPOJ - LARMY](https://www.spoj.com/problems/LARMY/)**: Bài toán sắp xếp đội ngũ quân lính với chi phí nghịch thế (inversions).
 3. **[Codeforces - 319C (Kalila and Dimna)](https://codeforces.com/problemset/problem/319/C)**: Cực tiểu hóa chi phí cưa cây (sử dụng CHT hoặc 1D1D Deque).
+
+---
+
+## Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `d1d-cost-k` | [Chi Phí K](https://fptoj.com/problem/d1d-cost-k) | ⭐⭐⭐⭐⭐ | DP 1D1D - Chi phí đoạn K | [DP 1D1D](dp-1d1d.md) |

@@ -325,22 +325,22 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
     using namespace std;
 
     const int MAXN = 200005;
-    int bit[MAXN];
-    int n;
+    int bit[MAXN];  // mảng BIT
+    int n;          // số phần tử
 
-    void update(int i, int delta) {
+    void update(int i, int delta) {         // cập nhật a[i] += delta
         for (; i <= n; i += i & (-i))
             bit[i] += delta;
     }
 
-    int query(int i) {
+    int query(int i) {                      // tổng prefix [1..i]
         int sum = 0;
         for (; i > 0; i -= i & (-i))
             sum += bit[i];
         return sum;
     }
 
-    int rangeSum(int l, int r) {
+    int rangeSum(int l, int r) {            // tổng đoạn [l, r]
         return query(r) - query(l - 1);
     }
 
@@ -352,7 +352,7 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
         for (int i = 1; i <= n; i++) {
             int val;
             cin >> val;
-            update(i, val);
+            update(i, val);                 // khởi tạo BIT
         }
 
         int q;
@@ -361,9 +361,9 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
             int type, l, r;
             cin >> type >> l >> r;
             if (type == 1) {
-                update(l, r);
+                update(l, r);               // cập nhật điểm
             } else {
-                cout << rangeSum(l, r) << "\n";
+                cout << rangeSum(l, r) << "\n";  // truy vấn tổng đoạn
             }
         }
     }
@@ -375,21 +375,21 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
     class FenwickTree:
         def __init__(self, n):
             self.n = n
-            self.bit = [0] * (n + 1)
+            self.bit = [0] * (n + 1)    # mảng BIT
 
-        def update(self, i, delta):
+        def update(self, i, delta):     # cập nhật a[i] += delta
             while i <= self.n:
                 self.bit[i] += delta
                 i += i & (-i)
 
-        def query(self, i):
+        def query(self, i):             # tổng prefix [1..i]
             s = 0
             while i > 0:
                 s += self.bit[i]
                 i -= i & (-i)
             return s
 
-        def range_sum(self, l, r):
+        def range_sum(self, l, r):      # tổng đoạn [l, r]
             return self.query(r) - self.query(l - 1)
 
     n = int(input())
@@ -397,15 +397,15 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
 
     bit = FenwickTree(n)
     for i in range(1, n + 1):
-        bit.update(i, a[i])
+        bit.update(i, a[i])             # khởi tạo BIT
 
     q = int(input())
     for _ in range(q):
         parts = list(map(int, input().split()))
         if parts[0] == 1:
-            bit.update(parts[1], parts[2])
+            bit.update(parts[1], parts[2])    # cập nhật điểm
         else:
-            print(bit.range_sum(parts[1], parts[2]))
+            print(bit.range_sum(parts[1], parts[2]))  # truy vấn tổng đoạn
     ```
 
 ### BIT 2D
@@ -414,16 +414,16 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
 
     ```cpp
     const int MAXN = 1005;
-    int bit2d[MAXN][MAXN];
-    int n, m;
+    int bit2d[MAXN][MAXN];  // BIT 2 chiều
+    int n, m;               // số hàng, số cột
 
-    void update(int r, int c, int delta) {
+    void update(int r, int c, int delta) {  // cập nhật điểm (r, c)
         for (int i = r; i <= n; i += i & (-i))
             for (int j = c; j <= m; j += j & (-j))
                 bit2d[i][j] += delta;
     }
 
-    int query(int r, int c) {
+    int query(int r, int c) {               // tổng prefix [(1,1)..(r,c)]
         int sum = 0;
         for (int i = r; i > 0; i -= i & (-i))
             for (int j = c; j > 0; j -= j & (-j))
@@ -431,11 +431,11 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
         return sum;
     }
 
-    int rangeSum(int r1, int c1, int r2, int c2) {
+    int rangeSum(int r1, int c1, int r2, int c2) {  // tổng hình chữ nhật
         return query(r2, c2)
              - query(r1 - 1, c2)
              - query(r2, c1 - 1)
-             + query(r1 - 1, c1 - 1);
+             + query(r1 - 1, c1 - 1);  // inclusion-exclusion
     }
     ```
 
@@ -446,9 +446,9 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
         def __init__(self, n, m):
             self.n = n
             self.m = m
-            self.bit = [[0] * (m + 1) for _ in range(n + 1)]
+            self.bit = [[0] * (m + 1) for _ in range(n + 1)]  # BIT 2 chiều
 
-        def update(self, r, c, delta):
+        def update(self, r, c, delta):    # cập nhật điểm (r, c)
             i = r
             while i <= self.n:
                 j = c
@@ -457,7 +457,7 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
                     j += j & (-j)
                 i += i & (-i)
 
-        def query(self, r, c):
+        def query(self, r, c):            # tổng prefix [(1,1)..(r,c)]
             s = 0
             i = r
             while i > 0:
@@ -468,11 +468,11 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
                 i -= i & (-i)
             return s
 
-        def range_sum(self, r1, c1, r2, c2):
+        def range_sum(self, r1, c1, r2, c2):  # tổng hình chữ nhật
             return (self.query(r2, c2)
                   - self.query(r1 - 1, c2)
                   - self.query(r2, c1 - 1)
-                  + self.query(r1 - 1, c1 - 1))
+                  + self.query(r1 - 1, c1 - 1))  # inclusion-exclusion
     ```
 
 ### Range Update + Point Query
@@ -480,28 +480,28 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
 === "C++"
 
     ```cpp
-    int bit[MAXN];
+    int bit[MAXN];  // BIT cho mảng hiệu
     int n;
 
-    void _update(int i, int delta) {
+    void _update(int i, int delta) {  // cập nhật điểm
         for (; i <= n; i += i & (-i))
             bit[i] += delta;
     }
 
-    int _query(int i) {
+    int _query(int i) {               // tổng prefix
         int sum = 0;
         for (; i > 0; i -= i & (-i))
             sum += bit[i];
         return sum;
     }
 
-    void range_update(int l, int r, int val) {
-        _update(l, val);
-        _update(r + 1, -val);
+    void range_update(int l, int r, int val) {  // cập nhật đoạn [l, r]
+        _update(l, val);        // +val tại l
+        _update(r + 1, -val);   // -val tại r+1
     }
 
-    int point_query(int i) {
-        return _query(i);
+    int point_query(int i) {    // truy vấn giá trị a[i]
+        return _query(i);       // tổng mảng hiệu [1..i]
     }
     ```
 
@@ -511,26 +511,26 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
     class BITRangeUpdatePointQuery:
         def __init__(self, n):
             self.n = n
-            self.bit = [0] * (n + 1)
+            self.bit = [0] * (n + 1)    # BIT cho mảng hiệu
 
-        def _update(self, i, delta):
+        def _update(self, i, delta):    # cập nhật điểm
             while i <= self.n:
                 self.bit[i] += delta
                 i += i & (-i)
 
-        def _query(self, i):
+        def _query(self, i):            # tổng prefix
             s = 0
             while i > 0:
                 s += self.bit[i]
                 i -= i & (-i)
             return s
 
-        def range_update(self, l, r, val):
-            self._update(l, val)
-            self._update(r + 1, -val)
+        def range_update(self, l, r, val):  # cập nhật đoạn [l, r]
+            self._update(l, val)            # +val tại l
+            self._update(r + 1, -val)       # -val tại r+1
 
-        def point_query(self, i):
-            return self._query(i)
+        def point_query(self, i):           # truy vấn giá trị a[i]
+            return self._query(i)           # tổng mảng hiệu [1..i]
     ```
 
 ### Range Update + Range Query
@@ -539,15 +539,15 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
 
     ```cpp
     const int MAXN = 200005;
-    long long bit1[MAXN], bit2[MAXN];
+    long long bit1[MAXN], bit2[MAXN];  // hai BIT cho range update + range query
     int n;
 
-    void _update(long long bit[], int i, long long delta) {
+    void _update(long long bit[], int i, long long delta) {  // cập nhật điểm
         for (; i <= n; i += i & (-i))
             bit[i] += delta;
     }
 
-    long long _query(long long bit[], int i) {
+    long long _query(long long bit[], int i) {  // tổng prefix
         long long sum = 0;
         for (; i > 0; i -= i & (-i))
             sum += bit[i];
@@ -555,17 +555,17 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
     }
 
     void range_update(int l, int r, long long val) {
-        _update(bit1, l, val);
-        _update(bit1, r + 1, -val);
-        _update(bit2, l, val * (l - 1));
-        _update(bit2, r + 1, -val * r);
+        _update(bit1, l, val);             // bit1: +val tại l
+        _update(bit1, r + 1, -val);        // bit1: -val tại r+1
+        _update(bit2, l, val * (l - 1));   // bit2: +val*(l-1) tại l
+        _update(bit2, r + 1, -val * r);    // bit2: -val*r tại r+1
     }
 
-    long long prefix_sum(int i) {
+    long long prefix_sum(int i) {  // tổng prefix [1..i]
         return _query(bit1, i) * i - _query(bit2, i);
     }
 
-    long long range_sum(int l, int r) {
+    long long range_sum(int l, int r) {  // tổng đoạn [l, r]
         return prefix_sum(r) - prefix_sum(l - 1);
     }
     ```
@@ -576,15 +576,15 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
     class BITRangeUpdateRangeQuery:
         def __init__(self, n):
             self.n = n
-            self.bit1 = [0] * (n + 1)
-            self.bit2 = [0] * (n + 1)
+            self.bit1 = [0] * (n + 1)   # BIT thứ nhất
+            self.bit2 = [0] * (n + 1)   # BIT thứ hai
 
-        def _update(self, bit, i, delta):
+        def _update(self, bit, i, delta):   # cập nhật điểm
             while i <= self.n:
                 bit[i] += delta
                 i += i & (-i)
 
-        def _query(self, bit, i):
+        def _query(self, bit, i):           # tổng prefix
             s = 0
             while i > 0:
                 s += bit[i]
@@ -592,15 +592,15 @@ So với Segment Tree, BIT nhanh hơn về mặt hằng số vì truy cập bộ
             return s
 
         def range_update(self, l, r, val):
-            self._update(self.bit1, l, val)
-            self._update(self.bit1, r + 1, -val)
-            self._update(self.bit2, l, val * (l - 1))
-            self._update(self.bit2, r + 1, -val * r)
+            self._update(self.bit1, l, val)             # bit1: +val tại l
+            self._update(self.bit1, r + 1, -val)        # bit1: -val tại r+1
+            self._update(self.bit2, l, val * (l - 1))   # bit2: +val*(l-1) tại l
+            self._update(self.bit2, r + 1, -val * r)    # bit2: -val*r tại r+1
 
-        def prefix_sum(self, i):
+        def prefix_sum(self, i):    # tổng prefix [1..i]
             return self._query(self.bit1, i) * i - self._query(self.bit2, i)
 
-        def range_sum(self, l, r):
+        def range_sum(self, l, r):  # tổng đoạn [l, r]
             return self.prefix_sum(r) - self.prefix_sum(l - 1)
     ```
 

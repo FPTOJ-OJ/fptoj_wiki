@@ -191,7 +191,7 @@ plt.tight_layout()
 ---
 
 
-## 5. Cài đặt Cấu trúc Dấu hiệu DSU Tiêu chuẩn
+## 5. Cài đặt Cấu trúc DSU Tiêu chuẩn
 
 Dưới đây là mã nguồn của cấu trúc DSU chuẩn hỗ trợ đồng thời cả nén đường đi và gộp theo kích thước hoặc theo bậc:
 

@@ -68,22 +68,22 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
     using namespace std;
 
     const int MAXN = 200005;
-    vector<int> adj[MAXN];
-    int tin[MAXN], tout[MAXN];
-    int timer_dfs = 0;
+    vector<int> adj[MAXN];      // danh sách kề
+    int tin[MAXN], tout[MAXN];  // thời gian vào/ra của mỗi đỉnh
+    int timer_dfs = 0;          // bộ đếm thời gian DFS
 
     void dfs(int u, int parent) {
-        tin[u] = ++timer_dfs;
+        tin[u] = ++timer_dfs;   // ghi nhận thời gian vào
         for (int v : adj[u]) {
             if (v != parent) {
-                dfs(v, u);
+                dfs(v, u);      // đệ quy xuống con
             }
         }
-        tout[u] = timer_dfs;
+        tout[u] = timer_dfs;    // ghi nhận thời gian ra
     }
 
     bool is_ancestor(int u, int v) {
-        return tin[u] <= tin[v] && tout[v] <= tout[u];
+        return tin[u] <= tin[v] && tout[v] <= tout[u];  // kiểm tra u có là tổ tiên của v
     }
 
     int main() {
@@ -100,12 +100,12 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
             adj[v].push_back(u);
         }
 
-        dfs(1, 0);
+        dfs(1, 0);  // bắt đầu DFS từ đỉnh 1
 
         while (q--) {
             int u;
             cin >> u;
-            cout << tout[u] - tin[u] + 1 << "\n";
+            cout << tout[u] - tin[u] + 1 << "\n";  // kích thước subtree của u
         }
         return 0;
     }
@@ -120,14 +120,14 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
     def dfs(u, parent):
         global timer_dfs
         timer_dfs += 1
-        tin[u] = timer_dfs
+        tin[u] = timer_dfs    # ghi nhận thời gian vào
         for v in adj[u]:
             if v != parent:
-                dfs(v, u)
-        tout[u] = timer_dfs
+                dfs(v, u)     # đệ quy xuống con
+        tout[u] = timer_dfs   # ghi nhận thời gian ra
 
     def is_ancestor(u, v):
-        return tin[u] <= tin[v] and tout[v] <= tout[u]
+        return tin[u] <= tin[v] and tout[v] <= tout[u]  # kiểm tra u có là tổ tiên của v
 
     n, q = map(int, input().split())
     adj = [[] for _ in range(n + 1)]
@@ -140,11 +140,11 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
         adj[u].append(v)
         adj[v].append(u)
 
-    dfs(1, 0)
+    dfs(1, 0)  # bắt đầu DFS từ đỉnh 1
 
     for _ in range(q):
         u = int(input())
-        print(tout[u] - tin[u] + 1)
+        print(tout[u] - tin[u] + 1)  # kích thước subtree của u
     ```
 
 ### Bài toán 2: Truy vấn tổng subtree bằng BIT
@@ -163,37 +163,37 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
     using namespace std;
 
     const int MAXN = 200005;
-    vector<int> adj[MAXN];
-    int tin[MAXN], tout[MAXN];
-    long long val[MAXN];
-    long long bit[MAXN];
+    vector<int> adj[MAXN];      // danh sách kề
+    int tin[MAXN], tout[MAXN];  // thời gian vào/ra
+    long long val[MAXN];        // giá trị các đỉnh
+    long long bit[MAXN];        // BIT lưu tổng
     int timer_dfs = 0;
     int n, q;
 
     void update(int i, long long delta) {
         for (; i <= n; i += i & (-i))
-            bit[i] += delta;
+            bit[i] += delta;    // cập nhật BIT tại vị trí i
     }
 
     long long query(int i) {
         long long sum = 0;
         for (; i > 0; i -= i & (-i))
-            sum += bit[i];
+            sum += bit[i];      // lấy tổng prefix [1..i]
         return sum;
     }
 
     long long range_query(int l, int r) {
-        return query(r) - query(l - 1);
+        return query(r) - query(l - 1);  // tổng đoạn [l, r]
     }
 
     void dfs(int u, int parent) {
-        tin[u] = ++timer_dfs;
+        tin[u] = ++timer_dfs;   // ghi nhận thời gian vào
         for (int v : adj[u]) {
             if (v != parent) {
                 dfs(v, u);
             }
         }
-        tout[u] = timer_dfs;
+        tout[u] = timer_dfs;    // ghi nhận thời gian ra
     }
 
     int main() {
@@ -210,10 +210,10 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
             adj[v].push_back(u);
         }
 
-        dfs(1, 0);
+        dfs(1, 0);  // DFS Euler Tour
 
         for (int i = 1; i <= n; i++) {
-            update(tin[i], val[i]);
+            update(tin[i], val[i]);  // đưa giá trị đỉnh vào BIT
         }
 
         while (q--) {
@@ -225,11 +225,11 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
                 cin >> u >> new_val;
                 long long delta = new_val - val[u];
                 val[u] = new_val;
-                update(tin[u], delta);
+                update(tin[u], delta);  // cập nhật giá trị đỉnh u
             } else {
                 int u;
                 cin >> u;
-                cout << range_query(tin[u], tout[u]) << "\n";
+                cout << range_query(tin[u], tout[u]) << "\n";  // tổng subtree u
             }
         }
         return 0;
@@ -244,27 +244,27 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
 
     def update(i, delta):
         while i <= n:
-            bit[i] += delta
+            bit[i] += delta         # cập nhật BIT tại vị trí i
             i += i & (-i)
 
     def query(i):
         s = 0
         while i > 0:
-            s += bit[i]
+            s += bit[i]             # lấy tổng prefix [1..i]
             i -= i & (-i)
         return s
 
     def range_query(l, r):
-        return query(r) - query(l - 1)
+        return query(r) - query(l - 1)  # tổng đoạn [l, r]
 
     def dfs(u, parent):
         global timer_dfs
         timer_dfs += 1
-        tin[u] = timer_dfs
+        tin[u] = timer_dfs           # ghi nhận thời gian vào
         for v in adj[u]:
             if v != parent:
                 dfs(v, u)
-        tout[u] = timer_dfs
+        tout[u] = timer_dfs          # ghi nhận thời gian ra
 
     input_data = sys.stdin.read().split()
     idx = 0
@@ -285,11 +285,11 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
     tin = [0] * (n + 1)
     tout = [0] * (n + 1)
     timer_dfs = 0
-    dfs(1, 0)
+    dfs(1, 0)  # DFS Euler Tour
 
     bit = [0] * (n + 1)
     for i in range(1, n + 1):
-        update(tin[i], val[i])
+        update(tin[i], val[i])  # đưa giá trị đỉnh vào BIT
 
     out = []
     for _ in range(q):
@@ -299,10 +299,10 @@ Mảng Euler Tour (chỉ ghi đỉnh): $[1, 2, 4, 5, 3, 6]$
             new_val = int(input_data[idx]); idx += 1
             delta = new_val - val[u]
             val[u] = new_val
-            update(tin[u], delta)
+            update(tin[u], delta)   # cập nhật giá trị đỉnh u
         else:
             u = int(input_data[idx]); idx += 1
-            out.append(str(range_query(tin[u], tout[u])))
+            out.append(str(range_query(tin[u], tout[u])))  # tổng subtree u
 
     print("\n".join(out))
     ```
@@ -319,27 +319,27 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
 
     const int MAXN = 200005;
     const long long INF = 1e18;
-    vector<int> adj[MAXN];
-    int tin[MAXN], tout[MAXN];
-    long long val[MAXN];
-    long long tree[4 * MAXN];
+    vector<int> adj[MAXN];      // danh sách kề
+    int tin[MAXN], tout[MAXN];  // thời gian vào/ra
+    long long val[MAXN];        // giá trị các đỉnh
+    long long tree[4 * MAXN];   // Segment Tree
     int timer_dfs = 0;
     int n;
 
     void build(int node, int start, int end) {
         if (start == end) {
-            tree[node] = INF;
+            tree[node] = INF;           // khởi tạo lá
             return;
         }
         int mid = (start + end) / 2;
         build(2 * node, start, mid);
         build(2 * node + 1, mid + 1, end);
-        tree[node] = min(tree[2 * node], tree[2 * node + 1]);
+        tree[node] = min(tree[2 * node], tree[2 * node + 1]);  // lấy min hai con
     }
 
     void update(int node, int start, int end, int pos, long long new_val) {
         if (start == end) {
-            tree[node] = new_val;
+            tree[node] = new_val;       // cập nhật lá
             return;
         }
         int mid = (start + end) / 2;
@@ -347,23 +347,23 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
             update(2 * node, start, mid, pos, new_val);
         else
             update(2 * node + 1, mid + 1, end, pos, new_val);
-        tree[node] = min(tree[2 * node], tree[2 * node + 1]);
+        tree[node] = min(tree[2 * node], tree[2 * node + 1]);  // cập nhật min
     }
 
     long long query(int node, int start, int end, int l, int r) {
-        if (r < start || end < l) return INF;
-        if (l <= start && end <= r) return tree[node];
+        if (r < start || end < l) return INF;  // ngoài đoạn
+        if (l <= start && end <= r) return tree[node];  // nằm hoàn toàn trong đoạn
         int mid = (start + end) / 2;
         return min(query(2 * node, start, mid, l, r),
                    query(2 * node + 1, mid + 1, end, l, r));
     }
 
     void dfs(int u, int parent) {
-        tin[u] = ++timer_dfs;
+        tin[u] = ++timer_dfs;   // ghi nhận thời gian vào
         for (int v : adj[u]) {
             if (v != parent) dfs(v, u);
         }
-        tout[u] = timer_dfs;
+        tout[u] = timer_dfs;    // ghi nhận thời gian ra
     }
 
     int main() {
@@ -379,11 +379,11 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
             adj[v].push_back(u);
         }
 
-        dfs(1, 0);
-        build(1, 1, n);
+        dfs(1, 0);              // DFS Euler Tour
+        build(1, 1, n);         // xây Segment Tree
 
         for (int i = 1; i <= n; i++) {
-            update(1, 1, n, tin[i], val[i]);
+            update(1, 1, n, tin[i], val[i]);  // đưa giá trị vào cây
         }
 
         int q; cin >> q;
@@ -393,10 +393,10 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
                 int u; long long new_val;
                 cin >> u >> new_val;
                 val[u] = new_val;
-                update(1, 1, n, tin[u], new_val);
+                update(1, 1, n, tin[u], new_val);  // cập nhật giá trị
             } else {
                 int u; cin >> u;
-                cout << query(1, 1, n, tin[u], tout[u]) << "\n";
+                cout << query(1, 1, n, tin[u], tout[u]) << "\n";  // min subtree u
             }
         }
         return 0;
@@ -413,28 +413,28 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
 
     def build(node, start, end):
         if start == end:
-            tree[node] = INF
+            tree[node] = INF            # khởi tạo lá
         else:
             mid = (start + end) // 2
             build(2 * node, start, mid)
             build(2 * node + 1, mid + 1, end)
-            tree[node] = min(tree[2 * node], tree[2 * node + 1])
+            tree[node] = min(tree[2 * node], tree[2 * node + 1])  # lấy min hai con
 
     def update(node, start, end, pos, new_val):
         if start == end:
-            tree[node] = new_val
+            tree[node] = new_val        # cập nhật lá
         else:
             mid = (start + end) // 2
             if pos <= mid:
                 update(2 * node, start, mid, pos, new_val)
             else:
                 update(2 * node + 1, mid + 1, end, pos, new_val)
-            tree[node] = min(tree[2 * node], tree[2 * node + 1])
+            tree[node] = min(tree[2 * node], tree[2 * node + 1])  # cập nhật min
 
     def query(node, start, end, l, r):
-        if r < start or end < l:
+        if r < start or end < l:        # ngoài đoạn
             return INF
-        if l <= start and end <= r:
+        if l <= start and end <= r:     # nằm hoàn toàn trong đoạn
             return tree[node]
         mid = (start + end) // 2
         return min(query(2 * node, start, mid, l, r),
@@ -443,11 +443,11 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
     def dfs(u, parent):
         global timer_dfs
         timer_dfs += 1
-        tin[u] = timer_dfs
+        tin[u] = timer_dfs               # ghi nhận thời gian vào
         for v in adj[u]:
             if v != parent:
                 dfs(v, u)
-        tout[u] = timer_dfs
+        tout[u] = timer_dfs              # ghi nhận thời gian ra
 
     input_data = sys.stdin.read().split()
     idx = 0
@@ -467,12 +467,12 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
     tin = [0] * (n + 1)
     tout = [0] * (n + 1)
     timer_dfs = 0
-    dfs(1, 0)
+    dfs(1, 0)                # DFS Euler Tour
 
     tree = [0] * (4 * n + 5)
-    build(1, 1, n)
+    build(1, 1, n)           # xây Segment Tree
     for i in range(1, n + 1):
-        update(1, 1, n, tin[i], val[i])
+        update(1, 1, n, tin[i], val[i])  # đưa giá trị vào cây
 
     q = int(input_data[idx]); idx += 1
     out = []
@@ -481,10 +481,10 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
         if t == 1:
             u = int(input_data[idx]); idx += 1
             new_val = int(input_data[idx]); idx += 1
-            update(1, 1, n, tin[u], new_val)
+            update(1, 1, n, tin[u], new_val)  # cập nhật giá trị
         else:
             u = int(input_data[idx]); idx += 1
-            out.append(str(query(1, 1, n, tin[u], tout[u])))
+            out.append(str(query(1, 1, n, tin[u], tout[u])))  # min subtree u
 
     print("\n".join(out))
     ```
@@ -510,41 +510,41 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
     using namespace std;
 
     const int MAXN = 200005;
-    vector<int> adj[MAXN];
-    int tin[MAXN], tout[MAXN];
-    long long bit[2 * MAXN];
+    vector<int> adj[MAXN];      // danh sách kề
+    int tin[MAXN], tout[MAXN];  // thời gian vào/ra (Type 2: 2 lần)
+    long long bit[2 * MAXN];    // BIT cho mảng hiệu
     int timer_dfs = 0;
     int n, q;
 
     void update(int i, long long delta) {
         for (; i <= 2 * n; i += i & (-i))
-            bit[i] += delta;
+            bit[i] += delta;    // cập nhật BIT
     }
 
     long long query(int i) {
         long long sum = 0;
         for (; i > 0; i -= i & (-i))
-            sum += bit[i];
+            sum += bit[i];      // lấy tổng prefix
         return sum;
     }
 
     void dfs(int u, int parent) {
-        tin[u] = ++timer_dfs;
+        tin[u] = ++timer_dfs;   // ghi nhận thời gian vào
         for (int v : adj[u]) {
             if (v != parent) {
                 dfs(v, u);
             }
         }
-        tout[u] = ++timer_dfs;
+        tout[u] = ++timer_dfs;  // ghi nhận thời gian ra (tăng thêm 1)
     }
 
     void update_subtree(int u, long long val) {
-        update(tin[u], val);
-        update(tout[u] + 1, -val);
+        update(tin[u], val);        // +val tại tin[u]
+        update(tout[u] + 1, -val);  // -val tại tout[u]+1
     }
 
     long long point_query(int u) {
-        return query(tin[u]);
+        return query(tin[u]);       // tổng prefix tại tin[u]
     }
 
     int main() {
@@ -560,12 +560,12 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
             adj[v].push_back(u);
         }
 
-        dfs(1, 0);
+        dfs(1, 0);  // DFS Euler Tour Type 2
 
         for (int i = 1; i <= n; i++) {
             long long val;
             cin >> val;
-            update_subtree(i, val);
+            update_subtree(i, val);  // khởi tạo giá trị ban đầu
         }
 
         while (q--) {
@@ -574,11 +574,11 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
             if (type == 1) {
                 int u; long long val;
                 cin >> u >> val;
-                update_subtree(u, val);
+                update_subtree(u, val);  // cộng val vào subtree u
             } else {
                 int u;
                 cin >> u;
-                cout << point_query(u) << "\n";
+                cout << point_query(u) << "\n";  // truy vấn giá trị đỉnh u
             }
         }
         return 0;
@@ -593,32 +593,32 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
 
     def update(i, delta):
         while i <= 2 * n:
-            bit[i] += delta
+            bit[i] += delta         # cập nhật BIT
             i += i & (-i)
 
     def query(i):
         s = 0
         while i > 0:
-            s += bit[i]
+            s += bit[i]             # lấy tổng prefix
             i -= i & (-i)
         return s
 
     def dfs(u, parent):
         global timer_dfs
         timer_dfs += 1
-        tin[u] = timer_dfs
+        tin[u] = timer_dfs           # ghi nhận thời gian vào
         for v in adj[u]:
             if v != parent:
                 dfs(v, u)
         timer_dfs += 1
-        tout[u] = timer_dfs
+        tout[u] = timer_dfs          # ghi nhận thời gian ra (tăng thêm 1)
 
     def update_subtree(u, val):
-        update(tin[u], val)
-        update(tout[u] + 1, -val)
+        update(tin[u], val)          # +val tại tin[u]
+        update(tout[u] + 1, -val)    # -val tại tout[u]+1
 
     def point_query(u):
-        return query(tin[u])
+        return query(tin[u])         # tổng prefix tại tin[u]
 
     input_data = sys.stdin.read().split()
     idx = 0
@@ -636,11 +636,11 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
     tout = [0] * (n + 1)
     bit = [0] * (2 * n + 5)
     timer_dfs = 0
-    dfs(1, 0)
+    dfs(1, 0)  # DFS Euler Tour Type 2
 
     for i in range(1, n + 1):
         val = int(input_data[idx]); idx += 1
-        update_subtree(i, val)
+        update_subtree(i, val)  # khởi tạo giá trị ban đầu
 
     out = []
     for _ in range(q):
@@ -648,10 +648,10 @@ Tương tự BIT, nhưng thay vì tính tổng, ta lưu giá trị nhỏ nhất 
         if t == 1:
             u = int(input_data[idx]); idx += 1
             val = int(input_data[idx]); idx += 1
-            update_subtree(u, val)
+            update_subtree(u, val)  # cộng val vào subtree u
         else:
             u = int(input_data[idx]); idx += 1
-            out.append(str(point_query(u)))
+            out.append(str(point_query(u)))  # truy vấn giá trị đỉnh u
 
     print("\n".join(out))
     ```
@@ -701,25 +701,25 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
     const int MAXN = 200005;
     const int LOG = 20;
     vector<int> adj[MAXN];
-    int depth[MAXN];
-    int euler[2 * MAXN];
-    int first[MAXN];
-    int euler_depth[2 * MAXN];
-    int st[2 * MAXN][LOG];
-    int log_table[2 * MAXN];
-    int n, q, euler_cnt;
+    int depth[MAXN];            // độ sâu của mỗi đỉnh
+    int euler[2 * MAXN];        // mảng Euler Tour (ghi đỉnh mỗi lần thăm)
+    int first[MAXN];            // vị trí đầu tiên đỉnh u xuất hiện
+    int euler_depth[2 * MAXN];  // độ sâu tương ứng với mảng euler
+    int st[2 * MAXN][LOG];      // Sparse Table cho RMQ
+    int log_table[2 * MAXN];    // bảng log
+    int n, q, euler_cnt;        // số đỉnh, truy vấn, bộ đếm
 
     void dfs(int u, int parent, int d) {
         depth[u] = d;
-        euler[euler_cnt] = u;
+        euler[euler_cnt] = u;               // ghi đỉnh vào mảng Euler
         euler_depth[euler_cnt] = d;
-        if (first[u] == -1) first[u] = euler_cnt;
+        if (first[u] == -1) first[u] = euler_cnt;  // lưu vị trí đầu tiên
         euler_cnt++;
 
         for (int v : adj[u]) {
             if (v != parent) {
                 dfs(v, u, d + 1);
-                euler[euler_cnt] = u;
+                euler[euler_cnt] = u;       // ghi lại khi quay lui
                 euler_depth[euler_cnt] = d;
                 euler_cnt++;
             }
@@ -733,13 +733,13 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
             log_table[i] = log_table[i / 2] + 1;
 
         for (int i = 0; i < m; i++)
-            st[i][0] = i;
+            st[i][0] = i;                   // khởi tạo độ dài 1
 
         for (int j = 1; (1 << j) <= m; j++) {
             for (int i = 0; i + (1 << j) - 1 < m; i++) {
                 int left = st[i][j - 1];
                 int right = st[i + (1 << (j - 1))][j - 1];
-                st[i][j] = (euler_depth[left] < euler_depth[right]) ? left : right;
+                st[i][j] = (euler_depth[left] < euler_depth[right]) ? left : right;  // lấy chỉ số depth nhỏ hơn
             }
         }
     }
@@ -748,14 +748,14 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
         int k = log_table[r - l + 1];
         int left = st[l][k];
         int right = st[r - (1 << k) + 1][k];
-        return (euler_depth[left] < euler_depth[right]) ? left : right;
+        return (euler_depth[left] < euler_depth[right]) ? left : right;  // chỉ số depth nhỏ hơn
     }
 
     int lca(int u, int v) {
         int l = first[u], r = first[v];
         if (l > r) swap(l, r);
-        int idx = query_rmq(l, r);
-        return euler[idx];
+        int idx = query_rmq(l, r);   // RMQ trên đoạn [first[u], first[v]]
+        return euler[idx];           // đỉnh có depth nhỏ nhất là LCA
     }
 
     int main() {
@@ -773,13 +773,13 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
 
         memset(first, -1, sizeof(first));
         euler_cnt = 0;
-        dfs(1, 0, 0);
-        build_sparse_table();
+        dfs(1, 0, 0);               // DFS từ gốc 1
+        build_sparse_table();       // xây Sparse Table
 
         while (q--) {
             int u, v;
             cin >> u >> v;
-            cout << lca(u, v) << "\n";
+            cout << lca(u, v) << "\n";  // in LCA
         }
         return 0;
     }
@@ -794,16 +794,16 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
     def dfs(u, parent, d):
         global euler_cnt
         depth[u] = d
-        euler[euler_cnt] = u
+        euler[euler_cnt] = u                # ghi đỉnh vào mảng Euler
         euler_depth[euler_cnt] = d
         if first[u] == -1:
-            first[u] = euler_cnt
+            first[u] = euler_cnt            # lưu vị trí đầu tiên
         euler_cnt += 1
 
         for v in adj[u]:
             if v != parent:
                 dfs(v, u, d + 1)
-                euler[euler_cnt] = u
+                euler[euler_cnt] = u        # ghi lại khi quay lui
                 euler_depth[euler_cnt] = d
                 euler_cnt += 1
 
@@ -814,7 +814,7 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
             log_table[i] = log_table[i // 2] + 1
 
         for i in range(m):
-            st[i][0] = i
+            st[i][0] = i                    # khởi tạo độ dài 1
 
         j = 1
         while (1 << j) <= m:
@@ -822,7 +822,7 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
             while i + (1 << j) - 1 < m:
                 left = st[i][j - 1]
                 right = st[i + (1 << (j - 1))][j - 1]
-                st[i][j] = left if euler_depth[left] < euler_depth[right] else right
+                st[i][j] = left if euler_depth[left] < euler_depth[right] else right  # chỉ số depth nhỏ hơn
                 i += 1
             j += 1
 
@@ -836,8 +836,8 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
         l, r = first[u], first[v]
         if l > r:
             l, r = r, l
-        idx = query_rmq(l, r)
-        return euler[idx]
+        idx = query_rmq(l, r)       # RMQ trên đoạn [first[u], first[v]]
+        return euler[idx]            # đỉnh có depth nhỏ nhất là LCA
 
     input_data = sys.stdin.read().split()
     idx = 0
@@ -859,14 +859,14 @@ $E[2 \dots 4] = [4, 2, 5]$ với depth $[2, 1, 2]$ — min depth = 1 tại đỉ
     st = [[0] * 20 for _ in range(2 * n)]
     euler_cnt = 0
 
-    dfs(1, 0, 0)
-    build_sparse_table()
+    dfs(1, 0, 0)                    # DFS từ gốc 1
+    build_sparse_table()            # xây Sparse Table
 
     out = []
     for _ in range(q):
         u = int(input_data[idx]); idx += 1
         v = int(input_data[idx]); idx += 1
-        out.append(str(lca(u, v)))
+        out.append(str(lca(u, v)))  # in LCA
 
     print("\n".join(out))
     ```
@@ -979,11 +979,13 @@ $E$ là mảng Euler Tour DFS (ghi đỉnh mỗi lần thăm, kể cả quay l�
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Subtree Queries](https://cses.fi/problemset/task/1137) | CSES | ⭐⭐ | Subtree sum với BIT |
-| [CSES - Path Queries](https://cses.fi/problemset/task/1138) | CSES | ⭐⭐⭐ | Path sum Euler Tour |
-| [CSES - Company Queries II](https://cses.fi/problemset/task/1688) | CSES | ⭐⭐ | LCA qua Euler Tour |
-| [CF 383C - Propagating tree](https://codeforces.com/problemset/problem/383/C) | CF | ⭐⭐⭐ | Euler Tour + BIT |
-| [SPOJ - QTREE](https://www.spoj.com/problems/QTREE/) | SPOJ | ⭐⭐⭐⭐ | Euler Tour + HLD |
-| [VNOJ - AtCoder DP V - Subtree](https://oj.vnoi.info/problem/atcoder_dp_v) | VNOJ | ⭐⭐⭐⭐ | Rerooting + Euler Tour |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ett-size` | [Kích thước vương quốc](https://fptoj.com/problem/ett-size) | ⭐ | Euler Tour - Subtree size | [Euler Tour trên cây](euler-tour-tree.md) |
+| `ett-ancestor` | [Quan hệ huyết thống](https://fptoj.com/problem/ett-ancestor) | ⭐ | Euler Tour - Ancestor check | [Euler Tour trên cây](euler-tour-tree.md) |
+| `ett-subtree-sum` | [Kho lương thực](https://fptoj.com/problem/ett-subtree-sum) | ⭐⭐ | Euler Tour + BIT (Subtree sum) | [Euler Tour trên cây](euler-tour-tree.md) |
+| `ett-subtree-min` | [Điểm yếu nhất](https://fptoj.com/problem/ett-subtree-min) | ⭐⭐ | Euler Tour + Segment Tree (Subtree min) | [Euler Tour trên cây](euler-tour-tree.md) |
+| `ett-subtree-up` | [Phát lương](https://fptoj.com/problem/ett-subtree-up) | ⭐⭐⭐ | Euler Tour Type 2 + BIT (Range update, point query) | [Euler Tour trên cây](euler-tour-tree.md) |
+| `ett-root-sum` | [Đường về nguồn cội](https://fptoj.com/problem/ett-root-sum) | ⭐⭐⭐ | Euler Tour + BIT (Path sum từ gốc) | [Euler Tour trên cây](euler-tour-tree.md) |
+| `ett-lca` | [Tổ tiên chung](https://fptoj.com/problem/ett-lca) | ⭐⭐⭐ | Euler Tour + Sparse Table (LCA O(1)) | [Euler Tour trên cây](euler-tour-tree.md) |
+| `ett-dist` | [Khoảng cách hai làng](https://fptoj.com/problem/ett-dist) | ⭐⭐⭐⭐ | Euler Tour + LCA + Depth (Khoảng cách cây) | [Euler Tour trên cây](euler-tour-tree.md) |

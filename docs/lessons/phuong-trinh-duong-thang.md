@@ -417,7 +417,20 @@ Với quy ước đỉnh thứ $n+1$ trùng với đỉnh thứ $1$: $(x_{n+1}, 
 
 ---
 
-## 7. Bài tập luyện tập và Lời giải chi tiết
+## 7. Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `line-2pts` | [Đường thẳng qua hai điểm](https://fptoj.com/problem/line-2pts) | ⭐ | Dựng phương trình đường thẳng |
+| `line-intersect` | [Giao điểm hai đường thẳng](https://fptoj.com/problem/line-intersect) | ⭐⭐ | Cramer / Giao điểm |
+| `line-pt-dist` | [Trạm phát sóng và đường dây điện](https://fptoj.com/problem/line-pt-dist) | ⭐ | Khoảng cách điểm-đường thẳng |
+| `line-reflect` | [Bàn bi-a áo thuật](https://fptoj.com/problem/line-reflect) | ⭐⭐ | Điểm đối xứng qua đường thẳng |
+| `line-2lines` | [Vị trí tương đối hai đường thẳng](https://fptoj.com/problem/line-2lines) | ⭐⭐ | Song song / Trùng / Cắt |
+| `line-seg-int` | [Giao điểm của hai đoạn ống](https://fptoj.com/problem/line-seg-int) | ⭐⭐⭐ | Giao điểm đoạn thẳng |
+| `line-poly-area` | [Mảnh vườn của bác Tám](https://fptoj.com/problem/line-poly-area) | ⭐⭐ | Diện tích đa giác (Shoelace) |
+| `line-bisect` | [Phân giác của hai tia sáng](https://fptoj.com/problem/line-bisect) | ⭐⭐⭐⭐ | Đường phân giác |
+
+### 7a. Bài tập luyện tập và Lời giải chi tiết
 
 ### Bài 1: Giao hai đường thẳng
 **Đề bài:** Cho hai đường thẳng $L_1: A_1 x + B_1 y + C_1 = 0$ và $L_2: A_2 x + B_2 y + C_2 = 0$. Tìm điểm giao của hai đường thẳng, hoặc in ra `PARALLEL` (song song) hoặc `IDENTICAL` (trùng nhau).

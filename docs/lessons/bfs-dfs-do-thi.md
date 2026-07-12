@@ -1300,8 +1300,7 @@ Toàn bộ 30 bài tập BFS/DFS dưới đây được thiết kế riêng, t�
     }
     ```
 ??? tip "graph-cycle-undir — Chu Trình Vô Hướng"
-    **Ý tưởng:** Duyệt đồ thị vô hướng bằng DFS. Khi duyệt từ đỉnh hiện tại $u$, nếu ta phát hiện đỉnh kề $v$ đã được thăm (`visited[v] == true`) và đỉnh $v$ không phải là đỉnh cha của $u$ ($v 
-eq parent$), điều này nghĩa là đồ thị chứa một cạnh ngược (back-edge), tức là tồn tại chu trình vô hướng.
+    **Ý tưởng:** Duyệt đồ thị vô hướng bằng DFS. Khi duyệt từ đỉnh hiện tại $u$, nếu ta phát hiện đỉnh kề $v$ đã được thăm (`visited[v] == true`) và đỉnh $v$ không phải là đỉnh cha của $u$ ($v \neq \text{parent}$), điều này nghĩa là đồ thị chứa một cạnh ngược (back-edge), tức là tồn tại chu trình vô hướng.
 
     ```cpp
     #include <bits/stdc++.h>

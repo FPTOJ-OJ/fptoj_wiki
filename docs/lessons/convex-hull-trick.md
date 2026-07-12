@@ -630,16 +630,21 @@ Ta áp dụng trực tiếp Static CHT Deque với $O(N)$ thời gian.
 > [!IMPORTANT]
 > ### 2. Xử lý đường thẳng trùng hệ số góc (Coincident Slopes)
 > Khi hai đường thẳng có cùng hệ số góc $m_1 = m_2$, chúng song song nhau. Khoảng cách giao điểm sẽ tiến tới vô cùng. 
-> - Nếu $c_1 \le c_2$, đường thẳng $L_2$ hoàn toàn nằm phía trên $L_1$ nên nó vô dụng.Ta bắt buộc phải loại bỏ đường thẳng có tung độ gốc kém hơn trước khi thực hiện so sánh chéo để tránh lỗi chia cho $0$.
+> - Nếu $c_1 \le c_2$, đường thẳng $L_2$ hoàn toàn nằm phía trên $L_1$ nên nó vô dụng. Ta bắt buộc phải loại bỏ đường thẳng có tung độ gốc kém hơn trước khi thực hiện so sánh chéo để tránh lỗi chia cho $0$.
 
 ---
 
-## 8. Bài tập luyện tập
+## Bài tập luyện tập
 
-| STT | Bài toán | Kỹ thuật áp dụng | Độ khó | Liên kết |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | [Kalila and Dimna (CF 319C)](https://codeforces.com/problemset/problem/319/C) | CHT Deque cơ bản | ★★★☆ | [Codeforces](https://codeforces.com/problemset/problem/319/C) |
-| 2 | [Commando (APIO 2010)](https://oj.vnoi.info/problem/commando) | CHT Deque | ★★★★ | [VNOJ](https://oj.vnoi.info/problem/commando) |
-| 3 | [Frog 3 (AtCoder DP Z)](https://atcoder.jp/contests/dp/tasks/dp_z) | CHT Deque / Li Chao Tree | ★★★★ | [AtCoder](https://atcoder.jp/contests/dp/tasks/dp_z) |
-| 4 | [ACQUIRE (USACO)](https://oj.vnoi.info/problem/acquire) | CHT lọc kích thước | ★★★★☆ | [VNOJ](https://oj.vnoi.info/problem/acquire) |
-| 5 | [Line Container (Yosupo)](https://judge.yosupo.jp/problem/line_add_get_min) | Li Chao Tree cơ bản | ★★★☆ | [Library-Checker](https://judge.yosupo.jp/problem/line_add_get_min) |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `lc-basic-easy` | [Đường thẳng dễ](https://fptoj.com/problem/lc-basic-easy) | ⭐ | Li Chao - Thêm thẳng, query min cơ bản | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-basic` | [Đường thẳng](https://fptoj.com/problem/lc-basic) | ⭐⭐ | Li Chao - Thêm thẳng, query min | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-range` | [Đoạn thẳng](https://fptoj.com/problem/lc-range) | ⭐⭐⭐ | Li Chao - Thêm đoạn [L,R] | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-dp-basic` | [DP cơ bản](https://fptoj.com/problem/lc-dp-basic) | ⭐⭐⭐ | Li Chao + DP - Tối ưu DP | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-dp-fence` | [Hàng rào](https://fptoj.com/problem/lc-dp-fence) | ⭐⭐⭐ | Li Chao + DP - Hàng rào | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-dp-land` | [Mua đất](https://fptoj.com/problem/lc-dp-land) | ⭐⭐⭐ | Li Chao + DP - Mua đất | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-line-add-rm` | [Thêm/xóa](https://fptoj.com/problem/lc-line-add-rm) | ⭐⭐⭐⭐ | Li Chao - Thêm/xóa đường thẳng | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-persist` | [Bền vững](https://fptoj.com/problem/lc-persist) | ⭐⭐⭐⭐ | Persistent Li Chao | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-max-query` | [Query max](https://fptoj.com/problem/lc-max-query) | ⭐⭐⭐⭐ | Li Chao - Query max | [Convex Hull Trick Động](convex-hull-trick.md) |
+| `lc-2d-rect` | [Hình chữ nhật 2D](https://fptoj.com/problem/lc-2d-rect) | ⭐⭐⭐⭐⭐ | Li Chao - Hình chữ nhật 2D | [Convex Hull Trick Động](convex-hull-trick.md) |

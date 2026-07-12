@@ -86,37 +86,37 @@ graph LR
 
         void pushFront(int val) {
             Node* newNode = new Node(val);
-            newNode->next = head;
-            head = newNode;
+            newNode->next = head;  // trỏ node mới vào head cũ
+            head = newNode;         // cập nhật head
         }
 
         void pushBack(int val) {
             Node* newNode = new Node(val);
-            if (head == nullptr) {
+            if (head == nullptr) {  // danh sách rỗng
                 head = newNode;
                 return;
             }
             Node* cur = head;
-            while (cur->next != nullptr)
+            while (cur->next != nullptr)  // duyệt đến node cuối
                 cur = cur->next;
-            cur->next = newNode;
+            cur->next = newNode;          // nối node cuối vào node mới
         }
 
         void insertAfter(int key, int val) {
             Node* cur = head;
-            while (cur != nullptr && cur->data != key)
+            while (cur != nullptr && cur->data != key)  // tìm node chứa key
                 cur = cur->next;
             if (cur == nullptr) return;
 
             Node* newNode = new Node(val);
-            newNode->next = cur->next;
-            cur->next = newNode;
+            newNode->next = cur->next;  // node mới trỏ đến node sau
+            cur->next = newNode;        // node trước trỏ vào node mới
         }
 
         void remove(int key) {
             if (head == nullptr) return;
 
-            if (head->data == key) {
+            if (head->data == key) {     // xóa node đầu
                 Node* temp = head;
                 head = head->next;
                 delete temp;
@@ -124,12 +124,12 @@ graph LR
             }
 
             Node* cur = head;
-            while (cur->next != nullptr && cur->next->data != key)
+            while (cur->next != nullptr && cur->next->data != key)  // tìm node trước node cần xóa
                 cur = cur->next;
 
             if (cur->next != nullptr) {
                 Node* temp = cur->next;
-                cur->next = cur->next->next;
+                cur->next = cur->next->next;  // nhảy qua node cần xóa
                 delete temp;
             }
         }
@@ -172,40 +172,40 @@ graph LR
 
         def push_front(self, val):
             new_node = Node(val)
-            new_node.next = self.head
-            self.head = new_node
+            new_node.next = self.head  # trỏ node mới vào head cũ
+            self.head = new_node       # cập nhật head
 
         def push_back(self, val):
             new_node = Node(val)
-            if not self.head:
+            if not self.head:          # danh sách rỗng
                 self.head = new_node
                 return
             cur = self.head
-            while cur.next:
+            while cur.next:             # duyệt đến node cuối
                 cur = cur.next
-            cur.next = new_node
+            cur.next = new_node         # nối node cuối vào node mới
 
         def insert_after(self, key, val):
             cur = self.head
-            while cur and cur.data != key:
+            while cur and cur.data != key:  # tìm node chứa key
                 cur = cur.next
             if not cur:
                 return
             new_node = Node(val)
-            new_node.next = cur.next
-            cur.next = new_node
+            new_node.next = cur.next   # node mới trỏ đến node sau
+            cur.next = new_node        # node trước trỏ vào node mới
 
         def remove(self, key):
             if not self.head:
                 return
-            if self.head.data == key:
+            if self.head.data == key:  # xóa node đầu
                 self.head = self.head.next
                 return
             cur = self.head
-            while cur.next and cur.next.data != key:
+            while cur.next and cur.next.data != key:  # tìm node trước node cần xóa
                 cur = cur.next
             if cur.next:
-                cur.next = cur.next.next
+                cur.next = cur.next.next  # nhảy qua node cần xóa
 
         def print_list(self):
             cur = self.head
@@ -254,32 +254,32 @@ graph LR
 
         void pushFront(int val) {
             DNode* newNode = new DNode(val);
-            if (head == nullptr) {
+            if (head == nullptr) {         // danh sách rỗng
                 head = tail = newNode;
                 return;
             }
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newNode->next = head;          // node mới trỏ đến head cũ
+            head->prev = newNode;          // head cũ trỏ ngược về node mới
+            head = newNode;                // cập nhật head
         }
 
         void pushBack(int val) {
             DNode* newNode = new DNode(val);
-            if (tail == nullptr) {
+            if (tail == nullptr) {         // danh sách rỗng
                 head = tail = newNode;
                 return;
             }
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+            tail->next = newNode;          // tail cũ trỏ đến node mới
+            newNode->prev = tail;          // node mới trỏ ngược về tail cũ
+            tail = newNode;                // cập nhật tail
         }
 
         void removeNode(DNode* node) {
-            if (node->prev) node->prev->next = node->next;
-            else head = node->next;
+            if (node->prev) node->prev->next = node->next;  // nối node trước với node sau
+            else head = node->next;                          // node là head
 
-            if (node->next) node->next->prev = node->prev;
-            else tail = node->prev;
+            if (node->next) node->next->prev = node->prev;  // nối node sau với node trước
+            else tail = node->prev;                          // node là tail
 
             delete node;
         }
@@ -312,32 +312,32 @@ graph LR
 
         def push_front(self, val):
             new_node = DNode(val)
-            if not self.head:
+            if not self.head:             # danh sách rỗng
                 self.head = self.tail = new_node
                 return
-            new_node.next = self.head
-            self.head.prev = new_node
-            self.head = new_node
+            new_node.next = self.head     # node mới trỏ đến head cũ
+            self.head.prev = new_node     # head cũ trỏ ngược về node mới
+            self.head = new_node          # cập nhật head
 
         def push_back(self, val):
             new_node = DNode(val)
-            if not self.tail:
+            if not self.tail:             # danh sách rỗng
                 self.head = self.tail = new_node
                 return
-            self.tail.next = new_node
-            new_node.prev = self.tail
-            self.tail = new_node
+            self.tail.next = new_node     # tail cũ trỏ đến node mới
+            new_node.prev = self.tail     # node mới trỏ ngược về tail cũ
+            self.tail = new_node          # cập nhật tail
 
         def remove_node(self, node):
-            if node.prev:
+            if node.prev:                  # nối node trước với node sau
                 node.prev.next = node.next
             else:
-                self.head = node.next
+                self.head = node.next      # node là head
 
-            if node.next:
+            if node.next:                  # nối node sau với node trước
                 node.next.prev = node.prev
             else:
-                self.tail = node.prev
+                self.tail = node.prev      # node là tail
 
         def print_list(self):
             cur = self.head
@@ -358,15 +358,15 @@ graph LR
 
         void push(int val) {
             Node* newNode = new Node(val);
-            newNode->next = top_node;
-            top_node = newNode;
+            newNode->next = top_node;  // node mới trỏ đến đỉnh hiện tại
+            top_node = newNode;         // cập nhật đỉnh
         }
 
         int pop() {
-            if (!top_node) return -1;
+            if (!top_node) return -1;  // stack rỗng
             int val = top_node->data;
             Node* temp = top_node;
-            top_node = top_node->next;
+            top_node = top_node->next;  // đỉnh trỏ xuống node kế
             delete temp;
             return val;
         }
@@ -377,17 +377,17 @@ graph LR
 
         void push(int val) {
             Node* newNode = new Node(val);
-            if (back_node) back_node->next = newNode;
-            else front_node = newNode;
-            back_node = newNode;
+            if (back_node) back_node->next = newNode;  // nối vào cuối hàng đợi
+            else front_node = newNode;                  // hàng đợi rỗng
+            back_node = newNode;                        // cập nhật đuôi
         }
 
         int pop() {
-            if (!front_node) return -1;
+            if (!front_node) return -1;   // queue rỗng
             int val = front_node->data;
             Node* temp = front_node;
-            front_node = front_node->next;
-            if (!front_node) back_node = nullptr;
+            front_node = front_node->next;  // đầu trỏ xuống node kế
+            if (!front_node) back_node = nullptr;  // queue trống
             delete temp;
             return val;
         }
@@ -403,14 +403,14 @@ graph LR
 
         def push(self, val):
             new_node = Node(val)
-            new_node.next = self.top_node
-            self.top_node = new_node
+            new_node.next = self.top_node  # node mới trỏ đến đỉnh hiện tại
+            self.top_node = new_node       # cập nhật đỉnh
 
         def pop(self):
             if not self.top_node:
-                return None
+                return None                # stack rỗng
             val = self.top_node.data
-            self.top_node = self.top_node.next
+            self.top_node = self.top_node.next  # đỉnh trỏ xuống node kế
             return val
 
     class Queue:
@@ -421,18 +421,18 @@ graph LR
         def push(self, val):
             new_node = Node(val)
             if self.back_node:
-                self.back_node.next = new_node
+                self.back_node.next = new_node  # nối vào cuối hàng đợi
             else:
-                self.front_node = new_node
-            self.back_node = new_node
+                self.front_node = new_node      # hàng đợi rỗng
+            self.back_node = new_node           # cập nhật đuôi
 
         def pop(self):
             if not self.front_node:
-                return None
+                return None                    # queue rỗng
             val = self.front_node.data
-            self.front_node = self.front_node.next
+            self.front_node = self.front_node.next  # đầu trỏ xuống node kế
             if not self.front_node:
-                self.back_node = None
+                self.back_node = None          # queue trống
             return val
     ```
 

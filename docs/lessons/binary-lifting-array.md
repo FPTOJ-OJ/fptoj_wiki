@@ -118,40 +118,43 @@ Nhảy $2^i$ bước từ $v$ = nhảy $2^{i-1}$ bước từ $v$ → đến $u 
     using namespace std;
 
     int main() {
-        ios_base::sync_with_stdio(false);
+        ios_base::sync_with_stdio(false);        // Tăng tốc I/O
         cin.tie(NULL);
 
         int n, q;
         cin >> n >> q;
 
-        int LOG = __lg(n) + 1;
+        int LOG = __lg(n) + 1;                   // Số bit cần thiết: ⌊log₂(n)⌋ + 1
+        // up[v][j] = đỉnh đến được khi nhảy 2^j bước từ đỉnh v
         vector<vector<int>> up(n, vector<int>(LOG));
 
-        // Đọc hàm nhảy: up[v][0] = phần tử sau 1 bước
+        // Đọc hàm nhảy: up[v][0] = đỉnh sau 1 bước (2^0) từ v
         for (int i = 0; i < n; i++) {
             cin >> up[i][0];
         }
 
-        // Tiền xử lý: up[v][i] = up[up[v][i-1]][i-1]
-        for (int j = 1; j < LOG; j++) {
-            for (int i = 0; i < n; i++) {
+        // Tiền xử lý: up[v][i] = up[ up[v][i-1] ][i-1]
+        // Nhảy 2^i bước = nhảy 2^(i-1) bước, rồi nhảy tiếp 2^(i-1) bước nữa
+        for (int j = 1; j < LOG; j++) {          // Duyệt từng lũy thừa của 2
+            for (int i = 0; i < n; i++) {        // Duyệt từng đỉnh
                 up[i][j] = up[up[i][j - 1]][j - 1];
             }
         }
 
-        // Truy vấn: từ v, nhảy k bước
+        // Truy vấn: từ đỉnh v, nhảy k bước
         while (q--) {
             int v;
             long long k;
             cin >> v >> k;
 
+            // Duyệt từng bit của k, nếu bit thứ j = 1 thì nhảy 2^j bước
             for (int j = 0; j < LOG; j++) {
-                if (k & (1LL << j)) {
-                    v = up[v][j];
+                if (k & (1LL << j)) {            // Kiểm tra bit thứ j của k
+                    v = up[v][j];                // Nhảy 2^j bước từ v
                 }
             }
 
-            cout << v << "\n";
+            cout << v << "\n";                   // In đỉnh kết quả
         }
         return 0;
     }
@@ -161,35 +164,138 @@ Nhảy $2^i$ bước từ $v$ = nhảy $2^{i-1}$ bước từ $v$ → đến $u 
 
     ```python
     import sys
-    input = sys.stdin.readline
+    input = sys.stdin.readline                      # Tăng tốc I/O
 
     n, q = map(int, input().split())
-    LOG = n.bit_length()
+    LOG = n.bit_length()                            # Số bit cần thiết: ⌊log₂(n)⌋ + 1
 
+    # up[v][j] = đỉnh đến được khi nhảy 2^j bước từ đỉnh v
     up = [[0] * LOG for _ in range(n)]
 
-    # Đọc hàm nhảy
+    # Đọc hàm nhảy: up[v][0] = đỉnh sau 1 bước (2^0) từ v
     row = list(map(int, input().split()))
     for i in range(n):
         up[i][0] = row[i]
 
-    # Tiền xử lý
-    for j in range(1, LOG):
-        for i in range(n):
+    # Tiền xử lý: up[v][i] = up[ up[v][i-1] ][i-1]
+    # Nhảy 2^i bước = nhảy 2^(i-1) bước, rồi nhảy tiếp 2^(i-1) bước nữa
+    for j in range(1, LOG):                         # Duyệt từng lũy thừa của 2
+        for i in range(n):                          # Duyệt từng đỉnh
             up[i][j] = up[up[i][j - 1]][j - 1]
 
-    # Truy vấn
+    # Truy vấn: từ đỉnh v, nhảy k bước
     for _ in range(q):
         v, k = map(int, input().split())
+        # Duyệt từng bit của k, nếu bit thứ j = 1 thì nhảy 2^j bước
         for j in range(LOG):
-            if k & (1 << j):
-                v = up[v][j]
-        print(v)
+            if k & (1 << j):                        # Kiểm tra bit thứ j của k
+                v = up[v][j]                        # Nhảy 2^j bước từ v
+        print(v)                                    # In đỉnh kết quả
     ```
 
 ---
 
-## 5. Bài tập luyện tập
+### Minh họa trực quan: Nhảy nhị phân
+
+Giả sử $n=10$, $k=22 = 10110_2$:
+
+$$
+22 = 16 + 4 + 2 = 2^4 + 2^2 + 2^1
+$$
+
+```
+Nhảy từ v:  v ───2^4───→ u1 ───2^2───→ u2 ───2^1───→ u3 (đích)
+Bit của k:   1   0   1   1   0  (đọc từ phải sang trái: bit 0...bit 4)
+             ↑       ↑   ↑
+           bit 1   bit 2 bit 4
+```
+
+**Quá trình truy vấn:**
+| Bit $j$ | $1 \ll j$ | `k & (1<<j)` | Có nhảy? | `v = up[v][j]` |
+|:---:|:---:|:---:|:---:|:---|
+| 0 | 1 | $22 \& 1 = 0$ | ❌ | Giữ nguyên |
+| 1 | 2 | $22 \& 2 = 2 \neq 0$ | ✅ | Nhảy $2^1=2$ bước |
+| 2 | 4 | $22 \& 4 = 4 \neq 0$ | ✅ | Nhảy $2^2=4$ bước |
+| 3 | 8 | $22 \& 8 = 0$ | ❌ | Giữ nguyên |
+| 4 | 16 | $22 \& 16 = 16 \neq 0$ | ✅ | Nhảy $2^4=16$ bước |
+
+Tổng số bước nhảy: $2 + 4 + 16 = 22 = k$ ✓
+
+---
+
+### Ứng dụng mở rộng: Phát hiện chu kỳ (Cycle Detection)
+
+Khi làm việc với đồ thị hàm số (mỗi đỉnh có đúng một cạnh ra), binary lifting có thể giúp trả lời các truy vấn về chu kỳ.
+
+**Bài toán con:** Từ đỉnh $v$, sau bao nhiêu bước thì vào chu kỳ? Chu kỳ có độ dài bao nhiêu?
+
+=== "C++"
+    ```cpp
+    // Tìm điểm vào chu kỳ và độ dài chu kỳ từ đỉnh start
+    // step[v]  : số bước từ start đến v
+    // cycleLen : độ dài chu kỳ (tính được khi gặp lại đỉnh đã thăm)
+    int findCycle(int start, vector<vector<int>>& up, int LOG) {
+        vector<int> step(n, -1);               // step[v] = số bước từ start để đến v
+        int v = start;
+        int cnt = 0;
+        while (step[v] == -1) {                // Chưa gặp lại đỉnh đã thăm
+            step[v] = cnt++;                   // Ghi nhận thứ tự ghé thăm
+            v = up[v][0];                      // Nhảy 1 bước
+        }
+        // Khi gặp lại v đã thăm: cnt - step[v] = độ dài chu kỳ
+        int cycleStart = v;                    // Đỉnh bắt đầu chu kỳ
+        int cycleLen = cnt - step[v];          // Độ dài chu kỳ
+        int distToCycle = step[v];             // Số bước từ start đến điểm vào chu kỳ
+        return cycleLen;
+    }
+    ```
+
+=== "Python"
+    ```python
+    def find_cycle(start, up, n):
+        step = [-1] * n                        # step[v] = số bước từ start để đến v
+        v = start
+        cnt = 0
+        while step[v] == -1:                   # Chưa gặp lại đỉnh đã thăm
+            step[v] = cnt                      # Ghi nhận thứ tự ghé thăm
+            cnt += 1
+            v = up[v][0]                       # Nhảy 1 bước
+        # Khi gặp lại v đã thăm: cnt - step[v] = độ dài chu kỳ
+        cycle_len = cnt - step[v]              # Độ dài chu kỳ
+        dist_to_cycle = step[v]                # Số bước từ start đến điểm vào chu kỳ
+        return cycle_len, dist_to_cycle
+    ```
+
+---
+
+## 5. Mẹo và lưu ý
+
+### 5.1 Các trường hợp đặc biệt
+
+| Trường hợp | Xử lý |
+|:---|:---|
+| $k = 0$ | Không nhảy bước nào, kết quả là chính đỉnh $v$. Vòng lặp bit sẽ không kích hoạt bước nhảy nào. |
+| $k$ rất lớn (vượt $N$) | Với đồ thị hàm số có chu kỳ, $k$ lớn sẽ quay vòng trong chu kỳ. Dùng phương pháp chu kỳ ở trên để xử lý. |
+| $N = 1$ | Chỉ có 1 đỉnh, `LOG = 1`. Bảng `up[0][0]` có thể trỏ về chính nó (tự vòng). |
+| $k > 2^{LOG}$ | Không thể nhảy quá $2^{LOG}-1$ bước trong bảng đã tiền xử lý. Với đồ thị hàm số, dùng modulo chu kỳ trước khi nhảy. |
+
+### 5.2 Cạm bẫy thường gặp
+
+- **Sai kích thước `LOG`:** Dùng `__lg(n) + 1` trong C++ hoặc `n.bit_length()` trong Python. Nếu đặt $LOG$ quá nhỏ, nhảy $k$ lớn sẽ truy cập ngoài mảng.
+- **Nhầm thứ tự vòng lặp tiền xử lý:** Vòng ngoài phải là $j$ (lũy thừa), vòng trong là $i$ (đỉnh). Nếu đảo ngược, `up[up[i][j-1]][j-1]` có thể truy cập giá trị chưa được tính.
+- **Dùng `int` cho $k$:** $k$ có thể lớn hơn $2^{31}$, dùng `long long` trong C++ và không cần lo trong Python.
+- **Quên kiểm tra bit:** Luôn kiểm tra `if (k & (1LL << j))` thay vì `if (k >> j & 1)` để tránh lỗi với $k$ âm hoặc quá lớn.
+- **Không xử lý trường hợp không tồn tại:** Với đồ thị không phải hàm số, nếu nhảy ra ngoài phạm vi, cần kiểm tra đỉnh `-1` hoặc giá trị sentinel.
+
+### 5.3 Mẹo tối ưu
+
+- Với $N \le 2 \times 10^5$, $LOG \approx 18$. Bảng `up` tiêu tốn khoảng $N \times 18 \times 4$ byte (với `int`) ≈ $14\text{ MB}$ — hoàn toàn chấp nhận được.
+- Khi cần lưu thêm thông tin (tổng, min, max) trên đường nhảy, tạo thêm bảng song song với `up`.
+- Kết hợp binary lifting với tìm kiếm nhị phân để giải các bài toán "nhảy đến khi vượt ngưỡng" (ví dụ: tổng trượt $\ge S$).
+
+---
+
+## 6. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
 |---|---|---|---|

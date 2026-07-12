@@ -94,14 +94,18 @@ Nếu $\gcd(a, b) = 1$ thì $\varphi(ab) = \varphi(a) \cdot \varphi(b)$.
     using namespace std;
 
     long long phi(long long n) {
-        long long result = n;
+        long long result = n;           // φ(n) khởi tạo = n
+        // Duyệt các ước nguyên tố p ≤ √n
         for (long long p = 2; p * p <= n; p++) {
-            if (n % p == 0) {
-                while (n % p == 0) n /= p;
-                result -= result / p;
+            if (n % p == 0) {           // p là ước nguyên tố
+                while (n % p == 0)      // Loại bỏ tất cả thừa số p khỏi n
+                    n /= p;
+                result -= result / p;   // Nhân với (1 - 1/p): result = result * (p-1) / p
             }
         }
-        if (n > 1) result -= result / n;
+        // Nếu sau vòng lặp n > 1, thì n là số nguyên tố cuối cùng
+        if (n > 1)
+            result -= result / n;       // Nhân với (1 - 1/n) cho thừa số nguyên tố còn lại
         return result;
     }
 
@@ -117,16 +121,18 @@ Nếu $\gcd(a, b) = 1$ thì $\varphi(ab) = \varphi(a) \cdot \varphi(b)$.
 
     ```python
     def phi(n):
-        result = n
+        result = n                       # φ(n) khởi tạo = n
         p = 2
+        # Duyệt các ước nguyên tố p ≤ √n
         while p * p <= n:
-            if n % p == 0:
-                while n % p == 0:
+            if n % p == 0:               # p là ước nguyên tố
+                while n % p == 0:        # Loại bỏ tất cả thừa số p khỏi n
                     n //= p
-                result -= result // p
+                result -= result // p    # Nhân với (1 - 1/p): result = result * (p-1) / p
             p += 1
+        # Nếu sau vòng lặp n > 1, thì n là số nguyên tố cuối cùng
         if n > 1:
-            result -= result // n
+            result -= result // n        # Nhân với (1 - 1/n) cho thừa số nguyên tố còn lại
         return result
 
     n = int(input())
@@ -145,17 +151,22 @@ Nếu $\gcd(a, b) = 1$ thì $\varphi(ab) = \varphi(a) \cdot \varphi(b)$.
         int n;
         cin >> n;
 
-        vector<int> phi(n + 1);
-        iota(phi.begin(), phi.end(), 0);
+        vector<int> phi(n + 1);                // Mảng chứa φ(i) cho i = 1..n
+        iota(phi.begin(), phi.end(), 0);       // Khởi tạo φ[i] = i cho mọi i
 
+        // Duyệt qua các số i, nếu φ[i] == i (chưa bị điều chỉnh) thì i là số nguyên tố
         for (int i = 2; i <= n; i++) {
-            if (phi[i] == i) { // i là nguyên tố
+            if (phi[i] == i) {                 // i là số nguyên tố
+                // Duyệt tất cả các bội của i: j = i, 2i, 3i, ...
                 for (int j = i; j <= n; j += i) {
+                    // Nhân φ[j] với (1 - 1/i) = (i-1)/i
+                    // Tương đương: φ[j] = φ[j] - φ[j]/i
                     phi[j] -= phi[j] / i;
                 }
             }
         }
 
+        // In kết quả φ(1)..φ(n)
         for (int i = 1; i <= n; i++) {
             cout << "phi(" << i << ") = " << phi[i] << "\n";
         }
@@ -167,20 +178,74 @@ Nếu $\gcd(a, b) = 1$ thì $\varphi(ab) = \varphi(a) \cdot \varphi(b)$.
 
     ```python
     n = int(input())
-    phi = list(range(n + 1))
+    phi = list(range(n + 1))              # Khởi tạo φ[i] = i cho mọi i
 
+    # Duyệt qua các số i, nếu φ[i] == i (chưa bị điều chỉnh) thì i là số nguyên tố
     for i in range(2, n + 1):
-        if phi[i] == i:  # i là nguyên tố
+        if phi[i] == i:                   # i là số nguyên tố
+            # Duyệt tất cả các bội của i: j = i, 2i, 3i, ...
             for j in range(i, n + 1, i):
+                # Nhân φ[j] với (1 - 1/i) = (i-1)/i
+                # Tương đương: φ[j] = φ[j] - φ[j]/i
                 phi[j] -= phi[j] // i
 
+    # In kết quả φ(1)..φ(n)
     for i in range(1, n + 1):
         print(f"phi({i}) = {phi[i]}")
     ```
 
 ---
 
-## 5. Bài tập luyện tập
+### Trace sàng phi Euler với N = 12
+
+Giải thích từng bước chạy của thuật toán sàng $\varphi$:
+
+| Vòng lặp $i$ | Là số nguyên tố? | Cập nhật các bội của $i$ | Mảng $\varphi$ sau vòng lặp |
+|:---:|:---:|:---|:---|
+| Khởi tạo | — | — | $[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]$ |
+| $i=2$ | ✅ (phi[2]=2) | $j=2,4,6,8,10,12$: `phi[j] -= phi[j]/2` | $[0, 1, 1, 3, 2, 5, 3, 7, 4, 9, 5, 11, 6]$ |
+| $i=3$ | ✅ (phi[3]=3) | $j=3,6,9,12$: `phi[j] -= phi[j]/3` | $[0, 1, 1, 2, 2, 5, 2, 7, 4, 6, 5, 11, 4]$ |
+| $i=4$ | ❌ (phi[4]=2≠4) | Bỏ qua | $[0, 1, 1, 2, 2, 5, 2, 7, 4, 6, 5, 11, 4]$ |
+| $i=5$ | ✅ (phi[5]=5) | $j=5,10$: `phi[j] -= phi[j]/5` | $[0, 1, 1, 2, 2, 4, 2, 7, 4, 6, 4, 11, 4]$ |
+| $i=6$ | ❌ (phi[6]=2≠6) | Bỏ qua | $[0, 1, 1, 2, 2, 4, 2, 7, 4, 6, 4, 11, 4]$ |
+| $i=7$ | ✅ (phi[7]=7) | $j=7$: `phi[7] -= phi[7]/7` | $[0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 11, 4]$ |
+| $i=8$ | ❌ | Bỏ qua | $[0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 11, 4]$ |
+| $i=9$ | ❌ | Bỏ qua | $[0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 11, 4]$ |
+| $i=10$ | ❌ | Bỏ qua | $[0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 11, 4]$ |
+| $i=11$ | ✅ (phi[11]=11) | $j=11$: `phi[11] -= phi[11]/11` | $[0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4]$ |
+| $i=12$ | ❌ | Bỏ qua | $[0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4]$ |
+
+??? tip "Giải thích chi tiết"
+    - **Bước $i=2$:** Các bội của 2 được nhân với $(1-1/2)=1/2$. Ví dụ $\varphi[6]$ giảm từ 6 xuống 3.
+    - **Bước $i=3$:** Các bội của 3 được nhân thêm $(1-1/3)=2/3$. $\varphi[6]$ giảm từ 3 xuống 2.
+    - **Bước $i=4$:** $\varphi[4]=2\neq4$ nên 4 không phải nguyên tố, bỏ qua. Điều này là đúng vì thừa số 2 của 4 đã được xử lý ở vòng $i=2$.
+    - Sau vòng $i=2$, các bội của 2 đã có $\varphi$ đúng cho thừa số nguyên tố 2. Khi $i=4$, $\varphi[4]$ không còn bằng 4 nên điều kiện `phi[i]==i` không còn đúng.
+    - Kết quả cuối cùng trùng khớp với bảng trace bên trên!
+
+---
+
+## 5. Mẹo và lưu ý
+
+### 5.1 Các trường hợp đặc biệt
+
+| Trường hợp | $\varphi(n)$ | Giải thích |
+|:---|:---:|:---|
+| $n = 1$ | $1$ | Theo định nghĩa, $\gcd(1,1)=1$ |
+| $n$ là số nguyên tố $p$ | $p-1$ | Tất cả các số từ $1$ đến $p-1$ đều nguyên tố cùng nhau với $p$ |
+| $n = p^k$ (lũy thừa nguyên tố) | $p^k - p^{k-1} = p^{k-1}(p-1)$ | Loại bỏ các bội của $p$ trong $[1, p^k]$ |
+| $n$ là tích hai số nguyên tố $p \cdot q$ | $(p-1)(q-1)$ | Hệ quả của tính nhân tính |
+
+### 5.2 Cạm bẫy thường gặp
+
+- **Tràn số:** Với $n$ lớn (đến $10^{12}$), $\varphi(n)$ cũng lớn tương đương. Dùng `long long` trong C++ và chú ý giới hạn modulo trong các bài yêu cầu.
+- **Bỏ quên thừa số cuối:** Trong thuật toán $O(\sqrt{n})$, luôn kiểm tra `if (n > 1)` sau vòng lặp. Nếu không, thừa số nguyên tố cuối cùng (lớn hơn $\sqrt{n}$) sẽ bị bỏ sót.
+- **Sàng quá giới hạn bộ nhớ:** Với $N = 10^7$, cần $40\text{ MB}$ cho mảng `phi` kiểu `int`. Cân nhắc dùng `vector<int>` thay vì mảng tĩnh quá lớn trên stack.
+- **Nhầm lẫn giữa $\varphi$ và số ước:** $\varphi$ đếm số nguyên tố cùng nhau, không phải số ước. Hai khái niệm này hoàn toàn khác biệt.
+- **Quên tính chất $\varphi$ là hàm nhân tính:** Chỉ đúng khi $\gcd(a,b)=1$. Tổng quát: $\varphi(ab) = \varphi(a) \cdot \varphi(b) \cdot \frac{d}{\varphi(d)}$ với $d=\gcd(a,b)$.
+
+---
+
+## 6. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |

@@ -1131,29 +1131,24 @@ sort(queries.begin(), queries.end(),
 
 ---
 
-## 11. Bài tập luyện tập
+## Bài tập luyện tập
 
-| STT | Bài | Nguồn | Độ khó | Ghi chú |
-|---|---|---|---|---|
-| 1 | DQUERY | SPOJ | ★★★ | Đếm phần tử khác nhau - Mo's kinh điển |
-| 2 | Powerful array | CF 86D | ★★★ | Tần suất × giá trị |
-| 3 | COT2 | SPOJ | ★★★★ | Mo's trên cây |
-| 4 | Machine Learning | CF 940F | ★★★★ | Mo's 3D (với updates) |
-| 5 | Count on a Tree II | SPOJ | ★★★★ | Mo's trên cây, đếm khác nhau |
-| 6 | Xor Tree | CF 220B | ★★★ | Mo's + xor |
-| 7 | Number of Different | CF 246E | ★★★★ | Mo's on tree + theo tầng |
-| 8 | Array and Operations | CF 444C | ★★★ | Sqrt + lazy |
-| 9 | Good Subsegments | CF 1237D | ★★★★ | Mo's + sliding window |
-| 10 | Balanced Cow Subsets | USACO | ★★★★ | Meet in the middle + Sqrt |
-| 11 | [CSES - Dynamic Range Sum Queries](https://cses.fi/problemset/task/1648) | CSES | ★★☆ | Sqrt decomposition cơ bản |
-| 12 | [CSES - Dynamic Range Min Queries](https://cses.fi/problemset/task/1649) | CSES | ★★☆ | Sqrt + min |
-| 13 | [CSES - Range Xor Queries](https://cses.fi/problemset/task/1650) | CSES | ★★☆ | Sqrt + xor |
-| 14 | [VNOJ - DQUERY](https://oj.vnoi.info/problem/dquery) | VNOJ | ★★★ | Mo's Algorithm kinh điển |
-| 15 | [VNOJ - NKLINEUP](https://oj.vnoi.info/problem/nklineup) | VNOJ | ★★☆ | Min/max range query |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `mo-distinct-basic` | [Đếm khác cơ bản](https://fptoj.com/problem/mo-distinct-basic) | ⭐ | Mo's - Đếm phần tử khác nhau cơ bản | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-distinct` | [Đếm khác](https://fptoj.com/problem/mo-distinct) | ⭐⭐ | Mo's - Đếm phần tử khác nhau | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-freq` | [Tần suất](https://fptoj.com/problem/mo-freq) | ⭐⭐ | Mo's - Tần suất giá trị | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-mode` | [Phổ biến](https://fptoj.com/problem/mo-mode) | ⭐⭐⭐ | Mo's - Mode trong đoạn | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-xor-pair` | [Cặp XOR 0](https://fptoj.com/problem/mo-xor-pair) | ⭐⭐⭐ | Mo's - Đếm cặp XOR=0 | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-inversion` | [Nghịch thế](https://fptoj.com/problem/mo-inversion) | ⭐⭐⭐ | Mo's + BIT - Nghịch thế | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-median` | [Trung vị](https://fptoj.com/problem/mo-median) | ⭐⭐⭐⭐ | Mo's - Trung vị đoạn | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-update` | [Cập nhật](https://fptoj.com/problem/mo-update) | ⭐⭐⭐⭐ | Mo's 3D - Có cập nhật | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-tree` | [Trên cây](https://fptoj.com/problem/mo-tree) | ⭐⭐⭐⭐ | Mo's trên cây | [Mo's Algorithm](sqrt-mo.md) |
+| `mo-tree-update` | [Cập nhật trên cây](https://fptoj.com/problem/mo-tree-update) | ⭐⭐⭐⭐⭐ | Mo's trên cây có cập nhật | [Mo's Algorithm](sqrt-mo.md) |
 
 ---
 
-## 12. Tổng kết
+## 11. Tổng kết
 
 ```
 ┌─────────────────────────────────────────────────────────────┐

@@ -944,54 +944,20 @@ Fermat là trường hợp đặc biệt của Euler vì $\varphi(p) = p - 1$.
 
 ## 9. Bài tập luyện tập
 
-### 9.1 Euler Totient & Modular Arithmetic
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [SPOJ - ETF](https://www.spoj.com/problems/ETF/) | SPOJ | ⭐⭐ | Euler Totient đơn lẻ |
-| [SPOJ - GCDEX](https://www.spoj.com/problems/GCDEX/) | SPOJ | ⭐⭐⭐ | GCD + Euler Totient |
-| [CSES - Exponentiation](https://cses.fi/problemset/task/1095) | CSES | ⭐⭐ | Lũy thừa modulo |
-| [CSES - Exponentiation II](https://cses.fi/problemset/task/1096) | CSES | ⭐⭐⭐ | Euler's theorem |
-| [CSES - Binomial Coefficients](https://cses.fi/problemset/task/1079) | CSES | ⭐⭐ | Tổ hợp modulo |
-| [SPOJ - NCNK](https://www.spoj.com/problems/NCNK/) | SPOJ | ⭐⭐ | Tổ hợp lớn |
-
-### 9.2 CRT & Lucas
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CF - Strange Housing](https://codeforces.com/problemset/problem/1470/A) | CF | ⭐⭐⭐ | CRT cơ bản |
-| [SPOJ - Chinese Remainder Theorem](https://www.spoj.com/problems/CRTEASY/) | SPOJ | ⭐⭐ | CRT trực tiếp |
-| [CF - Little Pony and Harmony Chest](https://codeforces.com/problemset/problem/453/B) | CF | ⭐⭐⭐⭐ | Tổ hợp + bitmask |
-
-### 9.3 Möbius & Đếm cặp
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CF - GCD Table](https://codeforces.com/problemset/problem/582/A) | CF | ⭐⭐⭐ | GCD + tư duy |
-| [SPOJ - VLATTICE](https://www.spoj.com/problems/VLATTICE/) | SPOJ | ⭐⭐⭐ | Möbius 3D |
-| [CF - Neko and Aki's Prank](https://codeforces.com/problemset/problem/1152/C) | CF | ⭐⭐⭐ | Euler + tổ hợp |
-| [CSES - Counting Coprime Pairs](https://cses.fi/problemset/task/2417) | CSES | ⭐⭐⭐ | Möbius đếm cặp |
-
-### 9.4 Pollard's Rho & Factorization
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [SPOJ - FACT0](https://www.spoj.com/problems/FACT0/) | SPOJ | ⭐⭐ | Phân tích thừa số |
-| [SPOJ - FACT1](https://www.spoj.com/problems/FACT1/) | SPOJ | ⭐⭐⭐ | Phân tích số lớn |
-| [CF - Almost Everywhere Zero](https://codeforces.com/problemset/problem/1105/D) | CF | ⭐⭐⭐ | Phân tích + đếm |
-
-### 9.5 Tổng hợp & Nâng cao
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CF - Yet Another Number Theory Problem](https://codeforces.com/problemset/problem/1436/D) | CF | ⭐⭐⭐ | Tổng hợp số học |
-| [CSES - NIM Game I](https://cses.fi/problemset/task/1730) | CSES | ⭐⭐ | Game theory + GCD |
-| [SPOJ - GCDEX2](https://www.spoj.com/problems/GCDEX2/) | SPOJ | ⭐⭐⭐⭐ | GCD nâng cao |
-| [LeetCode - Count Primes](https://leetcode.com/problems/count-primes/) | LeetCode | ⭐⭐ | Đếm số nguyên tố |
-| [LeetCode - Ugly Number II](https://leetcode.com/problems/ugly-number-ii/) | LeetCode | ⭐⭐ | Số nguyên tố + DP |
-| [VNOJ - Euler Totient (etf)](https://oj.vnoi.info/problem/etf) | VNOJ | ⭐⭐ | Phi hàm Euler |
-| [VNOJ - Tìm số (findnum)](https://oj.vnoi.info/problem/findnum) | VNOJ | ⭐⭐ | Số học |
-| [VNOJ - Số phong phú (nkabd)](https://oj.vnoi.info/problem/nkabd) | VNOJ | ⭐⭐ | Ước số |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `shnc-euler-single` | [Phi hàm Euler](https://fptoj.com/problem/shnc-euler-single) | ⭐ | $\varphi(N)$ đơn lẻ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-pollard` | [Phân tích thừa số nguyên tố](https://fptoj.com/problem/shnc-pollard) | ⭐ | Phân tích $N \le 10^{12}$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-divisor-sum` | [Tổng ước số](https://fptoj.com/problem/shnc-divisor-sum) | ⭐ | $\sum \sigma_1(i)$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-mod-equation` | [Phương trình đồng dư bậc nhất](https://fptoj.com/problem/shnc-mod-equation) | ⭐⭐ | $ax \equiv b \pmod{M}$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-linear-sieve` | [Sàng tuyến tính](https://fptoj.com/problem/shnc-linear-sieve) | ⭐⭐ | Sàng $\mu$ và $\varphi$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-euler-thm` | [Định lý Euler](https://fptoj.com/problem/shnc-euler-thm) | ⭐⭐⭐ | $a^n \bmod M$ rút gọn số mũ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-prime-interval` | [Sàng phân đoạn](https://fptoj.com/problem/shnc-prime-interval) | ⭐⭐⭐ | Đếm nguyên tố trong $[L,R]$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-num-divisors` | [Số lượng, tổng, tích ước](https://fptoj.com/problem/shnc-num-divisors) | ⭐⭐⭐ | Phân tích $N = \prod p_i^{a_i}$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-gcd-sum2` | [Tổng GCD nâng cao](https://fptoj.com/problem/shnc-gcd-sum2) | ⭐⭐⭐⭐ | $\sum \sum \gcd(i,j)$ dùng Möbius | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-euler-puzzle` | [Ngược Phi Euler](https://fptoj.com/problem/shnc-euler-puzzle) | ⭐⭐⭐⭐ | Tìm $n$ từ $\varphi(n)$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-mod-puzzle` | [Câu đố đồng dư](https://fptoj.com/problem/shnc-mod-puzzle) | ⭐⭐⭐ | Hệ phương trình đồng dư | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
+| `shnc-prime-puzzle` | [Số đặc biệt](https://fptoj.com/problem/shnc-prime-puzzle) | ⭐⭐⭐ | Tìm $n$: $\varphi(n)=\varphi(n+1)$ | [Số Học Nâng Cao](so-hoc-nang-cao.md) |
 
 ---
 

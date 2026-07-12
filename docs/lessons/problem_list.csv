@@ -1,0 +1,179 @@
+Mã bài,Tên bài,Độ khó,Loại bài tập (Type),Bài học (Lesson),Mô tả ngắn
+ett-size,Kích thước cây con,⭐,data-structures,Euler Tour Tree,Đếm kích thước cây con dùng ~Euler Tour~
+ett-ancestor,Tổ tiên,⭐,data-structures,Euler Tour Tree,Kiểm tra tổ tiên dùng ~in/out~ time
+cd-find-centroid,Tìm centroid,⭐,data-structures,Centroid Decomposition,Tìm centroid của cây
+cd-decompose,Phân rã centroid,⭐,data-structures,Centroid Decomposition,Phân rã cây thành ~\log N~ centroid layers
+dpt-size,Kích thước cây,⭐,dp,Quy hoạch động trên cây,Tính kích thước mỗi cây con
+dpt-diameter,Đường kính cây,⭐,dp,Quy hoạch động trên cây,Tìm đường kính của cây
+ett-subtree-sum,Tổng cây con,⭐⭐,data-structures,Euler Tour Tree,Tính tổng cây con dùng ~BIT~
+ett-subtree-min,Min cây con,⭐⭐,data-structures,Euler Tour Tree,Tìm giá trị nhỏ nhất trong cây con
+hld-subtree,Cây con HLD,⭐⭐,data-structures,Heavy-Light Decomposition,Truy vấn cây con dùng HLD
+dig-count-3,Đếm số chia hết cho 3,⭐⭐,dp,Digit DP,Đếm số chia hết cho 3 trong đoạn
+dig-sum-digit,Tổng chữ số,⭐⭐,dp,Digit DP,Tính tổng các chữ số của tất cả số trong đoạn
+dig-not-13,Số không chứa 13,⭐⭐,dp,Digit DP,Đếm số không chứa "13"
+dig-no-adj-same,Không có chữ số kề giống,⭐⭐,dp,Digit DP,Đếm số không có hai chữ số kề giống nhau
+dig-no-trailing,Không có số 0 ở cuối,⭐⭐,dp,Digit DP,Đếm số không có số 0 tận cùng
+int-merge-stones,Trộn đá,⭐⭐,dp,Interval DP,Trộn ~N~ đống đá với chi phí tối thiểu
+int-bracket,Ngoặc đơn,⭐⭐,dp,Interval DP,Đếm số cách thêm ngoặc đúng
+int-palindrome-lps,Xâu đối xứng dài nhất,⭐⭐,dp,Interval DP,Tìm xâu con đối xứng dài nhất
+int-tree-cut,Cắt cây,⭐⭐,dp,Interval DP,Cắt cây nhị phân với chi phí tối thiểu
+sos-sum-sub,Tổng tập con,⭐⭐,dp,SOS DP,Tính tổng trên mọi tập con
+sos-max-sub,Max tập con,⭐⭐,dp,SOS DP,Tìm giá trị lớn nhất trên tập con
+sos-xor-pair,XOR cặp,⭐⭐,dp,SOS DP,Đếm cặp có ~a_i \oplus a_j \le K~
+ac-basic,Tìm từ cơ bản,⭐⭐,string,Aho-Corasick,Tìm sự xuất hiện của từ trong văn bản
+ac-exist,Tồn tại từ,⭐⭐,string,Aho-Corasick,Kiểm tra từ có tồn tại trong văn bản
+ac-count,Đếm từ,⭐⭐,string,Aho-Corasick,Đếm số từ xuất hiện trong văn bản
+sa-substr,Xâu con,⭐⭐,string,Suffix Automaton,Kiểm tra xâu con dùng suffix automaton
+sa-cnt-substr,Đếm xâu con,⭐⭐,string,Suffix Automaton,Đếm số xâu con phân biệt
+mo-distinct,Số phần tử phân biệt,⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Đếm số phần tử phân biệt trong đoạn
+mo-freq,Tần suất,⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Đếm tần suất xuất hiện của giá trị trong đoạn
+lc-basic,Li Chao cơ bản,⭐⭐,data-structures,Li Chao Tree,Thêm đường thẳng và truy vấn ~\max~ tại điểm
+ts-parabola,Parabola,⭐⭐,math,Ternary Search,Tìm cực trị hàm ~f(x) = ax^2 + bx + c~
+ts-peak,Đỉnh núi,⭐⭐,math,Ternary Search,Tìm đỉnh của dãy số tăng giảm
+ab-minimax-basic,Minimax cơ bản,⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi hai người với minimax
+ab-coin-pick,Nhặt xu,⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi nhặt xu với hai người
+ls-hill-1d,Leo đồi 1D,⭐⭐,custom,Local Search,Tìm cực đại hàm một biến
+ls-hill-2d,Leo đồi 2D,⭐⭐,custom,Local Search,Tìm cực đại hàm hai biến
+ett-subtree-up,Cập nhật cây con,⭐⭐⭐,data-structures,Euler Tour Tree,Cập nhật và truy vấn cây con
+ett-lca,LCA dùng Euler Tour,⭐⭐⭐,data-structures,Euler Tour Tree,Tìm tổ tiên chung gần nhất
+ett-root-sum,Tổng đường đi tới gốc,⭐⭐⭐,data-structures,Euler Tour Tree,Tính tổng từ nút tới gốc
+cd-count-pairs,Đếm cặp,⭐⭐⭐,data-structures,Centroid Decomposition,Đếm cặp nút thỏa điều kiện đường đi
+cd-max-path,Đường đi max,⭐⭐⭐,data-structures,Centroid Decomposition,Tìm đường đi lớn nhất qua centroid
+cd-sum-dist,Tổng khoảng cách,⭐⭐⭐,data-structures,Centroid Decomposition,Tính tổng khoảng cách đến mọi nút
+cd-nearest,Nearest,⭐⭐⭐,data-structures,Centroid Decomposition,Tìm nút gần nhất thỏa điều kiện
+cd-distance-query,Truy vấn khoảng cách,⭐⭐⭐,data-structures,Centroid Decomposition,Truy vấn số nút cách ~u~ không quá ~K~
+cd-count-k,Đếm K,⭐⭐⭐,data-structures,Centroid Decomposition,Đếm cặp có khoảng cách ~\le K~
+rmqt-min-path,Min đường đi,⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Tìm min trên đường đi giữa hai nút
+rmqt-max-path,Max đường đi,⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Tìm max trên đường đi giữa hai nút
+rmqt-minmax,Min/Max,⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Tìm min và max trên đường đi
+rmqt-up-edge,Cập nhật cạnh,⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Cập nhật trọng số cạnh và truy vấn đường đi
+rmqt-xor-path,XOR đường đi,⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Tính ~XOR~ trên đường đi giữa hai nút
+rmqt-or-path,OR đường đi,⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Tính ~OR~ trên đường đi giữa hai nút
+rmqt-and-path,AND đường đi,⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Tính ~AND~ trên đường đi giữa hai nút
+hld-path-sum,Tổng đường đi,⭐⭐⭐,data-structures,Heavy-Light Decomposition,Tính tổng trên đường đi giữa hai nút
+hld-path-max,Max đường đi,⭐⭐⭐,data-structures,Heavy-Light Decomposition,Tìm max trên đường đi
+hld-path-add,Cộng đường đi,⭐⭐⭐,data-structures,Heavy-Light Decomposition,Cộng thêm giá trị trên đường đi
+hld-lca,LCA dùng HLD,⭐⭐⭐,data-structures,Heavy-Light Decomposition,Tìm LCA dùng HLD
+dpt-max-path-sum,Tổng đường đi max,⭐⭐⭐,dp,Quy hoạch động trên cây,Tìm đường đi có tổng lớn nhất
+dpt-center,Tâm cây,⭐⭐⭐,dp,Quy hoạch động trên cây,Tìm tâm của cây
+dpt-tree-matching,Ghép cặp trên cây,⭐⭐⭐,dp,Quy hoạch động trên cây,Ghép cặp nhiều nhất trên cây
+dpt-tree-cover,Phủ cây,⭐⭐⭐,dp,Quy hoạch động trên cây,Chọn ít nút nhất phủ mọi cạnh
+dpt-tree-indset,Tập độc lập,⭐⭐⭐,dp,Quy hoạch động trên cây,Tìm tập độc lập lớn nhất
+dpt-k-colors,K màu,⭐⭐⭐,dp,Quy hoạch động trên cây,Tô màu cây với ~K~ màu
+dig-product,Tích chữ số,⭐⭐⭐,dp,Digit DP,Đếm số có tích chữ số bằng ~K~
+dig-palindrome,Palindrome,⭐⭐⭐,dp,Digit DP,Đếm số đối xứng trong đoạn
+dig-div-digit,Chia hết cho chữ số,⭐⭐⭐,dp,Digit DP,Đếm số chia hết cho từng chữ số
+dig-num-square,Số chính phương,⭐⭐⭐,dp,Digit DP,Đếm số chính phương trong đoạn
+int-palindrome-cut,Cắt xâu đối xứng,⭐⭐⭐,dp,Interval DP,Cắt xâu thành ít nhất xâu con đối xứng
+int-matrix-chain,Nhân ma trận,⭐⭐⭐,dp,Interval DP,Nhân dãy ma trận với chi phí tối thiểu
+int-polygon,Đa giác,⭐⭐⭐,dp,Interval DP,Chia đa giác thành tam giác tối ưu
+int-burst-balloons,Bong bóng,⭐⭐⭐,dp,Interval DP,Tổng điểm lớn nhất khi làm nổ bóng
+int-merge-v2,Trộn đá v2,⭐⭐⭐,dp,Interval DP,Trộn đá trên vòng tròn
+int-pick-edge,Chọn cạnh,⭐⭐⭐,dp,Interval DP,Chọn cạnh không chồng lấn trên đa giác
+sos-cnt-sub,Đếm tập con,⭐⭐⭐,dp,SOS DP,Đếm số tập con có bitwise ~AND = 0~
+sos-or-pair,OR cặp,⭐⭐⭐,dp,SOS DP,Đếm cặp có ~a_i | a_j \le K~
+sos-and-zero,AND bằng 0,⭐⭐⭐,dp,SOS DP,Đếm cặp có ~a_i \& a_j = 0~
+sos-max-xor-sub,Max XOR tập con,⭐⭐⭐,dp,SOS DP,Tìm ~\max~ XOR của tập con
+ch-line-intro,Giới thiệu CHT,⭐⭐⭐,dp,DP Convex Hull Trick,Giới thiệu Convex Hull Trick cơ bản
+ch-land-acq,Mua đất,⭐⭐⭐,dp,DP Convex Hull Trick,Tối ưu hóa mua đất với CHT
+ch-fence-paint,Sơn hàng rào,⭐⭐⭐,dp,DP Convex Hull Trick,Sơn hàng rào với chi phí tối thiểu
+ch-circles,Hình tròn,⭐⭐⭐,dp,DP Convex Hull Trick,Bài toán hình tròn với CHT
+ch-arrange,Sắp xếp,⭐⭐⭐,dp,DP Convex Hull Trick,Sắp xếp đồ vật với chi phí CHT
+ch-sawmill,Xưởng cưa,⭐⭐⭐,dp,DP Convex Hull Trick,Đặt xưởng cưa tối ưu
+ch-cemetery,Nghĩa trang,⭐⭐⭐,dp,DP Convex Hull Trick,Bài toán nghĩa trang với CHT
+opt-dc-basic,Divide & Conquer cơ bản,⭐⭐⭐,dp,DP Optimization,Tối ưu DP Divide & Conquer
+d1d-basic-split,Chia mảng cơ bản,⭐⭐⭐,dp,DP 1D1D,Chia mảng thành ~K~ đoạn
+d1d-post-office,Bưu điện,⭐⭐⭐,dp,DP 1D1D,Đặt bưu điện trên đường thẳng
+ac-word-max,Từ dài nhất,⭐⭐⭐,string,Aho-Corasick,Tìm từ xuất hiện dài nhất
+ac-word-min,Từ ngắn nhất,⭐⭐⭐,string,Aho-Corasick,Tìm từ xuất hiện ngắn nhất
+ac-pattern,Pattern,⭐⭐⭐,string,Aho-Corasick,Đếm số pattern xuất hiện
+sa-occur,Số lần xuất hiện,⭐⭐⭐,string,Suffix Automaton,Đếm số lần xâu con xuất hiện
+sa-short-unique,Xâu ngắn nhất,⭐⭐⭐,string,Suffix Automaton,Tìm xâu ngắn nhất không xuất hiện
+sa-first-pos,Vị trí đầu tiên,⭐⭐⭐,string,Suffix Automaton,Tìm vị trí xuất hiện đầu tiên của xâu con
+mo-mode,Mode,⭐⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Tìm phần tử xuất hiện nhiều nhất trong đoạn
+mo-xor-pair,XOR đếm cặp,⭐⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Đếm cặp ~(l,r)~ có ~a_i \oplus a_j = x~
+mo-inversion,Nghịch thế,⭐⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Đếm số nghịch thế trong đoạn
+lc-range,Li Chao đoạn,⭐⭐⭐,data-structures,Li Chao Tree,Thêm đường thẳng trên đoạn
+lc-dp-basic,DP cơ bản,⭐⭐⭐,data-structures,Li Chao Tree,Tối ưu DP dùng Li Chao Tree
+lc-dp-fence,DP hàng rào,⭐⭐⭐,data-structures,Li Chao Tree,DP hàng rào dùng Li Chao Tree
+lc-dp-land,DP mua đất,⭐⭐⭐,data-structures,Li Chao Tree,DP mua đất dùng Li Chao Tree
+ts-distance,Khoảng cách,⭐⭐⭐,math,Ternary Search,Tìm điểm trên đường thẳng có tổng khoảng cách nhỏ nhất
+ts-cover,Phủ điểm,⭐⭐⭐,math,Ternary Search,Tìm hình tròn phủ nhiều điểm nhất
+ts-delivery,Giao hàng,⭐⭐⭐,math,Ternary Search,Tối ưu hóa tuyến đường giao hàng
+ts-angle,Góc,⭐⭐⭐,math,Ternary Search,Tìm góc tối ưu trong hình học
+ab-stone-div,Chia đá,⭐⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi chia đá
+ab-subtract,Trừ số,⭐⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi trừ số
+ab-prime-game,Trò chơi số nguyên tố,⭐⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi với số nguyên tố
+ls-tsp,TSP,⭐⭐⭐,custom,Local Search,Giải bài toán người du lịch
+ls-nqueen,N hậu,⭐⭐⭐,custom,Local Search,Xếp ~N~ quân hậu
+ls-sudoku,Sudoku,⭐⭐⭐,custom,Local Search,Giải Sudoku
+ett-dist,Khoảng cách trên cây,⭐⭐⭐⭐,data-structures,Euler Tour Tree,Tính khoảng cách giữa hai nút dùng ~LCA~
+rmqt-kth-edge,Cạnh thứ K,⭐⭐⭐⭐,data-structures,RMQ Tree (Lubenica),Tìm cạnh lớn thứ ~K~ trên đường đi
+hld-edge-up,Cập nhật cạnh HLD,⭐⭐⭐⭐,data-structures,Heavy-Light Decomposition,Truy vấn và cập nhật cạnh dùng HLD
+hld-all-path,Mọi đường đi,⭐⭐⭐⭐,data-structures,Heavy-Light Decomposition,Xử lý nhiều truy vấn đường đi
+hld-heavy-query,Truy vấn nặng,⭐⭐⭐⭐,data-structures,Heavy-Light Decomposition,Truy vấn nặng trên cây dùng HLD
+dpt-reroot,Reroot DP,⭐⭐⭐⭐,dp,Quy hoạch động trên cây,Tính DP cho mọi nút gốc
+dpt-tree-knapsack,Ba lô trên cây,⭐⭐⭐⭐,dp,Quy hoạch động trên cây,Ba lô trên cây
+dig-k-digit,Chữ số thứ K,⭐⭐⭐⭐,dp,Digit DP,Tìm số thứ ~K~ thỏa điều kiện
+sos-three-or,Ba số OR,⭐⭐⭐⭐,dp,SOS DP,Đếm bộ ba có ~a_i | a_j | a_k \le K~
+sos-four-and,Bốn số AND,⭐⭐⭐⭐,dp,SOS DP,Đếm bộ bốn có ~a_i \& a_j \& a_k \& a_l = 0~
+sos-gcd-set,GCD tập con,⭐⭐⭐⭐,dp,SOS DP,Đếm tập con có ~GCD = K~
+ch-li-chao,Li Chao,⭐⭐⭐⭐,dp,DP Convex Hull Trick,Li Chao Tree kết hợp CHT
+ch-dp-aliens,DP Aliens,⭐⭐⭐⭐,dp,DP Convex Hull Trick,Aliens trick tối ưu DP
+ch-max-rect,Hình chữ nhật max,⭐⭐⭐⭐,dp,DP Convex Hull Trick,Tìm hình chữ nhật lớn nhất
+opt-dc-factory,Nhà máy,⭐⭐⭐⭐,dp,DP Optimization,Tối ưu đặt nhà máy dùng DC
+opt-cht-basic,CHT cơ bản,⭐⭐⭐⭐,dp,DP Optimization,Tối ưu CHT trong DP
+opt-cht-fence,CHT hàng rào,⭐⭐⭐⭐,dp,DP Optimization,CHT tối ưu hàng rào
+opt-cht-land,CHT mua đất,⭐⭐⭐⭐,dp,DP Optimization,CHT tối ưu mua đất
+opt-knuth-basic,Knuth cơ bản,⭐⭐⭐⭐,dp,DP Optimization,Tối ưu Knuth trong DP
+opt-knuth-merge,Knuth trộn,⭐⭐⭐⭐,dp,DP Optimization,Knuth tối ưu trộn
+opt-alien,Aliens,⭐⭐⭐⭐,dp,DP Optimization,Aliens trick tổng quát
+opt-dc-xor,DC XOR,⭐⭐⭐⭐,dp,DP Optimization,Divide & Conquer với XOR
+opt-bookshelf,Kệ sách,⭐⭐⭐⭐,dp,DP Optimization,Tối ưu kệ sách
+d1d-factory,Nhà máy,⭐⭐⭐⭐,dp,DP 1D1D,Đặt nhà máy với DP 1D1D
+d1d-painting,Tô màu,⭐⭐⭐⭐,dp,DP 1D1D,Tô màu hàng rào
+d1d-hat,Mũ,⭐⭐⭐⭐,dp,DP 1D1D,Bài toán mũ
+d1d-linear-fill,Lấp đầy tuyến tính,⭐⭐⭐⭐,dp,DP 1D1D,Lấp đầy mảng tuyến tính
+d1d-park,Công viên,⭐⭐⭐⭐,dp,DP 1D1D,Thiết kế công viên
+d1d-attach,Gắn kết,⭐⭐⭐⭐,dp,DP 1D1D,Gắn kết các đoạn
+d1d-letter,Thư,⭐⭐⭐⭐,dp,DP 1D1D,Gửi thư với DP 1D1D
+d1d-warehouse,Kho hàng,⭐⭐⭐⭐,dp,DP 1D1D,Đặt kho hàng tối ưu
+ac-dna,DNA,⭐⭐⭐⭐,string,Aho-Corasick,Đếm xâu DNA không chứa pattern
+ac-bad-words,Từ cấm,⭐⭐⭐⭐,string,Aho-Corasick,Đếm xâu không chứa từ cấm
+sa-lcs,Xâu con chung dài nhất,⭐⭐⭐⭐,string,Suffix Automaton,Tìm xâu con chung dài nhất của hai xâu
+sa-kth-substr,Xâu con thứ K,⭐⭐⭐⭐,string,Suffix Automaton,Tìm xâu con thứ ~K~ theo thứ tự từ điển
+sa-min-cyclic,Xâu cyclic nhỏ nhất,⭐⭐⭐⭐,string,Suffix Automaton,Tìm xâu cyclic nhỏ nhất về từ điển
+mo-median,Median,⭐⭐⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Tìm trung vị trong đoạn
+mo-update,Cập nhật Mo,⭐⭐⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Mo's Algorithm với cập nhật
+mo-tree,Mo trên cây,⭐⭐⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Mo's Algorithm trên cây
+lc-line-add-rm,Thêm/xóa đường thẳng,⭐⭐⭐⭐,data-structures,Li Chao Tree,Li Chao Tree với thêm và xóa đường thẳng
+lc-persist,Li Chao bền vững,⭐⭐⭐⭐,data-structures,Li Chao Tree,Persistent Li Chao Tree
+lc-max-query,Truy vấn max,⭐⭐⭐⭐,data-structures,Li Chao Tree,Truy vấn ~\max~ có điều kiện
+ts-circle,Hình tròn,⭐⭐⭐⭐,math,Ternary Search,Tìm hình tròn thỏa điều kiện
+ts-convex,Hàm lồi,⭐⭐⭐⭐,math,Ternary Search,Tìm cực trị hàm lồi trên mặt phẳng
+ab-tree-game,Trò chơi trên cây,⭐⭐⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi hai người trên cây
+ab-coloring,Tô màu,⭐⭐⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi tô màu đồ thị
+ab-divisor,Ước số,⭐⭐⭐⭐,graphs,Lý thuyết trò chơi (Alpha-Beta),Trò chơi với ước số
+ls-schedule,Lịch trình,⭐⭐⭐⭐,custom,Local Search,Tối ưu lịch trình
+ls-coloring,Tô màu đồ thị,⭐⭐⭐⭐,custom,Local Search,Tô màu đồ thị
+ls-knapsack,Ba lô,⭐⭐⭐⭐,custom,Local Search,Giải bài toán ba lô
+ab-win-game,Trò chơi thắng,⭐,graphs,Alpha-Beta Pruning,Trò chơi thắng cơ bản
+ac-find-word,Tìm từ,⭐,string,Aho-Corasick,Tìm từ cơ bản
+hld-path-easy,Đường đi dễ,⭐,data-structures,Heavy-Light Decomposition,Truy vấn đường đi cơ bản
+lc-basic-easy,Đường thẳng dễ,⭐,data-structures,Li Chao Tree,Li Chao cơ bản thêm thẳng query min
+ls-find-peak,Tìm đỉnh,⭐,custom,Local Search,Tìm đỉnh cơ bản
+mo-distinct-basic,Đếm khác cơ bản,⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Đếm phần tử khác nhau cơ bản
+rmqt-min-basic,Min cơ bản,⭐,data-structures,RMQ Tree (Lubenica),RMQ min cơ bản
+ts-find-max,Tìm max,⭐,math,Ternary Search,Tìm max cơ bản
+cd-diameter-all,Đường kính tất cả,⭐⭐⭐⭐,data-structures,Centroid Decomposition,Đường kính mọi cây con
+cd-path-count-k,Đếm đường đi K cạnh,⭐⭐⭐⭐,data-structures,Centroid Decomposition,Đếm đường đi có ~K~ cạnh
+dig-sum-even,Tổng chẵn,⭐⭐⭐⭐,dp,Digit DP,Đếm số có tổng chữ số chẵn
+int-burst-max,Nổ bóng max,⭐⭐⭐⭐,dp,Interval DP,Nổ bóng điểm lớn nhất
+ac-xor-string,XOR xâu,⭐⭐⭐⭐⭐,string,Aho-Corasick,Aho-Corasick xâu XOR
+d1d-cost-k,Chi phí K,⭐⭐⭐⭐⭐,dp,DP 1D1D,Chi phí đoạn K
+lc-2d-rect,Hình chữ nhật 2D,⭐⭐⭐⭐⭐,data-structures,Li Chao Tree,Li Chao hình chữ nhật 2D
+mo-tree-update,Cập nhật trên cây,⭐⭐⭐⭐⭐,data-structures,Mo's Algorithm (Sqrt Decomposition),Mo's trên cây có cập nhật
+opt-alien-pro,Alien nâng cao,⭐⭐⭐⭐⭐,dp,DP Optimization,Alien's Trick nâng cao
+sa-k-occur,K xuất hiện,⭐⭐⭐⭐⭐,string,Suffix Automaton,K lần xuất hiện
+sa-substr-all,Tất cả xâu con,⭐⭐⭐⭐⭐,string,Suffix Automaton,Liệt kê xâu con
+sos-seven-and,Bảy số AND,⭐⭐⭐⭐⭐,dp,SOS DP,Bảy số AND

@@ -690,15 +690,20 @@ Với mỗi centroid, lưu **multiset** khoảng cách đến các đỉnh đã 
 
 ---
 
-## 7. Bài tập
+## Bài tập luyện tập
 
-| STT | Bài toán | Nguồn | Độ khó | Gợi ý |
-|-----|----------|-------|--------|-------|
-| 1 | [Fixed-Length Paths I](https://cses.fi/problemset/task/2080) | CSES | ★★★☆☆ | Đếm đường đi độ dài K, kỹ thuật đếm ở mỗi centroid |
-| 2 | [Fixed-Length Paths II](https://cses.fi/problemset/task/2081) | CSES | ★★★★☆ | Đường đi $\leq K$, dùng Fenwick tree |
-| 3 | [Ciel and Commander](https://codeforces.com/problemset/problem/321/C) | CF | ★★★☆☆ | Centroid Decomposition cơ bản |
-| 4 | [Xenia and Tree](https://codeforces.com/problemset/problem/342/E) | CF | ★★★★☆ | Tương tự QTREE5 |
-| 5 | [IOI 2011: Race](https://oj.uz/problem/view/IOI11_race) | IOI | ★★★★★ | Đường đi tổng trọng số = K |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `cd-find-centroid` | [Tìm Centroid](https://fptoj.com/problem/cd-find-centroid) | ⭐ | Tìm centroid của cây | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-decompose` | [Phân rã Centroid](https://fptoj.com/problem/cd-decompose) | ⭐ | Xây dựng cây centroid | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-count-pairs` | [Đếm Cặp](https://fptoj.com/problem/cd-count-pairs) | ⭐⭐⭐ | Đếm đường đi có độ dài $\le K$ | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-nearest` | [Khoảng Cách Gần Nhất](https://fptoj.com/problem/cd-nearest) | ⭐⭐⭐⭐ | Tìm đỉnh gần nhất được tô màu | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-max-path` | [Đường Đi Lớn Nhất](https://fptoj.com/problem/cd-max-path) | ⭐⭐⭐ | Đường đi có tổng lớn nhất | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-sum-dist` | [Tổng Khoảng Cách](https://fptoj.com/problem/cd-sum-dist) | ⭐⭐⭐ | Tổng khoảng cách đến các đỉnh | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-count-k` | [Đếm Đường Đi K](https://fptoj.com/problem/cd-count-k) | ⭐⭐⭐⭐ | Đếm đường đi có độ dài $=K$ | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-path-count-k` | [Đếm Đường Đi K Cạnh](https://fptoj.com/problem/cd-path-count-k) | ⭐⭐⭐⭐ | Đếm đường đi có $K$ cạnh | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-diameter-all` | [Đường Kính Tất Cả](https://fptoj.com/problem/cd-diameter-all) | ⭐⭐⭐⭐ | Đường kính mọi cây con | [Centroid Decomposition](centroid-decomposition.md) |
+| `cd-distance-query` | [Truy Vấn Khoảng Cách](https://fptoj.com/problem/cd-distance-query) | ⭐⭐⭐⭐ | Truy vấn khoảng cách động | [Centroid Decomposition](centroid-decomposition.md) |
 
 ---
 

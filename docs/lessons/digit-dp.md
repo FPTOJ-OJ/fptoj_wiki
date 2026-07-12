@@ -299,27 +299,27 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n;
-    ll dp[20][2];
+    string s;           // chuỗi chữ số của N
+    int n;              // số chữ số của N
+    ll dp[20][2];       // dp[pos][tight]
 
     ll solve(int pos, bool tight) {
-        if (pos == n) {
+        if (pos == n) {         // đã xét hết chữ số
             return 1;
         }
 
         ll &res = dp[pos][tight];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization khi tight = 0
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số có thể chọn
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
-            bool new_tight = tight && (d == limit);
-            ans += solve(pos + 1, new_tight);
+            bool new_tight = tight && (d == limit);  // cập nhật ràng buộc
+            ans += solve(pos + 1, new_tight);        // đệ quy
         }
 
-        if (!tight) res = ans;
+        if (!tight) res = ans;  // lưu kết quả khi tight = 0
         return ans;
     }
 
@@ -328,8 +328,8 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
         cin >> N;
         s = to_string(N);
         n = s.size();
-        memset(dp, -1, sizeof(dp));
-        cout << solve(0, true) << endl;
+        memset(dp, -1, sizeof(dp));  // khởi tạo dp với -1
+        cout << solve(0, true) << endl;  // bắt đầu từ vị trí 0, tight = true
         return 0;
     }
     ```
@@ -340,24 +340,24 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from functools import lru_cache
 
     def digit_dp(N):
-        s = str(N)
-        n = len(s)
+        s = str(N)          # chuỗi chữ số của N
+        n = len(s)          # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight):
-            if pos == n:
+            if pos == n:            # đã xét hết chữ số
                 return 1
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số có thể chọn
             ans = 0
 
             for d in range(0, limit + 1):
-                new_tight = tight and (d == limit)
-                ans += solve(pos + 1, new_tight)
+                new_tight = tight and (d == limit)  # cập nhật ràng buộc
+                ans += solve(pos + 1, new_tight)    # đệ quy
 
             return ans
 
-        return solve(0, True)
+        return solve(0, True)  # bắt đầu từ vị trí 0, tight = True
     ```
 
 ---
@@ -377,23 +377,23 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n, K;
-    ll dp[20][2][200];
+    string s;           // chuỗi chữ số của N
+    int n, K;           // số chữ số của N và tổng cần đạt
+    ll dp[20][2][200];  // dp[pos][tight][sum]
 
     ll solve(int pos, bool tight, int sum) {
-        if (sum > K) return 0;
-        if (pos == n) return (sum == K) ? 1 : 0;
+        if (sum > K) return 0;  // cắt nhánh nếu vượt quá K
+        if (pos == n) return (sum == K) ? 1 : 0;  // kiểm tra điều kiện
 
         ll &res = dp[pos][tight][sum];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
             bool new_tight = tight && (d == limit);
-            ans += solve(pos + 1, new_tight, sum + d);
+            ans += solve(pos + 1, new_tight, sum + d);  // cộng dồn tổng
         }
 
         if (!tight) res = ans;
@@ -417,22 +417,22 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from functools import lru_cache
 
     def count_digit_sum(N, K):
-        s = str(N)
-        n = len(s)
+        s = str(N)          # chuỗi chữ số của N
+        n = len(s)          # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight, total):
-            if total > K:
+            if total > K:           # cắt nhánh nếu vượt quá K
                 return 0
-            if pos == n:
+            if pos == n:            # kiểm tra điều kiện
                 return 1 if total == K else 0
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
                 new_tight = tight and (d == limit)
-                ans += solve(pos + 1, new_tight, total + d)
+                ans += solve(pos + 1, new_tight, total + d)  # cộng dồn tổng
 
             return ans
 
@@ -457,21 +457,21 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n;
-    ll dp[20][2];
+    string s;           // chuỗi chữ số của N
+    int n;              // số chữ số của N
+    ll dp[20][2];       // dp[pos][tight]
 
     ll solve(int pos, bool tight) {
-        if (pos == n) return 1;
+        if (pos == n) return 1;  // đã xét hết chữ số
 
         ll &res = dp[pos][tight];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
-            if (d == 4) continue;
+            if (d == 4) continue;  // bỏ qua chữ số 4
             bool new_tight = tight && (d == limit);
             ans += solve(pos + 1, new_tight);
         }
@@ -497,19 +497,19 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from functools import lru_cache
 
     def count_without_four(N):
-        s = str(N)
-        n = len(s)
+        s = str(N)          # chuỗi chữ số của N
+        n = len(s)          # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight):
-            if pos == n:
+            if pos == n:            # đã xét hết chữ số
                 return 1
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
-                if d == 4:
+                if d == 4:          # bỏ qua chữ số 4
                     continue
                 new_tight = tight and (d == limit)
                 ans += solve(pos + 1, new_tight)
@@ -537,23 +537,23 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n;
-    ll dp[20][2][11];
+    string s;               // chuỗi chữ số của N
+    int n;                  // số chữ số của N
+    ll dp[20][2][11];       // dp[pos][tight][last_digit]
 
     ll solve(int pos, bool tight, int last_digit) {
-        if (pos == n) return 1;
+        if (pos == n) return 1;  // đã xét hết chữ số
 
         ll &res = dp[pos][tight][last_digit];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
-            if (d < last_digit) continue;
+            if (d < last_digit) continue;  // đảm bảo không giảm
             bool new_tight = tight && (d == limit);
-            int new_last = (last_digit == 10 && d == 0) ? 10 : d;
+            int new_last = (last_digit == 10 && d == 0) ? 10 : d;  // giữ sentinel cho leading zero
             ans += solve(pos + 1, new_tight, new_last);
         }
 
@@ -567,7 +567,7 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
         s = to_string(N);
         n = s.size();
         memset(dp, -1, sizeof(dp));
-        cout << solve(0, true, 10) << endl;
+        cout << solve(0, true, 10) << endl;  // last_digit = 10 (sentinel)
         return 0;
     }
     ```
@@ -578,27 +578,27 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from functools import lru_cache
 
     def count_non_decreasing(N):
-        s = str(N)
-        n = len(s)
+        s = str(N)              # chuỗi chữ số của N
+        n = len(s)              # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight, last_digit):
-            if pos == n:
+            if pos == n:                # đã xét hết chữ số
                 return 1
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
-                if d < last_digit:
+                if d < last_digit:      # đảm bảo không giảm
                     continue
                 new_tight = tight and (d == limit)
-                new_last = 10 if (last_digit == 10 and d == 0) else d
+                new_last = 10 if (last_digit == 10 and d == 0) else d  # giữ sentinel cho leading zero
                 ans += solve(pos + 1, new_tight, new_last)
 
             return ans
 
-        return solve(0, True, 10)
+        return solve(0, True, 10)  # last_digit = 10 (sentinel)
 
     N = int(input())
     print(count_non_decreasing(N))
@@ -615,22 +615,22 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n;
-    ll dp[20][2][2];
+    string s;           // chuỗi chữ số của N
+    int n;              // số chữ số của N
+    ll dp[20][2][2];    // dp[pos][tight][sum_mod]
 
     ll solve(int pos, bool tight, int sum_mod) {
-        if (pos == n) return (sum_mod == 0) ? 1 : 0;
+        if (pos == n) return (sum_mod == 0) ? 1 : 0;  // kiểm tra tổng chẵn
 
         ll &res = dp[pos][tight][sum_mod];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
             bool new_tight = tight && (d == limit);
-            ans += solve(pos + 1, new_tight, (sum_mod + d) % 2);
+            ans += solve(pos + 1, new_tight, (sum_mod + d) % 2);  // cập nhật tổng modulo 2
         }
 
         if (!tight) res = ans;
@@ -642,13 +642,13 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
         s = to_string(N);
         n = s.size();
         memset(dp, -1, sizeof(dp));
-        return solve(0, true, 0);
+        return solve(0, true, 0);  // bắt đầu với sum_mod = 0
     }
 
     int main() {
         ll L, R;
         cin >> L >> R;
-        cout << count_up_to(R) - count_up_to(L - 1) << endl;
+        cout << count_up_to(R) - count_up_to(L - 1) << endl;  // hiệu số đếm
         return 0;
     }
     ```
@@ -661,27 +661,27 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     def count_even_digit_sum(N):
         if N < 0:
             return 0
-        s = str(N)
-        n = len(s)
+        s = str(N)          # chuỗi chữ số của N
+        n = len(s)          # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight, sum_mod):
-            if pos == n:
+            if pos == n:            # kiểm tra tổng chẵn
                 return 1 if sum_mod == 0 else 0
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
                 new_tight = tight and (d == limit)
-                ans += solve(pos + 1, new_tight, (sum_mod + d) % 2)
+                ans += solve(pos + 1, new_tight, (sum_mod + d) % 2)  # cập nhật tổng modulo 2
 
             return ans
 
-        return solve(0, True, 0)
+        return solve(0, True, 0)  # bắt đầu với sum_mod = 0
 
     L, R = map(int, input().split())
-    print(count_even_digit_sum(R) - count_even_digit_sum(L - 1))
+    print(count_even_digit_sum(R) - count_even_digit_sum(L - 1))  # hiệu số đếm
     ```
 
 ---
@@ -701,22 +701,22 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n, K;
-    ll dp[20][2][1024];
+    string s;               // chuỗi chữ số của N
+    int n, K;               // số chữ số của N và số lượng chữ số khác nhau
+    ll dp[20][2][1024];     // dp[pos][tight][mask] với mask 10 bit
 
     ll solve(int pos, bool tight, int mask) {
-        if (pos == n) return (__builtin_popcount(mask) == K) ? 1 : 0;
+        if (pos == n) return (__builtin_popcount(mask) == K) ? 1 : 0;  // kiểm tra số chữ số khác nhau
 
         ll &res = dp[pos][tight][mask];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
             bool new_tight = tight && (d == limit);
-            int new_mask = mask | (1 << d);
+            int new_mask = mask | (1 << d);  // bật bit tương ứng với chữ số d
             ans += solve(pos + 1, new_tight, new_mask);
         }
 
@@ -730,7 +730,7 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
         s = to_string(N);
         n = s.size();
         memset(dp, -1, sizeof(dp));
-        cout << solve(0, true, 0) << endl;
+        cout << solve(0, true, 0) << endl;  // bắt đầu với mask = 0
         return 0;
     }
     ```
@@ -741,25 +741,25 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from functools import lru_cache
 
     def count_distinct_digits(N, K):
-        s = str(N)
-        n = len(s)
+        s = str(N)              # chuỗi chữ số của N
+        n = len(s)              # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight, mask):
-            if pos == n:
+            if pos == n:        # kiểm tra số chữ số khác nhau
                 return 1 if bin(mask).count('1') == K else 0
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
                 new_tight = tight and (d == limit)
-                new_mask = mask | (1 << d)
+                new_mask = mask | (1 << d)  # bật bit tương ứng với chữ số d
                 ans += solve(pos + 1, new_tight, new_mask)
 
             return ans
 
-        return solve(0, True, 0)
+        return solve(0, True, 0)  # bắt đầu với mask = 0
 
     N, K = map(int, input().split())
     print(count_distinct_digits(N, K))
@@ -778,24 +778,24 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n;
-    ll dp[20][2][1024];
+    string s;               // chuỗi chữ số của N
+    int n;                  // số chữ số của N
+    ll dp[20][2][1024];     // dp[pos][tight][mask]
 
     ll solve(int pos, bool tight, int mask) {
-        if (pos == n) return 1;
+        if (pos == n) return 1;  // đã xét hết chữ số
 
         ll &res = dp[pos][tight][mask];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
-            if (mask & (1 << d)) continue;
+            if (mask & (1 << d)) continue;  // chữ số d đã dùng
             bool new_tight = tight && (d == limit);
-            int new_mask = mask | (1 << d);
-            if (d == 0 && mask == 0) new_mask = 0;
+            int new_mask = mask | (1 << d);  // đánh dấu chữ số d đã dùng
+            if (d == 0 && mask == 0) new_mask = 0;  // bỏ qua leading zero
             ans += solve(pos + 1, new_tight, new_mask);
         }
 
@@ -820,23 +820,23 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from functools import lru_cache
 
     def count_no_repeating(N):
-        s = str(N)
-        n = len(s)
+        s = str(N)              # chuỗi chữ số của N
+        n = len(s)              # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight, mask):
-            if pos == n:
+            if pos == n:                # đã xét hết chữ số
                 return 1
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
-                if mask & (1 << d):
+                if mask & (1 << d):     # chữ số d đã dùng
                     continue
                 new_tight = tight and (d == limit)
-                new_mask = mask | (1 << d)
-                if d == 0 and mask == 0:
+                new_mask = mask | (1 << d)   # đánh dấu chữ số d đã dùng
+                if d == 0 and mask == 0:     # bỏ qua leading zero
                     new_mask = 0
                 ans += solve(pos + 1, new_tight, new_mask)
 
@@ -861,22 +861,22 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n;
-    ll dp[20][2][2];
+    string s;               // chuỗi chữ số của N
+    int n;                  // số chữ số của N
+    ll dp[20][2][2];        // dp[pos][tight][has_zero]
 
     ll solve(int pos, bool tight, bool has_zero) {
-        if (pos == n) return has_zero ? 1 : 0;
+        if (pos == n) return has_zero ? 1 : 0;  // kiểm tra có chứa số 0
 
         ll &res = dp[pos][tight][has_zero];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
             bool new_tight = tight && (d == limit);
-            bool new_zero = has_zero || (d == 0 && pos > 0);
+            bool new_zero = has_zero || (d == 0 && pos > 0);  // đánh dấu nếu gặp số 0 thực sự
             ans += solve(pos + 1, new_tight, new_zero);
         }
 
@@ -890,7 +890,7 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
         s = to_string(N);
         n = s.size();
         memset(dp, -1, sizeof(dp));
-        cout << solve(0, true, false) << endl;
+        cout << solve(0, true, false) << endl;  // bắt đầu với has_zero = false
         return 0;
     }
     ```
@@ -901,25 +901,25 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from functools import lru_cache
 
     def count_product_zero(N):
-        s = str(N)
-        n = len(s)
+        s = str(N)              # chuỗi chữ số của N
+        n = len(s)              # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight, has_zero):
-            if pos == n:
+            if pos == n:        # kiểm tra có chứa số 0
                 return 1 if has_zero else 0
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
                 new_tight = tight and (d == limit)
-                new_zero = has_zero or (d == 0 and pos > 0)
+                new_zero = has_zero or (d == 0 and pos > 0)  # đánh dấu nếu gặp số 0 thực sự
                 ans += solve(pos + 1, new_tight, new_zero)
 
             return ans
 
-        return solve(0, True, False)
+        return solve(0, True, False)  # bắt đầu với has_zero = False
 
     N = int(input())
     print(count_product_zero(N))
@@ -938,22 +938,22 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     using namespace std;
     using ll = long long;
 
-    string s;
-    int n;
-    ll dp[20][2][10];
+    string s;               // chuỗi chữ số của N
+    int n;                  // số chữ số của N
+    ll dp[20][2][10];       // dp[pos][tight][gcd_sofar] (gcd từ 1..9 hoặc 0)
 
     ll solve(int pos, bool tight, int g) {
-        if (pos == n) return (g > 1) ? 1 : 0;
+        if (pos == n) return (g > 1) ? 1 : 0;  // kiểm tra GCD > 1
 
         ll &res = dp[pos][tight][g];
-        if (res != -1 && !tight) return res;
+        if (res != -1 && !tight) return res;  // memoization
 
-        int limit = tight ? (s[pos] - '0') : 9;
+        int limit = tight ? (s[pos] - '0') : 9;  // giới hạn chữ số
         ll ans = 0;
 
         for (int d = 0; d <= limit; d++) {
             bool new_tight = tight && (d == limit);
-            int new_g = (g == 0) ? d : __gcd(g, d);
+            int new_g = (g == 0) ? d : __gcd(g, d);  // cập nhật GCD
             ans += solve(pos + 1, new_tight, new_g);
         }
 
@@ -967,7 +967,7 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
         s = to_string(N);
         n = s.size();
         memset(dp, -1, sizeof(dp));
-        cout << solve(0, true, 0) << endl;
+        cout << solve(0, true, 0) << endl;  // bắt đầu với gcd = 0
         return 0;
     }
     ```
@@ -979,25 +979,25 @@ Nếu tổng states quá lớn ($> 10^7$), có thể bị MLE. Giải pháp:
     from math import gcd
 
     def count_gcd_gt_one(N):
-        s = str(N)
-        n = len(s)
+        s = str(N)              # chuỗi chữ số của N
+        n = len(s)              # số chữ số của N
 
         @lru_cache(maxsize=None)
         def solve(pos, tight, g):
-            if pos == n:
+            if pos == n:        # kiểm tra GCD > 1
                 return 1 if g > 1 else 0
 
-            limit = int(s[pos]) if tight else 9
+            limit = int(s[pos]) if tight else 9  # giới hạn chữ số
             ans = 0
 
             for d in range(0, limit + 1):
                 new_tight = tight and (d == limit)
-                new_g = d if g == 0 else gcd(g, d)
+                new_g = d if g == 0 else gcd(g, d)  # cập nhật GCD
                 ans += solve(pos + 1, new_tight, new_g)
 
             return ans
 
-        return solve(0, True, 0)
+        return solve(0, True, 0)  # bắt đầu với gcd = 0
 
     N = int(input())
     print(count_gcd_gt_one(N))
@@ -1043,25 +1043,21 @@ Nếu vượt quá, cân nhắc giảm dimensions hoặc dùng $map$ thay vì m�
 | 10 | [Number of Numbers](https://www.codechef.com/problems/DIGITDP) | CodeChef | ★★★ | Nhiều query, Digit DP |
 | 11 | [Counting Numbers](https://cses.fi/problemset/task/2220) | CSES | ★★☆ | Đếm số không có chữ số liền kề giống nhau |
 
-### Bài tập luyện tập
+## Bài tập luyện tập
 
-**Dễ (làm quen):**
-
-- Đếm số trong $[0, N]$ mà tổng chữ số chia hết cho $3$.
-- Đếm số trong $[0, N]$ không chứa chữ số $9$.
-- Đếm số trong $[0, N]$ mà chữ số đầu tiên là số lẻ.
-
-**Trung bình:**
-
-- Đếm số trong $[0, N]$ mà hiệu lớn nhất và nhỏ nhất các chữ số $\leq K$.
-- Đếm số trong $[0, N]$ mà tổng chữ số là số nguyên tố.
-- Đếm số trong $[L, R]$ mà tích các chữ số $> 0$.
-
-**Khó:**
-
-- Đếm số trong $[0, N]$ mà là palindrome.
-- Đếm số trong $[0, N]$ mà không có $3$ chữ số liên tiếp giống nhau.
-- Đếm số trong $[0, N]$ mà mỗi chữ số xuất hiện tối đa $K$ lần.
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dig-count-3` | [Đếm Số Chia Hết Cho 3](https://fptoj.com/problem/dig-count-3) | ⭐⭐ | Đếm số chia hết cho $3$ | [Digit DP](digit-dp.md) |
+| `dig-sum-digit` | [Tổng Chữ Số](https://fptoj.com/problem/dig-sum-digit) | ⭐⭐ | Tính tổng các chữ số | [Digit DP](digit-dp.md) |
+| `dig-not-13` | [Không Chứa 13](https://fptoj.com/problem/dig-not-13) | ⭐⭐ | Đếm số không chứa xâu "13" | [Digit DP](digit-dp.md) |
+| `dig-no-adj-same` | [Không Có Chữ Liền Kề Giống Nhau](https://fptoj.com/problem/dig-no-adj-same) | ⭐⭐ | Hai chữ số liền kề không giống nhau | [Digit DP](digit-dp.md) |
+| `dig-no-trailing` | [Không Có Số 0 Ở Đầu](https://fptoj.com/problem/dig-no-trailing) | ⭐⭐ | Đếm số không có số $0$ ở đầu | [Digit DP](digit-dp.md) |
+| `dig-product` | [Tích Chữ Số](https://fptoj.com/problem/dig-product) | ⭐⭐⭐ | Tích các chữ số | [Digit DP](digit-dp.md) |
+| `dig-palindrome` | [Số Palindrome](https://fptoj.com/problem/dig-palindrome) | ⭐⭐⭐ | Đếm số palindrome | [Digit DP](digit-dp.md) |
+| `dig-div-digit` | [Chia Hết Cho Các Chữ Số](https://fptoj.com/problem/dig-div-digit) | ⭐⭐⭐ | Số chia hết cho từng chữ số | [Digit DP](digit-dp.md) |
+| `dig-k-digit` | [Số Có K Chữ Số](https://fptoj.com/problem/dig-k-digit) | ⭐⭐⭐⭐ | Đếm số có đúng $K$ chữ số | [Digit DP](digit-dp.md) |
+| `dig-sum-even` | [Tổng Chẵn](https://fptoj.com/problem/dig-sum-even) | ⭐⭐⭐⭐ | Đếm số có tổng chữ số chẵn | [Digit DP](digit-dp.md) |
+| `dig-num-square` | [Số Chính Phương](https://fptoj.com/problem/dig-num-square) | ⭐⭐⭐ | Đếm số chính phương | [Digit DP](digit-dp.md) |
 
 ---
 

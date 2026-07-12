@@ -9,11 +9,11 @@
 
 Cho một tập hợp số, cần hỗ trợ các thao tác: thêm, tìm kiếm, xóa, tìm min/max, tìm cận dưới (lower_bound).
 
-**Cách 1: Mảng** — thêm `$O(1)$`, tìm `$O(N)$`. Chậm khi tập lớn.
+**Cách 1: Mảng** — thêm $O(1)$, tìm $O(N)$. Chậm khi tập lớn.
 
-**Cách 2: `set` / `map` (Red-Black Tree)** — tất cả `$O(\log N)$`. Tốt, nhưng là "hộp đen", không hiểu cấu trúc bên trong.
+**Cách 2: `set` / `map` (Red-Black Tree)** — tất cả $O(\log N)$. Tốt, nhưng là "hộp đen", không hiểu cấu trúc bên trong.
 
-**Cách 3: BST** — tất cả `$O(\log N)$` trung bình, và bạn hiểu rõ tại sao.
+**Cách 3: BST** — tất cả $O(\log N)$ trung bình, và bạn hiểu rõ tại sao.
 
 Binary Search Tree là cây nhị phân mà tại mỗi nút, mọi giá trị ở cây con trái đều nhỏ hơn nút đó, mọi giá trị ở cây con phải đều lớn hơn. Tính chất này cho phép tìm kiếm theo kiểu "chia đôi" y hệt tìm kiếm nhị phân trên mảng.
 
@@ -39,11 +39,11 @@ Với cây trên, tìm số 7 chỉ mất 4 bước: tại 8 (7 nhỏ hơn, đi 
 
 ### Thao tác 1: Tìm kiếm (Search)
 
-Tại mỗi nút, so sánh giá trị cần tìm `$v$` với `$node \to val$`:
+Tại mỗi nút, so sánh giá trị cần tìm $v$ với $node \to val$:
 
-- `$v < node \to val$` → đi trái
-- `$v > node \to val$` → đi phải
-- `$v = node \to val$` → tìm thấy
+- $v < node \to val$ → đi trái
+- $v > node \to val$ → đi phải
+- $v = node \to val$ → tìm thấy
 
 Nếu đi đến `NULL` thì giá trị không tồn tại trong cây.
 
@@ -56,7 +56,7 @@ graph TD
 
 ### Thao tác 2: Chèn (Insert)
 
-Đi từ gốc, so sánh `$v$` với từng nút để tìm vị trí lá thích hợp. Khi đến `NULL`, tạo nút mới tại đó.
+Đi từ gốc, so sánh $v$ với từng nút để tìm vị trí lá thích hợp. Khi đến `NULL`, tạo nút mới tại đó.
 
 ```mermaid
 graph TD
@@ -112,12 +112,12 @@ Duyệt theo thứ tự Trái → Gốc → Phải trên BST luôn cho ra dãy t
 
 ### Tại sao BST cho phép tìm kiếm nhị phân?
 
-Mọi nút `$u$` trong BST đều thoả mãn: tất cả giá trị trong cây con trái của `$u$` nhỏ hơn `$u \to val$`, tất cả giá trị trong cây con phải lớn hơn `$u \to val$$. Khi so sánh `$v$` với `$u \to val$`:
+Mọi nút $u$ trong BST đều thoả mãn: tất cả giá trị trong cây con trái của $u$ nhỏ hơn $u \to val$, tất cả giá trị trong cây con phải lớn hơn $u \to val$. Khi so sánh $v$ với $u \to val$:
 
-- Nếu `$v < u \to val$`, ta loại bỏ toàn bộ cây con phải (tất cả đều lớn hơn `$u \to val$`, do đó lớn hơn `$v$`).
-- Nếu `$v > u \to val$`, ta loại bỏ toàn bộ cây con trái.
+- Nếu $v < u \to val$, ta loại bỏ toàn bộ cây con phải (tất cả đều lớn hơn $u \to val$, do đó lớn hơn $v$).
+- Nếu $v > u \to val$, ta loại bỏ toàn bộ cây con trái.
 
-Mỗi bước loại bỏ ít nhất một nửa số nút còn lại, nên số bước tối đa là chiều cao `$h$` của cây.
+Mỗi bước loại bỏ ít nhất một nửa số nút còn lại, nên số bước tối đa là chiều cao $h$ của cây.
 
 ### Tại sao xóa đúng khi dùng kế nhiệm?
 
@@ -130,7 +130,7 @@ Sao chép giá trị kế nhiệm vào nút cần xóa không vi phạm tính ch
 
 ### Tại sao inorder cho dãy tăng dần?
 
-Chứng minh bằng quy nạp: giả sử cây con trái cho dãy tăng dần `$L$`, cây con phải cho dãy tăng dần `$R$`. Theo tính chất BST, mọi phần tử trong `$L$` nhỏ hơn gốc, mọi phần tử trong `$R$` lớn hơn gốc. Duyệt Trái → Gốc → Phải tạo dãy `$L$`, gốc, `$R$` — đúng thứ tự tăng dần.
+Chứng minh bằng quy nạp: giả sử cây con trái cho dãy tăng dần $L$, cây con phải cho dãy tăng dần $R$. Theo tính chất BST, mọi phần tử trong $L$ nhỏ hơn gốc, mọi phần tử trong $R$ lớn hơn gốc. Duyệt Trái → Gốc → Phải tạo dãy $L$, gốc, $R$ — đúng thứ tự tăng dần.
 
 ---
 
@@ -138,17 +138,17 @@ Chứng minh bằng quy nạp: giả sử cây con trái cho dãy tăng dần `$
 
 ### Độ phức tạp thời gian
 
-Gọi `$h$` là chiều cao cây, `$N$` là số nút.
+Gọi $h$ là chiều cao cây, $N$ là số nút.
 
 | Thao tác | Trung bình | Worst case |
 |----------|-----------|------------|
-| Tìm kiếm | `$O(h) = O(\log N)$` | `$O(N)$` |
-| Chèn | `$O(h) = O(\log N)$` | `$O(N)$` |
-| Xóa | `$O(h) = O(\log N)$` | `$O(N)$` |
-| Min/Max | `$O(h) = O(\log N)$` | `$O(N)$` |
-| Duyệt inorder | `$O(N)$` | `$O(N)$` |
+| Tìm kiếm | $O(h) = O(\log N)$ | $O(N)$ |
+| Chèn | $O(h) = O(\log N)$ | $O(N)$ |
+| Xóa | $O(h) = O(\log N)$ | $O(N)$ |
+| Min/Max | $O(h) = O(\log N)$ | $O(N)$ |
+| Duyệt inorder | $O(N)$ | $O(N)$ |
 
-Worst case xảy ra khi BST bị méo (chèn dãy tăng/giảm dần), cây trở thành linked list, `$h = N$`.
+Worst case xảy ra khi BST bị méo (chèn dãy tăng/giảm dần), cây trở thành linked list, $h = N$.
 
 ```mermaid
 graph TD
@@ -162,22 +162,22 @@ graph TD
     G --> I((5))
 ```
 
-Chèn 1, 2, 3, 4, 5 vào BST rỗng tạo cây nghiêng hoàn toàn — chiều cao `$N = 5$`, mọi thao tác đều `$O(N)$`.
+Chèn 1, 2, 3, 4, 5 vào BST rỗng tạo cây nghiêng hoàn toàn — chiều cao $N = 5$, mọi thao tác đều $O(N)$.
 
 ### Độ phức tạp bộ nhớ
 
-- Cấu trúc: `$O(N)$` cho `$N$` nút
-- Đệ quy: `$O(h)$` stack frame (worst case `$O(N)$`)
+- Cấu trúc: $O(N)$ cho $N$ nút
+- Đệ quy: $O(h)$ stack frame (worst case $O(N)$)
 
 ### BST tự cân bằng
 
-Các biến thể giữ `$h = O(\log N)$` luôn đúng:
+Các biến thể giữ $h = O(\log N)$ luôn đúng:
 
 | Cây | Chiều cao đảm bảo | Cơ chế |
 |-----|-------------------|--------|
-| AVL Tree | `$h \leq 1.44 \log_2 N$` | Chênh lệch chiều cao 2 con `$\leq 1$` |
-| Red-Black Tree | `$h \leq 2 \log_2(N+1)$` | Tô màu đỏ-đen, đảm bảo cân bằng |
-| B-Tree | `$O(\log N)$` | Mỗi nút nhiều khoá, dùng trong database |
+| AVL Tree | $h \leq 1.44 \log_2 N$ | Chênh lệch chiều cao 2 con $\leq 1$ |
+| Red-Black Tree | $h \leq 2 \log_2(N+1)$ | Tô màu đỏ-đen, đảm bảo cân bằng |
+| B-Tree | $O(\log N)$ | Mỗi nút nhiều khoá, dùng trong database |
 
 ---
 
@@ -371,7 +371,7 @@ Các biến thể giữ `$h = O(\log N)$` luôn đúng:
 
 ### Duyệt khoảng (Range Query)
 
-Tìm tất cả phần tử trong khoảng `$[L, R]$` trên BST, khai thác tính chất thứ tự để bỏ qua nhánh không cần thiết.
+Tìm tất cả phần tử trong khoảng $[L, R]$ trên BST, khai thác tính chất thứ tự để bỏ qua nhánh không cần thiết.
 
 ```cpp
 void rangeQuery(Node* node, int L, int R) {
@@ -383,11 +383,11 @@ void rangeQuery(Node* node, int L, int R) {
 }
 ```
 
-Độ phức tạp: `$O(k + h)$` với `$k$` là số phần tử trong khoảng, `$h$` là chiều cao cây.
+Độ phức tạp: $O(k + h)$ với $k$ là số phần tử trong khoảng, $h$ là chiều cao cây.
 
 ### Kiểm tra cây có phải BST
 
-Dùng kỹ thuật truyền khoảng hợp lệ `$[minVal, maxVal]$` khi duyệt đệ quy.
+Dùng kỹ thuật truyền khoảng hợp lệ $[minVal, maxVal]$ khi duyệt đệ quy.
 
 ```cpp
 bool isBST(Node* node, long long minVal, long long maxVal) {
@@ -406,8 +406,8 @@ bool isBST(Node* node, long long minVal, long long maxVal) {
 
 | Tiêu chí | BST | Heap |
 |----------|-----|------|
-| Tính chất | trái < gốc < phải | gốc `$\geq$` con (max-heap) |
-| Tìm kiếm | `$O(\log N)$` | `$O(N)$` |
+| Tính chất | trái < gốc < phải | gốc $\geq$ con (max-heap) |
+| Tìm kiếm | $O(\log N)$ | $O(N)$ |
 | Duyệt inorder | Tăng dần | Không có ý nghĩa |
 | Ứng dụng | `set`, `map` | Priority Queue |
 
@@ -415,25 +415,28 @@ bool isBST(Node* node, long long minVal, long long maxVal) {
 
 ## Lưu ý và cạm bẫy
 
-1. **BST bị méo:** Chèn dãy tăng/giảm dần → cây nghiêng, thoái hoá thành linked list `$O(N)$`. Trong thi đấu, dùng `set` / `map` (C++) đã cài Red-Black Tree sẵn thay vì tự cài BST thường.
+1. **BST bị méo:** Chèn dãy tăng/giảm dần → cây nghiêng, thoái hoá thành linked list $O(N)$. Trong thi đấu, dùng `set` / `map` (C++) đã cài Red-Black Tree sẵn thay vì tự cài BST thường.
 
 2. **Không lưu trùng:** BST cơ bản bỏ qua phần tử trùng. Nếu cần đếm số lần xuất hiện, thêm trường `cnt` vào nút.
 
-3. **Đệ quy sâu:** BST không cân bằng có thể sâu `$O(N)$`, gây tràn stack đệ quy. Chuyển sang cài đặt iterative nếu cần.
+3. **Đệ quy sâu:** BST không cân bằng có thể sâu $O(N)$, gây tràn stack đệ quy. Chuyển sang cài đặt iterative nếu cần.
 
 ---
 
-## Bài tập luyện tập
+## Bài tập luyện tập (FPTOJ)
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [LeetCode - Validate BST](https://leetcode.com/problems/validate-binary-search-tree/) | LC | ⭐⭐ | Kiểm tra BST |
-| [LeetCode - Lowest Common Ancestor of BST](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | LC | ⭐⭐ | LCA trên BST |
-| [LeetCode - Kth Smallest Element in BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | LC | ⭐⭐ | Duyệt inorder |
-| [LeetCode - Insert into BST](https://leetcode.com/problems/insert-into-a-binary-search-tree/) | LC | ⭐ | Chèn BST |
-| [LeetCode - Delete Node in BST](https://leetcode.com/problems/delete-node-in-a-bst/) | LC | ⭐⭐⭐ | Xóa BST |
-| [CSES - Tree Traversals](https://cses.fi/problemset/task/1702) | CSES | ⭐⭐ | BST traversal |
-| [CSES - Distinct Colors](https://cses.fi/problemset/task/1139) | CSES | ⭐⭐⭐ | Subtree query |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `bst-search` | [Tìm kiếm trong BST](https://fptoj.com/problem/bst-search) | ⭐ | BST - tìm kiếm |
+| `bst-insert` | [Chèn vào BST](https://fptoj.com/problem/bst-insert) | ⭐ | BST - chèn |
+| `bst-delete` | [Xoá nút khỏi BST](https://fptoj.com/problem/bst-delete) | ⭐⭐⭐ | BST - xóa |
+| `bst-validate` | [Kiểm tra BST hợp lệ](https://fptoj.com/problem/bst-validate) | ⭐⭐ | BST - kiểm tra |
+| `bst-kth-min` | [Phần tử nhỏ thứ K trong BST](https://fptoj.com/problem/bst-kth-min) | ⭐⭐ | BST - inorder |
+| `bst-lca` | [Tổ tiên chung gần nhất trong BST](https://fptoj.com/problem/bst-lca) | ⭐⭐ | BST - LCA |
+| `bst-range` | [Đếm số nút trong khoảng](https://fptoj.com/problem/bst-range) | ⭐⭐ | BST - range query |
+| `bst-inorder` | [Duyệt inorder của BST](https://fptoj.com/problem/bst-inorder) | ⭐ | BST - duyệt |
+| `bst-pred-succ` | [Predecessor và Successor trong BST](https://fptoj.com/problem/bst-pred-succ) | ⭐⭐ | BST - cận |
+| `bst-balance` | [Kiểm tra BST cân bằng](https://fptoj.com/problem/bst-balance) | ⭐⭐⭐ | BST - cân bằng |
 
 ---
 

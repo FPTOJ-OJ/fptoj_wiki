@@ -116,23 +116,23 @@ Khi cần truy vấn con:
     using namespace std;
 
     int n;
-    vector<long long> tree, lazy;
+    vector<long long> tree, lazy;  // cây phân đoạn và mảng lazy
 
     void push(int node, int lo, int hi) {
         if (lazy[node] != 0) {
-            tree[node] += lazy[node] * (hi - lo + 1);
-            if (lo != hi) {
+            tree[node] += lazy[node] * (hi - lo + 1);  // cập nhật node
+            if (lo != hi) {                    // lan xuống hai con
                 lazy[2 * node] += lazy[node];
                 lazy[2 * node + 1] += lazy[node];
             }
-            lazy[node] = 0;
+            lazy[node] = 0;                    // reset lazy
         }
     }
 
     void update(int node, int lo, int hi, int l, int r, long long val) {
-        push(node, lo, hi);
-        if (r < lo || hi < l) return;
-        if (l <= lo && hi <= r) {
+        push(node, lo, hi);                    // lan lazy trước
+        if (r < lo || hi < l) return;          // ngoài đoạn
+        if (l <= lo && hi <= r) {              // nằm hoàn toàn trong đoạn
             lazy[node] += val;
             push(node, lo, hi);
             return;
@@ -140,13 +140,13 @@ Khi cần truy vấn con:
         int mid = (lo + hi) / 2;
         update(2 * node, lo, mid, l, r, val);
         update(2 * node + 1, mid + 1, hi, l, r, val);
-        tree[node] = tree[2 * node] + tree[2 * node + 1];
+        tree[node] = tree[2 * node] + tree[2 * node + 1];  // tổng hợp
     }
 
     long long query(int node, int lo, int hi, int l, int r) {
-        push(node, lo, hi);
-        if (r < lo || hi < l) return 0;
-        if (l <= lo && hi <= r) return tree[node];
+        push(node, lo, hi);                    // lan lazy trước
+        if (r < lo || hi < l) return 0;        // ngoài đoạn
+        if (l <= lo && hi <= r) return tree[node];  // nằm hoàn toàn
         int mid = (lo + hi) / 2;
         return query(2 * node, lo, mid, l, r) +
                query(2 * node + 1, mid + 1, hi, l, r);
@@ -163,7 +163,7 @@ Khi cần truy vấn con:
         for (int i = 0; i < n; i++) {
             long long val;
             cin >> val;
-            update(1, 0, n - 1, i, i, val);
+            update(1, 0, n - 1, i, i, val);  // xây cây
         }
 
         int q;
@@ -176,12 +176,12 @@ Khi cần truy vấn con:
                 long long val;
                 cin >> l >> r >> val;
                 l--; r--;
-                update(1, 0, n - 1, l, r, val);
+                update(1, 0, n - 1, l, r, val);  // cập nhật đoạn
             } else {
                 int l, r;
                 cin >> l >> r;
                 l--; r--;
-                cout << query(1, 0, n - 1, l, r) << "\n";
+                cout << query(1, 0, n - 1, l, r) << "\n";  // truy vấn tổng đoạn
             }
         }
         return 0;
@@ -196,52 +196,52 @@ Khi cần truy vấn con:
     sys.setrecursionlimit(1 << 25)
 
     n = int(input())
-    tree = [0] * (4 * n)
-    lazy = [0] * (4 * n)
+    tree = [0] * (4 * n)   # cây phân đoạn
+    lazy = [0] * (4 * n)   # mảng lazy
 
     def push(node, lo, hi):
         if lazy[node] != 0:
-            tree[node] += lazy[node] * (hi - lo + 1)
-            if lo != hi:
+            tree[node] += lazy[node] * (hi - lo + 1)  # cập nhật node
+            if lo != hi:                               # lan xuống hai con
                 lazy[2 * node] += lazy[node]
                 lazy[2 * node + 1] += lazy[node]
-            lazy[node] = 0
+            lazy[node] = 0                             # reset lazy
 
     def update(node, lo, hi, l, r, val):
-        push(node, lo, hi)
-        if r < lo or hi < l:
+        push(node, lo, hi)            # lan lazy trước
+        if r < lo or hi < l:          # ngoài đoạn
             return
-        if l <= lo and hi <= r:
+        if l <= lo and hi <= r:       # nằm hoàn toàn trong đoạn
             lazy[node] += val
             push(node, lo, hi)
             return
         mid = (lo + hi) // 2
         update(2 * node, lo, mid, l, r, val)
         update(2 * node + 1, mid + 1, hi, l, r, val)
-        tree[node] = tree[2 * node] + tree[2 * node + 1]
+        tree[node] = tree[2 * node] + tree[2 * node + 1]  # tổng hợp
 
     def query(node, lo, hi, l, r):
-        push(node, lo, hi)
-        if r < lo or hi < l:
+        push(node, lo, hi)            # lan lazy trước
+        if r < lo or hi < l:          # ngoài đoạn
             return 0
-        if l <= lo and hi <= r:
+        if l <= lo and hi <= r:       # nằm hoàn toàn
             return tree[node]
         mid = (lo + hi) // 2
         return query(2 * node, lo, mid, l, r) + query(2 * node + 1, mid + 1, hi, l, r)
 
     a = list(map(int, input().split()))
     for i in range(n):
-        update(1, 0, n - 1, i, i, a[i])
+        update(1, 0, n - 1, i, i, a[i])  # xây cây
 
     q = int(input())
     for _ in range(q):
         parts = list(map(int, input().split()))
         if parts[0] == 1:
             l, r, val = parts[1] - 1, parts[2] - 1, parts[3]
-            update(1, 0, n - 1, l, r, val)
+            update(1, 0, n - 1, l, r, val)  # cập nhật đoạn
         else:
             l, r = parts[1] - 1, parts[2] - 1
-            print(query(1, 0, n - 1, l, r))
+            print(query(1, 0, n - 1, l, r))  # truy vấn tổng đoạn
     ```
 
 ---

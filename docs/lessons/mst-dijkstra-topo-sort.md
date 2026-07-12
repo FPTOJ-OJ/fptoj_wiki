@@ -69,18 +69,18 @@ graph LR
         }
     };
 
-    struct DSU {
+    struct DSU {                                    // Disjoint Set Union hỗ trợ Kruskal
         vector<int> parent, sz;
         DSU(int n) {
             parent.resize(n + 1);
             sz.resize(n + 1, 1);
             for (int i = 1; i <= n; i++) parent[i] = i;
         }
-        int find(int v) {
+        int find(int v) {                           // tìm gốc với nén đường dẫn
             if (v == parent[v]) return v;
             return parent[v] = find(parent[v]);
         }
-        bool unite(int a, int b) {
+        bool unite(int a, int b) {                  // hợp nhất hai tập, true nếu hợp nhất được
             a = find(a); b = find(b);
             if (a == b) return false;
             if (sz[a] < sz[b]) swap(a, b);
@@ -90,43 +90,43 @@ graph LR
         }
     };
 
-    long long kruskal(int n, vector<Edge>& edges) {
-        sort(edges.begin(), edges.end());
+    long long kruskal(int n, vector<Edge>& edges) {  // Kruskal: sắp xếp cạnh, thêm nếu không chu trình
+        sort(edges.begin(), edges.end());            // sắp xếp cạnh theo trọng số
         DSU dsu(n);
         long long mst_weight = 0;
         int edges_used = 0;
 
         for (auto& e : edges) {
-            if (dsu.unite(e.u, e.v)) {
+            if (dsu.unite(e.u, e.v)) {              // nếu thêm cạnh không tạo chu trình
                 mst_weight += e.w;
                 edges_used++;
-                if (edges_used == n - 1) break;
+                if (edges_used == n - 1) break;     // đã đủ n-1 cạnh
             }
         }
-        return (edges_used == n - 1) ? mst_weight : -1;
+        return (edges_used == n - 1) ? mst_weight : -1;  // -1 nếu đồ thị không liên thông
     }
 
-    long long prim(int n, vector<vector<pair<int,int>>>& adj) {
+    long long prim(int n, vector<vector<pair<int,int>>>& adj) {  // Prim: mở rộng từ đỉnh đã thăm
         vector<bool> visited(n + 1, false);
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
-        pq.push({0, 1});
+        pq.push({0, 1});                             // bắt đầu từ đỉnh 1
         long long mst_weight = 0;
         int count = 0;
 
         while (!pq.empty() && count < n) {
             auto [w, u] = pq.top();
             pq.pop();
-            if (visited[u]) continue;
+            if (visited[u]) continue;                // bỏ qua nếu đã xử lý
             visited[u] = true;
             mst_weight += w;
             count++;
 
-            for (auto [v, weight] : adj[u]) {
+            for (auto [v, weight] : adj[u]) {        // đưa các cạnh kề vào heap
                 if (!visited[v])
                     pq.push({weight, v});
             }
         }
-        return (count == n) ? mst_weight : -1;
+        return (count == n) ? mst_weight : -1;       // -1 nếu đồ thị không liên thông
     }
     ```
 
@@ -135,18 +135,18 @@ graph LR
     ```python
     import heapq
 
-    class DSU:
+    class DSU:                                    # Disjoint Set Union hỗ trợ Kruskal
         def __init__(self, n):
             self.parent = list(range(n + 1))
             self.sz = [1] * (n + 1)
 
-        def find(self, v):
+        def find(self, v):                       # tìm gốc với nén đường dẫn
             if v == self.parent[v]:
                 return v
             self.parent[v] = self.find(self.parent[v])
             return self.parent[v]
 
-        def unite(self, a, b):
+        def unite(self, a, b):                   # hợp nhất hai tập
             a, b = self.find(a), self.find(b)
             if a == b:
                 return False
@@ -156,36 +156,36 @@ graph LR
             self.sz[a] += self.sz[b]
             return True
 
-    def kruskal(n, edges):
-        edges.sort(key=lambda e: e[2])
+    def kruskal(n, edges):                        # Kruskal: sắp xếp cạnh, thêm nếu không chu trình
+        edges.sort(key=lambda e: e[2])            # sắp xếp theo trọng số
         dsu = DSU(n)
         mst_weight = 0
         edges_used = 0
 
         for u, v, w in edges:
-            if dsu.unite(u, v):
+            if dsu.unite(u, v):                  # thêm cạnh nếu không tạo chu trình
                 mst_weight += w
                 edges_used += 1
-                if edges_used == n - 1:
+                if edges_used == n - 1:          # đã đủ n-1 cạnh
                     break
 
         return mst_weight if edges_used == n - 1 else -1
 
-    def prim(n, adj):
+    def prim(n, adj):                             # Prim: mở rộng từ đỉnh đã thăm
         visited = [False] * (n + 1)
-        pq = [(0, 1)]
+        pq = [(0, 1)]                             # bắt đầu từ đỉnh 1
         mst_weight = 0
         count = 0
 
         while pq and count < n:
             w, u = heapq.heappop(pq)
-            if visited[u]:
+            if visited[u]:                        # bỏ qua nếu đã xử lý
                 continue
             visited[u] = True
             mst_weight += w
             count += 1
 
-            for v, weight in adj[u]:
+            for v, weight in adj[u]:              # đưa các cạnh kề vào heap
                 if not visited[v]:
                     heapq.heappush(pq, (weight, v))
 
@@ -317,22 +317,22 @@ Kết quả: $dist = [\infty, 0, 1, 4, 3]$. Đường ngắn nhất $1 \to 4$: $
 
     ```cpp
     vector<long long> dijkstra(int start, int n, vector<vector<pair<int,int>>>& adj) {
-        vector<long long> dist(n + 1, LLONG_MAX);
+        vector<long long> dist(n + 1, LLONG_MAX);         // khởi tạo khoảng cách vô cùng
         priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
 
-        dist[start] = 0;
+        dist[start] = 0;                                   // khoảng cách từ start đến chính nó = 0
         pq.push({0, start});
 
         while (!pq.empty()) {
             auto [d, u] = pq.top();
             pq.pop();
 
-            if (d > dist[u]) continue;
+            if (d > dist[u]) continue;                     // bỏ qua bản ghi cũ trong heap
 
             for (auto [v, w] : adj[u]) {
-                if (dist[u] + w < dist[v]) {
+                if (dist[u] + w < dist[v]) {               // tìm được đường đi ngắn hơn
                     dist[v] = dist[u] + w;
-                    pq.push({dist[v], v});
+                    pq.push({dist[v], v});                 // đẩy vào heap để xử lý tiếp
                 }
             }
         }
@@ -346,16 +346,16 @@ Kết quả: $dist = [\infty, 0, 1, 4, 3]$. Đường ngắn nhất $1 \to 4$: $
     import heapq
 
     def dijkstra(start, n, adj):
-        dist = [float('inf')] * (n + 1)
-        dist[start] = 0
+        dist = [float('inf')] * (n + 1)          # khởi tạo khoảng cách vô cùng
+        dist[start] = 0                          # khoảng cách từ start đến chính nó = 0
         pq = [(0, start)]
 
         while pq:
             d, u = heapq.heappop(pq)
-            if d > dist[u]:
+            if d > dist[u]:                      # bỏ qua bản ghi cũ
                 continue
             for v, w in adj[u]:
-                if dist[u] + w < dist[v]:
+                if dist[u] + w < dist[v]:        # tìm được đường đi ngắn hơn
                     dist[v] = dist[u] + w
                     heapq.heappush(pq, (dist[v], v))
         return dist
@@ -442,30 +442,30 @@ Kết quả: $[1, 2, 3, 4, 5]$ — mọi cạnh đều hướng từ trái sang 
 === "C++"
 
     ```cpp
-    vector<int> topoSort(int n, vector<vector<int>>& adj) {
+    vector<int> topoSort(int n, vector<vector<int>>& adj) {  // Kahn's Algorithm
         vector<int> inDegree(n + 1, 0);
-        for (int u = 1; u <= n; u++)
+        for (int u = 1; u <= n; u++)                        // tính bậc vào cho mỗi đỉnh
             for (int v : adj[u])
                 inDegree[v]++;
 
         queue<int> q;
-        for (int i = 1; i <= n; i++)
+        for (int i = 1; i <= n; i++)                        // đưa đỉnh có bậc vào 0 vào queue
             if (inDegree[i] == 0) q.push(i);
 
         vector<int> result;
         while (!q.empty()) {
             int u = q.front();
             q.pop();
-            result.push_back(u);
+            result.push_back(u);                            // thêm đỉnh u vào kết quả
 
-            for (int v : adj[u]) {
+            for (int v : adj[u]) {                          // giảm bậc vào của các đỉnh kề
                 inDegree[v]--;
-                if (inDegree[v] == 0)
+                if (inDegree[v] == 0)                       // nếu bậc vào về 0, cho vào queue
                     q.push(v);
             }
         }
 
-        if (result.size() != n) return {};
+        if (result.size() != n) return {};                  // đồ thị có chu trình
         return result;
     }
     ```
@@ -475,24 +475,24 @@ Kết quả: $[1, 2, 3, 4, 5]$ — mọi cạnh đều hướng từ trái sang 
     ```python
     from collections import deque
 
-    def topo_sort(n, adj):
+    def topo_sort(n, adj):                                  # Kahn's Algorithm
         in_degree = [0] * (n + 1)
-        for u in range(1, n + 1):
+        for u in range(1, n + 1):                           # tính bậc vào
             for v in adj[u]:
                 in_degree[v] += 1
 
-        q = deque([i for i in range(1, n + 1) if in_degree[i] == 0])
+        q = deque([i for i in range(1, n + 1) if in_degree[i] == 0])  # đỉnh bậc vào 0
         result = []
 
         while q:
             u = q.popleft()
-            result.append(u)
+            result.append(u)                                # thêm vào kết quả
             for v in adj[u]:
-                in_degree[v] -= 1
+                in_degree[v] -= 1                           # giảm bậc vào
                 if in_degree[v] == 0:
-                    q.append(v)
+                    q.append(v)                             # bậc vào về 0 → vào queue
 
-        return result if len(result) == n else []
+        return result if len(result) == n else []            # [] nếu có chu trình
     ```
 
 ### Phân tích tính đúng đắn

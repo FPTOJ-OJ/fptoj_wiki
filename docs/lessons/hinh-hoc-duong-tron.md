@@ -423,7 +423,7 @@ Và chiều cao $h$ là khoảng cách từ giao điểm tới đoạn nối tâ
 
         double r1 = C1.r, r2 = C2.r;
         double alpha = acos((d * d + r1 * r1 - r2 * r2) / (2.0 * d * r1));
-        double beta = acos((d * d + r2 * r2 - r1 * r2) / (2.0 * d * r2)); // Sửa lỗi r1*r2
+        double beta = acos((d * d + r2 * r2 - r1 * r1) / (2.0 * d * r2));
         
         double term1 = r1 * r1 * alpha;
         double term2 = r2 * r2 * beta;
@@ -457,7 +457,20 @@ Và chiều cao $h$ là khoảng cách từ giao điểm tới đoạn nối tâ
 
 ---
 
-## 7. Bài tập luyện tập và Lời giải chi tiết
+## 7. Bài tập luyện tập (FPTOJ)
+
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `circle-inside` | [Kiểm tra điểm và đường tròn](https://fptoj.com/problem/circle-inside) | ⭐ | Vị trí điểm so với đường tròn |
+| `circle-intersect` | [Số giao điểm hai đường tròn](https://fptoj.com/problem/circle-intersect) | ⭐⭐ | Vị trí tương đối hai đường tròn |
+| `circle-circum` | [Bán kính đường tròn ngoại tiếp](https://fptoj.com/problem/circle-circum) | ⭐⭐ | Đường tròn ngoại tiếp tam giác |
+| `circle-tangent` | [Tiếp tuyến từ điểm đến đường tròn](https://fptoj.com/problem/circle-tangent) | ⭐⭐⭐ | Tiếp tuyến |
+| `circle-from3` | [Đường tròn qua ba điểm](https://fptoj.com/problem/circle-from3) | ⭐⭐⭐ | Xác định đường tròn |
+| `circle-2intersect` | [Giao điểm hai đường tròn](https://fptoj.com/problem/circle-2intersect) | ⭐⭐⭐ | Tọa độ giao điểm đường tròn |
+| `circle-line-inter` | [Giao điểm đường thẳng và đường tròn](https://fptoj.com/problem/circle-line-inter) | ⭐⭐⭐ | Tọa độ giao điểm |
+| `circle-area-inter` | [Diện tích phần giao hai đường tròn](https://fptoj.com/problem/circle-area-inter) | ⭐⭐⭐⭐ | Diện tích giao nhau |
+
+## 8. Bài tập luyện tập và Lời giải chi tiết
 
 ### Bài 1: Kiểm tra điểm trong đường tròn
 **Đề bài:** Cho đường tròn tâm $O(a, b)$ bán kính $r$ và điểm $P(x, y)$. Kiểm tra điểm $P$ nằm trong, nằm trên hay nằm ngoài đường tròn.

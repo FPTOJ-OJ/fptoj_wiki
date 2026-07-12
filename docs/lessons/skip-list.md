@@ -149,41 +149,41 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
         mt19937 rng;
 
         SkipList(int n) {
-            maxLevel = __lg(n) + 1;
-            head = new Node(INT_MIN, maxLevel);
+            maxLevel = __lg(n) + 1;                     // số tầng tối đa log2(n)
+            head = new Node(INT_MIN, maxLevel);         // node đầu với giá trị -∞
             rng = mt19937(chrono::steady_clock::now().time_since_epoch().count());
         }
 
         int randomLevel() {
             int lvl = 0;
-            while ((rng() & 1) && lvl < maxLevel) lvl++;
+            while ((rng() & 1) && lvl < maxLevel) lvl++;  // tung đồng xu, xác suất 50% nâng tầng
             return lvl;
         }
 
         bool search(int target) {
             Node* cur = head;
-            for (int i = maxLevel; i >= 0; i--) {
+            for (int i = maxLevel; i >= 0; i--) {         // duyệt từ tầng cao nhất
                 while (cur->next[i] && cur->next[i]->val < target)
-                    cur = cur->next[i];
+                    cur = cur->next[i];                   // nhảy sang phải nếu còn nhỏ hơn target
             }
-            cur = cur->next[0];
+            cur = cur->next[0];                           // xuống tầng 0 để kiểm tra
             return cur && cur->val == target;
         }
 
         void insert(int val) {
-            vector<Node*> update(maxLevel + 1, head);
+            vector<Node*> update(maxLevel + 1, head);     // mảng lưu node trước vị trí chèn ở mỗi tầng
             Node* cur = head;
 
-            for (int i = maxLevel; i >= 0; i--) {
+            for (int i = maxLevel; i >= 0; i--) {         // tìm vị trí chèn trên từng tầng
                 while (cur->next[i] && cur->next[i]->val < val)
                     cur = cur->next[i];
                 update[i] = cur;
             }
 
-            int newLevel = randomLevel();
+            int newLevel = randomLevel();                 // xác định số tầng cho node mới
             Node* newNode = new Node(val, newLevel);
 
-            for (int i = 0; i <= newLevel; i++) {
+            for (int i = 0; i <= newLevel; i++) {         // nối node mới vào các tầng tương ứng
                 newNode->next[i] = update[i]->next[i];
                 update[i]->next[i] = newNode;
             }
@@ -198,16 +198,16 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
         for (int i = 0; i < n; i++) {
             int x;
             cin >> x;
-            sl.insert(x);
+            sl.insert(x);                                 // chèn n phần tử ban đầu
         }
 
-        while (q--) {
+        while (q--) {                                     // xử lý q truy vấn
             int type, val;
             cin >> type >> val;
             if (type == 1) {
-                sl.insert(val);
+                sl.insert(val);                           // chèn thêm
             } else {
-                cout << (sl.search(val) ? "YES" : "NO") << "\n";
+                cout << (sl.search(val) ? "YES" : "NO") << "\n";  // tìm kiếm
             }
         }
         return 0;
@@ -229,36 +229,36 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
 
     class SkipList:
         def __init__(self, n):
-            self.max_level = n.bit_length()
-            self.head = Node(float('-inf'), self.max_level)
+            self.max_level = n.bit_length()                 # số tầng tối đa
+            self.head = Node(float('-inf'), self.max_level) # node đầu giá trị -∞
 
         def random_level(self):
             lvl = 0
-            while random.random() < 0.5 and lvl < self.max_level:
+            while random.random() < 0.5 and lvl < self.max_level:  # tung đồng xu 50%
                 lvl += 1
             return lvl
 
         def search(self, target):
             cur = self.head
-            for i in range(self.max_level, -1, -1):
+            for i in range(self.max_level, -1, -1):       # duyệt từ tầng cao nhất
                 while cur.next[i] and cur.next[i].val < target:
-                    cur = cur.next[i]
-            cur = cur.next[0]
+                    cur = cur.next[i]                     # nhảy sang phải
+            cur = cur.next[0]                             # xuống tầng 0 kiểm tra
             return cur is not None and cur.val == target
 
         def insert(self, val):
-            update = [self.head] * (self.max_level + 1)
+            update = [self.head] * (self.max_level + 1)    # node trước vị trí chèn mỗi tầng
             cur = self.head
 
-            for i in range(self.max_level, -1, -1):
+            for i in range(self.max_level, -1, -1):        # tìm vị trí chèn
                 while cur.next[i] and cur.next[i].val < val:
                     cur = cur.next[i]
                 update[i] = cur
 
-            new_level = self.random_level()
+            new_level = self.random_level()                # xác định số tầng cho node mới
             new_node = Node(val, new_level)
 
-            for i in range(new_level + 1):
+            for i in range(new_level + 1):                 # nối node mới vào các tầng
                 new_node.next[i] = update[i].next[i]
                 update[i].next[i] = new_node
 
@@ -266,9 +266,9 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
     sl = SkipList(n)
 
     for x in map(int, input().split()):
-        sl.insert(x)
+        sl.insert(x)                                       # chèn n phần tử ban đầu
 
-    for _ in range(q):
+    for _ in range(q):                                     # xử lý q truy vấn
         parts = list(map(int, input().split()))
         if parts[0] == 1:
             sl.insert(parts[1])

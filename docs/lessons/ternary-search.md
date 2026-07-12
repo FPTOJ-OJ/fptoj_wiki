@@ -550,26 +550,17 @@ Nếu hàm có nhiều đỉnh, Ternary Search có thể hội tụ vào cực t
 
 ## Bài tập luyện tập
 
-| # | Tên bài | Nguồn | Độ khó | Ghi chú |
-|---|---------|-------|--------|---------|
-| 1 | [Devu and his Brother](https://codeforces.com/contest/439/problem/D) | CF | ★★★ | Ternary search cơ bản |
-| 2 | [Maximize!](https://codeforces.com/contest/939/problem/E) | CF | ★★★ | Ternary trên mảng sorted |
-| 3 | [Block Towers](https://codeforces.com/contest/626/problem/E) | CF | ★★★ | Ternary search kinh điển |
-| 4 | [Weakness and Poorness](https://codeforces.com/contest/578/problem/C) | CF | ★★★★ | Ternary trên giá trị thực |
-| 5 | [Restorer Distance](https://codeforces.com/contest/1355/problem/E) | CF | ★★★★ | Ternary trên answer space |
-| 6 | [Searching Local Minimum](https://codeforces.com/contest/1479/problem/A) | CF | ★★★★ | Interactive, ternary-like |
-| 7 | [Nature Reserve](https://codeforces.com/contest/1059/problem/D) | CF | ★★★★ | Ternary trên giá trị thực |
-| 8 | [Moore's Law](https://atcoder.jp/contests/arc054/tasks/arc054_b) | AtCoder | ★★★ | Ternary trên hàm liên tục |
-| 9 | [Stick Lengths](https://cses.fi/problemset/task/1074) | CSES | ★★☆ | Tìm giá trị tối thiểu |
-| 10 | [Array Division](https://cses.fi/problemset/task/1085) | CSES | ★★★ | Binary search on answer |
-
-### Gợi ý cách tiếp cận
-
-**Bài 1-3:** Áp dụng trực tiếp Ternary Search trên hàm unimodal. Bắt đầu với floating point, sau đó thử integer.
-
-**Bài 4-5:** Cần nhận ra hàm mục tiêu là unimodal. Đôi khi cần biến đổi bài toán trước khi áp dụng.
-
-**Bài 6-8:** Ternary Search trên miền nghiệm hoặc hàm liên tục. Kết hợp với binary search hoặc geometry.
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `ts-find-max` | [Tìm max](https://fptoj.com/problem/ts-find-max) | ⭐ | Ternary Search - Tìm max cơ bản | [Ternary Search](ternary-search.md) |
+| `ts-parabola` | [Parabol](https://fptoj.com/problem/ts-parabola) | ⭐⭐ | Ternary Search - Hàm bậc 2 | [Ternary Search](ternary-search.md) |
+| `ts-peak` | [Đỉnh núi](https://fptoj.com/problem/ts-peak) | ⭐⭐ | Ternary Search - Mảng tăng/giảm | [Ternary Search](ternary-search.md) |
+| `ts-distance` | [Khoảng cách](https://fptoj.com/problem/ts-distance) | ⭐⭐⭐ | Ternary Search - Tổng khoảng cách | [Ternary Search](ternary-search.md) |
+| `ts-cover` | [Phủ sóng](https://fptoj.com/problem/ts-cover) | ⭐⭐⭐ | Ternary Search - Bán kính tối thiểu | [Ternary Search](ternary-search.md) |
+| `ts-delivery` | [Giao hàng](https://fptoj.com/problem/ts-delivery) | ⭐⭐⭐ | Ternary Search - Vị trí tối ưu | [Ternary Search](ternary-search.md) |
+| `ts-angle` | [Góc tối ưu](https://fptoj.com/problem/ts-angle) | ⭐⭐⭐ | Ternary Search - Góc bắn | [Ternary Search](ternary-search.md) |
+| `ts-circle` | [Hình tròn](https://fptoj.com/problem/ts-circle) | ⭐⭐⭐⭐ | Ternary Search - Hình tròn nhỏ nhất | [Ternary Search](ternary-search.md) |
+| `ts-convex` | [Hàm lồi](https://fptoj.com/problem/ts-convex) | ⭐⭐⭐⭐ | Ternary Search - Hàm lồi | [Ternary Search](ternary-search.md) |
 
 ---
 

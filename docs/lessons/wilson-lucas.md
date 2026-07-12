@@ -140,7 +140,7 @@ $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
         cin >> p;
         // (p-1)! ≡ -1 (mod p)
         long long fact = factorial_mod(p - 1, p);
-        cout << "(p-1)! mod p = " << fact << " (nen bang " << p - 1 << ")" << endl;
+        cout << "(p-1)! mod p = " << fact << " (nên bằng " << p - 1 << ")" << endl;
         return 0;
     }
     ```
@@ -156,7 +156,7 @@ $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
 
     p = int(input())
     fact = factorial_mod(p - 1, p)
-    print(f"(p-1)! mod p = {fact} (nen bang {p - 1})")
+    print(f"(p-1)! mod p = {fact} (nên bằng {p - 1})")
     ```
 
 ### Định lý Lucas

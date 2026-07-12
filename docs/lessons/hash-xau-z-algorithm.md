@@ -33,35 +33,47 @@ trong đó $H[i]$ là hash của $i$ ký tự đầu tiên.
     #include <bits/stdc++.h>
     using namespace std;
 
-    const long long MOD = 1e9 + 7;
-    const long long BASE = 31;
+    const long long MOD = 1e9 + 7;  // Modulo nguyên tố lớn
+    const long long BASE = 31;      // Cơ số (số nguyên tố hoặc số lẻ)
 
+    // Tính hash của toàn bộ xâu s
     long long computeHash(string s) {
         long long h = 0;
         for (char c : s)
+            // Mỗi ký tự được ánh xạ: 'a'=1, 'b'=2, ..., 'z'=26
+            // (c - 'a' + 1) tránh trường hợp hash("a") = hash("aa") = 0
             h = (h * BASE + (c - 'a' + 1)) % MOD;
         return h;
     }
 
+    // Thuật toán Rabin-Karp: tìm tất cả vị trí pattern xuất hiện trong text
     vector<int> rabinKarp(string text, string pattern) {
         int n = text.size(), m = pattern.size();
-        vector<int> positions;
+        vector<int> positions;  // Lưu các vị trí tìm thấy
 
+        // Bước 1: Tính hash của pattern
         long long hashP = computeHash(pattern);
 
+        // Bước 2: Tính trước lũy thừa của BASE: power[i] = BASE^i mod MOD
         vector<long long> power(n + 1);
-        power[0] = 1;
+        power[0] = 1;  // BASE^0 = 1
         for (int i = 1; i <= n; i++)
             power[i] = (power[i - 1] * BASE) % MOD;
 
+        // Bước 3: Tính hash tiền tố của text
+        // hashT[i] = hash của text[0..i-1] (i ký tự đầu)
         vector<long long> hashT(n + 1);
+        hashT[0] = 0;  // Xâu rỗng có hash = 0
         for (int i = 0; i < n; i++)
             hashT[i + 1] = (hashT[i] * BASE + (text[i] - 'a' + 1)) % MOD;
 
+        // Bước 4: Trượt cửa sổ độ dài m trên text
         for (int i = 0; i <= n - m; i++) {
+            // Hash của text[i..i+m-1] = hashT[i+m] - hashT[i] * BASE^m
+            // Cộng MOD trước khi % để tránh kết quả âm
             long long curHash = (hashT[i + m] - hashT[i] * power[m] % MOD + MOD) % MOD;
             if (curHash == hashP)
-                positions.push_back(i);
+                positions.push_back(i);  // Hash khớp → ghi nhận vị trí
         }
         return positions;
     }
@@ -71,7 +83,7 @@ trong đó $H[i]$ là hash của $i$ ký tự đầu tiên.
         string pattern = "ab";
         auto pos = rabinKarp(text, pattern);
         for (int p : pos) cout << p << " ";
-        // Kết quả: 1 4 7
+        // Kết quả: 1 4 7 (pattern "ab" xuất hiện tại các vị trí 1, 4, 7)
     }
     ```
 
@@ -82,27 +94,36 @@ trong đó $H[i]$ là hash của $i$ ký tự đầu tiên.
         n, m = len(text), len(pattern)
         BASE, MOD = 31, 10**9 + 7
 
+        # Bước 1: Tính hash của pattern
         hash_p = 0
         for c in pattern:
+            # Mỗi ký tự được ánh xạ: 'a'=1, 'b'=2, ..., 'z'=26
+            # (ord(c) - ord('a') + 1) tránh trường hợp hash("a") = hash("aa")
             hash_p = (hash_p * BASE + ord(c) - ord('a') + 1) % MOD
 
-        power = [1] * (n + 1)
+        # Bước 2: Tính trước lũy thừa của BASE: power[i] = BASE^i mod MOD
+        power = [1] * (n + 1)  # power[0] = BASE^0 = 1
         for i in range(1, n + 1):
             power[i] = (power[i - 1] * BASE) % MOD
 
-        hash_t = [0] * (n + 1)
+        # Bước 3: Tính hash tiền tố của text
+        # hash_t[i] = hash của text[0..i-1] (i ký tự đầu)
+        hash_t = [0] * (n + 1)  # hash_t[0] = 0 (xâu rỗng)
         for i in range(n):
             hash_t[i + 1] = (hash_t[i] * BASE + ord(text[i]) - ord('a') + 1) % MOD
 
+        # Bước 4: Trượt cửa sổ độ dài m trên text
         positions = []
         for i in range(n - m + 1):
+            # Hash của text[i..i+m-1] = hash_t[i+m] - hash_t[i] * BASE^m
+            # Cộng MOD trước khi % để tránh kết quả âm
             cur_hash = (hash_t[i + m] - hash_t[i] * power[m] % MOD + MOD) % MOD
             if cur_hash == hash_p:
-                positions.append(i)
+                positions.append(i)  # Hash khớp → ghi nhận vị trí
         return positions
 
     print(rabin_karp("aabcabaab", "ab"))
-    # Kết quả: [1, 4, 7]
+    # Kết quả: [1, 4, 7] (pattern "ab" xuất hiện tại các vị trí 1, 4, 7)
     ```
 
 ### Phân tích tính đúng đắn
@@ -141,30 +162,39 @@ Với $1$ hash, chỉ cần $\sim 44{,}721$ xâu ($\approx \sqrt{2 \times 10^9}$
 === "C++"
 
     ```cpp
-    const long long MOD1 = 1e9 + 7, MOD2 = 1e9 + 9;
-    const long long BASE1 = 31, BASE2 = 37;
+    const long long MOD1 = 1e9 + 7, MOD2 = 1e9 + 9;  // Hai modulo nguyên tố
+    const long long BASE1 = 31, BASE2 = 37;            // Hai cơ số khác nhau
 
+    // Cấu trúc lưu cặp hash (h1, h2)
     struct DoubleHash {
         long long h1, h2;
         DoubleHash(long long a = 0, long long b = 0) : h1(a), h2(b) {}
+
+        // Hai xâu trùng nhau chỉ khi CẢ HAI hash đều khớp
         bool operator==(const DoubleHash& o) const {
             return h1 == o.h1 && h2 == o.h2;
         }
     };
 
+    // Tính double hash cho toàn bộ xâu s
     DoubleHash computeDoubleHash(string s) {
         long long h1 = 0, h2 = 0;
         for (char c : s) {
-            h1 = (h1 * BASE1 + (c - 'a' + 1)) % MOD1;
-            h2 = (h2 * BASE2 + (c - 'a' + 1)) % MOD2;
+            h1 = (h1 * BASE1 + (c - 'a' + 1)) % MOD1;  // Hash với MOD1
+            h2 = (h2 * BASE2 + (c - 'a' + 1)) % MOD2;  // Hash với MOD2
         }
         return DoubleHash(h1, h2);
     }
 
-    DoubleHash computePrefixDoubleHash(string s, int l, int r,
+    // Tính double hash của xâu con s[l..r] từ mảng hash tiền tố
+    // p1, p2: mảng lũy thừa của BASE1, BASE2
+    // h1, h2: mảng hash tiền tố
+    DoubleHash computePrefixDoubleHash(int l, int r,
                                         vector<long long>& p1, vector<long long>& p2,
                                         vector<long long>& h1, vector<long long>& h2) {
+        // hash(s[l..r]) với MOD1
         long long a = (h1[r + 1] - h1[l] * p1[r - l + 1] % MOD1 + MOD1) % MOD1;
+        // hash(s[l..r]) với MOD2
         long long b = (h2[r + 1] - h2[l] * p2[r - l + 1] % MOD2 + MOD2) % MOD2;
         return DoubleHash(a, b);
     }
@@ -173,15 +203,26 @@ Với $1$ hash, chỉ cần $\sim 44{,}721$ xâu ($\approx \sqrt{2 \times 10^9}$
 === "Python"
 
     ```python
-    MOD1, MOD2 = 10**9 + 7, 10**9 + 9
-    BASE1, BASE2 = 31, 37
+    MOD1, MOD2 = 10**9 + 7, 10**9 + 9  # Hai modulo nguyên tố
+    BASE1, BASE2 = 31, 37              # Hai cơ số khác nhau
 
+    # Tính double hash cho toàn bộ xâu s
     def compute_double_hash(s):
         h1, h2 = 0, 0
         for c in s:
-            h1 = (h1 * BASE1 + ord(c) - ord('a') + 1) % MOD1
-            h2 = (h2 * BASE2 + ord(c) - ord('a') + 1) % MOD2
+            h1 = (h1 * BASE1 + ord(c) - ord('a') + 1) % MOD1  # Hash với MOD1
+            h2 = (h2 * BASE2 + ord(c) - ord('a') + 1) % MOD2  # Hash với MOD2
         return (h1, h2)
+
+    # Tính double hash của xâu con s[l..r] từ mảng hash tiền tố
+    # p1, p2: mảng lũy thừa của BASE1, BASE2
+    # h1, h2: mảng hash tiền tố
+    def compute_prefix_double_hash(l, r, p1, p2, h1, h2):
+        # hash(s[l..r]) với MOD1
+        a = (h1[r + 1] - h1[l] * p1[r - l + 1] % MOD1 + MOD1) % MOD1
+        # hash(s[l..r]) với MOD2
+        b = (h2[r + 1] - h2[l] * p2[r - l + 1] % MOD2 + MOD2) % MOD2
+        return (a, b)
     ```
 
 ### Đánh giá độ phức tạp
@@ -209,12 +250,15 @@ Khi kết hợp với ký tự phân tách, Z-function giải bài toán tìm x�
 === "C++"
 
     ```cpp
+    // Z-function naive: so sánh trực tiếp từng ký tự
+    // Mỗi vị trí i có thể cần so sánh tới N ký tự → O(N^2)
     vector<int> z_function_naive(string s) {
         int n = s.length();
-        vector<int> z(n);
+        vector<int> z(n);  // z[0] không dùng, mặc định = 0
         for (int i = 1; i < n; i++)
+            // So sánh s[z[i]] với s[i+z[i]] cho đến khi khác hoặc hết xâu
             while (i + z[i] < n && s[z[i]] == s[i + z[i]])
-                z[i]++;
+                z[i]++;  // Tăng độ dài khớp thêm 1
         return z;
     }
     ```
@@ -222,12 +266,15 @@ Khi kết hợp với ký tự phân tách, Z-function giải bài toán tìm x�
 === "Python"
 
     ```python
+    # Z-function naive: so sánh trực tiếp từng ký tự
+    # Mỗi vị trí i có thể cần so sánh tới N ký tự → O(N^2)
     def z_function_naive(s):
         n = len(s)
-        z = [0] * n
+        z = [0] * n  # z[0] không dùng, mặc định = 0
         for i in range(1, n):
+            # So sánh s[z[i]] với s[i+z[i]] cho đến khi khác hoặc hết xâu
             while i + z[i] < n and s[z[i]] == s[i + z[i]]:
-                z[i] += 1
+                z[i] += 1  # Tăng độ dài khớp thêm 1
         return z
     ```
 

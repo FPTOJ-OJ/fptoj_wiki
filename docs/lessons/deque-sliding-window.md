@@ -85,20 +85,20 @@ Tưởng tượng bạn là tuyển thủ, đứng trong hàng theo thứ tự �
     using namespace std;
 
     vector<int> slidingWindowMax(vector<int>& a, int k) {
-        deque<int> dq;
-        vector<int> result;
+        deque<int> dq;          // deque lưu chỉ số, duy trì giảm dần
+        vector<int> result;     // mảng kết quả
 
         for (int i = 0; i < a.size(); i++) {
             while (!dq.empty() && dq.front() <= i - k)
-                dq.pop_front();
+                dq.pop_front();         // loại phần tử ngoài cửa sổ
 
             while (!dq.empty() && a[dq.back()] <= a[i])
-                dq.pop_back();
+                dq.pop_back();          // loại phần tử nhỏ hơn a[i]
 
-            dq.push_back(i);
+            dq.push_back(i);            // thêm chỉ số i vào deque
 
             if (i >= k - 1)
-                result.push_back(a[dq.front()]);
+                result.push_back(a[dq.front()]);  // ghi nhận max của cửa sổ
         }
         return result;
     }
@@ -106,7 +106,7 @@ Tưởng tượng bạn là tuyển thủ, đứng trong hàng theo thứ tự �
     int main() {
         vector<int> a = {1, 3, -1, -3, 5, 3, 6, 7};
         auto res = slidingWindowMax(a, 3);
-        for (int x : res) cout << x << " ";
+        for (int x : res) cout << x << " ";  // in kết quả
     }
     ```
 
@@ -116,20 +116,20 @@ Tưởng tượng bạn là tuyển thủ, đứng trong hàng theo thứ tự �
     from collections import deque
 
     def sliding_window_max(a, k):
-        dq = deque()
-        result = []
+        dq = deque()        # deque lưu chỉ số, duy trì giảm dần
+        result = []         # mảng kết quả
 
         for i in range(len(a)):
             while dq and dq[0] <= i - k:
-                dq.popleft()
+                dq.popleft()            # loại phần tử ngoài cửa sổ
 
             while dq and a[dq[-1]] <= a[i]:
-                dq.pop()
+                dq.pop()                # loại phần tử nhỏ hơn a[i]
 
-            dq.append(i)
+            dq.append(i)                # thêm chỉ số i vào deque
 
             if i >= k - 1:
-                result.append(a[dq[0]])
+                result.append(a[dq[0]]) # ghi nhận max của cửa sổ
 
         return result
     ```
@@ -159,20 +159,20 @@ Tìm **giá trị nhỏ nhất** trong mỗi cửa sổ $\Rightarrow$ giữ dequ
 
     ```cpp
     vector<int> slidingWindowMin(vector<int>& a, int k) {
-        deque<int> dq;
-        vector<int> result;
+        deque<int> dq;          // deque lưu chỉ số, duy trì tăng dần
+        vector<int> result;     // mảng kết quả
 
         for (int i = 0; i < a.size(); i++) {
             while (!dq.empty() && dq.front() <= i - k)
-                dq.pop_front();
+                dq.pop_front();         // loại phần tử ngoài cửa sổ
 
             while (!dq.empty() && a[dq.back()] >= a[i])
-                dq.pop_back();
+                dq.pop_back();          // loại phần tử lớn hơn a[i]
 
-            dq.push_back(i);
+            dq.push_back(i);            // thêm chỉ số i vào deque
 
             if (i >= k - 1)
-                result.push_back(a[dq.front()]);
+                result.push_back(a[dq.front()]);  // ghi nhận min của cửa sổ
         }
         return result;
     }
@@ -184,20 +184,20 @@ Tìm **giá trị nhỏ nhất** trong mỗi cửa sổ $\Rightarrow$ giữ dequ
     from collections import deque
 
     def sliding_window_min(a, k):
-        dq = deque()
-        result = []
+        dq = deque()        # deque lưu chỉ số, duy trì tăng dần
+        result = []         # mảng kết quả
 
         for i in range(len(a)):
             while dq and dq[0] <= i - k:
-                dq.popleft()
+                dq.popleft()            # loại phần tử ngoài cửa sổ
 
             while dq and a[dq[-1]] >= a[i]:
-                dq.pop()
+                dq.pop()                # loại phần tử lớn hơn a[i]
 
-            dq.append(i)
+            dq.append(i)                # thêm chỉ số i vào deque
 
             if i >= k - 1:
-                result.append(a[dq[0]])
+                result.append(a[dq[0]]) # ghi nhận min của cửa sổ
 
         return result
     ```
@@ -210,17 +210,17 @@ Nhiều bài toán cần tìm **cả min và max** trong mỗi cửa sổ (ví d
 
     ```cpp
     bool hasGoodSubarray(vector<int>& a, int k, int threshold) {
-        deque<int> maxDq, minDq;
+        deque<int> maxDq, minDq;    // deque cho max (giảm dần) và min (tăng dần)
 
         for (int i = 0; i < a.size(); i++) {
-            while (!maxDq.empty() && maxDq.front() <= i - k) maxDq.pop_front();
-            while (!minDq.empty() && minDq.front() <= i - k) minDq.pop_front();
+            while (!maxDq.empty() && maxDq.front() <= i - k) maxDq.pop_front(); // loại phần tử ngoài cửa sổ (max)
+            while (!minDq.empty() && minDq.front() <= i - k) minDq.pop_front(); // loại phần tử ngoài cửa sổ (min)
 
-            while (!maxDq.empty() && a[maxDq.back()] <= a[i]) maxDq.pop_back();
-            while (!minDq.empty() && a[minDq.back()] >= a[i]) minDq.pop_back();
+            while (!maxDq.empty() && a[maxDq.back()] <= a[i]) maxDq.pop_back(); // duy trì deque max giảm dần
+            while (!minDq.empty() && a[minDq.back()] >= a[i]) minDq.pop_back(); // duy trì deque min tăng dần
 
-            maxDq.push_back(i);
-            minDq.push_back(i);
+            maxDq.push_back(i);     // thêm chỉ số i vào deque max
+            minDq.push_back(i);     // thêm chỉ số i vào deque min
 
             if (i >= k - 1) {
                 int windowMax = a[maxDq.front()];
@@ -239,22 +239,22 @@ Nhiều bài toán cần tìm **cả min và max** trong mỗi cửa sổ (ví d
     from collections import deque
 
     def has_good_subarray(a, k, threshold):
-        max_dq = deque()
-        min_dq = deque()
+        max_dq = deque()    # deque cho max (giảm dần)
+        min_dq = deque()    # deque cho min (tăng dần)
 
         for i in range(len(a)):
             while max_dq and max_dq[0] <= i - k:
-                max_dq.popleft()
+                max_dq.popleft()        # loại phần tử ngoài cửa sổ (max)
             while min_dq and min_dq[0] <= i - k:
-                min_dq.popleft()
+                min_dq.popleft()        # loại phần tử ngoài cửa sổ (min)
 
             while max_dq and a[max_dq[-1]] <= a[i]:
-                max_dq.pop()
+                max_dq.pop()            # duy trì deque max giảm dần
             while min_dq and a[min_dq[-1]] >= a[i]:
-                min_dq.pop()
+                min_dq.pop()            # duy trì deque min tăng dần
 
-            max_dq.append(i)
-            min_dq.append(i)
+            max_dq.append(i)            # thêm chỉ số i vào deque max
+            min_dq.append(i)            # thêm chỉ số i vào deque min
 
             if i >= k - 1:
                 window_max = a[max_dq[0]]
@@ -275,17 +275,17 @@ Cho mảng $A$, với mỗi phần tử $A[i]$, tìm chỉ số $j > i$ sao cho 
     ```cpp
     vector<int> nextGreaterElement(vector<int>& a) {
         int n = a.size();
-        vector<int> nge(n, -1);
-        deque<int> dq;
+        vector<int> nge(n, -1);     // mảng kết quả, khởi tạo bằng -1
+        deque<int> dq;              // deque lưu chỉ số, duy trì giảm dần
 
-        for (int i = n - 1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {       // duyệt từ phải sang trái
             while (!dq.empty() && a[dq.back()] <= a[i])
-                dq.pop_back();
+                dq.pop_back();                   // loại phần tử nhỏ hơn hoặc bằng a[i]
 
             if (!dq.empty())
-                nge[i] = dq.back();
+                nge[i] = dq.back();              // phần tử đầu deque là next greater
 
-            dq.push_back(i);
+            dq.push_back(i);                     // thêm chỉ số i vào deque
         }
         return nge;
     }
@@ -296,15 +296,15 @@ Cho mảng $A$, với mỗi phần tử $A[i]$, tìm chỉ số $j > i$ sao cho 
     ```python
     def next_greater_element(a):
         n = len(a)
-        nge = [-1] * n
-        dq = []
+        nge = [-1] * n      # mảng kết quả, khởi tạo bằng -1
+        dq = []             # dùng list làm stack/deque
 
-        for i in range(n - 1, -1, -1):
+        for i in range(n - 1, -1, -1):      # duyệt từ phải sang trái
             while dq and a[dq[-1]] <= a[i]:
-                dq.pop()
+                dq.pop()                    # loại phần tử nhỏ hơn hoặc bằng a[i]
             if dq:
-                nge[i] = dq[-1]
-            dq.append(i)
+                nge[i] = dq[-1]             # phần tử cuối deque là next greater
+            dq.append(i)                    # thêm chỉ số i vào deque
 
         return nge
     ```
@@ -325,15 +325,15 @@ Tương tự, chỉ cần đảo dấu so sánh ($\ge$ thay vì $\le$).
     ```cpp
     vector<int> nextSmallerElement(vector<int>& a) {
         int n = a.size();
-        vector<int> nse(n, -1);
-        deque<int> dq;
+        vector<int> nse(n, -1);     // mảng kết quả, khởi tạo bằng -1
+        deque<int> dq;              // deque lưu chỉ số, duy trì tăng dần
 
-        for (int i = n - 1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {       // duyệt từ phải sang trái
             while (!dq.empty() && a[dq.back()] >= a[i])
-                dq.pop_back();
+                dq.pop_back();                   // loại phần tử lớn hơn hoặc bằng a[i]
             if (!dq.empty())
-                nse[i] = dq.back();
-            dq.push_back(i);
+                nse[i] = dq.back();              // phần tử đầu deque là next smaller
+            dq.push_back(i);                     // thêm chỉ số i vào deque
         }
         return nse;
     }
@@ -344,15 +344,15 @@ Tương tự, chỉ cần đảo dấu so sánh ($\ge$ thay vì $\le$).
     ```python
     def next_smaller_element(a):
         n = len(a)
-        nse = [-1] * n
-        dq = []
+        nse = [-1] * n      # mảng kết quả, khởi tạo bằng -1
+        dq = []             # dùng list làm stack/deque
 
-        for i in range(n - 1, -1, -1):
+        for i in range(n - 1, -1, -1):      # duyệt từ phải sang trái
             while dq and a[dq[-1]] >= a[i]:
-                dq.pop()
+                dq.pop()                    # loại phần tử lớn hơn hoặc bằng a[i]
             if dq:
-                nse[i] = dq[-1]
-            dq.append(i)
+                nse[i] = dq[-1]             # phần tử cuối deque là next smaller
+            dq.append(i)                    # thêm chỉ số i vào deque
 
         return nse
     ```
@@ -366,18 +366,18 @@ Tương tự, chỉ cần đảo dấu so sánh ($\ge$ thay vì $\le$).
     ```cpp
     int largestRectangleArea(vector<int>& heights) {
         int n = heights.size();
-        stack<int> st;
-        int maxArea = 0;
+        stack<int> st;              // stack lưu chỉ số, duy trì tăng dần
+        int maxArea = 0;            // diện tích lớn nhất
 
         for (int i = 0; i <= n; i++) {
-            int h = (i == n) ? 0 : heights[i];
+            int h = (i == n) ? 0 : heights[i];  // thêm phần tử 0 ở cuối để xử lý toàn bộ stack
             while (!st.empty() && h < heights[st.top()]) {
                 int height = heights[st.top()];
-                st.pop();
+                st.pop();                        // lấy chiều cao và pop
                 int width = st.empty() ? i : i - st.top() - 1;
-                maxArea = max(maxArea, height * width);
+                maxArea = max(maxArea, height * width);  // cập nhật diện tích lớn nhất
             }
-            st.push(i);
+            st.push(i);                          // thêm chỉ số i vào stack
         }
         return maxArea;
     }
@@ -388,16 +388,16 @@ Tương tự, chỉ cần đảo dấu so sánh ($\ge$ thay vì $\le$).
     ```python
     def largest_rectangle_area(heights):
         n = len(heights)
-        st = []
-        max_area = 0
+        st = []             # stack lưu chỉ số, duy trì tăng dần
+        max_area = 0        # diện tích lớn nhất
 
         for i in range(n + 1):
-            h = 0 if i == n else heights[i]
+            h = 0 if i == n else heights[i]     # thêm phần tử 0 ở cuối
             while st and h < heights[st[-1]]:
-                height = heights[st.pop()]
+                height = heights[st.pop()]       # lấy chiều cao và pop
                 width = i if not st else i - st[-1] - 1
-                max_area = max(max_area, height * width)
-            st.append(i)
+                max_area = max(max_area, height * width)  # cập nhật diện tích lớn nhất
+            st.append(i)                         # thêm chỉ số i vào stack
 
         return max_area
     ```

@@ -41,11 +41,31 @@ Cây 5 đỉnh: $(1,2,w=3)$, $(1,3,w=5)$, $(2,4,w=2)$, $(2,5,w=7)$
 | 4 | 2 | 2 | 1 | $\min(2, 3) = 2$ |
 | 5 | 2 | 7 | 1 | $\min(7, 3) = 3$ |
 
-**Truy vấn:** Min trên đường đi $4 \to 3$.
+**Truy vấn 1:** Min/Max trên đường đi $4 \to 3$.
 
-| Bước | $u$ | $v$ | LCA | Min $4 \to$ LCA | Min $3 \to$ LCA | Kết quả |
+| Bước | $u$ | $v$ | LCA | Min $4 \to$ LCA | Max $4 \to$ LCA | Min $3 \to$ LCA | Max $3 \to$ LCA | Kết quả |
+|------|-----|-----|-----|-----------------|-----------------|-----------------|-----------------|---------|
+| 1 | 4 | 3 | 1 | $\min(2,3)=2$ | $\max(2,3)=3$ | $\min(5)=5$ | $\max(5)=5$ | $(2,5)$ |
+
+Chi tiết từng bước nhảy:
+1. $depth[4]=2$, $depth[3]=1$, $diff=1$ → nhảy $4$ lên $up[4][0]=2$, minEdge$=2$, maxEdge$=2$.
+2. $u=2$, $v=3$ khác nhau. Xét $j=1$: $up[2][1]=1$, $up[3][1]=0$ khác → nhảy: $u=1$, $v=0$.
+3. Xét $j=0$: $up[1][0]=0$, $up[0][0]=0$ giống → dừng.
+4. Lấy min/max 1 bước cuối: $\min(2,5)=2$, $\max(3,5)=5$.
+
+**Truy vấn 2:** Max trên đường đi $4 \to 5$ (cùng nhánh).
+
+| Bước | $u$ | $v$ | LCA | Max $4 \to$ LCA | Max $5 \to$ LCA | Kết quả |
 |------|-----|-----|-----|-----------------|-----------------|---------|
-| 1 | 4 | 3 | 1 | $\min(2, 3) = 2$ | $\min(5) = 5$ | $\min(2, 5) = 2$ |
+| 1 | 4 | 5 | 2 | $\max(2)=2$ | $\max(7)=7$ | $\max(2,7)=7$ |
+
+**Truy vấn 3:** Min/Max trên đường đi $4 \to 1$ ($1$ là gốc, $4$ là cháu).
+
+| Bước | $u$ | $v$ | LCA | Min $4 \to$ LCA | Max $4 \to$ LCA |
+|------|-----|-----|-----|-----------------|-----------------|
+| 1 | 4 | 1 | 1 (v=$1$) | $\min(2,3)=2$ | $\max(2,3)=3$ |
+
+$diff=2$ → nhảy: $j=1$ (bit 1): $4 \to up[4][1]=1$, minEdge$=2$, maxEdge$=3$. LCA = 1 → kết quả $(2,3)$.
 
 ---
 
@@ -71,84 +91,90 @@ Cây 5 đỉnh: $(1,2,w=3)$, $(1,3,w=5)$, $(2,4,w=2)$, $(2,5,w=7)$
         cin.tie(NULL);
 
         int n;
-        cin >> n;
+        cin >> n;                              // Số đỉnh của cây
 
-        int LOG = __lg(n) + 1;
-        vector<vector<int>> adj(n + 1);
-        vector<vector<pair<int,int>>> edges(n + 1);
+        int LOG = __lg(n) + 1;                 // Số bước nhảy tối đa: log2(N) + 1
+        vector<vector<int>> adj(n + 1);        // Danh sách kề (chỉ số đỉnh)
+        vector<vector<pair<int,int>>> edges(n + 1); // Danh sách kề (đỉnh + trọng số)
 
         for (int i = 0; i < n - 1; i++) {
             int u, v, w;
-            cin >> u >> v >> w;
+            cin >> u >> v >> w;                // Đọc cạnh: u, v, trọng số w
             adj[u].push_back(v);
             adj[v].push_back(u);
             edges[u].push_back({v, w});
             edges[v].push_back({u, w});
         }
 
-        vector<int> depth(n + 1, 0);
-        vector<vector<int>> up(n + 1, vector<int>(LOG, 0));
-        vector<vector<int>> minEdge(n + 1, vector<int>(LOG, INT_MAX));
-        vector<vector<int>> maxEdge(n + 1, vector<int>(LOG, INT_MIN));
+        vector<int> depth(n + 1, 0);           // depth[v] = độ sâu của đỉnh v
+        vector<vector<int>> up(n + 1, vector<int>(LOG, 0));  // up[v][j] = tổ tiên 2^j của v
+        vector<vector<int>> minEdge(n + 1, vector<int>(LOG, INT_MAX)); // min trên đoạn 2^j
+        vector<vector<int>> maxEdge(n + 1, vector<int>(LOG, INT_MIN)); // max trên đoạn 2^j
 
-        // BFS từ đỉnh 1
+        // BFS từ đỉnh 1 (gốc) để tính depth và up[][0], minEdge[][0], maxEdge[][0]
         queue<int> q;
         q.push(1);
-        depth[1] = 0;
+        depth[1] = 0;                          // Gốc có độ sâu 0
 
         while (!q.empty()) {
             int u = q.front(); q.pop();
             for (auto [v, w] : edges[u]) {
-                if (v == up[u][0]) continue;
-                depth[v] = depth[u] + 1;
-                up[v][0] = u;
-                minEdge[v][0] = w;
-                maxEdge[v][0] = w;
+                if (v == up[u][0]) continue;   // Bỏ qua cạnh ngược lên cha
+                depth[v] = depth[u] + 1;        // Con sâu hơn cha 1 đơn vị
+                up[v][0] = u;                   // Tổ tiên 2^0 của v là u (cha trực tiếp)
+                minEdge[v][0] = w;              // Min trên đoạn 1 bước = trọng số cạnh
+                maxEdge[v][0] = w;              // Max trên đoạn 1 bước = trọng số cạnh
                 q.push(v);
             }
         }
 
-        // Binary Lifting
+        // Binary Lifting: xây bảng up, minEdge, maxEdge cho các bước nhảy 2^j
         for (int j = 1; j < LOG; j++) {
             for (int i = 1; i <= n; i++) {
-                up[i][j] = up[up[i][j-1]][j-1];
+                up[i][j] = up[up[i][j-1]][j-1];  // Tổ tiên 2^j = tổ tiên 2^(j-1) của tổ tiên 2^(j-1)
+                // Min/Max trên đoạn 2^j = min/max của 2 đoạn 2^(j-1) ghép lại
                 minEdge[i][j] = min(minEdge[i][j-1], minEdge[up[i][j-1]][j-1]);
                 maxEdge[i][j] = max(maxEdge[i][j-1], maxEdge[up[i][j-1]][j-1]);
             }
         }
 
+        // Hàm truy vấn: trả về (min, max) trên đường đi từ u đến v
         auto query = [&](int u, int v) -> pair<int,int> {
-            if (depth[u] < depth[v]) swap(u, v);
+            if (depth[u] < depth[v]) swap(u, v); // Đưa u xuống sâu hơn (hoặc bằng) v
             int mn = INT_MAX, mx = INT_MIN;
-            int diff = depth[u] - depth[v];
+            int diff = depth[u] - depth[v];       // Chênh lệch độ sâu
+            // Bước 1: đưa u lên ngang độ sâu với v
             for (int j = 0; j < LOG; j++) {
-                if (diff & (1 << j)) {
-                    mn = min(mn, minEdge[u][j]);
-                    mx = max(mx, maxEdge[u][j]);
-                    u = up[u][j];
+                if (diff & (1 << j)) {             // Nếu bit j của diff = 1
+                    mn = min(mn, minEdge[u][j]);   // Cập nhật min dọc đường
+                    mx = max(mx, maxEdge[u][j]);   // Cập nhật max dọc đường
+                    u = up[u][j];                  // Nhảy u lên 2^j bước
                 }
             }
-            if (u == v) return {mn, mx};
+            if (u == v) return {mn, mx};           // u là tổ tiên của v → xong
+
+            // Bước 2: nhảy cả u và v lên cùng lúc đến sát LCA
             for (int j = LOG - 1; j >= 0; j--) {
-                if (up[u][j] != up[v][j]) {
-                    mn = min(mn, min(minEdge[u][j], minEdge[v][j]));
-                    mx = max(mx, max(maxEdge[u][j], maxEdge[v][j]));
-                    u = up[u][j];
-                    v = up[v][j];
+                if (up[u][j] != up[v][j]) {        // Nếu tổ tiên 2^j khác nhau
+                    mn = min(mn, min(minEdge[u][j], minEdge[v][j])); // Cập nhật min
+                    mx = max(mx, max(maxEdge[u][j], maxEdge[v][j])); // Cập nhật max
+                    u = up[u][j];                  // Nhảy u lên 2^j
+                    v = up[v][j];                  // Nhảy v lên 2^j
                 }
             }
+            // Bước 3: u và v là con trực tiếp của LCA → lấy 1 bước cuối
             mn = min(mn, min(minEdge[u][0], minEdge[v][0]));
             mx = max(mx, max(maxEdge[u][0], maxEdge[v][0]));
             return {mn, mx};
         };
 
         int q_count;
-        cin >> q_count;
+        cin >> q_count;                          // Số truy vấn
         while (q_count--) {
             int u, v;
-            cin >> u >> v;
+            cin >> u >> v;                       // Đọc cặp đỉnh truy vấn
             auto [mn, mx] = query(u, v);
-            cout << mn << " " << mx << "\n";
+            cout << mn << " " << mx << "\n";      // In min và max trên đường đi
         }
         return 0;
     }
@@ -161,63 +187,85 @@ Cây 5 đỉnh: $(1,2,w=3)$, $(1,3,w=5)$, $(2,4,w=2)$, $(2,5,w=7)$
     import sys
     input = sys.stdin.readline
 
-    n = int(input())
-    LOG = n.bit_length()
-    adj = [[] for _ in range(n + 1)]
+    n = int(input())                           # Số đỉnh
+    LOG = n.bit_length()                       # log2(N) làm tròn lên
+    adj = [[] for _ in range(n + 1)]           # Danh sách kề (đỉnh, trọng số)
 
     for _ in range(n - 1):
-        u, v, w = map(int, input().split())
+        u, v, w = map(int, input().split())    # Đọc cạnh u-v có trọng số w
         adj[u].append((v, w))
         adj[v].append((u, w))
 
-    depth = [0] * (n + 1)
-    up = [[0] * LOG for _ in range(n + 1)]
-    min_edge = [[float('inf')] * LOG for _ in range(n + 1)]
-    max_edge = [[float('-inf')] * LOG for _ in range(n + 1)]
+    depth = [0] * (n + 1)                      # Độ sâu từ gốc
+    up = [[0] * LOG for _ in range(n + 1)]     # up[v][j] = tổ tiên 2^j của v
+    min_edge = [[float('inf')] * LOG for _ in range(n + 1)]  # min trên đoạn 2^j
+    max_edge = [[float('-inf')] * LOG for _ in range(n + 1)] # max trên đoạn 2^j
 
-    q = deque([1])
+    q = deque([1])                             # BFS từ đỉnh 1 (gốc)
     while q:
         u = q.popleft()
         for v, w in adj[u]:
-            if v == up[u][0]:
+            if v == up[u][0]:                  # Bỏ qua cạnh ngược lên cha
                 continue
-            depth[v] = depth[u] + 1
-            up[v][0] = u
-            min_edge[v][0] = w
-            max_edge[v][0] = w
+            depth[v] = depth[u] + 1            # Con sâu hơn cha 1
+            up[v][0] = u                       # Cha trực tiếp của v là u
+            min_edge[v][0] = w                 # Min đoạn 1 bước = w
+            max_edge[v][0] = w                 # Max đoạn 1 bước = w
             q.append(v)
 
+    # Binary Lifting: xây bảng cho bước nhảy 2^j
     for j in range(1, LOG):
         for i in range(1, n + 1):
-            up[i][j] = up[up[i][j-1]][j-1]
+            up[i][j] = up[up[i][j-1]][j-1]     # Nhảy 2 lần 2^(j-1)
+            # Min/Max = ghép min/max 2 đoạn 2^(j-1)
             min_edge[i][j] = min(min_edge[i][j-1], min_edge[up[i][j-1]][j-1])
             max_edge[i][j] = max(max_edge[i][j-1], max_edge[up[i][j-1]][j-1])
 
     def query(u, v):
+        # Trả về (min, max) trên đường đi từ u đến v
         if depth[u] < depth[v]:
-            u, v = v, u
+            u, v = v, u                         # u là đỉnh sâu hơn
         mn, mx = float('inf'), float('-inf')
-        diff = depth[u] - depth[v]
+        diff = depth[u] - depth[v]              # Chênh lệch độ sâu
+        # Đưa u lên ngang v
         for j in range(LOG):
-            if diff & (1 << j):
+            if diff & (1 << j):                  # Nếu bit j = 1
                 mn = min(mn, min_edge[u][j])
                 mx = max(mx, max_edge[u][j])
-                u = up[u][j]
-        if u == v:
+                u = up[u][j]                     # Nhảy u lên 2^j
+        if u == v:                               # u trùng v → đã đến LCA
             return mn, mx
+        # Nhảy cả u, v lên sát LCA
         for j in range(LOG - 1, -1, -1):
             if up[u][j] != up[v][j]:
                 mn = min(mn, min_edge[u][j], min_edge[v][j])
                 mx = max(mx, max_edge[u][j], max_edge[v][j])
                 u = up[u][j]
                 v = up[v][j]
+        # Lấy 1 bước cuối cùng đến LCA
         mn = min(mn, min_edge[u][0], min_edge[v][0])
         mx = max(mx, max_edge[u][0], max_edge[v][0])
         return mn, mx
 
-    q_count = int(input())
+    q_count = int(input())                       # Số truy vấn
     for _ in range(q_count):
-        u, v = map(int, input().split())
+        u, v = map(int, input().split())         # Đọc truy vấn
         mn, mx = query(u, v)
-        print(mn, mx)
+        print(mn, mx)                            # In min và max
     ```
+
+---
+
+## Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `rmqt-min-basic` | [Min Cơ Bản](https://fptoj.com/problem/rmqt-min-basic) | ⭐ | RMQ - Min cơ bản | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-min-path` | [Min Trên Đường Đi](https://fptoj.com/problem/rmqt-min-path) | ⭐⭐ | Giá trị nhỏ nhất trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-max-path` | [Max Trên Đường Đi](https://fptoj.com/problem/rmqt-max-path) | ⭐⭐ | Giá trị lớn nhất trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-minmax` | [Min/Max Trên Đường Đi](https://fptoj.com/problem/rmqt-minmax) | ⭐⭐ | Min và max trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-up-edge` | [Cập Nhật Cạnh](https://fptoj.com/problem/rmqt-up-edge) | ⭐⭐⭐ | Cập nhật trọng số cạnh | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-xor-path` | [XOR Trên Đường Đi](https://fptoj.com/problem/rmqt-xor-path) | ⭐⭐⭐ | XOR trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-or-path` | [OR Trên Đường Đi](https://fptoj.com/problem/rmqt-or-path) | ⭐⭐⭐ | OR trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-and-path` | [AND Trên Đường Đi](https://fptoj.com/problem/rmqt-and-path) | ⭐⭐⭐ | AND trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+| `rmqt-kth-edge` | [Cạnh Lớn Thứ K](https://fptoj.com/problem/rmqt-kth-edge) | ⭐⭐⭐⭐ | Cạnh lớn thứ $K$ trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |

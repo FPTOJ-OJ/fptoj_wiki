@@ -155,7 +155,7 @@ Chứng minh: Xét tổng số lần **tăng** $j$ (trong `j++`) và tổng số
 
 ### Ý tưởng
 
-Gép xâu $S = P + \text{"\#"} + T$, trong đó `\#` là ký tự không xuất hiện trong $P$ và $T$. Tính prefix function $\pi$ của $S$.
+Ghép xâu $S = P + \text{"\#"} + T$, trong đó `\#` là ký tự không xuất hiện trong $P$ và $T$. Tính prefix function $\pi$ của $S$.
 
 **Tại sao dùng `\#`?** Ký tự `\#` đảm bảo rằng khi tính $\pi$ cho phần $T$, giá trị $\pi[i]$ **không bao giờ vượt quá** $|P|$ — vì `\#` không khớp với bất kỳ ký tự nào trong $P$, nên chuỗi khớp bị "cắt" tại vị trí `\#`.
 

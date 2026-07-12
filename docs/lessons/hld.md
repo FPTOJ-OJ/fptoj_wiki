@@ -1013,32 +1013,17 @@ Cây sâu có thể gây tràn đệ quy. C++ cần tăng stack size hoặc dùn
 
 ## Bài tập luyện tập
 
-| STT | Bài toán        | Nguồn      | Độ khó   | Ghi chú                           |
-|-----|-----------------|------------|----------|-----------------------------------|
-| 1   | QTREE           | SPOJ       | 4/5      | Bài kinh điển - HLD cơ bản       |
-| 2   | QTREE2          | SPOJ       | 4/5      | Path sum + LCA                    |
-| 3   | QTREE3          | SPOJ       | 4/5      | Path query với màu sắc            |
-| 4   | QTREE4          | SPOJ       | 5/5      | Cực khó - HLD + multiset          |
-| 5   | Distinct Colors | CSES       | 3/5      | Subtree query                     |
-| 6   | Path Queries    | CSES       | 3/5      | Path sum                          |
-| 7   | Path Queries II | CSES       | 4/5      | Path max                          |
-| 8   | Company Queries II | CSES    | 3/5      | LCA (có thể dùng HLD)            |
-| 9   | Counting Paths  | CSES       | 3/5      | Path increment                    |
-| 10  | Subtree Queries | CSES       | 3/5      | Subtree query                     |
-| 11  | Lubenica        | VNOJ       | 3/5      | Min/max trên đường đi             |
-
-### Gợi ý giải QTREE (SPOJ)
-
-Bài QTREE yêu cầu:
-- `CHANGE i t`: Cạnh thứ $i$ có giá trị mới $t$.
-- `QUERY u v`: Giá trị lớn nhất trên đường đi $u \to v$.
-
-**Cách giải:**
-
-1. Gán giá trị cạnh $(parent[u], u)$ vào đỉnh $u$.
-2. Dùng HLD + Max Segment Tree.
-3. `CHANGE i t`: cập nhật Segment Tree tại $pos[\text{deeper\_node}]$.
-4. `QUERY u v`: dùng `path_max(u, v)`.
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `hld-path-sum` | [Tổng Trên Đường Đi](https://fptoj.com/problem/hld-path-sum) | ⭐⭐⭐ | Tổng trọng số trên đường đi | [HLD](hld.md) |
+| `hld-path-max` | [Max Trên Đường Đi](https://fptoj.com/problem/hld-path-max) | ⭐⭐⭐ | Giá trị lớn nhất trên đường đi | [HLD](hld.md) |
+| `hld-path-easy` | [Đường Đi Dễ](https://fptoj.com/problem/hld-path-easy) | ⭐ | Truy vấn đường đi cơ bản | [HLD](hld.md) |
+| `hld-subtree` | [Truy Vấn Subtree](https://fptoj.com/problem/hld-subtree) | ⭐⭐ | Truy vấn trên subtree | [HLD](hld.md) |
+| `hld-edge-up` | [Cập Nhật Cạnh](https://fptoj.com/problem/hld-edge-up) | ⭐⭐⭐⭐ | Cập nhật trọng số cạnh + truy vấn đường đi | [HLD](hld.md) |
+| `hld-path-add` | [Cộng Trên Đường Đi](https://fptoj.com/problem/hld-path-add) | ⭐⭐⭐ | Cộng giá trị trên đường đi | [HLD](hld.md) |
+| `hld-lca` | [LCA Với HLD](https://fptoj.com/problem/hld-lca) | ⭐⭐⭐ | Tìm LCA bằng HLD | [HLD](hld.md) |
+| `hld-all-path` | [Toàn Bộ Truy Vấn Đường Đi](https://fptoj.com/problem/hld-all-path) | ⭐⭐⭐⭐ | Nhiều loại truy vấn trên đường đi | [HLD](hld.md) |
+| `hld-heavy-query` | [Truy Vấn Heavy Path](https://fptoj.com/problem/hld-heavy-query) | ⭐⭐⭐⭐ | Truy vấn nâng cao trên heavy path | [HLD](hld.md) |
 
 ---
 

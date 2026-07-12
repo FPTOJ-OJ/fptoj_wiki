@@ -24,7 +24,6 @@ $$I = S - \frac{B}{2} + 1$$
 
 Tam giác $(0,0), (4,0), (0,3)$:
 - Diện tích: $S = \frac{1}{2} \cdot 4 \cdot 3 = 6$
-- Điểm trên cạnh: $(0,0), (1,0), (2,0), (3,0), (4,0)$ → 5 điểm; $(0,0), (0,1), (0,2), (0,3)$ → 4 điểm; $(4,0), (3,1), (2,2), (1,3), (0,4)$ → không đúng... 
 - Cạnh $(0,0)-(4,0)$: $\gcd(4, 0) + 1 = 5$ điểm
 - Cạnh $(4,0)-(0,3)$: $\gcd(4, 3) + 1 = 2$ điểm
 - Cạnh $(0,3)-(0,0)$: $\gcd(0, 3) + 1 = 4$ điểm
@@ -250,7 +249,22 @@ $$(x_2 - x_1 + 1) \times (y_2 - y_1 + 1)$$
 
 ---
 
-## 7. Bài tập luyện tập
+## 7. Bài tập luyện tập (FPTOJ)
+
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `pick-triangle` | [Đếm điểm nguyên trong tam giác](https://fptoj.com/problem/pick-triangle) | ⭐ | Định lý Pick |
+| `pick-segment` | [Đếm điểm nguyên trên đoạn thẳng](https://fptoj.com/problem/pick-segment) | ⭐ | GCD trên đoạn |
+| `pick-polygon` | [Diện tích đa giác và điểm nguyên](https://fptoj.com/problem/pick-polygon) | ⭐⭐ | Shoelace + Pick |
+| `pick-rectangle-int` | [Điểm nguyên bên trong hình chữ nhật](https://fptoj.com/problem/pick-rectangle-int) | ⭐ | Đếm điểm nguyên |
+| `pick-grid-tri` | [Điểm nguyên trong tam giác vuông](https://fptoj.com/problem/pick-grid-tri) | ⭐⭐ | Pick + GCD |
+| `pick-lattice-cnt` | [Đếm cặp điểm nhìn thấy từ gốc](https://fptoj.com/problem/pick-lattice-cnt) | ⭐⭐⭐ | Lưới nguyên + GCD |
+| `pick-trapezoid` | [Điểm nguyên trong hình thang](https://fptoj.com/problem/pick-trapezoid) | ⭐⭐ | Pick's theorem |
+| `pick-poly-boundary` | [Điểm nguyên trên biên đa giác](https://fptoj.com/problem/pick-poly-boundary) | ⭐⭐ | GCD trên cạnh |
+| `pick-star-poly` | [Đa giác hình sao và định lý Pick](https://fptoj.com/problem/pick-star-poly) | ⭐⭐⭐ | Pick mở rộng |
+| `pick-triple` | [Giao ba tam giác và điểm nguyên](https://fptoj.com/problem/pick-triple) | ⭐⭐⭐⭐ | Pick + giao đa giác |
+
+## 8. Bài tập tự luận
 
 ### Bài 1: Đếm điểm nguyên trong tam giác
 

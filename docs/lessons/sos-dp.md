@@ -142,25 +142,32 @@ Sau bước $N-1$, $G[mask]$ = tổng $F[S]$ với $S \subseteq mask$ (tất c�
     using namespace std;
 
     int main() {
-        int n;
+        int n;                   // Số bit (N)
         cin >> n;
-        int size = 1 << n;
+        int size = 1 << n;       // Tổng số mask: 2^N
 
         vector<long long> F(size), G(size);
         for (int i = 0; i < size; i++) {
-            cin >> F[i];
-            G[i] = F[i];
+            cin >> F[i];         // Đọc giá trị F cho từng mask
+            G[i] = F[i];         // Khởi tạo G = F (bước 0)
         }
 
-        // SOS DP
+        // === SOS DP: duyệt từng bit ===
+        // Sau bước i, G[mask] = tổng F[S] với S ⊆ mask
+        //   và S chỉ khác mask ở các bit 0..i
         for (int i = 0; i < n; i++) {
             for (int mask = 0; mask < size; mask++) {
+                // Nếu bit thứ i của mask là 1
                 if (mask & (1 << i)) {
+                    // mask ^ (1 << i) = mask với bit i bị tắt
+                    // G[mask ^ (1<<i)] đã bao gồm tổng F[S] với S ⊆ mask\{bit i}
                     G[mask] += G[mask ^ (1 << i)];
                 }
+                // Nếu bit i = 0, G[mask] giữ nguyên (đã tính ở bước trước)
             }
         }
 
+        // In kết quả
         for (int mask = 0; mask < size; mask++) {
             cout << "G[" << mask << "] = " << G[mask] << "\n";
         }
@@ -171,16 +178,154 @@ Sau bước $N-1$, $G[mask]$ = tổng $F[S]$ với $S \subseteq mask$ (tất c�
 === "Python"
 
     ```python
-    n = int(input())
-    size = 1 << n
+    n = int(input())             # Số bit (N)
+    size = 1 << n                # Tổng số mask: 2^N
     F = list(map(int, input().split()))
-    G = F[:]
+    G = F[:]                     # Khởi tạo G = F (bước 0)
 
+    # === SOS DP: duyệt từng bit ===
+    # Sau bước i, G[mask] = tổng F[S] với S ⊆ mask
+    #   và S chỉ khác mask ở các bit 0..i
     for i in range(n):
         for mask in range(size):
+            # Nếu bit thứ i của mask là 1
             if mask & (1 << i):
+                # mask ^ (1 << i) = mask với bit i bị tắt
+                # G[mask ^ (1<<i)] đã bao gồm tổng F[S] với S ⊆ mask\{bit i}
                 G[mask] += G[mask ^ (1 << i)]
+            # Nếu bit i = 0, G[mask] giữ nguyên (đã tính ở bước trước)
 
+    # In kết quả
     for mask in range(size):
         print(f"G[{mask}] = {G[mask]}")
     ```
+
+---
+
+## 5. Biến thể
+
+### 5.1 Tổng trên tập cha (Superset Sum)
+
+Thay vì cộng dồn vào tập con, ta tính:
+
+$$G[mask] = \sum_{S \supseteq mask} F[S]$$
+
+Cách làm: **đảo ngược điều kiện bit**.
+
+=== "C++"
+
+    ```cpp
+    // Tổng trên tập CHA: G[mask] = sum F[S] với S ⊇ mask
+    for (int i = 0; i < n; i++) {
+        for (int mask = 0; mask < size; mask++) {
+            // Nếu bit thứ i của mask là 0 (để thêm vào superset)
+            if (!(mask & (1 << i))) {
+                // mask | (1 << i) = mask với bit i bật → superset của mask
+                G[mask] += G[mask | (1 << i)];
+            }
+        }
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    # Tổng trên tập CHA: G[mask] = sum F[S] với S ⊇ mask
+    for i in range(n):
+        for mask in range(size):
+            # Nếu bit thứ i của mask là 0 (để thêm vào superset)
+            if not (mask & (1 << i)):
+                # mask | (1 << i) = mask với bit i bật → superset của mask
+                G[mask] += G[mask | (1 << i)]
+    ```
+
+### 5.2 Giá trị lớn nhất / nhỏ nhất trên tập con
+
+Thay `+=` bằng `max` hoặc `min`:
+
+```cpp
+// G[mask] = max F[S] với S ⊆ mask
+for (int i = 0; i < n; i++)
+    for (int mask = 0; mask < size; mask++)
+        if (mask & (1 << i))
+            G[mask] = max(G[mask], G[mask ^ (1 << i)]);
+```
+
+### 5.3 Đếm số tập con thỏa mãn điều kiện
+
+Thay `+=` bằng phép đếm:
+
+```cpp
+// cnt[mask] = số lượng tập con S ⊆ mask có F[S] > 0
+for (int i = 0; i < n; i++)
+    for (int mask = 0; mask < size; mask++)
+        if (mask & (1 << i))
+            cnt[mask] += cnt[mask ^ (1 << i)];
+```
+
+---
+
+## 6. Lưu ý và bẫy thường gặp
+
+### Sai thứ tự vòng lặp
+
+```cpp
+// SAI: đảo thứ tự → mỗi bit bị "lan truyền" nhiều lần
+for (int mask = 0; mask < size; mask++)
+    for (int i = 0; i < n; i++)
+        if (mask & (1 << i))
+            G[mask] += G[mask ^ (1 << i)];
+
+// ĐÚNG: duyệt bit ngoài, mask trong — mỗi bit chỉ ảnh hưởng 1 lần
+for (int i = 0; i < n; i++)
+    for (int mask = 0; mask < size; mask++)
+        if (mask & (1 << i))
+            G[mask] += G[mask ^ (1 << i)];
+```
+
+**Giải thích:** Nếu duyệt mask trước rồi mới duyệt bit, khi xử lý `G[mask]`, ta sẽ dùng giá trị `G[mask ^ (1<<i)]` đã được cập nhật bởi các bit khác trong cùng một "lượt" → kết quả sai.
+
+### Tràn số với phép cộng
+
+Với $N = 20$, số tập con là $2^{20} \approx 10^6$. Nếu mỗi $F[i] \leq 10^9$, tổng có thể lên đến $10^{15}$ → cần `long long` (64-bit).
+
+### Giá trị F[S] có thể âm
+
+Khi $F[S]$ có giá trị âm, kết quả SOS DP vẫn đúng vì phép cộng bảo toàn dấu. Tuy nhiên nếu dùng `max`/`min`, cần khởi tạo đúng:
+
+```cpp
+// Dùng -INF để không bỏ sót giá trị âm
+const long long INF = 1e18;
+vector<long long> G(size, -INF);
+```
+
+### Áp dụng cho bài toán AND/OR/XOR
+
+| Phép toán tập hợp | Phép thao tác bit |
+|:---|:---|
+| Tập con ($S \subseteq mask$) | $S \mathbin{\&} mask = S$ |
+| Tập cha ($S \supseteq mask$) | $S \mathbin{|} mask = S$ |
+| Không giao ($S \cap mask = \emptyset$) | $S \mathbin{\&} mask = 0$ |
+
+Với bài toán đếm cặp $i \mathbin{\&} j = 0$:
+$$\text{số cặp} = \sum_{mask} F[mask] \cdot G[(2^N - 1) \oplus mask]$$
+
+Trong đó $G$ là SOS DP trên tập con (subset sum), và $(2^N-1) \oplus mask$ là phần bù của mask.
+
+---
+
+## Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `sos-sum-sub` | [Tổng Trên Tập Con](https://fptoj.com/problem/sos-sum-sub) | ⭐⭐ | Tổng trên tập con | [SOS DP](sos-dp.md) |
+| `sos-max-sub` | [Lớn Nhất Trên Tập Con](https://fptoj.com/problem/sos-max-sub) | ⭐⭐ | Giá trị lớn nhất trên tập con | [SOS DP](sos-dp.md) |
+| `sos-cnt-sub` | [Đếm Trên Tập Con](https://fptoj.com/problem/sos-cnt-sub) | ⭐⭐⭐ | Đếm số lượng trên tập con | [SOS DP](sos-dp.md) |
+| `sos-or-pair` | [Cặp OR](https://fptoj.com/problem/sos-or-pair) | ⭐⭐⭐ | Đếm cặp OR | [SOS DP](sos-dp.md) |
+| `sos-and-zero` | [Cặp AND Bằng 0](https://fptoj.com/problem/sos-and-zero) | ⭐⭐⭐ | Đếm cặp AND bằng $0$ | [SOS DP](sos-dp.md) |
+| `sos-three-or` | [Ba Số OR](https://fptoj.com/problem/sos-three-or) | ⭐⭐⭐⭐ | Ba số có OR lớn nhất | [SOS DP](sos-dp.md) |
+| `sos-max-xor-sub` | [XOR Lớn Nhất Trên Tập Con](https://fptoj.com/problem/sos-max-xor-sub) | ⭐⭐⭐ | XOR lớn nhất trên tập con | [SOS DP](sos-dp.md) |
+| `sos-four-and` | [Bốn Số AND](https://fptoj.com/problem/sos-four-and) | ⭐⭐⭐⭐ | Bốn số có AND lớn nhất | [SOS DP](sos-dp.md) |
+| `sos-gcd-set` | [GCD Tập Hợp](https://fptoj.com/problem/sos-gcd-set) | ⭐⭐⭐⭐ | GCD của tập hợp | [SOS DP](sos-dp.md) |
+| `sos-seven-and` | [Bảy Số AND](https://fptoj.com/problem/sos-seven-and) | ⭐⭐⭐⭐⭐ | Bảy số AND | [SOS DP](sos-dp.md) |
+| `sos-xor-pair` | [Cặp XOR](https://fptoj.com/problem/sos-xor-pair) | ⭐⭐ | Đếm cặp XOR | [SOS DP](sos-dp.md) |

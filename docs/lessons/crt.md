@@ -92,42 +92,47 @@ $M_i$ chia hết cho $m_j$ (vì $M_i = M / m_i$ chứa $m_j$). Do đó $M_i \cdo
     #include <bits/stdc++.h>
     using namespace std;
 
+    // Thuật toán Euclid mở rộng: tìm (x, y) sao cho a*x + b*y = gcd(a, b)
     long long extgcd(long long a, long long b, long long& x, long long& y) {
-        if (b == 0) { x = 1; y = 0; return a; }
+        if (b == 0) { x = 1; y = 0; return a; }  // Điều kiện dừng: gcd(a, 0) = a
         long long x1, y1;
-        long long g = extgcd(b, a % b, x1, y1);
+        long long g = extgcd(b, a % b, x1, y1);   // Đệ quy Euclid chuẩn
         x = y1;
-        y = x1 - (a / b) * y1;
-        return g;
+        y = x1 - (a / b) * y1;                     // Truy hồi tìm nghiệm từ kết quả đệ quy
+        return g;                                   // Trả về gcd(a, b)
     }
 
+    // Tính nghịch đảo modular: tìm x sao cho a*x ≡ 1 (mod m)
+    // Giải phương trình a*x + m*y = 1 bằng Euclid mở rộng
     long long modInverse(long long a, long long m) {
         long long x, y;
-        extgcd(a, m, x, y);
-        return (x % m + m) % m;
+        extgcd(a, m, x, y);                         // Giải a*x + m*y = gcd(a,m) = 1 (vì gcd=1)
+        return (x % m + m) % m;                     // Đảm bảo kết quả trong [0, m-1]
     }
 
+    // Hàm CRT: giải hệ phương trình x ≡ a_i (mod m_i)
+    // a: vector các số dư, m: vector các modulo (nguyên tố cùng nhau đôi một)
     long long crt(vector<long long>& a, vector<long long>& m) {
         long long M = 1;
-        for (long long mi : m) M *= mi;
+        for (long long mi : m) M *= mi;             // Bước 1: M = tích tất cả các modulo
 
         long long x = 0;
         for (int i = 0; i < (int)a.size(); i++) {
-            long long Mi = M / m[i];
-            long long inv = modInverse(Mi % m[i], m[i]);
-            // Dùng __int128 để tránh tràn số khi nhân 3 số lớn
+            long long Mi = M / m[i];                 // Bước 2: M_i = M / m_i
+            long long inv = modInverse(Mi % m[i], m[i]); // Bước 3: nghịch đảo M_i mod m_i
+            // Dùng __int128 để tránh tràn số khi nhân 3 số lớn (a_i * M_i * inv)
             long long term = (__int128)a[i] * Mi % M * inv % M;
-            x = (x + term) % M;
+            x = (x + term) % M;                      // Bước 4: cộng dồn vào nghiệm tổng
         }
-        return (x + M) % M;
+        return (x + M) % M;                          // Đảm bảo nghiệm không âm
     }
 
     int main() {
         int k;
-        cin >> k;
+        cin >> k;                                    // Số lượng phương trình trong hệ
         vector<long long> a(k), m(k);
-        for (int i = 0; i < k; i++) cin >> a[i] >> m[i];
-        cout << crt(a, m) << "\n";
+        for (int i = 0; i < k; i++) cin >> a[i] >> m[i]; // Đọc lần lượt a_i và m_i
+        cout << crt(a, m) << "\n";                   // In nghiệm duy nhất modulo M
         return 0;
     }
     ```
@@ -135,39 +140,67 @@ $M_i$ chia hết cho $m_j$ (vì $M_i = M / m_i$ chứa $m_j$). Do đó $M_i \cdo
 === "Python"
 
     ```python
+    # Euclid mở rộng: trả về (gcd, x, y) sao cho a*x + b*y = gcd(a, b)
     def extgcd(a, b):
         if b == 0:
-            return a, 1, 0
-        g, x1, y1 = extgcd(b, a % b)
-        return g, y1, x1 - (a // b) * y1
+            return a, 1, 0                # Điều kiện dừng: gcd(a, 0) = a
+        g, x1, y1 = extgcd(b, a % b)      # Đệ quy Euclid: gcd(b, a % b)
+        return g, y1, x1 - (a // b) * y1  # Truy hồi tính x, y
 
+    # Nghịch đảo modular của a modulo m
+    # Trả về x sao cho a*x ≡ 1 (mod m), giả sử gcd(a, m) = 1
     def mod_inverse(a, m):
         g, x, _ = extgcd(a, m)
-        return x % m
+        return x % m                      # Đảm bảo kết quả dương
 
+    # Giải hệ phương trình đồng dư CRT
+    # a: list số dư, m: list modulo (nguyên tố cùng nhau đôi một)
     def crt(a, m):
         M = 1
         for mi in m:
-            M *= mi
+            M *= mi                       # M = tích các modulo
         x = 0
-        for ai, mi in zip(a, m):
-            Mi = M // mi
-            inv = mod_inverse(Mi % mi, mi)
-            x = (x + ai * Mi * inv) % M
+        for ai, mi in zip(a, m):          # Duyệt từng phương trình trong hệ
+            Mi = M // mi                   # M_i = M / m_i
+            inv = mod_inverse(Mi % mi, mi) # Nghịch đảo M_i modulo m_i
+            x = (x + ai * Mi * inv) % M   # Cộng dồn: x += a_i * M_i * M_i^(-1)
         return x
 
-    k = int(input())
+    k = int(input())                      # Số phương trình
     a, m = [], []
     for _ in range(k):
-        ai, mi = map(int, input().split())
+        ai, mi = map(int, input().split()) # Đọc a_i, m_i
         a.append(ai)
         m.append(mi)
-    print(crt(a, m))
+    print(crt(a, m))                      # In nghiệm
     ```
 
 ---
 
-## 5. Bài tập luyện tập
+## 5. Các trường hợp đặc biệt và lưu ý
+
+### Khi modulo không nguyên tố cùng nhau
+
+Nếu $m_i$ và $m_j$ không nguyên tố cùng nhau, hệ có thể vô nghiệm hoặc có nhiều nghiệm modulo $LCM(m_1, \ldots, m_k)$. Cách xử lý:
+
+1. **Ghép từng cặp:** Với hai phương trình $x \equiv a_1 \pmod{m_1}$, $x \equiv a_2 \pmod{m_2}$, tồn tại nghiệm khi $a_1 \equiv a_2 \pmod{gcd(m_1, m_2)}$.
+2. **Nghiệm chung:** $x \equiv x_0 \pmod{LCM(m_1, m_2)}$, tìm $x_0$ bằng Extended Euclid kết hợp CRT.
+
+### Khi $a_i \ge m_i$
+
+Trong thực tế, $a_i$ có thể lớn hơn $m_i$. Hãy rút gọn $a_i \gets a_i \bmod m_i$ trước khi tính, vì $x \equiv a_i \pmod{m_i}$ và $x \equiv a_i \bmod m_i \pmod{m_i}$ là tương đương.
+
+### Tràn số
+
+Khi tính $M = \prod m_i$, $M$ có thể rất lớn (vượt quá $10^{18}$). Trong C++, dùng `__int128` hoặc xử lý số lớn. Trong Python, số nguyên tự động mở rộng không giới hạn.
+
+### Thuật toán Garner
+
+Khi cần lưu nghiệm dưới dạng hỗn hợp (mixed-radix) thay vì modulo $M$, dùng **Garner's Algorithm**. Garner biểu diễn nghiệm thành $x = x_0 + x_1 \cdot m_1 + x_2 \cdot (m_1 \cdot m_2) + \ldots$ với $0 \le x_i < m_{i+1}$. Điều này hữu ích khi $M$ quá lớn để lưu trực tiếp, nhưng cần so sánh hoặc in nghiệm.
+
+---
+
+## 6. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |

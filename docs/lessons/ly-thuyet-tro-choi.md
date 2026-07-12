@@ -248,19 +248,19 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
 
     bool firstPlayerWins(vector<int>& piles) {
         int xorSum = 0;
-        for (int x : piles) xorSum ^= x;
-        return xorSum != 0;
+        for (int x : piles) xorSum ^= x;  // tính XOR toàn bộ các đống
+        return xorSum != 0;                // != 0 là N-position (thắng)
     }
 
     pair<int,int> findWinningMove(vector<int>& piles) {
         int xorSum = 0;
         for (int x : piles) xorSum ^= x;
-        if (xorSum == 0) return {-1, -1};
+        if (xorSum == 0) return {-1, -1};  // P-position, không có nước thắng
 
         for (int i = 0; i < (int)piles.size(); i++) {
-            int target = piles[i] ^ xorSum;
-            if (target < piles[i]) {
-                return {i, piles[i] - target};
+            int target = piles[i] ^ xorSum;  // lượng đá cần để lại
+            if (target < piles[i]) {         // nếu có thể giảm
+                return {i, piles[i] - target};  // trả về (đống, số lượng lấy)
             }
         }
         return {-1, -1};
@@ -273,19 +273,19 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
     def first_player_wins(piles):
         xor_sum = 0
         for x in piles:
-            xor_sum ^= x
-        return xor_sum != 0
+            xor_sum ^= x          # tính XOR toàn bộ các đống
+        return xor_sum != 0       # != 0 là N-position (thắng)
 
     def find_winning_move(piles):
         xor_sum = 0
         for x in piles:
             xor_sum ^= x
         if xor_sum == 0:
-            return None
+            return None           # P-position, không có nước thắng
         for i, x in enumerate(piles):
-            target = x ^ xor_sum
-            if target < x:
-                return (i, x - target)
+            target = x ^ xor_sum  # lượng đá cần để lại
+            if target < x:        # nếu có thể giảm
+                return (i, x - target)  # trả về (đống, số lượng lấy)
         return None
     ```
 
@@ -298,23 +298,23 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
     using namespace std;
 
     int mex(vector<int>& s) {
-        sort(s.begin(), s.end());
-        s.erase(unique(s.begin(), s.end()), s.end());
+        sort(s.begin(), s.end());              // sắp xếp tập Grundy các trạng thái kế
+        s.erase(unique(s.begin(), s.end()), s.end());  // loại trùng
         for (int i = 0; i < (int)s.size(); i++)
-            if (s[i] != i) return i;
+            if (s[i] != i) return i;           // số nhỏ nhất không có trong tập
         return s.size();
     }
 
     int grundy[1001];
 
     int computeGrundy(int n, vector<int>& moves) {
-        grundy[0] = 0;
+        grundy[0] = 0;                          // trạng thái kết thúc có Grundy = 0
         for (int i = 1; i <= n; i++) {
             vector<int> nextStates;
             for (int m : moves) {
-                if (i >= m) nextStates.push_back(grundy[i - m]);
+                if (i >= m) nextStates.push_back(grundy[i - m]);  // Grundy trạng thái kế
             }
-            grundy[i] = mex(nextStates);
+            grundy[i] = mex(nextStates);        // Grundy = MEX của tập Grundy kế
         }
         return grundy[n];
     }
@@ -324,17 +324,17 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
 
     ```python
     def mex(s):
-        s = sorted(set(s))
+        s = sorted(set(s))          # sắp xếp và loại trùng
         for i in range(len(s)):
-            if s[i] != i:
+            if s[i] != i:           # số nhỏ nhất không có trong tập
                 return i
         return len(s)
 
     def compute_grundy(n, moves):
-        dp = [0] * (n + 1)
+        dp = [0] * (n + 1)           # Grundy[0] = 0 (trạng thái kết thúc)
         for i in range(1, n + 1):
-            next_states = [dp[i - m] for m in moves if i >= m]
-            dp[i] = mex(next_states)
+            next_states = [dp[i - m] for m in moves if i >= m]  # Grundy các trạng thái kế
+            dp[i] = mex(next_states)  # Grundy = MEX của tập Grundy kế
         return dp[n]
     ```
 
@@ -352,15 +352,15 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
     bool computed[MAXN];
 
     int dfs(int u) {
-        if (computed[u]) return grundy[u];
+        if (computed[u]) return grundy[u];  // memoization
         computed[u] = true;
         set<int> nextValues;
         for (int v : adj[u]) {
-            nextValues.insert(dfs(v));
+            nextValues.insert(dfs(v));      // Grundy của các đỉnh kế
         }
         int g = 0;
-        while (nextValues.count(g)) g++;
-        return grundy[u] = g;
+        while (nextValues.count(g)) g++;    // tìm MEX
+        return grundy[u] = g;               // lưu kết quả
     }
     ```
 
@@ -372,14 +372,14 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
 
     def dfs(u, adj, memo):
         if u in memo:
-            return memo[u]
+            return memo[u]               # memoization
         next_values = set()
         for v in adj[u]:
-            next_values.add(dfs(v, adj, memo))
+            next_values.add(dfs(v, adj, memo))  # Grundy của các đỉnh kế
         g = 0
-        while g in next_values:
+        while g in next_values:          # tìm MEX
             g += 1
-        memo[u] = g
+        memo[u] = g                      # lưu kết quả
         return g
     ```
 
@@ -392,10 +392,10 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
     using namespace std;
 
     bool isWythoffP(int a, int b) {
-        if (a > b) swap(a, b);
-        double phi = (1 + sqrt(5)) / 2;
+        if (a > b) swap(a, b);          // đảm bảo a <= b
+        double phi = (1 + sqrt(5)) / 2;  // tỷ lệ vàng
         int k = b - a;
-        return a == (int)(k * phi);
+        return a == (int)(k * phi);      // P-position nếu a = floor(k * phi)
     }
     ```
 
@@ -406,10 +406,10 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
 
     def is_wythoff_p(a, b):
         if a > b:
-            a, b = b, a
-        phi = (1 + math.sqrt(5)) / 2
+            a, b = b, a                 # đảm bảo a <= b
+        phi = (1 + math.sqrt(5)) / 2    # tỷ lệ vàng
         k = b - a
-        return a == int(k * phi)
+        return a == int(k * phi)        # P-position nếu a = floor(k * phi)
     ```
 
 ### 5.5 Green Hackenbush (Tree)
@@ -427,7 +427,7 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
         int g = 0;
         for (int v : adj[u]) {
             if (v != parent) {
-                g ^= (treeGrundy(v, u) + 1);
+                g ^= (treeGrundy(v, u) + 1);  // XOR Grundy của các nhánh con
             }
         }
         return g;
@@ -444,7 +444,7 @@ Tổng: bằng tổng độ phức tạp tính Grundy từng trò chơi con $+ O
         g = 0
         for v in adj[u]:
             if v != parent:
-                g ^= (tree_grundy(v, u, adj) + 1)
+                g ^= (tree_grundy(v, u, adj) + 1)  # XOR Grundy của các nhánh con
         return g
     ```
 
@@ -486,50 +486,30 @@ Phải **sort + loại trùng** trước khi tìm MEX. Sai lầm phổ biến: c
 
 ## 7. Bài tập luyện tập
 
-### Nim cơ bản
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `gt-nim-basic` | [Nim cơ bản](https://fptoj.com/problem/gt-nim-basic) | ⭐ | Nim XOR | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-subtraction` | [Subtraction game](https://fptoj.com/problem/gt-subtraction) | ⭐ | Lấy 1-3 viên | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-nim-move` | [Nim với giới hạn lấy](https://fptoj.com/problem/gt-nim-move) | ⭐⭐ | Nim + Grundy modulo | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-coin-game` | [Trò chơi đồng xu](https://fptoj.com/problem/gt-coin-game) | ⭐⭐ | Turning Turtles | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-grundy-basic` | [Grundy cơ bản](https://fptoj.com/problem/gt-grundy-basic) | ⭐⭐ | Grundy + MEX | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-division-game` | [Trò chơi chia số](https://fptoj.com/problem/gt-division-game) | ⭐⭐ | Game + Thừa số nguyên tố | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-stone-game` | [Trò chơi xếp đá](https://fptoj.com/problem/gt-stone-game) | ⭐⭐ | Game + Nim trên xâu | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-grundy-range` | [Grundy khoảng cách lớn](https://fptoj.com/problem/gt-grundy-range) | ⭐⭐ | Subtraction với $n$ lớn | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-nim-multi` | [Nim có gộp đống](https://fptoj.com/problem/gt-nim-multi) | ⭐⭐⭐ | Nim mở rộng | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-tree-game` | [Game trên cây](https://fptoj.com/problem/gt-tree-game) | ⭐⭐⭐ | Game + Tree DP | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-wythoff` | [Wythoff's Game](https://fptoj.com/problem/gt-wythoff) | ⭐⭐⭐ | Wythoff + Tỷ lệ vàng | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-dag-game` | [Game trên DAG](https://fptoj.com/problem/gt-dag-game) | ⭐⭐⭐⭐ | Grundy trên đồ thị | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+| `gt-coin-heap` | [Trò chơi chia đống](https://fptoj.com/problem/gt-coin-heap) | ⭐⭐⭐⭐ | Grundy chia đống | [Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) |
+
+### Tham khảo thêm
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
 | [CSES - Nim Game I](https://cses.fi/problemset/task/1730) | CSES | ⭐⭐ | Nim cổ điển |
 | [CSES - Nim Game II](https://cses.fi/problemset/task/1098) | CSES | ⭐⭐ | Nim biến thể |
-| [SPOJ - MCOINS](https://www.spoj.com/problems/MCOINS/) | SPOJ | ⭐⭐ | Subtraction game |
-
-### Sprague-Grundy
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CF - 15C](https://codeforces.com/problemset/problem/15/C) | CF | ⭐⭐ | Nim nhiều đống |
-| [CF - 1191D](https://codeforces.com/problemset/problem/1191/D) | CF | ⭐⭐⭐ | Game phân tích |
 | [CF - 138D](https://codeforces.com/problemset/problem/138/D) | CF | ⭐⭐⭐⭐ | Game trên lưới |
-| [CF - 9D](https://codeforces.com/problemset/problem/9/D) | CF | ⭐⭐⭐⭐ | Game trên cây |
-| [Atcoder DP Contest - Grundy](https://atcoder.jp/contests/dp/tasks) | Atcoder | ⭐⭐⭐ | Game DP |
-
-### Game trên DAG / Trees
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CF - 2B](https://codeforces.com/problemset/problem/2/B) | CF | ⭐⭐⭐ | Game trên DAG |
 | [CF - 455B](https://codeforces.com/problemset/problem/455/B) | CF | ⭐⭐⭐ | Game trên cây |
-| [CF - 1109D](https://codeforces.com/problemset/problem/1109/D) | CF | ⭐⭐⭐⭐ | Game trên cây nâng cao |
-
-### Wythoff & Special Games
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [SPOJ - MCOINS](https://www.spoj.com/problems/MCOINS/) | SPOJ | ⭐⭐ | Subtraction game |
-| [CF - 317D](https://codeforces.com/problemset/problem/317/D) | CF | ⭐⭐⭐⭐ | Game theory nâng cao |
-| [CF - 982D](https://codeforces.com/problemset/problem/982/D) | CF | ⭐⭐⭐⭐ | Game + Sorting |
-
-### Bài tập tổng hợp
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [Kattis - Game of Stones](https://open.kattis.com/problems/gameofstones) | Kattis | ⭐⭐ | Nim + Subtraction |
-| [DMOJ - Game Theory](https://dmoj.ca/problem/game) | DMOJ | ⭐⭐⭐ | Grundy tổng hợp |
-| [LightOJ - Guilty Prince](https://lightoj.com/problem/guilty-prince) | LightOJ | ⭐⭐⭐ | Game trên lưới |
-| [VNOJ - nksgame](https://oj.vnoi.info/problem/nksgame) | VNOJ | ⭐⭐ | Game theory |
-| [VNOJ - nkgame](https://oj.vnoi.info/problem/nkgame) | VNOJ | ⭐⭐ | Game trên dãy số |
-| [VNOJ - nkjump](https://oj.vnoi.info/problem/nkjump) | VNOJ | ⭐⭐ | Game + DP |
 
 ---
 

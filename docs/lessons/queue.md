@@ -302,7 +302,7 @@ Dưới đây là mã nguồn cài đặt chi tiết của cả hai cách tiếp
             return self.cnt == 0
     ```
 
-### 3.3. Sử dụng thư viện chuẩn của ngôn ngữ (priority dùng trong thi đấu)
+### 3.3. Sử dụng thư viện chuẩn (nên dùng trong thi đấu)
 
 === "C++"
 

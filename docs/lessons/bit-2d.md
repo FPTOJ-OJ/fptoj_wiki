@@ -225,6 +225,7 @@ $$S(x1,y1,x2,y2) = S(1,1,x2,y2) - S(1,1,x1-1,y2) - S(1,1,x2,y1-1) + S(1,1,x1-1,y
         for j in range(1, m + 1):
             update(i, j, row[j - 1])
 
+    q = int(input())
     for _ in range(q):
         parts = list(map(int, input().split()))
         if parts[0] == 1:

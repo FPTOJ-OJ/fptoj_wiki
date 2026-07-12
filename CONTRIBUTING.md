@@ -230,4 +230,90 @@ Description of the problem.
 
 ---
 
+## Lesson Structure & Quality Standards
+
+Mỗi bài giảng thuật toán cần tuân theo cấu trúc 13 phần dưới đây. Đây là "chuẩn vàng" (gold standard) cho mọi bài viết trên FPTOJ Wiki.
+
+### Cấu trúc chuẩn một Lesson (13 phần)
+
+| # | Phần | Mô tả |
+|---|------|-------|
+| 1 | **Tiêu đề + Meta** | Số bài, độ khó (Dễ/Trung bình/Khó), kiến thức nền cần có, thời lượng ước tính |
+| 2 | **Dẫn nhập / Motivation** | Bài toán thực tế hoặc ví dụ trực quan để tạo động lực. Trả lời "học cái này để làm gì?" |
+| 3 | **Phát biểu bài toán** | Một bài toán cụ thể, input/output, ràng buộc, ví dụ có giải thích |
+| 4 | **Cách tiếp cận ngây thơ (Brute Force)** | Giải pháp dễ nghĩ nhất nhưng không tối ưu → phân tích độ phức tạp → chỉ ra lý do cần thuật toán mới |
+| 5 | **Ý tưởng cốt lõi** | Insight chính, trực quan hóa bằng sơ đồ hoặc ví dụ chạy tay từng bước |
+| 6 | **Chi tiết thuật toán** | Mô tả từng bước + pseudocode + walkthrough một ví dụ cụ thể + edge cases |
+| 7 | **Cài đặt** | Code sạch (C++/Python), giải thích chi tiết implementation, lỗi thường gặp |
+| 8 | **Phân tích độ phức tạp** | Dẫn xuất time + space complexity, best/worst/average case |
+| 9 | **Chứng minh tính đúng đắn** | (cho bài khó) Invariant, quy nạp, greedy choice property |
+| 10 | **Biến thể & Mở rộng** | Các biến thể phổ biến, bài toán liên quan, kết nối với thuật toán khác |
+| 11 | **Bài tập thực hành** | 3-5 bài từ dễ đến khó, link OJ (VNOJ, Codeforces, AtCoder...), gợi ý |
+| 12 | **Tổng kết** | Key takeaways, khi nào dùng thuật toán này, lỗi sai phổ biến |
+| 13 | **Tài liệu tham khảo** | Đọc thêm, nguồn gốc |
+
+### Độ dài theo độ khó
+
+| Độ khó | Số từ | Thời lượng học |
+|--------|-------|----------------|
+| Dễ | 1.500–3.000 | 30–60 phút |
+| Trung bình | 3.000–5.000 | 60–90 phút |
+| Khó | 4.000–8.000 | 90–180 phút |
+
+### Cách giảng theo độ khó
+
+#### Dễ (prefix sum, two pointers, sort cơ bản)
+- **Trực quan 70% — Code 30%**
+- Nhiều sơ đồ + chạy tay từng bước
+- Bắt đầu từ bài toán siêu đơn giản, gần gũi (vd: "mảng cộng dồn như tính tiền tích lũy")
+- Luôn so sánh brute force → optimized để thấy sự khác biệt
+- Dùng cp-pg widget cho bài tập tương tác
+- Bài tập thực hành là áp dụng trực tiếp, không biến tấu
+
+#### Trung bình (binary search trên đáp số, DP cơ bản, BFS/DFS)
+- **Pattern 50% — Kỹ thuật 30% — Code 20%**
+- Dạy "khuôn mẫu" (template) áp dụng được cho nhiều bài
+- Show 2-3 dạng bài khác nhau dùng chung 1 kỹ thuật
+- Nhấn mạnh: làm sao để nhận ra khi nào dùng kỹ thuật này
+- Phân tích độ phức tạp kỹ hơn
+- Bài tập có biến tấu nhẹ, không chỉ áp dụng trực tiếp
+
+#### Khó (segment tree lazy, flow, DP nâng cao)
+- **Lý thuyết 40% — Kỹ thuật 35% — Code 25%**
+- Bắt đầu từ nền tảng lý thuyết
+- Chứng minh đúng đắn (bán hình thức hoặc đầy đủ)
+- Chi tiết cơ chế nội tại của cấu trúc dữ liệu
+- Nhiều hướng cài đặt + tối ưu hóa
+- Kết nối với các chủ đề nâng cao khác
+- Bài tập là sự kết hợp nhiều kỹ thuật
+
+### Thang điểm đánh giá chất lượng (Rubric 10 điểm)
+
+| Tiêu chí | Trọng số | 1 điểm (Kém) | 3 điểm (Đạt) | 5 điểm (Xuất sắc) |
+|----------|----------|-------------|-------------|-------------------|
+| **Motivation** | 15% | Không có bối cảnh | Có bài toán nhưng chưa rõ động lực | Ví dụ thực tế lôi cuốn, rõ "tại sao" |
+| **Độ rõ ràng** | 25% | Lộn xộn, nhảy cóc | Dễ hiểu nhưng chưa mượt | Trong vắt, xây dựng trực quan từng lớp |
+| **Ví dụ minh họa** | 15% | Không có hoặc 1 ví dụ tầm thường | 1-2 ví dụ ổn | Nhiều ví dụ chi tiết, có edge case |
+| **Trực quan hóa** | 10% | Chỉ có text | ASCII art hoặc sơ đồ đơn giản | Sơ đồ phong phú, có Mermaid/matplotlib động |
+| **Chất lượng code** | 15% | Code lỗi hoặc khó đọc | Chạy được nhưng chưa sạch | Sạch, có cấu trúc, xử lý biên đầy đủ |
+| **Phân tích độ phức tạp** | 10% | Không có | Chỉ có time | Cả time + space, dẫn xuất, đủ best/worst/average |
+| **Bài tập thực hành** | 5% | Không có | 1-2 bài | 3+ bài tăng dần độ khó + gợi ý |
+| **Mạch sư phạm** | 5% | Thiếu tổ chức | Logic nhưng chuyển đoạn gượng | Mượt mà, mỗi phần kế thừa phần trước |
+
+**Phân loại**:
+- **9.0–10**: Xuất sắc — publish ngay
+- **7.0–8.5**: Tốt — cần chỉnh sửa nhẹ
+- **5.0–6.5**: Đạt — cần sửa 1-2 phần
+- **3.0–4.5**: Yếu — cần viết lại đáng kể
+- **1.0–2.5**: Không đạt — viết lại từ đầu
+
+### Lưu ý đặc thù tiếng Việt
+
+- Mọi thuật ngữ kỹ thuật cần có **cả tiếng Anh + tiếng Việt** (vd: "prefix sum (mảng cộng dồn)")
+- Analogies gần gũi văn hóa Việt Nam (nông nghiệp, trường lớp, gia đình)
+- Code comment bằng tiếng Việt
+- Ưu tiên link bài tập trên các OJ Việt Nam (VNOJ, LQDOJ...)
+
+---
+
 ## When creating an issue, feature request, or pull request, you will be asked to confirm that you have read and followed these guidelines.

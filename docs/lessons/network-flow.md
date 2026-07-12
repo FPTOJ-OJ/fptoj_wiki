@@ -237,7 +237,7 @@ Thay vì tìm đường tăng bất kỳ, ta luôn tìm đường tăng **ngắn
 
 **Bổ đề quan trọng:** Trong Edmonds-Karp, khoảng cách ngắn nhất từ $s$ đến $t$ trong đồ thị dư (gọi là $\delta$) không giảm sau mỗi lần tăng luồng.
 
-**Chứng minh ý tưởng:** Giả sử sau khi tăng luồng, $\delta$ giảm. Xét đường tăng cuối cùng trước khi $\delta$ giảm. Đường đó phải đi qua ít nhất một cạnh "bị đầy" (trở thành cạnh ngược mới). Phân tích các trường hợp cho thấy điều này mâu dẩn.
+**Chứng minh ý tưởng:** Giả sử sau khi tăng luồng, $\delta$ giảm. Xét đường tăng cuối cùng trước khi $\delta$ giảm. Đường đó phải đi qua ít nhất một cạnh "bị đầy" (trở thành cạnh ngược mới). Phân tích các trường hợp cho thấy điều này mâu thuẫn.
 
 Hệ quả: Mỗi cạnh chỉ có thể trở thành "critical edge" (cạnh bị đầy trên đường tăng) tối đa $O(V)$ lần. Tổng số lần tăng luồng là $O(VE)$.
 
@@ -256,8 +256,8 @@ Hệ quả: Mỗi cạnh chỉ có thể trở thành "critical edge" (cạnh b�
     using namespace std;
 
     struct Edge {
-        int to, rev;
-        long long cap, flow;
+        int to, rev;            // đỉnh đích, chỉ số cạnh ngược
+        long long cap, flow;    // dung lượng, luồng hiện tại
     };
 
     class EdmondsKarp {
@@ -268,24 +268,24 @@ Hệ quả: Mỗi cạnh chỉ có thể trở thành "critical edge" (cạnh b�
         EdmondsKarp(int n) : n(n), adj(n + 1) {}
 
         void addEdge(int u, int v, long long cap) {
-            adj[u].push_back({v, (int)adj[v].size(), cap, 0});
-            adj[v].push_back({u, (int)adj[u].size() - 1, 0, 0});
+            adj[u].push_back({v, (int)adj[v].size(), cap, 0});      // cạnh thuận
+            adj[v].push_back({u, (int)adj[u].size() - 1, 0, 0});    // cạnh ngược dung lượng 0
         }
 
         long long maxFlow(int s, int t) {
             long long total = 0;
             while (true) {
-                vector<int> parent(n + 1, -1);
-                vector<int> parentEdge(n + 1, -1);
+                vector<int> parent(n + 1, -1);       // đỉnh cha trên đường tăng
+                vector<int> parentEdge(n + 1, -1);   // chỉ số cạnh từ cha đến đỉnh
                 queue<int> q;
                 q.push(s);
                 parent[s] = s;
 
-                while (!q.empty() && parent[t] == -1) {
+                while (!q.empty() && parent[t] == -1) {  // BFS tìm đường tăng luồng
                     int u = q.front(); q.pop();
                     for (int i = 0; i < (int)adj[u].size(); i++) {
                         Edge& e = adj[u][i];
-                        if (parent[e.to] == -1 && e.cap - e.flow > 0) {
+                        if (parent[e.to] == -1 && e.cap - e.flow > 0) {  // còn dung lượng dư
                             parent[e.to] = u;
                             parentEdge[e.to] = i;
                             q.push(e.to);
@@ -293,20 +293,20 @@ Hệ quả: Mỗi cạnh chỉ có thể trở thành "critical edge" (cạnh b�
                     }
                 }
 
-                if (parent[t] == -1) break;
+                if (parent[t] == -1) break;  // không còn đường tăng
 
                 long long bottleneck = LLONG_MAX;
-                for (int v = t; v != s; v = parent[v]) {
+                for (int v = t; v != s; v = parent[v]) {   // tìm bottleneck
                     int u = parent[v];
                     int idx = parentEdge[v];
                     bottleneck = min(bottleneck, adj[u][idx].cap - adj[u][idx].flow);
                 }
 
-                for (int v = t; v != s; v = parent[v]) {
+                for (int v = t; v != s; v = parent[v]) {   // tăng luồng dọc đường đi
                     int u = parent[v];
                     int idx = parentEdge[v];
                     adj[u][idx].flow += bottleneck;
-                    adj[v][adj[u][idx].rev].flow -= bottleneck;
+                    adj[v][adj[u][idx].rev].flow -= bottleneck;  // cập nhật cạnh ngược
                 }
 
                 total += bottleneck;
@@ -346,46 +346,46 @@ Hệ quả: Mỗi cạnh chỉ có thể trở thành "critical edge" (cạnh b�
             self.adj = [[] for _ in range(n + 1)]
 
         def add_edge(self, u, v, cap):
-            forward = [v, cap, 0, len(self.adj[v])]
-            backward = [u, 0, 0, len(self.adj[u])]
+            forward = [v, cap, 0, len(self.adj[v])]       # cạnh thuận
+            backward = [u, 0, 0, len(self.adj[u])]         # cạnh ngược dung lượng 0
             self.adj[u].append(forward)
             self.adj[v].append(backward)
 
         def max_flow(self, s, t):
             total = 0
             while True:
-                parent = [-1] * (self.n + 1)
-                parent_edge = [-1] * (self.n + 1)
+                parent = [-1] * (self.n + 1)               # đỉnh cha trên đường tăng
+                parent_edge = [-1] * (self.n + 1)           # chỉ số cạnh từ cha
                 q = deque([s])
                 parent[s] = s
 
-                while q and parent[t] == -1:
+                while q and parent[t] == -1:               # BFS tìm đường tăng
                     u = q.popleft()
                     for i, e in enumerate(self.adj[u]):
                         v, cap, flow, rev = e
-                        if parent[v] == -1 and cap - flow > 0:
+                        if parent[v] == -1 and cap - flow > 0:  # còn dung lượng dư
                             parent[v] = u
                             parent_edge[v] = i
                             q.append(v)
 
-                if parent[t] == -1:
+                if parent[t] == -1:                        # không còn đường tăng
                     break
 
                 bottleneck = float('inf')
                 v = t
-                while v != s:
+                while v != s:                              # tìm bottleneck
                     u = parent[v]
                     idx = parent_edge[v]
                     bottleneck = min(bottleneck, self.adj[u][idx][1] - self.adj[u][idx][2])
                     v = u
 
                 v = t
-                while v != s:
+                while v != s:                              # tăng luồng dọc đường đi
                     u = parent[v]
                     idx = parent_edge[v]
-                    self.adj[u][idx][2] += bottleneck
+                    self.adj[u][idx][2] += bottleneck       # cập nhật luồng cạnh thuận
                     rev_idx = self.adj[u][idx][3]
-                    self.adj[v][rev_idx][2] -= bottleneck
+                    self.adj[v][rev_idx][2] -= bottleneck   # cập nhật cạnh ngược
                     v = u
 
                 total += bottleneck
@@ -476,17 +476,17 @@ Khi DFS tại đỉnh $u$ duyệt xong cạnh thứ $i$ mà không đẩy đư�
     public:
         int n;
         vector<vector<Edge>> adj;
-        vector<int> level;
-        vector<int> ptr;
+        vector<int> level;       // tầng của mỗi đỉnh trong đồ thị tầng
+        vector<int> ptr;         // con trỏ current edge optimization
 
         Dinic(int n) : n(n), adj(n + 1), level(n + 1), ptr(n + 1) {}
 
         void addEdge(int u, int v, long long cap, bool directed = true) {
             adj[u].push_back({v, (int)adj[v].size(), cap, 0});
-            adj[v].push_back({u, (int)adj[u].size() - 1, directed ? 0 : cap, 0});
+            adj[v].push_back({u, (int)adj[u].size() - 1, directed ? 0 : cap, 0});  // cạnh ngược
         }
 
-        bool bfs(int s, int t) {
+        bool bfs(int s, int t) {                    // xây đồ thị tầng
             fill(level.begin(), level.end(), -1);
             level[s] = 0;
             queue<int> q;
@@ -496,27 +496,27 @@ Khi DFS tại đỉnh $u$ duyệt xong cạnh thứ $i$ mà không đẩy đư�
                 int u = q.front(); q.pop();
                 for (auto& e : adj[u]) {
                     if (level[e.to] == -1 && e.cap - e.flow > 0) {
-                        level[e.to] = level[u] + 1;
+                        level[e.to] = level[u] + 1; // gán tầng cho đỉnh kề
                         q.push(e.to);
                     }
                 }
             }
-            return level[t] != -1;
+            return level[t] != -1;                  // true nếu còn đường tới t
         }
 
-        long long dfs(int u, int t, long long pushed) {
+        long long dfs(int u, int t, long long pushed) {  // tìm blocking flow
             if (u == t || pushed == 0) return pushed;
 
-            for (int& cid = ptr[u]; cid < (int)adj[u].size(); cid++) {
+            for (int& cid = ptr[u]; cid < (int)adj[u].size(); cid++) {  // current edge optimization
                 Edge& e = adj[u][cid];
-                if (level[e.to] != level[u] + 1) continue;
+                if (level[e.to] != level[u] + 1) continue;  // chỉ đi theo tầng tăng dần
                 if (e.cap - e.flow <= 0) continue;
 
                 long long tr = dfs(e.to, t, min(pushed, e.cap - e.flow));
                 if (tr == 0) continue;
 
-                e.flow += tr;
-                adj[e.to][e.rev].flow -= tr;
+                e.flow += tr;                       // tăng luồng cạnh thuận
+                adj[e.to][e.rev].flow -= tr;        // giảm luồng cạnh ngược
                 return tr;
             }
             return 0;
@@ -524,16 +524,16 @@ Khi DFS tại đỉnh $u$ duyệt xong cạnh thứ $i$ mà không đẩy đư�
 
         long long maxFlow(int s, int t) {
             long long total = 0;
-            while (bfs(s, t)) {
-                fill(ptr.begin(), ptr.end(), 0);
+            while (bfs(s, t)) {                     // xây đồ thị tầng
+                fill(ptr.begin(), ptr.end(), 0);    // reset con trỏ
                 while (long long pushed = dfs(s, t, LLONG_MAX)) {
-                    total += pushed;
+                    total += pushed;                // gộp luồng đẩy được
                 }
             }
             return total;
         }
 
-        vector<bool> minCut(int s) {
+        vector<bool> minCut(int s) {                // tìm tập đỉnh thuộc phía S của lát cắt
             vector<bool> visited(n + 1, false);
             queue<int> q;
             q.push(s);
@@ -582,16 +582,16 @@ Khi DFS tại đỉnh $u$ duyệt xong cạnh thứ $i$ mà không đẩy đư�
         def __init__(self, n):
             self.n = n
             self.adj = [[] for _ in range(n + 1)]
-            self.level = [-1] * (n + 1)
-            self.ptr = [0] * (n + 1)
+            self.level = [-1] * (n + 1)          # tầng của mỗi đỉnh
+            self.ptr = [0] * (n + 1)             # con trỏ current edge optimization
 
         def add_edge(self, u, v, cap, directed=True):
-            forward = [v, cap, 0, len(self.adj[v])]
-            backward = [u, 0 if directed else cap, 0, len(self.adj[u])]
+            forward = [v, cap, 0, len(self.adj[v])]        # cạnh thuận
+            backward = [u, 0 if directed else cap, 0, len(self.adj[u])]  # cạnh ngược
             self.adj[u].append(forward)
             self.adj[v].append(backward)
 
-        def bfs(self, s, t):
+        def bfs(self, s, t):                      # xây đồ thị tầng
             self.level = [-1] * (self.n + 1)
             self.level[s] = 0
             q = deque([s])
@@ -600,14 +600,14 @@ Khi DFS tại đỉnh $u$ duyệt xong cạnh thứ $i$ mà không đẩy đư�
                 for e in self.adj[u]:
                     v, cap, flow, rev = e
                     if self.level[v] == -1 and cap - flow > 0:
-                        self.level[v] = self.level[u] + 1
+                        self.level[v] = self.level[u] + 1  # gán tầng
                         q.append(v)
             return self.level[t] != -1
 
-        def dfs(self, u, t, pushed):
+        def dfs(self, u, t, pushed):              # tìm blocking flow
             if u == t or pushed == 0:
                 return pushed
-            while self.ptr[u] < len(self.adj[u]):
+            while self.ptr[u] < len(self.adj[u]):  # current edge optimization
                 e = self.adj[u][self.ptr[u]]
                 v, cap, flow, rev = e
                 if self.level[v] != self.level[u] + 1 or cap - flow <= 0:
@@ -617,15 +617,15 @@ Khi DFS tại đỉnh $u$ duyệt xong cạnh thứ $i$ mà không đẩy đư�
                 if tr == 0:
                     self.ptr[u] += 1
                     continue
-                e[2] += tr
-                self.adj[v][rev][2] -= tr
+                e[2] += tr                          # tăng luồng cạnh thuận
+                self.adj[v][rev][2] -= tr           # giảm luồng cạnh ngược
                 return tr
             return 0
 
         def max_flow(self, s, t):
             total = 0
-            while self.bfs(s, t):
-                self.ptr = [0] * (self.n + 1)
+            while self.bfs(s, t):                   # xây đồ thị tầng
+                self.ptr = [0] * (self.n + 1)       # reset con trỏ
                 while True:
                     pushed = self.dfs(s, t, float('inf'))
                     if pushed == 0:
@@ -633,7 +633,7 @@ Khi DFS tại đỉnh $u$ duyệt xong cạnh thứ $i$ mà không đẩy đư�
                     total += pushed
             return total
 
-        def min_cut(self, s):
+        def min_cut(self, s):                       # tìm lát cắt nhỏ nhất
             visited = [False] * (self.n + 1)
             visited[s] = True
             q = deque([s])
@@ -723,12 +723,12 @@ Khi không còn đường tăng, luồng hiện tại là luồng cực đại. 
                                 parent(n + 1), parentEdge(n + 1) {}
 
         void addEdge(int u, int v, long long cap, long long cost) {
-            adj[u].push_back({v, (int)adj[v].size(), cap, 0, cost});
-            adj[v].push_back({u, (int)adj[u].size() - 1, 0, 0, -cost});
+            adj[u].push_back({v, (int)adj[v].size(), cap, 0, cost});       // cạnh thuận
+            adj[v].push_back({u, (int)adj[u].size() - 1, 0, 0, -cost});    // cạnh ngược chi phí âm
         }
 
         bool spfa(int s, int t, long long& flow, long long& cost, long long maxFlow) {
-            fill(dist.begin(), dist.end(), INF);
+            fill(dist.begin(), dist.end(), INF);          // tìm đường đi chi phí nhỏ nhất
             vector<bool> inQueue(n + 1, false);
             dist[s] = 0;
             queue<int> q;
@@ -752,16 +752,16 @@ Khi không còn đường tăng, luồng hiện tại là luồng cực đại. 
                 }
             }
 
-            if (dist[t] == INF) return false;
+            if (dist[t] == INF) return false;             // không còn đường tăng
 
             long long pushFlow = maxFlow - flow;
-            for (int v = t; v != s; v = parent[v]) {
+            for (int v = t; v != s; v = parent[v]) {      // tìm bottleneck
                 int u = parent[v];
                 int idx = parentEdge[v];
                 pushFlow = min(pushFlow, adj[u][idx].cap - adj[u][idx].flow);
             }
 
-            for (int v = t; v != s; v = parent[v]) {
+            for (int v = t; v != s; v = parent[v]) {      // tăng luồng dọc đường đi
                 int u = parent[v];
                 int idx = parentEdge[v];
                 adj[u][idx].flow += pushFlow;
@@ -769,13 +769,13 @@ Khi không còn đường tăng, luồng hiện tại là luồng cực đại. 
             }
 
             flow += pushFlow;
-            cost += pushFlow * dist[t];
+            cost += pushFlow * dist[t];                   // cộng chi phí
             return true;
         }
 
         pair<long long, long long> mcmf(int s, int t, long long maxFlow = INF) {
             long long flow = 0, cost = 0;
-            while (spfa(s, t, flow, cost, maxFlow)) {}
+            while (spfa(s, t, flow, cost, maxFlow)) {}    // lặp cho đến khi hết đường tăng
             return {flow, cost};
         }
     };
@@ -815,12 +815,12 @@ Khi không còn đường tăng, luồng hiện tại là luồng cực đại. 
             self.INF = 10**18
 
         def add_edge(self, u, v, cap, cost):
-            forward = [v, cap, 0, cost, len(self.adj[v])]
-            backward = [u, 0, 0, -cost, len(self.adj[u])]
+            forward = [v, cap, 0, cost, len(self.adj[v])]          # cạnh thuận
+            backward = [u, 0, 0, -cost, len(self.adj[u])]          # cạnh ngược chi phí âm
             self.adj[u].append(forward)
             self.adj[v].append(backward)
 
-        def spfa(self, s, t, flow, max_flow):
+        def spfa(self, s, t, flow, max_flow):                      # tìm đường chi phí nhỏ nhất
             dist = [self.INF] * (self.n + 1)
             parent = [-1] * (self.n + 1)
             parent_edge = [-1] * (self.n + 1)
@@ -842,19 +842,19 @@ Khi không còn đường tăng, luồng hiện tại là luồng cực đại. 
                             q.append(v)
                             in_queue[v] = True
 
-            if dist[t] == self.INF:
+            if dist[t] == self.INF:                                # không còn đường tăng
                 return 0, 0
 
             push = max_flow - flow
             v = t
-            while v != s:
+            while v != s:                                          # tìm bottleneck
                 u = parent[v]
                 idx = parent_edge[v]
                 push = min(push, self.adj[u][idx][1] - self.adj[u][idx][2])
                 v = u
 
             v = t
-            while v != s:
+            while v != s:                                          # tăng luồng dọc đường đi
                 u = parent[v]
                 idx = parent_edge[v]
                 e = self.adj[u][idx]
@@ -975,17 +975,18 @@ Cạnh vô hướng $(u,v)$ với dung lượng $c$ tương đương hai cạnh 
 
 ---
 
-## 8. Bài tập luyện tập
+## 8. Bài tập luyện tập (FPTOJ)
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Download Speed](https://cses.fi/problemset/task/1694) | CSES | ⭐⭐ | Max flow cơ bản |
-| [CSES - Police Chase](https://cses.fi/problemset/task/1695) | CSES | ⭐⭐⭐ | Min cut |
-| [CSES - School Dance](https://cses.fi/problemset/task/1696) | CSES | ⭐⭐ | Bipartite matching |
-| [SPOJ - FASTFLOW](https://www.spoj.com/problems/FASTFLOW/) | SPOJ | ⭐⭐⭐ | Dinic với dung lượng lớn |
-| [SPOJ - MATCHING](https://www.spoj.com/problems/MATCHING/) | SPOJ | ⭐⭐⭐ | Bipartite matching lớn |
-| [CF 277E - Binary Tree on Plane](https://codeforces.com/problemset/problem/277/E) | CF | ⭐⭐⭐⭐ | MCMF |
-| [LeetCode - Maximum Students Taking Exam](https://leetcode.com/problems/maximum-students-taking-exam/) | LeetCode | ⭐⭐⭐⭐ | Max flow / bitmask |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `flow-max-flow` | [Luồng Cực Đại Cơ Bản](https://fptoj.com/problem/flow-max-flow) | ⭐⭐⭐ | Max flow - Edmonds-Karp |
+| `flow-dinic` | [Luồng Cực Đại Dinic](https://fptoj.com/problem/flow-dinic) | ⭐⭐⭐ | Max flow - Dinic |
+| `flow-min-cut` | [Lát Cắt Cực Tiểu](https://fptoj.com/problem/flow-min-cut) | ⭐⭐⭐⭐ | Min cut |
+| `flow-bipartite` | [Ghép Cặp Hai Phía](https://fptoj.com/problem/flow-bipartite) | ⭐⭐⭐ | Bipartite matching |
+| `flow-edge-disc` | [Cạnh Quan Trọng](https://fptoj.com/problem/flow-edge-disc) | ⭐⭐⭐⭐ | Cạnh tới hạn |
+| `flow-multi-src` | [Luồng Đa Nguồn Đích](https://fptoj.com/problem/flow-multi-src) | ⭐⭐⭐⭐ | Đa nguồn/đa đích |
+| `flow-node-cap` | [Dung Lượng Trên Đỉnh](https://fptoj.com/problem/flow-node-cap) | ⭐⭐⭐⭐ | Chia đỉnh |
+| `flow-max-closure` | [Tập Đóng Trọng Số Lớn Nhất](https://fptoj.com/problem/flow-max-closure) | ⭐⭐⭐⭐ | Max weight closure |
 
 **Gợi ý giải:**
 

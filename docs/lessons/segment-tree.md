@@ -159,7 +159,7 @@ Khi thực hiện truy vấn tổng đoạn trong khoảng $[L, R]$, thuật to�
 3.  Một nút quản lý $[start, end]$ giao một phần với $[L, R]$ khi và chỉ khi đoạn đó chứa điểm biên $L$ hoặc điểm biên $R$ (nhưng không bao phủ hoàn toàn $[L, R]$).
 4.  Do các đoạn ở cùng một tầng rời nhau, tại mỗi tầng chỉ có tối đa $1$ nút chứa $L$ và tối đa $1$ nút chứa $R$.
 5.  Như vậy, ở mỗi tầng, số lượng nút giao một phần tối đa là $2$.
-6.  Từ mỗi nút giao một phần ở tầng $d$, chúng ta gọi đệ quy xuống tối đa $2$ con ở tầng $d+1$. Do đó, số lượng nút được ghé thăm ở tầng $d+1 tối đa là $2 \times 2 = 4$.
+6.  Từ mỗi nút giao một phần ở tầng $d$, chúng ta gọi đệ quy xuống tối đa $2$ con ở tầng $d+1$. Do đó, số lượng nút được ghé thăm ở tầng $d+1$ tối đa là $2 \times 2 = 4$.
 7.  Vì chiều cao của cây Segment Tree là $h = \lceil \log_2 N \rceil$, tổng số nút được ghé thăm trên toàn bộ cây là:
     $$\text{Số nút ghé thăm} \leq 4h = O(\log N)$$
 Do đó, độ phức tạp thời gian của hàm truy vấn luôn là $O(\log N)$.
@@ -375,7 +375,7 @@ Dưới đây là mã nguồn cài đặt đầy đủ của Segment Tree hỗ t
             if pos <= mid:
                 self.update(2 * node, start, mid, pos, val)
             else:
-                self.update(2 * node + 1, start, mid, pos, val) # Sửa lỗi chỉ số so với bản cũ
+                self.update(2 * node + 1, mid + 1, end, pos, val)
             self.tree[node] = self.tree[2 * node] + self.tree[2 * node + 1]
 
 

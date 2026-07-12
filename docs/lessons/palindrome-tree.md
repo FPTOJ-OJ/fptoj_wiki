@@ -31,7 +31,7 @@ Cho xâu $S$ độ dài $N$. Đếm số **xâu con palindrome phân biệt** tr
 
 Palindrome Tree có 2 gốc:
 
-- **Node $-1$:** Gốc ảo (độ dài $-1$),方便处理 lẻ palindrome.
+- **Node $-1$:** Gốc ảo (độ dài $-1$), dùng cho palindrome độ dài lẻ.
 - **Node $0$:** Gốc cho chẵn palindrome (độ dài $0$).
 
 Mỗi nút đại diện cho 1 palindrome duy nhất. Cạnh $c$ từ node $u$ đến node $v$ nghĩa là: palindrome $v$ = $c$ + palindrome $u$ + $c$.

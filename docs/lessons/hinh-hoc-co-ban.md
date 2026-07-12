@@ -630,15 +630,21 @@ Với đa giác lồi, một điểm nằm trong khi và chỉ khi nó nằm bê
 
 ## 13. Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Point Location Test](https://cses.fi/problemset/task/2189) | CSES | ⭐⭐ | Cross product |
-| [CSES - Line Segment Intersection](https://cses.fi/problemset/task/2190) | CSES | ⭐⭐⭐ | Đoạn thẳng cắt nhau |
-| [CSES - Polygon Area](https://cses.fi/problemset/task/2191) | CSES | ⭐⭐ | Diện tích đa giác |
-| [CF - Geometry problems](https://codeforces.com/problemset?tags=geometry) | CF | ⭐⭐–⭐⭐⭐ | Tổng hợp hình học |
-| [VNOJ - VODIVIDING](https://oj.vnoi.info/problem/vodividing) | VNOJ | ⭐⭐⭐ | Geometry |
-| [CSES - Convex Hull](https://cses.fi/problemset/task/2195) | CSES | ⭐⭐⭐ | Bao lồi |
-| [CSES - Maximum Manhattan Distances](https://cses.fi/problemset/task/2194) | CSES | ⭐⭐ | Khoảng cách |
+| Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
+|-----|----------|--------|------------------------|
+| `geo-orient` | [Hướng rẽ của Robot](https://fptoj.com/problem/geo-orient) | ⭐ | Cross product (Orientation) |
+| `geo-dist2` | [Bình phương khoảng cách](https://fptoj.com/problem/geo-dist2) | ⭐ | Khoảng cách Euclid |
+| `geo-colinear` | [Ba ngôi sao thẳng hàng](https://fptoj.com/problem/geo-colinear) | ⭐ | Cross product (Collinear) |
+| `geo-seg-int` | [Mạng lưới đường ống](https://fptoj.com/problem/geo-seg-int) | ⭐⭐ | Đoạn thẳng cắt nhau |
+| `geo-tri-area` | [Mảnh đất hình tam giác](https://fptoj.com/problem/geo-tri-area) | ⭐⭐ | Diện tích tam giác |
+| `geo-poly-area` | [Khu bảo tồn thiên nhiên](https://fptoj.com/problem/geo-poly-area) | ⭐⭐ | Diện tích đa giác (Shoelace) |
+| `geo-p2seg` | [Trạm phát sóng wifi](https://fptoj.com/problem/geo-p2seg) | ⭐⭐⭐ | Khoảng cách điểm-đoạn thẳng |
+| `geo-pip` | [Máy bay không người lái](https://fptoj.com/problem/geo-pip) | ⭐⭐⭐ | Điểm trong đa giác lồi |
+| `geo-point-on-seg` | [Điểm trên đoạn thẳng](https://fptoj.com/problem/geo-point-on-seg) | ⭐ | Điểm nằm trên đoạn |
+| `geo-tri-type` | [Phân loại tam giác](https://fptoj.com/problem/geo-tri-type) | ⭐⭐ | Phân loại tam giác (vuông/nhọn/tù) |
+| `geo-poly-convex` | [Kiểm tra đa giác lồi](https://fptoj.com/problem/geo-poly-convex) | ⭐⭐ | Đa giác lồi |
+| `geo-poly-clock` | [Chiều kim đồng hồ](https://fptoj.com/problem/geo-poly-clock) | ⭐⭐ | Hướng đa giác |
+| `geo-line-dist` | [Khoảng cách hai đường thẳng](https://fptoj.com/problem/geo-line-dist) | ⭐⭐ | Khoảng cách đường thẳng song song |
 
 ## Bài viết liên quan
 
