@@ -506,15 +506,14 @@ Lựa chọn cấu trúc phụ thuộc vào yêu cầu:
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|---|---|---|---|
-| [CSES - Distinct Numbers](https://cses.fi/problemset/task/1621) | CSES | ⭐ | Set |
-| [CSES - Sum of Two Values](https://cses.fi/problemset/task/1640) | CSES | ⭐⭐ | Map |
-| [LeetCode - Two Sum](https://leetcode.com/problems/two-sum/) | LC | ⭐ | Map cơ bản |
-| [LeetCode - Group Anagrams](https://leetcode.com/problems/group-anagrams/) | LC | ⭐⭐ | Map + string |
-| [VNOJ - PNUMBER](https://oj.vnoi.info/problem/pnumber) | VNOJ | ⭐⭐ | Prime numbers |
-| [VNOJ - NKDIV](https://oj.vnoi.info/problem/nkdiv) | VNOJ | ⭐⭐ | Hash application |
-| [CSES - Subarray Sum Queries](https://cses.fi/problemset/task/1190) | CSES | ⭐⭐⭐ | Map + prefix |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `strb-anagram` | [Hoán vị xâu](https://fptoj.com/problem/strb-anagram) | ⭐⭐ | Đếm tần suất Map |
+| `strh-hash` | [Tính hash cơ bản](https://fptoj.com/problem/strh-hash) | ⭐ | Hash xâu |
+| `strh-dist` | [Đếm xâu con phân biệt](https://fptoj.com/problem/strh-dist) | ⭐⭐ | Hash + Set |
+| `strh-find` | [Tìm xâu con bằng Hash](https://fptoj.com/problem/strh-find) | ⭐⭐ | Rabin-Karp |
+| `strh-palind` | [Palindrome với Hash](https://fptoj.com/problem/strh-palind) | ⭐⭐⭐ | Hash + truy vấn |
+| `trie-insert-search` | [Tập Từ Vựng Cây Tiền Tố](https://fptoj.com/problem/trie-insert-search) | ⭐ | Trie |
 
 ## Bài viết liên quan
 

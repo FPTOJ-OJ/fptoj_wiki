@@ -489,6 +489,8 @@ Cho $X = 5 = (101)_2$ và $A = [3, 10, 5, 25, 2, 8]$. Khi tìm trong Bitwise Tri
 | [`trie-autocomplete`](https://fptoj.com/problem/trie-autocomplete) | Gợi Ý Từ Khóa Autocomplete | ⭐⭐⭐ | Trie lưu trữ best value |
 | [`trie-xor-limit`](https://fptoj.com/problem/trie-xor-limit) | Cặp XOR Giới Hạn | ⭐⭐⭐⭐ | Bitwise Trie đếm số lượng |
 | [`trie-word-break`](https://fptoj.com/problem/trie-word-break) | Phân Tách Từ | ⭐⭐⭐⭐ | Trie kết hợp Quy hoạch động |
+| [`stra-trie`](https://fptoj.com/problem/stra-trie) | Từ điển bằng Trie | ⭐⭐ | Thêm/Tìm/Đếm tiền tố |
+| [`stra-prefcnt`](https://fptoj.com/problem/stra-prefcnt) | Đếm tiền tố bằng Trie | ⭐⭐⭐ | Đếm xâu khác làm tiền tố |
 
 ## Bài viết liên quan
 

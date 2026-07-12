@@ -415,6 +415,26 @@ $$
 
 ## 5. Bài Tập Luyện Tập
 
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `euclid-gcd` | [Ước chung lớn nhất](https://fptoj.com/problem/euclid-gcd) | ⭐ | GCD - Ước chung lớn nhất | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-lcm` | [Bội chung nhỏ nhất](https://fptoj.com/problem/euclid-lcm) | ⭐ | LCM - Bội chung nhỏ nhất | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-egcd` | [Euclid mở rộng](https://fptoj.com/problem/euclid-egcd) | ⭐⭐ | Extended GCD - Euclid mở rộng | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-pow` | [Lũy thừa modulo](https://fptoj.com/problem/euclid-pow) | ⭐⭐ | Lũy thừa nhị phân | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-inv` | [Nghịch đảo modulo](https://fptoj.com/problem/euclid-inv) | ⭐⭐ | Nghịch đảo modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-div` | [Chia modulo](https://fptoj.com/problem/euclid-div) | ⭐⭐ | Chia modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-nck` | [Tổ hợp modulo](https://fptoj.com/problem/euclid-nck) | ⭐⭐⭐ | Tổ hợp C(n,k) modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-sumpow` | [Tổng lũy thừa](https://fptoj.com/problem/euclid-sumpow) | ⭐⭐⭐ | Cấp số nhân modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-sumdiv` | [Tổng ước số](https://fptoj.com/problem/euclid-sumdiv) | ⭐⭐ | Tổng các ước số | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-coprime` | [Đếm cặp nguyên tố cùng nhau](https://fptoj.com/problem/euclid-coprime) | ⭐⭐⭐⭐ | Möbius + Bao hàm loại trừ | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-lucas` | [Định lý Lucas](https://fptoj.com/problem/euclid-lucas) | ⭐⭐⭐⭐ | Định lý Lucas | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-crt` | [Định lý thặng dư Trung Hoa](https://fptoj.com/problem/euclid-crt) | ⭐⭐⭐⭐ | CRT - Thặng dư Trung Hoa | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-frac` | [Số học phân số](https://fptoj.com/problem/euclid-frac) | ⭐⭐⭐ | Số học phân số modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-invfact` | [Giai thừa và nghịch đảo](https://fptoj.com/problem/euclid-invfact) | ⭐⭐⭐ | Nghịch đảo giai thừa | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-catalan` | [Số Catalan modulo](https://fptoj.com/problem/euclid-catalan) | ⭐⭐⭐ | Số Catalan | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+
+### Tham khảo thêm
+
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
 | [CSES - Exponentiation](https://cses.fi/problemset/task/1095) | CSES | ⭐⭐ | Power mod |

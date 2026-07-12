@@ -512,38 +512,36 @@ Dùng SA khi cần chính xác 100% hoặc nhiều truy vấn trên cùng xâu. 
 
 ### Cơ bản
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|:----|:--------:|:------:|:-------|
-| [SPOJ - SARRAY](https://www.spoj.com/problems/SARRAY/) | SPOJ | ⭐⭐⭐ | Cài đặt SA cơ bản |
-| [SPOJ - SUBST1](https://www.spoj.com/problems/SUBST1/) | SPOJ | ⭐⭐ | Đếm xâu con khác nhau |
-| [CSES - Substring Order I](https://cses.fi/problemset/task/2108) | CSES | ⭐⭐⭐ | Suffix Array |
-| [CSES - Substring Order II](https://cses.fi/problemset/task/2109) | CSES | ⭐⭐⭐⭐ | SA + LCP |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|:----|:-----:|:------:|:-------|
+| `stra-sa` | [Suffix Array cơ bản](https://fptoj.com/problem/stra-sa) | ⭐⭐⭐ | Cài đặt SA |
+| `stra-lcp` | [LCP trên SA](https://fptoj.com/problem/stra-lcp) | ⭐⭐⭐⭐ | LCP + RMQ |
+| `stra-dist` | [Đếm xâu con phân biệt](https://fptoj.com/problem/stra-dist) | ⭐⭐⭐⭐ | Đếm xâu con bằng SA |
+| `stra-lcs` | [Xâu con chung dài nhất](https://fptoj.com/problem/stra-lcs) | ⭐⭐⭐⭐ | SA tìm LCS |
+| `saf-salc` | [In Suffix Array và LCP](https://fptoj.com/problem/saf-salc) | ⭐⭐ | SA + LCP cơ bản |
+| `saf-chc` | [Xâu con phân biệt theo ký tự đầu](https://fptoj.com/problem/saf-chc) | ⭐⭐ | SA ký tự đầu |
+| `saf-per` | [Chu kỳ ngắn nhất của xâu](https://fptoj.com/problem/saf-per) | ⭐⭐ | Chu kỳ + SA |
+| `saf-blr` | [Xâu con lặp dài nhất](https://fptoj.com/problem/saf-blr) | ⭐⭐ | SA + max LCP |
 
 ### Trung bình
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|:----|:--------:|:------:|:-------|
-| [CSES - Substring Queries](https://cses.fi/problemset/task/2110) | CSES | ⭐⭐⭐⭐ | SA + Binary Search |
-| [CSES - String Matching](https://cses.fi/problemset/task/1753) | CSES | ⭐⭐⭐ | SA + LCP |
-| [VNOJ - NKVWORDS](https://oj.vnoi.info/problem/nkvwords) | VNOJ | ⭐⭐⭐ | SA + LCP |
-| [VNOJ - VOSLIS](https://oj.vnoi.info/problem/voslis) | VNOJ | ⭐⭐⭐⭐ | Xâu con chung dài nhất |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|:----|:-----:|:------:|:-------|
+| `strh-lcs` | [Xâu con chung dài nhất (Hash)](https://fptoj.com/problem/strh-lcs) | ⭐⭐⭐ | Hash + BS |
+| `strh-repeat` | [Xâu con lặp dài nhất](https://fptoj.com/problem/strh-repeat) | ⭐⭐⭐ | Hash + BS |
+| `strh-dist` | [Đếm xâu con (Hash)](https://fptoj.com/problem/strh-dist) | ⭐⭐ | Hash + Set |
+| `strk-zmatch` | [Tìm xâu với Z](https://fptoj.com/problem/strk-zmatch) | ⭐⭐ | Z-algorithm |
+| `saf-dk` | [Xâu con phân biệt độ dài K](https://fptoj.com/problem/saf-dk) | ⭐⭐⭐ | SA + LCP |
+| `saf-lcpr` | [LCP giữa hai vị trí trực tuyến](https://fptoj.com/problem/saf-lcpr) | ⭐⭐⭐ | SA + RMQ online |
+| `saf-finlcs` | [LCS bằng Suffix Array](https://fptoj.com/problem/saf-finlcs) | ⭐⭐⭐ | SA + LCP |
 
 ### Nâng cao
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|:----|:--------:|:------:|:-------|
-| [Codeforces - Palindromic Characteristics](https://codeforces.com/problemset/problem/17/E) | Codeforces | ⭐⭐⭐⭐ | SA + Palindrome |
-| [Codeforces - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D) | Codeforces | ⭐⭐⭐⭐ | SA + Pattern matching |
-| [Codeforces - Little Elephant and Strings](https://codeforces.com/problemset/problem/204/E) | Codeforces | ⭐⭐⭐⭐⭐ | SA + LCP + Binary Search |
-| [SPOJ - SARRAY2](https://www.spoj.com/problems/SARRAY2/) | SPOJ | ⭐⭐⭐⭐⭐ | SA nâng cao |
-
-### Lộ trình luyện tập
-
-1. Cài đặt SA bằng Doubling — SPOJ SARRAY
-2. Cài đặt Kasai's LCP — SUBST1
-3. SA + Binary Search — CSES Substring Order I
-4. SA + LCP + RMQ — CSES Substring Order II, VNOJ VOSLIS
-5. Kết hợp kỹ thuật khác — Codeforces problems
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|:----|:-----:|:------:|:-------|
+| `stra-lcp` | [LCP RMQ Query](https://fptoj.com/problem/stra-lcp) | ⭐⭐⭐⭐ | SA + LCP + Sparse Table |
+| `stra-dist` | [Đếm xâu con khác nhau](https://fptoj.com/problem/stra-dist) | ⭐⭐⭐⭐ | Công thức SA - LCP |
+| `saf-pal2` | [Palindrome xuất hiện nhiều nhất](https://fptoj.com/problem/saf-pal2) | ⭐⭐⭐⭐ | SA + Hash |
 
 ---
 

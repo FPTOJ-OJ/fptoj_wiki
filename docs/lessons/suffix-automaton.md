@@ -1338,22 +1338,18 @@ State st[MAXLEN * 2];  // ← KHÔNG PHẢI st[MAXLEN]!
 
 ## 11. Bài tập luyện tập
 
-| Bài | Nguồn | Độ khó | Ghi chú |
-|---|---|---|---|
-| Distinct Substrings | SPOJ - SUBST1 | ★★☆ | Ứng dụng 1 trực tiếp |
-| Longest Common Substring | SPOJ - LCS | ★★☆ | Ứng dụng 2 trực tiếp |
-| Longest Common Substring (3 strings) | SPOJ - LCS3 | ★★★ | Mở rộng LCS |
-| Number of Occurrences | CF - 271D | ★★☆ | Đếm occurrences |
-| K-th Substring | CF - 128B | ★★★ | Xâu con thứ K |
-| Password | CF - 126B | ★★★ | Xâu con vừa là prefix vừa là suffix, xuất hiện giữa |
-| String Set Queries | CF - 710F | ★★★★ | Dynamic SAM |
-| Palindromes and Supersequences | CF - 932G | ★★★★★ | SAM + palindromic tree |
-| [CSES - Distinct Substrings](https://cses.fi/problemset/task/2105) | CSES | ★★☆ | Đếm xâu con khác nhau |
-| [CSES - Repeating Substring](https://cses.fi/problemset/task/2106) | CSES | ★★★ | Tìm xâu con lặp lại dài nhất |
-| [CSES - Substring Order I](https://cses.fi/problemset/task/2108) | CSES | ★★★ | Xâu con thứ K |
-| [CSES - Substring Distribution](https://cses.fi/problemset/task/2110) | CSES | ★★★ | Thống kê xâu con |
-| [CSES - Pattern Positions](https://cses.fi/problemset/task/2104) | CSES | ★★★ | Tìm vị trí mẫu |
-| [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr) | VNOJ | ★★☆ | Tìm xâu con |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `stra-dist` | [Đếm xâu con phân biệt (Suffix Array)](https://fptoj.com/problem/stra-dist) | ⭐⭐⭐⭐ | Đếm xâu con khác nhau |
+| `stra-lcs` | [Xâu con chung dài nhất (Suffix Array)](https://fptoj.com/problem/stra-lcs) | ⭐⭐⭐⭐ | LCS bằng SA |
+| `stra-lcp` | [LCP và truy vấn trên Suffix Array](https://fptoj.com/problem/stra-lcp) | ⭐⭐⭐⭐ | LCP + RMQ |
+| `stra-mana` | [Palindrome dài nhất (Manacher)](https://fptoj.com/problem/stra-mana) | ⭐⭐⭐ | Palindrome dài nhất |
+| `stra-cntpal` | [Đếm palindrome con](https://fptoj.com/problem/stra-cntpal) | ⭐⭐⭐ | Tổng số palindrome |
+| `strh-dist` | [Đếm xâu con phân biệt (Hash)](https://fptoj.com/problem/strh-dist) | ⭐⭐ | Hash + Set |
+| `strh-lcs` | [Xâu con chung dài nhất (Hash)](https://fptoj.com/problem/strh-lcs) | ⭐⭐⭐ | Hash + BS |
+| `strh-repeat` | [Xâu con lặp dài nhất (Hash)](https://fptoj.com/problem/strh-repeat) | ⭐⭐⭐ | Hash + BS |
+| `strk-union` | [Ghép xâu tối ưu bằng KMP](https://fptoj.com/problem/strk-union) | ⭐⭐⭐ | Ghép chuỗi tối ưu |
+| `strk-zmatch` | [Tìm xâu bằng Z-Algorithm](https://fptoj.com/problem/strk-zmatch) | ⭐⭐ | Pattern matching |
 
 ---
 

@@ -78,7 +78,8 @@ Lộ trình từ **zero đến hero** — từ người mới bắt đầu đế
 - [Quy hoạch động](/lessons/quy-hoach-dong/)
 - [Binary Search on Answer](/lessons/binary-search-on-answer/)
 
-## ⭐⭐⭐ Nhóm 6 — Xử lý xâu (4 bài)
+## ⭐⭐⭐ Nhóm 6 — Xử lý xâu (5 bài)
+- [Xâu ký tự cơ bản](/lessons/xau-co-ban/)
 - [KMP](/lessons/kmp-tim-xau/)
 - [Hash xâu & Z-algorithm](/lessons/hash-xau-z-algorithm/)
 - [Manacher](/lessons/manacher/)

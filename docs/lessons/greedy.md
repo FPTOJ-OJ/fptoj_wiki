@@ -392,14 +392,26 @@ Cho N hoạt động, mỗi hoạt động có bắt đầu và kết thúc. Tì
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
-| [CSES - Coin Piles](https://cses.fi/problemset/task/1754) | CSES | ⭐ | Greedy cơ bản |
-| [CSES - Tasks and Deadlines](https://cses.fi/problemset/task/1630) | CSES | ⭐⭐ | Activity selection |
-| [CSES - Stick Lengths](https://cses.fi/problemset/task/1619) | CSES | ⭐⭐ | Median |
-| [LeetCode - Jump Game](https://leetcode.com/problems/jump-game/) | LC | ⭐⭐ | Greedy |
-| [LeetCode - Interval Scheduling](https://leetcode.com/problems/non-overlapping-intervals/) | LC | ⭐⭐ | Activity selection |
-| [VNOJ - Atcoder DP Contest L - Deque](https://oj.vnoi.info/problem/atcoder_dp_l) | VNOJ | ⭐⭐⭐ | Game/Greedy |
-| [VNOJ - NKSGAME](https://oj.vnoi.info/problem/nksgame) | VNOJ | ⭐⭐ | Two pointers |
-| [CSES - Room Allocation](https://cses.fi/problemset/task/1164) | CSES | ⭐⭐ | Interval scheduling |
+| [grd-coin-change](https://fptoj.com/problem/grd-coin-change) | FPTOJ | ⭐ | Đổi tiền tham lam |
+| [grd-activities](https://fptoj.com/problem/grd-activities) | FPTOJ | ⭐⭐ | Activity Selection |
+| [grd-assign-cookies](https://fptoj.com/problem/grd-assign-cookies) | FPTOJ | ⭐⭐ | Phân bánh quy |
+| [grd-lemonade](https://fptoj.com/problem/grd-lemonade) | FPTOJ | ⭐⭐ | Trả tiền thừa |
+| [grd-max-subarray](https://fptoj.com/problem/grd-max-subarray) | FPTOJ | ⭐⭐ | Kadane / Tổng lớn nhất |
+| [grd-knapsack-frac](https://fptoj.com/problem/grd-knapsack-frac) | FPTOJ | ⭐⭐ | Fractional Knapsack |
+| [grd-job-deadline](https://fptoj.com/problem/grd-job-deadline) | FPTOJ | ⭐⭐⭐ | Job Sequencing |
+| [grd-platforms](https://fptoj.com/problem/grd-platforms) | FPTOJ | ⭐⭐⭐ | Sân ga tối thiểu |
+| [grd-merge-sticks](https://fptoj.com/problem/grd-merge-sticks) | FPTOJ | ⭐⭐⭐ | Gộp que (Huffman) |
+| [grd-max-units](https://fptoj.com/problem/grd-max-units) | FPTOJ | ⭐⭐⭐ | Xe tải chở hàng tối ưu |
+| [grd-boats](https://fptoj.com/problem/grd-boats) | FPTOJ | ⭐⭐⭐ | Cứu hộ thuyền (2 con trỏ) |
+| [grd-candy](https://fptoj.com/problem/grd-candy) | FPTOJ | ⭐⭐⭐ | Phát kẹo (Candy) |
+| [grd-huffman](https://fptoj.com/problem/grd-huffman) | FPTOJ | ⭐⭐⭐⭐ | Nén Huffman |
+| [grd-interval-part](https://fptoj.com/problem/grd-interval-part) | FPTOJ | ⭐⭐⭐⭐ | Interval Partitioning |
+| [grd-remove-digits](https://fptoj.com/problem/grd-remove-digits) | FPTOJ | ⭐⭐⭐⭐ | Xóa chữ số (Stack) |
+| [grd-gas-station](https://fptoj.com/problem/grd-gas-station) | FPTOJ | ⭐⭐⭐⭐ | Trạm xăng vòng tròn |
+| [grd-two-city](https://fptoj.com/problem/grd-two-city) | FPTOJ | ⭐⭐⭐⭐ | Chi phí hai thành phố |
+| [grd-min-arrows](https://fptoj.com/problem/grd-min-arrows) | FPTOJ | ⭐⭐⭐⭐ | Bong bóng và mũi tên |
+| [grd-partition-labels](https://fptoj.com/problem/grd-partition-labels) | FPTOJ | ⭐⭐⭐⭐ | Phân vùng chuỗi |
+| [grd-wiggle](https://fptoj.com/problem/grd-wiggle) | FPTOJ | ⭐⭐⭐⭐ | Dãy zigzag dài nhất |
 
 ## Bài viết liên quan
 

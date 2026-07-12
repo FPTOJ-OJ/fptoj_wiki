@@ -407,14 +407,14 @@ Nếu gốc không phải đỉnh 1, chỉ cần gọi `dfs(root, 0)` thay vì `
 
 | Bài | Nền tảng | Độ khó | Chủ đề |
 |-----|----------|--------|--------|
-| [CSES - Company Queries I](https://cses.fi/problemset/task/1687) | CSES | ⭐⭐ | Binary Lifting |
-| [CSES - Company Queries II](https://cses.fi/problemset/task/1688) | CSES | ⭐⭐ | LCA |
-| [CSES - Distance Queries](https://cses.fi/problemset/task/1135) | CSES | ⭐⭐ | Khoảng cách cây |
-| [CSES - Path Queries](https://cses.fi/problemset/task/1138) | CSES | ⭐⭐⭐ | Cộng trên đường đi |
-| [SPOJ - LCA](https://www.spoj.com/problems/LCA/) | SPOJ | ⭐⭐ | LCA cơ bản |
-| [LeetCode - Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | LC | ⭐⭐ | LCA cơ bản |
-| [LeetCode - Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node/) | LC | ⭐⭐⭐ | Binary Lifting |
-| [CSES - Planets Queries I](https://cses.fi/problemset/task/1750) | CSES | ⭐⭐ | Binary Lifting trên đồ thị hàm |
+| [lca-basic](https://fptoj.com/problem/lca-basic) | FPTOJ | ⭐⭐ | Tìm tổ tiên chung gần nhất (LCA) |
+| [lca-k-ancestor](https://fptoj.com/problem/lca-k-ancestor) | FPTOJ | ⭐⭐ | Tìm tổ tiên thứ K của nút |
+| [lca-distance](https://fptoj.com/problem/lca-distance) | FPTOJ | ⭐⭐ | Tìm khoảng cách giữa 2 nút trên cây |
+| [lca-min-edge](https://fptoj.com/problem/lca-min-edge) | FPTOJ | ⭐⭐⭐ | Cạnh nhỏ nhất trên đường đi đơn |
+| [lca-max-edge](https://fptoj.com/problem/lca-max-edge) | FPTOJ | ⭐⭐⭐ | Cạnh lớn nhất trên đường đi đơn |
+| [lca-tree-update](https://fptoj.com/problem/lca-tree-update) | FPTOJ | ⭐⭐⭐⭐ | Truy vấn sai phân và cập nhật cây con |
+| [lca-planets](https://fptoj.com/problem/lca-planets) | FPTOJ | ⭐⭐⭐⭐ | Binary Lifting trên đồ thị hàm |
+| [lca-node-on-path](https://fptoj.com/problem/lca-node-on-path) | FPTOJ | ⭐⭐⭐⭐⭐ | Kiểm tra đỉnh nằm trên đường đi ngắn nhất |
 
 ---
 

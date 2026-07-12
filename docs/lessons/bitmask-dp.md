@@ -165,3 +165,24 @@ $f(N)$ = chi phí chuyển trạng thái.
     ans = min(dp[full][v] + c[v][0] for v in range(1, n))
     print(ans)
     ```
+
+---
+
+## Bài tập luyện tập trên FPTOJ
+
+| # | Bài | Điểm | Độ khó |
+|:-:|------|:----:|:------:|
+| 1 | [bsm-01 - Chia Kẹo Thành Hai Nhóm](https://fptoj.problems/problem/bsm-01) | 15 | ⭐⭐ |
+| 2 | [bsm-02 - Đếm Cách Chọn Thùng Hàng Có Tổng $S$](https://fptoj.problems/problem/bsm-02) | 15 | ⭐⭐ |
+| 3 | [bsm-03 - Hành Trình Thu Mua Nông Sản](https://fptoj.problems/problem/bsm-03) | 20 | ⭐⭐⭐ |
+| 4 | [bsm-04 - Phân Công Công Nhân Kho](https://fptoj.problems/problem/bsm-04) | 20 | ⭐⭐⭐ |
+| 5 | [bsm-05 - Tuyến Xe Buýt Khép Kín](https://fptoj.problems/problem/bsm-05) | 25 | ⭐⭐⭐ |
+| 6 | [bsm-06 - Đếm Hành Trình Giao Hàng](https://fptoj.problems/problem/bsm-06) | 25 | ⭐⭐⭐⭐ |
+| 7 | [bsm-07 - Chia Quà Cho Nhiều Lớp](https://fptoj.problems/problem/bsm-07) | 30 | ⭐⭐⭐⭐ |
+| 8 | [bsm-08 - Xếp Cá Trên Bàn Cờ $N \times N$](https://fptoj.problems/problem/bsm-08) | 30 | ⭐⭐⭐⭐ |
+
+## Bài viết liên quan
+
+- [Quy hoạch động cơ bản](quy-hoach-dong.md)
+- [DP trên DAG](dp-on-dag.md)
+- [Tối ưu hóa quy hoạch động](dp-optimization.md)

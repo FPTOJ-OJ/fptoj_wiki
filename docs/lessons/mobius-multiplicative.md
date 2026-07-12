@@ -302,3 +302,18 @@ Nếu $\gcd(a, b) = 1$, thì $ab$ có bình phương nguyên tố $\iff$ $a$ ho�
     for i in range(1, n + 1):
         print(f"{i}: mu={mu[i]} phi={phi[i]}")
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `mobius-basic` | [Hàm Möbius](https://fptoj.com/problem/mobius-basic) | ⭐ | Tính $\mu(n)$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+| `mobius-range` | [Sàng Möbius](https://fptoj.com/problem/mobius-range) | ⭐⭐ | Sàng $\mu(1..N)$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+| `mobius-mult-func` | [Hàm nhân tính](https://fptoj.com/problem/mobius-mult-func) | ⭐⭐ | Hàm nhân tính $\varphi$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+| `mobius-sigma0` | [Tổng số ước](https://fptoj.com/problem/mobius-sigma0) | ⭐ | $\sum \sigma_0(i)$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+| `mobius-squarefree` | [Đếm số square-free](https://fptoj.com/problem/mobius-squarefree) | ⭐⭐⭐ | $\sum \mu(i) \lfloor N/i^2 \rfloor$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+| `mobius-coprime-cnt` | [Đếm cặp nguyên tố cùng nhau](https://fptoj.com/problem/mobius-coprime-cnt) | ⭐⭐⭐⭐ | Möbius + Inclusion-Exclusion | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+| `mobius-div-sum` | [Tổng GCD dùng Möbius](https://fptoj.com/problem/mobius-div-sum) | ⭐⭐⭐⭐ | $\sum \gcd(i,j)$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+| `mobius-triple` | [Đếm bộ gcd=1](https://fptoj.com/problem/mobius-triple) | ⭐⭐⭐⭐ | $\sum \mu(d) \lfloor A/d \rfloor \lfloor B/d \rfloor \lfloor C/d \rfloor$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |

@@ -186,3 +186,23 @@ Tương tự Dijkstra với priority queue, nhưng khai thác trọng số 0/1 �
 
     print(' '.join(str(d if d != float('inf') else -1) for d in dist))
     ```
+
+---
+
+## Bài tập luyện tập trên FPTOJ
+
+Dưới đây là danh sách các bài tập thực hành về BFS ~0\text{-}1~ trên hệ thống [FPTOJ](https://fptoj.com) được thiết kế đồng bộ với bài học lý thuyết này:
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Lời giải chi tiết (Editorial) |
+| :--- | :--- | :---: | :--- | :--- |
+| `bfs01-switch` | [Công tắc cửa ngầm](https://fptoj.com/problem/bfs01-switch) | ⭐⭐ | BFS ~0\text{-}1~ trên đồ thị có hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-switch/solution) |
+| `bfs01-gridwall` | [Bình vượt mê cung](https://fptoj.com/problem/bfs01-gridwall) | ⭐⭐ | BFS ~0\text{-}1~ trên lưới ~2D~ | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-gridwall/solution) |
+| `bfs01-parity` | [Tuyến đường chẵn lẻ](https://fptoj.com/problem/bfs01-parity) | ⭐⭐ | BFS ~0\text{-}1~ trên đồ thị vô hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-parity/solution) |
+| `bfs01-toll` | [Trạm thu phí xa lộ](https://fptoj.com/problem/bfs01-toll) | ⭐⭐ | BFS ~0\text{-}1~ trên đồ thị vô hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-toll/solution) |
+| `bfs01-revedge` | [Tý đảo hướng đường](https://fptoj.com/problem/bfs01-revedge) | ⭐⭐⭐ | BFS ~0\text{-}1~ đảo chiều cạnh đồ thị | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-revedge/solution) |
+| `bfs01-stepup` | [Leo núi nhân tạo](https://fptoj.com/problem/bfs01-stepup) | ⭐⭐⭐ | BFS ~0\text{-}1~ trên lưới có cao độ | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-stepup/solution) |
+| `bfs01-teleport` | [Mạng lưới dịch chuyển](https://fptoj.com/problem/bfs01-teleport) | ⭐⭐⭐ | BFS ~0\text{-}1~ trên trục lộ ~1D~ và portal | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-teleport/solution) |
+| `bfs01-traffic` | [Ngã tư luồng ưu tiên](https://fptoj.com/problem/bfs01-traffic) | ⭐⭐⭐ | BFS ~0\text{-}1~ lưới với hướng ưu tiên | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-traffic/solution) |
+| `bfs01-turn` | [Lái xe ít rẽ nhất](https://fptoj.com/problem/bfs01-turn) | ⭐⭐⭐⭐ | BFS ~0\text{-}1~ lưới với 4 trạng thái hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-turn/solution) |
+| `bfs01-subway` | [Đổi tàu điện ngầm](https://fptoj.com/problem/bfs01-subway) | ⭐⭐⭐⭐ | BFS ~0\text{-}1~ đồ thị ảo phân cấp | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-subway/solution) |
+

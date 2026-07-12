@@ -497,14 +497,24 @@ Với $N = 10^7$, xâu ghép có độ dài $\sim 2 \times 10^7$, mảng $\pi$ c
 
 ## 7. Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Pattern Positions](https://cses.fi/problemset/task/2107) | CSES | ⭐⭐ | KMP tìm vị trí |
-| [SPOJ - NHAY](https://www.spoj.com/problems/NHAY/) | SPOJ | ⭐⭐ | KMP cơ bản |
-| [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr) | VNOJ | ⭐⭐ | Tìm xâu con |
-| [CF - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D) | CF | ⭐⭐⭐ | KMP nâng cao |
-| [VNOJ - NKPALIN](https://oj.vnoi.info/problem/nkpalin) | VNOJ | ⭐⭐⭐ | Palindrome + KMP |
-| [VNOJ - PALINY](https://oj.vnoi.info/problem/paliny) | VNOJ | ⭐⭐⭐ | Palindrome dài nhất |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `strk-prefix` | [Prefix function](https://fptoj.com/problem/strk-prefix) | ⭐ | Prefix function cơ bản |
+| `strk-kmp` | [Tìm xâu mẫu KMP](https://fptoj.com/problem/strk-kmp) | ⭐⭐ | KMP tìm vị trí |
+| `strk-occ` | [Đếm lần xuất hiện](https://fptoj.com/problem/strk-occ) | ⭐⭐ | KMP đếm số lần |
+| `strk-period` | [Chu kỳ nhỏ nhất](https://fptoj.com/problem/strk-period) | ⭐⭐ | Chu kỳ xâu |
+| `strk-border` | [Border với KMP](https://fptoj.com/problem/strk-border) | ⭐⭐ | Border của xâu |
+| `strk-zfunc` | [Z-function](https://fptoj.com/problem/strk-zfunc) | ⭐ | Z-function cơ bản |
+| `strk-zmatch` | [Tìm xâu với Z](https://fptoj.com/problem/strk-zmatch) | ⭐⭐ | Z-algorithm tìm mẫu |
+| `strk-union` | [Ghép xâu tối ưu](https://fptoj.com/problem/strk-union) | ⭐⭐⭐ | KMP ghép xâu |
+| `ksp-first` | [Vị trí xuất hiện đầu tiên](https://fptoj.com/problem/ksp-first) | ⭐ | KMP tìm vị trí đầu tiên |
+| `ksp-nool` | [Đếm không overlap](https://fptoj.com/problem/ksp-nool) | ⭐⭐ | KMP không overlap |
+| `ksp-per2` | [Chu kỳ ngắn nhất edge case](https://fptoj.com/problem/ksp-per2) | ⭐ | KMP xử lý edge case |
+| `ksp-bd` | [Đếm số border của xâu](https://fptoj.com/problem/ksp-bd) | ⭐⭐ | KMP đếm border |
+| `ksp-last` | [Vị trí xuất hiện cuối cùng](https://fptoj.com/problem/ksp-last) | ⭐⭐ | KMP vị trí cuối |
+| `ksp-short` | [Ghép hai xâu tối thiểu](https://fptoj.com/problem/ksp-short) | ⭐⭐⭐ | KMP ghép xâu |
+| `ksp-rot` | [Xoay vòng chuỗi](https://fptoj.com/problem/ksp-rot) | ⭐⭐⭐ | KMP rotation |
+| `ksp-pair` | [Hai mẫu đồng thời](https://fptoj.com/problem/ksp-pair) | ⭐⭐⭐ | KMP song song |
 
 !!! tip "Thử tương tác"
     - [KMP String Search - Algorithm Visualizer](https://algorithm-visualizer.org/dynamic-programming/knuth-morris-pratts-string-search)

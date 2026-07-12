@@ -169,8 +169,20 @@ $M_i$ chia hết cho $m_j$ (vì $M_i = M / m_i$ chứa $m_j$). Do đó $M_i \cdo
 
 ## 5. Bài tập luyện tập
 
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `crt-pair` | [CRT hai phương trình](https://fptoj.com/problem/crt-pair) | ⭐ | CRT cơ bản 2 phương trình | [Định lý Thặng dư Trung Hoa](crt.md) |
+| `crt-inv` | [CRT với dư bằng 1](https://fptoj.com/problem/crt-inv) | ⭐ | CRT trường hợp đặc biệt | [Định lý Thặng dư Trung Hoa](crt.md) |
+| `crt` | [Định Lý Thặng Dư Trung Hoa](https://fptoj.com/problem/crt) | ⭐⭐⭐ | CRT tổng quát | [Định lý Thặng dư Trung Hoa](crt.md) |
+| `crt-basic` | [CRT cơ bản](https://fptoj.com/problem/crt-basic) | ⭐⭐ | CRT nhiều phương trình | [Định lý Thặng dư Trung Hoa](crt.md) |
+| `euclid-crt` | [Định lý thặng dư Trung Hoa](https://fptoj.com/problem/euclid-crt) | ⭐⭐⭐⭐ | CRT với Extended Euclid | [Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `crt-prime` | [CRT với modulo nguyên tố](https://fptoj.com/problem/crt-prime) | ⭐⭐ | CRT modulo nguyên tố | [Định lý Thặng dư Trung Hoa](crt.md) |
+| `crt-large` | [CRT nhiều phương trình](https://fptoj.com/problem/crt-large) | ⭐⭐⭐ | CRT với $k \le 100$ | [Định lý Thặng dư Trung Hoa](crt.md) |
+| `crt-garner` | [CRT thuật toán Garner](https://fptoj.com/problem/crt-garner) | ⭐⭐⭐ | Thuật toán Garner | [Định lý Thặng dư Trung Hoa](crt.md) |
+
+### Tham khảo thêm
+
 | Bài | Nền tảng | Độ khó | Mô tả |
 |---|---|---|---|
-| [FPTOJ - crt](https://fptoj.com/problem/crt) | FPTOJ | ⭐⭐⭐ | Tìm nghiệm hệ đồng dư với tích moduli $\le 10^{18}$ |
 | [Hackerrank - Number Of Ways](https://www.hackerrank.com/challenges/number-of-ways) | Hackerrank | ⭐⭐⭐⭐ | Ứng dụng CRT giải hệ modular lớn |
 

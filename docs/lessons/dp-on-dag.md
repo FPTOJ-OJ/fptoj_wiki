@@ -203,3 +203,24 @@ Nếu có chu trình, thứ tự tô-pô không tồn tại → không xác đ�
 
     print(dp[t])
     ```
+
+---
+
+## Bài tập luyện tập trên FPTOJ
+
+| # | Bài | Điểm | Độ khó |
+|:-:|------|:----:|:------:|
+| 1 | [dpg-01 - Đếm Đường Đi Trên Bản Đồ Một Chiều](https://fptoj.problems/problem/dpg-01) | 15 | ⭐⭐ |
+| 2 | [dpg-02 - Tuyến Giao Hàng Rẻ Nhất](https://fptoj.problems/problem/dpg-02) | 15 | ⭐⭐ |
+| 3 | [dpg-03 - Chuyến Phượt Qua Nhiều Điểm Dừng Nhất](https://fptoj.problems/problem/dpg-03) | 20 | ⭐⭐ |
+| 4 | [dpg-04 - Thời Gian Sớm Nhất Hoàn Thành Công Đoạn](https://fptoj.problems/problem/dpg-04) | 20 | ⭐⭐⭐ |
+| 5 | [dpg-05 - Xếp Lịch Học Các Môn Có Tiên Quyết](https://fptoj.problems/problem/dpg-05) | 25 | ⭐⭐⭐ |
+| 6 | [dpg-06 - Hoạt Động Lợi Nhuận Lớn Nhất](https://fptoj.problems/problem/dpg-06) | 25 | ⭐⭐⭐ |
+| 7 | [dpg-07 - Đi Đúng $K$ Bước Qua Bản Đồ](https://fptoj.problems/problem/dpg-07) | 30 | ⭐⭐⭐⭐ |
+| 8 | [dpg-08 - Số Tuyến Đường Giữa Hai Thành Phố](https://fptoj.problems/problem/dpg-08) | 30 | ⭐⭐⭐⭐ |
+
+## Bài viết liên quan
+
+- [Quy hoạch động cơ bản](quy-hoach-dong.md)
+- [Quy hoạch động Bitmask](bitmask-dp.md)
+- [Quy hoạch động trên cây](dp-on-trees.md)

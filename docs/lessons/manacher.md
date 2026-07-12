@@ -226,14 +226,21 @@ Kết quả: $P[5]=4$, palindrome dài nhất có tâm tại index 5 trong $T$, 
 
 ## Bài tập luyện tập
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Palindrome Queries](https://cses.fi/problemset/task/2420) | CSES | ⭐⭐⭐ | Palindrome + Hash |
-| [LeetCode - Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) | LC | ⭐⭐ | Manacher |
-| [LeetCode - Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/) | LC | ⭐⭐ | Đếm palindrome |
-| [VNOJ - NKPALIN](https://oj.vnoi.info/problem/nkpalin) | VNOJ | ⭐⭐ | Palindrome |
-| [VNOJ - PALINY](https://oj.vnoi.info/problem/paliny) | VNOJ | ⭐⭐⭐ | Palindrome longest |
-| [SPOJ - LPALIN](https://www.spoj.com/problems/LPALIN/) | SPOJ | ⭐⭐ | Longest palindrome |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `stra-mana` | [Palindrome dài nhất](https://fptoj.com/problem/stra-mana) | ⭐⭐⭐ | Manacher cơ bản |
+| `stra-cntpal` | [Đếm palindrome con](https://fptoj.com/problem/stra-cntpal) | ⭐⭐⭐ | Đếm palindrome |
+| `strh-palind` | [Palindrome với Hash](https://fptoj.com/problem/strh-palind) | ⭐⭐⭐ | Palindrome + Hash |
+| `strk-kmp` | [Tìm xâu mẫu KMP](https://fptoj.com/problem/strk-kmp) | ⭐⭐ | KMP tìm xâu |
+| `stra-lcp` | [LCP trên SA](https://fptoj.com/problem/stra-lcp) | ⭐⭐⭐⭐ | SA + LCP |
+| `man-pk` | [Đếm palindrome độ dài K](https://fptoj.com/problem/man-pk) | ⭐⭐⭐ | Manacher + đếm |
+| `man-cmn` | [Palindrome chung hai vị trí](https://fptoj.com/problem/man-cmn) | ⭐⭐⭐ | Manacher + RMQ |
+| `man-cnt` | [Đếm cặp palindrome](https://fptoj.com/problem/man-cnt) | ⭐⭐⭐ | Manacher + đếm |
+| `man-even` | [Palindrome độ dài chẵn](https://fptoj.com/problem/man-even) | ⭐⭐⭐ | Manacher + chẵn |
+| `man-pos` | [Palindrome chứa vị trí](https://fptoj.com/problem/man-pos) | ⭐⭐⭐ | Manacher + vị trí |
+| `man-com` | [Palindrome chung hai xâu](https://fptoj.com/problem/man-com) | ⭐⭐⭐⭐ | Manacher + hai xâu |
+| `man-odd3` | [Liệt kê palindrome độ dài 3](https://fptoj.com/problem/man-odd3) | ⭐⭐ | Manacher + O(N) |
+| `man-dst` | [Đếm palindrome phân biệt](https://fptoj.com/problem/man-dst) | ⭐⭐⭐ | Manacher + Hash |
 
 ## Bài viết liên quan
 

@@ -240,3 +240,28 @@ $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
     n, k, p = map(int, input().split())
     print(lucas(n, k, p))
     ```
+
+---
+
+## 5. Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `wl-wilson` | [Kiểm chứng định lý Wilson](https://fptoj.com/problem/wl-wilson) | ⭐ | Wilson cơ bản | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-fact-p` | [Giai thừa modulo số nguyên tố](https://fptoj.com/problem/wl-fact-p) | ⭐ | $n! \bmod p$ | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-permut` | [Hoán vị modulo](https://fptoj.com/problem/wl-permut) | ⭐ | $n! \bmod p$ | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-wilson-check` | [Kiểm tra nguyên tố bằng Wilson](https://fptoj.com/problem/wl-wilson-check) | ⭐⭐ | Wilson $\Rightarrow$ nguyên tố | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-fact-mod` | [Giai thừa modulo](https://fptoj.com/problem/wl-fact-mod) | ⭐⭐ | $n! \bmod p$ với $n < p$ | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-wilson-ext` | [Wilson mở rộng](https://fptoj.com/problem/wl-wilson-ext) | ⭐⭐ | Wilson cho $p^k$ | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-comb-mod` | [Tổng tổ hợp modulo](https://fptoj.com/problem/wl-comb-mod) | ⭐⭐ | $\sum C_n^k = 2^n \bmod p$ | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-lucas-basic` | [Định lý Lucas cơ bản](https://fptoj.com/problem/wl-lucas-basic) | ⭐⭐⭐ | $C_n^k \bmod p$ (Lucas) | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-lucas-multi` | [Lucas nhiều truy vấn](https://fptoj.com/problem/wl-lucas-multi) | ⭐⭐⭐⭐ | Lucas $Q$ truy vấn | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-lucas-sumstr` | [Tổng tổ hợp theo bội của p](https://fptoj.com/problem/wl-lucas-sumstr) | ⭐⭐⭐⭐ | $\sum_{p \mid k} C_n^k \bmod p$ | [Định lý Wilson & Lucas](wilson-lucas.md) |
+| `wl-wilson-lucas` | [Kết hợp Wilson và Lucas](https://fptoj.com/problem/wl-wilson-lucas) | ⭐⭐⭐⭐ | $a! + C_b^c \bmod p$ | [Định lý Wilson & Lucas](wilson-lucas.md) |
+
+### Tham khảo thêm
+
+| Bài | Nền tảng | Độ khó | Mô tả |
+|---|---|---|---|
+| [CSES - Binomial Coefficients](https://cses.fi/problemset/task/1079) | CSES | ⭐⭐ | Tổ hợp modulo |
+| [VNOJ - VOMARBLE](https://oj.vnoi.info/problem/vomarble) | VNOJ | ⭐⭐⭐ | Tổ hợp modulo |

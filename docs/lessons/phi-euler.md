@@ -182,9 +182,23 @@ Nếu $\gcd(a, b) = 1$ thì $\varphi(ab) = \varphi(a) \cdot \varphi(b)$.
 
 ## 5. Bài tập luyện tập
 
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `phi-euler` | [Hàm Phi Euler](https://fptoj.com/problem/phi-euler) | ⭐⭐ | $\varphi(N)$ cơ bản | [Hàm Phi Euler](phi-euler.md) |
+| `phi-range` | [Sàng Phi Euler](https://fptoj.com/problem/phi-range) | ⭐⭐ | Sàng $\varphi(1..N)$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-sum` | [Tổng Phi Euler trên đoạn](https://fptoj.com/problem/phi-sum) | ⭐⭐ | Prefix sum $\varphi$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-frac` | [Đếm phân số tối giản](https://fptoj.com/problem/phi-frac) | ⭐⭐ | $\sum \varphi(i)$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-multi` | [Tổng Phi trên ước](https://fptoj.com/problem/phi-multi) | ⭐ | Tính chất $\sum_{d|n} \varphi(d) = n$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-gcd-sum` | [Tổng GCD với Phi Euler](https://fptoj.com/problem/phi-gcd-sum) | ⭐⭐⭐ | $\sum \gcd(i, N)$ dùng $\varphi$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-div-euler` | [Chia modulo bằng định lý Euler](https://fptoj.com/problem/phi-div-euler) | ⭐⭐⭐ | $a \times b^{\varphi(M)-1} \bmod M$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-exponent` | [Lũy thừa modulo bằng định lý Euler](https://fptoj.com/problem/phi-exponent) | ⭐⭐⭐ | $a^n \bmod M$ rút gọn số mũ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-order` | [Cấp của số modulo](https://fptoj.com/problem/phi-order) | ⭐⭐⭐ | Tìm cấp $a^k \equiv 1 \pmod{M}$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-coprime-r` | [Đếm nguyên tố cùng nhau trong đoạn](https://fptoj.com/problem/phi-coprime-r) | ⭐⭐⭐⭐ | Inclusion-Exclusion + $\varphi$ | [Hàm Phi Euler](phi-euler.md) |
+
+### Tham khảo thêm
+
 | Bài | Nền tảng | Độ khó | Mô tả |
 |---|---|---|---|
-| [FPTOJ - phi-euler](https://fptoj.com/problem/phi-euler) | FPTOJ | ⭐⭐ | Tính $\varphi(N)$ với $N \le 10^{12}$ |
 | [CSES - Counting Divisors](https://cses.fi/problemset/task/1713) | CSES | ⭐⭐ | Đếm ước số của $N$ |
 | [CSES - Divisor Analysis](https://cses.fi/problemset/task/2182) | CSES | ⭐⭐⭐ | Phân tích các ước (số lượng, tổng, tích) |
 

@@ -174,3 +174,22 @@ graph TD
     for i in sa.sa:
         print(f"{i}: {s[i:]}")
     ```
+
+## Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+|---|---|---|---|
+| [`str-subcnt`](https://fptoj.com/problem/str-subcnt) | Đếm xâu con phân biệt (Suffix Tree) | ⭐⭐⭐ | Ứng dụng cơ bản của Suffix Tree |
+| [`str-match`](https://fptoj.com/problem/str-match) | Đếm xuất hiện mẫu (Suffix Tree) | ⭐⭐⭐ | Tìm pattern trong văn bản |
+| [`str-firstc`](https://fptoj.com/problem/str-firstc) | Xâu con phân biệt bắt đầu bằng ký tự | ⭐⭐ | Đếm theo ký tự đầu |
+| [`str-fc`](https://fptoj.com/problem/str-fc) | Ký tự đầu tiên xuất hiện duy nhất | ⭐⭐ | Bài tập cơ bản |
+| [`str-xor`](https://fptoj.com/problem/str-xor) | LCP xoay vòng (Suffix Tree) | ⭐⭐⭐ | LCP giữa hai hậu tố |
+| [`stra-dist`](https://fptoj.com/problem/stra-dist) | Đếm xâu con phân biệt (Suffix Array) | ⭐⭐⭐⭐ | Công thức kinh điển |
+| [`stra-lcp`](https://fptoj.com/problem/stra-lcp) | LCP và truy vấn trên Suffix Array | ⭐⭐⭐⭐ | SA + LCP + RMQ |
+| [`stra-lcs`](https://fptoj.com/problem/stra-lcs) | Xâu con chung dài nhất (Suffix Array) | ⭐⭐⭐⭐ | Kết hợp hai xâu |
+| [`saf-salc`](https://fptoj.com/problem/saf-salc) | In Suffix Array và LCP | ⭐⭐ | Bài tập cơ bản |
+
+## Tài liệu tham khảo
+
+- [CP-Algorithms - Suffix Tree](https://cp-algorithms.com/string/suffix-tree.html)
+- [Wikipedia - Suffix Tree](https://en.wikipedia.org/wiki/Suffix_tree)

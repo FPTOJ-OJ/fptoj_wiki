@@ -236,3 +236,22 @@ $|\Sigma|$ = kích thước bảng chữ cái.
         pt.extend(i)
     print(pt.count_distinct())
     ```
+
+## Bài tập luyện tập
+
+| Mã bài | Tên bài tập | Độ khó | Chủ đề |
+|---|---|---|---|
+| [`str-pald`](https://fptoj.com/problem/str-pald) | Đếm palindrome phân biệt (Palindrome Tree) | ⭐⭐⭐ | Câu lệnh cơ bản của Eertree |
+| [`str-palcnt`](https://fptoj.com/problem/str-palcnt) | Tổng palindrome con (kể overlap) | ⭐⭐ | Đếm tất cả palindrome |
+| [`str-pal0`](https://fptoj.com/problem/str-pal0) | Palindrome chứa ký tự đầu tiên | ⭐⭐ | Truy vấn vị trí |
+| [`stra-cntpal`](https://fptoj.com/problem/stra-cntpal) | Đếm palindrome con (Manacher) | ⭐⭐⭐ | Đếm palindrome bằng Manacher |
+| [`stra-mana`](https://fptoj.com/problem/stra-mana) | Palindrome dài nhất (Manacher) | ⭐⭐⭐ | Bài cơ bản Manacher |
+| [`man-cnt`](https://fptoj.com/problem/man-cnt) | Đếm cặp palindrome | ⭐⭐⭐ | Manacher nâng cao |
+| [`man-even`](https://fptoj.com/problem/man-even) | Palindrome độ dài chẵn | ⭐⭐⭐ | Manacher nâng cao |
+| [`man-dst`](https://fptoj.com/problem/man-dst) | Đếm palindrome phân biệt | ⭐⭐⭐ | Manacher + Hash |
+| [`man-pos`](https://fptoj.com/problem/man-pos) | Palindrome chứa vị trí cho trước | ⭐⭐⭐ | Manacher + vị trí |
+
+## Tài liệu tham khảo
+
+- [CP-Algorithms - Palindrome Tree](https://cp-algorithms.com/string/palindrome-tree.html)
+- [Codeforces - Palindromic Tree](https://codeforces.com/blog/entry/19193)

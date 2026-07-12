@@ -961,19 +961,17 @@ Với $|\Sigma| = 26$ và $M = 10^6$, trie có tới $10^6$ nút, mỗi nút t�
 
 ## 12. Bài tập luyện tập
 
-| STT | Bài | Nguồn | Độ khó | Ghi chú |
-|-----|-----|-------|--------|---------|
-| 1 | [Finding Patterns](https://cses.fi/problemset/task/2102) | CSES | ★★★ | Tìm nhiều mẫu trong 1 xâu |
-| 2 | [Counting Patterns](https://cses.fi/problemset/task/2103) | CSES | ★★★ | Đếm số lần xuất hiện |
-| 3 | [Pattern Positions](https://cses.fi/problemset/task/2104) | CSES | ★★★ | Tìm vị trí đầu tiên |
-| 4 | [Substring Problem](https://www.spoj.com/problems/SUB_PROB/) | SPOJ | ★★★ | Tìm nhiều mẫu trong xâu |
-| 5 | [Text Editor](https://codeforces.com/contest/633/problem/C) | CF | ★★★★ | Aho-Corasick + DP |
-| 6 | [Lucky Common Subsequence](https://codeforces.com/contest/346/problem/B) | CF | ★★★★ | Aho-Corasick + DP |
-| 7 | [MUH and Cube Walls](https://codeforces.com/contest/471/problem/D) | CF | ★★★★ | Pattern matching biến thể |
-| 8 | [String Set Queries](https://codeforces.com/contest/710/problem/F) | CF | ★★★★★ | AC với online updates |
-| 9 | [CF 963D - Frequency of String](https://codeforces.com/contest/963/problem/D) | CF | ★★★★★ | Khoảng cách lần xuất hiện |
-| 10 | [SUBSTR](https://oj.vnoi.info/problem/substr) | VNOJ | ★★☆ | Tìm xâu con |
-| 11 | [DNA Sequence](https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1620) | UVA | ★★★★ | Ứng dụng sinh học |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `strk-kmp` | [Tìm xâu mẫu bằng KMP](https://fptoj.com/problem/strk-kmp) | ⭐⭐ | Tìm 1 mẫu (KMP) |
+| `strk-occ` | [Đếm lần xuất hiện (KMP)](https://fptoj.com/problem/strk-occ) | ⭐⭐ | Đếm 1 mẫu (KMP) |
+| `strk-zmatch` | [Tìm xâu bằng Z-Algorithm](https://fptoj.com/problem/strk-zmatch) | ⭐⭐ | Tìm 1 mẫu (Z) |
+| `strh-find` | [Tìm xâu con bằng Hash](https://fptoj.com/problem/strh-find) | ⭐⭐ | Tìm 1 mẫu (Hash) |
+| `stra-trie` | [Từ điển bằng Trie](https://fptoj.com/problem/stra-trie) | ⭐⭐ | Lưu trữ và tra từ điển |
+| `stra-prefcnt` | [Đếm tiền tố bằng Trie](https://fptoj.com/problem/stra-prefcnt) | ⭐⭐⭐ | Đếm tiền tố trong tập xâu |
+| `trie-insert-search` | [Tập Từ Vựng Cây Tiền Tố](https://fptoj.com/problem/trie-insert-search) | ⭐ | Thao tác Trie cơ bản |
+| `trie-prefix-count` | [Đếm Tần Suất Tiền Tố](https://fptoj.com/problem/trie-prefix-count) | ⭐⭐ | Đếm từ theo tiền tố |
+| `strb-anagram` | [Hoán vị xâu](https://fptoj.com/problem/strb-anagram) | ⭐⭐ | Hash tần suất |
 
 ---
 

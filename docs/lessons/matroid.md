@@ -89,6 +89,21 @@ $T$ = thời gian kiểm tra tính độc lập.
 
 ---
 
+## Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [mat-uniform](https://fptoj.com/problem/mat-uniform) | FPTOJ | ⭐⭐ | Uniform Matroid: chọn tối đa K phần tử |
+| [mat-graphic-min](https://fptoj.com/problem/mat-graphic-min) | FPTOJ | ⭐⭐ | Graphic Matroid: cây khung nhỏ nhất |
+| [mat-graphic-max](https://fptoj.com/problem/mat-graphic-max) | FPTOJ | ⭐⭐ | Graphic Matroid: cây khung lớn nhất |
+| [mat-partition-color](https://fptoj.com/problem/mat-partition-color) | FPTOJ | ⭐⭐⭐ | Partition Matroid: chọn theo màu |
+| [mat-uniform-k](https://fptoj.com/problem/mat-uniform-k) | FPTOJ | ⭐⭐⭐ | Uniform Matroid có trọng số |
+| [mat-linear-indep](https://fptoj.com/problem/mat-linear-indep) | FPTOJ | ⭐⭐⭐⭐ | Linear Matroid: độc lập tuyến tính |
+| [mat-greedy-proof](https://fptoj.com/problem/mat-greedy-proof) | FPTOJ | ⭐⭐⭐⭐ | Kiểm tra tham lam tối ưu |
+| [mat-partition-job](https://fptoj.com/problem/mat-partition-job) | FPTOJ | ⭐⭐⭐⭐⭐ | Partition Matroid: lập lịch |
+
+---
+
 ## Code minh họa
 
 ### Ví dụ: Greedy trên Graphic Matroid (Kruskal)

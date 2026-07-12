@@ -277,3 +277,18 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
     path.reverse()
     print(*path)
     ```
+
+---
+
+## Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [euler-basic](https://fptoj.com/problem/euler-basic) | FPTOJ | ⭐⭐ | Chu trình Euler vô hướng |
+| [euler-path](https://fptoj.com/problem/euler-path) | FPTOJ | ⭐⭐ | Đường đi Euler vô hướng |
+| [euler-directed](https://fptoj.com/problem/euler-directed) | FPTOJ | ⭐⭐ | Chu trình Euler có hướng |
+| [euler-reconstruct](https://fptoj.com/problem/euler-reconstruct) | FPTOJ | ⭐⭐⭐ | Đường đi Euler có hướng |
+| [euler-domino](https://fptoj.com/problem/euler-domino) | FPTOJ | ⭐⭐⭐ | Sắp xếp Domino qua Euler |
+| [euler-de-bruijn](https://fptoj.com/problem/euler-de-bruijn) | FPTOJ | ⭐⭐⭐⭐ | Chuỗi De Bruijn |
+| [euler-word-chain](https://fptoj.com/problem/euler-word-chain) | FPTOJ | ⭐⭐⭐⭐ | Sắp xếp chuỗi từ tiếng Anh |
+| [euler-postman](https://fptoj.com/problem/euler-postman) | FPTOJ | ⭐⭐⭐⭐⭐ | Người đưa thư Trung Hoa |

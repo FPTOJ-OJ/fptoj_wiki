@@ -507,7 +507,40 @@ plt.tight_layout()
 | [LeetCode - Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | LeetCode | ⭐⭐⭐ | Bellman-Ford variant |
 | [LeetCode - Find the City](https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/) | LeetCode | ⭐⭐ | Floyd-Warshall |
 
+### Bài tập thực hành trên FPTOJ
+
+Dưới đây là danh sách 25 bài tập thực hành được đồng bộ trên hệ thống [FPTOJ](https://fptoj.com):
+
+| Mã bài | Tên bài tập | Độ khó | Chuyên đề | Bản chất bài tập | Lời giải chi tiết |
+| :--- | :--- | :---: | :--- | :--- | :--- |
+| `bf-shortest` | [Hành trình xuyên thung lũng](https://fptoj.com/problem/bf-shortest) | ⭐⭐ | Bellman-Ford | Đường ngắn nhất có cạnh âm | [Xem hướng dẫn](https://fptoj.com/problem/bf-shortest/solution) |
+| `bf-negative` | [Đầu tư năng lượng](https://fptoj.com/problem/bf-negative) | ⭐⭐ | Bellman-Ford | Di chuyển trạm sạc pin | [Xem hướng dẫn](https://fptoj.com/problem/bf-negative/solution) |
+| `bf-cycle` | [Vòng lặp thời gian](https://fptoj.com/problem/bf-cycle) | ⭐⭐⭐ | Bellman-Ford | Phát hiện chu trình âm từ ~S~ | [Xem hướng dẫn](https://fptoj.com/problem/bf-cycle/solution) |
+| `bf-path` | [Đồng bộ năng lượng hệ thống](https://fptoj.com/problem/bf-path) | ⭐⭐⭐ | Bellman-Ford | Khoảng cách ngắn nhất từ nguồn | [Xem hướng dẫn](https://fptoj.com/problem/bf-path/solution) |
+| `bf-arbitrage` | [Tỷ giá chênh lệch](https://fptoj.com/problem/bf-arbitrage) | ⭐⭐⭐ | Bellman-Ford | Arbitrage qua log tỷ giá | [Xem hướng dẫn](https://fptoj.com/problem/bf-arbitrage/solution) |
+| `bf-transit` | [Giới hạn số chặng bay](https://fptoj.com/problem/bf-transit) | ⭐⭐⭐ | Bellman-Ford | Đường ngắn nhất đi tối đa ~K~ cạnh | [Xem hướng dẫn](https://fptoj.com/problem/bf-transit/solution) |
+| `bf-safety` | [Hệ số an toàn](https://fptoj.com/problem/bf-safety) | ⭐⭐⭐ | Bellman-Ford | Dijkstra trên log xác suất | [Xem hướng dẫn](https://fptoj.com/problem/bf-safety/solution) |
+| `bf-limit` | [Hành trình có điều kiện](https://fptoj.com/problem/bf-limit) | ⭐⭐⭐ | Bellman-Ford | Trạng thái giới hạn cạnh hiểm trở ~C~ | [Xem hướng dẫn](https://fptoj.com/problem/bf-limit/solution) |
+| `bf-longest` | [Hành trình cổ vật](https://fptoj.com/problem/bf-longest) | ⭐⭐⭐ | Bellman-Ford | Đường đi dài nhất trên DAG | [Xem hướng dẫn](https://fptoj.com/problem/bf-longest/solution) |
+| `bf-maxstep` | [Địa chấn lòng đất](https://fptoj.com/problem/bf-maxstep) | ⭐⭐⭐ | Bellman-Ford | Khoảng cách ngắn nhất đúng ~K~ bước | [Xem hướng dẫn](https://fptoj.com/problem/bf-maxstep/solution) |
+| `bf-toll` | [Hành trình tối ưu](https://fptoj.com/problem/bf-toll) | ⭐⭐⭐ | Bellman-Ford | Đường ngắn nhất và truy vết tối ưu kép | [Xem hướng dẫn](https://fptoj.com/problem/bf-toll/solution) |
+| `bf-teleport` | [Nghịch lý thời gian](https://fptoj.com/problem/bf-teleport) | ⭐⭐⭐⭐ | Bellman-Ford | Chu trình âm ảnh hưởng tới đích | [Xem hướng dẫn](https://fptoj.com/problem/bf-teleport/solution) |
+| `bf-island` | [Neo đậu tránh bão](https://fptoj.com/problem/bf-island) | ⭐⭐⭐⭐ | Bellman-Ford | Tìm và truy vết cụ thể chu trình âm | [Xem hướng dẫn](https://fptoj.com/problem/bf-island/solution) |
+| `fw-basic` | [Liên lạc nội bộ](https://fptoj.com/problem/fw-basic) | ⭐⭐ | Floyd-Warshall | Floyd-Warshall cơ bản giữa mọi cặp | [Xem hướng dẫn](https://fptoj.com/problem/fw-basic/solution) |
+| `fw-reachable` | [Mạng lưới giao thông](https://fptoj.com/problem/fw-reachable) | ⭐⭐ | Floyd-Warshall | Bao đóng chuyển tiếp tính liên thông | [Xem hướng dẫn](https://fptoj.com/problem/fw-reachable/solution) |
+| `fw-maxweight` | [Mạng lưới tải trọng](https://fptoj.com/problem/fw-maxweight) | ⭐⭐ | Floyd-Warshall | Bottleneck path tối đa cầu yếu nhất | [Xem hướng dẫn](https://fptoj.com/problem/fw-maxweight/solution) |
+| `fw-dynamic` | [Cầu nối giao thông mới](https://fptoj.com/problem/fw-dynamic) | ⭐⭐ | Floyd-Warshall | Cập nhật ma trận Floyd khi thêm cạnh | [Xem hướng dẫn](https://fptoj.com/problem/fw-dynamic/solution) |
+| `fw-diameter` | [Đường kính mạng lưới](https://fptoj.com/problem/fw-diameter) | ⭐⭐⭐ | Floyd-Warshall | Độ trễ ngắn nhất lớn nhất | [Xem hướng dẫn](https://fptoj.com/problem/fw-diameter/solution) |
+| `fw-central` | [Trạm cứu hỏa trung tâm](https://fptoj.com/problem/fw-central) | ⭐⭐⭐ | Floyd-Warshall | Tâm của đồ thị tối thiểu max khoảng cách | [Xem hướng dẫn](https://fptoj.com/problem/fw-central/solution) |
+| `fw-bypass` | [Đóng cửa sửa đường](https://fptoj.com/problem/fw-bypass) | ⭐⭐⭐ | Floyd-Warshall | Tìm chu trình có độ dài nhỏ nhất | [Xem hướng dẫn](https://fptoj.com/problem/fw-bypass/solution) |
+| `fw-hubs` | [Các trung tâm trung chuyển](https://fptoj.com/problem/fw-hubs) | ⭐⭐⭐ | Floyd-Warshall | Đường ngắn nhất đi qua ít nhất một hub | [Xem hướng dẫn](https://fptoj.com/problem/fw-hubs/solution) |
+| `fw-minimax` | [Hành trình êm ái](https://fptoj.com/problem/fw-minimax) | ⭐⭐⭐ | Floyd-Warshall | Minimax path tối thiểu cạnh lớn nhất | [Xem hướng dẫn](https://fptoj.com/problem/fw-minimax/solution) |
+| `fw-transit` | [Xây dựng trạm trung chuyển](https://fptoj.com/problem/fw-transit) | ⭐⭐⭐ | Floyd-Warshall | Chọn đỉnh ~X~ tối ưu tổng khoảng cách | [Xem hướng dẫn](https://fptoj.com/problem/fw-transit/solution) |
+| `fw-multicycle` | [Lan truyền chu trình âm](https://fptoj.com/problem/fw-multicycle) | ⭐⭐⭐ | Floyd-Warshall | Floyd-Warshall lan truyền chu trình âm | [Xem hướng dẫn](https://fptoj.com/problem/fw-multicycle/solution) |
+| `fw-density` | [Mạng lưới dày đặc](https://fptoj.com/problem/fw-density) | ⭐⭐⭐⭐ | Floyd-Warshall | Thêm đỉnh ngược thời gian | [Xem hướng dẫn](https://fptoj.com/problem/fw-density/solution) |
+
 ---
+
 
 ## Bài viết liên quan
 

@@ -416,14 +416,51 @@ Trong Bitmask DP, trạng thái $next\_mask$ luôn được tính toán dựa tr
 
 ## 6. Luyện tập phân cấp
 
-### 6.1. Cấp độ Cơ bản
-*   [CSES - Dice Combinations](https://cses.fi/problemset/task/1633): Bài toán cơ bản ứng dụng công thức đệ quy tuyến tính.
-*   [CSES - Minimizing Coins](https://cses.fi/problemset/task/1634): Bài toán đổi tiền xu tối thiểu (tương tự Knapsack).
-*   [VNOJ - LIS](https://oj.vnoi.info/problem/lis): Tìm dãy con tăng dài nhất.
+### 6.1. Cấp độ Cơ bản (⭐ — ⭐⭐)
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [dp-01](https://fptoj.com/problem/dp-01) | FPTOJ | ⭐ | Fibonacci |
+| [dp-02](https://fptoj.com/problem/dp-02) | FPTOJ | ⭐ | Tribonacci |
+| [dp-03](https://fptoj.com/problem/dp-03) | FPTOJ | ⭐ | Leo cầu thang |
+| [dp-04](https://fptoj.com/problem/dp-04) | FPTOJ | ⭐ | Tên trộm (House Robber) |
+| [dp-05](https://fptoj.com/problem/dp-05) | FPTOJ | ⭐ | Gieo xúc xắc |
+| [dp-06](https://fptoj.com/problem/dp-06) | FPTOJ | ⭐⭐ | Đếm cách đổi xu |
+| [dp-07](https://fptoj.com/problem/dp-07) | FPTOJ | ⭐⭐ | Đổi xu tối thiểu |
+| [dp-08](https://fptoj.com/problem/dp-08) | FPTOJ | ⭐⭐ | Tổng tập con không kề |
 
-### 6.2. Cấp độ Trung bình & Nâng cao
-*   [VNOJ - Knapsack 2](https://oj.vnoi.info/problem/atcoder_dp_e): Bài toán Cái túi nhưng thay đổi cách định nghĩa trạng thái do tải trọng túi $W$ quá lớn ($10^9$), ta chuyển sang tối ưu theo tổng giá trị các vật.
-*   [CSES - Edit Distance](https://cses.fi/problemset/task/1639): Tính khoảng cách biên tập tối thiểu giữa hai xâu.
+### 6.2. Cấp độ Trung bình (⭐⭐⭐)
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [dp-09](https://fptoj.com/problem/dp-09) | FPTOJ | ⭐⭐⭐ | Cái túi 0/1 |
+| [dp-10](https://fptoj.com/problem/dp-10) | FPTOJ | ⭐⭐⭐ | Cái túi không giới hạn |
+| [dp-11](https://fptoj.com/problem/dp-11) | FPTOJ | ⭐⭐⭐ | Dãy con tăng dài nhất (LIS) |
+| [dp-12](https://fptoj.com/problem/dp-12) | FPTOJ | ⭐⭐⭐ | Xâu con chung dài nhất (LCS) |
+| [dp-13](https://fptoj.com/problem/dp-13) | FPTOJ | ⭐⭐⭐ | Khoảng cách biên tập |
+| [dp-14](https://fptoj.com/problem/dp-14) | FPTOJ | ⭐⭐⭐ | Xâu con đối xứng dài nhất |
+| [dp-15](https://fptoj.com/problem/dp-15) | FPTOJ | ⭐⭐⭐ | Cưa que gỗ |
+| [dp-16](https://fptoj.com/problem/dp-16) | FPTOJ | ⭐⭐⭐ | Tách từ |
+| [dp-17](https://fptoj.com/problem/dp-17) | FPTOJ | ⭐⭐⭐ | Tam giác số |
+| [dp-18](https://fptoj.com/problem/dp-18) | FPTOJ | ⭐⭐⭐ | Tập con tổng S |
+
+### 6.3. Cấp độ Khá (⭐⭐⭐⭐)
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [dp-19](https://fptoj.com/problem/dp-19) | FPTOJ | ⭐⭐⭐⭐ | Phân công công việc (Bitmask) |
+| [dp-20](https://fptoj.com/problem/dp-20) | FPTOJ | ⭐⭐⭐⭐ | Đường đi Hamilton |
+| [dp-21](https://fptoj.com/problem/dp-21) | FPTOJ | ⭐⭐⭐⭐ | Đường đi trong lưới |
+| [dp-22](https://fptoj.com/problem/dp-22) | FPTOJ | ⭐⭐⭐⭐ | Chia tập con bằng nhau |
+| [dp-23](https://fptoj.com/problem/dp-23) | FPTOJ | ⭐⭐⭐⭐ | Hình vuông lớn nhất |
+| [dp-24](https://fptoj.com/problem/dp-24) | FPTOJ | ⭐⭐⭐⭐ | Đoạn con tổng lớn nhất (Kadane) |
+| [dp-25](https://fptoj.com/problem/dp-25) | FPTOJ | ⭐⭐⭐⭐ | Xâu con đối xứng liên tiếp |
+
+### 6.4. Cấp độ Nâng cao (⭐⭐⭐⭐⭐)
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [dp-26](https://fptoj.com/problem/dp-26) | FPTOJ | ⭐⭐⭐⭐⭐ | Đếm số đặc biệt (Digit DP) |
+| [dp-27](https://fptoj.com/problem/dp-27) | FPTOJ | ⭐⭐⭐⭐⭐ | Đường kính cây |
+| [dp-28](https://fptoj.com/problem/dp-28) | FPTOJ | ⭐⭐⭐⭐⭐ | Đường đi lớn nhất trên cây |
+| [dp-29](https://fptoj.com/problem/dp-29) | FPTOJ | ⭐⭐⭐⭐⭐ | Đường đi dài nhất trên DAG |
+| [dp-30](https://fptoj.com/problem/dp-30) | FPTOJ | ⭐⭐⭐⭐⭐ | Cắt xâu đối xứng |
 
 ---
 

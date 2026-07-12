@@ -354,16 +354,22 @@ int maximizeMinimum(int lo, int hi) {
 
 ---
 
-## 6. Bài tập luyện tập
+## 6. Bài tập luyện tập trên FPTOJ
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [Leetcode 1011 - Capacity To Ship](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) | LC | ⭐⭐ | Binary search on answer |
-| [Leetcode 875 - Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) | LC | ⭐⭐ | Binary search on answer |
-| [SPOJ - Aggressive Cows](https://www.spoj.com/problems/AGGRCOW/) | SPOJ | ⭐⭐ | Khoảng cách min |
-| [CSES - Factory Machines](https://cses.fi/problemset/task/1620) | CSES | ⭐⭐ | Thời gian min |
-| [CSES - Array Division](https://cses.fi/problemset/task/1085) | CSES | ⭐⭐⭐ | Tổng max min |
-| [CF 1486B - Eastern Exhibition](https://codeforces.com/problemset/problem/1486/B) | CF | ⭐⭐⭐ | Binary search + geometry |
+| # | Bài | Điểm | Độ khó |
+|:-:|------|:----:|:------:|
+| 1 | [bsa-01 - Xe Tải Chở Hàng](https://fptoj.problems/problem/bsa-01) | 10 | ⭐⭐ |
+| 2 | [bsa-02 - Khỉ Ăn Chuối](https://fptoj.problems/problem/bsa-02) | 10 | ⭐⭐ |
+| 3 | [bsa-03 - Bò Trong Chuồng](https://fptoj.problems/problem/bsa-03) | 15 | ⭐⭐ |
+| 4 | [bsa-04 - Thả Lưới Cá](https://fptoj.problems/problem/bsa-04) | 15 | ⭐⭐ |
+| 5 | [bsa-05 - Chia Mảng Lớn](https://fptoj.problems/problem/bsa-05) | 15 | ⭐⭐ |
+| 6 | [bsa-06 - Nhà Máy $K$ Máy](https://fptoj.problems/problem/bsa-06) | 20 | ⭐⭐⭐ |
+| 7 | [bsa-07 - Căn Bậc Hai Chính Xác](https://fptoj.problems/problem/bsa-07) | 20 | ⭐⭐ |
+| 8 | [bsa-08 - Hàng Rào Bảo Vệ](https://fptoj.problems/problem/bsa-08) | 20 | ⭐⭐⭐ |
+| 9 | [bsa-09 - Phân Sách Cho $K$ Sinh Viên](https://fptoj.problems/problem/bsa-09) | 25 | ⭐⭐⭐ |
+| 10 | [bsa-10 - Đo Dây Cho Đèn Đường](https://fptoj.problems/problem/bsa-10) | 25 | ⭐⭐⭐ |
+| 11 | [bsa-11 - Robot Cắt Cỏ](https://fptoj.problems/problem/bsa-11) | 30 | ⭐⭐⭐⭐ |
+| 12 | [bsa-12 - Trạm Phát Sóng](https://fptoj.problems/problem/bsa-12) | 30 | ⭐⭐⭐⭐ |
 
 ## Bài viết liên quan
 

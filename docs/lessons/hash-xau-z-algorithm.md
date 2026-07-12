@@ -492,34 +492,42 @@ hash = (hash * BASE + (c - 'a' + 1)) % MOD;
 
 ### Cơ bản
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - String Matching](https://cses.fi/problemset/task/1753) | CSES | ⭐⭐ | Tìm xâu bằng Hash/KMP |
-| [CSES - Finding Borders](https://cses.fi/problemset/task/1732) | CSES | ⭐⭐ | Prefix function / Z-function |
-| [SPOJ - NHAY](https://www.spoj.com/problems/NHAY/) | SPOJ | ⭐⭐ | KMP/Hash |
-| [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr) | VNOJ | ⭐⭐ | Hash/KMP |
-| [VNOJ - NKTEXT](https://oj.vnoi.info/problem/nktext) | VNOJ | ⭐⭐ | Hash xâu |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `strh-hash` | [Tính hash cơ bản](https://fptoj.com/problem/strh-hash) | ⭐ | Hash cơ bản |
+| `strh-find` | [Tìm xâu con bằng Hash](https://fptoj.com/problem/strh-find) | ⭐⭐ | Tìm xâu bằng Hash |
+| `strh-dist` | [Đếm xâu con phân biệt](https://fptoj.com/problem/strh-dist) | ⭐⭐ | Hash + Set |
+| `strh-period` | [Chu kỳ xâu](https://fptoj.com/problem/strh-period) | ⭐⭐ | Hash chu kỳ xâu |
+| `strh-border` | [Border xâu (Hash)](https://fptoj.com/problem/strh-border) | ⭐⭐ | Hash tìm border |
+| `hsp-half` | [Hai nửa xâu giống nhau](https://fptoj.com/problem/hsp-half) | ⭐ | Hash so sánh nửa |
+| `strk-zfunc` | [Z-function](https://fptoj.com/problem/strk-zfunc) | ⭐ | Z-function cơ bản |
 
 ### Trung bình
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CSES - Counting Patterns](https://cses.fi/problemset/task/1733) | CSES | ⭐⭐⭐ | Hash + Set/Map |
-| [CSES - Pattern Positions](https://cses.fi/problemset/task/1734) | CSES | ⭐⭐⭐ | Hash + Binary Search |
-| [CF - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D) | CF | ⭐⭐⭐ | KMP nâng cao |
-| [VNOJ - PALINY](https://oj.vnoi.info/problem/paliny) | VNOJ | ⭐⭐⭐ | Palindrome + Hash |
-| [CF - Good Substrings](https://codeforces.com/problemset/problem/271/D) | CF | ⭐⭐⭐ | Hash + Set đếm substring |
-| [CF - Password](https://codeforces.com/problemset/problem/126/B) | CF | ⭐⭐⭐ | Z-function + Hash |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `strh-repeat` | [Xâu con lặp dài nhất](https://fptoj.com/problem/strh-repeat) | ⭐⭐⭐ | Hash + Binary Search |
+| `strh-palind` | [Palindrome với Hash](https://fptoj.com/problem/strh-palind) | ⭐⭐⭐ | Hash palindrome |
+| `strh-lcs` | [Xâu con chung dài nhất (Hash)](https://fptoj.com/problem/strh-lcs) | ⭐⭐⭐ | Hash xâu con chung |
+| `strk-zmatch` | [Tìm xâu với Z](https://fptoj.com/problem/strk-zmatch) | ⭐⭐ | Z-algorithm tìm mẫu |
+| `strk-kmp` | [Tìm xâu mẫu KMP](https://fptoj.com/problem/strk-kmp) | ⭐⭐ | KMP tìm mẫu |
+| `hsp-mx` | [Xâu con xuất hiện nhiều nhất](https://fptoj.com/problem/hsp-mx) | ⭐⭐⭐ | Hash tần suất |
+| `hsp-pal` | [Đếm palindrome bằng Hash](https://fptoj.com/problem/hsp-pal) | ⭐⭐ | Hash palindrome |
+| `hsp-nn` | [Xâu con phân biệt khác chính nó](https://fptoj.com/problem/hsp-nn) | ⭐⭐ | Hash + Set |
+| `hsp-dis` | [Đếm xâu con phân biệt](https://fptoj.com/problem/hsp-dis) | ⭐⭐ | Hash + Set |
 
 ### Nâng cao
 
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [CF - Palindrome Degree](https://codeforces.com/problemset/problem/7/D) | CF | ⭐⭐⭐⭐ | Hash palindrome |
-| [CF - String Compression](https://codeforces.com/problemset/problem/827/C) | CF | ⭐⭐⭐⭐ | Hash + KMP |
-| [VNOJ - QUERYSTR](https://oj.vnoi.info/problem/querystr) | VNOJ | ⭐⭐⭐⭐ | Hash + Queries |
-| [CF - Occurrences](https://codeforces.com/problemset/problem/633/C) | CF | ⭐⭐⭐⭐ | Hash + DP |
-| [SPOJ - ADAPHONE](https://www.spoj.com/problems/ADAPHONE/) | SPOJ | ⭐⭐⭐⭐ | Hash nâng cao |
+| Bài | FPTOJ | Độ khó | Chủ đề |
+|-----|-------|--------|--------|
+| `stra-mana` | [Palindrome dài nhất](https://fptoj.com/problem/stra-mana) | ⭐⭐⭐ | Manacher palindrome |
+| `stra-cntpal` | [Đếm palindrome con](https://fptoj.com/problem/stra-cntpal) | ⭐⭐⭐ | Đếm palindrome |
+| `stra-sa` | [Suffix Array](https://fptoj.com/problem/stra-sa) | ⭐⭐⭐ | Suffix Array |
+| `stra-lcp` | [LCP trên SA](https://fptoj.com/problem/stra-lcp) | ⭐⭐⭐⭐ | LCP + RMQ |
+| `stra-dist` | [Đếm xâu con phân biệt](https://fptoj.com/problem/stra-dist) | ⭐⭐⭐⭐ | SA + LCP đếm xâu |
+| `hsp-cmp` | [So sánh hai xâu con Double Hash](https://fptoj.com/problem/hsp-cmp) | ⭐⭐⭐ | Double Hash |
+| `hsp-prefix` | [So sánh hash xâu con trực tuyến](https://fptoj.com/problem/hsp-prefix) | ⭐⭐⭐ | Hash trực tuyến |
+| `hsp-fc` | [Xâu con phân biệt bắt đầu bằng ký tự](https://fptoj.com/problem/hsp-fc) | ⭐⭐⭐ | Hash + Set |
 
 ---
 
