@@ -540,7 +540,7 @@ Dùng SA khi cần chính xác 100% hoặc nhiều truy vấn trên cùng xâu. 
 | Bài | FPTOJ | Độ khó | Chủ đề |
 |:----|:-----:|:------:|:-------|
 | `saf-pal2` | [Palindrome xuất hiện nhiều nhất](https://fptoj.com/problem/saf-pal2) | ⭐⭐⭐⭐ | SA + Hash |
-| `saf-mxrep` | [Xâu con lặp dài nhất 2](https://fptoj.com/problem/saf-mxrep) | ⭐⭐⭐⭐ | SA + LCP nâng cao |
+| `saf-blr` | [Xâu con lặp dài nhất 2](https://fptoj.com/problem/saf-blr) | ⭐⭐⭐⭐ | SA + LCP nâng cao |
 
 ---
 
