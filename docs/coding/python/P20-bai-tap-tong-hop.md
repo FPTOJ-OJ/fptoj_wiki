@@ -20,7 +20,7 @@ Cho n số nguyên. Tính tổng.
 arr = list(map(int, input().split()))" data-input="5
 1 2 3 4 5" data-expected="15" data-hint="Dùng sum(arr)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -34,7 +34,7 @@ Cho n số nguyên. Tìm số lớn nhất.
 arr = list(map(int, input().split()))" data-input="5
 3 1 4 1 5" data-expected="5" data-hint="Dùng max(arr)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -48,7 +48,7 @@ Cho n số nguyên. Đếm số chẵn và số lẻ.
 arr = list(map(int, input().split()))" data-input="5
 1 2 3 4 5" data-expected="2 3" data-hint="Dùng sum(1 for x in arr if x % 2 == 0)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -64,7 +64,7 @@ Cho n số nguyên. In ra mảng đảo ngược.
 arr = list(map(int, input().split()))" data-input="5
 1 2 3 4 5" data-expected="5 4 3 2 1" data-hint="Dùng arr[::-1]"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -80,7 +80,7 @@ target = int(input())" data-input="5
 1 2 3 4 5
 3" data-expected="2" data-hint="Dùng enumerate, tìm i đầu tiên mà arr[i] == target"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -107,7 +107,7 @@ target = int(input())" data-input="5
 2 7 11 15 3
 9" data-expected="0 1" data-hint="Dùng dict để lưu index đã thấy"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -127,7 +127,7 @@ Cho xâu s. Tìm ký tự xuất hiện nhiều nhất.
 
 <div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello" data-expected="l 2" data-hint="Dùng Counter(s).most_common(1)[0]"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import Counter
     s = input()
@@ -143,7 +143,7 @@ Cho n số nguyên. Sắp xếp theo tổng chữ số tăng dần.
 arr = list(map(int, input().split()))" data-input="5
 13 4 21 100 7" data-expected="100 21 4 13 7" data-hint="Viết hàm digit_sum, dùng arr.sort(key=...)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n = int(input())
     arr = list(map(int, input().split()))
@@ -164,7 +164,7 @@ n = int(input())
 arr = list(map(int, input().split()))" data-input="8
 10 9 2 5 3 7 101 18" data-expected="4" data-hint="Dùng bisect_left trên tails array"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import bisect
     
@@ -193,7 +193,7 @@ grid = [input() for _ in range(n)]" data-input="3 3
 .#.
 ..." data-expected="4" data-hint="Dùng BFS với 4 hướng, bỏ qua ô '#'"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import deque
     
@@ -242,7 +242,7 @@ start = int(input())" data-input="4 5
 2 3 2
 0" data-expected="0 1 3 5" data-hint="Dùng heapq, dist[] khởi tạo inf, relax edges"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import heapq
     
@@ -281,7 +281,7 @@ matrix = [list(map(int, input().split())) for _ in range(n)]" data-input="3 3
 7 8 9
 1 1 2 2" data-expected="28" data-hint="Tính prefix 2D, dùng công thức inclusion-exclusion"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     n, m = map(int, input().split())
     matrix = [list(map(int, input().split())) for _ in range(n)]
@@ -301,7 +301,7 @@ Tính C(n, k) % (10^9 + 7).
 
 <div class="cp-pg" data-language="python" data-starter="n, k = map(int, input().split())" data-input="10 3" data-expected="120" data-hint="Dùng Fermat's little theorem cho mod inverse"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     MOD = 10**9 + 7
     

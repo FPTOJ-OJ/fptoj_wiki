@@ -257,7 +257,7 @@ arr = list(map(int, input().split()))
 target = int(input())" data-input="1 2 3 4 5
 3" data-expected="Tim thay" data-hint="Dùng bisect_left, kiểm tra arr[pos] == target"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import bisect
     
@@ -280,7 +280,7 @@ arr = list(map(int, input().split()))
 l, r = map(int, input().split())" data-input="1 2 3 4 5 6 7
 2 5" data-expected="4" data-hint="Dùng bisect_right(arr, r) - bisect_left(arr, l)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import bisect
     
@@ -298,7 +298,7 @@ Cho mảng arr. Tìm độ dài dãy con tăng dài nhất.
 
 arr = list(map(int, input().split()))" data-input="10 9 2 5 3 7 101 18" data-expected="4" data-hint="Dùng bisect_left trên tails array"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import bisect
     

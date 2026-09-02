@@ -215,7 +215,7 @@ Description of the problem.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="input data" data-expected="expected output" data-hint="Hint text"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     solution code here
     ```
@@ -225,7 +225,7 @@ Description of the problem.
 - No standalone code blocks between the `cp-pg` div and the solution block
 - Input data goes in `data-input`, not in a separate code block
 - Starter code (variable assignments) goes in `data-starter`
-- Both `??? tip` and `???? tip` are valid — match the existing style in the file
+- Both `??? tip` and `??? tip` are valid — match the existing style in the file
 - Solution code is indented 4 spaces (inside the tip block)
 
 ---

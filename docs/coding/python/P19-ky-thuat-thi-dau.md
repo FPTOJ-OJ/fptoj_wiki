@@ -459,7 +459,7 @@ Viết template thi đấu Python đầy đủ.
 3
 1 2 3" data-expected="6" data-hint="Import sys, collections, functools, heapq, bisect, itertools, math"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import sys
     from collections import *
@@ -488,7 +488,7 @@ Cho mảng arr. Tìm phần tử xuất hiện nhiều nhất.
 <div class="cp-pg" data-language="python" data-starter="from collections import Counter
 arr = list(map(int, input().split()))" data-input="1 2 2 3 3 3" data-expected="3" data-hint="Dùng Counter(arr).most_common(1)[0][0]"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import Counter
     arr = list(map(int, input().split()))
@@ -503,7 +503,7 @@ Cho mảng arr. Tính tổng đoạn [l, r].
 l, r = map(int, input().split())" data-input="1 2 3 4 5
 1 3" data-expected="9" data-hint="Tính prefix sum, kết quả = prefix[r+1] - prefix[l]"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     arr = list(map(int, input().split()))
     l, r = map(int, input().split())

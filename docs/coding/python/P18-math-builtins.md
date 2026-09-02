@@ -433,7 +433,7 @@ print(math.isqrt(16))  # 4 (int)
 a, b = map(int, input().split())" data-input="12 8" data-expected="GCD: 4
 LCM: 24" data-hint="Dùng math.gcd(a, b), LCM = a*b // gcd"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import math
     
@@ -449,7 +449,7 @@ LCM: 24" data-hint="Dùng math.gcd(a, b), LCM = a*b // gcd"></div>
 
 n = int(input())" data-input="17" data-expected="SNT" data-hint="Duyệt từ 2 đến math.isqrt(n), kiểm tra n % i == 0"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import math
     
@@ -473,7 +473,7 @@ n = int(input())" data-input="17" data-expected="SNT" data-hint="Duyệt từ 2 
 
 <div class="cp-pg" data-language="python" data-starter="a, b, m = map(int, input().split())" data-input="2 10 1000" data-expected="24" data-hint="Dùng pow(a, b, m)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     a, b, m = map(int, input().split())
     print(pow(a, b, m))

@@ -144,7 +144,7 @@ Problem description.
 
 <div class="cp-pg" data-language="python" data-starter="..." data-input="..." data-expected="..." data-hint="..."></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     solution code
     ```
@@ -155,7 +155,7 @@ Problem description.
 - Input goes in `data-input`, not in a separate code block
 - Variable assignments go in `data-starter`
 - Solution code is indented 4 spaces (inside the tip block)
-- Both `??? tip` and `???? tip` are valid — match existing file style
+- Both `??? tip` and `??? tip` are valid — match existing file style
 
 ### Matplotlib Visualizations
 
@@ -320,8 +320,8 @@ done
 ### Batch find/replace across all markdown files
 
 ```bash
-# Example: replace all ??? tip with ???? tip in Python exercises
-find docs/coding/python -name "*.md" -exec sed -i 's/??? tip/???? tip/g' {} +
+# Example: replace all ??? tip with ??? tip in Python exercises
+find docs/coding/python -name "*.md" -exec sed -i 's/??? tip/??? tip/g' {} +
 ```
 
 ---

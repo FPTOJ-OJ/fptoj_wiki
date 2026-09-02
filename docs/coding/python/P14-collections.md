@@ -335,7 +335,7 @@ Cho xâu s. Tìm ký tự xuất hiện nhiều nhất.
 
 <div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello" data-expected="('l', 2)" data-hint="Dùng Counter(s).most_common(1)[0]"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import Counter
     cnt = Counter(s)
@@ -352,7 +352,7 @@ Cho đồ thị. Duyệt BFS từ đỉnh start.
 2 3
 0" data-expected="0 1 2 3" data-hint="Dùng deque, duyệt hàng xóm và đánh dấu visited"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import deque
     
@@ -378,7 +378,7 @@ Cho list từ. Nhóm các từ có cùng ký tự khi sắp xếp.
 ['tan', 'nat']
 ['bat']" data-hint="Dùng defaultdict(list), key = ''.join(sorted(word))"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import defaultdict
     
@@ -400,7 +400,7 @@ Cho xâu s gồm nhiều từ cách nhau bởi khoảng trắng. Tìm từ xuấ
 
 <div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello world hello" data-expected="hello 2" data-hint="Dùng Counter(s.split()).most_common(1)[0]"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import Counter
     
@@ -417,7 +417,7 @@ Cho 2 xâu s1, s2. Kiểm tra s2 có phải hoán vị của s1 không.
 s2 = input()" data-input="listen
 silent" data-expected="La hoan vi" data-hint="So sánh Counter(s1) == Counter(s2)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import Counter
     
@@ -437,7 +437,7 @@ Charlie 10A1
 David 10A2" data-expected="10A1: ['Alice', 'Charlie']
 10A2: ['Bob', 'David']" data-hint="Dùng defaultdict(list), key là lớp"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import defaultdict
     
@@ -456,7 +456,7 @@ Cho xâu s. Tìm ký tự xuất hiện nhiều nhất (không tính khoảng tr
 
 <div class="cp-pg" data-language="python" data-starter="s = input()" data-input="hello world" data-expected="l 3" data-hint="Dùng s.replace(' ', '') rồi Counter"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     from collections import Counter
     

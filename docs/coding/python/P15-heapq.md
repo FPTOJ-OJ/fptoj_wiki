@@ -247,7 +247,7 @@ Cho mảng arr và số K. Tìm K phần tử lớn nhất.
 k = int(input())" data-input="3 1 4 1 5 9 2 6
 3" data-expected="[9, 6, 5]" data-hint="Dùng heapq.nlargest(k, arr)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import heapq
     print(heapq.nlargest(k, arr))
@@ -262,7 +262,7 @@ lists = [list(map(int, input().split())) for _ in range(k)]" data-input="3
 2 5 8
 3 6 9" data-expected="[1, 2, 3, 4, 5, 6, 7, 8, 9]" data-hint="Dùng list(heapq.merge(*lists))"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import heapq
     result = list(heapq.merge(*lists))
@@ -282,7 +282,7 @@ Cho đồ thị có trọng số. Tìm đường đi ngắn nhất từ đỉnh 
 0 4 10
 0" data-expected="[0, 3, 1, 4, 7]" data-hint="Dùng heapq, dist[] khởi tạo inf, relax edges"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import heapq
     

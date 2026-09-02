@@ -332,7 +332,7 @@ n = int(input())" data-input="3" data-expected="1 2 3
 3 1 2
 3 2 1" data-hint="Dùng itertools.permutations(range(1, n+1))"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import itertools
     
@@ -353,7 +353,7 @@ n, k = map(int, input().split())" data-input="4 2" data-expected="1 2
 2 4
 3 4" data-hint="Dùng itertools.combinations(range(1, n+1), k)"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import itertools
     
@@ -369,7 +369,7 @@ Cho mảng arr. Tính prefix sum.
 
 arr = list(map(int, input().split()))" data-input="1 2 3 4 5" data-expected="[1, 3, 6, 10, 15]" data-hint="Dùng list(itertools.accumulate(arr))"></div>
 
-???? tip "Lời giải"
+??? tip "Lời giải"
     ```python
     import itertools
     
