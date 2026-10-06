@@ -99,4 +99,10 @@ Built on top of content from the **VNOI** community. Special thanks to [VNOI Wik
 
 ---
 
+## License
+
+This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+
+---
+
 Made with ❤️ by **Ha Tri Kien** and **FPTOJ Team**.
