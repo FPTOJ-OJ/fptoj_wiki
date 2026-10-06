@@ -132,16 +132,9 @@ Khi bắt đầu làm 1 bài:
 
 ---
 
-### 4. Checklist trước khi nộp USB
+### 4. Checklist trước khi nộp (bản đầy đủ ở §9)
 
-```
-□ Tên file đúng? (bai1.cpp, bai2.cpp, ...)
-□ File compile được? (chạy thử trên máy)
-□ Output đúng format? (khoảng trắng, xuống dòng)
-□ Đã xóa debug macro/in?
-□ Đã kiểm tra edge case? (N=0, N=1, all same)
-□ Đã nộp CẢ bài brute force? (lấy điểm subtask)
-```
+> Để tránh trùng lặp, checklist chi tiết (trước thi / trong thi / trước khi nộp) đã gộp vào **§9. Checklist hoàn chỉnh** ở cuối bài. Tóm tắt 3 điểm bắt buộc: **tên file đúng → compile được → đã xóa debug**.
 
 ---
 
@@ -207,58 +200,59 @@ Thấy "sắp xếp"         → Sort, Priority Queue
 ### 6.1. Template copy-paste
 
 ```cpp
-// LUÔN có sẵn trong file, chỉ cần uncomment phần cần dùng
+// Template thi đấu: copy nguyên file, chỉ dùng phần cần thiết
+// Mục đích: code nhanh, tránh bug vặt (fast I/O, long long, DSU, lũy thừa...)
 
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define all(x) (x).begin(), (x).end()
-const ll MOD = 1e9 + 7;
-const ll INF = 1e18;
+#define ll long long                    // viết tắt: ll thay cho long long
+#define all(x) (x).begin(), (x).end()   // viết tắt duyệt toàn container
+const ll MOD = 1e9 + 7;                 // modulo phổ biến, đổi nếu đề cho khác
+const ll INF = 1e18;                    // vô cực cho long long (đồ thị, DP)
 
 void fastIO() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios::sync_with_stdio(false);        // tắt đồng bộ C/C++ → cin nhanh hơn
+    cin.tie(nullptr);                   // không tự flush cout trước mỗi cin
 }
 
-// ===== DSU =====
+// ===== DSU (hợp nhất tập rời rạc: Kruskal, đếm thành phần) =====
 struct DSU {
-    vector<int> p, s;
-    DSU(int n) : p(n+1), s(n+1,1) { iota(all(p),0); }
-    int find(int v) { return v==p[v]?v:p[v]=find(p[v]); }
+    vector<int> p, s;                   // p: cha, s: kích thước tập (để union by size)
+    DSU(int n) : p(n+1), s(n+1,1) { iota(all(p),0); } // ban đầu mỗi đỉnh 1 tập
+    int find(int v) { return v==p[v]?v:p[v]=find(p[v]); } // nén đường đi
     bool unite(int a, int b) {
-        a=find(a); b=find(b);
-        if(a==b) return false;
-        if(s[a]<s[b]) swap(a,b);
-        p[b]=a; s[a]+=s[b];
+        a=find(a); b=find(b);           // đưa về gốc
+        if(a==b) return false;          // đã cùng tập → không gộp
+        if(s[a]<s[b]) swap(a,b);        // gắn cây nhỏ vào cây to
+        p[b]=a; s[a]+=s[b];             // cập nhật cha + kích thước
         return true;
     }
 };
 
-// ===== Binary Search =====
+// ===== Binary Search (tìm vị trí true đầu tiên trên [lo, hi]) =====
 int bs(int lo, int hi, function<bool(int)> check) {
     while(lo<hi) {
-        int mid = lo+(hi-lo)/2;
-        if(check(mid)) hi=mid;
-        else lo=mid+1;
+        int mid = lo+(hi-lo)/2;         // tránh tràn số so với (lo+hi)/2
+        if(check(mid)) hi=mid;          // mid đạt → đáp án nằm bên trái
+        else lo=mid+1;                  // chưa đạt → bỏ nửa trái
     }
     return lo;
 }
 
-// ===== Fast Power =====
+// ===== Fast Power (lũy thừa modular O(log b)) =====
 ll power(ll a, ll b, ll mod) {
-    ll res=1; a%=mod;
+    ll res=1; a%=mod;                   // đưa a về [0, mod)
     while(b>0) {
-        if(b&1) res=res*a%mod;
-        a=a*a%mod; b>>=1;
+        if(b&1) res=res*a%mod;          // bit 1 → nhân vào kết quả
+        a=a*a%mod; b>>=1;               // bình phương cơ số, chia đôi số mũ
     }
     return res;
 }
 
 int main() {
-    fastIO();
+    fastIO();                           // LUÔN gọi đầu main để I/O nhanh
     int t=1;
-    // cin>>t;
+    // cin>>t;                          // bỏ comment nếu đề có nhiều test
     while(t--) {
         // Code here
     }
@@ -365,39 +359,35 @@ for(int test = 0; test < 1000; test++) {
 
 ---
 
-## 9. Checklist hoàn chỉnh
+## 9. Checklist hoàn chỉnh (bản duy nhất — dùng cho mọi kỳ thi)
 
 ### Trước khi thi
 
 ```
-□ USB đã format, hoạt động tốt
-□ Template đã copy sẵn
-□ Máy tính đã cài g++, python
-□ Giấy + bút (vẽ sơ đồ, pseudocode)
-□ Nước uống, đồ ăn nhẹ
-□ Đồng hồ (theo dõi thời gian)
+□ Template đã copy sẵn (DSU, lũy thừa, binary search — xem §6.1)
+□ Máy thi compile được (g++ / python) — biên dịch thử 1 file trắng
+□ Giấy + bút (vẽ sơ đồ, pseudocode), đồng hồ, nước uống
+□ Thiết bị nộp bài sẵn sàng: USB đã format HOẶC tài khoản hệ thống nộp online
 ```
 
 ### Trong khi thi
 
 ```
-□ Đọc hết đề (10 phút đầu)
-□ Lên kế hoạch làm bài
-□ Bài dễ → bài trung bình → bài khó
-□ Mỗi bài ≤ 40 phút (trừ bài cuối)
-□ Test sample NGAY sau khi code
-□ Nộp brute force nếu không tối ưu được
+□ Đọc hết đề (10 phút đầu), đánh giá ★/★★/★★★
+□ Lên kế hoạch: bài dễ → trung bình → khó; mỗi bài ≤ 40 phút
+□ Test sample NGAY sau khi code; test edge case (N=0, N=1, all same)
+□ Nộp brute force lấy điểm subtask nếu không tối ưu được
 ```
 
-### Trước khi nộp USB
+### Trước khi nộp (USB hay online đều dùng chung)
 
 ```
-□ Tên file đúng format
-□ Compile được trên máy thi
-□ Output đúng format
-□ Đã xóa debug
-□ Đã nộp CẢ bài brute force
-□ Kiểm tra USB đọc được
+□ Tên file đúng format (bai1.cpp, ...) — đúng quy định của kỳ thi
+□ Compile được trên máy thi (chạy thử, không chỉ chạy trên máy cá nhân)
+□ Output đúng format (khoảng trắng, xuống dòng, hoa/thường)
+□ Đã xóa debug macro / cerr / input test cứng
+□ Đã nộp CẢ bản brute force (giữ điểm subtask dễ)
+□ Kiểm tra đọc lại được: USB cắm lại đọc được / hệ thống báo Accepted tiếp nhận
 ```
 
 ---

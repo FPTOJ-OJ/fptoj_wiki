@@ -17,6 +17,10 @@ Nhân trực tiếp → quá chậm khi $n, m \sim 10^5$.
 
 Sử dụng biến đổi Fourier nhanh (FFT) hoặc biến đổi số nguyên tố (NTT) để nhân đa thức trong $O(n \log n)$.
 
+### 1.4 Ví dụ làm tay: $(1 + 2x)(3 + 4x)$
+
+Nhân trực tiếp: $3 + 4x + 6x + 8x^2 = 3 + 10x + 8x^2$. Ý tưởng FFT/NTT: thay vì nhân hệ số, ta **đánh giá** 2 đa thức tại cùng $n = 4$ điểm, nhân từng cặp giá trị (4 phép nhân), rồi **nội suy** ngược ra hệ số. Đánh giá + nội suy naive tốn $O(n^2)$, nhưng chọn điểm đặc biệt (căn đơn vị / căn nguyên thủy) thì đệ quy chia đôi được → $O(n \log n)$. Phần còn lại của bài là chi tiết "điểm đặc biệt" và code.
+
 ---
 
 ## 2. FFT (Fast Fourier Transform) - Tổng quan
@@ -144,7 +148,8 @@ Nếu $g$ là căn nguyên thủy modulo $p$, thì $\omega = g^{(p-1)/2^k}$ là 
 
     void ntt(vector<long long>& a, bool invert) {
         int n = a.size();
-        // Bit-reversal permutation
+        // Bước 1: đảo bit (bit-reversal) — đưa a[i] về vị trí lá đúng của cây đệ quy.
+        // VD n=8: i=1 (001) ↔ j=4 (100). Không đảo thì các tầng butterfly đọc sai cặp.
         for (int i = 1, j = 0; i < n; i++) {
             int bit = n >> 1;
             for (; j & bit; bit >>= 1) j ^= bit;
@@ -152,22 +157,25 @@ Nếu $g$ là căn nguyên thủy modulo $p$, thì $\omega = g^{(p-1)/2^k}$ là 
             if (i < j) swap(a[i], a[j]);
         }
 
+        // Bước 2: gộp dần các đoạn dài 2, 4, 8, ..., n (butterfly)
         for (int len = 2; len <= n; len <<= 1) {
+            // wlen = căn nguyên thủy bậc len: "bước nhảy" góc cho đoạn dài len
             long long wlen = powerMod(G, (MOD - 1) / len, MOD);
-            if (invert) wlen = powerMod(wlen, MOD - 2, MOD);
+            if (invert) wlen = powerMod(wlen, MOD - 2, MOD); // biến đổi ngược: dùng nghịch đảo
 
             for (int i = 0; i < n; i += len) {
-                long long w = 1;
+                long long w = 1; // w = wlen^j, lũy thừa hiện tại
                 for (int j = 0; j < len / 2; j++) {
                     long long u = a[i + j];
                     long long v = a[i + j + len / 2] * w % MOD;
-                    a[i + j] = (u + v) % MOD;
-                    a[i + j + len / 2] = (u - v + MOD) % MOD;
+                    a[i + j] = (u + v) % MOD; // nhánh cộng
+                    a[i + j + len / 2] = (u - v + MOD) % MOD; // nhánh trừ
                     w = w * wlen % MOD;
                 }
             }
         }
 
+        // Bước 3 (chỉ khi invert): mỗi hệ số bị nhân n lần → chia n để trả đúng thang
         if (invert) {
             long long invN = powerMod(n, MOD - 2, MOD);
             for (auto& x : a) x = x * invN % MOD;
@@ -175,14 +183,15 @@ Nếu $g$ là căn nguyên thủy modulo $p$, thì $\omega = g^{(p-1)/2^k}$ là 
     }
 
     vector<long long> multiply(vector<long long> a, vector<long long> b) {
+        // Pad lên lũy thừa 2 ≥ deg(A)+deg(B): NTT chỉ chạy với n = 2^k
         int n = 1;
         while (n < (int)a.size() + (int)b.size()) n <<= 1;
         a.resize(n); b.resize(n);
 
         ntt(a, false);
         ntt(b, false);
-        for (int i = 0; i < n; i++) a[i] = a[i] * b[i] % MOD;
-        ntt(a, true);
+        for (int i = 0; i < n; i++) a[i] = a[i] * b[i] % MOD; // nhân từng điểm
+        ntt(a, true); // nội suy ngược → hệ số (độ dài n, cắt bớt số 0 cuối khi dùng)
         return a;
     }
     ```
@@ -285,7 +294,23 @@ Nhiều bài toán tổ hợp có thể giải bằng convolution (nhân đa th�
 
 ---
 
-## 7. Bài tập luyện tập
+## 7. Lỗi thường gặp
+
+```cpp
+// SAI: quên pad lên lũy thừa 2 (NTT chỉ đúng khi n = 2^k)
+ntt(a, false); // a.size() = 5 → butterfly đọc ngoài mảng / sai
+
+// ĐÚNG: pad trước (xem multiply)
+int n = 1;
+while (n < a.size() + b.size()) n <<= 1;
+```
+
+- **Quên `invN` sau biến đổi ngược:** kết quả lớn gấp $n$ lần. Kiểm tra nhanh: `multiply([1],[1])` phải ra `[1]`, nếu ra `[2]` (với $n=2$) là quên chia.
+- **Sai MOD:** code trên gắn cứng $998244353$. Dùng MOD khác (vd $10^9+7$) mà không có căn bậc $2^k$ → `wlen` sai, ra kết quả rác. Muốn $10^9+7$ phải dùng 3-mod CRT (nâng cao).
+- **Python TLE:** NTT Python thuần $O(n \log n)$ với hằng số lớn — chỉ dùng để học/hiểu; thi đấu dùng C++ hoặc `numpy.fft` (sai số nhỏ, round lại).
+- **Quên cắt số 0 cuối:** `multiply` trả vector dài $n$ (lũy thừa 2), đáp án thật chỉ `len(a)+len(b)-1` phần tử đầu.
+
+## 8. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |

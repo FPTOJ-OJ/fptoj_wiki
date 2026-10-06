@@ -1,3 +1,6 @@
+---
+description: Lộ trình học thuật toán theo giai đoạn cho HSG, VOI, ICPC — prerequsite và mốc thời gian từng nhóm bài
+---
 # Lộ trình học Lập trình thi đấu
 
 Lộ trình từ **zero đến hero** — từ người mới bắt đầu đến giải cao ICPC/VOI. Mỗi bài học đều có link trực tiếp, mô tả ngắn và yêu cầu tiên quyết.

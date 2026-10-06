@@ -46,32 +46,14 @@ Xét mảng $a[0 \ldots N-1]$ lưu trữ cây Heap, với phần tử gốc nằ
 *   Con phải: $2i + 2$
 *   Cha trực tiếp: $\lfloor \frac{i - 1}{2} \rfloor$
 
-### Chứng minh công thức chỉ số cha con trên mảng
-Ta chứng minh bằng quy nạp toán học cho cây nhị phân đầy đủ biểu diễn dưới dạng mảng 0-indexed:
+### Chứng minh công thức chỉ số cha con trên mảng (thu gọn)
 
-1.  **Trường hợp cơ sở:**
-    *   Nút gốc nằm ở tầng $0$, chỉ số $0$.
-    *   Tầng $1$ có $2$ nút: index $1$ (con trái) và index $2$ (con phải).
-    *   Thử lại công thức cho nút gốc $i = 0$:
-        *   Con trái: $2(0) + 1 = 1$ (Đúng).
-        *   Con phải: $2(0) + 2 = 2$ (Đúng).
-2.  **Bước quy nạp:**
-    *   Giả sử tầng $d$ có các nút chạy từ chỉ số $start_d$ đến $end_d$. Tầng này chứa $2^d$ nút và bắt đầu tại chỉ số $start_d = 2^d - 1$.
-    *   Tầng kế tiếp $d+1$ sẽ bắt đầu tại chỉ số:
-        $$start_{d+1} = start_d + 2^d = 2^d - 1 + 2^d = 2^{d+1} - 1$$
-    *   Xét nút thứ $k$ (với $0 \leq k < 2^d$) ở tầng $d$. Chỉ số của nút này trên mảng là:
-        $$i = start_d + k = 2^d - 1 + k$$
-    *   Hai nút con của nó ở tầng $d+1$ sẽ là nút thứ $2k$ và $2k+1$ tính từ đầu tầng $d+1$.
-    *   Chỉ số của nút con trái:
-        $$index_{left} = start_{d+1} + 2k = (2^{d+1} - 1) + 2k = 2(2^d - 1 + k) + 1 = 2i + 1$$
-    *   Chỉ số của nút con phải:
-        $$index_{right} = index_{left} + 1 = 2i + 2$$
-3.  **Công thức xác định cha:**
-    *   Với nút con trái $L = 2i+1 \implies i = \frac{L-1}{2}$.
-    *   Với nút con phải $R = 2i+2 \implies i = \frac{R-2}{2}$.
-    *   Vì phép chia số nguyên tự động lấy phần sàn, ta luôn có:
-        $$\lfloor \frac{L-1}{2} \rfloor = i \quad \text{và} \quad \lfloor \frac{R-1}{2} \rfloor = \lfloor \frac{2i+1}{2} \rfloor = i$$
-    *   Do đó, cha của nút $i$ bất kỳ luôn nằm tại chỉ số $\lfloor \frac{i-1}{2} \rfloor$.
+Ý tưởng: tầng $d$ (gốc là tầng 0) bắt đầu tại chỉ số $2^d - 1$ và chứa $2^d$ nút.
+
+- **Cơ sở ($i = 0$):** con trái $2\cdot 0+1 = 1$, con phải $2\cdot 0+2 = 2$ ✓ (khớp tầng 1).
+- **Bước quy nạp:** nút thứ $k$ ở tầng $d$ có chỉ số $i = (2^d - 1) + k$. Hai con của nó là nút thứ $2k, 2k+1$ ở tầng $d+1$ (bắt đầu tại $2^{d+1}-1$), nên:
+  $$L = (2^{d+1}-1) + 2k = 2(2^d-1+k)+1 = 2i+1, \quad R = L+1 = 2i+2.$$
+- **Công thức cha:** từ $L = 2i+1$ và $R = 2i+2$ suy ra $i = \lfloor (L-1)/2 \rfloor = \lfloor (R-1)/2 \rfloor$. Vậy cha của nút $i$ bất kỳ là $\lfloor (i-1)/2 \rfloor$ (chia nguyên tự lấy sàn).
 
 ### Ví dụ minh họa Max-Heap
 Mảng lưu trữ: `[90, 80, 70, 50, 60, 65]` ứng với chỉ số $0$ đến $5$:
@@ -186,30 +168,35 @@ Mảng kết quả: `[85, 80, 70, 50, 60, 65]`
         int parent(int i) { return (i - 1) / 2; }
 
         // Đẩy xuống từ chỉ số i - O(log N)
+        // a: mảng heap; largest: nút lớn nhất trong (i, con trái, con phải)
+        // l = con trái (2i+1), r = con phải (2i+2)
         void sift_down(int i) {
-            int largest = i;
-            int l = left(i);
-            int r = right(i);
+            int largest = i; // bước giả định: cha đang lớn nhất
+            int l = left(i); // bước tính chỉ số con trái
+            int r = right(i); // bước tính chỉ số con phải
 
             if (l < (int)a.size() && a[l] > a[largest]) {
-                largest = l;
+                largest = l; // bước so: con trái lớn hơn thì ứng viên mới là l
             }
             if (r < (int)a.size() && a[r] > a[largest]) {
-                largest = r;
+                largest = r; // bước so: con phải lớn nhất thì ứng viên là r
             }
 
             if (largest != i) {
-                swap(a[i], a[largest]);
-                sift_down(largest); // Đệ quy đẩy xuống tiếp
+                swap(a[i], a[largest]); // bước đổi: đưa con lớn nhất lên
+                sift_down(largest); // bước đệ quy: đẩy tiếp xuống nhánh vừa đổi
             }
+            // ngược lại: cha đã lớn nhất → dừng (đúng tính chất đống)
         }
 
         // Đẩy lên từ chỉ số i - O(log N)
+        // a: mảng heap; i: vị trí phần tử mới chèn cần đẩy lên
         void sift_up(int i) {
-            while (i > 0 && a[parent(i)] < a[i]) {
-                swap(a[parent(i)], a[i]);
-                i = parent(i);
+            while (i > 0 && a[parent(i)] < a[i]) { // bước kiểm tra: còn cha và cha nhỏ hơn con?
+                swap(a[parent(i)], a[i]); // bước đổi: đưa con lớn lên trên
+                i = parent(i); // bước leo: xét tiếp vị trí cha vừa đổi
             }
+            // dừng khi tới gốc (i == 0) hoặc cha đã >= con
         }
 
     public:
@@ -352,20 +339,22 @@ Mảng được sắp xếp tăng dần hoàn chỉnh: `[1, 3, 4, 5, 10]`.
     using namespace std;
 
     void sift_down(vector<int>& a, int n, int i) {
-        int largest = i;
-        int l = 2 * i + 1;
-        int r = 2 * i + 2;
+        // a: mảng heap (chỉ xét n phần tử đầu); n: kích thước heap hiện tại
+        // i: vị trí cần đẩy xuống; largest: ứng viên lớn nhất; l/r: con trái/phải
+        int largest = i; // bước giả định: cha đang lớn nhất
+        int l = 2 * i + 1; // bước tính con trái
+        int r = 2 * i + 2; // bước tính con phải
 
         if (l < n && a[l] > a[largest]) {
-            largest = l;
+            largest = l; // bước so: con trái lớn hơn
         }
         if (r < n && a[r] > a[largest]) {
-            largest = r;
+            largest = r; // bước so: con phải lớn nhất
         }
 
         if (largest != i) {
-            swap(a[i], a[largest]);
-            sift_down(a, n, largest);
+            swap(a[i], a[largest]); // bước đổi chỗ
+            sift_down(a, n, largest); // bước đệ quy xuống nhánh vừa đổi
         }
     }
 
@@ -373,14 +362,16 @@ Mảng được sắp xếp tăng dần hoàn chỉnh: `[1, 3, 4, 5, 10]`.
         int n = a.size();
 
         // Bước 1: Xây dựng Max-Heap từ mảng ban đầu - O(N)
+        // (duyệt từ nút không phải lá cuối cùng ngược về gốc)
         for (int i = n / 2 - 1; i >= 0; i--) {
             sift_down(a, n, i);
         }
 
         // Bước 2: Đổi chỗ phần tử gốc ra cuối mảng và heapify lại - O(N log N)
+        // (mỗi vòng: gốc lớn nhất về cuối, heap co lại 1, đẩy gốc mới xuống)
         for (int i = n - 1; i > 0; i--) {
             swap(a[0], a[i]);
-            sift_down(a, i, 0); // Giới hạn kích thước heap giảm dần xuống i
+            sift_down(a, i, 0); // Giới hạn kích thước heap giảm dần xuống i (chỉ heapify i phần tử đầu)
         }
     }
     ```
@@ -389,18 +380,20 @@ Mảng được sắp xếp tăng dần hoàn chỉnh: `[1, 3, 4, 5, 10]`.
 
     ```python
     def sift_down(a, n, i):
-        largest = i
-        l = 2 * i + 1
-        r = 2 * i + 2
+        # a: mảng heap (xét n phần tử đầu); n: kích thước heap; i: vị trí cần đẩy xuống
+        # largest: ứng viên lớn nhất; l/r: con trái (2i+1) / phải (2i+2)
+        largest = i  # bước giả định: cha lớn nhất
+        l = 2 * i + 1  # bước tính con trái
+        r = 2 * i + 2  # bước tính con phải
 
         if l < n and a[l] > a[largest]:
-            largest = l
+            largest = l  # bước so: con trái lớn hơn
         if r < n and a[r] > a[largest]:
-            largest = r
+            largest = r  # bước so: con phải lớn nhất
 
         if largest != i:
-            a[i], a[largest] = a[largest], a[i]
-            sift_down(a, n, largest)
+            a[i], a[largest] = a[largest], a[i]  # bước đổi chỗ
+            sift_down(a, n, largest)  # bước đệ quy xuống nhánh vừa đổi
 
     def heap_sort(a):
         n = len(a)
@@ -479,6 +472,55 @@ Cho mảng gồm $N$ phần tử, ta cần tìm $K$ phần tử có giá trị l
         # Trả về các phần tử được sắp xếp giảm dần
         return sorted(min_heap, reverse=True)
     ```
+
+---
+
+## Cạm bẫy thường gặp
+
+### Lỗi 1: Nhầm 0-index / 1-index
+
+| Quy ước | Con trái | Con phải | Cha |
+|:---|:---:|:---:|:---:|
+| **0-index** (bài này, C++/Python) | `2i+1` | `2i+2` | `(i-1)/2` |
+| **1-index** (sách cũ, pseudocode) | `2i` | `2i+1` | `i/2` |
+
+```cpp
+// SAI: copy công thức 1-index vào mảng 0-index → truy cập sai nút
+int l = 2 * i, r = 2 * i + 1; // ✗ (công thức 1-index)
+
+// ĐÚNG (0-index):
+int l = 2 * i + 1, r = 2 * i + 2; // ✓
+int p = (i - 1) / 2; // ✓ cha
+```
+
+### Lỗi 2: `priority_queue` mặc định là MAX-heap
+
+```cpp
+// SAI: tưởng priority_queue cho số nhỏ nhất lên top
+priority_queue<int> pq; // thực ra là MAX-heap: top = lớn nhất!
+pq.push(5); pq.push(3); // pq.top() == 5, không phải 3!
+
+// ĐÚNG: muốn MIN-heap phải khai báo rõ
+priority_queue<int, vector<int>, greater<int>> min_pq; // top = nhỏ nhất
+// Python ngược lại: heapq mặc định là MIN-heap; muốn MAX-heap phải đảo dấu (-x)
+```
+
+### Lỗi 3: `pop` / `top` khi heap rỗng
+
+```cpp
+// SAI: pop/top trên heap rỗng → crash / UB
+pq.pop(); // nếu pq.empty() thì lỗi!
+
+// ĐÚNG: luôn kiểm tra rỗng trước
+if (!pq.empty()) { pq.pop(); } // bước kiểm tra
+if (!pq.empty()) { int t = pq.top(); } // bước kiểm tra
+```
+
+| Hàm | Điều kiện an toàn | Hậu quả nếu quên |
+|:---|:---|:---|
+| `top()` | `!empty()` | crash / UB |
+| `pop()` | `!empty()` | crash / mất dữ liệu |
+| `sift_down` | `l < n`, `r < n` | đọc ngoài mảng |
 
 ---
 

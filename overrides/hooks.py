@@ -572,3 +572,50 @@ def on_pre_build(config):
 
 def on_post_build(config):
     pass  # cleanup thủ công khi cần: xóa docs/uploads/matplotlib/*.webp
+    _write_sitemap(config)
+    _write_robots(config)
+
+
+def _write_sitemap(config):
+    """Sinh sitemap.xml từ các file HTML đã build (không cần plugin ngoài)."""
+    import datetime
+    site_dir = config.get('site_dir', 'site')
+    site_url = (config.get('site_url') or '').rstrip('/')
+    if not site_dir or not site_url or not os.path.isdir(site_dir):
+        return
+    urls = []
+    for root, _, files in os.walk(site_dir):
+        for f in files:
+            if not f.endswith('.html'):
+                continue
+            full = os.path.join(root, f)
+            rel = os.path.relpath(full, site_dir).replace(os.sep, '/')
+            if rel.endswith('index.html'):
+                loc = site_url + '/' + rel[:-len('index.html')]
+            else:
+                loc = site_url + '/' + rel
+            mtime = datetime.date.fromtimestamp(os.path.getmtime(full)).isoformat()
+            urls.append((loc, mtime))
+    urls.sort()
+    parts = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for loc, lastmod in urls:
+        parts.append(f'  <url><loc>{loc}</loc><lastmod>{lastmod}</lastmod></url>')
+    parts.append('</urlset>')
+    with open(os.path.join(site_dir, 'sitemap.xml'), 'w', encoding='utf-8') as f:
+        f.write('\n'.join(parts))
+    log.info(f'Sitemap: wrote {len(urls)} urls')
+
+
+def _write_robots(config):
+    """Sinh robots.txt cho phép crawl + trỏ tới sitemap (không cần plugin ngoài)."""
+    site_dir = config.get('site_dir', 'site')
+    site_url = (config.get('site_url') or '').rstrip('/')
+    if not site_dir or not os.path.isdir(site_dir):
+        return
+    content = 'User-agent: *\nAllow: /\n'
+    if site_url:
+        content += f'\nSitemap: {site_url}/sitemap.xml\n'
+    with open(os.path.join(site_dir, 'robots.txt'), 'w', encoding='utf-8') as f:
+        f.write(content)
+    log.info('Robots: wrote robots.txt')

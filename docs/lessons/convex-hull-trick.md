@@ -13,12 +13,23 @@
 - **Thuật toán Dynamic CHT với Li Chao Tree:** Cấu trúc dữ liệu mạnh mẽ để quản lý các đường thẳng thêm vào theo thứ tự bất kỳ.
 - **Ứng dụng qua bài toán kinh điển:** Batch Scheduling (IOI 2002) và ACQUIRE (USACO).
 
+!!! tip "Đọc thêm: ứng dụng CHT vào DP"
+    Bài này trình bày kỹ thuật CHT tổng quát. Nếu bạn muốn xem **quy trình biến đổi công thức DP thành đường thẳng** từng bước (trace chi tiết + code deque/Li Chao + 7 bài tập DP), đọc tiếp [Kĩ thuật Bao lồi trong QHĐ](dp-convex-hull.md).
+
 ---
 
 ## 1. Bài toán dẫn nhập và Biểu diễn Hình học
 
 ### 1.1 Mô tả bài toán
-Trong các bài toán quy hoạch động, ta thường gặp công thức tối ưu hóa có dạng:
+
+**Ví dụ làm tay trước:** 3 đường thẳng $L_1: y = 3x+1$, $L_2: y = x+3$, $L_3: y = -x+8$. Hỏi $\min y$ tại $x = 1$ và $x = 4$?
+
+- $x = 1$: $L_1 = 4$, $L_2 = 4$, $L_3 = 7$ → min là $4$ (hòa $L_1, L_2$).
+- $x = 4$: $L_1 = 13$, $L_2 = 7$, $L_3 = 4$ → min là $4$ ($L_3$).
+
+Naive: mỗi truy vấn duyệt cả 3 đường ($O(N)$). CHT nhận xét: khi $x$ tăng dần, đường tối ưu "chuyển giao" theo thứ tự cố định ($L_1 \to L_2 \to L_3$) — mỗi đường chỉ cần xét một lần rồi bỏ ($O(1)$ amortized). Tổng quát hóa: với $N$ đường và $Q$ truy vấn, $O((N+Q) \log N)$ hoặc $O(N+Q)$ thay vì $O(NQ)$.
+
+Dạng tổng quát trong DP:
 $$dp[i] = \min_{0 \le j < i} \{ dp[j] + b[j] \cdot a[i] \} + c[i]$$
 Trong đó $a[i]$ là tham số truy vấn tại bước $i$, $b[j]$ là hệ số góc thu được từ trạng thái $j$, và $dp[j]$ là giá trị tối ưu đã tính.
 
@@ -631,6 +642,18 @@ Ta áp dụng trực tiếp Static CHT Deque với $O(N)$ thời gian.
 > ### 2. Xử lý đường thẳng trùng hệ số góc (Coincident Slopes)
 > Khi hai đường thẳng có cùng hệ số góc $m_1 = m_2$, chúng song song nhau. Khoảng cách giao điểm sẽ tiến tới vô cùng. 
 > - Nếu $c_1 \le c_2$, đường thẳng $L_2$ hoàn toàn nằm phía trên $L_1$ nên nó vô dụng. Ta bắt buộc phải loại bỏ đường thẳng có tung độ gốc kém hơn trước khi thực hiện so sánh chéo để tránh lỗi chia cho $0$.
+
+> [!CAUTION]
+> ### 3. Đảo chiều min/max mà quên đảo bất đẳng thức
+> Code trên viết cho bài toán **min**. Nếu đề hỏi **max**: đổi mọi `<=` thành `>=` trong `is_bad` và query (bao lồi trên thay vì bao lồi dưới), đổi `1e18` thành `-1e18`. Chỉ đảo một chỗ sẽ ra đáp án sai lặng lẽ — test ngay với ví dụ tay §1.1 (đảo thành max: $x=1 \to 7$, $x=4 \to 13$).
+
+> [!CAUTION]
+> ### 4. Thêm đường sai thứ tự hệ số góc
+> Static CHT yêu cầu $m$ **đơn điệu** (code trên: giảm dần). Nếu $m$ vào lộn xộn mà vẫn dùng deque → bao lồi vỡ, đáp án sai. Quy tắc: $m$ lộn xộn → dùng **Li Chao Tree** (§4), đừng cố dùng deque.
+
+> [!CAUTION]
+> ### 5. Con trỏ `ptr` không reset giữa các test
+> `ptr` là state nội bộ (dòng 153-161): nếu dùng chung 1 object cho nhiều test case mà $x$ test sau nhỏ hơn $x$ test trước, `ptr` kẹt ở cuối → query sai. Mỗi test case tạo object mới (hoặc reset `ptr = 0`).
 
 ---
 

@@ -140,6 +140,19 @@ Tưởng tượng bạn đang "quấn dây" quanh các điểm. Bắt đầu t�
 
 Phép kiểm tra $\text{cross} \leq 0$ nghĩa là: nếu điểm mới tạo hướng quay phải hoặc thẳng hàng so với 2 điểm cuối stack, thì điểm cuối stack **không phải** đỉnh bao lồi, loại bỏ.
 
+**Trace chạy tay (nửa dưới) — ví dụ 6 điểm:** $A(0,0), B(1,1), C(2,0), D(3,1), E(4,0)$ (đã sắp xếp theo $x$).
+
+| Bước | Điểm mới $p$ | $hull$ trước khi xét | $\text{cross}(\dots)=?$ | Quyết định |
+|------|-------------|----------------------|--------------------------|------------|
+| 1 | $A(0,0)$ | $[\,]$ | — | push → $[A]$ |
+| 2 | $B(1,1)$ | $[A]$ | — (chưa đủ 2 điểm) | push → $[A,B]$ |
+| 3 | $C(2,0)$ | $[A,B]$ | $\text{cross}(A,B,C)=(1)(0)-(1)(2)=-2<0$ → quay phải | pop $B$ → $[A]$, push → $[A,C]$ |
+| 4 | $D(3,1)$ | $[A,C]$ | $\text{cross}(A,C,D)=(2)(1)-(0)(3)=2>0$ → quay trái | push → $[A,C,D]$ |
+| 5 | $E(4,0)$ | $[A,C,D]$ | $\text{cross}(C,D,E)=(1)(-1)-(1)(2)=-3<0$ → quay phải | pop $D$ → $[A,C]$, kiểm tra lại $\text{cross}(A,C,E)=(2)(0)-(0)(4)=0$ → thẳng hàng |
+| 6 | $E(4,0)$ (tiếp) | $[A,C]$ | $\text{cross}=0$ → với `<= 0` thì pop $C$ | pop $C$ → $[A]$, push → $[A,E]$ |
+
+Lower hull thu được: $[A,E]$ nếu có thêm điểm thẳng hàng ở giữa (ở đây $C$ bị loại vì `<= 0`). Nếu dùng `< 0` thì bước 6 giữ $C$ lại → $[A,C,E]$. Đó chính là khác biệt "loại điểm thẳng hàng hay giữ" ở dưới.
+
 **Cài đặt:**
 
 === "C++"
@@ -154,10 +167,12 @@ Phép kiểm tra $\text{cross} \leq 0$ nghĩa là: nếu điểm mới tạo hư
 
         // Xây nửa dưới (lower hull)
         for (int i = 0; i < n; i++) {
+            // cross <= 0: pop cả khi quay phải (< 0) lẫn thẳng hàng (== 0)
+            // → chỉ giữ 2 đầu mút, bao lồi gọn. Muốn giữ điểm trên cạnh thì đổi thành < 0.
             while (hull.size() >= 2 &&
                    cross(hull[hull.size()-2], hull[hull.size()-1], points[i]) <= 0)
-                hull.pop_back();
-            hull.push_back(points[i]);
+                hull.pop_back(); // điểm giữa nằm trong → loại
+            hull.push_back(points[i]); // thêm điểm mới vào stack
         }
 
         // Xây nửa trên (upper hull)
@@ -182,12 +197,14 @@ Phép kiểm tra $\text{cross} \leq 0$ nghĩa là: nếu điểm mới tạo hư
         if len(points) <= 1:
             return points
 
-        # Nửa dưới
+        // Nửa dưới
         lower = []
         for p in points:
+            # cross <= 0: loại cả quay phải và thẳng hàng → chỉ giữ 2 đầu mút
+            # Muốn giữ điểm trên cạnh thì đổi thành < 0
             while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
-                lower.pop()
-            lower.append(p)
+                lower.pop()  # điểm giữa nằm trong → loại
+            lower.append(p)  # thêm điểm mới vào stack
 
         # Nửa trên
         upper = []

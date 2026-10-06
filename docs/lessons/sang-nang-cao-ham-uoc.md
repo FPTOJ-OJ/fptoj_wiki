@@ -33,28 +33,31 @@ n = 60 → SPF(60) = 2
     const int MAXN = 1e7 + 5;
     int spf[MAXN]; // spf[i] = ước nguyên tố nhỏ nhất của i
 
+    // Xây bảng SPF tới n: khởi tạo spf[i]=i rồi sàng như Eratosthenes
     void buildSPF(int n) {
-        for (int i = 0; i <= n; i++) spf[i] = i;
+        for (int i = 0; i <= n; i++) spf[i] = i; // ban đầu coi mọi số là nguyên tố
         for (int i = 2; i * i <= n; i++) {
-            if (spf[i] == i) { // i là nguyên tố
+            if (spf[i] == i) { // spf[i] chưa bị đổi -> i là nguyên tố
+                // Đánh dấu các bội j của i: nếu j chưa có ước nhỏ hơn thì spf[j] = i
                 for (int j = i * i; j <= n; j += i) {
-                    if (spf[j] == j) spf[j] = i;
+                    if (spf[j] == j) spf[j] = i; // chỉ gán lần đầu (ước nhỏ nhất)
                 }
             }
         }
     }
 
     // Phân tích n thành các thừa số nguyên tố - O(log n)
+    // Mỗi bước chia n cho ước nguyên tố nhỏ nhất, gom số mũ lại
     vector<pair<long long,int>> factorize(long long n) {
-        vector<pair<long long,int>> res;
+        vector<pair<long long,int>> res; // từng cặp (nguyên tố p, số mũ cnt)
         while (n > 1) {
-            long long p = spf[n];
+            long long p = spf[n]; // ước nguyên tố nhỏ nhất của n hiện tại
             int cnt = 0;
-            while (n % p == 0) {
+            while (n % p == 0) { // đếm số mũ của p
                 n /= p;
                 cnt++;
             }
-            res.push_back({p, cnt});
+            res.push_back({p, cnt}); // lưu (p, mũ)
         }
         return res;
     }
@@ -64,26 +67,40 @@ n = 60 → SPF(60) = 2
 
     ```python
     MAXN = 10**7 + 5
-    spf = list(range(MAXN))
+    spf = list(range(MAXN))  # spf[i] = ước nguyên tố nhỏ nhất của i
 
     def build_spf(n):
+        # Xây bảng SPF tới n (chỉ duyệt i tới √n như sàng thường)
         for i in range(2, int(n**0.5) + 1):
-            if spf[i] == i:  # i là nguyên tố
+            if spf[i] == i:  # spf[i] chưa bị đổi -> i là nguyên tố
+                # Đánh dấu các bội j: nếu j chưa có ước nhỏ hơn thì spf[j] = i
                 for j in range(i * i, n + 1, i):
-                    if spf[j] == j:
+                    if spf[j] == j:  # chỉ gán lần đầu (ước nhỏ nhất)
                         spf[j] = i
 
     def factorize(n):
-        res = []
+        # Phân tích n: mỗi bước chia cho ước nguyên tố nhỏ nhất, gom số mũ
+        res = []  # từng cặp (p, mũ)
         while n > 1:
-            p = spf[n]
+            p = spf[n]  # ước nguyên tố nhỏ nhất của n hiện tại
             cnt = 0
-            while n % p == 0:
+            while n % p == 0:  # đếm số mũ của p
                 n //= p
                 cnt += 1
-            res.append((p, cnt))
+            res.append((p, cnt))  # lưu (p, mũ)
         return res
     ```
+
+**Trace tay buildSPF với $n = 12$:**
+
+| Bước | $i$ | Kiểm tra `spf[i]==i`? | Duyệt $j$ | Kết quả |
+|:---:|:---:|:---|:---|:---|
+| khởi tạo | — | — | — | `spf = [0,1,2,3,4,5,6,7,8,9,10,11,12]` |
+| 1 | 2 | `spf[2]=2` → nguyên tố | $j=4,6,8,10,12$ (từ $2^2$, bước 2): `spf[4]=2, spf[6]=2, spf[8]=2, spf[10]=2, spf[12]=2` | `[0,1,2,3,2,5,2,7,2,9,2,11,2]` |
+| 2 | 3 | `spf[3]=3` → nguyên tố | $j=9,12$ (từ $3^2$, bước 3): `spf[9]=3`; `spf[12]` đã là 2 nên **giữ nguyên** | `[0,1,2,3,2,5,2,7,2,3,2,11,2]` |
+| 3 | 4 ($4 > \sqrt{12} \approx 3.4$) | dừng vòng ngoài | — | xong |
+
+Phân tích $60$: $spf[60]=2 \to 30$; $spf[30]=2 \to 15$; $spf[15]=3 \to 5$; $spf[5]=5 \to 1$ → $60 = 2^2 \times 3 \times 5$ ✓
 
 **Độ phức tạp:** Xây dựng sàng $O(N \log \log N)$, mỗi phân tích $O(\log n)$.
 
@@ -107,18 +124,18 @@ Duyệt mỗi số $i$ từ 2 đến $N$. Với mỗi $i$, duyệt các nguyên 
 
     ```cpp
     const int MAXN = 1e7 + 5;
-    bool isPrime[MAXN];
-    vector<int> primes;
+    bool isPrime[MAXN]; // true = còn coi là nguyên tố
+    vector<int> primes; // danh sách nguyên tố đã tìm được
 
     void linearSieve(int n) {
-        fill(isPrime, isPrime + n + 1, true);
-        isPrime[0] = isPrime[1] = false;
+        fill(isPrime, isPrime + n + 1, true); // ban đầu coi mọi số là nguyên tố
+        isPrime[0] = isPrime[1] = false; // 0, 1 không phải nguyên tố
         for (int i = 2; i <= n; i++) {
-            if (isPrime[i]) primes.push_back(i);
+            if (isPrime[i]) primes.push_back(i); // i chưa bị đánh dấu -> nguyên tố
             for (int p : primes) {
-                if (i * p > n) break;
-                isPrime[i * p] = false;
-                if (i % p == 0) break; // QUAN TRỌNG: dừng tại đây
+                if (i * p > n) break; // vượt giới hạn -> dừng
+                isPrime[i * p] = false; // đánh dấu hợp số i*p đúng 1 lần
+                if (i % p == 0) break; // QUAN TRỌNG: p là ước nhỏ nhất của i -> dừng để mỗi hợp số chỉ bị đánh dấu 1 lần
             }
         }
     }
@@ -128,20 +145,33 @@ Duyệt mỗi số $i$ từ 2 đến $N$. Với mỗi $i$, duyệt các nguyên 
 
     ```python
     def linear_sieve(n):
-        is_prime = [True] * (n + 1)
-        is_prime[0] = is_prime[1] = False
-        primes = []
+        # Sàng tuyến tính: mỗi hợp số chỉ bị đánh dấu đúng 1 lần
+        is_prime = [True] * (n + 1)  # ban đầu coi mọi số là nguyên tố
+        is_prime[0] = is_prime[1] = False  # 0, 1 không phải nguyên tố
+        primes = []  # danh sách nguyên tố đã tìm được
         for i in range(2, n + 1):
             if is_prime[i]:
-                primes.append(i)
+                primes.append(i)  # i chưa bị đánh dấu -> nguyên tố
             for p in primes:
                 if i * p > n:
-                    break
-                is_prime[i * p] = False
+                    break  # vượt giới hạn -> dừng
+                is_prime[i * p] = False  # đánh dấu hợp số i*p đúng 1 lần
                 if i % p == 0:
-                    break  # QUAN TRỌNG
+                    break  # QUAN TRỌNG: p là ước nhỏ nhất của i -> dừng
         return is_prime, primes
     ```
+
+**Trace tay linear sieve với $n = 12$ (demo lệnh `break` khi $i = 4$):**
+
+| $i$ | `is_prime[i]`? | `primes` sau bước | Vòng trong (đánh dấu) |
+|:---:|:---:|:---:|:---|
+| 2 | nguyên tố | $[2]$ | $p=2$: đánh dấu $4$; $2 \bmod 2 = 0$ → **break** |
+| 3 | nguyên tố | $[2, 3]$ | $p=2$: đánh dấu $6$ ($3 \bmod 2 \ne 0$, tiếp tục); $p=3$: đánh dấu $9$; $3 \bmod 3 = 0$ → **break** |
+| 4 | hợp số (đã bị đánh dấu ở $i=2$) | $[2, 3]$ (không thêm) | $p=2$: đánh dấu $8$; $4 \bmod 2 = 0$ → **break** (KHÔNG xét $p=3$, nếu xét sẽ đánh dấu $12 = 4 \times 3$ lần 2 — sai nguyên tắc "mỗi hợp số 1 lần", vì $12$ phải do $i=6, p=2$ đánh dấu) |
+| 5 | nguyên tố | $[2, 3, 5]$ | $p=2$: đánh dấu $10$; tiếp tục $p=3$: đánh dấu $15 > 12$ → break do vượt giới hạn |
+| 6 | hợp số | $[2, 3, 5]$ | $p=2$: đánh dấu $12$; $6 \bmod 2 = 0$ → **break** ($12$ chỉ bị đánh dấu đúng 1 lần tại đây ✓) |
+
+> **Vì sao `break` đúng?** Khi $p \mid i$, mọi nguyên tố $q > p$ sẽ cho $i \times q = (i/p \times q) \times p$ mà $i/p \times q > i$, tức hợp số đó sẽ được đánh dấu sau với $i$ lớn hơn. Dừng ngay đảm bảo mỗi hợp số $x$ chỉ bị đánh dấu bởi cặp $(x / spf(x),\ spf(x))$ duy nhất.
 
 **Độ phức tạp:** $O(N)$ - mỗi số hợp chỉ bị đánh dấu đúng một lần.
 
@@ -384,6 +414,22 @@ Với sàng tuyến tính, ta có thể tính đồng thời SPF, Euler φ, d(n)
         }
     }
     ```
+
+---
+
+## 5.5 Lỗi thường gặp
+
+**SAI — `MAXN = 1e7` vượt bộ nhớ:**
+```cpp
+int spf[MAXN]; // 1e7 × 4 byte ≈ 40MB — OK trên hầu hết OJ (giới hạn 256MB)
+```
+Nhưng nếu khai thêm `phi`, `d`, `sigma`, `isPrime` cùng lúc với $10^7$ phần tử → $40 + 40 + 40 + 80 + 10 \approx 210$MB → dễ MLE. Cách tránh: chỉ sàng tới $N$ đề bài yêu cầu (không hardcode $10^7$), hoặc dùng `int32` thay vì `long long` khi giá trị vừa đủ.
+
+**SAI — Python `list(range(MAXN))` nổ RAM:** `spf = list(range(10**7 + 5))` tạo list 10 triệu object `int` Python (mỗi object ~28 byte) → **hàng trăm MB tới vài GB**, chắc chắn MLE/chết máy. Trong Python chỉ sàng tới $N \le 10^6$ ($\approx$ vài chục MB đã là nặng), hoặc dùng `array('I')`/numpy, hoặc chuyển sang PyPy với $N$ nhỏ. Quy tắc: sàng lớn → dùng C++; Python chỉ demo hoặc $N \le 10^6$.
+
+**SAI — Bỏ điều kiện `if (spf[j] == j)`:** Gán `spf[j] = i` vô điều kiện sẽ ghi đè ước nhỏ nhất bằng ước lớn hơn (ví dụ `spf[12]` bị 3 ghi đè lên 2). Luôn kiểm tra `spf[j] == j` (chưa từng gán) mới gán.
+
+**SAI — Bỏ lệnh `break` khi `i % p == 0`:** Sàng tuyến tính thành sàng thường (mỗi hợp số bị đánh dấu nhiều lần, mất tính $O(N)$), và công thức hàm nhân tính ở mục 5 sai theo vì giả thiết "mỗi hợp số sinh đúng 1 lần" bị phá vỡ.
 
 ---
 

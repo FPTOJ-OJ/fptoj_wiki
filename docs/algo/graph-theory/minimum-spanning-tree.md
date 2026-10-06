@@ -477,7 +477,7 @@ int main() {
 #### Tóm tắt đề bài
 Cho đồ thị vô hướng $G$ gồm $n$ đỉnh và $m$ cạnh. Yêu cầu với mỗi cạnh trong đồ thị, tìm cây khung nhỏ nhất **chứa cạnh đó** của đồ thị và in ra trọng số của cây khung đó.
 
-Đây là 1 bài tập khá kinh điển về cây khung nhỏ nhất. Để giải được bài tập này, chúng ta cần giải bài LUBENICA trước. Các bạn có thể đọc thêm về bài ở [đây](lubenica-vnoj.md)
+Đây là 1 bài tập khá kinh điển về cây khung nhỏ nhất. Để giải được bài tập này, chúng ta cần kỹ thuật truy vấn max trên đường đi trên cây (xem [LCA & Binary Lifting](../../lessons/lca-binary-lifting.md) và [HLD](../../lessons/hld.md)).
 #### Thuật toán: 
 * Đầu tiên, ta dựng cây khung nhỏ nhất $S$ của đồ thị ban đầu:
 * Sau đó, ta lần lượt đi tìm cây khung nhỏ nhất chứa mỗi cạnh của đồ thị. Với 1 cạnh i nối 2 đỉnh $u$, $v$ với trọng số $w$, có 2 trường hợp xảy ra:

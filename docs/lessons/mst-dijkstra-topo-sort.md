@@ -210,6 +210,37 @@ graph LR
 
 Kruskal phù hợp khi đồ thị thưa ($m \approx n$). Prim với heap phù hợp khi đồ thị trung bình. Prim với ma trận kề phù hợp khi đồ thị rất dày ($m \approx n^2$).
 
+### Trace chạy tay MST (Kruskal và Prim)
+
+Xét đồ thị 4 đỉnh với 5 cạnh:
+
+- $(1,2,w=1)$, $(1,3,w=4)$, $(2,3,w=2)$, $(2,4,w=5)$, $(3,4,w=1)$
+
+MST kỳ vọng: $(1,2,1) + (3,4,1) + (2,3,2) = 4$.
+
+**Trace Kruskal** (sắp xếp cạnh tăng dần: $(1,2,1), (3,4,1), (2,3,2), (1,3,4), (2,4,5)$):
+
+| Bước | Xét cạnh | `find(u)` vs `find(v)` | Quyết định | Tổng MST |
+|------|----------|------------------------|------------|----------|
+| 1 | $(1,2,1)$ | $1 \ne 2$ | Nhận, `unite(1,2)` | 1 |
+| 2 | $(3,4,1)$ | $3 \ne 4$ | Nhận, `unite(3,4)` | 2 |
+| 3 | $(2,3,2)$ | $\{1,2\} \ne \{3,4\}$ | Nhận, `unite(2,3)` | 4 |
+| 4 | — | — | Đã đủ $n-1 = 3$ cạnh → dừng | 4 |
+
+Cạnh $(1,3,4)$: lúc này $1$ và $3$ đã cùng tập $\{1,2,3,4\}$ → bỏ qua (tạo chu trình $1-2-3-1$).
+
+**Trace Prim** (bắt đầu từ đỉnh $1$):
+
+| Bước | Pop $(w,u)$ | $u$ đã thăm? | Hành động | Heap sau bước |
+|------|-------------|--------------|-----------|---------------|
+| Khởi tạo | — | — | Push $(0,1)$ | $[(0,1)]$ |
+| 1 | $(0,1)$ | Chưa → thăm $1$, tổng $= 0$ | Push $(1,2), (4,3)$ | $[(1,2), (4,3)]$ |
+| 2 | $(1,2)$ | Chưa → thăm $2$, tổng $= 1$ | Push $(2,3), (5,4)$ | $[(2,3), (4,3), (5,4)]$ |
+| 3 | $(2,3)$ | Chưa → thăm $3$, tổng $= 3$ | Push $(1,4)$ | $[(1,4), (4,3), (5,4)]$ |
+| 4 | $(1,4)$ | Chưa → thăm $4$, tổng $= 4$ | Đủ $4$ đỉnh → dừng | — |
+
+Kết quả cả hai: $4$. Cùng một MST (trong ví dụ này là duy nhất).
+
 ```matplotlib
 import math
 

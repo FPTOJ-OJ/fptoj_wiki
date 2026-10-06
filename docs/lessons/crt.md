@@ -186,6 +186,8 @@ Nếu $m_i$ và $m_j$ không nguyên tố cùng nhau, hệ có thể vô nghiệ
 1. **Ghép từng cặp:** Với hai phương trình $x \equiv a_1 \pmod{m_1}$, $x \equiv a_2 \pmod{m_2}$, tồn tại nghiệm khi $a_1 \equiv a_2 \pmod{gcd(m_1, m_2)}$.
 2. **Nghiệm chung:** $x \equiv x_0 \pmod{LCM(m_1, m_2)}$, tìm $x_0$ bằng Extended Euclid kết hợp CRT.
 
+**Ví dụ số:** $x \equiv 2 \pmod{4}$, $x \equiv 4 \pmod{6}$. $\gcd(4,6) = 2$; kiểm tra: $2 \equiv 4 \pmod{2}$? $0 \equiv 0$ ✓ → có nghiệm. Liệt kê: $x \in \{2, 6, 10, 14, \dots\}$ gặp $\{4, 10, 16, \dots\}$ tại $x = 10$ (mod $LCM = 12$). Ngược lại $x \equiv 1 \pmod{4}$, $x \equiv 2 \pmod{6}$: $1 \not\equiv 2 \pmod{2}$ → **vô nghiệm** (số lẻ không thể chẵn).
+
 ### Khi $a_i \ge m_i$
 
 Trong thực tế, $a_i$ có thể lớn hơn $m_i$. Hãy rút gọn $a_i \gets a_i \bmod m_i$ trước khi tính, vì $x \equiv a_i \pmod{m_i}$ và $x \equiv a_i \bmod m_i \pmod{m_i}$ là tương đương.
@@ -197,6 +199,21 @@ Khi tính $M = \prod m_i$, $M$ có thể rất lớn (vượt quá $10^{18}$). T
 ### Thuật toán Garner
 
 Khi cần lưu nghiệm dưới dạng hỗn hợp (mixed-radix) thay vì modulo $M$, dùng **Garner's Algorithm**. Garner biểu diễn nghiệm thành $x = x_0 + x_1 \cdot m_1 + x_2 \cdot (m_1 \cdot m_2) + \ldots$ với $0 \le x_i < m_{i+1}$. Điều này hữu ích khi $M$ quá lớn để lưu trực tiếp, nhưng cần so sánh hoặc in nghiệm.
+
+### Lỗi thường gặp
+
+```cpp
+// SAI: ghép 2 phương trình mà không kiểm tra điều kiện tương thích
+// x ≡ 1 (mod 4), x ≡ 2 (mod 6): code CRT chuẩn cho ra số,
+// nhưng 1 ≢ 2 (mod 2) → hệ VÔ NGHIỆM, đáp án đó là rác!
+
+// ĐÚNG: luôn kiểm tra (a1 - a2) % gcd(m1, m2) == 0 trước khi ghép
+long long g = std::gcd(m1, m2);
+if ((a1 - a2) % g != 0) return NO_SOLUTION;
+```
+
+- **Nhân $M = \prod m_i$ tràn `long long`:** $M$ dễ vượt $10^{18}$ với $k \ge 3$ modulo lớn — dùng `__int128` cho mọi phép nhân trung gian, hoặc chuyển sang Garner.
+- **Quên rút gọn $a_i \gets a_i \bmod m_i$:** $a_i$ âm hoặc $\ge m_i$ làm lệch mọi bước sau — chuẩn hóa ngay khi đọc input.
 
 ---
 

@@ -44,6 +44,13 @@ graph LR
 
 Tạo node mới, cho `next` của nó trỏ vào `head` cũ, rồi cập nhật `head` trỏ sang node mới.
 
+Thứ tự 2 bước đổi `next` (làm ngược sẽ mất cả danh sách):
+
+| Bước | Code | `next` thay đổi thế nào |
+|------|------|--------------------------|
+| 1 | `newNode->next = head` | Node mới `0` trỏ vào đầu cũ `1`: `0 -> 1 -> 3 -> 5 -> 7` |
+| 2 | `head = newNode` | `head` rời khỏi `1`, trỏ sang `0` |
+
 ```mermaid
 graph LR
     A["0"] --> B["1"] --> C["3"] --> D["5"] --> E["7"] --> N["nullptr"]
@@ -53,6 +60,16 @@ graph LR
 
 Khi đã có con trỏ trỏ đến node đứng trước vị trí cần chèn, chỉ cần 2 bước: cho `next` của node mới trỏ vào node sau, rồi cho `next` của node trước trỏ vào node mới.
 
+Ví dụ chèn `2` sau node `1` trong `0 -> 1 -> 3 -> ...`:
+
+| Bước | Code | `next` thay đổi thế nào |
+|------|------|--------------------------|
+| 1 | `newNode->next = cur->next` | Node mới `2` trỏ vào node sau `3`: `2 -> 3` (danh sách cũ chưa đổi) |
+| 2 | `cur->next = newNode` | Node `1` rời khỏi `3`, trỏ sang `2`: `1 -> 2 -> 3` |
+
+!!! warning "Thứ tự quan trọng"
+    Phải làm bước 1 trước bước 2. Nếu làm `cur->next = newNode` trước, con trỏ tới node `3` bị mất, node mới không biết trỏ vào đâu.
+
 ```mermaid
 graph LR
     A["0"] --> B["1"] --> C["2"] --> D["3"] --> E["5"] --> F["7"] --> N["nullptr"]
@@ -61,6 +78,14 @@ graph LR
 ### Thao tác 3: Xóa node — $O(1)$ (khi có con trỏ node trước)
 
 Cho `next` của node trước nhảy qua node cần xóa, trỏ thẳng đến node sau. Node bị xóa trở thành "mồ côi", cần giải phóng bộ nhớ.
+
+Ví dụ xóa node `3` khỏi `0 -> 1 -> 2 -> 3 -> 5 -> 7`:
+
+| Bước | Code | `next` thay đổi thế nào |
+|------|------|--------------------------|
+| 1 | `Node* temp = cur->next` | Lưu node `3` vào `temp` để sau này `delete` |
+| 2 | `cur->next = cur->next->next` | Node `2` rời khỏi `3`, nhảy thẳng sang `5`: `2 -> 5` |
+| 3 | `delete temp` | Giải phóng node `3` mồ côi |
 
 ```mermaid
 graph LR
@@ -153,7 +178,7 @@ graph LR
         ll.pushFront(0);
         ll.insertAfter(1, 2);
         ll.remove(3);
-        ll.print();
+        ll.print();  // Output kỳ vọng: 0 -> 1 -> 2 -> 5
         return 0;
     }
     ```
@@ -222,7 +247,7 @@ graph LR
     ll.push_front(0)
     ll.insert_after(1, 2)
     ll.remove(3)
-    ll.print_list()
+    ll.print_list()  # Output kỳ vọng: 0 -> 1 -> 2 -> 5
     ```
 
 ### Doubly Linked List
@@ -472,6 +497,50 @@ Khi xóa một node, nếu quên lưu con trỏ đến node đó trước khi đ
 3. Giải phóng biến tạm
 
 Thứ tự này rất quan trọng. Nếu giải phóng trước khi nối, toàn bộ danh sách phía sau bị mất.
+
+### Lỗi thường gặp: SAI / ĐÚNG
+
+**Lỗi 1: Quên gán `nullptr` cho node mới**
+
+```cpp
+// SAI: next rác → duyệt print() chạy lung tung / crash
+Node* newNode = new Node(val);
+// quên newNode->next = head;
+
+// ĐÚNG: luôn khởi tạo next
+Node* newNode = new Node(val);  // constructor đã gán next = nullptr
+newNode->next = head;
+```
+
+**Lỗi 2: Quên cập nhật `tail` (doubly list / queue)**
+
+```cpp
+// SAI: xóa node cuối mà không sửa tail → tail trỏ vào vùng đã delete
+if (node->next) node->next->prev = node->prev;
+// quên dòng else tail = node->prev;
+
+// ĐÚNG:
+if (node->next) node->next->prev = node->prev;
+else tail = node->prev;  // node là tail thì dời tail về trước
+```
+
+Tương tự với singly list có `tail`: `pushBack` vào danh sách rỗng phải gán cả `head` và `tail`; `remove` node cuối phải dời `tail`.
+
+**Lỗi 3: Dùng con trỏ sau `delete` (use-after-free)**
+
+```cpp
+// SAI: dùng temp sau khi giải phóng
+Node* temp = cur->next;
+cur->next = cur->next->next;
+delete temp;
+cout << temp->data;  // SAI: temp đã bị thu hồi!
+
+// ĐÚNG: sau delete thì không chạm vào temp nữa
+Node* temp = cur->next;
+cur->next = temp->next;
+delete temp;
+temp = nullptr;  // gán nullptr để lỡ dùng lại sẽ crash rõ ràng thay vì lỗi âm thầm
+```
 
 ---
 

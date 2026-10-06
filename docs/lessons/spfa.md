@@ -186,7 +186,8 @@ Sau khi pop đỉnh $u$ ra khỏi queue, nếu $dist[u] >$ trung bình $dist$ c�
             // Duyệt tất cả cạnh kề của u
             for (auto [v, w] : adj[u]) {
                 // Nếu đi qua u giúp rút ngắn khoảng cách đến v
-                if (dist[u] + w < dist[v]) {
+                // (xem Bẫy 2: phải kiểm tra dist[u] != INF trước khi cộng)
+                if (dist[u] != LLONG_MAX && dist[u] + w < dist[v]) {
                     dist[v] = dist[u] + w; // Cập nhật khoảng cách
                     if (!inQueue[v]) { // Nếu v chưa trong queue
                         q.push(v); // Đưa v vào queue để xử lý sau
@@ -249,7 +250,8 @@ Sau khi pop đỉnh $u$ ra khỏi queue, nếu $dist[u] >$ trung bình $dist$ c�
         # Duyệt tất cả cạnh kề của u
         for v, w in adj[u]:
             # Nếu đi qua u rút ngắn được khoảng cách đến v
-            if dist[u] + w < dist[v]:
+            # (xem Bẫy 2: dist[u] = inf + w sẽ sai, phải kiểm tra trước)
+            if dist[u] != float('inf') and dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w  # Cập nhật khoảng cách
                 if not in_queue[v]:    # Nếu v chưa có trong queue
                     q.append(v)        # Đưa v vào queue
@@ -268,8 +270,6 @@ Sau khi pop đỉnh $u$ ra khỏi queue, nếu $dist[u] >$ trung bình $dist$ c�
         # In khoảng cách, in -1 nếu không thể đến được (inf)
         print(' '.join(str(d if d != float('inf') else -1) for d in dist))
     ```
-
----
 
 ---
 

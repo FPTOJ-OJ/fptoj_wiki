@@ -17,6 +17,9 @@ Trong đó $C(j, i)$ là hàm **lồi** theo $i$ (ví dụ: $(S[i] - S[j])^2$).
 
 **Convex Hull Trick (CHT):** Duy trì tập các đường thẳng, tìm đường thẳng cho giá trị nhỏ nhất tại $x = i$.
 
+!!! tip "Kiến thức nền"
+    Nếu chưa quen với CHT/Li Chao, đọc trước [Convex Hull Trick & Li Chao Tree](convex-hull-trick.md) (kỹ thuật tổng quát). Bài này tập trung vào **quy trình áp dụng CHT vào công thức DP**.
+
 ### So sánh
 
 | Phương pháp | Thời gian |
@@ -74,15 +77,19 @@ Vậy tại mỗi $i$, ta cần tìm đường thẳng $y = m_j \cdot x + b_j$ c
 
 ### Trace từng bước
 
-Ví dụ: `a = [3, 1, 4, 1]`, $S = [0, 3, 4, 8, 9]$
+Ví dụ: `a = [3, 1, 4, 1]`, $S = [0, 3, 4, 8, 9]$ (với $S[0] = 0$, $dp[0] = 0$).
 
-| Bước $i$ | $S[i]$ | Đường thẳng thêm ($m, b$) | CHT đang giữ | $\min y$ tại $x=S[i]$ | $dp[i]$ |
-|:---:|:---:|:---:|:---|:---:|:---:|
-| 0 | 0 | $(0, 0)$ | $(0, 0)$ | 0 | 0 |
-| 1 | 3 | $m=-6, b=9$ | $(0,0), (-6,9)$ | $\min(0, -18+9)=\min(0,-9)=-9$ | $9+(-9)=0$ |
-| 2 | 4 | $m=-8, b=16$ | $(0,0), (-6,9), (-8,16)$ | $\min(0, -24+9, -32+16) = -16$ | $16+(-16)=0$ |
-| 3 | 8 | $m=-16, b=64$ | $(0,0), (-6,9), (-8,16), (-16,64)$ | $\min(0, -48+9, -64+16, -128+64) = -64$ | $64+(-64)=0$ |
-| 4 | 9 | — | ... | $\min(...)$ | ... |
+Nhớ công thức: với mỗi $j$ đã tính, thêm đường thẳng $m_j = -2S[j]$, $b_j = dp[j] + S[j]^2$; rồi $dp[i] = S[i]^2 + \min y$ tại $x = S[i]$.
+
+| Bước $i$ | $S[i]$ | Đường thẳng thêm ($m, b$) | $\min y$ tại $x=S[i]$ | $dp[i] = S[i]^2 + \min y$ |
+|:---:|:---:|:---:|:---:|:---:|
+| 0 | 0 | $(0, 0)$ (từ $j=0$) | — | 0 |
+| 1 | 3 | $m=-6, b=9+9=18$ | $\min(0) = 0$ | $9+0=9$ |
+| 2 | 4 | $m=-8, b=10+16=26$ | $\min(0, -24+18=-6) = -6$ | $16-6=10$ |
+| 3 | 8 | $m=-16, b=26+64=90$ | $\min(0, -48+18=-30, -64+26=-38) = -38$ | $64-38=26$ |
+| 4 | 9 | — | $\min(0, -54+18=-36, -72+26=-46, -144+90=-54) = -54$ | $81-54=27$ |
+
+Đáp án: $dp[4] = 27$ (ví dụ chia $[3]\,[1,4]\,[1]$ với chi phí $9+25+1=35$? Không — thử $[3,1]\,[4,1]$: $16+25=41$? Thực tế tối ưu là 4 nhóm riêng lẻ: $9+1+16+1=27$ ✓).
 
 ### Biểu diễn hình học
 
@@ -90,13 +97,13 @@ Mỗi $j$ là một đường thẳng $y = m_j \cdot x + b_j$. Tập các đư�
 
 ```mermaid
 graph LR
-    A["j=0: y = 0x + 0"] --> B["j=1: y = -6x + 9"]
-    B --> C["j=2: y = -8x + 16"]
-    C --> D["j=3: y = -16x + 64"]
+    A["j=0: y = 0x + 0"] --> B["j=1: y = -6x + 18"]
+    B --> C["j=2: y = -8x + 26"]
+    C --> D["j=3: y = -16x + 90"]
 ```
 
-- Tại $x = 3$: đường $j=1$ ($y=-9$) tốt hơn $j=0$ ($y=0$).
-- Tại $x = 8$: đường $j=3$ ($y=-64$) tốt nhất.
+- Tại $x = 3$: đường $j=0$ ($y=0$) và $j=1$ ($y=-18+18=0$) hòa nhau.
+- Tại $x = 8$: đường $j=2$ ($y=-64+26=-38$) và $j=3$ ($y=-128+90=-38$) cùng tốt nhất.
 
 ---
 

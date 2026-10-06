@@ -108,6 +108,8 @@ Kết quả: điểm $x=3$ có 3 đoạn phủ.
 - HCN2: $(2,2)-(5,4)$
 - HCN3: $(3,0)-(6,3)$
 
+> **Nối trace với code bên dưới:** mỗi dòng trong bảng chính là **một vòng lặp** `for (auto& e : events)` ở §Code minh họa. Cột `active_len` là biến `active_len` trong code (tổng độ dài y đang phủ, tính **trước** khi cập nhật `cnt`), cột `Diện tích thêm` là dòng `area += active_len * (e.x - prev_x)`. Sau đó code cập nhật `cnt[lo..hi)` rồi gán `prev_x = e.x` cho dòng tiếp theo.
+
 **Danh sách sự kiện** (sau khi sắp xếp):
 
 | $x$ | Type | $y_1$ | $y_2$ | active_len | Diện tích thêm |
@@ -157,6 +159,16 @@ Do đó, chỉ cần kiểm tra mỗi đoạn với láng giềng trên/dưới 
 ---
 
 ## Code minh họa
+
+### Giải thích biến bằng lời + ví dụ số nhỏ (đọc trước khi xem code)
+
+Ba biến dễ rối nhất:
+
+- **`ytoi` (y-to-index):** ánh xạ tọa độ $y$ gốc → chỉ số trong mảng đã rời rạc. Ví dụ với 3 HCN trên, mọi $y_1, y_2$ gom lại được $\{0,1,2,3,4\}$ nên `ys = [0,1,2,3,4]`, `ytoi = {0→0, 1→1, 2→2, 3→3, 4→4}`. HCN $(1,1)-(4,3)$ chiếm chỉ số `lo = ytoi[1] = 1` đến `hi = ytoi[3] = 3`, tức 2 đoạn con $[1,2]$ và $[2,3]$.
+- **`cnt[i]`:** số HCN đang phủ **đoạn con** $[ys[i], ys[i+1]]$ (chú ý: phủ đoạn, không phải điểm!). Ví dụ sau khi xử lý $x=1$ và $x=2$: HCN1 phủ $[1,3]$ → `cnt = [0,1,1,0]`; thêm HCN2 phủ $[2,4]$ → `cnt = [0,1,2,1]`. Đoạn nào có `cnt[i] > 0` thì được tính vào diện tích.
+- **`active_len`:** tổng độ dài $y$ đang được phủ tại lát cắt hiện tại = $\sum_{cnt[i]>0}(ys[i+1]-ys[i])$. Ví dụ với `cnt = [0,1,2,1]`: `active_len = (2-1) + (3-2) + (4-3) = 3` — khớp dòng $x=3$ trong bảng trace.
+
+Công thức diện tích mỗi lát cắt: `area += active_len * (x_mới - x_cũ)` — coi dải giữa hai đường quét liên tiếp là hình chữ nhật rộng $(x - prev\_x)$, cao `active_len`.
 
 ### Diện tích hợp hình chữ nhật
 
@@ -273,6 +285,53 @@ Do đó, chỉ cần kiểm tra mỗi đoạn với láng giềng trên/dưới 
 
     print(area)                                 # Tổng diện tích hợp
     ```
+
+### Lỗi thường gặp (SAI / ĐÚNG)
+
+**Lỗi 1: Thứ tự sự kiện start/end trùng $x$**
+
+```python
+# SAI: sort mặc định (x, type) với type = +1/-1 → sự kiện kết thúc (-1) chạy TRƯỚC bắt đầu (+1)
+# → tại cùng x, HCN cũ bị xóa trước khi HCN mới được thêm → active_len sai 1 lát cắt
+events.sort()  # với events = (x, type, y1, y2), type ∈ {+1, -1}
+
+# ĐÚNG: với bài diện tích (đoạn đóng/mở trên lưới liên tục), xử lý theo đúng semantics đề bài.
+# Code C++ trên dùng type: +1 bắt đầu, -1 kết thúc và sort type tăng dần — hãy kiểm tra lại
+# thứ tự mong muốn của đề (thường: đóng HCN cũ trước hay mở HCN mới trước không ảnh hưởng
+# diện tích vì (x - prev_x) = 0 tại cùng x, MIỄN LÀ prev_x cập nhật đúng sau từng sự kiện).
+```
+
+**Lỗi 2: Nhầm đoạn đóng/mở trên trục $y$**
+
+```python
+# SAI: cập nhật cnt[lo..hi] (bao gồm hi) → đếm thừa 1 đoạn
+for i in range(lo, hi + 1):
+    cnt[i] += typ
+
+# ĐÚNG: đoạn [ys[i], ys[i+1]] có m-1 đoạn → vòng lo..hi-1
+for i in range(lo, hi):
+    cnt[i] += typ
+```
+
+**Lỗi 3: Tràn số — dùng `int` cho diện tích**
+
+```cpp
+// SAI: tọa độ đến 1e9 → diện tích đến 1e18, tràn int
+int area = 0; area += active_len * (e.x - prev_x);
+
+// ĐÚNG:
+long long area = 0; area += (long long)active_len * (e.x - prev_x);
+```
+
+**Lỗi 4: Quên rời rạc hóa $y$ (duyệt trực tiếp theo tọa độ gốc)**
+
+```python
+# SAI: cnt size = max_y (đến 1e9) → MLE/TLE
+cnt = [0] * 10**9
+
+# ĐÚNG: chỉ lưu các y xuất hiện ở biên HCN (tối đa 2N giá trị) rồi ánh xạ qua ytoi
+ys = sorted(ycoords)  # ≤ 2N phần tử
+```
 
 ---
 

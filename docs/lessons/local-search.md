@@ -7,9 +7,19 @@
 
 ## 1. Bản chất vấn đề
 
+### Câu chuyện: Shipper với 15 điểm giao hàng
+
+Anh shipper có 15 đơn cần giao trong buổi sáng. Có $15! \approx 1300$ nghìn tỷ lộ trình khác nhau — duyệt hết là không thể. Anh làm thế này: chọn bừa một lộ trình, rồi thử đổi chỗ 2 điểm giao (ví dụ đổi đơn số 3 và số 7). Nếu tổng quãng đường ngắn hơn thì giữ, nếu không thì bỏ. Lặp lại vài nghìn lần, lộ trình ngày càng ngắn.
+
+Đó chính là **Local Search**: không cần tối ưu tuyệt đối, chỉ cần "đủ tốt trong thời gian cho phép".
+
 ### Ý tưởng
 
 Bắt đầu từ 1 nghiệm bất kỳ. Lặp lại: di chuyển đến nghiệm "láng giềng" tốt hơn cho đến khi không cải thiện được.
+
+- **Nghiệm**: một lộ trình cụ thể (ví dụ $A \to B \to C \to D \to A$).
+- **Láng giềng**: nghiệm chỉ khác hiện tại một chút (ví dụ đổi chỗ 2 thành phố).
+- **Hàm mục tiêu**: tổng quãng đường (càng nhỏ càng tốt).
 
 ### Ứng dụng
 
@@ -43,7 +53,37 @@ Giống Hill Climbing nhưng **có xác suất** chấp nghiệm tệ hơn (đ�
 
 $$P(\text{accept}) = e^{\frac{\text{score}_{\text{current}} - \text{score}_{\text{neighbor}}}{T}}$$
 
+Giải thích ký hiệu:
+
+- $\text{score}_{\text{current}}$: chi phí nghiệm hiện tại (ví dụ tổng quãng đường $= 80$).
+- $\text{score}_{\text{neighbor}}$: chi phí nghiệm láng giềng (ví dụ $90$).
+- $\Delta E = \text{score}_{\text{neighbor}} - \text{score}_{\text{current}}$: độ tệ thêm (ví dụ $90 - 80 = 10$).
+- $T$ (nhiệt độ): càng cao càng dễ chấp nhận nghiệm tệ. $T$ giảm dần theo thời gian.
+- $P(\text{accept})$: xác suất chấp nhận nghiệm tệ. Nếu nghiệm tốt hơn ($\Delta E < 0$) thì luôn chấp nhận ($P > 1 \to$ coi như $1$).
+
+Ví dụ số: $\Delta E = 10$, $T = 100$ → $P = e^{-10/100} = e^{-0.1} \approx 0.905$ (chấp nhận tới 90%!). Cùng $\Delta E = 10$ nhưng khi nguội còn $T = 5$ → $P = e^{-10/5} = e^{-2} \approx 0.135$ (chỉ 13.5%).
+
+| $\Delta E$ | $T = 100$ | $T = 10$ | $T = 1$ |
+|------------|-----------|----------|---------|
+| 5 | $e^{-0.05} \approx 0.95$ | $e^{-0.5} \approx 0.61$ | $e^{-5} \approx 0.007$ |
+| 10 | $e^{-0.1} \approx 0.90$ | $e^{-1} \approx 0.37$ | $e^{-10} \approx 0.00005$ |
+| 50 | $e^{-0.5} \approx 0.61$ | $e^{-5} \approx 0.007$ | $\approx 0$ |
+
 $T$ (nhiệt độ) giảm dần theo thời gian.
+
+### Bẫy của Hill Climbing: kẹt ở đỉnh đồi thấp
+
+Hill Climbing chỉ đi lên, nên có 3 bẫy kinh điển:
+
+1. **Kẹt ở local optimum (đồi thấp)**: leo tới đỉnh gần nhất rồi dừng, dù đỉnh cao nhất ở xa. Ví dụ từ nghiệm $95$ leo xuống $80$ rồi dừng, trong khi global optimum là $72$ nhưng cần đi qua nghiệm tệ $85$ mới tới được.
+2. **Plateau (cao nguyên phẳng)**: mọi láng giềng đều bằng điểm nhau (ví dụ cùng $95$). Thuật toán không biết đi hướng nào, đi lòng vòng hoặc dừng sớm.
+3. **Sườn dốc đứng + thung lũng hẹp**: bước đổi 2 đỉnh quá thô, không "lọt" được vào nghiệm tốt ẩn trong khe hẹp.
+
+Cách thoát:
+
+- **Random restart**: chạy Hill Climbing nhiều lần từ nghiệm khởi đầu khác nhau, giữ kết quả tốt nhất. Đơn giản mà hiệu quả.
+- **Chấp nhận nghiệm tệ có kiểm soát**: chính là Simulated Annealing ở trên.
+- **Đổi cách sinh láng giềng**: ví dụ thay vì đổi 2 đỉnh, dùng 2-opt / 3-opt (đảo đoạn) để bước đi đa dạng hơn.
 
 ### Trace: TSP bằng Hill Climbing
 

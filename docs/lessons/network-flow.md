@@ -85,104 +85,19 @@ graph LR
 
 Tổng luồng = 15 = dung lượng cắt nhỏ nhất $\{s\}$ vs $\{A, B, t\}$.
 
-```matplotlib
-plt.figure(figsize=(11, 6))
+#### Trace từng vòng augment (mạng nhỏ $s \to A \to t$, $s \to B \to t$)
 
-# Node positions
-nodes = {
-    's': (0, 3),
-    'A': (3, 5),
-    'B': (3, 1),
-    'C': (6, 3),
-    't': (9, 3),
-}
+Cạnh: $s\!\to\!A(10)$, $s\!\to\!B(10)$, $A\!\to\!t(5)$, $B\!\to\!t(10)$. Ký hiệu dư thuận $= c - f$, dư ngược $= f$.
 
-# Edges: (from, to, capacity, flow, style)
-edges = [
-    ('s', 'A', 10, 8, '-'),
-    ('s', 'B', 10, 5, '-'),
-    ('A', 'C', 10, 4, '-'),
-    ('A', 'B', 10, 4, '-'),
-    ('B', 'C', 10, 9, '-'),
-    ('C', 't', 10, 10, '-'),
-    ('B', 't', 10, 0, '-'),
-]
+| Vòng | Đường tăng $P$ (BFS) | Dư thuận trên $P$ | Bottleneck $= \min$ dư | Cập nhật $f$ | $\|f\|$ cộng dồn |
+|:---:|:---|:---|:---:|:---|:---:|
+| 1 | $s \to A \to t$ | $10,\ 5$ | $\min(10,5) = 5$ | $f(s,A)=5,\ f(A,t)=5$; sinh ngược $A\!\to\!s(5),\ t\!\to\!A(5)$ | 5 |
+| 2 | $s \to B \to t$ | $10,\ 10$ | $\min(10,10) = 10$ | $f(s,B)=10,\ f(B,t)=10$; sinh ngược $B\!\to\!s(10),\ t\!\to\!B(10)$ | 15 |
+| 3 | BFS từ $s$: $s \to A$ còn dư $10-5=5$ nhưng $A \to t$ dư $5-5=0$; $s \to B$ dư $0$ | — | không còn đường $s \leadsto t$ | dừng | **15** |
 
-# Augmenting path: s -> B -> C -> t
-augmenting = [('s', 'B'), ('B', 'C'), ('C', 't')]
+Kết quả $|f| = 15 =$ cắt $\{s\}$ vs $\{A,B,t\}$ ($10 + 5 = 15$).
 
-# Draw edges
-for u, v, cap, flow, style in edges:
-    ux, uy = nodes[u]
-    vx, vy = nodes[v]
-
-    # Offset for bidirectional edges
-    is_aug = (u, v) in augmenting
-    color = '#e74c3c' if is_aug else '#34495e'
-    lw = 3.5 if is_aug else 2
-    alpha = 1.0 if is_aug else 0.7
-
-    # Arrow
-    dx, dy = vx - ux, vy - uy
-    length = math.sqrt(dx**2 + dy**2)
-    # Shorten to not overlap nodes
-    shrink = 0.4
-    sx_new = ux + dx / length * shrink
-    sy_new = uy + dy / length * shrink
-    ex_new = vx - dx / length * shrink
-    ey_new = vy - dy / length * shrink
-
-    plt.annotate('', xy=(ex_new, ey_new), xytext=(sx_new, sy_new),
-                 arrowprops=dict(arrowstyle='->', color=color, lw=lw, alpha=alpha))
-
-    # Label: flow/capacity
-    mx = (ux + vx) / 2
-    my = (uy + vy) / 2
-    # Offset label perpendicular to edge
-    offset_x = -dy / length * 0.4
-    offset_y = dx / length * 0.4
-    label = f'f={flow}, c={cap}'
-    plt.text(mx + offset_x, my + offset_y, label, ha='center', va='center',
-             fontsize=9, fontweight='bold', color=color,
-             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=color, alpha=0.9))
-
-# Draw nodes
-for name, (nx, ny) in nodes.items():
-    if name == 's':
-        color = '#27ae60'
-        label_node = 'Nguồn s'
-    elif name == 't':
-        color = '#c0392b'
-        label_node = 'Bể t'
-    else:
-        color = '#2980b9'
-        label_node = name
-
-    plt.plot(nx, ny, 'o', color=color, markersize=30, zorder=5)
-    plt.text(nx, ny, name, ha='center', va='center',
-             fontsize=14, fontweight='bold', color='white', zorder=6)
-
-# Legend
-from matplotlib.lines import Line2D
-legend_elements = [
-    Line2D([0], [0], marker='o', color='w', markerfacecolor='#27ae60', markersize=14, label='Nguồn (s)'),
-    Line2D([0], [0], marker='o', color='w', markerfacecolor='#c0392b', markersize=14, label='Bể (t)'),
-    Line2D([0], [0], color='#e74c3c', linewidth=3.5, label='Đường tăng luồng (augmenting path)'),
-    Line2D([0], [0], color='#34495e', linewidth=2, label='Cạnh thường'),
-]
-plt.legend(handles=legend_elements, loc='upper left', fontsize=10)
-
-# Info box
-plt.text(9, 5.5, 'Tổng luồng = 15\n(= dung lượng cắt nhỏ nhất)',
-         ha='right', va='top', fontsize=11, fontweight='bold',
-         bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffeaa7', edgecolor='#fdcb6e'))
-
-plt.title('Mạng luồng: Đường tăng luồng s → B → C → t (bottleneck = 5)', fontsize=13)
-plt.xlim(-1.5, 10.5)
-plt.ylim(-0.5, 6.5)
-plt.axis('off')
-plt.tight_layout()
-```
+**Vai trò cạnh ngược (số cụ thể):** Giả sử ở vòng 1 ta đẩy sai đường, ví dụ chỉ đẩy $5$ qua $s \to A \to C \to t$ trong mạng 5 nút ở phụ lục (nơi $C \to t$ chỉ có 10). Sau vòng 1, cạnh ngược $C \to A$ có dư $= f = 5$. Vòng sau, đường $s \to B \to C \to A \to \cdots$ có thể dùng cạnh ngược này để **rút 5 đơn vị** khỏi $A \to C$ và đẩy lại theo hướng tốt hơn. Công thức dư ngược $= f$ chính là "hoàn tiền" cho quyết định sai.
 
 ### Phân tích tính đúng đắn
 
@@ -1008,3 +923,102 @@ Cạnh vô hướng $(u,v)$ với dung lượng $c$ tương đương hai cạnh 
 | MCMF (Dijkstra) | $O(F \cdot E \log V)$ | MCMF đồ thị lớn |
 
 Hãy học thuộc cài đặt Dinic. Đây là thuật toán luồng phổ biến nhất trong competitive programming. Khi gặp bài liên quan đến flow, hãy nghĩ đến việc **mô hình hóa** bài toán thành mạng luồng trước!
+
+---
+
+## Phụ lục: Code vẽ hình mạng luồng (matplotlib)
+
+Đoạn code dưới đây vẽ hình mạng 5 nút $s,A,B,C,t$ minh họa đường tăng luồng $s \to B \to C \to t$ (đường đỏ). Được tách xuống phụ lục để không che code thuật toán ở trên.
+
+```matplotlib
+plt.figure(figsize=(11, 6))
+
+# Vị trí các nút
+nodes = {
+    's': (0, 3),
+    'A': (3, 5),
+    'B': (3, 1),
+    'C': (6, 3),
+    't': (9, 3),
+}
+
+# Cạnh: (từ, đến, dung lượng, luồng)
+edges = [
+    ('s', 'A', 10, 8, '-'),
+    ('s', 'B', 10, 5, '-'),
+    ('A', 'C', 10, 4, '-'),
+    ('A', 'B', 10, 4, '-'),
+    ('B', 'C', 10, 9, '-'),
+    ('C', 't', 10, 10, '-'),
+    ('B', 't', 10, 0, '-'),
+]
+
+# Đường tăng luồng: s -> B -> C -> t
+augmenting = [('s', 'B'), ('B', 'C'), ('C', 't')]
+
+# Vẽ cạnh
+for u, v, cap, flow, style in edges:
+    ux, uy = nodes[u]
+    vx, vy = nodes[v]
+
+    is_aug = (u, v) in augmenting
+    color = '#e74c3c' if is_aug else '#34495e'
+    lw = 3.5 if is_aug else 2
+    alpha = 1.0 if is_aug else 0.7
+
+    dx, dy = vx - ux, vy - uy
+    length = math.sqrt(dx**2 + dy**2)
+    # Thu ngắn mũi tên để không đè lên nút
+    shrink = 0.4
+    sx_new = ux + dx / length * shrink
+    sy_new = uy + dy / length * shrink
+    ex_new = vx - dx / length * shrink
+    ey_new = vy - dy / length * shrink
+
+    plt.annotate('', xy=(ex_new, ey_new), xytext=(sx_new, sy_new),
+                 arrowprops=dict(arrowstyle='->', color=color, lw=lw, alpha=alpha))
+
+    # Nhãn: luồng/dung lượng
+    mx = (ux + vx) / 2
+    my = (uy + vy) / 2
+    offset_x = -dy / length * 0.4
+    offset_y = dx / length * 0.4
+    label = f'f={flow}, c={cap}'
+    plt.text(mx + offset_x, my + offset_y, label, ha='center', va='center',
+             fontsize=9, fontweight='bold', color=color,
+             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=color, alpha=0.9))
+
+# Vẽ nút
+for name, (nx, ny) in nodes.items():
+    if name == 's':
+        color = '#27ae60'
+    elif name == 't':
+        color = '#c0392b'
+    else:
+        color = '#2980b9'
+
+    plt.plot(nx, ny, 'o', color=color, markersize=30, zorder=5)
+    plt.text(nx, ny, name, ha='center', va='center',
+             fontsize=14, fontweight='bold', color='white', zorder=6)
+
+# Chú thích
+from matplotlib.lines import Line2D
+legend_elements = [
+    Line2D([0], [0], marker='o', color='w', markerfacecolor='#27ae60', markersize=14, label='Nguồn (s)'),
+    Line2D([0], [0], marker='o', color='w', markerfacecolor='#c0392b', markersize=14, label='Bể (t)'),
+    Line2D([0], [0], color='#e74c3c', linewidth=3.5, label='Đường tăng luồng (augmenting path)'),
+    Line2D([0], [0], color='#34495e', linewidth=2, label='Cạnh thường'),
+]
+plt.legend(handles=legend_elements, loc='upper left', fontsize=10)
+
+# Hộp thông tin
+plt.text(9, 5.5, 'Tổng luồng = 15\n(= dung lượng cắt nhỏ nhất)',
+         ha='right', va='top', fontsize=11, fontweight='bold',
+         bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffeaa7', edgecolor='#fdcb6e'))
+
+plt.title('Mạng luồng: Đường tăng luồng s → B → C → t (bottleneck = 5)', fontsize=13)
+plt.xlim(-1.5, 10.5)
+plt.ylim(-0.5, 6.5)
+plt.axis('off')
+plt.tight_layout()
+```

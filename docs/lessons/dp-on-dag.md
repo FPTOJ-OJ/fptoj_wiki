@@ -203,6 +203,12 @@ Nếu có chu trình, thứ tự tô-pô không tồn tại → không xác đ�
             }
         }
 
+        // Nếu topo thiếu đỉnh → đồ thị có chu trình, không phải DAG
+        if ((int)topo.size() < n) {
+            cout << "Do thi co chu trinh, khong phai DAG\n";
+            return 0;
+        }
+
         // Bước 2: DP trên thứ tự tô-pô
         vector<long long> dp(n, 0);        // dp[v] = số đường đi từ s đến v
         dp[s] = 1;                         // Có 1 cách đứng tại s

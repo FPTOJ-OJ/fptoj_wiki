@@ -29,8 +29,11 @@ Sinh testcase ngẫu nhiên → chạy cả 2 → so output
     #include <bits/stdc++.h>
     using namespace std;
     
+    // rng: bộ sinh số ngẫu nhiên (seed bằng thời gian -> mỗi lần chạy ra test khác nhau)
     mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
     
+    // randInt(l, r): trả về số nguyên ngẫu nhiên đều trong [l, r]
+    // Dùng uniform_int_distribution để phân phối đều, tránh modulo-bias của rand()%k
     int randInt(int l, int r) {
         return uniform_int_distribution<int>(l, r)(rng);
     }
@@ -41,13 +44,13 @@ Sinh testcase ngẫu nhiên → chạy cả 2 → so output
         int random_num = randInt(a, b);
         cout << random_num << endl;
         
-        // Sinh mảng ngẫu nhiên
+        // Sinh mảng ngẫu nhiên: n phần tử, mỗi phần tử trong [1, 100]
         int n = 10;
         vector<int> arr(n);
         for (int i = 0; i < n; i++)
             arr[i] = randInt(1, 100);
         
-        // In testcase
+        // In testcase đúng format đề: dòng 1 là n, dòng 2 là n số
         cout << n << endl;
         for (int x : arr) cout << x << " ";
         cout << endl;
@@ -95,6 +98,8 @@ void genBinarySearch() {
     vector<int> arr(n);
     for (int i = 0; i < n; i++)
         arr[i] = randInt(1, 1000);
+    // BẮT BUỘC sort: đề binary search yêu cầu mảng tăng dần,
+    // không sort thì test sinh ra vi phạm ràng buộc đề -> vô nghĩa
     sort(arr.begin(), arr.end());  // Đảm bảo mảng tăng dần
     
     // In testcase
@@ -108,6 +113,8 @@ void genBinarySearch() {
 
 ```cpp
 // Sinh cây ngẫu nhiên (N đỉnh, N-1 cạnh)
+// Vì sao đúng: đỉnh i (i>=2) nối với 1 đỉnh cha trong [1, i-1] nên đồ thị
+// liên thông (mọi đỉnh đều về được 1), có đúng N-1 cạnh -> là cây, không chu trình
 void genTree() {
     int n = randInt(2, 11);  // 2 ≤ n ≤ 11
     
@@ -119,6 +126,8 @@ void genTree() {
 }
 
 // Sinh đồ thị ngẫu nhiên (có thể có chu trình)
+// Khác genTree: u, v độc lập nên có thể trùng nhau (khuyên) hoặc trùng cạnh cũ
+// (đa cạnh) và xuất hiện chu trình -> dùng để test thuật toán đồ thị tổng quát
 void genGraph() {
     int n = randInt(2, 10);
     int m = randInt(n - 1, n * (n-1) / 2);
@@ -137,7 +146,7 @@ void genGraph() {
 
 ## 3. Stress Test — Kỹ thuật tìm bug hiệu quả nhất
 
-### 4.1. Stress Test là gì?
+### 3.1. Stress Test là gì?
 
 ```
 Lặp lại N lần:
@@ -147,7 +156,7 @@ Lặp lại N lần:
   4. Nếu expected ≠ actual → IN RA TESTCASE ĐÓ → DEBUG!
 ```
 
-### 4.2. Template Stress Test
+### 3.2. Template Stress Test
 
 === "C++"
 
@@ -261,7 +270,7 @@ Lặp lại N lần:
 
 ## 4. Các dạng testcase cần kiểm tra
 
-### 5.1. Edge cases (trường hợp đặc biệt)
+### 4.1. Edge cases (trường hợp đặc biệt)
 
 ```
 - N = 0 (mảng rỗng)
@@ -272,7 +281,7 @@ Lặp lại N lần:
 - Số rất lớn (10^9) / rất nhỏ (-10^9)
 ```
 
-### 5.2. Test "lén" (corner cases)
+### 4.2. Test "lén" (corner cases)
 
 ```
 - Tổng bằng 0
@@ -283,7 +292,7 @@ Lặp lại N lần:
 - Cây là đường thẳng (linked list)
 ```
 
-### 5.3. Random test (test ngẫu nhiên)
+### 4.3. Random test (test ngẫu nhiên)
 
 ```
 - Sinh nhiều test với N nhỏ (≤ 20)
@@ -315,7 +324,7 @@ Lặp lại N lần:
 
 ## 6. Lưu ý
 
-### 7.1. Brute force phải CHẮC CHẮN đúng
+### 6.1. Brute force phải CHẮC CHẮN đúng
 
 ```
 Sai lầm: Dùng code chính để verify code chính → vô nghĩa!
@@ -324,7 +333,7 @@ Sai lầm: Dùng code chính để verify code chính → vô nghĩa!
      (thường O(N²) hoặc O(2^N))
 ```
 
-### 7.2. Sinh testcase đủ đa dạng
+### 6.2. Sinh testcase đủ đa dạng
 
 ```
 Sai lầm: Chỉ sinh testcase nhỏ → không phát hiện bug với N lớn
@@ -332,7 +341,7 @@ Sai lầm: Chỉ sinh testcase nhỏ → không phát hiện bug với N lớn
 Đúng: Kết hợp cả testcase nhỏ (debug) và lớn (stress test)
 ```
 
-### 7.3. Kiểm tra cả output format
+### 6.3. Kiểm tra cả output format
 
 ```
 Sai lầm: Chỉ so sánh giá trị → có thể sai format

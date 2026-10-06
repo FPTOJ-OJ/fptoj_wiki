@@ -426,6 +426,69 @@ Tương tự, chỉ cần đảo dấu so sánh ($\ge$ thay vì $\le$).
 
 ---
 
+## Cạm bẫy thường gặp (mục lỗi riêng)
+
+### Lỗi 1: Bẫy `<=` vs `<` khi duy trì đơn điệu
+
+=== "C++"
+
+    ```cpp
+    // SAI (tìm max nhưng dùng <): phần tử bằng nhau không bị loại
+    // → deque giữ lại chỉ số cũ đã gần hết hạn, kết quả vẫn đúng nhưng deque phình to
+    while (!dq.empty() && a[dq.back()] < a[i]) dq.pop_back();
+
+    // ĐÚNG (tìm max): dùng <= để loại luôn phần tử bằng nhau
+    // → giữ lại chỉ số MỚI NHẤT (tồn tại lâu hơn), deque gọn hơn
+    while (!dq.empty() && a[dq.back()] <= a[i]) dq.pop_back();
+
+    // Ngược lại, tìm min thì ĐÚNG là >= :
+    while (!dq.empty() && a[dq.back()] >= a[i]) dq.pop_back();
+    ```
+
+**Quy tắc nhớ:** tìm **max** → `<=`; tìm **min** → `>=`. Lý do: phần tử mới bằng nhau nhưng "trẻ" hơn (ở lại lâu hơn) nên luôn tốt hơn phần tử cũ.
+
+### Lỗi 2: Quên `pop_front` phần tử hết hạn
+
+```cpp
+// SAI: chỉ thêm, không loại phần tử ra khỏi cửa sổ
+dq.push_back(i);
+if (i >= k - 1) result.push_back(a[dq.front()]); // front có thể là chỉ số <= i-k → SAI!
+
+// ĐÚNG: luôn loại đầu deque trước khi thêm
+while (!dq.empty() && dq.front() <= i - k) dq.pop_front(); // bước hết hạn: chỉ số <= i-k
+dq.push_back(i);
+```
+
+| `i` | `k=3` | `dq.front()` | `dq.front() <= i-k`? | Hành động |
+|:---:|:---:|:---:|:---:|---|
+| 3 | 3 | 1 | `1 <= 0`? Không | giữ (cửa sổ [1..3] vẫn chứa 1) |
+| 4 | 3 | 1 | `1 <= 1`? Có | `pop_front` (cửa sổ [2..4] không còn chứa 1) |
+
+### Lỗi 3: Lưu giá trị thay vì chỉ số
+
+```cpp
+// SAI: deque lưu giá trị → không biết phần tử đó ở đâu, không kiểm tra hết hạn được
+deque<int> dq; dq.push_back(a[i]);
+
+// ĐÚNG: deque lưu CHỈ SỐ → vừa lấy giá trị qua a[idx], vừa kiểm tra idx <= i-k
+deque<int> dq; dq.push_back(i);
+```
+
+### Lỗi 4: Python dùng `list.pop(0)` — $O(N)$!
+
+```python
+# SAI: list.pop(0) phải dời toàn bộ mảng → O(N) mỗi lần, tổng O(N²)!
+q = [1, 2, 3]
+q.pop(0)  # O(N)
+
+# ĐÚNG: collections.deque.popleft() là O(1)
+from collections import deque
+q = deque([1, 2, 3])
+q.popleft()  # O(1)
+```
+
+---
+
 ## Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Chủ đề |

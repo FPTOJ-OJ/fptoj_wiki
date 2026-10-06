@@ -111,20 +111,38 @@ plt.tight_layout()
 ```
 
 ```cpp
+// a, b ở đây là pair<start, end>; sort theo end tăng dần = chọn việc kết thúc sớm nhất trước
 int maxActivities(vector<pair<int,int>>& activities) {
+    // Bước 1: sort theo thời gian kết thúc (key ĐÚNG duy nhất cho bài này)
     sort(activities.begin(), activities.end(), 
          [](auto& a, auto& b) { return a.second < b.second; });
     
-    int count = 0, lastEnd = -1;
+    int count = 0, lastEnd = -1; // count: số việc đã chọn; lastEnd: giờ kết thúc việc gần nhất
     for (auto& [start, end] : activities) {
-        if (start >= lastEnd) {
-            count++;
-            lastEnd = end;
+        if (start >= lastEnd) { // bước kiểm tra: việc này bắt đầu sau khi việc trước xong?
+            count++; // bước chọn: lấy việc kết thúc sớm nhất còn tương thích
+            lastEnd = end; // bước cập nhật mốc thời gian
         }
+        // ngược lại: bước loại — việc giao nhau với việc đã chọn nên bỏ qua
     }
     return count;
 }
 ```
+
+#### Trace từng bước chọn/loại (ví dụ rút gọn)
+
+Lấy 5 hoạt động sau khi sort theo `end`: `A1[1,4], A2[3,5], A4[5,7], A7[6,10], A10[12,16]`.
+
+| Bước | Xét hoạt động | `start >= lastEnd`? | Hành động | `count` | `lastEnd` |
+|:---:|---|---|---|:---:|:---:|
+| 0 | — | — | khởi tạo | 0 | -1 |
+| 1 | `A1[1,4]` | `1 >= -1` ✓ | **chọn** A1 | 1 | 4 |
+| 2 | `A2[3,5]` | `3 >= 4`? Không | **loại** (giao với A1) | 1 | 4 |
+| 3 | `A4[5,7]` | `5 >= 4` ✓ | **chọn** A4 | 2 | 7 |
+| 4 | `A7[6,10]` | `6 >= 7`? Không | **loại** (giao với A4) | 2 | 7 |
+| 5 | `A10[12,16]` | `12 >= 7` ✓ | **chọn** A10 | 3 | 16 |
+
+$\Rightarrow$ chọn 3 hoạt động: A1, A4, A10. Mọi hoạt động bị loại đều giao với 1 hoạt động kết thúc sớm hơn đã chọn — đúng ý tưởng exchange argument ở §4.
 
 ### 3.2. Fractional Knapsack (Cái túi phân số)
 
@@ -136,16 +154,18 @@ Có N đồ vật, mỗi vật có trọng lượng w[i] và giá trị v[i]. T�
 
     ```cpp
     double fractionalKnapsack(vector<pair<double,double>>& items, double W) {
+        // Bước 1: items[i] = {value, weight}; sort theo tỉ lệ value/weight giảm dần
+        // → món "đáng giá từng kg" nhất đứng trước, lấy trước
         sort(items.begin(), items.end(), [](auto& a, auto& b) {
             return a.first / a.second > b.first / b.second;  // Tỷ lệ giảm dần
         });
         
-        double totalValue = 0;
-        for (auto& [value, weight] : items) {
-            if (W >= weight) {
+        double totalValue = 0; // tổng giá trị đã lấy
+        for (auto& [value, weight] : items) { // value = v[i], weight = w[i]
+            if (W >= weight) { // bước lấy hết: túi còn đủ chỗ
                 totalValue += value;
-                W -= weight;
-            } else {
+                W -= weight; // bước trừ sức chứa còn lại
+            } else { // bước lấy lẻ: túi không đủ → xúc một phần tỉ lệ W/weight rồi dừng
                 totalValue += value * (W / weight);
                 break;
             }
@@ -158,14 +178,14 @@ Có N đồ vật, mỗi vật có trọng lượng w[i] và giá trị v[i]. T�
 
     ```python
     def fractional_knapsack(items, W):
-        # items = [(value, weight), ...]
-        items.sort(key=lambda x: x[0] / x[1], reverse=True)
-        total_value = 0
+        # items = [(value, weight), ...]; sort theo value/weight giảm dần
+        items.sort(key=lambda x: x[0] / x[1], reverse=True)  # bước 1: món đáng giá nhất trước
+        total_value = 0  # tổng giá trị đã lấy
         for value, weight in items:
-            if W >= weight:
+            if W >= weight:  # bước lấy hết: túi còn đủ chỗ
                 total_value += value
-                W -= weight
-            else:
+                W -= weight  # bước trừ sức chứa
+            else:  # bước lấy lẻ: xúc phần còn lại rồi dừng
                 total_value += value * (W / weight)
                 break
         return total_value
@@ -181,26 +201,28 @@ Mỗi công việc có deadline và lợi nhuận. Hoàn thành tối đa công 
 
     ```cpp
     int jobSequencing(vector<pair<int,int>>& jobs) {
-        // jobs[i] = {deadline, profit}
+        // jobs[i] = {deadline, profit}: deadline = hạn chót, profit = tiền công
+        // Bước 1: sort theo profit giảm dần → việc nhiều tiền xét trước
         sort(jobs.begin(), jobs.end(), [](auto& a, auto& b) {
             return a.second > b.second;  // Profit giảm dần
         });
         
         int maxDeadline = 0;
         for (auto& [d, p] : jobs)
-            maxDeadline = max(maxDeadline, d);
+            maxDeadline = max(maxDeadline, d); // bước tìm hạn chót xa nhất để cấp mảng slot
         
-        vector<int> slot(maxDeadline + 1, -1);  // slot[t] = job được xếp tại thời điểm t
+        vector<int> slot(maxDeadline + 1, -1);  // slot[t] = profit của job xếp tại giờ t (-1 = trống)
         int totalProfit = 0;
         
         for (auto& [deadline, profit] : jobs) {
-            // Tìm slot trống gần deadline nhất
+            // Bước 2: tìm slot trống gần deadline nhất (xếp trễ nhất để nhường chỗ sớm cho job khác)
             for (int t = deadline; t >= 1; t--) {
-                if (slot[t] == -1) {
-                    slot[t] = profit;
+                if (slot[t] == -1) { // bước chọn: giờ t còn trống
+                    slot[t] = profit; // bước xếp job vào giờ t
                     totalProfit += profit;
                     break;
                 }
+                // ngược lại: giờ t đã có job → lùi về t-1 thử tiếp
             }
         }
         return totalProfit;
@@ -211,13 +233,15 @@ Mỗi công việc có deadline và lợi nhuận. Hoàn thành tối đa công 
 
     ```python
     def job_sequencing(jobs):
+        # jobs[i] = (deadline, profit); sort profit giảm dần → việc nhiều tiền trước
         jobs.sort(key=lambda x: x[1], reverse=True)
-        max_deadline = max(d for d, p in jobs)
-        slot = [-1] * (max_deadline + 1)
+        max_deadline = max(d for d, p in jobs)  # bước tìm hạn xa nhất
+        slot = [-1] * (max_deadline + 1)  # slot[t] = profit xếp tại giờ t (-1 = trống)
         total_profit = 0
         for deadline, profit in jobs:
+            # Bước 2: tìm giờ trống gần deadline nhất (xếp trễ nhất có thể)
             for t in range(deadline, 0, -1):
-                if slot[t] == -1:
+                if slot[t] == -1:  # bước chọn: giờ t trống
                     slot[t] = profit
                     total_profit += profit
                     break
@@ -379,9 +403,43 @@ Cho N hoạt động, mỗi hoạt động có bắt đầu và kết thúc. Tì
 
 ---
 
-## 7. Lưu ý
+## 7. Lưu ý — lỗi Greedy có code SAI/ĐÚNG
 
-- **Greedy không phải lúc nào cũng đúng!** Phải chứng minh tính đúng đắn
+### Lỗi 1: Sort sai key (Activity Selection sort theo `start`)
+
+```cpp
+// SAI: sort theo giờ bắt đầu → chọn việc bắt đầu sớm nhưng kết thúc muộn, chặn nhiều việc khác
+sort(activities.begin(), activities.end(),
+     [](auto& a, auto& b) { return a.first < b.first; }); // sort theo start ✗
+
+// ĐÚNG: sort theo giờ kết thúc → việc kết thúc sớm nhất trước, nhường chỗ nhiều nhất
+sort(activities.begin(), activities.end(),
+     [](auto& a, auto& b) { return a.second < b.second; }); // sort theo end ✓
+```
+
+Ví dụ: `[1,10], [2,3], [4,5]` — sort theo start chọn `[1,10]` được 1 việc; sort theo end chọn `[2,3], [4,5]` được 2 việc!
+
+### Lỗi 2: Greedy cho 0/1-Knapsack (không được chia nhỏ)
+
+```cpp
+// SAI: lấy theo tỉ lệ value/weight như Fractional Knapsack — SAI với 0/1!
+// Ví dụ: W = 50, items = {(60,10), (100,20), (120,30)}
+// Greedy tỉ lệ: lấy (60,10) + (100,20) = 160, còn 20 không đủ cho (120,30) → 160
+// Đúng (DP): lấy (100,20) + (120,30) = 220 ✓ → Greedy THIẾU 60!
+double greedy01 = 160; // SAI
+
+// ĐÚNG: 0/1-Knapsack (mỗi món lấy hoặc không) phải dùng DP, không dùng Greedy
+// dp[w] = giá trị lớn nhất với sức chứa w → đáp án 220
+```
+
+**Quy tắc nhớ:**
+
+| Bài toán | Được chia nhỏ? | Thuật toán đúng |
+|:---|:---:|:---:|
+| Fractional Knapsack | Có (xúc một phần) | Greedy theo tỉ lệ ✓ |
+| 0/1-Knapsack | Không (lấy hoặc bỏ) | DP, không Greedy ✗ |
+
+- **Greedy không phải lúc nào cũng đúng!** Phải chứng minh tính đúng đắn (xem §4)
 - Nếu không chắc Greedy đúng → dùng DP
 - Greedy thường kết hợp với **sắp xếp** trước khi chọn
 - **Proof of Greedy** là kỹ năng quan trọng trong thi đấu

@@ -540,6 +540,11 @@ $$dist\_sum[v] = dist\_sum[u] + N - 2 \cdot sz[v]$$
 
 Công thức chuyển đổi này cho phép ta tính $dist\_sum[v]$ từ $dist\_sum[u]$ trong độ phức tạp $O(1)$. Ta chỉ cần thực hiện DFS lần 2 để lan truyền kết quả từ cha xuống con.
 
+**Ví dụ số chuyển gốc:** Cây $1-2$, $1-3$, $3-4$ ($N = 4$), gốc ban đầu $1$. DFS1 cho $sz = [4,1,2,1]$, $dp\_down[1] = 4$ → $dist\_sum[1] = 0+1+1+2 = 4$ ✓.
+
+- Chuyển gốc $1 \to 3$: $dist\_sum[3] = 4 + 4 - 2\cdot 2 = 4$. Kiểm tra tay từ $3$: tới $3=0$, $4=1$, $1=1$, $2=2$ → tổng $4$ ✓ ($2$ đỉnh gần hơn, $2$ đỉnh xa hơn, hòa nhau).
+- Chuyển gốc $1 \to 2$: $dist\_sum[2] = 4 + 4 - 2\cdot 1 = 6$. Kiểm tra: $0+1+2+3 = 6$ ✓ (chỉ $1$ đỉnh gần hơn, $3$ đỉnh xa hơn).
+
 === "C++"
 
     ```cpp

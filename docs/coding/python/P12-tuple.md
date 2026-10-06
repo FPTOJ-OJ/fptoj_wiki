@@ -323,14 +323,19 @@ sorted_t = tuple(sorted(t))
 ### Bài 1: Lưu tọa độ
 Đọc n cặp tọa độ. Tìm cặp tọa độ gần gốc tọa độ nhất.
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3
+<div class="cp-pg" data-language="python" data-starter="import math
+n = int(input())
+points = [tuple(map(int, input().split())) for _ in range(n)]
+# Viết tiếp: tìm điểm gần gốc tọa độ nhất, in ra tuple đó" data-input="3
 1 2
 -1 -1
-0 1" data-expected="(-1, -1)" data-hint="Dùng min() với key tính khoảng cách: math.sqrt(x**2 + y**2)"></div>
+0 1" data-expected="(0, 1)" data-hint="Dùng min() với key tính khoảng cách: math.sqrt(x**2 + y**2)"></div>
 
 ??? tip "Lời giải"
     ```python
     import math
+    n = int(input())
+    points = [tuple(map(int, input().split())) for _ in range(n)]
     nearest = min(points, key=lambda p: math.sqrt(p[0]**2 + p[1]**2))
     print(nearest)
     ```
@@ -338,7 +343,10 @@ sorted_t = tuple(sorted(t))
 ### Bài 2: Đếm cặp
 Đọc n cặp (a, b). Đếm số lần xuất hiện của mỗi cặp.
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="4
+<div class="cp-pg" data-language="python" data-starter="from collections import Counter
+n = int(input())
+pairs = [tuple(map(int, input().split())) for _ in range(n)]
+# Viết tiếp: đếm số lần xuất hiện mỗi cặp, in ra dạng '(a, b): count'" data-input="4
 1 2
 3 4
 1 2
@@ -348,6 +356,8 @@ sorted_t = tuple(sorted(t))
 ??? tip "Lời giải"
     ```python
     from collections import Counter
+    n = int(input())
+    pairs = [tuple(map(int, input().split())) for _ in range(n)]
     cnt = Counter(pairs)
     for pair, count in cnt.items():
         print(f"{pair}: {count}")
@@ -356,7 +366,12 @@ sorted_t = tuple(sorted(t))
 ### Bài 3: Sắp xếp học sinh
 Đọc n học sinh (tên, điểm). Sắp xếp theo điểm giảm dần, tên tăng dần.
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="3
+<div class="cp-pg" data-language="python" data-starter="n = int(input())
+students = []
+for _ in range(n):
+    name, score = input().split()
+    students.append((name, int(score)))
+# Viết tiếp: sắp xếp theo điểm giảm dần, tên tăng dần, in ra" data-input="3
 An 8
 Binh 9
 Anh 9" data-expected="Anh 9
@@ -365,6 +380,11 @@ An 8" data-hint="Dùng sort với key=lambda x: (-x[1], x[0])"></div>
 
 ??? tip "Lời giải"
     ```python
+    n = int(input())
+    students = []
+    for _ in range(n):
+        name, score = input().split()
+        students.append((name, int(score)))
     students.sort(key=lambda x: (-x[1], x[0]))
     for name, score in students:
         print(f"{name} {score}")

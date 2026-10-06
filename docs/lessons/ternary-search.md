@@ -22,13 +22,16 @@ Một hàm $f(x)$ trên đoạn $[l, r]$ được gọi là **unimodal** nếu t
 
 ```mermaid
 graph LR
-    subgraph "Hàm lồi - tìm MAX"
+    subgraph "Unimodal đỉnh - tìm MAX (hình ∩)"
     A["f tăng"] --> B["Đỉnh c"] --> C["f giảm"]
     end
-    subgraph "Hàm lõm - tìm MIN"
+    subgraph "Unimodal đáy - tìm MIN (hình ∪)"
     D["f giảm"] --> E["Đáy c"] --> F["f tăng"]
     end
 ```
+
+!!! warning "Quy ước tên gọi trong bài này"
+    Toán học gọi hình ∩ là **lõm** (concave) và hình ∪ là **lồi** (convex). Một số tài liệu tiếng Việt gọi ngược lại. Trong bài này ta chỉ dùng **"unimodal đỉnh" (tìm MAX)** và **"unimodal đáy" (tìm MIN)** để tránh nhầm lẫn.
 
 ### Tại sao Binary Search không giải được?
 

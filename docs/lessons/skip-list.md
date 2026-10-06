@@ -112,6 +112,13 @@ Với xác suất $p = 1/2$, số bước tìm kiếm kỳ vọng:
 
 $$E[\text{steps}] = \frac{1}{p} \cdot \log_{1/p} N = 2 \log_2 N$$
 
+**Giải thích từng ký hiệu:**
+
+- **$p$ là gì?** $p$ = xác suất một nút được "nâng" lên tầng tiếp theo khi chèn (tung đồng xu trong `randomLevel`). Code dùng `rng() & 1` / `random() < 0.5` nên $p = 1/2$: mỗi nút có 50% lên tầng 1, 25% lên tầng 2, 12.5% lên tầng 3, ...
+- **$\log_{1/p} N$ là gì?** Chiều cao kỳ vọng của tháp. Vì mỗi tầng giữ lại tỉ lệ $p$ số nút tầng dưới, số tầng tới khi còn ~1 nút là $\log_{1/p} N$. Với $p = 1/2$: $\log_2 N$.
+- **Vì sao nhân $1/p$?** Ở mỗi tầng, trước khi đi xuống ta phải nhảy ngang qua kỳ vọng $1/p$ nút (phân phối hình học: tung đồng xu tới khi gặp mặt ngửa). Với $p = 1/2$ thì mỗi tầng nhảy ~2 bước.
+- **Ví dụ số với $N = 10^6$:** $E = 2 \times \log_2 10^6 \approx 2 \times 20 = 40$ bước — so với $10^6$ bước duyệt tuyến tính và $\approx 20$ bước của cây nhị phân cân bằng. Hằng số 2 là cái giá của sự đơn giản (không cần quay cây).
+
 ---
 
 ## 4. Đánh giá độ phức tạp
@@ -275,6 +282,18 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
         else:
             print("YES" if sl.search(parts[1]) else "NO")
     ```
+
+---
+
+## 4.5 Lỗi thường gặp
+
+**SAI — Chọn `maxLevel` quá nhỏ / quá lớn:** `maxLevel = __lg(n) + 1` là đủ cho $n$ phần tử. Đặt `maxLevel = 3` cố định với $N = 10^6$ → tháp quá thấp, tìm kiếm suy biến gần $O(N)$. Ngược lại `maxLevel = 1000` → mảng `next` mỗi nút dài 1001 con trỏ, tốn bộ nhớ và vòng lặp `for (i = maxLevel..0)` quét hàng trăm tầng trống mỗi truy vấn. Luôn tính theo $n$: `maxLevel = __lg(n) + 1` (C++) / `n.bit_length()` (Python).
+
+**SAI — Chèn trùng key không xử lý:** Code `insert` mẫu nối nút mới mà không kiểm tra đã tồn tại → danh sách chứa 2 nút cùng giá trị, `search` vẫn YES nhưng `erase`/đếm sẽ sai. Sửa: trước khi chèn, `if (search(val)) return;` (set-semantics) hoặc lưu thêm `count` cho multiset.
+
+**SAI — Quên worst case $O(N)$:** Xác suất mọi nút cùng tầng 0 là $(1/2)^{N}$ — praktycznie bằng 0, nhưng với $p$ sai (ví dụ dùng `rand() % 3 == 0` cho $p = 1/3$ mà vẫn tính chiều cao theo $\log_2$) hoặc `rng` bị seed cố định sinh dãy xấu lặp lại, tháp có thể lệch. Trong bài cần đảm bảo chặt (không chấp nhận probabilistic), hãy dùng `std::set` / Treap thay vì Skip List.
+
+**SAI — `rng` không seed / seed giống nhau:** `mt19937 rng;` (seed mặc định 5489) → mỗi lần chạy sinh cùng dãy level, test本地 đúng nhưng chấm lại sai (hoặc ngược lại). Ngược lại `srand(time(0))` trong vòng lặp chèn nhanh → nhiều nút cùng seed giây → cùng level. Cách đúng như code mẫu: seed **một lần** bằng `chrono::steady_clock` rồi tái sử dụng.
 
 ---
 

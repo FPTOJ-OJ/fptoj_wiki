@@ -104,14 +104,14 @@ Khi $S[i] \neq S[j]$ tại bước tính $\pi[i]$, ta đã biết $S[0 \ldots j-
     ```cpp
     vector<int> prefixFunction(string s) {
         int n = s.length();
-        vector<int> pi(n, 0);
-        for (int i = 1; i < n; i++) {
-            int j = pi[i - 1];
-            while (j > 0 && s[i] != s[j])
+        vector<int> pi(n, 0); // pi[i]: độ dài border dài nhất của s[0..i]
+        for (int i = 1; i < n; i++) { // Bước 1: i là đầu phải đang xét, bỏ qua i=0 vì pi[0]=0
+            int j = pi[i - 1]; // Bước 2: j là độ dài khớp kế thừa từ vị trí trước
+            while (j > 0 && s[i] != s[j]) // Bước 3: không khớp thì nhảy j về border ngắn hơn
                 j = pi[j - 1];
-            if (s[i] == s[j])
+            if (s[i] == s[j]) // Bước 4: khớp thì mở rộng thêm 1 ký tự
                 j++;
-            pi[i] = j;
+            pi[i] = j; // Bước 5: ghi nhận kết quả cho vị trí i
         }
         return pi;
     }
@@ -122,14 +122,14 @@ Khi $S[i] \neq S[j]$ tại bước tính $\pi[i]$, ta đã biết $S[0 \ldots j-
     ```python
     def prefix_function(s):
         n = len(s)
-        pi = [0] * n
-        for i in range(1, n):
-            j = pi[i - 1]
-            while j > 0 and s[i] != s[j]:
+        pi = [0] * n  # pi[i]: độ dài border dài nhất của s[0..i]
+        for i in range(1, n):  # Bước 1: i là đầu phải đang xét
+            j = pi[i - 1]  # Bước 2: j là độ dài khớp kế thừa từ trước
+            while j > 0 and s[i] != s[j]:  # Bước 3: không khớp thì nhảy về border ngắn hơn
                 j = pi[j - 1]
-            if s[i] == s[j]:
+            if s[i] == s[j]:  # Bước 4: khớp thì mở rộng thêm 1
                 j += 1
-            pi[i] = j
+            pi[i] = j  # Bước 5: ghi nhận kết quả cho i
         return pi
     ```
 
@@ -203,13 +203,13 @@ flowchart LR
 
     ```cpp
     vector<int> kmpSearch(string text, string pattern) {
-        string combined = pattern + "#" + text;
-        vector<int> pi = prefixFunction(combined);
-        vector<int> positions;
-        int m = pattern.length();
-        for (int i = m + 1; i < (int)combined.length(); i++) {
-            if (pi[i] == m)
-                positions.push_back(i - 2 * m);
+        string combined = pattern + "#" + text; // Bước 1: ghép P + '#' + T để dùng pi
+        vector<int> pi = prefixFunction(combined); // Bước 2: tính pi cho cả xâu ghép
+        vector<int> positions; // Bước 3: lưu vị trí tìm thấy trong text
+        int m = pattern.length(); // Bước 4: m là độ dài mẫu cần so sánh
+        for (int i = m + 1; i < (int)combined.length(); i++) { // Bước 5: chỉ quét phần text (sau '#')
+            if (pi[i] == m) // Bước 6: pi[i]==m nghĩa là khớp đủ cả mẫu
+                positions.push_back(i - 2 * m); // Bước 7: trừ offset P và '#' để ra vị trí trong T
         }
         return positions;
     }
@@ -219,13 +219,13 @@ flowchart LR
 
     ```python
     def kmp_search(text, pattern):
-        combined = pattern + "#" + text
-        pi = prefix_function(combined)
-        positions = []
-        m = len(pattern)
-        for i in range(m + 1, len(combined)):
-            if pi[i] == m:
-                positions.append(i - 2 * m)
+        combined = pattern + "#" + text  # Bước 1: ghép P + '#' + T
+        pi = prefix_function(combined)  # Bước 2: tính pi cho cả xâu ghép
+        positions = []  # Bước 3: lưu vị trí tìm thấy
+        m = len(pattern)  # Bước 4: độ dài mẫu
+        for i in range(m + 1, len(combined)):  # Bước 5: chỉ quét phần text
+            if pi[i] == m:  # Bước 6: khớp đủ cả mẫu
+                positions.append(i - 2 * m)  # Bước 7: trừ offset để ra vị trí trong T
         return positions
     ```
 
@@ -284,17 +284,17 @@ Kết quả: $[1, 4, 7]$.
     ```cpp
     vector<int> kmpSearchDirect(string text, string pattern) {
         int n = text.length(), m = pattern.length();
-        vector<int> pi = prefixFunction(pattern);
+        vector<int> pi = prefixFunction(pattern); // Bước 1: chỉ tính pi của mẫu để tiết kiệm bộ nhớ
         vector<int> positions;
-        int j = 0;
-        for (int i = 0; i < n; i++) {
-            while (j > 0 && text[i] != pattern[j])
+        int j = 0; // Bước 2: j là độ dài tiền tố mẫu đã khớp tới hiện tại
+        for (int i = 0; i < n; i++) { // Bước 3: i duyệt từng ký tự text, không bao giờ lùi
+            while (j > 0 && text[i] != pattern[j]) // Bước 4: sai thì nhảy j về border ngắn hơn
                 j = pi[j - 1];
-            if (text[i] == pattern[j])
+            if (text[i] == pattern[j]) // Bước 5: đúng thì mở rộng khớp thêm 1
                 j++;
-            if (j == m) {
-                positions.push_back(i - m + 1);
-                j = pi[j - 1]; // Tiếp tục tìm (overlap)
+            if (j == m) { // Bước 6: j==m nghĩa là khớp đủ cả mẫu kết thúc tại i
+                positions.push_back(i - m + 1); // Bước 7: vị trí bắt đầu = i-m+1
+                j = pi[j - 1]; // Bước 8: nhảy về border để tìm tiếp overlap
             }
         }
         return positions;
@@ -306,17 +306,17 @@ Kết quả: $[1, 4, 7]$.
     ```python
     def kmp_search_direct(text, pattern):
         n, m = len(text), len(pattern)
-        pi = prefix_function(pattern)
+        pi = prefix_function(pattern)  # Bước 1: chỉ tính pi của mẫu
         positions = []
-        j = 0
-        for i in range(n):
-            while j > 0 and text[i] != pattern[j]:
+        j = 0  # Bước 2: j là độ dài tiền tố mẫu đã khớp
+        for i in range(n):  # Bước 3: i duyệt text, không bao giờ lùi
+            while j > 0 and text[i] != pattern[j]:  # Bước 4: sai thì nhảy về border
                 j = pi[j - 1]
-            if text[i] == pattern[j]:
+            if text[i] == pattern[j]:  # Bước 5: đúng thì mở rộng thêm 1
                 j += 1
-            if j == m:
-                positions.append(i - m + 1)
-                j = pi[j - 1]  # Tiếp tục tìm (overlap)
+            if j == m:  # Bước 6: khớp đủ cả mẫu kết thúc tại i
+                positions.append(i - m + 1)  # Bước 7: vị trí bắt đầu
+                j = pi[j - 1]  # Bước 8: nhảy về border để tìm tiếp overlap
         return positions
     ```
 

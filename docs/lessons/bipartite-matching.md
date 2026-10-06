@@ -187,15 +187,17 @@ Kết quả: maximum matching = 3 (perfect matching).
     bool visited[MAXN];
 
     bool dfs(int u) {
-        for (int v : adj[u]) {
-            if (visited[v]) continue;
-            visited[v] = true;
+        for (int v : adj[u]) { // Bước 1: thử từng đỉnh kề v của u bên trái
+            if (visited[v]) continue; // Bước 2: bỏ đỉnh phải đã xét trong lần DFS này
+            visited[v] = true; // Bước 3: đánh dấu để không xét lại (chống lặp)
+            // Bước 4: matchR[v] = đỉnh trái đang ghép với v (-1 = chưa ghép)
+            // Nếu v trống, hoặc đỉnh cũ matchR[v] tìm được chỗ khác -> cướp v cho u
             if (matchR[v] == -1 || dfs(matchR[v])) {
-                matchR[v] = u;
-                return true;
+                matchR[v] = u; // Bước 5: ghi nhận u ghép với v
+                return true; // Bước 6: tìm được augmenting path từ u
             }
         }
-        return false;
+        return false; // Bước 7: mọi kề đều thất bại -> u chưa ghép được
     }
 
     int maxMatching() {
@@ -374,25 +376,25 @@ Kuhn tìm **một** augmenting path mỗi lần → $O(VE)$. Hopcroft-Karp tìm 
     int dist[MAXN];
 
     bool bfs() {
-        queue<int> q;
+        queue<int> q; // Bước 1: BFS theo lớp từ mọi đỉnh trái chưa ghép
         for (int u = 0; u < n; u++) {
-            if (matchL[u] == -1) {
+            if (matchL[u] == -1) { // Bước 2: đỉnh tự do -> tầng 0, đưa vào hàng đợi
                 dist[u] = 0;
                 q.push(u);
             } else {
-                dist[u] = INF;
+                dist[u] = INF; // Bước 3: đỉnh đã ghép -> chưa tới được
             }
         }
 
-        bool found = false;
+        bool found = false; // Bước 4: có tồn tại augmenting path ngắn nhất không?
         while (!q.empty()) {
-            int u = q.front(); q.pop();
-            for (int v : adj[u]) {
-                int pu = matchR[v];
+            int u = q.front(); q.pop(); // Bước 5: lấy đỉnh trái u theo thứ tự tầng
+            for (int v : adj[u]) { // Bước 6: xét mọi kề phải v của u
+                int pu = matchR[v]; // Bước 7: pu = bạn ghép hiện tại của v (-1 = trống)
                 if (pu == -1) {
-                    found = true;
-                } else if (dist[pu] == INF) {
-                    dist[pu] = dist[u] + 1;
+                    found = true; // Bước 8: chạm đỉnh phải trống -> có đường tăng
+                } else if (dist[pu] == INF) { // Bước 9: đi qua cạnh ghép sang trái
+                    dist[pu] = dist[u] + 1; // Bước 10: gán tầng cho pu
                     q.push(pu);
                 }
             }
@@ -401,15 +403,16 @@ Kuhn tìm **một** augmenting path mỗi lần → $O(VE)$. Hopcroft-Karp tìm 
     }
 
     bool dfs(int u) {
-        for (int v : adj[u]) {
-            int pu = matchR[v];
+        for (int v : adj[u]) { // Bước 1: thử từng kề phải v
+            int pu = matchR[v]; // Bước 2: pu = đỉnh trái đang giữ v
+            // Bước 3: v trống thì lấy ngay; nếu không chỉ đi khi đúng tầng BFS
             if (pu == -1 || (dist[pu] == dist[u] + 1 && dfs(pu))) {
-                matchL[u] = v;
-                matchR[v] = u;
+                matchL[u] = v; // Bước 4: ghi ghép 2 chiều trái -> phải
+                matchR[v] = u; // Bước 5: ghi ghép 2 chiều phải -> trái
                 return true;
             }
         }
-        dist[u] = INF;
+        dist[u] = INF; // Bước 6: u hết đường trong phase này -> loại khỏi BFS sau
         return false;
     }
 
@@ -712,6 +715,7 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
     bool visitedX[MAXN], visitedY[MAXN];
 
     void hungarian() {
+        // Bước 0: lx[u] = nhãn trái (khởi tạo = max hàng), ly[v] = nhãn phải (=0)
         for (int i = 0; i < n; i++) {
             lx[i] = -INF;
             ly[i] = 0;
@@ -723,8 +727,8 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
 
         for (int u = 0; u < n; u++) {
             for (int v = 0; v < n; v++) {
-                slack[v] = INF;
-                slackX[v] = -1;
+                slack[v] = INF; // Bước 1: slack[v] = khoảng cách tới cạnh tight gần nhất
+                slackX[v] = -1; // Bước 2: slackX[v] = đỉnh trái nào tạo ra slack đó
             }
             memset(visitedX, false, sizeof(visitedX));
             memset(visitedY, false, sizeof(visitedY));
@@ -733,7 +737,7 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
             matchX[u] = -1;
 
             queue<int> q;
-            visitedX[u] = true;
+            visitedX[u] = true; // Bước 3: bắt đầu cây xen kẽ từ u chưa ghép
             q.push(u);
 
             while (y == -1) {
@@ -741,16 +745,16 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
                     x = q.front(); q.pop();
                     for (int v = 0; v < n; v++) {
                         if (visitedY[v]) continue;
-                        int gap = lx[x] + ly[v] - cost[x][v];
-                        if (gap == 0) {
+                        int gap = lx[x] + ly[v] - cost[x][v]; // Bước 4: độ lệch khỏi tight
+                        if (gap == 0) { // Bước 5: cạnh tight -> mở rộng cây
                             visitedY[v] = true;
                             if (matchY[v] == -1) {
-                                y = v;
+                                y = v; // Bước 6: gặp đỉnh phải trống -> có đường tăng
                             } else {
                                 visitedX[matchY[v]] = true;
                                 q.push(matchY[v]);
                             }
-                        } else if (slack[v] > gap) {
+                        } else if (slack[v] > gap) { // Bước 7: ghi nhận gap nhỏ nhất
                             slack[v] = gap;
                             slackX[v] = x;
                         }
@@ -759,11 +763,11 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
 
                 if (y != -1) break;
 
-                int delta = INF;
+                int delta = INF; // Bước 8: delta = slack nhỏ nhất để nới nhãn
                 for (int v = 0; v < n; v++) {
                     if (!visitedY[v]) delta = min(delta, slack[v]);
                 }
-                for (int i = 0; i < n; i++) {
+                for (int i = 0; i < n; i++) { // Bước 9: hạ lx, nâng ly để thêm cạnh tight
                     if (visitedX[i]) lx[i] -= delta;
                     if (visitedY[i]) ly[i] += delta;
                 }
@@ -771,7 +775,7 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
                     if (!visitedY[v]) slack[v] -= delta;
                 }
 
-                for (int v = 0; v < n; v++) {
+                for (int v = 0; v < n; v++) { // Bước 10: cạnh vừa thành tight -> mở cây
                     if (!visitedY[v] && slack[v] == 0) {
                         visitedY[v] = true;
                         if (matchY[v] == -1) {
@@ -784,7 +788,7 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
                 }
             }
 
-            while (y != -1) {
+            while (y != -1) { // Bước 11: đảo đường tăng qua slackX để tăng matching
                 int py = matchX[slackX[y]];
                 matchX[slackX[y]] = y;
                 matchY[y] = slackX[y];

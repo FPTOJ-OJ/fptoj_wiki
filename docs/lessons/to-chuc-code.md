@@ -5,52 +5,57 @@
 
 ## 1. Tại sao phải tổ chức code?
 
-Bạn code xong 3 bài, đến lúc nộp USB → tìm file không ra, copy nhầm file cũ, quên xóa debug → **mất điểm oan!**
+Bạn code xong 3 bài, đến lúc nộp → tìm file không ra, copy nhầm file cũ, quên xóa debug → **mất điểm oan!**
 
 **Tổ chức code tốt = nộp bài an toàn = không mất điểm vô ích.**
+
+> **Lưu ý đa nền tảng:** Bài này minh họa bằng Windows + USB vì đó là format phổ biến của HSG tỉnh. Nhưng cùng checklist áp dụng cho **Linux/macOS và nộp online** (VOI, VNOJ, CSES, Codeforces): chỉ khác công cụ — thay `run.bat` bằng `run.sh`, thay "copy vào USB" bằng "nộp file lên hệ thống". Mỗi script `.bat` bên dưới đều có nguyên tắc tương đương trên Linux (xem ghi chú ở §4 và §9).
 
 ---
 
 ## 2. Cấu trúc thư mục thi đấu
 
-### 2.1. Trên máy thi (trước khi copy lên USB)
+### 2.1. Trên máy thi (trước khi nộp — Windows, Linux, macOS đều giống nhau)
 
 ```
-D:\THI_HSG\
+THI_HSG/                  ← đặt ở đâu cũng được (D:\, ~/thi/, /tmp/), miễn là KHÔNG nằm trên USB
 ├── template.cpp          ← Template chung (copy sẵn)
-├── bai1\
+├── bai1/
 │   ├── bai1.cpp          ← Code bài 1
-│   ├── test\             ← Thư mục test
+│   ├── test/             ← Thư mục test
 │   │   ├── 1.in          ← Input test 1
 │   │   ├── 1.out         ← Expected output 1
 │   │   ├── 2.in
 │   │   ├── 2.out
 │   │   └── ...
-│   └── run.bat           ← Script chạy test
-├── bai2\
+│   └── run.bat / run.sh  ← Script chạy test (Windows: .bat, Linux/macOS: .sh)
+├── bai2/
 │   ├── bai2.cpp
-│   ├── test\
-│   └── run.bat
-├── bai3\
+│   ├── test/
+│   └── run.bat / run.sh
+├── bai3/
 │   ├── bai3.cpp
-│   ├── test\
-│   └── run.bat
-└── submit\               ← Thư mục chuẩn bị nộp
+│   ├── test/
+│   └── run.bat / run.sh
+└── submit/               ← Thư mục chuẩn bị nộp
     ├── bai1.cpp
     ├── bai2.cpp
     └── bai3.cpp
 ```
 
-### 2.2. Trên USB (nộp bài)
+### 2.2. Khi nộp (USB hay online đều chung 1 nguyên tắc)
 
 ```
-USB:\
+USB:\                    ← nếu thi nộp USB: chỉ copy file .cpp đã xóa debug, đã test kỹ
 ├── bai1.cpp
 ├── bai2.cpp
 └── bai3.cpp
+
+Online (VOI/VNOJ/CSES):  ← nếu thi nộp online: upload chính các file trong submit/
+- Mỗi bài upload 1 file .cpp tương ứng, kiểm tra hệ thống báo "tiếp nhận" thành công
 ```
 
-**Lưu ý:** Chỉ nộp file `.cpp` đã xóa debug, đã test kỹ!
+**Nguyên tắc chung (áp dụng mọi hình thức nộp):** code trên ổ cứng → test kỹ → gom file sạch vào `submit/` → nộp từ `submit/` → kiểm tra lại nộp thành công. **Không bao giờ code trực tiếp trên USB / nộp file chưa compile thử.**
 
 ---
 
@@ -85,9 +90,9 @@ pause
 
 ---
 
-## 4. Script compile & chạy test (Windows)
+## 4. Script compile & chạy test (Windows: `run.bat` / Linux-macOS: `run.sh`)
 
-Lưu thành `run.bat` trong mỗi thư mục bài:
+Lưu thành `run.bat` trong mỗi thư mục bài (Windows):
 
 ```batch
 @echo off
@@ -122,6 +127,18 @@ echo.
 echo Ket qua: !pass! PASS, !fail! FAIL
 pause
 ```
+
+> **Linux/macOS (`run.sh`)** — cùng logic, khác cú pháp:
+> ```bash
+> #!/bin/bash
+> g++ -std=c++17 -O2 -Wall -o bai1 bai1.cpp || { echo "COMPILE ERROR!"; exit 1; }
+> for f in test/*.in; do
+>   base=$(basename "$f" .in)
+>   ./bai1 < "$f" > test/temp.out
+>   if diff -w "test/$base.out" test/temp.out > /dev/null; then echo "[PASS] $base";
+>   else echo "[FAIL] $base"; fi
+> done
+> ```
 
 ---
 

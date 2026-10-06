@@ -111,6 +111,18 @@ Nghịch đảo modulo tính bằng Fermat: $a^{-1} \equiv a^{M-2} \pmod{M}$ (v�
 
 $$\text{inv\_fact}[i] = \text{inv\_fact}[i+1] \cdot (i+1) \bmod M$$
 
+> **Trace tay với $n = 5$ (hiểu dòng `inv_fact[i] = inv_fact[i+1] * (i+1)`):**
+>
+> | Bước | Tính gì | Kết quả (chưa mod cho dễ nhìn) |
+> |------|---------|-------------------------------|
+> | `fact` xuôi | $0!=1;\ 1!=1;\ 2!=2;\ 3!=6;\ 4!=24;\ 5!=120$ | `fact = [1,1,2,6,24,120]` |
+> | Neo | `inv_fact[5] = (120)^{M-2} = 1/120` | `inv_fact[5] = 1/120` |
+> | $i=4$ | `inv_fact[4] = inv_fact[5] * 5 = 5/120 = 1/24` | $= 1/4!$ ✓ |
+> | $i=3$ | `inv_fact[3] = inv_fact[4] * 4 = 4/24 = 1/6` | $= 1/3!$ ✓ |
+> | $i=2$ | `inv_fact[2] = inv_fact[3] * 3 = 3/6 = 1/2` | $= 1/2!$ ✓ |
+>
+> Lý do đúng: $\frac{1}{i!} = \frac{1}{(i+1)!}\cdot(i+1)$, nên chỉ cần **1 lần** lũy thừa `pow(fact[n], M-2)` rồi đi ngược $O(N)$ thay vì `pow` từng phần tử.
+
 ### Phân tích tính đúng đắn
 
 **Cách 1:** Đúng trực tiếp theo định lý Pascal, mọi giá trị đều lấy modulo nên không tràn.
@@ -136,8 +148,9 @@ Do đó $(k!)^{-1} \equiv (k!)^{M-2} \pmod{M}$, và công thức $C(n, k) = \fra
 
     void buildPascal(int n) {
         for (int i = 0; i <= n; i++) {
-            C_pascal[i][0] = C_pascal[i][i] = 1;
+            C_pascal[i][0] = C_pascal[i][i] = 1;  // biên: chọn 0 hoặc chọn hết → 1 cách
             for (int j = 1; j < i; j++)
+                // Pascal: chọn j từ i = (có lấy phần tử i) + (không lấy phần tử i)
                 C_pascal[i][j] = (C_pascal[i-1][j-1] + C_pascal[i-1][j]) % MOD;
         }
     }
@@ -157,17 +170,18 @@ Do đó $(k!)^{-1} \equiv (k!)^{M-2} \pmod{M}$, và công thức $C(n, k) = \fra
     long long fact[1000001], inv_fact[1000001];
 
     void buildFactorial(int n) {
-        fact[0] = 1;
+        fact[0] = 1;  // 0! = 1
         for (int i = 1; i <= n; i++)
-            fact[i] = fact[i-1] * i % MOD;
+            fact[i] = fact[i-1] * i % MOD;  // i! = (i-1)! * i (lấy mod mỗi bước chống tràn)
 
-        inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);
+        inv_fact[n] = powerMod(fact[n], MOD - 2, MOD);  // nghịch đảo của n! bằng Fermat
         for (int i = n - 1; i >= 0; i--)
-            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
+            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;  // 1/i! = 1/(i+1)! * (i+1), đi ngược O(N)
     }
 
     long long nCk(int n, int k) {
-        if (k < 0 || k > n) return 0;
+        if (k < 0 || k > n) return 0;  // chặn biên: không thể chọn
+        // n! / (k!(n-k)!) → nhân với nghịch đảo modulo
         return fact[n] % MOD * inv_fact[k] % MOD * inv_fact[n-k] % MOD;
     }
     ```
@@ -190,11 +204,11 @@ Do đó $(k!)^{-1} \equiv (k!)^{M-2} \pmod{M}$, và công thức $C(n, k) = \fra
     def build_factorial(n):
         fact = [1] * (n + 1)
         for i in range(1, n + 1):
-            fact[i] = fact[i-1] * i % MOD
+            fact[i] = fact[i-1] * i % MOD  # i! = (i-1)! * i, mod mỗi bước
         inv_fact = [1] * (n + 1)
-        inv_fact[n] = pow(fact[n], MOD - 2, MOD)
+        inv_fact[n] = pow(fact[n], MOD - 2, MOD)  # nghịch đảo n! bằng Fermat
         for i in range(n - 1, -1, -1):
-            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD
+            inv_fact[i] = inv_fact[i+1] * (i+1) % MOD  # đi ngược: 1/i! = 1/(i+1)! * (i+1)
         return fact, inv_fact
 
     def nCk(n, k, fact, inv_fact):
@@ -305,9 +319,10 @@ Công thức trực tiếp suy ra từ công thức truy hồi bằng sinh hàm 
     ```cpp
     // Tính Catalan bằng công thức truy hồi — O(N²)
     void buildCatalan(int n, long long catalan[]) {
-        catalan[0] = catalan[1] = 1;
+        catalan[0] = catalan[1] = 1;  // gốc: C0 = C1 = 1
         for (int i = 2; i <= n; i++) {
             catalan[i] = 0;
+            // Chia tại vị trí j: (j bên trái) * (i-1-j bên phải) — cộng mọi cách chia
             for (int j = 0; j < i; j++)
                 catalan[i] = (catalan[i] + catalan[j] * catalan[i-1-j]) % MOD;
         }
@@ -315,6 +330,7 @@ Công thức trực tiếp suy ra từ công thức truy hồi bằng sinh hàm 
 
     // Tính Catalan bằng công thức trực tiếp — O(log MOD) mỗi truy vấn
     long long catalanFast(int n) {
+        // Cn = C(2n,n) / (n+1) → chia chuyển thành nhân nghịch đảo
         return nCk(2*n, n) * powerMod(n+1, MOD-2, MOD) % MOD;
     }
     ```

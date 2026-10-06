@@ -145,6 +145,17 @@ plt.tight_layout()
         return lo
     ```
 
+**Trace số cụ thể:** `weights = [3,2,2,4,1,4]`, `days = 3` → `lo = 4`, `hi = 16`, đáp án đúng là `6`.
+
+| Vòng | `lo` | `hi` | `mid` | `check(mid)` | Giải thích | `lo,hi` mới |
+|------|------|------|-------|--------------|------------|--------------|
+| 1 | 4 | 16 | 10 | true (2 ngày ≤ 3) | `mid` dư sức → thu hẹp trên | `lo=4, hi=10` |
+| 2 | 4 | 10 | 7 | true (3 ngày ≤ 3) | vừa đủ → thử nhỏ hơn | `lo=4, hi=7` |
+| 3 | 4 | 7 | 5 | false (4 ngày > 3) | quá nhỏ → nâng dưới | `lo=6, hi=7` |
+| 4 | 6 | 7 | 6 | true (3 ngày ≤ 3) | thỏa → thu hẹp trên | `lo=6, hi=6` → dừng |
+
+Kết quả `lo = 6`.
+
 ### Bài 2: Koko Eating Bananas
 
 === "C++"
@@ -187,6 +198,17 @@ plt.tight_layout()
                 lo = mid + 1
         return lo
     ```
+
+**Trace số cụ thể:** `piles = [3,6,7,11]`, `h = 8` → `lo = 1`, `hi = 11`, đáp án đúng là `4`.
+
+| Vòng | `lo` | `hi` | `mid` | `check(mid)` (giờ cần) | Kết quả | `lo,hi` mới |
+|------|------|------|-------|-------------------------|---------|--------------|
+| 1 | 1 | 11 | 6 | 1+1+2+2 = 6 ≤ 8 | true | `lo=1, hi=6` |
+| 2 | 1 | 6 | 3 | 1+2+3+4 = 10 > 8 | false | `lo=4, hi=6` |
+| 3 | 4 | 6 | 5 | 1+2+2+3 = 8 ≤ 8 | true | `lo=4, hi=5` |
+| 4 | 4 | 5 | 4 | 1+2+2+3 = 8 ≤ 8 | true | `lo=4, hi=4` → dừng |
+
+Kết quả `lo = 4`.
 
 ### Bài 3: Aggressive Cows
 
@@ -264,6 +286,15 @@ while (lo < hi) {
 ```
 
 **Quy tắc:** Tìm min → `hi = mid`, Tìm max → `lo = mid` → cần `+1` để tránh lặp vô hạn.
+
+**Ví dụ số kẹt lặp vô hạn:** mẫu tìm max, `lo = 4, hi = 5`, giả sử `check(4) = true`.
+
+| Vòng | `lo` | `hi` | `mid = lo+(hi-lo)/2` | Nhánh | Mới |
+|------|------|------|----------------------|-------|-----|
+| 1 (SAI) | 4 | 5 | 4 | `check(4)=true` → `lo = mid = 4` | `lo=4, hi=5` — y hệt ban đầu → **kẹt mãi** |
+| 1 (ĐÚNG) | 4 | 5 | `4+(5-4+1)/2 = 5` | `check(5)?` nếu true → `lo=5`; nếu false → `hi=4` | Thoát ngay vòng sau |
+
+Bài học: khi `hi = lo + 1`, công thức không `+1` cho `mid = lo`, nên `lo = mid` không tiến triển. Công thức `+1` cho `mid = hi`, đảm bảo khoảng luôn thu hẹp.
 
 ### Bẫy 2: Chọn sai cận trên và cận dưới
 

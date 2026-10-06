@@ -7,6 +7,10 @@
 
 ## 1. Bản chất vấn đề
 
+### Câu chuyện mở đầu: vẽ một nét và xếp Domino
+
+Bạn từng chơi trò **vẽ một nét không nhấc bút**? Hay xếp bộ **Domino** sao cho số khớp nhau nối tiếp nhau hết cả bộ? Cả hai đều là một bài toán: đi qua **mỗi cạnh đúng một lần**. Năm 1736, Euler giải bài toán 7 cây cầu Königsberg bằng đúng tư duy này — khai sinh lý thuyết đồ thị.
+
 ### Bài toán: Đường đi qua mọi cạnh đúng 1 lần
 
 Cho đồ thị $N$ đỉnh, $M$ cạnh. Tìm đường đi (hoặc chu trình) đi qua **mỗi cạnh đúng 1 lần**.
@@ -151,10 +155,10 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
         int n, m;
         cin >> n >> m;
 
-        vector<vector<int>> adj(n);
-        vector<int> in_deg(n, 0), out_deg(n, 0);
+        vector<vector<int>> adj(n); // Bước 1: danh sách kề có hướng
+        vector<int> in_deg(n, 0), out_deg(n, 0); // Bước 2: đếm bán bậc vào/ra
 
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < m; i++) { // Bước 3: đọc cạnh u -> v
             int u, v;
             cin >> u >> v;
             adj[u].push_back(v);
@@ -162,17 +166,17 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
             in_deg[v]++;
         }
 
-        // Kiểm tra điều kiện đường đi Euler có hướng
-        int start = -1, end = -1;
+        // Bước 4: kiểm tra điều kiện đường đi Euler có hướng
+        int start = -1, end = -1; // start: out-in=1; end: in-out=1
         bool valid = true;
         for (int i = 0; i < n; i++) {
-            if (out_deg[i] - in_deg[i] == 1) {
-                if (start != -1) { valid = false; break; }
+            if (out_deg[i] - in_deg[i] == 1) { // Bước 5: ứng viên đỉnh đầu
+                if (start != -1) { valid = false; break; } // Bước 6: quá 1 đỉnh đầu -> loại
                 start = i;
-            } else if (in_deg[i] - out_deg[i] == 1) {
+            } else if (in_deg[i] - out_deg[i] == 1) { // Bước 7: ứng viên đỉnh cuối
                 if (end != -1) { valid = false; break; }
                 end = i;
-            } else if (in_deg[i] != out_deg[i]) {
+            } else if (in_deg[i] != out_deg[i]) { // Bước 8: lệch khác 1 -> loại
                 valid = false;
                 break;
             }
@@ -183,30 +187,30 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
             return 0;
         }
 
-        if (start == -1) start = 0; // Chu trình Euler
+        if (start == -1) start = 0; // Bước 9: không có đỉnh lệch -> chu trình, bắt đầu ở 0
 
-        // Hierholzer
-        vector<int> path;
+        // Bước 10: thuật toán Hierholzer dùng ngăn xếp
+        vector<int> path; // Bước 11: chứa các đỉnh theo thứ tự ngược lúc quay lui
         stack<int> stk;
-        stk.push(start);
+        stk.push(start); // Bước 12: xuất phát từ đỉnh đầu
 
-        // Sắp xếp cạnh để đảm bảo thứ tự
+        // Bước 13: sắp xếp cạnh để ra thứ tự từ điển nhỏ nhất
         for (int i = 0; i < n; i++)
             sort(adj[i].begin(), adj[i].end());
 
-        vector<int> ptr(n, 0);
+        vector<int> ptr(n, 0); // Bước 14: con trỏ cạnh tiếp theo của mỗi đỉnh (mỗi cạnh xét 1 lần)
 
-        while (!stk.empty()) {
+        while (!stk.empty()) { // Bước 15: còn đỉnh trong ngăn xếp thì đi tiếp
             int u = stk.top();
-            if (ptr[u] < (int)adj[u].size()) {
+            if (ptr[u] < (int)adj[u].size()) { // Bước 16: còn cạnh chưa đi -> đi sâu
                 stk.push(adj[u][ptr[u]++]);
-            } else {
+            } else { // Bước 17: hết cạnh -> chốt u vào đường đi rồi quay lui
                 path.push_back(u);
                 stk.pop();
             }
         }
 
-        reverse(path.begin(), path.end());
+        reverse(path.begin(), path.end()); // Bước 18: đảo lại vì ghi theo thứ tự quay lui
 
         for (int v : path) cout << v << " ";
         cout << "\n";
@@ -221,32 +225,33 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
     import sys
     input = sys.stdin.readline
 
+    # Bước 1: đọc đồ thị có hướng, đếm bán bậc vào/ra
     n, m = map(int, input().split())
-    adj = [[] for _ in range(n)]
+    adj = [[] for _ in range(n)] # Bước 2: danh sách kề có hướng
     in_deg = [0] * n
     out_deg = [0] * n
 
-    for _ in range(m):
+    for _ in range(m): # Bước 3: đọc cạnh u -> v
         u, v = map(int, input().split())
         adj[u].append(v)
         out_deg[u] += 1
         in_deg[v] += 1
 
-    # Kiểm tra điều kiện
+    # Bước 4: kiểm tra điều kiện (1 đỉnh đầu out-in=1, 1 đỉnh cuối in-out=1)
     start = end = -1
     valid = True
     for i in range(n):
-        if out_deg[i] - in_deg[i] == 1:
+        if out_deg[i] - in_deg[i] == 1: # Bước 5: ứng viên đỉnh đầu
             if start != -1:
                 valid = False
                 break
             start = i
-        elif in_deg[i] - out_deg[i] == 1:
+        elif in_deg[i] - out_deg[i] == 1: # Bước 6: ứng viên đỉnh cuối
             if end != -1:
                 valid = False
                 break
             end = i
-        elif in_deg[i] != out_deg[i]:
+        elif in_deg[i] != out_deg[i]: # Bước 7: lệch khác 1 -> loại
             valid = False
             break
 
@@ -254,29 +259,83 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
         print("Khong ton tai duong di Euler")
         exit()
 
-    if start == -1:
+    if start == -1: # Bước 8: không lệch -> chu trình, bắt đầu ở 0
         start = 0
 
-    # Hierholzer
-    for i in range(n):
+    # Bước 9: thuật toán Hierholzer dùng ngăn xếp
+    for i in range(n): # Bước 10: sắp xếp để ra thứ tự từ điển
         adj[i].sort()
 
-    ptr = [0] * n
-    path = []
-    stack = [start]
+    ptr = [0] * n # Bước 11: con trỏ cạnh tiếp theo (mỗi cạnh xét 1 lần)
+    path = [] # Bước 12: đỉnh chốt theo thứ tự quay lui (ngược)
+    stack = [start] # Bước 13: xuất phát từ đỉnh đầu
 
-    while stack:
+    while stack: # Bước 14: còn đỉnh trong ngăn xếp thì đi tiếp
         u = stack[-1]
-        if ptr[u] < len(adj[u]):
+        if ptr[u] < len(adj[u]): # Bước 15: còn cạnh -> đi sâu
             stack.append(adj[u][ptr[u]])
             ptr[u] += 1
-        else:
+        else: # Bước 16: hết cạnh -> chốt u rồi quay lui
             path.append(u)
             stack.pop()
 
-    path.reverse()
+    path.reverse() # Bước 17: đảo lại vì ghi lúc quay lui
     print(*path)
     ```
+
+---
+
+## 5. Lỗi thường gặp (SAI / ĐÚNG)
+
+### Lỗi 1: Chỉ kiểm tra bậc, quên liên thông yếu
+
+**SAI:** mọi đỉnh bậc chẵn nhưng đồ thị rời rạc (2 cụm riêng) → kết luận có chu trình Euler.
+
+```cpp
+// SAI: chỉ đếm bậc
+bool ok = true;
+for (int i = 0; i < n; i++) if (deg[i] % 2) ok = false;
+```
+
+**ĐÚNG:** thêm BFS/DFS bỏ qua đỉnh cô lập, kiểm tra mọi đỉnh có cạnh đều tới được nhau.
+
+```cpp
+// ĐÚNG: bậc đúng + liên thông yếu (trên đồ thị vô hướng hóa)
+bool ok = degreeOK && isWeaklyConnected(n, adj);
+```
+
+### Lỗi 2: Chọn đỉnh bắt đầu sai
+
+**SAI:** luôn `start = 0` dù có 2 đỉnh bậc lẻ → đường đi bắt đầu giữa chừng, Hierholzer kẹt sớm.
+
+```cpp
+// SAI: cứng đỉnh 0
+int start = 0;
+```
+
+**ĐÚNG:** đường đi Euler phải bắt đầu ở đỉnh bậc lẻ (có hướng: đỉnh `out - in = 1`); chỉ khi là chu trình mới lấy đỉnh bất kỳ có cạnh.
+
+```cpp
+// ĐÚNG: ưu tiên đỉnh lẻ, fallback về đỉnh có cạnh
+if (start == -1) start = firstVertexWithEdge;
+```
+
+### Lỗi 3: Quên `reverse(path)`
+
+**SAI:** in `path` trực tiếp → thứ tự ngược (vì đỉnh được chốt lúc quay lui).
+
+```cpp
+// SAI: thiếu đảo
+for (int v : path) cout << v << " ";
+```
+
+**ĐÚNG:** luôn đảo trước khi in.
+
+```cpp
+// ĐÚNG: ghi lúc backtrack nên phải đảo
+reverse(path.begin(), path.end());
+for (int v : path) cout << v << " ";
+```
 
 ---
 

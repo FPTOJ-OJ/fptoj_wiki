@@ -7,7 +7,7 @@
 
 ### 1.1 Phát biểu
 
-Cho đa giác lồi có đỉnh tại các điểm nguyên. Gọi:
+Cho đa giác **đơn** (không tự cắt, đỉnh tại các điểm nguyên — không nhất thiết lồi). Gọi:
 - $I$ = số điểm nguyên **nằm trong** đa giác
 - $B$ = số điểm nguyên **trên cạnh** đa giác
 - $S$ = diện tích đa giác
@@ -19,6 +19,9 @@ $$S = I + \frac{B}{2} - 1$$
 Hoặc đổi ra:
 
 $$I = S - \frac{B}{2} + 1$$
+
+!!! tip "Đếm $B$ bằng gcd"
+    Số điểm nguyên trên đoạn thẳng nối $(x_1, y_1)$–$(x_2, y_2)$ (tính cả 2 đầu mút) là $\gcd(|x_2-x_1|,\, |y_2-y_1|) + 1$. Cộng trên mọi cạnh rồi trừ số đỉnh bị đếm trùng để được $B$.
 
 ### 1.2 Ví dụ
 
@@ -167,14 +170,28 @@ $$B = \sum_{i=0}^{n-1} \gcd(|x_{i+1} - x_i|, |y_{i+1} - y_i|)$$
 
 ### 4.1 Đếm điểm nguyên trong đa giác
 
+!!! warning "Không dùng double ở đây"
+    `area - B/2.0` với `double` có thể cho $5.9999999$ thay vì $6$ → ép `int` thành $5$ (sai 1 đơn vị!). Vì đỉnh nguyên nên $2S$ luôn là số nguyên — tính mọi thứ trên số nguyên:
+
+$$I = \frac{2S - B + 2}{2} \quad \text{(với } 2S = \left|\sum x_i y_{i+1} - x_{i+1} y_i\right|\text{)}$$
+
 === "C++"
 
     ```cpp
-    // Đếm điểm nguyên trong đa giác lồi (đỉnh nguyên)
-    int latticePointsInside(vector<Point>& poly) {
-        double area = polygonArea(poly);
-        int B = latticePointsOnBoundary(poly);
-        return (int)(area - B / 2.0 + 1 + 1e-9);
+    // Đếm điểm nguyên trong đa giác (đỉnh nguyên) — toàn số nguyên, không double
+    long long latticePointsInside(const vector<Point>& poly) {
+        int n = poly.size();
+        long long area2 = 0; // 2 lần diện tích (luôn nguyên vì đỉnh nguyên)
+        long long B = 0;     // điểm nguyên trên biên
+        for (int i = 0; i < n; i++) {
+            int j = (i + 1) % n;
+            long long xi = llround(poly[i].x), yi = llround(poly[i].y);
+            long long xj = llround(poly[j].x), yj = llround(poly[j].y);
+            area2 += xi * yj - xj * yi; // cộng dồn cross từng cạnh
+            B += std::gcd(llabs(xj - xi), llabs(yj - yi)); // điểm trên cạnh (trừ đỉnh trùng)
+        }
+        area2 = llabs(area2);
+        return (area2 - B + 2) / 2; // I = (2S - B + 2)/2, chia hết vì 2S-B luôn chẵn
     }
     ```
 
@@ -189,11 +206,21 @@ $$B = \sum_{i=0}^{n-1} \gcd(|x_{i+1} - x_i|, |y_{i+1} - y_i|)$$
         int boundary;  // điểm nguyên trên cạnh
     };
 
-    PickResult pickTheorem(vector<Point>& poly) {
+    PickResult pickTheorem(const vector<Point>& poly) {
         PickResult res;
-        res.area = polygonArea(poly);
-        res.boundary = latticePointsOnBoundary(poly);
-        res.interior = (int)(res.area - res.boundary / 2.0 + 1 + 1e-9);
+        int n = poly.size();
+        long long area2 = 0; // 2 lần diện tích (số nguyên)
+        res.boundary = 0;
+        for (int i = 0; i < n; i++) {
+            int j = (i + 1) % n;
+            long long xi = llround(poly[i].x), yi = llround(poly[i].y);
+            long long xj = llround(poly[j].x), yj = llround(poly[j].y);
+            area2 += xi * yj - xj * yi;
+            res.boundary += std::gcd(llabs(xj - xi), llabs(yj - yi));
+        }
+        area2 = llabs(area2);
+        res.area = area2 / 2.0; // chỉ đổi sang double khi trình bày
+        res.interior = (int)((area2 - res.boundary + 2) / 2);
         return res;
     }
     ```
@@ -249,7 +276,22 @@ $$(x_2 - x_1 + 1) \times (y_2 - y_1 + 1)$$
 
 ---
 
-## 7. Bài tập luyện tập (FPTOJ)
+## 7. Lỗi thường gặp
+
+```cpp
+// SAI: __gcd(0, 0) — cạnh suy biến (2 đỉnh trùng nhau)
+__gcd(0, 0); // = 0 trên libstdc++ nhưng không chuẩn, đừng trông chờ
+
+// ĐÚNG: bỏ qua cạnh suy biến
+if (dx == 0 && dy == 0) continue; // không đóng góp điểm biên
+```
+
+- **Dùng `double` cho $I$:** $5.9999999 \to$ ép `int` thành $5$. Luôn tính trên số nguyên ($2S$, $B$) như §4.
+- **Quên trừ đỉnh trùng:** cộng $\gcd+1$ mỗi cạnh rồi quên trừ $n$ đỉnh → $B$ thừa $n$ đơn vị. Công thức §3 ($B = \sum \gcd$) đã trừ sẵn — đừng cộng 1 thêm.
+- **Pick chỉ đúng với đa giác đơn:** đa giác tự cắt (hình sao) hoặc có lỗ thì công thức sai. Kiểm tra input trước.
+- **Tọa độ lớn:** $x_i y_j$ với $|x|,|y| \le 10^9$ → tích tới $10^{18}$, tổng $n$ cạnh tràn `long long` → dùng `__int128` cho `area2`.
+
+## 8. Bài tập luyện tập (FPTOJ)
 
 | Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
 |-----|----------|--------|------------------------|
@@ -264,7 +306,7 @@ $$(x_2 - x_1 + 1) \times (y_2 - y_1 + 1)$$
 | `pick-star-poly` | [Đa giác hình sao và định lý Pick](https://fptoj.com/problem/pick-star-poly) | ⭐⭐⭐ | Pick mở rộng |
 | `pick-triple` | [Giao ba tam giác và điểm nguyên](https://fptoj.com/problem/pick-triple) | ⭐⭐⭐⭐ | Pick + giao đa giác |
 
-## 8. Bài tập tự luận
+## 9. Bài tập tự luận
 
 ### Bài 1: Đếm điểm nguyên trong tam giác
 

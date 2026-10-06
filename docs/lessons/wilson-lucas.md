@@ -9,15 +9,14 @@
 
 ### Định lý Wilson
 
-Cho số nguyên tố $p$. Tính $(p-1)! \mod p$ mà không cần tính giai thừa trực tiếp (vì $p$ có thể rất lớn).
+**Bài toán mở đầu:** Tính $10! \mod 11$ mà không nhân tay 10 số? Vì $11$ nguyên tố, Wilson cho ngay đáp án $-1 \equiv 10 \pmod{11}$. Tổng quát: với $p$ nguyên tố, $(p-1)! \mod p$ luôn là $p-1$ — không cần tính giai thừa trực tiếp (bất khả khi $p$ lớn).
 
-**Ứng dụng:** Kiểm tra số nguyên tố, tính toán modulo liên quan đến giai thừa.
+!!! warning "Wilson KHÔNG dùng để test nguyên tố trong thi đấu"
+    Kiểm tra $(n-1)! \mod n$ tốn $O(n)$ phép nhân — với $n \approx 10^9$ sẽ TLE. Trong contest hãy dùng Miller-Rabin. Wilson chỉ hữu ích để **biến đổi công thức giai thừa modulo**, không phải để kiểm tra nguyên tố.
 
 ### Định lý Lucas
 
-Cho $n, k$ rất lớn ($10^{18}$) và $p$ nguyên tố nhỏ. Tính $\binom{n}{k} \mod p$ mà không cần tính $\binom{n}{k}$ trực tiếp (vì tràn số).
-
-**Ứng dụng:** Tính tổ hợp modulo khi $n, k$ rất lớn nhưng $p$ nhỏ.
+**Bài toán mở đầu:** Tính $\binom{10^{18}}{10^9} \mod 5$? Không thể tính tử số trực tiếp (khổng lồ), và $5$ quá nhỏ để dùng nghịch đảo modulo thông thường qua giai thừa (vì $5 \mid$ mẫu số). Lucas tách $n, k$ thành các chữ số cơ số $5$ rồi nhân các tổ hợp nhỏ lại — mỗi tổ hợp nhỏ tính được bằng tay.
 
 ---
 

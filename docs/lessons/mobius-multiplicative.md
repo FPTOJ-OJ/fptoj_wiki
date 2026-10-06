@@ -7,6 +7,20 @@
 
 ## Bản chất vấn đề
 
+### Bài toán động lực: Đếm cặp $(i, j)$ với $\gcd(i, j) = 1$
+
+Cho $A, B \le 10^6$ (ví dụ $A = 5$, $B = 4$). Đếm số cặp $(i, j)$ với $1 \le i \le A$, $1 \le j \le B$ sao cho $\gcd(i, j) = 1$.
+
+Duyệt từng cặp rồi tính $\gcd$ mất $O(A \cdot B \log)$ — quá chậm với $10^6 \times 10^6$.
+
+Dùng tính chất $[\gcd(i,j) = 1] = \sum_{d \mid \gcd(i,j)} \mu(d)$:
+
+$$\text{Đáp án} = \sum_{i=1}^{A} \sum_{j=1}^{B} \sum_{d \mid \gcd(i,j)} \mu(d) = \sum_{d=1}^{\min(A,B)} \mu(d) \cdot \Big\lfloor \frac{A}{d} \Big\rfloor \cdot \Big\lfloor \frac{B}{d} \Big\rfloor$$
+
+Chỉ cần sàng $\mu(1..10^6)$ một lần ($O(N)$), rồi tính tổng trên theo $d$ ($O(N)$). Đây là lý do ta học hàm Möbius!
+
+Kiểm tra tay với $A = 3$, $B = 2$: các cặp $(1,1), (1,2), (2,1), (3,1), (3,2)$ có gcd $= 1$ → đáp án $5$. Công thức: $\mu(1)\cdot 3\cdot 2 + \mu(2)\cdot 1\cdot 1 = 1\cdot 6 + (-1)\cdot 1 = 5$. Đúng!
+
 ### Hàm Mobius
 
 Cho số nguyên dương $n$. Hàm Mobius $\mu(n)$ được dùng trong nguyên lý bao hàm - loại trừ trên ước số, giúp đếm số phần tử thỏa mãn điều kiện liên quan đến chia hết.
@@ -165,6 +179,20 @@ $$[n = 1] = \sum_{d | n} \mu(d)$$
         print(f"mu({i}) = {mu[i]}")
     ```
 
+**Trace tay sàng linear tính $\mu(1..10)$:**
+
+| Bước | $i$ | $i$ nguyên tố? | $p$ xét | $i \times p$ | $i \bmod p$ | Kết quả |
+|------|-----|----------------|---------|--------------|-------------|---------|
+| 1 | 2 | Có → `primes=[2]`, $\mu(2)=-1$ | 2 | 4 | $2 \bmod 2 = 0$ → $\mu(4)=0$, break | $\mu(4)=0$ (vì $2^2 \mid 4$) |
+| 2 | 3 | Có → `primes=[2,3]`, $\mu(3)=-1$ | 2 | 6 | $3 \bmod 2 \ne 0$ → $\mu(6)=-\mu(3)=1$ | $\mu(6)=1$ |
+| 3 | 3 | — | 3 | 9 | $3 \bmod 3 = 0$ → $\mu(9)=0$, break | $\mu(9)=0$ (vì $3^2 \mid 9$) |
+| 4 | 4 | Không ($\mu(4)=0$) | 2 | 8 | $4 \bmod 2 = 0$ → $\mu(8)=0$, break | $\mu(8)=0$ (vì $2^2 \mid 8$) |
+| 5 | 5 | Có → $\mu(5)=-1$ | 2 | 10 | $5 \bmod 2 \ne 0$ → $\mu(10)=-\mu(5)=1$ | $\mu(10)=1$ ($10=2\cdot 5$) |
+| 6 | 6 | Không ($\mu(6)=1$) | 2 | 12 $> 10$ → dừng | — | — |
+| 7 | 7 | Có → $\mu(7)=-1$ | 2 | 14 $> 10$ → dừng | — | — |
+
+Kết quả: $\mu = [1, -1, -1, 0, -1, 1, -1, 0, 0, 1]$ cho $n = 1..10$. Quy luật: gặp $p^2 \mid (i \cdot p)$ thì gán $0$ và `break` ngay (mỗi hợp số chỉ bị sàng bởi nguyên tố nhỏ nhất của nó).
+
 ---
 
 ## 2. Hàm Nhân Tính (Multiplicative Function)
@@ -195,6 +223,10 @@ $$(f * g)(n) = \sum_{d | n} f(d) \cdot g(n/d)$$
 
 **Ví dụ:** $\varphi * \mathbf{1} = \text{id}$, tức $\sum_{d|n} \varphi(d) = n$.
 
+Ví dụ số với $n = 6$: ước của $6$ là $1, 2, 3, 6$. $\varphi(1) + \varphi(2) + \varphi(3) + \varphi(6) = 1 + 1 + 2 + 2 = 6$. Đúng!
+
+Ví dụ số với Möbius: $(\mu * \mathbf{1})(6) = \mu(1) + \mu(2) + \mu(3) + \mu(6) = 1 + (-1) + (-1) + 1 = 0 = [6 = 1]$ (sai → bằng 0). Đúng với công thức nghịch đảo!
+
 ---
 
 ## 3. Phân tích tính đúng đắn
@@ -223,6 +255,39 @@ Nếu $\gcd(a, b) = 1$, thì $ab$ có bình phương nguyên tố $\iff$ $a$ ho�
 |----------|-----------|
 | Sàng tính $\mu$ hoặc $\varphi$ | $O(N \log \log N)$ |
 | Linear sieve tính $\mu$, $\varphi$ | $O(N)$ |
+
+### Lỗi thường gặp: SAI / ĐÚNG
+
+**Lỗi 1: Quên $\mu(1) = 1$**
+
+```cpp
+// SAI: khởi tạo mu toàn 0 rồi chỉ gán từ 2 → mu[1] = 0, mọi công thức đếm sai
+vector<int> mu(n + 1, 0);
+
+// ĐÚNG: mu[1] = 1 theo định nghĩa
+mu[1] = 1;
+```
+
+**Lỗi 2: Quên `break` khi $p \mid i$**
+
+Mỗi hợp số chỉ được sàng đúng một lần bởi nguyên tố nhỏ nhất của nó. Nếu không `break`, số đó bị ghi đè nhiều lần → $\mu$ sai và mất tính tuyến tính $O(N)$.
+
+```cpp
+// SAI: không break → i*p bị xử lý bởi nhiều p
+if (i % p == 0) {
+    mu[i * p] = 0;
+}  // thiếu break!
+
+// ĐÚNG:
+if (i % p == 0) {
+    mu[i * p] = 0;
+    break;  // p là nguyên tố nhỏ nhất của i*p, dừng ngay
+}
+```
+
+**Lỗi 3: Nhầm $\mu(n) = 0$ với "không có ước"**
+
+$\mu(n) = 0$ nghĩa là $n$ chia hết cho bình phương nguyên tố (ví dụ $4, 8, 9, 12$), **không** phải $n$ không có ước. Trong công thức đếm cặp gcd, số hạng $\mu(d) = 0$ chỉ đơn giản bị bỏ qua.
 
 ---
 

@@ -16,6 +16,8 @@
 
 ## 1. Centroid là gì?
 
+**Ví dụ động lực:** cho cây $N = 10^5$, cần đếm cặp $(u,v)$ có $\text{dist}(u,v) = K$. Liệt kê mọi cặp mất $O(N^2)$. Nếu chặt cây tại **centroid** $C$, mọi đường đi hoặc **qua $C$** (đếm bằng tần suất khoảng cách $O(\text{size})$) hoặc **nằm gọn trong một nhánh** (đệ quy). Mỗi tầng kích thước giảm một nửa → $O(N \log N)$. Đó là lý do ta cần centroid.
+
 **Định nghĩa:** Cho cây có $N$ đỉnh. **Centroid** (trọng tâm) là đỉnh mà khi loại bỏ nó, mỗi thành phần liên thông còn lại có kích thước $\leq \lfloor N/2 \rfloor$.
 
 **Tồn tại và duy nhất:** Mọi cây có $\geq 1$ đỉnh đều có **đúng một hoặc hai** centroid. Nếu có hai centroid thì chúng kề nhau.
@@ -53,22 +55,23 @@ Cây 7 đỉnh. Đỉnh **1** là centroid vì khi loại bỏ nó:
     int n;
     
     void dfs_size(int u, int parent) {
-        subsize[u] = 1;
+        subsize[u] = 1; // Bước 1: mỗi nút tự đếm chính nó
         for (int v : adj[u]) {
-            if (v != parent && !removed[v]) {
-                dfs_size(v, u);
-                subsize[u] += subsize[v];
+            if (v != parent && !removed[v]) { // Bước 2: bỏ cha và nhánh đã tách
+                dfs_size(v, u); // Bước 3: tính size con trước
+                subsize[u] += subsize[v]; // Bước 4: cộng dồn vào u
             }
         }
     }
-    
+
     int find_centroid(int u, int parent, int total) {
         for (int v : adj[u]) {
+            // Bước 5: nhánh nào quá nửa total thì centroid nằm trong đó -> đi tiếp
             if (v != parent && !removed[v] && subsize[v] > total / 2) {
                 return find_centroid(v, u, total);
             }
         }
-        return u;
+        return u; // Bước 6: không còn nhánh nặng -> u chính là centroid
     }
     
     int main() {
@@ -195,11 +198,11 @@ graph TD
     }
     
     void decompose(int u, int parent_centroid) {
-        dfs_size(u, -1);
-        int c = find_centroid(u, -1, subsize[u]);
-        centroid_parent[c] = parent_centroid;
-        removed[c] = true;
-        for (int v : adj[c])
+        dfs_size(u, -1); // Bước 1: tính lại size cho thành phần hiện tại
+        int c = find_centroid(u, -1, subsize[u]); // Bước 2: tìm trọng tâm c
+        centroid_parent[c] = parent_centroid; // Bước 3: nối c vào centroid tree
+        removed[c] = true; // Bước 4: tách c khỏi cây gốc
+        for (int v : adj[c]) // Bước 5: đệ quy từng nhánh còn lại
             if (!removed[v])
                 decompose(v, c);
     }
@@ -379,29 +382,29 @@ graph TD
     }
     
     void get_dists(int u, int p, int d, vector<int>& out) {
-        out.push_back(d);
-        for (int v : adj[u])
+        out.push_back(d); // Bước 1: ghi khoảng cách từ centroid tới u
+        for (int v : adj[u]) // Bước 2: lan sang kề chưa tách
             if (v != p && !removed[v]) get_dists(v, u, d + 1, out);
     }
-    
+
     void count_paths(int u) {
-        vector<int> total(n + 1, 0);
-        total[0] = 1;
+        vector<int> total(n + 1, 0); // total[d] = số đỉnh cách centroid d ở nhánh đã duyệt
+        total[0] = 1; // Bước 3: chính centroid cách chính nó 0
         for (int v : adj[u]) {
-            if (removed[v]) continue;
+            if (removed[v]) continue; // Bước 4: bỏ nhánh đã tách
             vector<int> dists;
-            get_dists(v, u, 1, dists);
-            for (int d : dists)
+            get_dists(v, u, 1, dists); // Bước 5: lấy mọi khoảng cách trong nhánh v
+            for (int d : dists) // Bước 6: ghép với nhánh cũ: d + (k-d) = k
                 if (k - d >= 0) ans += total[k - d];
-            for (int d : dists) total[d]++;
+            for (int d : dists) total[d]++; // Bước 7: nhập nhánh v vào total
         }
     }
-    
+
     void decompose(int u) {
-        dfs_size(u, -1);
-        int c = find_centroid(u, -1, subsize[u]);
-        count_paths(c);
-        removed[c] = true;
+        dfs_size(u, -1); // Bước 8: tính size thành phần
+        int c = find_centroid(u, -1, subsize[u]); // Bước 9: tìm centroid
+        count_paths(c); // Bước 10: đếm mọi đường qua c trước khi tách
+        removed[c] = true; // Bước 11: tách c rồi đệ quy
         for (int v : adj[c])
             if (!removed[v]) decompose(v);
     }
@@ -551,20 +554,21 @@ Với mỗi centroid, lưu **multiset** khoảng cách đến các đỉnh đã 
     }
     
     void toggle(int u) {
-        int cur = u;
+        int cur = u; // Bước 1: leo từ u lên gốc centroid tree (O(log N) tầng)
         while (cur != -1) {
-            int d = dist(u, cur);
+            int d = dist(u, cur); // Bước 2: khoảng cách trên cây gốc qua LCA
+            // Bước 3: tô thì thêm d, xóa thì gỡ một bản sao d khỏi multiset
             if (colored[u]) color_dist[cur].erase(color_dist[cur].find(d));
             else color_dist[cur].insert(d);
-            cur = centroid_parent[cur];
+            cur = centroid_parent[cur]; // Bước 4: lên centroid cha
         }
-        colored[u] = !colored[u];
+        colored[u] = !colored[u]; // Bước 5: đảo trạng thái màu
     }
-    
+
     int query(int u) {
-        int ans = INT_MAX, cur = u;
+        int ans = INT_MAX, cur = u; // Bước 6: đáp án nhỏ nhất qua mọi tổ tiên centroid
         while (cur != -1) {
-            if (!color_dist[cur].empty())
+            if (!color_dist[cur].empty()) // Bước 7: đỉnh tô gần nhất trong cụm cur
                 ans = min(ans, dist(u,cur) + *color_dist[cur].begin());
             cur = centroid_parent[cur];
         }

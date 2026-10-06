@@ -3,6 +3,10 @@
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
 
+## 0. Tại sao phải học?
+
+**Bài toán mở đầu:** Cho điểm $P(1, 0)$. Quay $P$ quanh gốc tọa độ $90°$ ngược chiều kim đồng hồ được điểm nào? Bằng trực giác: $(0, 1)$. Nhưng quay $P(3, 2)$ đi $37°$ thì sao — không thể vẽ tay. Công thức quay cho đáp án ngay, và nó chỉ là **tổ hợp tuyến tính của 2 vector cơ sở**: trục $x$ $(1,0)$ quay thành $(\cos\theta, \sin\theta)$, trục $y$ $(0,1)$ quay thành $(-\sin\theta, \cos\theta)$. Mọi điểm $P = x \cdot e_1 + y \cdot e_2$ sau quay vẫn là tổ hợp với cùng hệ số $x, y$ — đó chính là ma trận quay ở §2.
+
 ## 1. Góc giữa hai vector
 
 ### 1.1 Dùng atan2
@@ -62,13 +66,13 @@ $$\cos(\theta) = \frac{A \cdot B}{|A| \cdot |B|}$$
 
 ### 2.1 Quay quanh gốc tọa độ
 
-Quay điểm $(x, y)$ một góc $\theta$:
-
-$$\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}$$
+Quay điểm $(x, y)$ một góc $\theta$ (ngược chiều kim đồng hồ, đơn vị radian):
 
 $$x' = x\cos\theta - y\sin\theta$$
 
 $$y' = x\sin\theta + y\cos\theta$$
+
+**Đọc công thức bằng lời:** tọa độ mới $x'$ = (hình chiếu của $P$ lên trục $x$ đã quay) $-$ (hình chiếu lên trục $y$ đã quay). Khi $\theta = 90°$: $\cos = 0, \sin = 1$ → $(x,y) \to (-y, x)$ — khớp trực giác (điểm $(1,0)$ thành $(0,1)$ ✓).
 
 **Minh họa trực quan (Phép quay điểm quanh gốc tọa độ):**
 ```matplotlib
@@ -130,10 +134,12 @@ plt.tight_layout()
 === "C++"
 
     ```cpp
+    // Quay điểm P quanh gốc tọa độ góc theta (radian, CCW)
     Point rotate(Point P, double theta) {
+        double c = cos(theta), s = sin(theta);
         return {
-            P.x * cos(theta) - P.y * sin(theta),
-            P.x * sin(theta) + P.y * cos(theta)
+            P.x * c - P.y * s, // x' = x·cos − y·sin
+            P.x * s + P.y * c  // y' = x·sin + y·cos
         };
     }
     ```
@@ -160,10 +166,11 @@ $$P' = O + \text{rotate}(P - O, \theta)$$
 === "C++"
 
     ```cpp
+    // Quay P quanh tâm O: tịnh tiến O về gốc → quay → tịnh tiến ngược lại
     Point rotateAround(Point P, Point O, double theta) {
-        Point translated = {P.x - O.x, P.y - O.y};
-        Point rotated = rotate(translated, theta);
-        return {rotated.x + O.x, rotated.y + O.y};
+        Point translated = {P.x - O.x, P.y - O.y}; // đưa O về gốc
+        Point rotated = rotate(translated, theta); // quay quanh gốc
+        return {rotated.x + O.x, rotated.y + O.y}; // trả O về chỗ cũ
     }
     ```
 
@@ -254,7 +261,25 @@ Xoay đa giác các góc khác nhau để tìm hình chữ nhật bao nhỏ nh�
 
 ---
 
-## 7. Bài tập luyện tập (FPTOJ)
+## 7. Lỗi thường gặp
+
+```cpp
+// SAI: truyền độ vào hàm cần radian
+rotate(P, 90); // quay 90 radian!
+
+// ĐÚNG: đổi sang radian trước
+rotate(P, 90 * M_PI / 180.0);
+```
+
+- **Nhầm chiều quay:** công thức trên là CCW (ngược kim đồng hồ). Muốn quay CW (thuận kim đồng hồ) góc $\theta$ thì truyền $-\theta$.
+- **`M_PI` không có trên MSVC:** thêm `#define _USE_MATH_DEFINES` trước `#include <bits/stdc++.h>`, hoặc tự định nghĩa `const double PI = acos(-1);`.
+- **So sánh `==` với số thực:** sau quay, tọa độ là số thực — kiểm tra bằng nhau phải dùng `abs(a - b) < 1e-9`, không dùng `==`.
+- **Quên tịnh tiến khi quay quanh điểm bất kỳ:** `rotate(P, theta)` luôn quay quanh **gốc tọa độ**. Muốn quay quanh $O$ phải dùng `rotateAround` (tịnh tiến → quay → tịnh tiến ngược).
+- **`acos` nhận giá trị ngoài $[-1, 1]$:** do sai số làm tròn, `dot/(|A||B|)` có thể ra $1.0000000002$ → `acos` trả NaN. Luôn clamp như code §1.2.
+
+---
+
+## 8. Bài tập luyện tập (FPTOJ)
 
 | Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
 |-----|----------|--------|------------------------|
@@ -267,7 +292,7 @@ Xoay đa giác các góc khác nhau để tìm hình chữ nhật bao nhỏ nh�
 | `rotate-polar` | [Chuyển đổi tọa độ](https://fptoj.com/problem/rotate-polar) | ⭐ | Tọa độ cực |
 | `rot-tri-rotate` | [Diện tích tam giác sau quay](https://fptoj.com/problem/rot-tri-rotate) | ⭐⭐⭐ | Phép quay + diện tích |
 
-## 8. Bài tập tự luận
+## 9. Bài tập tự luận
 
 ### Bài 1: Quay điểm
 

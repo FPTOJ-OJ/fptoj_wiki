@@ -7,6 +7,25 @@
 
 ## 1. Bản chất vấn đề
 
+### Bài toán mở đầu: Leo cầu thang và Tên trộm
+
+Trước khi học định nghĩa trừu tượng, hãy xét 2 bài toán cụ thể:
+
+**Bài 1 — Leo cầu thang:** Có $n$ bậc thang. Mỗi bước bạn leo được 1 hoặc 2 bậc. Hỏi có bao nhiêu cách leo lên đỉnh?
+
+- $n = 1$: chỉ 1 cách $(1)$.
+- $n = 2$: 2 cách $(1+1, 2)$.
+- $n = 3$: 3 cách $(1+1+1, 1+2, 2+1)$.
+- Nhận xét: để lên bậc $n$, bước cuối cùng hoặc từ $n-1$ (nhảy 1) hoặc từ $n-2$ (nhảy 2). Nên $dp[n] = dp[n-1] + dp[n-2]$ — chính là Fibonacci!
+
+**Bài 2 — Tên trộm (House Robber):** Có $n$ nhà trên một dãy, nhà $i$ có $a[i]$ tiền. Không được trộm 2 nhà kề nhau. Hỏi trộm được nhiều nhất bao nhiêu?
+
+- Gọi $dp[i]$ = số tiền tối đa xét $i$ nhà đầu tiên.
+- Nhà $i$: hoặc **bỏ qua** → $dp[i] = dp[i-1]$; hoặc **lấy** → $dp[i] = dp[i-2] + a[i]$.
+- Nên $dp[i] = \max(dp[i-1], dp[i-2] + a[i])$.
+
+Cả hai bài đều có chung khuôn mẫu: **đáp án của bài lớn được xây từ đáp án của bài nhỏ hơn đã tính** — đó chính là Quy hoạch động.
+
 ### Định nghĩa Quy hoạch động
 **Quy hoạch động (Dynamic Programming - DP)** là phương pháp thiết kế thuật toán nhằm giải quyết các bài toán tối ưu hoặc đếm bằng cách chia nhỏ bài toán lớn thành các bài toán con chồng nhau, giải quyết các bài toán con này một lần duy nhất và lưu trữ kết quả của chúng để tái sử dụng.
 
@@ -103,6 +122,19 @@ Ta chứng minh tính đúng đắn của hệ thức truy hồi bằng cách ch
 3.  **Kết luận:**
     Theo nguyên lý tối ưu, giá trị $dp[i][j]$ là giá trị lớn nhất giữa hai lựa chọn trên. Phép toán này chứng minh tính đúng đắn của hệ thức truy hồi.
 
+#### Trace tay: Knapsack với $w = [2, 3, 4]$, $v = [3, 4, 5]$, $W = 5$
+
+| $i \backslash j$ | 0 | 1 | 2 | 3 | 4 | 5 |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0 (chưa lấy gì) | 0 | 0 | 0 | 0 | 0 | 0 |
+| 1 ($w=2,v=3$) | 0 | 0 | 3 | 3 | 3 | 3 |
+| 2 ($w=3,v=4$) | 0 | 0 | 3 | 4 | 4 | 7 |
+| 3 ($w=4,v=5$) | 0 | 0 | 3 | 4 | 5 | 7 |
+
+- **Dòng 1:** vật nặng 2, giá trị 3. Cột $j < 2$ không đựng được → copy dòng 0 ($=0$). Cột $j \ge 2$: $\max(0, 0+3) = 3$.
+- **Dòng 2:** vật nặng 3, giá trị 4. Ô $dp[2][5] = \max(dp[1][5]=3,\ dp[1][2]+4=3+4=7) = 7$ (lấy cả vật 1 và 2).
+- **Dòng 3:** vật nặng 4, giá trị 5. Ô $dp[3][4] = \max(4,\ dp[2][0]+5=5) = 5$; ô $dp[3][5] = \max(7, 5) = 7$ → đáp án **7**.
+
 ---
 
 ### 3.2. Thuật toán tìm Dãy con tăng dài nhất (LIS) trong $O(N \log N)$
@@ -127,6 +159,21 @@ Ta chứng minh tính đúng đắn của thuật toán qua hai tính chất b�
         *   Nếu $x$ nhỏ hơn giá trị kết thúc hiện tại của dãy con độ dài $k+1$ cũ ($x < tail[k]$), việc cập nhật $tail[k] = x$ giúp hạ thấp giá trị kết thúc, tăng cơ hội mở rộng cho các phần tử phía sau.
         *   Điều này chứng minh thuật toán luôn cho kết quả tối ưu.
 
+#### Trace tay: LIS với $a = [3, 1, 4, 1, 5, 9, 2, 6]$
+
+| Bước | $x$ | $tail$ trước | $idx$ = lower_bound | $tail$ sau | Giải thích |
+|:---:|:---:|:---:|:---:|:---:|:---|
+| 1 | 3 | $[]$ | 0 (thêm mới) | $[3]$ | $tail$ rỗng → thêm 3 |
+| 2 | 1 | $[3]$ | 0 ($3 \ge 1$) | $[1]$ | Thay 3 bằng 1 (đuôi nhỏ hơn → dễ nối dài hơn) |
+| 3 | 4 | $[1]$ | 1 (thêm mới) | $[1, 4]$ | $4 > 1$ → kéo dài LIS lên 2 |
+| 4 | 1 | $[1, 4]$ | 0 ($1 \ge 1$) | $[1, 4]$ | $x = 1$ thay tại vị trí 0, không đổi |
+| 5 | 5 | $[1, 4]$ | 2 (thêm mới) | $[1, 4, 5]$ | $5 > 4$ → LIS dài 3 |
+| 6 | 9 | $[1, 4, 5]$ | 3 (thêm mới) | $[1, 4, 5, 9]$ | $9 > 5$ → LIS dài 4 |
+| 7 | 2 | $[1, 4, 5, 9]$ | 1 ($4 \ge 2$) | $[1, 2, 5, 9]$ | Hạ đuôi dãy dài 2 từ 4 xuống 2 |
+| 8 | 6 | $[1, 2, 5, 9]$ | 3 ($9 \ge 6$) | $[1, 2, 5, 6]$ | Hạ đuôi dãy dài 4 từ 9 xuống 6 |
+
+Đáp án: $|tail| = 4$ (ví dụ dãy $[1, 4, 5, 9]$ hoặc $[1, 2, 5, 6]$). Chú ý $tail$ **không** phải là dãy con thật — chỉ độ dài của nó là đúng.
+
 ---
 
 ## 4. Các dạng toán Quy hoạch động cơ bản
@@ -146,16 +193,20 @@ Dưới đây là mã nguồn cài đặt tối ưu cho các lớp bài toán Qu
 
     // Tìm độ dài dãy con tăng dài nhất - O(N log N)
     int longestIncreasingSubsequence(const vector<int>& a) {
-        vector<int> tail; // tail[i] lưu phần tử kết thúc nhỏ nhất của dãy con tăng độ dài i+1
+        // tail[i]: đuôi nhỏ nhất của mọi dãy con tăng có độ dài i+1
+        vector<int> tail;
         for (int x : a) {
+            // Bước 1: tìm vị trí đầu tiên >= x (tìm nhị phân)
             auto it = lower_bound(tail.begin(), tail.end(), x);
             if (it == tail.end()) {
-                tail.push_back(x); // Tạo ra dãy con tăng dài hơn
+                // Bước 2a: x lớn hơn mọi đuôi -> kéo dài LIS thêm 1
+                tail.push_back(x);
             } else {
-                *it = x; // Cập nhật phần tử kết thúc nhỏ hơn để tối ưu
+                // Bước 2b: thay đuôi cũ bằng x (đuôi nhỏ hơn -> dễ nối dài hơn)
+                *it = x;
             }
         }
-        return tail.size();
+        return tail.size(); // đáp án là độ dài tail
     }
     ```
 
@@ -166,14 +217,17 @@ Dưới đây là mã nguồn cài đặt tối ưu cho các lớp bài toán Qu
 
     def longest_increasing_subsequence(a):
         """Độ dài dãy con tăng dài nhất sử dụng tìm kiếm nhị phân - O(N log N)"""
-        tail = []
+        tail = []  # tail[i]: đuôi nhỏ nhất của dãy con tăng dài i+1
         for x in a:
+            # Bước 1: tìm vị trí đầu tiên >= x
             idx = bisect.bisect_left(tail, x)
             if idx == len(tail):
+                # Bước 2a: x lớn nhất -> kéo dài LIS thêm 1
                 tail.append(x)
             else:
+                # Bước 2b: thay đuôi cũ bằng x cho tối ưu
                 tail[idx] = x
-        return len(tail)
+        return len(tail)  # đáp án là độ dài tail
     ```
 
 ---

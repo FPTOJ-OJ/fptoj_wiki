@@ -53,15 +53,15 @@ Ví dụ tính $\gcd(100, 35)$:
 
     ```cpp
     long long gcd(long long a, long long b) {
-        while (b) {
-            a %= b;
-            swap(a, b);
+        while (b) { // Bước 1: còn dư thì còn rút gọn
+            a %= b; // Bước 2: thay a bằng phần dư (a = q*b + r -> giữ r)
+            swap(a, b); // Bước 3: đưa số dư lên vai trò b mới
         }
-        return a;
+        return a; // Bước 4: b = 0 -> a chính là gcd
     }
 
     long long lcm(long long a, long long b) {
-        return a / gcd(a, b) * b;
+        return a / gcd(a, b) * b; // Bước 5: chia trước nhân sau để khỏi tràn
     }
     ```
 
@@ -135,15 +135,15 @@ $$
 
     ```cpp
     long long extendedGcd(long long a, long long b, long long &x, long long &y) {
-        if (b == 0) {
+        if (b == 0) { // Bước 1: cơ sở a*1 + 0*0 = a
             x = 1;
             y = 0;
             return a;
         }
         long long x1, y1;
-        long long g = extendedGcd(b, a % b, x1, y1);
-        x = y1;
-        y = x1 - (a / b) * y1;
+        long long g = extendedGcd(b, a % b, x1, y1); // Bước 2: giải bài nhỏ (b, a%b)
+        x = y1; // Bước 3: x lấy từ y' của bài nhỏ
+        y = x1 - (a / b) * y1; // Bước 4: y = x' - floor(a/b)*y'
         return g;
     }
     ```
@@ -241,29 +241,29 @@ Vậy $x$ chính là nghịch đảo modulo của $a$. Ưu điểm: hoạt độ
     const long long MOD = 1e9 + 7;
 
     long long powerMod(long long a, long long b, long long mod) {
-        long long result = 1;
-        a %= mod;
-        while (b > 0) {
-            if (b & 1) result = (__int128)result * a % mod;
-            a = (__int128)a * a % mod;
-            b >>= 1;
+        long long result = 1; // Bước 1: tích lũy kết quả
+        a %= mod; // Bước 2: rút gọn cơ số trước
+        while (b > 0) { // Bước 3: duyệt từng bit của số mũ
+            if (b & 1) result = (__int128)result * a % mod; // Bước 4: bit 1 -> nhân vào
+            a = (__int128)a * a % mod; // Bước 5: bình phương cơ số (ép 128-bit chống tràn)
+            b >>= 1; // Bước 6: sang bit tiếp theo
         }
         return result;
     }
 
     long long modInverse(long long a, long long mod) {
-        return powerMod(a, mod - 2, mod);
+        return powerMod(a, mod - 2, mod); // Bước 7: Fermat, chỉ đúng khi mod nguyên tố
     }
 
     long long modInverseGcd(long long a, long long mod) {
         long long x, y;
-        long long g = extendedGcd(a, mod, x, y);
-        if (g != 1) return -1;
-        return (x % mod + mod) % mod;
+        long long g = extendedGcd(a, mod, x, y); // Bước 8: giải a*x + mod*y = g
+        if (g != 1) return -1; // Bước 9: không nguyên tố cùng nhau -> không có nghịch đảo
+        return (x % mod + mod) % mod; // Bước 10: chuẩn hóa x âm về [0, mod)
     }
 
     long long modDivide(long long a, long long b, long long mod) {
-        return (__int128)a * modInverse(b, mod) % mod;
+        return (__int128)a * modInverse(b, mod) % mod; // Bước 11: a/b = a * b^{-1}
     }
     ```
 
@@ -330,6 +330,57 @@ Kiểm tra: $2 \times 4 = 8 \equiv 1$, $3 \times 5 = 15 \equiv 1$, $6 \times 6 =
 - $(a / b) \% M \neq (a \% M) / (b \% M)$. Phải chuyển thành $a \times b^{-1} \bmod M$.
 - Khi nhân hai số `long long` rồi lấy modulo, dùng `(__int128)` ở C++ để tránh tràn số.
 - Các modulo thường dùng: $10^9 + 7$ (nguyên tố), $998244353$ (nguyên tố, dùng cho NTT).
+
+### Lỗi thường gặp (SAI / ĐÚNG)
+
+**Lỗi 1: Dùng Fermat khi $M$ hợp số.**
+
+```cpp
+// SAI: M = 10 (hợp số), 2 và 10 không nguyên tố cùng nhau -> không có nghịch đảo
+long long inv = powerMod(2, 10 - 2, 10); // ra số rác, kiểm tra 2*inv % 10 != 1
+```
+
+```cpp
+// ĐÚNG: M hợp số -> dùng Extended Euclid, kiểm tra gcd
+long long inv = modInverseGcd(2, 10); // trả -1 = không tồn tại
+long long inv2 = modInverseGcd(3, 10); // = 7 vì 3*7 = 21 = 1 (mod 10)
+```
+
+**Lỗi 2: Chia trực tiếp trên modulo.**
+
+```cpp
+// SAI: chia sau khi mod
+long long ans = (a % M) / (b % M); // sai toán học
+```
+
+```cpp
+// ĐÚNG: nhân với nghịch đảo
+long long ans = a % M * modInverse(b, M) % M;
+```
+
+**Lỗi 3: Quên chuẩn hóa `x` âm.**
+
+```cpp
+// SAI: x có thể âm, đem nhân tiếp sẽ ra số âm
+long long inv = x; // ví dụ x = -2 với a = 35, M = 12
+```
+
+```cpp
+// ĐÚNG: đưa về [0, M)
+long long inv = (x % M + M) % M;
+```
+
+**Lỗi 4: Tràn `long long` khi nhân.**
+
+```cpp
+// SAI: (M-1)*(M-1) ~ 1e18+ tràn khi M ~ 1e9+7 nhân nhiều lần
+long long r = (result * a) % mod;
+```
+
+```cpp
+// ĐÚNG: ép __int128 trước khi mod
+long long r = (__int128)result * a % mod;
+```
 
 ---
 

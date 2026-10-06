@@ -471,8 +471,81 @@ Cho $X = 5 = (101)_2$ và $A = [3, 10, 5, 25, 2, 8]$. Khi tìm trong Bitwise Tri
 
 ## 7. Lưu ý khi cài đặt
 
+### Lỗi 1: Quên `isEnd` — nhầm tiền tố thành từ hoàn chỉnh
+
+```cpp
+// SAI: chỉ kiểm tra đường đi tồn tại → "ap" bị coi là có trong {"app", "apple"}
+bool search(string word) {
+    TrieNode* cur = root;
+    for (char c : word) {
+        int idx = c - 'a';
+        if (cur->children[idx] == nullptr) return false;
+        cur = cur->children[idx];
+    }
+    return true;  // SAI: thiếu kiểm tra kết thúc từ
+}
+
+// ĐÚNG: phải là kết thúc từ hợp lệ
+return cur->isEnd;
+```
+
+| Truy vấn | SAI (`return true`) | ĐÚNG (`return cur->isEnd`) |
+|----------|---------------------|----------------------------|
+| `search("app")` với `{"app"}` | `true` | `true` ✓ |
+| `search("ap")` với `{"app"}` | `true` ✗ | `false` ✓ |
+
+### Lỗi 2: `count` đặt sai vị trí (trước khi di chuyển node)
+
+```cpp
+// SAI: tăng count tại node CHA thay vì node con → countPrefix("app") sai
+for (char c : word) {
+    cur->count++;               // SAI: đếm nhầm node
+    cur = cur->children[idx];
+}
+
+// ĐÚNG: di chuyển trước, tăng sau — count[node] = số từ đi QUA node đó
+for (char c : word) {
+    int idx = c - 'a';
+    if (cur->children[idx] == nullptr) cur->children[idx] = new TrieNode();
+    cur = cur->children[idx];
+    cur->count++;               // ĐÚNG
+}
+```
+
+Trace chèn `"app"`, `"apple"`: node `p*` (cuối `"app"`) có `count = 2` (cả 2 từ đều đi qua) và `isEnd = true`; node `e*` có `count = 1`.
+
+### Lỗi 3: Mảng `children[26]` gây MLE khi xâu dài
+
+```cpp
+// SAI: N = 1e5 xâu × L = 100 × 26 pointer × 8 byte ≈ 2GB → MLE
+struct TrieNode { TrieNode* children[26]; /* ... */ };
+
+// ĐÚNG khi Σ lớn / xâu thưa: dùng map chỉ lưu con tồn tại
+struct TrieNode { unordered_map<char, TrieNode*> children; /* ... */ };
+// Quy tắc: Σ = 26 và N·L ≤ 1e6 → mảng [26] nhanh hơn; ngược lại dùng map.
+```
+
+### Lỗi 4: Xóa từ — xóa node vẫn còn dùng chung
+
+```cpp
+// SAI: xóa toàn bộ đường đi của "apple" → làm mất "app" dùng chung tiền tố
+// ĐÚNG: chỉ bỏ đánh dấu + giảm count, chỉ free node nào count về 0 và không có con
+bool erase(TrieNode* node, const string& w, int pos) {
+    if (pos == (int)w.size()) {
+        if (!node->isEnd) return false;  // từ không tồn tại
+        node->isEnd = false;             // bỏ đánh dấu, giữ đường đi chung
+        return true;
+    }
+    int idx = w[pos] - 'a';
+    if (!node->children[idx]) return false;
+    bool ok = erase(node->children[idx], w, pos + 1);
+    // Dọn node con chỉ khi: không còn từ nào đi qua VÀ không phải kết thúc từ khác
+    // (cần duy trì count chính xác ở insert mới dọn được an toàn)
+    return ok;
+}
+```
+
 - **Bộ nhớ:** Với $|\Sigma|$ lớn (Unicode, v.v.), dùng `unordered_map<char, TrieNode*>` thay vì mảng cố định để tiết kiệm bộ nhớ.
-- **Xóa từ:** Phức tạp hơn insert/search vì cần dọn các node không còn sử dụng. Trong competitive programming, hiếm khi cần xóa.
 - **Đệ quy DFS:** Khi liệt kê prefix, có thể gặp stack overflow nếu xâu quá dài. Duyệt iterative nếu cần.
 
 ---

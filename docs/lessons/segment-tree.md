@@ -867,6 +867,31 @@ Cả hai cấu trúc dữ liệu đều có độ phức tạp thời gian cực
 
 ---
 
+## 12.5 Lỗi thường gặp
+
+**SAI — Quên cấp phát mảng $4N$:**
+```cpp
+// SAI: vector<long long> tree(n);          // thiếu chỗ -> ghi đè bộ nhớ, RE/WA
+// ĐÚNG:
+vector<long long> tree(4 * n);             // luôn cấp 4N cho segment tree đệ quy
+```
+Lý do $4N$ (đã chứng minh ở mục 3): cây lệch khi $N$ không phải lũy thừa của 2, chỉ số nút có thể tới gần $4N$.
+
+**SAI — Nhầm 0-index / 1-index:** Code cây trong bài dùng đoạn $[0, n-1]$ (0-indexed) nhưng input thường cho vị trí 1-indexed. Quên `pos - 1`, `l - 1`, `r - 1` khi gọi `update`/`query` → lệch 1 ô, WA toàn bộ. Quy ước: chuyển ngay ở `main` như code mẫu (`st.update(pos - 1, val)`).
+
+**SAI — Quên `pushDown` trước khi xuống con:** Trong Lazy ST, nếu `rangeUpdate`/`query` không gọi `pushDown(node, start, end)` ngay đầu hàm, nút con còn giữ giá trị cũ → kết quả sai sau vài lần cập nhật đoạn. Kiểm tra: mọi hàm đệ quy lazy đều bắt đầu bằng `pushDown`.
+
+**SAI — Dùng giá trị trung hòa sai cho min/max:**
+```cpp
+// SAI (truy vấn min):  if (r < start || end < l) return 0;      // 0 < mọi đáp án -> min luôn = 0!
+// ĐÚNG (truy vấn min): if (r < start || end < l) return INT_MAX; // trung hòa của min
+// ĐÚNG (truy vấn max): ... return INT_MIN;
+// ĐÚNG (truy vấn tổng): ... return 0;
+```
+Nhớ cặp đôi: phép gộp `+` đi với `0`; `min` đi với `+∞`; `max` đi với `-∞`; `gcd` đi với `0`.
+
+---
+
 ## 13. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |

@@ -113,14 +113,14 @@ Các nút có ✦ là kết thúc của ít nhất một mẫu. Mỗi nút lưu 
     const int ALPHABET = 26;
 
     struct Node {
-        int next[ALPHABET];
-        int fail, dict;
-        vector<int> output;
+        int next[ALPHABET]; // go: cạnh trie, sau build thành hàm chuyển DFA
+        int fail, dict;     // fail: hậu tố đúng dài nhất; dict: mẫu gần nhất trên chuỗi fail
+        vector<int> output; // ID các mẫu kết thúc tại nút này
 
         Node() {
-            fill(next, next + ALPHABET, -1);
-            fail = 0;
-            dict = -1;
+            fill(next, next + ALPHABET, -1); // -1 = chưa có cạnh
+            fail = 0;   // gốc mặc định, con của root cũng về 0
+            dict = -1;  // -1 = không còn mẫu nào trên chuỗi fail
         }
     };
 
@@ -132,16 +132,16 @@ Các nút có ✦ là kết thúc của ít nhất một mẫu. Mỗi nút lưu 
     }
 
     void insert(const string& s, int id) {
-        int node = 0;
+        int node = 0; // Bước 1: bắt đầu từ gốc (xâu rỗng)
         for (char ch : s) {
-            int c = ch - 'a';
-            if (trie[node].next[c] == -1) {
+            int c = ch - 'a'; // Bước 2: đổi ký tự thành chỉ số 0-25
+            if (trie[node].next[c] == -1) { // Bước 3: chưa có cạnh -> tạo nút mới
                 trie[node].next[c] = trie.size();
                 trie.emplace_back();
             }
-            node = trie[node].next[c];
+            node = trie[node].next[c]; // Bước 4: đi xuống theo ký tự
         }
-        trie[node].output.push_back(id);
+        trie[node].output.push_back(id); // Bước 5: đánh dấu kết thúc mẫu id
     }
     ```
 
@@ -270,26 +270,28 @@ graph TD
 
     ```cpp
     void buildFailureLinks() {
-        queue<int> q;
+        queue<int> q; // Bước 1: BFS theo tầng để cha luôn xong trước con
 
         for (int c = 0; c < ALPHABET; c++) {
             int v = trie[0].next[c];
             if (v != -1) {
-                trie[v].fail = 0;
+                trie[v].fail = 0; // Bước 2: con trực tiếp của root -> fail về gốc
                 q.push(v);
             } else {
-                trie[0].next[c] = 0;
+                trie[0].next[c] = 0; // Bước 3: lấp cạnh thiếu ở root (go luôn hợp lệ)
             }
         }
 
         while (!q.empty()) {
-            int u = q.front(); q.pop();
+            int u = q.front(); q.pop(); // Bước 4: lấy nút cha u đã có fail đúng
             for (int c = 0; c < ALPHABET; c++) {
                 int v = trie[u].next[c];
                 if (v != -1) {
+                    // Bước 5: có cạnh thật -> fail[v] = go(fail[u], c)
                     trie[v].fail = trie[trie[u].fail].next[c];
                     q.push(v);
                 } else {
+                    // Bước 6: không có cạnh -> biến thành cạnh DFA (go)
                     trie[u].next[c] = trie[trie[u].fail].next[c];
                 }
             }
@@ -426,20 +428,20 @@ $T = \text{"ushersher"}$, mẫu $= \{$`"he"`, `"she"`, `"his"`, `"hers"`$\}$.
     ```cpp
     vector<pair<int,int>> search(const string& text) {
         vector<pair<int,int>> matches;
-        int node = 0;
+        int node = 0; // Bước 1: bắt đầu ở gốc
 
         for (int i = 0; i < (int)text.size(); i++) {
             int c = text[i] - 'a';
-            node = trie[node].next[c];
+            node = trie[node].next[c]; // Bước 2: go(node, c) O(1) vì đã là DFA
 
-            for (int id : trie[node].output)
+            for (int id : trie[node].output) // Bước 3: mẫu kết thúc ngay tại node
                 matches.push_back({i, id});
 
-            int temp = trie[node].dict;
+            int temp = trie[node].dict; // Bước 4: nhảy dict lấy mẫu là hậu tố
             while (temp != -1) {
                 for (int id : trie[temp].output)
                     matches.push_back({i, id});
-                temp = trie[temp].dict;
+                temp = trie[temp].dict; // Bước 5: đi tiếp trên chuỗi dict
             }
         }
         return matches;
@@ -566,8 +568,8 @@ Với alphabet cố định $|\Sigma| = 26$, đây là $O(N + M + Z)$.
 
     struct AhoCorasick {
         struct Node {
-            int next[ALPHABET];
-            int fail, dict;
+            int next[ALPHABET]; // go(u,c): sau build() luôn có đích, duyệt text O(1)
+            int fail, dict;     // fail: π trên trie; dict: nút mẫu gần nhất trên chuỗi fail
             vector<int> output;
 
             Node() {
@@ -584,32 +586,33 @@ Với alphabet cố định $|\Sigma| = 26$, đây là $O(N + M + Z)$.
         }
 
         void insert(const string& s, int id) {
-            int node = 0;
+            int node = 0; // Bắt đầu từ gốc
             for (char ch : s) {
                 int c = ch - 'a';
-                if (trie[node].next[c] == -1) {
+                if (trie[node].next[c] == -1) { // Chưa có nhánh -> tạo mới
                     trie[node].next[c] = trie.size();
                     trie.emplace_back();
                 }
-                node = trie[node].next[c];
+                node = trie[node].next[c]; // Đi xuống
             }
-            trie[node].output.push_back(id);
+            trie[node].output.push_back(id); // Đánh dấu cuối mẫu
         }
 
         void build() {
-            queue<int> q;
+            queue<int> q; // BFS: cha xong fail trước con
             for (int c = 0; c < ALPHABET; c++) {
                 if (trie[0].next[c] != -1) {
-                    trie[trie[0].next[c]].fail = 0;
+                    trie[trie[0].next[c]].fail = 0; // Con root -> fail = 0
                     q.push(trie[0].next[c]);
                 } else {
-                    trie[0].next[c] = 0;
+                    trie[0].next[c] = 0; // Lấp cạnh thiếu ở root
                 }
             }
 
             while (!q.empty()) {
                 int u = q.front(); q.pop();
 
+                // Tính dict[u]: nút mẫu gần nhất trên chuỗi fail
                 if (!trie[trie[u].fail].output.empty())
                     trie[u].dict = trie[u].fail;
                 else
@@ -617,9 +620,11 @@ Với alphabet cố định $|\Sigma| = 26$, đây là $O(N + M + Z)$.
 
                 for (int c = 0; c < ALPHABET; c++) {
                     if (trie[u].next[c] != -1) {
+                        // Có cạnh thật: fail[con] = go(fail[u], c)
                         trie[trie[u].next[c]].fail = trie[trie[u].fail].next[c];
                         q.push(trie[u].next[c]);
                     } else {
+                        // Không có cạnh: gán go(u,c) = go(fail[u],c) thành DFA
                         trie[u].next[c] = trie[trie[u].fail].next[c];
                     }
                 }
@@ -628,16 +633,16 @@ Với alphabet cố định $|\Sigma| = 26$, đây là $O(N + M + Z)$.
 
         vector<pair<int,int>> search(const string& text) {
             vector<pair<int,int>> res;
-            int node = 0;
+            int node = 0; // Trạng thái automaton hiện tại
 
             for (int i = 0; i < (int)text.size(); i++) {
                 int c = text[i] - 'a';
-                node = trie[node].next[c];
+                node = trie[node].next[c]; // go O(1), không bao giờ lùi trên text
 
-                for (int id : trie[node].output)
+                for (int id : trie[node].output) // Mẫu kết thúc tại node
                     res.push_back({i, id});
 
-                int temp = trie[node].dict;
+                int temp = trie[node].dict; // Quét mẫu là hậu tố qua dict
                 while (temp != -1) {
                     for (int id : trie[temp].output)
                         res.push_back({i, id});

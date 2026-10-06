@@ -10,7 +10,7 @@ ett-subtree-min,Min cây con,⭐⭐,data-structures,Euler Tour Tree,Tìm giá tr
 hld-subtree,Cây con HLD,⭐⭐,data-structures,Heavy-Light Decomposition,Truy vấn cây con dùng HLD
 dig-count-3,Đếm số chia hết cho 3,⭐⭐,dp,Digit DP,Đếm số chia hết cho 3 trong đoạn
 dig-sum-digit,Tổng chữ số,⭐⭐,dp,Digit DP,Tính tổng các chữ số của tất cả số trong đoạn
-dig-not-13,Số không chứa 13,⭐⭐,dp,Digit DP,Đếm số không chứa "13"
+dig-not-13,Số không chứa 13,⭐⭐,dp,Digit DP,"Đếm số không chứa ""13"""
 dig-no-adj-same,Không có chữ số kề giống,⭐⭐,dp,Digit DP,Đếm số không có hai chữ số kề giống nhau
 dig-no-trailing,Không có số 0 ở cuối,⭐⭐,dp,Digit DP,Đếm số không có số 0 tận cùng
 int-merge-stones,Trộn đá,⭐⭐,dp,Interval DP,Trộn ~N~ đống đá với chi phí tối thiểu
@@ -177,3 +177,878 @@ opt-alien-pro,Alien nâng cao,⭐⭐⭐⭐⭐,dp,DP Optimization,Alien's Trick n
 sa-k-occur,K xuất hiện,⭐⭐⭐⭐⭐,string,Suffix Automaton,K lần xuất hiện
 sa-substr-all,Tất cả xâu con,⭐⭐⭐⭐⭐,string,Suffix Automaton,Liệt kê xâu con
 sos-seven-and,Bảy số AND,⭐⭐⭐⭐⭐,dp,SOS DP,Bảy số AND
+artic-point,Nút Giao Quan Trọng,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+b2d-coord-comp,Ngôi Sao Trên Bầu Trời,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+b2d-invert,Lật Bóng Đèn Ma Trận,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+b2d-max-subgrid,Tổng Lưới Con Lớn Nhất,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+b2d-nested-rect,Khung Tranh Bao Nhau,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+b2d-point-add,Cập Nhật Điểm Tổng Lưới,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+b2d-range-add,Cộng Đoạn Lưới Truy Vấn Điểm,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+b2d-range-sum,Cộng Đoạn Lưới Tính Tổng,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+b2d-rect-xor,Tổng XOR Vùng Hình Chữ Nhật,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bf-arbitrage,Tỷ giá chênh lệch,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-cycle,Vòng lặp thời gian,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-island,Neo đậu tránh bão,⭐⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-limit,Hành trình có điều kiện,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-longest,Hành trình cổ vật,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-maxstep,Địa chấn lòng đất,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-negative,Đầu tư năng lượng,⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-path,Đồng bộ năng lượng hệ thống,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-safety,Hệ số an toàn,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-shortest,Hành trình xuyên thung lũng,⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-teleport,Nghịch lý thời gian,⭐⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-toll,Hành trình tối ưu,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bf-transit,Giới hạn số chặng bay,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+bfs01-gridwall,Bình vượt mê cung,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-parity,Tuyến đường chẵn lẻ,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-revedge,Tý đảo hướng đường,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-stepup,Leo núi nhân tạo,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-subway,Đổi tàu điện ngầm,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-switch,Công tắc cửa ngầm,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-teleport,Mạng lưới dịch chuyển,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-toll,Trạm thu phí xa lộ,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-traffic,Ngã tư luồng ưu tiên,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bfs01-turn,Lái xe ít rẽ nhất,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+bit-2d-point,Đếm Cây Nông Trại 2D,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-2d-range,Điều Khiển LED 2D,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-assign,Phân công công việc,⭐⭐⭐,Quy hoạch động,bitmask-dp.md,Quy hoạch động
+bit-count,Đếm bit 1,⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+bit-distinct,Số Màu Sắc Phân Biệt,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-inv-cnt,Đếm Cặp Nghịch Thế,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-kth-small,Tìm Điểm Nhỏ Thứ K,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-lex-min,Hoán Vị Nhỏ Nhất Từ Điển,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-nested,Đếm Đoạn Thẳng Bao Nhau,⭐⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-point-add,Cộng Điểm Tính Tổng,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-power,Lũy thừa của 2,⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+bit-prefix-max,Giá Cổ Phiếu Lớn Nhất,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-range-add,Cộng Đoạn Truy Vấn Điểm,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-range-sum,Cộng Đoạn Tính Tổng Đoạn,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-salary,Quản Lý Mức Lương,⭐⭐,Cấu trúc dữ liệu,fenwick-tree.md,Cấu trúc dữ liệu
+bit-single,Số duy nhất,⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+bit-subset,Tập con may mắn,⭐⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+bla-cycle-det,Tìm Chu Kỳ,⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-jump-limit,Nhảy Đến Khi Vượt Ngưỡng,⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-k-step,Nhảy K Bước,⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-kth-distinct,Số Thứ K Khác Biệt,⭐⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-min-edge,Giá Trị Cực Tiểu Khi Nhảy,⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-next-greater,Nhảy Phải Số Lớn Hơn,⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-partition,Phân Hoạch Đoạn Con,⭐⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-reach-steps,Số Bước Để Đến V,⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-segment-cover,Phủ Đoạn,⭐⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bla-sliding-sum,Tổng Trượt Vượt Ngưỡng,⭐⭐,Cấu trúc dữ liệu,binary-lifting-array.md,Cấu trúc dữ liệu
+bridge-2edge,Khối Liên Kết Bền Vững,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+bridge-connect,Xây Dựng Đường Mới,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+bridge-find,Đường Quan Trọng,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+bs-basic,Tìm kiếm cơ bản,⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-cows,Bố trí đàn bò,⭐⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-factory,Nhà máy sản xuất,⭐⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-first-last,Đoạn giá trị trùng nhau,⭐⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-miss,Số bị thiếu,⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-multiplication,Bảng nhân kì diệu,⭐⭐⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-split,Chia mảng tối ưu,⭐⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-sqrt,Căn bậc hai số nguyên,⭐⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-upper,Đếm số ≤ X,⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bs-wood,Máy cưa gỗ tối ưu,⭐⭐,Tìm kiếm nhị phân,tim-kiem-nhi-phan.md,Tìm kiếm nhị phân
+bsa-01,Xe Tải Chở Hàng,⭐⭐,,binary-search-on-answer.md,
+bsa-02,Khỉ Ăn Chuối,⭐⭐,,binary-search-on-answer.md,
+bsa-03,Bò Trong Chuồng,⭐⭐,,binary-search-on-answer.md,
+bsa-04,Thả Lưới Cá,⭐⭐,,binary-search-on-answer.md,
+bsa-05,Chia Mảng Lớn,⭐⭐,,binary-search-on-answer.md,
+bsa-06,Nhà Máy $K$ Máy,⭐⭐⭐,,binary-search-on-answer.md,
+bsa-07,Căn Bậc Hai Chính Xác,⭐⭐,,binary-search-on-answer.md,
+bsa-08,Hàng Rào Bảo Vệ,⭐⭐⭐,,binary-search-on-answer.md,
+bsa-09,Phân Sách Cho $K$ Sinh Viên,⭐⭐⭐,,binary-search-on-answer.md,
+bsa-10,Đo Dây Cho Đèn Đường,⭐⭐⭐,,binary-search-on-answer.md,
+bsa-11,Robot Cắt Cỏ,⭐⭐⭐⭐,,binary-search-on-answer.md,
+bsa-12,Trạm Phát Sóng,⭐⭐⭐⭐,,binary-search-on-answer.md,
+bsm-01,Chia Kẹo Thành Hai Nhóm,⭐⭐,,bitmask-dp.md,
+bsm-02,Đếm Cách Chọn Thùng Hàng Có Tổng $S$,⭐⭐,,bitmask-dp.md,
+bsm-03,Hành Trình Thu Mua Nông Sản,⭐⭐⭐,,bitmask-dp.md,
+bsm-04,Phân Công Công Nhân Kho,⭐⭐⭐,,bitmask-dp.md,
+bsm-05,Tuyến Xe Buýt Khép Kín,⭐⭐⭐,,bitmask-dp.md,
+bsm-06,Đếm Hành Trình Giao Hàng,⭐⭐⭐⭐,,bitmask-dp.md,
+bsm-07,Chia Quà Cho Nhiều Lớp,⭐⭐⭐⭐,,bitmask-dp.md,
+bsm-08,Xếp Cá Trên Bàn Cờ $N \times N$,⭐⭐⭐⭐,,bitmask-dp.md,
+bst-balance,Kiểm tra BST cân bằng,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-delete,Xoá nút khỏi BST,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-inorder,Duyệt inorder của BST,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-insert,Chèn vào BST,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-kth-min,Phần tử nhỏ thứ K trong BST,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-lca,Tổ tiên chung gần nhất trong BST,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-pred-succ,Predecessor và Successor trong BST,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-range,Đếm số nút trong khoảng,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-search,Tìm kiếm trong BST,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+bst-validate,Kiểm tra BST hợp lệ,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+circle-2intersect,Giao điểm hai đường tròn,⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+circle-area-inter,Diện tích phần giao hai đường tròn,⭐⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+circle-circum,Bán kính đường tròn ngoại tiếp,⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+circle-from3,Đường tròn qua ba điểm,⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+circle-inside,Kiểm tra điểm và đường tròn,⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+circle-intersect,Số giao điểm hai đường tròn,⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+circle-line-inter,Giao điểm đường thẳng và đường tròn,⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+circle-tangent,Tiếp tuyến từ điểm đến đường tròn,⭐⭐,Hình học cơ bản,hinh-hoc-duong-tron.md,Hình học cơ bản
+comp-digits,Số lượng ước số,⭐⭐⭐,Toán học,do-phuc-tap-thoi-gian.md,Toán học
+comp-pairs,Đếm cặp số của An,⭐⭐,Toán học,do-phuc-tap-thoi-gian.md,Toán học
+comp-pow,Trò chơi lũy thừa,⭐⭐,Toán học,do-phuc-tap-thoi-gian.md,Toán học
+comp-subseg,Dãy con của Việt,⭐⭐,Toán học,do-phuc-tap-thoi-gian.md,Toán học
+comp-sum,An và chiếc máy tính,⭐,Toán học,do-phuc-tap-thoi-gian.md,Toán học
+crt,Định Lý Thặng Dư Trung Hoa,⭐⭐,Lý thuyết số,crt.md,Lý thuyết số
+crt-basic,CRT cơ bản,⭐⭐,Lý thuyết số,crt.md,Lý thuyết số
+crt-garner,CRT thuật toán Garner,⭐⭐,Lý thuyết số,crt.md,Lý thuyết số
+crt-inv,CRT với dư bằng 1,⭐,Lý thuyết số,crt.md,Lý thuyết số
+crt-large,CRT nhiều phương trình,⭐⭐,Lý thuyết số,crt.md,Lý thuyết số
+crt-pair,CRT hai phương trình,⭐,Lý thuyết số,crt.md,Lý thuyết số
+crt-prime,CRT với modulo nguyên tố,⭐⭐,Lý thuyết số,crt.md,Lý thuyết số
+dij-charge,Trạm sạc xe điện,⭐⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-edges,Đường đi ưu tiên ít cạnh,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-flight,Đặt vé máy bay,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-fuel,Bình xăng giới hạn,⭐⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-grid,Mê cung trọng số,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-hwy,Xa lộ và quốc lộ,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-k-path,Hành trình ngắn thứ K,⭐⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-matrix,Tìm đường đồ thị đầy,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-minimax,Độ dốc tối thiểu,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-multi,Giao hàng từ nhiều kho,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-repair,Sửa chữa đường bộ,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-rev,Đi ngược chiều tối thiểu,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-shortest,Đường đi ngắn nhất,⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+dij-weight,Giới hạn tải trọng,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+disc-basic,Rời rạc hoá mảng,⭐⭐⭐,Cấu trúc dữ liệu,discretization.md,Cấu trúc dữ liệu
+disc-closest,Số lớn hơn X gần nhất,⭐⭐⭐,Cấu trúc dữ liệu,discretization.md,Cấu trúc dữ liệu
+disc-distinct,Số lượng giá trị khác nhau,⭐⭐⭐,Cấu trúc dữ liệu,discretization.md,Cấu trúc dữ liệu
+disc-freq,Tần số giá trị,⭐⭐⭐,Cấu trúc dữ liệu,discretization.md,Cấu trúc dữ liệu
+disc-pair,Cặp số bằng nhau,⭐⭐⭐,Cấu trúc dữ liệu,discretization.md,Cấu trúc dữ liệu
+disc-range-freq,Truy vấn tần số trong đoạn,⭐⭐⭐,Cấu trúc dữ liệu,discretization.md,Cấu trúc dữ liệu
+disc-sweep,Đoạn phủ dày nhất,⭐⭐⭐,Cấu trúc dữ liệu,discretization.md,Cấu trúc dữ liệu
+dl-bsgs,Baby-step Giant-step,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+dl-exist,Kiểm tra DL tồn tại,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+dl-log-fact,DL với tích,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+dl-multi,DL nhiều truy vấn,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+dl-order,Bậc của phần tử,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+dl-pohlig,Pohlig-Hellman,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+dl-small-p,DL với p nhỏ,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+dp-01,Số Fibonacci,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-02,Dãy Tribonacci,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-03,Leo cầu thang,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-04,Tên trộm,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-05,Gieo xúc xắc,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-06,Đếm cách đổi xu,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-07,Đổi xu tối thiểu,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-08,Tổng tập con không kề,⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-09,Cái túi 0/1,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-10,Cái túi không giới hạn,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-11,Dãy con tăng dài nhất,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-12,Xâu con chung dài nhất,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-13,Khoảng cách biên tập,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-14,Xâu con đối xứng dài nhất,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-15,Cưa que gỗ,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-16,Tách từ,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-17,Tam giác số,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-18,Tập con tổng S,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-19,Phân công công việc,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-20,Đường đi Hamilton,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-21,Đường đi trong lưới,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-22,Chia tập con bằng nhau,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-23,Hình vuông lớn nhất,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-24,Đoạn con tổng lớn nhất,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-25,Xâu con đối xứng liên tiếp,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-26,Đếm số đặc biệt,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-27,Đường kính cây,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-28,Đường đi lớn nhất trên cây,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-29,Đường đi dài nhất trên DAG,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dp-30,Cắt xâu đối xứng,⭐⭐,Quy hoạch động,quy-hoach-dong.md,Quy hoạch động
+dpg-01,Đếm Đường Đi Trên Bản Đồ Một Chiều,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dpg-02,Tuyến Giao Hàng Rẻ Nhất,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dpg-03,Chuyến Phượt Qua Nhiều Điểm Dừng Nhất,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dpg-04,Thời Gian Sớm Nhất Hoàn Thành Công Đoạn,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dpg-05,Xếp Lịch Học Các Môn Có Tiên Quyết,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dpg-06,Hoạt Động Lợi Nhuận Lớn Nhất,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dpg-07,Đi Đúng K Bước Qua Bản Đồ,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dpg-08,Số Tuyến Đường Giữa Hai Thành Phố,⭐⭐⭐,Quy hoạch động,dp-on-dag.md,Quy hoạch động
+dq-basic,Mô Phỏng Deque Cơ Bản,⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dq-diff-limit,Chênh Lệch Giới Hạn,⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dq-first-neg,Số Âm Đầu Tiên Trong Cửa Sổ,⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dq-longest-distinct,Đoạn Con Không Trùng Lặp Dài Nhất,⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dq-max-min-sum,Tổng Max Min Của Cửa Sổ,⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dq-sliding-max,Cửa Sổ Trượt Lớn Nhất,⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dq-sliding-min,Cửa Sổ Trượt Nhỏ Nhất,⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dq-sliding-sum,Tổng Cửa Sổ Trượt,⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+dsu-basic,Gộp tập hợp cơ bản,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-components,Số thành phần liên thông,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-cycle,Phát hiện chu trình,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-enemies,Bạn và thù,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-kruskal,Cây khung nhỏ nhất (Kruskal),⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-max-size,Nhóm bạn lớn nhất,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-offline,DSU offline — Xoá cạnh,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-query-size,Truy vấn kích thước,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-same,Quan hệ tương đương,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsu-size,Kích thước tập hợp,⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-basic,Hệ Thống Quản Lý Nhóm Nghiên Cứu,⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-bipartite,Đồ Thị Hai Phía Động,⭐⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-connect,Số Vùng Kết Nối,⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-mst,Cây Khung Động,⭐⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-online,Đồ Thị Động,⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-persistence,Lưu Trữ Phiên Bản Dữ Liệu,⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-sum,Ngân Hàng Dữ Liệu Phân Tán,⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+dsur-timeline,Dòng Thời Gian Kết Nối,⭐⭐,Cấu trúc dữ liệu,dsu.md,Cấu trúc dữ liệu
+euclid-catalan,Số Catalan modulo,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-coprime,Đếm cặp số nguyên tố cùng nhau,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-crt,Định lý thặng dư Trung Hoa,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-div,Chia modulo,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-egcd,Euclid mở rộng,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-frac,Số học phân số,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-gcd,Ước chung lớn nhất,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-inv,Nghịch đảo modulo,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-invfact,Giai thừa và nghịch đảo,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-lcm,Bội chung nhỏ nhất,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-lucas,Định lý Lucas,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-nck,Tổ hợp modulo,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-pow,Lũy thừa modulo,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-sumdiv,Tổng ước số,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euclid-sumpow,Tổng lũy thừa,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+euler-basic,Mạng lưới phát tờ rơi,⭐,Đồ thị,euler-circuit.md,Đồ thị
+euler-de-bruijn,Chuỗi mật mã De Bruijn,⭐⭐,Đồ thị,euler-circuit.md,Đồ thị
+euler-directed,Tuyến bay giao hàng,⭐⭐,Đồ thị,euler-circuit.md,Đồ thị
+euler-domino,Sắp xếp quân bài Domino,⭐⭐,Đồ thị,euler-circuit.md,Đồ thị
+euler-path,Đường đi thám hiểm,⭐,Đồ thị,euler-circuit.md,Đồ thị
+euler-postman,Người đưa thư Trung Hoa,⭐⭐⭐,Đồ thị,euler-circuit.md,Đồ thị
+euler-reconstruct,Hành trình khép kín,⭐⭐,Đồ thị,euler-circuit.md,Đồ thị
+euler-word-chain,Chuỗi ghép từ,⭐⭐,Đồ thị,euler-circuit.md,Đồ thị
+flow-bipartite,Ghép Cặp Hai Phía,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+flow-dinic,Luồng Cực Đại Dinic,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+flow-edge-disc,Cạnh Quan Trọng,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+flow-max-closure,Tập Đóng Trọng Số Lớn Nhất,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+flow-max-flow,Luồng Cực Đại Cơ Bản,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+flow-min-cut,Lát Cắt Cực Tiểu,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+flow-multi-src,Luồng Đa Nguồn Đích,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+flow-node-cap,Dung Lượng Trên Đỉnh,⭐⭐,Đồ thị,network-flow.md,Đồ thị
+fptat1-pair,Perfect Pair,⭐,Kỹ thuật hai con trỏ,ky-nang-thi-dau.md,Kỹ thuật hai con trỏ
+fptat1-stair,Magic Staircase,⭐,Quy hoạch động,ky-nang-thi-dau.md,Quy hoạch động
+fptat1-treasure,Treasure Subarray,⭐,Tìm kiếm nhị phân,ky-nang-thi-dau.md,Tìm kiếm nhị phân
+fptat1-tree,Planting Trees,⭐,Cấu trúc dữ liệu,ky-nang-thi-dau.md,Cấu trúc dữ liệu
+fsm-fact-basic,Giai thừa modulo cơ bản,⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+fsm-fact-range,Tích đoạn modulo,⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+fsm-fact-zero,Giai thừa và số 0 modulo,⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+fsm-sqrt-both,Hai căn bậc hai modulo,⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+fsm-sqrt-check,Kiểm tra căn bậc hai modulo,⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+fsm-sqrt-easy,Căn bậc hai modulo (p ≡ 3 mod 4),⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+fsm-sqrt-ts,Tonelli-Shanks,⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+fun-clear,Xóa bit 1,⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+fun-lsb,Bit thấp nhất,⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+fun-maxand,Cặp AND lớn nhất,⭐⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+fun-pairxor,Cặp XOR lớn nhất,⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+fun-subsets,Đếm tập con,⭐,Phép toán bit,phep-toan-bit.md,Phép toán bit
+fw-basic,Liên lạc nội bộ,⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-bypass,Đóng cửa sửa đường,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-central,Trạm cứu hỏa trung tâm,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-density,Mạng lưới dày đặc,⭐⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-diameter,Đường kính mạng lưới,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-dynamic,Cầu nối giao thông mới,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-hubs,Các trung tâm trung chuyển,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-maxweight,Mạng lưới tải trọng,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-minimax,Hành trình êm ái,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-multicycle,Lan truyền chu trình âm,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-reachable,Mạng lưới giao thông,⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+fw-transit,Xây dựng trạm trung chuyển,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+ge-2x2,Định thức 2x2,⭐,Toán học,nhan-ma-tran.md,Toán học
+ge-det,Định thức ma trận,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+ge-inverse,Ma trận nghịch đảo,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+ge-lights,Lights Out,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+ge-rank,Hạng ma trận,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+ge-system,Giải hệ phương trình,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+ge-tridiag,Ma trận 3 đường chéo,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+ge-xor,XOR basis,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+geo-colinear,Ba ngôi sao thẳng hàng,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-dist2,Bình phương khoảng cách,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-line-dist,Khoảng cách hai đường thẳng,⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-orient,Hướng rẽ của Robot,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-p2seg,Trạm phát sóng wifi,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-pip,Máy bay không người lái,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-point-on-seg,Điểm trên đoạn thẳng,⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-poly-area,Khu bảo tồn thiên nhiên,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-poly-clock,Chiều kim đồng hồ,⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-poly-convex,Kiểm tra đa giác lồi,⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-seg-int,Mạng lưới đường ống,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-tri-area,Mảnh đất hình tam giác,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+geo-tri-type,Phân loại tam giác,⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+gp-basic,Đường đi trên lưới cơ bản,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-binom-sum,Tổng nhị thức Vandermonde,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-dice,Dice combinations,⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-dyck,Dyck path,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-ksteps,Đường đi K bước trên đồ thị,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-maze,Mê cung tổng lớn nhất,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-multiset,Tổ hợp có lặp,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-obstacle,Lưới có vật cản,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-paths-all,Đường đi không chạm chéo,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+gp-robot,Robot trên lưới,⭐⭐,Quy hoạch động,to-hop-xac-suat.md,Quy hoạch động
+graph-alien-dict,Bảng Chữ Cái Ngôn Ngữ Lạ,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-all-paths,Số Lượng Đường Đi,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-bfs-basic,Duyệt BFS Cơ Bản,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-biconnected,Thành Phần Liên Thông Đôi,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-bipartite,Đồ Thị Hai Phía,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-clone,Sao Chép Đồ Thị,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-cut-bridges,Tìm Cầu Của Đồ Thị,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-cut-vertices,Tìm Khớp Của Đồ Thị,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-cycle-dir,Chu Trình Có Hướng,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-cycle-undir,Chu Trình Vô Hướng,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-dfs-basic,Duyệt DFS Cơ Bản,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-euler-path,Hành Trình Bay Hợp Lệ,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-evaluate-div,Tính Giá Trị Biểu Thức Chia,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-flood-fill,Thuật Toán Tô Màu Lưới,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-keys-rooms,Chìa Khóa Và Phòng Khóa,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-longest-dag,Đường Dài Nhất Trên DAG,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-maze-shortest,Tìm Đường Trong Mê Cung,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-mht,Cây Chiều Cao Tối Thiểu,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-num-provinces,Số Lượng Tỉnh Thành,⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-redundant-conn,Cạnh Dư Thừa,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-rotting,Cam Lây Thối,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-safe-states,Tìm Đỉnh An Toàn,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-scc-tarjan,Thành Phần Liên Thông Mạnh,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-shortest-path,Đường Đi Ngắn Nhất,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-snakes-ladders,Rắn Và Thang Máy,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-topo-sort,Sắp Xếp Tô-pô,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-tree-center,Tâm Của Cây,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-tree-diameter,Đường Kính Của Cây,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-water-flow,Nước Chảy Hai Đại Dương,⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+graph-word-ladder,Chuỗi Biến Đổi Từ Vựng,⭐⭐⭐,Đồ thị,bfs-dfs-do-thi.md,Đồ thị
+grd-activities,Ngày hội thể thao,⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-assign-cookies,Phát bánh quy,⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-boats,Giải cứu hòn đảo,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-candy,Phát kẹo,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-coin-change,Đổi tiền cho khách,⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-gas-station,Vòng quanh trạm xăng,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-huffman,Mã hóa văn phòng,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-interval-part,Xếp phòng học,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-job-deadline,Xưởng sản xuất,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-knapsack-frac,Xe tải chở hàng,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-lemonade,Tiền lẻ nước chanh,⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-max-subarray,Đầu tư chứng khoán,⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-max-units,Kho hàng xe tải,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-merge-sticks,Gộp que gỗ,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-min-arrows,Bong bóng và mũi tên,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-partition-labels,Chia đoạn ký tự,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-platforms,Ga tàu hỏa,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-remove-digits,Số nhỏ nhất,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-two-city,Đi công tác,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+grd-wiggle,Dãy zigzag,⭐⭐,Thuật toán tham lam,greedy.md,Thuật toán tham lam
+gt-coin-game,Trò chơi đồng xu,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-coin-heap,Trò chơi chia đống,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-dag-game,Game trên DAG,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-division-game,Trò chơi chia số,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-grundy-basic,Grundy cơ bản,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-grundy-range,Grundy khoảng cách lớn,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-nim-basic,Nim cơ bản,⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-nim-move,Nim với giới hạn lấy,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-nim-multi,Nim có gộp đống,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-stone-game,Trò chơi xếp đá,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-subtraction,Subtraction game,⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-tree-game,Game trên cây,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+gt-wythoff,Wythoff's Game,⭐⭐,Lý thuyết số,to-hop-xac-suat.md,Lý thuyết số
+heap-basic,Heap cơ bản,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-dijkstra,Đường đi ngắn nhất (Dijkstra),⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-k-closest,K điểm gần gốc nhất,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-k-sum,Tổng lớn nhất K cặp,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-kth-min,Phần tử nhỏ thứ K,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-kth-stream,Phần tử lớn thứ K trong luồng,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-median,Median trong luồng dữ liệu,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-merge-sorted,Gộp K dãy đã sắp xếp,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-min-rooms,Tối thiểu phòng họp,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-nearly-sorted,Sắp xếp mảng gần đúng,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-reorganize,Sắp xếp lại xâu,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-sliding-median,Median cửa sổ trượt,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-task-scheduler,Lập lịch tác vụ,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-top-k,K phần tử lớn nhất,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+heap-ugly-number,Số ugly thứ N,⭐,Cấu trúc dữ liệu,heap.md,Cấu trúc dữ liệu
+hsp-cmp,So sánh hai xâu con (Double Hash),⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+hsp-dis,Đếm xâu con phân biệt (Hash),⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+hsp-fc,Xâu con phân biệt bắt đầu bằng ký tự c,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+hsp-half,Hai nửa xâu giống nhau,⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+hsp-mx,Xâu con xuất hiện nhiều nhất (Hash),⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+hsp-nn,Xâu con phân biệt khác chính nó,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+hsp-pal,Đếm palindrome con bằng Hash,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+hsp-prefix,So sánh hash xâu con trực tuyến,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ht-anagram,Nhóm anagram,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-basic,Bảng băm cơ bản,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-distinct,Đếm giá trị phân biệt,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-first-repeat,Phần tử lặp đầu tiên,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-freq,Đếm tần số,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-intersection,Giao của hai mảng,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-longest-zero,Đoạn con dài nhất tổng 0,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-pair-sum,Cặp tổng X,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-subarray-zero,Đếm đoạn con tổng 0,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+ht-symmetric,Hiệu đối xứng,⭐⭐⭐,Cấu trúc dữ liệu,hash-table.md,Cấu trúc dữ liệu
+hull-area,Diện tích bao lồi,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-build,Dựng bao lồi,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-diameter,Đường kính bao lồi,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-inside,Kiểm tra điểm trong bao lồi,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-max-dist-pair,Khoảng cách lớn nhất giữa hai điểm,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-max-tri,Tam giác lớn nhất nội tiếp bao lồi,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-min-rect,Hình chữ nhật bao nhỏ nhất,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-perimeter,Chu vi bao lồi,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-points-in,Đếm số điểm thuộc bao lồi,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+hull-ship-pack,Chu vi hình chữ nhật bao nhỏ nhất,⭐⭐,Hình học cơ bản,bao-loi.md,Hình học cơ bản
+ie-coloring,Tô màu có giới hạn,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-coprime-range,Nguyên tố cùng nhau trong đoạn,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-derange,Derangement,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-divisor-sum,Đếm cặp GCD = d,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-grid-path,Đường đi lưới có vật cản,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-multiple-range,Bội số trong đoạn,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-nonzero-sum,Tập con tổng bằng S,⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-not-div,Không chia hết,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-permut,Hoán vị có ít nhất một điểm cố định,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-relprime-sum,Tổng số nguyên tố cùng nhau,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-subset-sum,Đếm tập con tổng ≤ S,⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+ie-surj,Ánh xạ lên (Surjection),⭐⭐,Lý thuyết số,nguyen-ly-bao-ham-loai-tru.md,Lý thuyết số
+it-any-intersect,Tồn Tại Đoạn Giao Nhau,⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+it-count-intersect,Đếm Số Lượng Đoạn Giao Nhau,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+it-find-all,Liệt Kê Các Đoạn Giao Nhau,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+it-largest-overlap,Phần Giao Nhau Lớn Nhất,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+it-max-right-int,Đoạn Giao Có Mút Phải Lớn Nhất,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+it-min-len-int,Độ Dài Giao Nhỏ Nhất,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+it-point-query,Truy Vấn Điểm Thuộc Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+it-superset-query,Truy Vấn Bao Phủ Hoàn Toàn,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+ksp-bd,Đếm số border của xâu,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ksp-first,Vị trí xuất hiện đầu tiên (KMP),⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ksp-last,Vị trí xuất hiện cuối cùng,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ksp-nool,Đếm không overlap (KMP),⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ksp-pair,Hai mẫu xuất hiện đồng thời,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ksp-per2,Chu kỳ ngắn nhất (edge case),⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ksp-rot,Xoay vòng chuỗi bằng KMP,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+ksp-short,Ghép hai xâu tối thiểu (KMP),⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+lca-basic,Tổ tiên chung,⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+lca-distance,Khoảng cách trạm,⭐⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+lca-k-ancestor,Thăng chức cấp K,⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+lca-max-edge,Độ hiểm trở lớn nhất,⭐⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+lca-min-edge,Cầu tải trọng yếu nhất,⭐⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+lca-node-on-path,Đường tuần tra,⭐⭐⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+lca-planets,Hành trình du hành,⭐⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+lca-tree-update,Giao lộ giao thông,⭐⭐,Cấu trúc dữ liệu,lca-binary-lifting.md,Cấu trúc dữ liệu
+line-2lines,Vị trí tương đối hai đường thẳng,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+line-2pts,Đường thẳng qua hai điểm,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+line-bisect,Phân giác của hai tia sáng,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+line-intersect,Giao điểm hai đường thẳng,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+line-poly-area,Mảnh vườn của bác Tám,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+line-pt-dist,Trạm phát sóng và đường dây điện,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+line-reflect,Bàn bi-a áo thuật,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+line-seg-int,Giao điểm của hai đoạn ống,⭐⭐⭐⭐⭐,Hình học cơ bản,hinh-hoc-co-ban.md,Hình học cơ bản
+ll-basic,Danh sách liên kết cơ bản,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ll-cycle,Phát hiện chu trình,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ll-josephus,Josephus,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ll-merge,Gộp hai danh sách,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ll-middle,Phần tử ở giữa,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ll-remove-nth,Xóa phần tử thứ N từ cuối,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ll-reverse,Đảo ngược danh sách,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ll-search,Tìm kiếm trong danh sách,⭐⭐⭐,Cấu trúc dữ liệu,linked-list.md,Cấu trúc dữ liệu
+ltht-boi-so,Bội số trong đoạn,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-dprime-factor,Đếm ước nguyên tố,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-fibo,Fibonacci nhanh,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-gcd-sum,Tổng GCD,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-linear-rec,Dãy số truy hồi,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-lucas,Tổ hợp Lucas,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-nt-sinhdoi,Cặp nguyên tố sinh đôi,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-phi,Hàm Euler,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-powpow,Lũy thừa chồng,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-sangdoan,Sàng phân đoạn,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-spf,Thừa số nguyên tố nhỏ nhất,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+ltht-tprime,Số T-prime,⭐⭐⭐,Lý thuyết số,logarithm-roi-rac.md,Lý thuyết số
+man-cmn,Palindrome chung giữa hai vị trí,⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+man-cnt,Đếm cặp palindrome con,⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+man-com,Palindrome chung giữa hai xâu,⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+man-dst,Đếm palindrome phân biệt,⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+man-even,Palindrome độ dài chẵn,⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+man-odd3,Liệt kê palindrome độ dài 3,⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+man-pk,Đếm palindrome độ dài K (Manacher),⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+man-pos,Palindrome chứa vị trí cho trước,⭐⭐,Xử lý xâu ký tự,manacher.md,Xử lý xâu ký tự
+mat-graphic-max,Graphic Matroid - Cây khung lớn nhất,⭐⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+mat-graphic-min,Graphic Matroid - Cây khung nhỏ nhất,⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+mat-greedy-proof,Kiểm tra tham lam tối ưu,⭐⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+mat-linear-indep,Linear Matroid - Hạt năng lượng,⭐⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+mat-partition-color,Partition Matroid - Kẹo màu sắc,⭐⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+mat-partition-job,Partition Matroid - Lập lịch công việc,⭐⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+mat-uniform,Uniform Matroid - Chọn đồ chơi,⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+mat-uniform-k,Uniform Matroid - Chọn đúng K phần quà,⭐⭐,Thuật toán tham lam,matroid.md,Thuật toán tham lam
+match-basic,Bộ ghép cơ bản,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+match-cover,Tập phủ cạnh nhỏ nhất,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+match-domino,Xếp domino lên bảng cờ,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+match-hopcroft,Bộ ghép kích thước lớn,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+match-hungarian,Phân công chi phí thấp nhất,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+match-job,Phân công công việc,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+match-max-indep,Tập đỉnh độc lập lớn nhất,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+match-permut,Ghép cặp hoán vị,⭐⭐,Đồ thị,bipartite-matching.md,Đồ thị
+math-binom,Tổ hợp chập,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+math-divcnt,Đếm số lượng ước số,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+math-factor,Phân tích thừa số nguyên tố,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+math-modinv,Nghịch đảo modulo,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+math-prime,Kiểm tra số nguyên tố,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+math-sieve,Sàng nguyên tố,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+mitm-balanced,Chia kẹo - Balanced Partition,⭐⭐⭐,Tìm kiếm nhị phân,meet-in-the-middle.md,Tìm kiếm nhị phân
+mitm-closest,Tập con gần X nhất,⭐⭐⭐,Tìm kiếm nhị phân,meet-in-the-middle.md,Tìm kiếm nhị phân
+mitm-knap,Cái túi - Meet in the Middle,⭐⭐⭐,Tìm kiếm nhị phân,meet-in-the-middle.md,Tìm kiếm nhị phân
+mitm-subset-x,Đếm tập con tổng X,⭐⭐⭐,Tìm kiếm nhị phân,meet-in-the-middle.md,Tìm kiếm nhị phân
+mm-2x2-recur,Truy hồi hai biến,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-fibo,Fibonacci ma trận,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-fibonacci-n,Fibonacci tổng quát,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-fibosum,Tổng Fibonacci,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-graph-path,Số đường đi đồ thị bằng ma trận,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-hopping,Hopping ma trận,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-large-grid,Lưới 2×N,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-linear,Truy hồi tuyến tính,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-stairs,Leo cầu thang ma trận,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-tribo,Tribonacci ma trận,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mm-walks,Walk trên đồ thị,⭐⭐,Toán học,nhan-ma-tran.md,Toán học
+mobius-basic,Hàm Möbius,⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mobius-coprime-cnt,Đếm cặp nguyên tố cùng nhau,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mobius-div-sum,Tổng GCD dùng Möbius,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mobius-mult-func,Hàm nhân tính,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mobius-range,Sàng Möbius,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mobius-sigma0,Tổng số ước,⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mobius-squarefree,Đếm số square-free,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mobius-triple,Đếm bộ gcd=1 bằng Möbius,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+mst-cable,Lắp đặt cáp mạng,⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+mst-cliques,Xây dựng cầu cảng,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+mst-connect,Kết nối nguồn điện,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+mst-forest,Phân cụm động vật,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+mst-k-comp,Kết nối các khu vực,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+mst-maxedge,Hành trình an toàn,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+mst-reduce,Tối ưu hóa mạng lưới,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+mst-road,Tuyến đường liên tỉnh,⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+ntt-basic,NTT nhân đa thức,⭐⭐,Toán học,ntt-nhan-da-thuc.md,Toán học
+ntt-bigint,Nhân số lớn NTT,⭐⭐,Toán học,ntt-nhan-da-thuc.md,Toán học
+ntt-mul3,Nhân ba đa thức,⭐⭐,Toán học,ntt-nhan-da-thuc.md,Toán học
+ntt-pair,Đếm cặp tổng K,⭐⭐,Toán học,ntt-nhan-da-thuc.md,Toán học
+ntt-self,Bình phương đa thức,⭐⭐,Toán học,ntt-nhan-da-thuc.md,Toán học
+phi-coprime-r,Đếm nguyên tố cùng nhau trong đoạn,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-div-euler,Chia modulo bằng định lý Euler,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-euler,Hàm Phi Euler,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-exponent,Lũy thừa modulo bằng định lý Euler,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-frac,Đếm phân số tối giản,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-gcd-sum,Tổng GCD với Phi Euler,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-multi,Tổng Phi trên ước,⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-order,Cấp của số modulo,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-range,Sàng Phi Euler,⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+phi-sum,Tổng Phi Euler trên đoạn,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+pick-grid-tri,Điểm nguyên trong tam giác vuông,⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-lattice-cnt,Đếm cặp điểm nhìn thấy từ gốc,⭐⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-poly-boundary,Điểm nguyên trên biên đa giác,⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-polygon,Diện tích đa giác và điểm nguyên,⭐⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-rectangle-int,Điểm nguyên bên trong hình chữ nhật,⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-segment,Đếm điểm nguyên trên đoạn thẳng,⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-star-poly,Đa giác hình sao và định lý Pick,⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-trapezoid,Điểm nguyên trong hình thang,⭐⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-triangle,Đếm điểm nguyên trong tam giác,⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+pick-triple,Giao ba tam giác và điểm nguyên,⭐⭐,Hình học cơ bản,dinh-ly-pick.md,Hình học cơ bản
+polar-angular-dist,Khoảng cách góc nhỏ nhất,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+polar-dominant,Đếm điểm trội,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+polar-max-half,Nửa mặt phẳng chứa nhiều điểm nhất,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+polar-min-angle,Góc nhỏ nhất giữa hai vector,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+polar-same-line,Đường thẳng qua gốc chứa nhiều điểm nhất,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+polar-sector,Đèn pha chiếu sáng,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+polar-sort-basic,Sắp xếp điểm theo góc cực,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+polar-visible,Đếm điểm nhìn thấy từ gốc toạ độ,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+pr-all,Liệt kê căn nguyên thủy,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+pr-basic,Căn nguyên thủy,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+pr-count,Đếm căn nguyên thủy,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+pr-legendre,Legendre symbol,⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+pr-qr-check,QR check nhiều truy vấn,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+pr-sqrt,Căn bậc hai modulo,⭐⭐,Lý thuyết số,euclid-modular-inverse.md,Lý thuyết số
+ps-2d-diff,Mảng hiệu 2D,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-diff,Cơn mưa đầu mùa,⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-equal,Kho báu dưới lòng đất,⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-grid,Vườn trái cây,⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-kadane,Sòng bạc may rủi,⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-matrix-diff,Ma trận hiệu,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-max-sub,Đoạn tổng lớn,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-median-sliding,Trung vị trượt,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-paint,Tô hàng rào,⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-sub-sum-k,Đoạn tổng K,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-sum,Truy vấn tổng,⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+ps-xor-range,XOR đoạn,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,mang-stack-prefix-sum.md,Cấu trúc dữ liệu
+pst-history-min,Tìm Cực Tiểu Trên Lịch Sử,⭐⭐⭐,Cấu trúc dữ liệu,persistent-segment-tree.md,Cấu trúc dữ liệu
+pst-mex-query,Tìm MEX Trên Khoảng Online,⭐⭐⭐,Cấu trúc dữ liệu,persistent-segment-tree.md,Cấu trúc dữ liệu
+pst-online-distinct,Đếm Số Khác Biệt Online,⭐⭐⭐,Cấu trúc dữ liệu,persistent-segment-tree.md,Cấu trúc dữ liệu
+q-basic,Queue cơ bản,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-card,Trò chơi đánh bài,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-circular-deque,Hang doi hai dau,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-first-neg,Số âm đầu tiên trong cửa sổ,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-first-unique,Ky tu dau tien khong lap,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-generate,Sinh số nhị phân,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-interleave,Xen kẽ queue,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-josephus,Josephus với Queue,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-queue-stack,Queue bang hai Stack,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-reversal,Đảo K phần tử đầu,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-rotate,Xoay hàng đợi,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-sim,Mô phỏng hàng chờ,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-sliding-max,Cua so truot lon nhat,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-sliding-sum,Tổng cửa sổ trượt,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+q-topo,Thu tu topo,⭐⭐⭐,Cấu trúc dữ liệu,deque-sliding-window.md,Cấu trúc dữ liệu
+rec-binary,Xâu nhị phân,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-coin,Đổi tổng,⭐⭐⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-comb,Tổ hợp,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-digit,Đếm chữ số,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-fact,Tính giai thừa,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-fibo,Số Fibonacci,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-gcd,GCD bằng đệ quy,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-knap,Knapsack vét cạn,⭐⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-maze,Đếm đường đi,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-mcolor,Tô màu đồ thị,⭐⭐⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-nqueen,N-Queens,⭐⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-partition,Phân hoạch số,⭐⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-perm,Hoán vị,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-power,Lũy thừa bằng đệ quy,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-subsetsum,Tổng tập con,⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-sudoku,Sudoku,⭐⭐⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rec-tower,Tháp Hà Nội,⭐⭐,Đệ quy & Quay lui,de-quy-va-quay-lui.md,Đệ quy & Quay lui
+rot-tri-rotate,Diện tích tam giác sau quay,⭐⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+rotate-angle,Góc giữa hai vector,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+rotate-around,Quay điểm quanh điểm bất kỳ,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+rotate-ccw,Xác định hướng quay,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+rotate-clock-angle,Góc quay đồng hồ,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+rotate-point,Quay điểm quanh gốc toạ độ,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+rotate-polar,Chuyển đổi toạ độ,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+rotate-sort-angle,Sắp xếp theo góc,⭐⭐,Hình học cơ bản,goc-phep-quay.md,Hình học cơ bản
+saf-blr,Xâu con lặp dài nhất,⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+saf-chc,Xâu con phân biệt theo ký tự đầu,⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+saf-dk,Xâu con phân biệt độ dài K (SA),⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+saf-finlcs,LCS bằng Suffix Array cải tiến,⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+saf-lcpr,LCP giữa hai vị trí trực tuyến,⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+saf-pal2,Palindrome xuất hiện nhiều nhất,⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+saf-per,Chu kỳ ngắn nhất của xâu (SA),⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+saf-salc,In Suffix Array và LCP,⭐⭐,Xử lý xâu ký tự,suffix-array.md,Xử lý xâu ký tự
+scc-condense,Đồ Thị Thu Nhỏ,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+scc-max-comp,Cụm Liên Lạc Lớn Nhất,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+scc-path,Lộ Trình Thông Tin,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+scc-tarjan,Cụm Liên Lạc Độc Lập,⭐⭐,Đồ thị,scc-bridges.md,Đồ thị
+setup-fibo,Gia tộc thỏ Bình,⭐⭐,Nhập xuất cơ bản,setup-moi-truong.md,Nhập xuất cơ bản
+setup-game,Trò chơi chia kẹo,⭐⭐,Nhập xuất cơ bản,setup-moi-truong.md,Nhập xuất cơ bản
+setup-hello,Lời chào từ An,⭐,Nhập xuất cơ bản,setup-moi-truong.md,Nhập xuất cơ bản
+setup-sum,An và chiếc hộp quà,⭐⭐,Nhập xuất cơ bản,setup-moi-truong.md,Nhập xuất cơ bản
+setup-triangle,Mảnh đất hình tam giác,⭐⭐⭐,Nhập xuất cơ bản,setup-moi-truong.md,Nhập xuất cơ bản
+shnc-divisor-sum,Tổng ước số,⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-euler-puzzle,Ngược Phi Euler,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-euler-single,Phi hàm Euler,⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-euler-thm,Định lý Euler,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-gcd-sum2,Tổng GCD nâng cao,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-linear-sieve,Sàng tuyến tính,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-mod-equation,Phương trình đồng dư bậc nhất,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-mod-puzzle,Câu đố đồng dư,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-num-divisors,"Số lượng, tổng, tích ước",⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-pollard,Phân tích thừa số nguyên tố,⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-prime-interval,Sàng phân đoạn,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+shnc-prime-puzzle,Số đặc biệt,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+sl-insert-search,Tìm Kiếm Và Thêm Phần Tử,⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+sl-min-max,Tìm Min-Max Động,⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+sl-order-statistics,Thứ Tự Phần Tử,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+sl-pred-succ,Tìm Số Kế Cận,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+sl-range-sum,Tổng Trong Khoảng,⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+sl-sliding-median,Trung Vị Trượt,⭐⭐⭐,Cấu trúc dữ liệu,skip-list.md,Cấu trúc dữ liệu
+snhh-divcnt,Đếm ước nhiều truy vấn,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+snhh-divcnt-range,Đếm số có K ước,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+snhh-divsum,Tổng ước modulo,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+snhh-fact-multi,Phân tích thừa số nhiều truy vấn,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+snhh-lcm-range,LCM trên đoạn,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+snhh-spf,SPF cơ bản,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+snhh-squarefree,Đếm số square-free,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+snhh-sumdiv1n,Tổng đếm ước 1..N,⭐⭐,Lý thuyết số,phi-euler.md,Lý thuyết số
+sort-basic,Sắp xếp dãy số,⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-closest,Cặp số gần nhau nhất,⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-desc,Sắp xếp giảm dần,⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-distinct,Số lượng giá trị khác nhau,⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-inversions,Đếm số cặp nghịch thế,⭐⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-median,Tìm số trung vị,⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-meetings,Lịch họp tối đa,⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-pairs,Ghép cặp mũ bảo hiểm,⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-parity,Sắp xếp chẵn lẻ,⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+sort-points,Xếp hạng học sinh,⭐⭐,Thuật toán sắp xếp,thuat-toan-sap-xep.md,Thuật toán sắp xếp
+spfa-basic,Hành trình thu thập,⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+spfa-cycle,Bẫy thời gian,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+spfa-detect,Khai thác tài nguyên,⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+spfa-grid,Dịch chuyển trên lưới,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+spfa-k-neg,Chuyến đi giới hạn,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+spfa-limit,Sức bền của xe,⭐⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+spfa-longest,Con đường thương nhân,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+spfa-slf,Đồ thị lưới hiểm trở,⭐⭐,Đồ thị,floyd-warshall-bellman-ford.md,Đồ thị
+st-2d-basic,Cập Nhật Điểm Tổng Ma Trận Con,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-balanced,Ngoặc nhiều loại,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+st-basic-and,AND Bit Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-basic-gcd,GCD Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-basic-max,Giá Trị Lớn Nhất Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-basic-min,Giá Trị Nhỏ Nhất Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-basic-or,OR Bit Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-bracket,Ngoặc đơn vui nhộn,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+st-count-min,Tìm Min Và Đếm Tần Suất,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-count-ranges,Đếm Đoạn Con Min Bằng Giá Trị Cho Trước,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-distinct-cnt,Đếm Giá Trị Phân Biệt Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-dynamic,Cây Phân Đoạn Động,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-first-min-idx,Vị Trí Đầu Tiên Của Min,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-gcd-query,Truy Vấn Ước Chung Lớn Nhất,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-inverse-count,Đếm Số Cặp Nghịch Thế,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-kth-min-range,Phần Tử Nhỏ Thứ K,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-kth-zero,Tìm Số Không Thứ K,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-longest-eq-gcd,Đoạn Con GCD Lớn Hơn 1 Bất Kỳ,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-max-query,Truy Vấn Lớn Nhất Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-max-rect,HCN lớn nhất,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+st-max-sub-gcd,Đoạn Con GCD Lớn Hơn 1,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-max-subarray,Đoạn Con Tổng Lớn Nhất,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-merge,Tần Suất Màu Sắc Cây Con,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-min-query,Truy Vấn Nhỏ Nhất Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-min-stack,Stack min,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+st-next,Đội hình thể thao,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+st-pair-gcd-max,GCD Lớn Nhất Của Cặp Kề,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-pair-of-nums,Đoạn Chia Hết Cho Phần Tử Đầu,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-persistent-kth,Tìm Phần Tử Nhỏ Thứ K,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-persistent-sum,Tổng Đoạn Trên Lịch Sử,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-add,Cập Nhật Đoạn Cộng Giá Trị,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-chmin,Chmin Đoạn Và Tính Tổng,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-gcd-cnt,Đếm Số Bằng GCD Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-lcm,LCM Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-min,Cộng Đoạn Và Tìm Nhỏ Nhất,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-min-max,Hiệu Lớn Nhất Bé Nhất,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-mul-add,Cộng Nhân Đoạn Tính Tổng,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-set,Gán Đoạn Và Tính Tổng,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-set-min,Gán Đoạn Và Tìm Nhỏ Nhất,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-range-sum,Cộng Đoạn Và Tính Tổng,⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-sliding-stack,Stack trượt,⭐⭐⭐⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+st-sum-query,Truy Vấn Tổng Đoạn,⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-sweepline-area,Hợp Diện Tích Hình Chữ Nhật,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+st-tree-path,Cập Nhật Đường Đi Trên Cây,⭐⭐⭐,Cấu trúc dữ liệu,segment-tree.md,Cấu trúc dữ liệu
+stk-calc-w-paren,Tính giá trị biểu thức có ngoặc,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-histogram,Hình chữ nhật lớn nhất trong biểu đồ,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-infix-eval,Tính giá trị biểu thức trung tố,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-longest-paren,Dãy ngoặc đúng dài nhất,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-max-rect-matrix,Hình chữ nhật lớn nhất trong ma trận nhị phân,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-next-greater,Phần tử lớn hơn đầu tiên bên phải,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-next-smaller,Phần tử nhỏ hơn đầu tiên bên phải,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-postfix-eval,Tính giá trị biểu thức hậu tố,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-prev-greater,Phần tử lớn hơn đầu tiên bên trái,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-remove-digits,Xóa K chữ số để được số nhỏ nhất,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-remove-dups,Xóa ký tự trùng để được xâu nhỏ nhất,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-stock-span,Stock Span,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-sum-sub-min,Tổng giá trị nhỏ nhất của các subarray,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-trap-rain,Tính lượng nước hứng được,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+stk-valid-paren,Kiểm tra dãy ngoặc đúng,⭐⭐,Cấu trúc dữ liệu,stack-nang-cao.md,Cấu trúc dữ liệu
+str-fc,Ký tự đầu tiên xuất hiện duy nhất,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+str-firstc,Xâu con phân biệt bắt đầu bằng ký tự,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+str-match,Đếm xuất hiện mẫu (Suffix Tree),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+str-pal0,Palindrome chứa ký tự đầu tiên,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+str-palcnt,Tổng palindrome con (kể overlap),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+str-pald,Đếm palindrome phân biệt (Palindrome Tree),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+str-subcnt,Đếm xâu con phân biệt (Suffix Tree),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+str-xor,LCP xoay vòng (Suffix Tree),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-cntpal,Đếm palindrome con (Manacher),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-dist,Đếm xâu con phân biệt (Suffix Array),⭐⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-lcp,LCP và truy vấn trên Suffix Array,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-lcs,Xâu con chung dài nhất (Suffix Array),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-mana,Palindrome dài nhất (Manacher),⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-prefcnt,Đếm tiền tố bằng Trie,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-sa,Xây dựng Suffix Array,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+stra-trie,Từ điển bằng Trie,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-anagram,Hoán vị xâu,⭐⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-freq,Thống kê chữ cái,⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-name,Chuẩn hóa họ tên,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-palin,Kiểm tra xâu đối xứng,⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-rle,Mã hóa RLE,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-sortword,Sắp xếp từ trong xâu,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-unique,Xóa ký tự trùng,⭐⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strb-wordcnt,Đếm số từ,⭐,Xử lý xâu ký tự,xau-co-ban.md,Xử lý xâu ký tự
+strh-border,Border xâu (Hash),⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strh-dist,Đếm xâu con phân biệt,⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strh-find,Tìm xâu con bằng Hash,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strh-hash,Tính hash cơ bản,⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strh-lcs,Xâu con chung dài nhất (Hash),⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strh-palind,Palindrome với Hash,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strh-period,Chu kỳ xâu,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strh-repeat,Xâu con lặp dài nhất,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-border,Border xâu bằng KMP,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-kmp,Tìm xâu mẫu bằng KMP,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-occ,Đếm lần xuất hiện bằng KMP,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-period,Chu kỳ nhỏ nhất bằng KMP,⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-prefix,Hàm tiền tố (Prefix Function),⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-union,Ghép xâu tối ưu bằng KMP,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-zfunc,Hàm Z (Z-Algorithm),⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+strk-zmatch,Tìm xâu mẫu bằng Z-Algorithm,⭐⭐,Xử lý xâu ký tự,hash-xau-z-algorithm.md,Xử lý xâu ký tự
+sweep-camera,Đặt camera phủ kín đoạn,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+sweep-max-gap,Khoảng trống lớn nhất,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+sweep-max-overlap,Điểm phủ nhiều đoạn nhất,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+sweep-pair-count,Đếm cặp đoạn giao nhau,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+sweep-points-rect,Đếm điểm trong hình chữ nhật,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+sweep-rect-area,Diện tích hợp hình chữ nhật,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+sweep-rect-overlap,Điểm phủ nhiều hình chữ nhật nhất,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+sweep-seg-intersect,Giao điểm đoạn thẳng,⭐⭐,Hình học cơ bản,sweep-line.md,Hình học cơ bản
+thxs-ballot,Định lý Ballot,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-basic,Tổ hợp cơ bản,⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-burnside,Burnside - Đếm vòng cổ,⭐⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-catalan,Số Catalan,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-expect,Kỳ vọng số lần tung xúc xắc,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-pascal,Tam giác Pascal,⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-permrep,Hoán vị có trùng,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-prob-bag,Xác suất rút bi không hoàn lại,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-prob-basic,Xác suất đồng xu,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-prob-cards,Xác suất bài tây 52 lá,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-prob-dp,Xác suất có k ngửa liên tiếp,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-prob-game,Xác suất trò chơi tung đồng xu,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-prob-graph,Xác suất trên đồ thị,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-stars,Tổ hợp có lặp,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-stirling,Số Stirling loại 2,⭐⭐,Toán học,to-hop-xac-suat.md,Toán học
+thxs-sumcomb,Tổng tổ hợp,⭐,Toán học,to-hop-xac-suat.md,Toán học
+topo-alien,Mật thư cổ đại,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+topo-build,Xây dựng căn nhà,⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+topo-course,Chọn môn đăng ký học,⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+topo-critical,Đường găng dự án,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+topo-cycle,Phát hiện điểm nghẽn,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+topo-lex,Lập lịch ưu tiên từ điển,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+topo-recipe,Pha chế độc dược,⭐⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+topo-schedule,Lập lịch công việc,⭐,Đồ thị,mst-dijkstra-topo-sort.md,Đồ thị
+tp-closest,3 tổng gần nhất,⭐⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-cntpair,Đếm cặp tổng ≤ X,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-diff,Cặp hiệu X,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-ksum,4Sum,⭐⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-maxlen,Đoạn con dài nhất,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-merge,Trộn hai mảng,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-pairx,Cặp tổng X,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-same,Phần tử trùng,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-subk,Đoạn con K phần tử khác,⭐⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-subsum,Đoạn tổng S,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-three,3Sum,⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+tp-trap,Hứng nước,⭐⭐,Kỹ thuật hai con trỏ,ky-thuat-hai-con-tro.md,Kỹ thuật hai con trỏ
+trie-autocomplete,Gợi Ý Từ Khóa Autocomplete,⭐⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+trie-insert-search,Tập Từ Vựng Cây Tiền Tố,⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+trie-longest-prefix,Tiền Tố Chung Dài Nhất,⭐⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+trie-prefix-count,Đếm Tần Suất Tiền Tố,⭐⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+trie-word-break,Phân Tách Từ,⭐⭐⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+trie-xor-limit,Cặp XOR Giới Hạn,⭐⭐⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+trie-xor-max,Cặp XOR Lớn Nhất,⭐⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+trie-xor-min,Cặp XOR Nhỏ Nhất,⭐⭐,Cấu trúc dữ liệu,trie.md,Cấu trúc dữ liệu
+twosat-2cnf,Chuyển 2-CNF về đồ thị khả năng,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-3col,Tô màu đồ thị ba màu dùng 2-SAT,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-assign,Tìm phép gán thỏa mãn 2-SAT,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-atmost1,Tối đa một biến đúng trong ba biến,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-basic,Kiểm tra biểu thức 2-SAT,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-color,Tô màu đồ thị hai màu có ràng buộc,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-count,Đếm số phép gán thỏa mãn 2-SAT,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-impl,Hệ ràng buộc kéo theo,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-lexical,Phép gán thỏa mãn có thứ tự từ điển nhỏ nhất,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-max-true,Phép gán thỏa mãn có nhiều true nhất,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-schedule,Xếp lịch thi với ràng buộc,⭐⭐,Đồ thị,2sat.md,Đồ thị
+twosat-xor,Hệ ràng buộc XOR,⭐⭐,Đồ thị,2sat.md,Đồ thị
+wl-comb-mod,Tổng tổ hợp modulo,⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-fact-mod,Giai thừa modulo,⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-fact-p,Giai thừa modulo số nguyên tố,⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-lucas-basic,Định lý Lucas cơ bản,⭐⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-lucas-multi,Lucas nhiều truy vấn,⭐⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-lucas-sumstr,Tổng tổ hợp theo bội của p,⭐⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-permut,Hoán vị modulo,⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-wilson,Kiểm chứng định lý Wilson,⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-wilson-check,Kiểm tra nguyên tố bằng Wilson,⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-wilson-ext,Wilson mở rộng,⭐⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wl-wilson-lucas,Kết hợp Wilson và Lucas,⭐⭐,Lý thuyết số,wilson-lucas.md,Lý thuyết số
+wt-count-less,Đếm Số Nhỏ Hơn Hoặc Bằng X,⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-kth-largest,K-th Largest Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-kth-smallest,K-th Smallest Trên Đoạn,⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-median-range,Số Trung Vị Trên Đoạn,⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-next-greater-val,Giá Trị Kế Tiếp Lớn Hơn,⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-percentile,Tìm Phân Vị Trên Đoạn,⭐⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-prev-smaller-val,Giá Trị Kế Tiếp Nhỏ Hơn,⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-range-count-in,Đếm Số Trong Đoạn Giá Trị,⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-range-freq,Tần Suất Xuất Hiện Trong Khoảng,⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+wt-rect-count,Đếm Điểm Trong Hình Chữ Nhật,⭐⭐⭐,Cấu trúc dữ liệu,wavelet-tree.md,Cấu trúc dữ liệu
+mitm-range,Tập con tổng trong [L, R],⭐⭐,Tổng tập con,meet-in-the-middle.md,Đếm tập con có tổng trong đoạn

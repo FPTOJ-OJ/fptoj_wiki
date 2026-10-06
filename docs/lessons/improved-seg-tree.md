@@ -59,20 +59,20 @@ flowchart TD
 
 | Bước | Nút | Thao tác | lazy | sum mới |
 |------|-----|----------|------|---------|
-| 1 | $[0,7]$ | Chia đôi | 0 | 36 |
-| 2 | $[0,3]$ | Giao $[2,6]$ → chia | 0 | 10 |
-| 3 | $[2,3]$ | Giao $[2,6]$ → chia | 0 | 7 |
-| 4 | $[2,2]$ | Nằm trong $[2,6]$ → lazy += 3 | 3 | $3 + 3 = 6$ |
-| 5 | $[3,3]$ | Nằm trong $[2,6]$ → lazy += 3 | 3 | $4 + 3 = 7$ |
-| 6 | Cập nhật $[2,3]$ sum | | | $6 + 7 = 13$ |
-| 7 | $[4,7]$ | Giao $[2,6]$ → chia | 0 | 26 |
-| 8 | $[4,5]$ | Nằm trong $[2,6]$ → lazy += 3 | 3 | $11 + 6 = 17$ |
-| 9 | $[6,7]$ | Giao $[2,6]$ → chia | 0 | 15 |
-| 10 | $[6,6]$ | Nằm trong $[2,6]$ → lazy += 3 | 3 | $7 + 3 = 10$ |
-| 11 | $[7,7]$ | Không giao → giữ nguyên | 0 | 8 |
-| 12 | Cập nhật $[6,7]$ sum | | | $10 + 8 = 18$ |
-| 13 | Cập nhật $[4,7]$ sum | | | $17 + 18 = 35$ |
-| 14 | Cập nhật $[0,7]$ sum | | | $13 + 35 = 48$ |
+| 1 | $[0,7]$ | Giao một phần → chia đôi | 0 | 36 |
+| 2 | $[0,3]$ | Giao một phần → chia | 0 | 10 |
+| 3 | $[2,3]$ | Nằm gọn trong $[2,6]$ → lazy += 3, dừng (không xuống lá) | 3 | $7 + 3 \times 2 = 13$ |
+| 4 | $[4,7]$ | Giao một phần → chia | 0 | 26 |
+| 5 | $[4,5]$ | Nằm gọn trong $[2,6]$ → lazy += 3, dừng | 3 | $11 + 3 \times 2 = 17$ |
+| 6 | $[6,7]$ | Giao một phần → chia | 0 | 15 |
+| 7 | $[6,6]$ | Nằm gọn trong $[2,6]$ → lazy += 3, dừng | 3 | $7 + 3 = 10$ |
+| 8 | $[7,7]$ | Không giao → giữ nguyên | 0 | 8 |
+| 9 | Cập nhật $[6,7]$ sum | | | $10 + 8 = 18$ |
+| 10 | Cập nhật $[4,7]$ sum | | | $17 + 18 = 35$ |
+| 11 | Cập nhật $[0,7]$ sum | | | $13 + 35 = 48$ |
+
+!!! tip "Điểm mấu chốt của lazy"
+    Khi đoạn của nút **nằm gọn** trong đoạn update (như $[2,3] \subset [2,6]$), ta chỉ cộng lazy và cập nhật `sum`, **không đi xuống lá**. Đó là lý do update chỉ tốn $O(\log N)$ thay vì $O(N)$.
 
 **Kết quả:** Tổng toàn mảng = $48 = 36 + 3 \times 4$ (4 phần tử trong $[2,6]$ được cộng 3).
 
@@ -246,7 +246,69 @@ Khi cần truy vấn con:
 
 ---
 
-## 5. Bài tập luyện tập
+## 5. Lỗi thường gặp (SAI / ĐÚNG)
+
+### SAI 1: Quên `push` trước khi query / update → đọc giá trị cũ
+
+```cpp
+// SAI: không lan lazy, tree[node] của con chưa được cập nhật
+long long query(int node, int lo, int hi, int l, int r) {
+    if (r < lo || hi < l) return 0;
+    ...
+}
+```
+
+```cpp
+// ĐÚNG: dòng đầu tiên của update/query LUÔN là push
+long long query(int node, int lo, int hi, int l, int r) {
+    push(node, lo, hi); // lan lazy của cha xuống trước khi đi tiếp
+    if (r < lo || hi < l) return 0;
+    ...
+}
+```
+
+| Vị trí quên `push` | Hậu quả |
+|---|---|
+| Đầu `update` | Cộng dồn sai vì con chưa nhận lazy cũ của cha |
+| Đầu `query` | Trả về tổng cũ, thiếu phần lazy chưa lan |
+
+### SAI 2: Build cây bằng $N$ lần update-điểm → $O(N \log N)$ chậm
+
+```cpp
+// SAI (chậm, code hiện tại trong bài cũng đang làm vậy để minh họa):
+for (int i = 0; i < n; i++) update(1, 0, n - 1, i, i, a[i]);
+```
+
+```cpp
+// ĐÚNG: build đệ quy O(N) — lá = a[lo], nút trong = tổng 2 con
+void build(int node, int lo, int hi) {
+    if (lo == hi) { tree[node] = a[lo]; return; } // lá: giá trị mảng
+    int mid = (lo + hi) / 2;
+    build(2 * node, lo, mid);          // xây cây con trái
+    build(2 * node + 1, mid + 1, hi);  // xây cây con phải
+    tree[node] = tree[2 * node] + tree[2 * node + 1]; // tổng hợp
+}
+```
+
+### SAI 3: Nhầm `lo/hi` (đoạn nút quản lý) với `l/r` (đoạn truy vấn)
+
+```cpp
+// SAI: đảo điều kiện → nhánh cắt sai, kết quả sai
+if (lo <= l && r <= hi) return tree[node];
+if (l < lo || hi < r) return;
+```
+
+```cpp
+// ĐÚNG: đọc theo thứ tự "nút [lo,hi] so với truy vấn [l,r]"
+if (r < lo || hi < l) return;          // ngoài đoạn: không giao nhau
+if (l <= lo && hi <= r) return tree[node]; // nằm gọn: lấy luôn
+```
+
+> **Mẹo nhớ:** `lo/hi` đi với `node` (đoạn của nút), `l/r` đi với `val`/truy vấn. Điều kiện "nằm gọn" luôn là `l <= lo && hi <= r` (truy vấn bao trùm nút).
+
+---
+
+## 6. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
 |---|---|---|---|

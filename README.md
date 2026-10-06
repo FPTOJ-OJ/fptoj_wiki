@@ -18,13 +18,13 @@ For **absolute beginners**. Learn programming from scratch before diving into al
 | Track | Lessons | Topics |
 |-------|---------|--------|
 | [Python for Competitive Programming](docs/coding/python/index.md) | 20 | Variables, loops, lists, dicts, sets, functions, collections, heapq, itertools |
-| [C++ for Competitive Programming](docs/coding/cpp/index.md) | 17 | Syntax, arrays, strings, pointers, fast I/O, STL (vector, map, set, queue) |
+| [C++ for Competitive Programming](docs/coding/cpp/index.md) | 22 | Syntax, arrays, strings, pointers, fast I/O, STL (vector, map, set, queue) |
 
 > Study this section **first** if you have no programming experience.
 
 ### Algorithm Lessons
 
-39+ lessons from basic to advanced, with detailed explanations, code samples, and diagrams.
+71+ main lessons (100+ including sub-lessons) from basic to advanced, with detailed explanations, code samples, and diagrams.
 
 🔗 **[View all lessons →](docs/lessons/index.md)** · **[Interactive roadmap →](docs/lessons/roadmap.md)**
 

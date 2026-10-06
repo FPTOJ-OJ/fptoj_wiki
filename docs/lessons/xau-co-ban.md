@@ -96,6 +96,21 @@ int cnt = 0;
 while (ss >> word) cnt++;           // Toán tử >> tự động bỏ qua khoảng trắng
 ```
 
+> **Trace tay §2.2 — `s = "  an   com  "` (2 dấu cách đầu, 3 dấu cách giữa, 2 cuối):**
+>
+> | Ký tự | `c != ' '`? | `inWord` trước | Hành động | `cnt` |
+> |-------|-------------|----------------|-----------|-------|
+> | `' '` | Không | `false` | `inWord = false` | 0 |
+> | `' '` | Không | `false` | giữ `false` | 0 |
+> | `'a'` | Có | `false` | `cnt++` → 1, `inWord = true` | 1 |
+> | `'n'` | Có | `true` | ở trong từ, không đếm | 1 |
+> | `' '`×3 | Không | `true`→`false` | ra khỏi từ | 1 |
+> | `'c'` | Có | `false` | `cnt++` → 2, `inWord = true` | 2 |
+> | `'o','m'` | Có | `true` | không đếm | 2 |
+> | `' '`×2 | Không | `true`→`false` | ra khỏi từ | 2 |
+>
+> Kết quả `cnt = 2` ✓ (nhiều dấu cách kề nhau chỉ đổi `inWord` 1 lần).
+
 ### 2.3. Kiểm tra palindrome
 
 **Bài toán:** Xâu đọc xuôi = đọc ngược?
@@ -110,6 +125,15 @@ while (l < r) {                   // Dừng khi l >= r (đã duyệt hết xâu)
 }
 return true;                      // Tất cả cặp đều khớp -> là palindrome
 ```
+
+> **Trace tay §2.3 — `s = "abca"` (không phải palindrome, dừng sớm):**
+>
+> | Vòng | `l` | `r` | So sánh `s[l]` vs `s[r]` | Hành động |
+> |------|-----|-----|--------------------------|-----------|
+> | 1 | 0 | 3 | `'a'` vs `'a'` → khớp | `l=1, r=2` |
+> | 2 | 1 | 2 | `'b'` vs `'c'` → lệch | `return false` |
+>
+> Với `s = "aba"`: vòng 1 so `'a'` vs `'a'` khớp → `l=1, r=1` → điều kiện `l < r` sai → `return true` ✓.
 
 ### 2.4. Chuẩn hóa xâu
 
@@ -183,6 +207,15 @@ string rle(string s) {
 // Input:  "aaabbcccc"
 // Output: "a3b2c4"
 ```
+
+> **Trace tay §2.6 — RLE với `s = "aaabb"` (`n = 5`):**
+>
+> | Vòng | `i` đầu vòng | `c` | Đếm `cnt` (while trong) | Ghi `result` | `i` cuối vòng |
+> |------|--------------|-----|--------------------------|--------------|---------------|
+> | 1 | 0 | `'a'` | `s[1]=='a'`→2, `s[2]=='a'`→3, `s[3]=='b'` dừng | `"a3"` | 3 |
+> | 2 | 3 | `'b'` | `s[4]=='b'`→2, hết xâu dừng | `"a3b2"` | 5 |
+>
+> `result = "a3b2"` dài 4 < 5 = `s.size()` → trả `"a3b2"`. Chú ý `i++` cuối vòng nhảy qua nhóm đã đếm, nên vòng `for` không cần `i++` riêng.
 
 ### 2.7. Hoán vị (Anagram)
 

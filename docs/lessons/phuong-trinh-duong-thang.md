@@ -15,6 +15,10 @@
 
 ---
 
+## 0. Tại sao phải học?
+
+**Bài toán mở đầu (bàn bi-a):** Bi ở $P(1, 1)$, muốn đánh trúng bi ở $Q(4, 2)$ sau khi chạm băng (đường thẳng $y = 0$). Đánh vào điểm nào trên băng? Cách làm: đối xứng $Q$ qua băng thành $Q'(4, -2)$, kẻ đường thẳng $PQ'$ — giao điểm với băng chính là điểm chạm. Chỉ với 3 công cụ (dựng đường qua 2 điểm, đối xứng qua đường, giao 2 đường), bạn giải được cả họ bài toán hình thi đấu. Bài này xây dựng trọn bộ 3 công cụ đó.
+
 ## 1. Các dạng phương trình đường thẳng
 
 Trong mặt phẳng tọa độ $Oxy$, một đường thẳng có thể được biểu diễn dưới nhiều dạng toán học khác nhau:
@@ -43,6 +47,8 @@ Vectơ chỉ phương là $\vec{PQ} = (x_2 - x_1, y_2 - y_1)$. Do đó, vectơ p
 Thay điểm $P$ vào phương trình tổng quát, ta thu được hệ số tự do $C$:
 $$A = y_1 - y_2, \quad B = x_2 - x_1, \quad C = x_1 y_2 - x_2 y_1$$
 
+**Ví dụ số:** $P(1, 2)$, $Q(4, 6)$: $A = 2-6 = -4$, $B = 4-1 = 3$, $C = 1\cdot 6 - 4\cdot 2 = -2$. Đường thẳng: $-4x + 3y - 2 = 0$. Kiểm tra: tại $P$: $-4+6-2 = 0$ ✓; tại $Q$: $-16+18-2 = 0$ ✓. Pháp tuyến $\vec{n} = (-4, 3)$: độ dốc $-(-4)/3 = 4/3 = (6-2)/(4-1)$ ✓ khớp.
+
 === "C++"
 
     ```cpp
@@ -57,7 +63,8 @@ $$A = y_1 - y_2, \quad B = x_2 - x_1, \quad C = x_1 y_2 - x_2 y_1$$
         double A, B, C; // Ax + By + C = 0
     };
 
-    // Dựng đường thẳng đi qua 2 điểm
+    // Dựng đường thẳng đi qua 2 điểm P, Q
+    // A = y1-y2, B = x2-x1, C = x1*y2-x2*y1 (thay P vào Ax+By+C=0)
     Line lineFromPoints(Point P, Point Q) {
         double A = Q.y - P.y;
         double B = P.x - Q.x;
@@ -115,12 +122,12 @@ $$d = \frac{|A x_0 + B y_0 + C|}{\sqrt{A^2 + B^2}}$$
 === "C++"
 
     ```cpp
-    // Khoảng cách từ điểm đến đường thẳng
+    // Khoảng cách từ điểm đến đường thẳng: |Ax0+By0+C| / |n|
     double pointToLine(Point P, Line L) {
         return abs(L.A * P.x + L.B * P.y + L.C) / hypot(L.A, L.B);
     }
 
-    // Tìm điểm đối xứng qua đường thẳng
+    // Điểm đối xứng: H = P - t*n (hình chiếu), P' = 2H - P = P - 2*t*n
     Point reflectPoint(Point P, Line L) {
         double d = (L.A * P.x + L.B * P.y + L.C) / (L.A * L.A + L.B * L.B);
         return {P.x - 2.0 * L.A * d, P.y - 2.0 * L.B * d};
@@ -224,14 +231,14 @@ plt.tight_layout()
 === "C++"
 
     ```cpp
-    // Trả về giao điểm, nếu song song hoặc trùng trả về điểm vô cùng {1e18, 1e18}
+    // Giao 2 đường thẳng bằng Cramer. det=0 → song song/trùng (không có giao duy nhất)
     Point lineIntersection(Line L1, Line L2) {
-        double det = L1.A * L2.B - L2.A * L1.B;
+        double det = L1.A * L2.B - L2.A * L1.B; // D = A1B2 − A2B1
         if (abs(det) < 1e-9) {
-            return {1e18, 1e18}; 
+            return {1e18, 1e18}; // mã "vô cực": gọi hàm phải kiểm tra trước khi dùng
         }
-        double x = (L1.B * L2.C - L2.B * L1.C) / det;
-        double y = (L1.C * L2.A - L2.C * L1.A) / det;
+        double x = (L1.B * L2.C - L2.B * L1.C) / det; // Dx / D
+        double y = (L1.C * L2.A - L2.C * L1.A) / det; // Dy / D
         return {x, y};
     }
     ```
@@ -417,7 +424,21 @@ Với quy ước đỉnh thứ $n+1$ trùng với đỉnh thứ $1$: $(x_{n+1}, 
 
 ---
 
-## 7. Bài tập luyện tập
+## 7. Lỗi thường gặp
+
+```cpp
+// SAI: dùng y = kx + b cho mọi đường thẳng
+double k = -L.A / L.B; // nổ khi B = 0 (đường thẳng đứng)!
+
+// ĐÚNG: luôn dùng dạng tổng quát Ax + By + C = 0
+```
+
+- **Nhầm song song vs trùng nhau:** `det = 0` chưa đủ — phải kiểm tra thêm tỉ lệ $C$ (xem code Bài 1: `A1*C2 == A2*C1 && B1*C2 == B2*C1` → trùng). Hàm `lineIntersection` gộp cả 2 thành `{1e18, 1e18}` nên nơi gọi phải phân biệt nếu đề yêu cầu.
+- **So sánh `== 0` với số thực:** `det`, cross, `d2` đều phải so với epsilon (`1e-9`), không dùng `==`.
+- **`onSegment` thiếu epsilon:** điểm tính từ giao Cramer có sai số ~1e-12 — so sánh biên `min <= P.x <= max` không epsilon sẽ loại nhầm điểm chạm đầu mút.
+- **Quên chuẩn hóa khi so sánh góc/hướng:** cross product tỉ lệ với độ dài cạnh — so sánh "quay nhiều/ít" giữa các cặp khác nhau phải chuẩn hóa hoặc dùng `atan2`.
+
+## 8. Bài tập luyện tập
 
 | Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
 |-----|----------|--------|------------------------|

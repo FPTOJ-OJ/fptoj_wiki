@@ -15,7 +15,7 @@ Ta đã biết **phân tích một số ra thừa số nguyên tố (factorizati
 
 - $11 = 11$.
 
-- $36 = 2^2.3^3$.
+- $36 = 2^2.3^2$.
 
 - $935 = 5.11.17$.
 

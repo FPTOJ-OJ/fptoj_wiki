@@ -205,6 +205,40 @@ Nếu $k$ nằm trong cùng, ta sẽ cập nhật $dist[i][j]$ bằng $dist[i][k
 - $dist[i][j] = w(i, j)$ nếu có cạnh $(i, j)$.
 - $dist[i][j] = \infty$ nếu không có cạnh trực tiếp.
 
+**Trace ma trận số — ví dụ 4 đỉnh:**
+
+Cạnh: $1 \to 2\ (3)$, $1 \to 3\ (8)$, $2 \to 3\ (1)$, $2 \to 4\ (7)$, $3 \to 4\ (2)$. Ma trận khởi tạo ($\infty$ = không có cạnh trực tiếp):
+
+| $dist$ | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| **1** | 0 | 3 | 8 | $\infty$ |
+| **2** | $\infty$ | 0 | 1 | 7 |
+| **3** | $\infty$ | $\infty$ | 0 | 2 |
+| **4** | $\infty$ | $\infty$ | $\infty$ | 0 |
+
+**Sau $k=1$** (đi qua đỉnh 1 — không có đường vào 1 nên không đổi gì): ma trận giữ nguyên.
+
+**Sau $k=2$** (cho phép đi qua đỉnh 2 — cặp $(1,3)$ và $(1,4)$ được cải thiện):
+
+- $dist[1][3] = \min(8,\ dist[1][2]+dist[2][3]) = \min(8, 3+1) = 4$ ✓
+- $dist[1][4] = \min(\infty,\ dist[1][2]+dist[2][4]) = \min(\infty, 3+7) = 10$ ✓
+
+| $dist$ | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| **1** | 0 | 3 | **4** | **10** |
+| **2** | $\infty$ | 0 | 1 | 7 |
+| **3** | $\infty$ | $\infty$ | 0 | 2 |
+| **4** | $\infty$ | $\infty$ | $\infty$ | 0 |
+
+**Sau $k=3$** (cho phép qua đỉnh 3 — cặp $(1,4)$ và $(2,4)$ cải thiện tiếp):
+
+- $dist[1][4] = \min(10,\ 4+2) = 6$ ✓ (đường $1 \to 2 \to 3 \to 4$)
+- $dist[2][4] = \min(7,\ 1+2) = 3$ ✓ (đường $2 \to 3 \to 4$)
+
+Sau $k=4$ không đổi gì thêm. Đọc kết quả cuối: $dist[1][4]=6$ là đường ngắn nhất $1 \to 4$.
+
+> **Cách đọc trace:** mỗi bước $k$ chỉ xét các đường đi "ghé qua $k$". Nếu $dist[i][k]+dist[k][j] < dist[i][j]$ thì cập nhật — đó chính là dòng `if` trong code.
+
 **Phát hiện chu trình âm:**
 
 Sau khi chạy Floyd-Warshall, nếu $dist[i][i] < 0$ thì đỉnh $i$ nằm trong một chu trình âm.
@@ -479,12 +513,55 @@ plt.tight_layout()
 
 ---
 
-## 5. Lưu ý quan trọng
+## 5. Lỗi thường gặp (SAI / ĐÚNG)
+
+### SAI 1: Đặt vòng $k$ không ở ngoài cùng
+
+```cpp
+// SAI: i ở ngoài → dist[i][k] có thể chưa tính xong với đủ đỉnh trung gian
+for (int i = 1; i <= n; i++)
+    for (int j = 1; j <= n; j++)
+        for (int k = 1; k <= n; k++)
+            dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+```
+
+```cpp
+// ĐÚNG: k LUÔN ở ngoài cùng (xem trace k=1,2,3 ở trên)
+for (int k = 1; k <= n; k++)
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= n; j++)
+            if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX)
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+```
+
+### SAI 2: Quên `dist[i][i] = 0`
+
+```cpp
+// SAI: để dist[i][i] = INF → đường đi qua chính nó bị tính sai,
+// phát hiện chu trình âm (dist[i][i] < 0) cũng không hoạt động
+```
+
+```cpp
+// ĐÚNG: khởi tạo đường chéo chính bằng 0 trước khi chạy
+for (int i = 1; i <= n; i++) dist[i][i] = 0;
+```
+
+### SAI 3: Cộng trực tiếp mà không check INF → tràn số
+
+```cpp
+// SAI: nếu dist[i][k] = LLONG_MAX, cộng thêm sẽ tràn thành số âm
+dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+```
+
+```cpp
+// ĐÚNG: check INF trước khi cộng (cả Bellman-Ford và Floyd)
+if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX)
+    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+```
+
+Ngoài ra:
 
 - **Dijkstra SAI** khi có trọng số âm → bắt buộc dùng Bellman-Ford.
-- **Floyd-Warshall:** Khởi tạo $dist[i][i] = 0$, $dist[i][j] = \infty$ nếu không có cạnh trực tiếp.
-- **Tràn số:** Dùng `long long` trong C++, kiểm tra `!= LLONG_MAX` trước khi cộng để tránh tràn.
-- **Thứ tự vòng lặp Floyd:** $k$ PHẢI ở ngoài cùng. Đặt $k$ trong cùng sẽ cho kết quả sai hoàn toàn.
 - **Đồ thị vô hướng + cạnh âm:** Mỗi cạnh vô hướng coi như 2 cạnh có hướng.
 - **Floyd-Warshall phát hiện chu trình âm:** Nếu $dist[i][i] < 0$ sau khi chạy, đỉnh $i$ nằm trong chu trình âm.
 - **Bellman-Ford chỉ phát hiện** chu trình âm reachable từ đỉnh nguồn. Để phát hiện mọi chu trình âm, thêm đỉnh ảo hoặc chạy từ mỗi thành phần liên thông.

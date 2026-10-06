@@ -38,7 +38,7 @@ Palindrome hay còn gọi là xâu đối xứng, xâu đối gương là tên g
 
 Có rất nhiều bài tập liên quan đến xâu đối xứng. Các bạn có thể tìm đọc ở trong các bài viết:
 
-- [Một vài bài tập QHD về Palindrome](../dp/palindrome-problems.md)
+- [Xâu đối xứng và Manacher](../../lessons/manacher.md)
 - [Hash](hash.md)
 - [Palindrome Tree](../../translate/codeforces/palindrome-tree.md)
 
@@ -46,10 +46,10 @@ Có rất nhiều bài tập liên quan đến xâu đối xứng. Các bạn c�
 
 - [Trie](../data-structures/trie.md) là CTDL cơ bản nhất trong xử lý xâu. Nó giúp giải quyết các bài toán về tìm kiếm xâu.
 - Lớp CTDL được gọi chung là Suffix Structures gồm:
-    - [Suffix Array](../data-structures/suffix-array.md)
-    - Suffix Automaton
-    - Suffix Tree
-    - Aho Corasick
+    - [Suffix Array](../../lessons/suffix-array.md)
+    - [Suffix Automaton](../../lessons/suffix-automaton.md)
+    - Suffix Tree (xem phụ lục trong bài Suffix Array)
+    - [Aho-Corasick](../../lessons/aho-corasick.md)
 
     Gọi chung như vậy vì các CTDL này có thể dùng thay thế nhau để giải quyết cùng một lớp bài toán liên quan đến các suffix của cây.
 

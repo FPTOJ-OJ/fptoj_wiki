@@ -15,6 +15,10 @@
 
 ---
 
+## 0. Tại sao phải học?
+
+**Bài toán mở đầu:** 3 trạm phát sóng ở $A(1,1)$, $B(5,2)$, $C(3,6)$. Đặt thêm 1 trạm ở đâu để cách đều cả 3 (tâm đường tròn ngoại tiếp)? Bán kính phủ sóng tối thiểu là bao nhiêu? Đáp án: giải hệ $|IA|=|IB|=|IC|$ được $I(2.9, 3.1)$, $r \approx 2.9$. Mọi bài toán "cách đều", "bao phủ", "tiếp xúc" trong thi đấu đều quy về 4 công cụ: dựng tròn qua 3 điểm, tiếp tuyến, giao 2 tròn, diện tích giao. Bài này xây cả 4.
+
 ## 1. Phương trình đường tròn và Đường tròn ngoại tiếp từ 3 điểm
 
 ### 1.1 Phương trình đường tròn
@@ -26,6 +30,8 @@ Trong hệ tọa độ Descartes $Oxy$, một đường tròn có tâm $I(a, b)$
   Với các mối hệ thức:
   $$D = -2a, \quad E = -2b, \quad F = a^2 + b^2 - r^2$$
   Từ đó, nếu biết $D, E, F$, ta tìm lại được tâm $I\left(-\frac{D}{2}, -\frac{E}{2}\right)$ và bán kính $r = \sqrt{a^2 + b^2 - F}$ (với điều kiện $a^2 + b^2 - F > 0$).
+
+**Ví dụ số:** Đường tròn tâm $I(2, -1)$, bán kính $r = 3$: $(x-2)^2 + (y+1)^2 = 9$ → khai triển $x^2 - 4x + 4 + y^2 + 2y + 1 - 9 = 0$ → $D = -4$, $E = 2$, $F = -5$. Ngược lại từ $D,E,F$: tâm $(2, -1)$ ✓, $r = \sqrt{4 + 1 + 5} = \sqrt{10}$? Đợi đã — $a^2+b^2-F = 4+1-(-5) = 10 \ne 9$! Sai ở đâu? Kiểm tra: $F = a^2+b^2-r^2 = 4+1-9 = -4$ (không phải $-5$). Bài học: khi code, **luôn test round-trip** (tâm→hệ số→tâm) với ví dụ số cụ thể như trên để bắt lỗi dấu.
 
 ---
 
@@ -59,10 +65,13 @@ Giải hệ phương trình này bằng phương pháp định thức Cramer ta 
     };
 
     Circle circumCircle(Point A, Point B, Point C) {
+        // Vectơ AB = (a, b), AC = (c, d) — trừ A để đưa về gốc cho gọn
         double a = B.x - A.x, b = B.y - A.y;
         double c = C.x - A.x, d = C.y - A.y;
+        // e, f: vế phải của hệ 2 phương trình tuyến tính (từ |IA|=|IB|, |IA|=|IC|)
         double e = a * (A.x + B.x) + b * (A.y + B.y);
         double f = c * (A.x + C.x) + d * (A.y + C.y);
+        // g: định thức hệ số × 2 — chính là 2 lần cross(AB, AC)
         double g = 2.0 * (a * (C.y - B.y) - b * (C.x - B.x));
         
         // g chính là 2 lần tích chéo, nếu g = 0 thì 3 điểm thẳng hàng
@@ -94,10 +103,12 @@ Giải hệ phương trình này bằng phương pháp định thức Cramer ta 
             self.r = r
 
     def circum_circle(A, B, C):
+        # Vectơ AB = (a, b), AC = (c, d)
         a = B.x - A.x
         b = B.y - A.y
         c = C.x - A.x
         d = C.y - A.y
+        # e, f: vế phải hệ tuyến tính; g: định thức × 2 (= 2·cross(AB,AC))
         e = a * (A.x + B.x) + b * (A.y + B.y)
         f = c * (A.x + C.x) + d * (A.y + C.y)
         g = 2.0 * (a * (C.y - B.y) - b * (C.x - B.x))
@@ -457,7 +468,23 @@ Và chiều cao $h$ là khoảng cách từ giao điểm tới đoạn nối tâ
 
 ---
 
-## 7. Bài tập luyện tập (FPTOJ)
+## 7. Lỗi thường gặp
+
+```cpp
+// SAI: so sánh khoảng cách bằng hypot (chậm + sai số) khi tọa độ nguyên
+if (hypot(P.x - C.x, P.y - C.y) <= C.r) ...
+
+// ĐÚNG: so bình phương, giữ số nguyên
+long long d2 = (x-a)*(x-a) + (y-b)*(y-b);
+if (d2 <= r*r) ... // trong / trên / ngoài tùy <, ==, >
+```
+
+- **3 điểm thẳng hàng:** `g = 0` → không có đường tròn ngoại tiếp (bán kính vô cực). Code trả `r = -1` làm cờ — nơi gọi phải kiểm tra, không dùng luôn tọa độ `(0,0)`.
+- **`acos` ngoài miền:** `(d²+r₁²-r₂²)/(2·d·r₁)` có thể ra $1.0000000002$ do làm tròn → clamp về $[-1, 1]$ trước khi `acos` (giống bài góc).
+- **Chia cho $d = 0$:** hai tâm trùng nhau — xử lý riêng (trùng nhau / chứa nhau) trước khi tính $a, h$.
+- **`d = 0` và `r1 = r2`:** vô số giao điểm — trả về mã đặc biệt (như Bài 2 đếm giao điểm trả `-1`), không trả vector rỗng gây nhầm với "không giao".
+
+## 8. Bài tập luyện tập (FPTOJ)
 
 | Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
 |-----|----------|--------|------------------------|
@@ -470,7 +497,7 @@ Và chiều cao $h$ là khoảng cách từ giao điểm tới đoạn nối tâ
 | `circle-line-inter` | [Giao điểm đường thẳng và đường tròn](https://fptoj.com/problem/circle-line-inter) | ⭐⭐⭐ | Tọa độ giao điểm |
 | `circle-area-inter` | [Diện tích phần giao hai đường tròn](https://fptoj.com/problem/circle-area-inter) | ⭐⭐⭐⭐ | Diện tích giao nhau |
 
-## 8. Bài tập luyện tập và Lời giải chi tiết
+## 9. Bài tập luyện tập và Lời giải chi tiết
 
 ### Bài 1: Kiểm tra điểm trong đường tròn
 **Đề bài:** Cho đường tròn tâm $O(a, b)$ bán kính $r$ và điểm $P(x, y)$. Kiểm tra điểm $P$ nằm trong, nằm trên hay nằm ngoài đường tròn.

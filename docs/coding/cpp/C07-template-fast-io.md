@@ -260,32 +260,38 @@ Viết chương trình đọc $n$ số nguyên và in tổng của chúng. Dùng
     }
     ```
 
-### Bài 2: Fast I/O vs Normal
-So sánh tốc độ: đọc $10^6$ số nguyên bằng `cin` (có sync) và `cin` (tắt sync).
+### Bài 2: Đọc nhanh với getchar
+Dùng hàm `readInt()` bằng `getchar` để đọc $n$ rồi đọc $n$ số nguyên, in ra tổng của chúng.
 
-<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\ntypedef long long ll;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(NULL);\n    \n    // Viết code ở đây\n    \n    return 0;\n}" data-input="5
-1000000 2000000 3000000 4000000 5000000" data-expected="15000000" data-hint="Dùng ll cho sum, đọc n rồi cộng dồn"></div>
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint readInt() {\n    int x = 0, sign = 1;\n    char c = getchar();\n    while (c &lt; '0' || c &gt; '9') {\n        if (c == '-') sign = -1;\n        c = getchar();\n    }\n    while (c &gt;= '0' &amp;&amp; c &lt;= '9') {\n        x = x * 10 + (c - '0');\n        c = getchar();\n    }\n    return x * sign;\n}\n\nint main() {\n    // Viết code ở đây: dùng readInt() để đọc n và n số, in tổng\n    return 0;\n}" data-input="5
+1000000 2000000 3000000 4000000 5000000" data-expected="15000000" data-hint="Dùng long long cho sum, đọc n bằng readInt() rồi cộng dồn"></div>
 
 ??? tip "Lời giải"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
-    
-    typedef long long ll;
-    
-    int main() {
-        ios_base::sync_with_stdio(false);
-        cin.tie(NULL);
-        
-        int n;
-        cin >> n;
-        ll sum = 0;
-        for (int i = 0; i < n; i++) {
-            int x;
-            cin >> x;
-            sum += x;
+
+    int readInt() {
+        int x = 0, sign = 1;
+        char c = getchar();
+        while (c < '0' || c > '9') {
+            if (c == '-') sign = -1;
+            c = getchar();
         }
-        cout << sum << endl;
+        while (c >= '0' && c <= '9') {
+            x = x * 10 + (c - '0');
+            c = getchar();
+        }
+        return x * sign;
+    }
+
+    int main() {
+        int n = readInt();
+        long long sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += readInt();
+        }
+        printf("%lld\n", sum);
         return 0;
     }
     ```

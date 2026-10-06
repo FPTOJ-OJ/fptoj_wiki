@@ -166,47 +166,55 @@ Mỗi phiên bản là 1 cây nhị phân đầy đủ. Gốc của phiên bản
     using namespace std;
 
     struct Node {
-        int left = -1, right = -1;
-        long long sum = 0;
+        int left = -1, right = -1; // id nút con trái / phải (-1 = không có)
+        long long sum = 0; // tổng đoạn mà nút này quản lý
     };
 
-    vector<Node> tree;
-    vector<int> roots; // gốc của mỗi phiên bản
+    vector<Node> tree; // kho chứa MỌI nút của mọi phiên bản
+    vector<int> roots; // roots[v] = id nút gốc của phiên bản v
 
+    // Xây cây ban đầu (phiên bản 0) trên đoạn [lo, hi] - trả về id nút gốc
     int build(vector<int>& a, int lo, int hi) {
-        int id = tree.size();
-        tree.push_back(Node());
+        int id = tree.size(); // id của nút sắp tạo
+        tree.push_back(Node()); // đặt chỗ cho nút mới
         if (lo == hi) {
-            tree[id].sum = a[lo];
+            tree[id].sum = a[lo]; // lá: tổng = chính phần tử
             return id;
         }
-        int mid = (lo + hi) / 2;
-        tree[id].left = build(a, lo, mid);
-        tree[id].right = build(a, mid + 1, hi);
+        int mid = (lo + hi) / 2; // chia đôi đoạn
+        tree[id].left = build(a, lo, mid); // xây con trái
+        tree[id].right = build(a, mid + 1, hi); // xây con phải
+        // Tổng nút cha = tổng 2 con
         tree[id].sum = tree[tree[id].left].sum + tree[tree[id].right].sum;
         return id;
     }
 
+    // Tạo phiên bản mới từ phiên bản có gốc `old`, gán a[pos] = val
+    // Chỉ copy các nút trên đường đi từ gốc xuống lá pos, nút khác dùng chung
     int update(int old, int lo, int hi, int pos, long long val) {
-        int id = tree.size();
-        tree.push_back(tree[old]); // copy nút cũ
+        int id = tree.size(); // id của nút mới sắp tạo
+        tree.push_back(tree[old]); // BƯỚC QUAN TRỌNG: copy nguyên nút cũ sang nút mới
         if (lo == hi) {
-            tree[id].sum = val;
+            tree[id].sum = val; // tới lá: ghi giá trị mới
             return id;
         }
-        int mid = (lo + hi) / 2;
+        int mid = (lo + hi) / 2; // chia đôi đoạn
         if (pos <= mid)
+            // pos nằm bên trái: tạo nhánh trái mới, nhánh phải giữ nguyên (dùng chung)
             tree[id].left = update(tree[old].left, lo, mid, pos, val);
         else
+            // pos nằm bên phải: tạo nhánh phải mới, nhánh trái giữ nguyên
             tree[id].right = update(tree[old].right, mid + 1, hi, pos, val);
+        // Tính lại tổng từ 2 con (1 con mới + 1 con dùng chung)
         tree[id].sum = tree[tree[id].left].sum + tree[tree[id].right].sum;
-        return id;
+        return id; // gốc của phiên bản mới
     }
 
+    // Truy vấn tổng [l, r] trên cây có gốc `id` (tức 1 phiên bản cụ thể)
     long long query(int id, int lo, int hi, int l, int r) {
-        if (r < lo || hi < l) return 0;
-        if (l <= lo && hi <= r) return tree[id].sum;
-        int mid = (lo + hi) / 2;
+        if (r < lo || hi < l) return 0; // không giao nhau -> đóng góp 0
+        if (l <= lo && hi <= r) return tree[id].sum; // nằm trọn trong -> lấy luôn
+        int mid = (lo + hi) / 2; // chia đôi để xuống 2 con
         return query(tree[id].left, lo, mid, l, r) +
                query(tree[id].right, mid + 1, hi, l, r);
     }
@@ -220,7 +228,7 @@ Mỗi phiên bản là 1 cây nhị phân đầy đủ. Gốc của phiên bản
         vector<int> a(n);
         for (int i = 0; i < n; i++) cin >> a[i];
 
-        roots.push_back(build(a, 0, n - 1));
+        roots.push_back(build(a, 0, n - 1)); // phiên bản 0 = mảng ban đầu
 
         while (q--) {
             int type;
@@ -228,13 +236,15 @@ Mỗi phiên bản là 1 cây nhị phân đầy đủ. Gốc của phiên bản
             if (type == 1) {
                 int pos, val;
                 cin >> pos >> val;
-                pos--;
+                pos--; // chuyển sang 0-index
+                // Tạo phiên bản mới từ phiên bản gần nhất, rồi lưu gốc lại
                 int newRoot = update(roots.back(), 0, n - 1, pos, val);
                 roots.push_back(newRoot);
             } else {
                 int ver, l, r;
                 cin >> ver >> l >> r;
-                ver--; l--; r--;
+                ver--; l--; r--; // chuyển sang 0-index
+                // Truy vấn trên gốc của phiên bản ver (cây cũ vẫn nguyên vẹn)
                 cout << query(roots[ver], 0, n - 1, l, r) << "\n";
             }
         }
@@ -260,54 +270,81 @@ Mỗi phiên bản là 1 cây nhị phân đầy đủ. Gốc của phiên bản
     roots = []
 
     def build(a, lo, hi):
-        node_id = len(tree)
-        tree.append(Node())
+        # Xây cây ban đầu trên đoạn [lo, hi] - trả về id nút gốc
+        node_id = len(tree)  # id của nút sắp tạo
+        tree.append(Node())  # đặt chỗ cho nút mới
         if lo == hi:
-            tree[node_id].sum_val = a[lo]
+            tree[node_id].sum_val = a[lo]  # lá: tổng = chính phần tử
             return node_id
-        mid = (lo + hi) // 2
-        tree[node_id].left = build(a, lo, mid)
-        tree[node_id].right = build(a, mid + 1, hi)
+        mid = (lo + hi) // 2  # chia đôi đoạn
+        tree[node_id].left = build(a, lo, mid)  # xây con trái
+        tree[node_id].right = build(a, mid + 1, hi)  # xây con phải
+        # Tổng nút cha = tổng 2 con
         tree[node_id].sum_val = tree[tree[node_id].left].sum_val + tree[tree[node_id].right].sum_val
         return node_id
 
     def update(old, lo, hi, pos, val):
-        node_id = len(tree)
+        # Tạo phiên bản mới từ nút gốc `old`, gán a[pos] = val
+        # Chỉ copy nút trên đường đi xuống pos, nút khác dùng chung
+        node_id = len(tree)  # id của nút mới sắp tạo
+        # BƯỚC QUAN TRỌNG: copy nguyên nút cũ sang nút mới
         tree.append(Node(tree[old].left, tree[old].right, tree[old].sum_val))
         if lo == hi:
-            tree[node_id].sum_val = val
+            tree[node_id].sum_val = val  # tới lá: ghi giá trị mới
             return node_id
-        mid = (lo + hi) // 2
+        mid = (lo + hi) // 2  # chia đôi đoạn
         if pos <= mid:
+            # pos bên trái: tạo nhánh trái mới, nhánh phải dùng chung
             tree[node_id].left = update(tree[old].left, lo, mid, pos, val)
         else:
+            # pos bên phải: tạo nhánh phải mới, nhánh trái dùng chung
             tree[node_id].right = update(tree[old].right, mid + 1, hi, pos, val)
+        # Tính lại tổng từ 2 con (1 mới + 1 dùng chung)
         tree[node_id].sum_val = tree[tree[node_id].left].sum_val + tree[tree[node_id].right].sum_val
-        return node_id
+        return node_id  # gốc của phiên bản mới
 
     def query(node_id, lo, hi, l, r):
+        # Truy vấn tổng [l, r] trên cây có gốc node_id (1 phiên bản cụ thể)
         if r < lo or hi < l:
-            return 0
+            return 0  # không giao nhau -> đóng góp 0
         if l <= lo and hi <= r:
-            return tree[node_id].sum_val
-        mid = (lo + hi) // 2
+            return tree[node_id].sum_val  # nằm trọn trong -> lấy luôn
+        mid = (lo + hi) // 2  # chia đôi để xuống 2 con
         return query(tree[node_id].left, lo, mid, l, r) + query(tree[node_id].right, mid + 1, hi, l, r)
 
     n, q = map(int, input().split())
     a = list(map(int, input().split()))
 
-    roots.append(build(a, 0, n - 1))
+    roots.append(build(a, 0, n - 1))  # phiên bản 0 = mảng ban đầu
 
     for _ in range(q):
         parts = list(map(int, input().split()))
         if parts[0] == 1:
-            pos, val = parts[1] - 1, parts[2]
+            pos, val = parts[1] - 1, parts[2]  # chuyển sang 0-index
+            # Tạo phiên bản mới từ phiên bản gần nhất, lưu gốc lại
             new_root = update(roots[-1], 0, n - 1, pos, val)
             roots.append(new_root)
         else:
-            ver, l, r = parts[1] - 1, parts[2] - 1, parts[3] - 1
+            ver, l, r = parts[1] - 1, parts[2] - 1, parts[3] - 1  # 0-index
+            # Truy vấn trên gốc phiên bản ver (cây cũ vẫn nguyên vẹn)
             print(query(roots[ver], 0, n - 1, l, r))
     ```
+
+---
+
+## 4.5 Lỗi thường gặp
+
+**SAI — Quên `push_back(tree[old])`:** Nếu trong `update` bạn sửa trực tiếp `tree[old].sum = ...` thay vì copy sang nút mới, phiên bản cũ bị phá hủy → truy vấn lịch sử sai. Luôn copy trước khi sửa:
+```cpp
+// SAI: tree[old].sum = val;            // phá phiên bản cũ!
+// ĐÚNG:
+int id = tree.size();
+tree.push_back(tree[old]); // copy rồi mới sửa tree[id]
+```
+
+**SAI — Cấp phát thiếu nút (tràn nodes):** Mỗi `update` tạo $O(\log N)$ nút, $Q$ truy vấn cần $N \times 4 + Q \times 20$ nút (với $N, Q \le 10^5$ cần ~2 triệu nút). Nếu khai báo mảng tĩnh quá nhỏ → tràn, crash. Dùng `vector<Node> tree; tree.reserve(4000005);` hoặc cấp phát động.
+
+**SAI — Nhầm chỉ số phiên bản (`ver--`):** Đề thường đánh số phiên bản từ 1, code lưu `roots[0]` = phiên bản 1. Quên `ver--` (hoặc trừ 2 lần) → truy vấn nhầm phiên bản. Quy ước rõ: `roots[0]` là mảng ban đầu, mỗi `type 1` push thêm 1 gốc; khi đọc `ver` từ input (1-indexed) thì `ver--` đúng 1 lần.
 
 ---
 

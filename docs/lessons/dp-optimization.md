@@ -18,7 +18,16 @@
 
 ## 1. Giới thiệu
 
-Trong lập trình thi đấu nâng cao, nhiều bài toán quy hoạch động có công thức truy hồi dạng:
+### Bài toán mở đầu: chia kẹo với chi phí bình phương
+
+Cho dãy $a_1, \dots, a_N$ ($N \le 10^5$) và số $K$. Chia dãy thành đúng $K$ nhóm liên tiếp sao cho tổng **bình phương tổng mỗi nhóm** là nhỏ nhất. Công thức DP tự nhiên:
+
+$$dp[k][i] = \min_{j < i} \{ dp[k-1][j] + (\text{prefix}[i] - \text{prefix}[j])^2 \}$$
+
+Độ phức tạp: $O(K \cdot N^2) = 10^{15}$ — TLE chắc chắn. Nhưng để ý: chi phí có dạng $(S[i]-S[j])^2 = S[i]^2 - 2S[i]S[j] + S[j]^2$, tức mỗi $j$ cho một **đường thẳng** $y = m_j x + b_j$ với $x = S[i]$. Thay vì duyệt $N$ ứng viên, ta truy vấn đường thẳng tốt nhất trong $O(\log N)$ — tổng $O(KN \log N)$, chạy ngon lành.
+
+Bài này tổng hợp các "mắt thần" nhìn ra cấu trúc ẩn trong công thức DP:
+
 $$dp[i] = \min_{j < i} \{ dp[j] + \text{cost}(j, i) \}$$
 
 Nếu thực hiện duyệt tuyến tính qua mọi giá trị $j$, ta mất thời gian $O(N)$ cho mỗi trạng thái, dẫn đến tổng độ phức tạp là $O(N^2)$. Tuy nhiên, nếu hàm chi phí $\text{cost}(j, i)$ sở hữu các **tính chất hình học hoặc toán học đặc biệt**, ta có thể áp dụng các kỹ thuật tối ưu hóa để hạ thấp đáng kể độ phức tạp thời gian.
@@ -72,6 +81,8 @@ Thay vì phải duyệt biến $k$ trong toàn bộ khoảng từ $l+1$ tới $r
 $$k \in [opt[l][r-1], opt[l+1][r]]$$
 
 Tổng số bước lặp trên toàn bộ bảng DP khi áp dụng giới hạn này sẽ giảm từ $O(N^3)$ xuống $O(N^2)$.
+
+**Vì sao tổng chỉ còn $O(N^2)$? (đếm bằng số, không cần tin mù):** Xét một đường chéo cố định (độ dài đoạn $len$ không đổi). Tổng số giá trị $k$ phải duyệt trên đường chéo này là $\sum_l (opt[l+1][r] - opt[l][r-1] + 1)$. Viết vài số hạng đầu ($l, l+1, l+2, \dots$): các $opt$ trung gian **triệt tiêu lẫn nhau** (telescoping) — tổng còn lại $\le (opt_{cuối} - opt_{đầu}) + (\text{số trạng thái}) \le 2N$. Mỗi đường chéo $O(N)$, có $N$ đường chéo → $O(N^2)$. Ví dụ $N = 400$: naive $400^3 = 6.4\times 10^7$ phép tính biên (có thể TLE), Knuth $\approx 400^2 = 1.6\times 10^5$ (chạy tức thì).
 
 ### 2.2 Chứng minh trực giác
 - Khi ta cố định điểm đầu $l$ và mở rộng điểm cuối từ $r-1$ sang $r$, điểm chia tối ưu $opt[l][r]$ sẽ không dịch chuyển sang bên trái.
@@ -281,9 +292,15 @@ graph TD
 
 **Độ phức tạp thời gian:** Mỗi tầng đệ quy của hàm chia để trị mất tổng thời gian là $O(\text{optR} - \text{optL})$ trên tất cả các lời gọi. Tổng độ phức tạp tính toán cho một dòng là $O(N \log N)$. Khi tính toàn bộ $K$ dòng, tổng thời gian là $O(K \cdot N \log N)$.
 
+!!! tip "Đọc thêm"
+    Một biến thể khác của chia để trị trên DP là **CDQ phân治 (online-to-offline)** kèm tối ưu deque/tìm kiếm nhị phân — xem chi tiết tại [Tối ưu DP 1 chiều (1D1D)](dp-1d1d.md).
+
 ---
 
 ## 4. Convex Hull Trick (CHT - Biểu diễn bao lồi đường thẳng)
+
+!!! tip "Bài chuyên sâu"
+    Mục này chỉ tóm tắt ý tưởng để bạn đối chiếu với các kỹ thuật khác trong bài. Học kỹ CHT/Li Chao tại [Convex Hull Trick & Li Chao Tree](convex-hull-trick.md), và xem quy trình áp dụng vào DP tại [Kĩ thuật Bao lồi trong QHĐ](dp-convex-hull.md).
 
 ### 4.1 Ý tưởng toán học
 

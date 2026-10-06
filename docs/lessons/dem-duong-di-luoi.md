@@ -161,6 +161,21 @@ Catalan number xuất hiện ở rất nhiều bài toán:
         return C(2 * n, n) * pow(n + 1, MOD - 2, MOD) % MOD
     ```
 
+### 3.3 Liệt kê tay `n = 3` → 5 đường Dyck
+
+Quy ước: `P` = đi phải, `X` = đi xuống. Điều kiện: tại mọi tiền tố, số `P` ≤ số `X` (không vượt chéo).
+
+| # | Đường đi (6 bước) | Kiểm tra tiền tố (P ≤ X luôn đúng?) | Kết luận |
+|:---:|:---:|---|:---:|
+| 1 | `X X X P P P` | 0≤1, 0≤2, 0≤3, 1≤3, 2≤3, 3≤3 | ✓ |
+| 2 | `X X P X P P` | 0≤1, 0≤2, 1≤2, 1≤3, 2≤3, 3≤3 | ✓ |
+| 3 | `X X P P X P` | 0≤1, 0≤2, 1≤2, 2≤2, 2≤3, 3≤3 | ✓ |
+| 4 | `X P X X P P` | 0≤1, 1≤1, 1≤2, 1≤3, 2≤3, 3≤3 | ✓ |
+| 5 | `X P X P X P` | 0≤1, 1≤1, 1≤2, 2≤2, 2≤3, 3≤3 | ✓ |
+| ✗ | `P X X X P P` | bước 1: 1 > 0 | loại (vượt chéo ngay bước đầu) |
+
+$\Rightarrow$ `Catalan(3) = C(6,3)/4 = 20/4 = 5` ✓ khớp liệt kê tay.
+
 ---
 
 ## 4. Tổng đường đi trên lưới
@@ -177,6 +192,58 @@ với $\text{dp}[0][0] = 1$.
 
 Tổng = $\sum_{i=0}^{n} \sum_{j=0}^{m} \text{dp}[i][j]$
 
+### 4.3 Code + trace ngắn
+
+=== "C++"
+
+    ```cpp
+    long long sumAllPaths(int n, int m) {
+        // Bước 1: dp[i][j] = số đường từ (0,0) đến (i,j)
+        vector<vector<long long>> dp(n + 1, vector<long long>(m + 1, 0));
+        dp[0][0] = 1; // bước cơ sở: đứng yên có đúng 1 cách
+        long long total = 0;
+        for (int i = 0; i <= n; i++)
+            for (int j = 0; j <= m; j++) {
+                if (i == 0 && j == 0) { total += 1; continue; } // bước bỏ qua ô gốc (đã = 1)
+                long long up = (i > 0 ? dp[i - 1][j] : 0);   // bước lấy từ ô trên xuống
+                long long left = (j > 0 ? dp[i][j - 1] : 0); // bước lấy từ ô trái sang
+                dp[i][j] = (up + left) % MOD; // bước truy hồi: đến = trên + trái
+                total = (total + dp[i][j]) % MOD; // bước cộng dồn vào tổng
+            }
+        return total;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def sum_all_paths(n, m):
+        # Bước 1: dp[i][j] = số đường từ (0,0) đến (i,j)
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        dp[0][0] = 1  # bước cơ sở
+        total = 0
+        for i in range(n + 1):
+            for j in range(m + 1):
+                if i == 0 and j == 0:
+                    total += 1
+                    continue  # bước bỏ qua ô gốc
+                up = dp[i - 1][j] if i > 0 else 0    # bước lấy từ ô trên
+                left = dp[i][j - 1] if j > 0 else 0  # bước lấy từ ô trái
+                dp[i][j] = (up + left) % MOD         # bước truy hồi
+                total = (total + dp[i][j]) % MOD     # bước cộng dồn
+        return total
+    ```
+
+**Trace tay lưới $2 \times 2$** (`dp[i][j]`, hàng = xuống, cột = phải):
+
+| `dp` | `j=0` | `j=1` | `j=2` |
+|:---:|:---:|:---:|:---:|
+| `i=0` | 1 | 1 | 1 |
+| `i=1` | 1 | 2 | 3 |
+| `i=2` | 1 | 3 | 6 |
+
+Tổng = 1+1+1+1+2+3+1+3+6 = **19**.
+
 ---
 
 ## 5. Grid với nhiều loại bước
@@ -190,6 +257,55 @@ Từ $(0,0)$ đến $(n,m)$, mỗi bước có thể đi $(+1, 0), (0, +1), (+1,
 $$\text{dp}[i][j] = \text{dp}[i-1][j] + \text{dp}[i][j-1] + \text{dp}[i-1][j-1]$$
 
 Hoặc dùng ma trận chuyển nếu $n$ rất lớn (xem Bài 57).
+
+### 5.3 Code + trace ngắn
+
+=== "C++"
+
+    ```cpp
+    long long gridPathsDiag(int n, int m) {
+        // Bước 1: dp[i][j] = số đường đến (i,j) với 3 loại bước
+        vector<vector<long long>> dp(n + 1, vector<long long>(m + 1, 0));
+        dp[0][0] = 1; // bước cơ sở
+        for (int i = 0; i <= n; i++)
+            for (int j = 0; j <= m; j++) {
+                if (i == 0 && j == 0) continue; // bước bỏ qua ô gốc
+                long long up = (i > 0 ? dp[i - 1][j] : 0);       // bước đi (1,0): từ trên xuống
+                long long left = (j > 0 ? dp[i][j - 1] : 0);     // bước đi (0,1): từ trái sang
+                long long diag = (i > 0 && j > 0 ? dp[i - 1][j - 1] : 0); // bước chéo (1,1)
+                dp[i][j] = (up + left + diag) % MOD; // bước truy hồi: cộng cả 3 hướng
+            }
+        return dp[n][m];
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def grid_paths_diag(n, m):
+        # Bước 1: dp[i][j] = số đường đến (i,j) với 3 loại bước
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        dp[0][0] = 1  # bước cơ sở
+        for i in range(n + 1):
+            for j in range(m + 1):
+                if i == 0 and j == 0:
+                    continue  # bước bỏ qua ô gốc
+                up = dp[i - 1][j] if i > 0 else 0          # bước (1,0)
+                left = dp[i][j - 1] if j > 0 else 0        # bước (0,1)
+                diag = dp[i - 1][j - 1] if i > 0 and j > 0 else 0  # bước chéo (1,1)
+                dp[i][j] = (up + left + diag) % MOD        # bước truy hồi
+        return dp[n][m]
+    ```
+
+**Trace tay lưới $2 \times 2$** (số Delannoy $D(2,2) = 13$):
+
+| `dp` | `j=0` | `j=1` | `j=2` |
+|:---:|:---:|:---:|:---:|
+| `i=0` | 1 | 1 | 1 |
+| `i=1` | 1 | 3 (=1+1+1) | 5 (=3+1+1) |
+| `i=2` | 1 | 5 (=1+3+1) | 13 (=5+5+3) |
+
+$\Rightarrow$ `dp[2][2] = 13` (ví dụ `dp[1][1] = trên 1 + trái 1 + chéo 1 = 3`).
 
 ---
 

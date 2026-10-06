@@ -84,25 +84,28 @@ Với tính kết hợp trái-sang-phải (left-to-right associativity): khi g�
     }
 
     int evaluate(string s) {
-        vector<int> val;
-        vector<char> ops;
+        vector<int> val;   // val: stack toán hạng (số đã đọc, kết quả trung gian)
+        vector<char> ops;  // ops: stack toán tử đang chờ xử lý
         for (int i = 0; i < s.size(); i++) {
-            if (s[i] == ' ') continue;
+            if (s[i] == ' ') continue;  // bỏ qua dấu cách
             if (isdigit(s[i])) {
                 int num = 0;
+                // Đọc trọn số có nhiều chữ số (vd "12" chứ không phải 1, 2 riêng)
                 while (i < s.size() && isdigit(s[i]))
                     num = num * 10 + s[i++] - '0';
-                val.push_back(num);
-                i--;
+                val.push_back(num);  // push toán hạng vào val
+                i--;  // bù lại i++ của for vì while đã tiến i thêm 1
             } else {
+                // Có toán tử mới: xử lý hết toán tử cũ ưu tiên >= nó (đảm bảo nhân/chia trước)
                 while (!ops.empty() && priority(ops.back()) >= priority(s[i]))
-                    processOp(val, ops.back()), ops.pop_back();
-                ops.push_back(s[i]);
+                    processOp(val, ops.back()), ops.pop_back();  // pop 2 số, tính, push lại
+                ops.push_back(s[i]);  // push toán tử hiện tại vào ops
             }
         }
+        // Hết xâu: xử lý nốt toán tử còn chờ trong ops
         while (!ops.empty())
             processOp(val, ops.back()), ops.pop_back();
-        return val.back();
+        return val.back();  // kết quả cuối cùng nằm ở đáy val
     }
     ```
 
@@ -385,14 +388,15 @@ Mỗi phần tử được push vào stack đúng 1 lần và pop ra đúng 1 l�
     ```cpp
     vector<int> nextGreater(vector<int>& a) {
         int n = a.size();
-        vector<int> nge(n, -1);
-        stack<int> st;
+        vector<int> nge(n, -1);  // nge[i]: kết quả, -1 nghĩa là không có phần tử lớn hơn
+        stack<int> st;  // st: lưu CHỈ SỐ (index), duy trì a[st] giảm dần
         for (int i = 0; i < n; i++) {
+            // a[i] là "người lớn hơn đầu tiên" của mọi đỉnh stack nhỏ hơn nó
             while (!st.empty() && a[st.top()] < a[i]) {
-                nge[st.top()] = a[i];
-                st.pop();
+                nge[st.top()] = a[i];  // gán đáp án cho phần tử bị pop
+                st.pop();  // loại khỏi stack vì đã có đáp án
             }
-            st.push(i);
+            st.push(i);  // push index hiện tại chờ tìm NGE
         }
         return nge;
     }
@@ -403,13 +407,14 @@ Mỗi phần tử được push vào stack đúng 1 lần và pop ra đúng 1 l�
     ```python
     def next_greater(a):
         n = len(a)
-        nge = [-1] * n
-        st = []
+        nge = [-1] * n  # đáp án, -1 = không có phần tử lớn hơn
+        st = []  # st: lưu index, duy trì a[st] giảm dần
         for i in range(n):
+            # a[i] là NGE của mọi đỉnh stack nhỏ hơn nó
             while st and a[st[-1]] < a[i]:
-                nge[st[-1]] = a[i]
+                nge[st[-1]] = a[i]  # gán đáp án rồi pop
                 st.pop()
-            st.append(i)
+            st.append(i)  # push index hiện tại chờ tìm NGE
         return nge
     ```
 
@@ -462,17 +467,20 @@ Mọi hình chữ nhật tối ưu đều được xét vì mỗi cột đều �
 
     ```cpp
     int largestRectangleArea(vector<int>& heights) {
-        stack<int> st;
+        stack<int> st;  // st: lưu index, duy trì heights tăng dần
         int maxArea = 0;
         int n = heights.size();
         for (int i = 0; i <= n; i++) {
+            // Cột rào chắn: i == n coi như cột cao 0 để xả hết stack cuối cùng
             int h = (i == n) ? 0 : heights[i];
+            // Cột hiện tại thấp hơn đỉnh stack → đỉnh stack không mở rộng thêm được nữa
             while (!st.empty() && h < heights[st.top()]) {
-                int height = heights[st.top()]; st.pop();
+                int height = heights[st.top()]; st.pop();  // chiều cao HCN = cột bị pop
+                // Chiều rộng: từ sau đỉnh mới (biên trái) đến i-1 (biên phải)
                 int width = st.empty() ? i : i - st.top() - 1;
-                maxArea = max(maxArea, height * width);
+                maxArea = max(maxArea, height * width);  // cập nhật đáp án
             }
-            st.push(i);
+            st.push(i);  // push cột hiện tại vào stack
         }
         return maxArea;
     }
@@ -482,14 +490,14 @@ Mọi hình chữ nhật tối ưu đều được xét vì mỗi cột đều �
 
     ```python
     def largest_rectangle_area(heights):
-        st = []
+        st = []  # lưu index, duy trì chiều cao tăng dần
         max_area = 0
         n = len(heights)
         for i in range(n + 1):
-            h = 0 if i == n else heights[i]
+            h = 0 if i == n else heights[i]  # cột rào 0 cuối cùng để xả stack
             while st and h < heights[st[-1]]:
-                height = heights[st.pop()]
-                width = i if not st else i - st[-1] - 1
+                height = heights[st.pop()]  # chiều cao = cột bị pop
+                width = i if not st else i - st[-1] - 1  # rộng từ sau đỉnh mới đến i-1
                 max_area = max(max_area, height * width)
             st.append(i)
         return max_area

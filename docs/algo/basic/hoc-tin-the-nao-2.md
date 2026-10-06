@@ -9,7 +9,7 @@ Sau đây là các câu hỏi…
 
 ## Tại sao phải học Tin học?
 
-Về cơ duyên đến với Tin học của mình, bạn có thể tham khảo [bài viết trước](hoc-tin-the-nao-1.md). Hy vọng các bạn sẽ tìm thấy điểm chung nào đó. Một điều mình muốn nói thêm là Tin học hiện nay giống như một môn Toán thứ hai vậy. Nếu sau cuộc cách mạng công nghiệp, nhân loại bắt đầu gắn động cơ vào bất cứ mọi thứ xung quanh, thì đến cuộc cách mạng máy tính hiện tại, con người bắt đầu dùng máy tính vào mọi việc có thể. Một công việc trong thế giới hiện đại khó mà có thể vận hành hiệu quả mà không cần dùng đến máy tính. Vì thế, một con người trong thế giới hiện đại khó mà có thể thành công mà không có kỹ năng sử dụng công cụ này. Bạn bè của mình làm nhiều ngành khác nhau, từ toán học, hoá học, vật lý, đến kiểm toán. Họ đều phải chí ít phải có kỹ năng lập trình để phục vụ cho công việc của mình.
+Về cơ duyên đến với Tin học của mình, bạn có thể tham khảo bài viết trước trong cùng series. Hy vọng các bạn sẽ tìm thấy điểm chung nào đó. Một điều mình muốn nói thêm là Tin học hiện nay giống như một môn Toán thứ hai vậy. Nếu sau cuộc cách mạng công nghiệp, nhân loại bắt đầu gắn động cơ vào bất cứ mọi thứ xung quanh, thì đến cuộc cách mạng máy tính hiện tại, con người bắt đầu dùng máy tính vào mọi việc có thể. Một công việc trong thế giới hiện đại khó mà có thể vận hành hiệu quả mà không cần dùng đến máy tính. Vì thế, một con người trong thế giới hiện đại khó mà có thể thành công mà không có kỹ năng sử dụng công cụ này. Bạn bè của mình làm nhiều ngành khác nhau, từ toán học, hoá học, vật lý, đến kiểm toán. Họ đều phải chí ít phải có kỹ năng lập trình để phục vụ cho công việc của mình.
 
 ## Học Tin học như thế nào cho đúng?
 

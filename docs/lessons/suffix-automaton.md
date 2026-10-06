@@ -28,7 +28,7 @@ Cho xâu S. Nhiều câu hỏi đặt ra:
 
 ### Suffix Automaton là gì?
 
-Suffix Automaton là một **Deterministic Finite Automaton (DFA)** tối thiểu nhận **tất cả các hậu tố** của xâu S.
+Suffix Automaton là một **Deterministic Finite Automaton (DFA)** tối thiểu nhận **tất cả các xâu con (substring)** của xâu S.
 
 ```
 Đặc điểm:
@@ -89,6 +89,21 @@ Mỗi trạng thái đại diện cho một **lớp tương đương** các vị
 
 ## 2. Khái niệm cốt lõi
 
+### 2.0. Ví dụ cụ thể trước — nhìn số rồi mới định nghĩa
+
+Xét $S = \text{"abcbc"}$ (đánh số vị trí kết thúc từ 1):
+
+- Xâu con `"bc"` xuất hiện 2 lần: `a **[bc]** bc` (kết thúc tại 3) và `abc **[bc]**` (kết thúc tại 5) → tập vị trí kết thúc $\{3, 5\}$.
+- Xâu con `"abc"` xuất hiện 1 lần: `**[abc]**bc` (kết thúc tại 3) → tập vị trí kết thúc $\{3\}$.
+
+| Xâu con | Lần xuất hiện | Tập endpos |
+|---------|---------------|------------|
+| `bc` | `abc`, `abcbc` | $\{3, 5\}$ |
+| `abc` | `abc` | $\{3\}$ |
+| `c` | `abc`, `abcbc` | $\{3, 5\}$ |
+
+Nhận xét: `"bc"` và `"c"` có **cùng** tập endpos $\{3,5\}$ → chúng thuộc **cùng một trạng thái** trong SAM; `"abc"` khác tập endpos → **khác trạng thái**. Từ quan sát này ta mới đi vào định nghĩa chính thức dưới đây.
+
 ### 2.1. Trạng thái (State) — Lớp tương đương
 
 Mỗi trạng thái v trong SAM tương ứng với một **tập các vị trí kết thúc** (endpos) trong xâu.
@@ -96,12 +111,14 @@ Mỗi trạng thái v trong SAM tương ứng với một **tập các vị trí
 **Lớp tương đương (Equivalence Class):** Hai xâu con s₁, s₂ thuộc cùng một lớp khi chúng xuất hiện tại **cùng tập các vị trí kết thúc** trong xâu.
 
 ```
-Ví dụ: S = "abcbc"
+Ví dụ: S = "abcbc" (xem bảng ở §2.0)
 
 Xâu con "bc" xuất hiện kết thúc tại vị trí {3, 5}
-Xâu con "abc" xuất hiện kết thúc tại vị trí {3}
+Xâu con "c" xuất hiện kết thúc tại vị trí {3, 5}
+→ "bc" và "c" CÙNG lớp (cùng endpos) → cùng trạng thái!
 
-→ "bc" và "abc" KHÁC lớp (khác endpos)
+Xâu con "abc" xuất hiện kết thúc tại vị trí {3}
+→ "abc" KHÁC lớp với "bc" → khác trạng thái.
 ```
 
 ### 2.2. len[v] — Độ dài dài nhất
@@ -211,10 +228,10 @@ Khi len[p] + 1 < len[q]:
 
         void extend(char ch) {
             int c = ch - 'a';
-            int cur = sz++;
-            st[cur].len = st[last].len + 1;
+            int cur = sz++;  // cur: trạng thái mới cho toàn bộ tiền tố hiện tại
+            st[cur].len = st[last].len + 1;  // dài hơn last đúng 1 ký tự
 
-            int p = last;
+            int p = last;  // p: duyệt ngược theo suffix link để gắn cạnh c
             // Bước 1: Duyệt suffix link, thêm cạnh trỏ đến cur
             while (p != -1 && st[p].next[c] == -1) {
                 st[p].next[c] = cur;
@@ -225,27 +242,27 @@ Khi len[p] + 1 < len[q]:
                 // Không tìm thấy trạng thái nào có cạnh c
                 st[cur].link = 0;
             } else {
-                int q = st[p].next[c];
+                int q = st[p].next[c];  // q: trạng thái đã có cạnh c
                 if (st[p].len + 1 == st[q].len) {
                     // Trường hợp tốt: len[q] = len[p] + 1
                     st[cur].link = q;
                 } else {
-                    // Cần clone trạng thái q
+                    // Cần clone trạng thái q (vì q chứa xâu dài hơn mức cho phép)
                     int clone = sz++;
-                    st[clone].len = st[p].len + 1;
-                    st[clone].link = st[q].link;
-                    memcpy(st[clone].next, st[q].next, sizeof(st[q].next));
+                    st[clone].len = st[p].len + 1;  // clone chỉ nhận xâu ngắn (vừa với p + c)
+                    st[clone].link = st[q].link;  // clone kế thừa suffix link của q
+                    memcpy(st[clone].next, st[q].next, sizeof(st[q].next));  // sao chép toàn bộ cạnh
 
-                    // Sửa các cạnh trỏ đến q → trỏ đến clone
+                    // Sửa các cạnh trỏ đến q → trỏ đến clone (vì đường ngắn phải qua clone)
                     while (p != -1 && st[p].next[c] == q) {
                         st[p].next[c] = clone;
                         p = st[p].link;
                     }
 
-                    st[q].link = st[cur].link = clone;
+                    st[q].link = st[cur].link = clone;  // cả q và cur đều nhận clone làm link
                 }
             }
-            last = cur;
+            last = cur;  // cập nhật last cho ký tự tiếp theo
         }
 
         void build(const string& s) {
@@ -1356,7 +1373,7 @@ State st[MAXLEN * 2];  // ← KHÔNG PHẢI st[MAXLEN]!
 ## Tóm tắt
 
 ```
-Suffix Automaton = DFA tối thiểu nhận tất cả hậu tố
+Suffix Automaton = DFA tối thiểu nhận tất cả xâu con
 ├── Trạng thái = lớp tương đương endpos
 ├── len[v] = độ dài dài nhất trong trạng thái v
 ├── link[v] = suffix link → hậu tố dài nhất khác lớp

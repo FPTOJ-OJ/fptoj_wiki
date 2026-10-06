@@ -420,6 +420,9 @@ Tổng di chuyển của L: O(Q × √N) vì mỗi truy vấn L di chuyển tố
             // Cập nhật curAns tùy bài toán
         };
 
+        // NOTE: đây là khung tổng quát — add/remove cụ thể phụ thuộc bài toán.
+        // Xem thân hàm đầy đủ với bài DQUERY (đếm phần tử khác nhau) ở §5.
+
         for (auto& qr : queries) {
             while (curL > qr.l) add(--curL);
             while (curR < qr.r) add(++curR);
@@ -942,26 +945,68 @@ Block size:
             }
         }
 
-        // Xử lý Mo's với chiều thời gian
-        // add(pos), remove(pos), applyUpdate(t), undoUpdate(t)
-        // Tương tự Mo's thường nhưng thêm apply/undo update
+        // Xử lý Mo's với chiều thời gian (ví dụ: đếm phần tử khác nhau)
+        vector<int> freq(1000005, 0);
+        int distinct = 0;
+        auto addPos = [&](int pos) {
+            if (freq[a[pos]] == 0) distinct++;
+            freq[a[pos]]++;
+        };
+        auto removePos = [&](int pos) {
+            freq[a[pos]]--;
+            if (freq[a[pos]] == 0) distinct--;
+        };
+        auto applyUpdate = [&](Update& u, int curL, int curR) {
+            u.oldVal = a[u.pos]; // ghi nhớ giá trị cũ trước khi đè
+            if (curL <= u.pos && u.pos <= curR) {
+                removePos(u.pos); // gỡ giá trị cũ khỏi đoạn
+                a[u.pos] = u.newVal;
+                addPos(u.pos); // thêm giá trị mới vào đoạn
+            } else {
+                a[u.pos] = u.newVal;
+            }
+        };
+        auto undoUpdate = [&](Update& u, int curL, int curR) {
+            if (curL <= u.pos && u.pos <= curR) {
+                removePos(u.pos); // gỡ giá trị mới
+                a[u.pos] = u.oldVal;
+                addPos(u.pos); // khôi phục giá trị cũ
+            } else {
+                a[u.pos] = u.oldVal;
+            }
+        };
 
+        vector<int> ans(queries.size());
+        int curL = 0, curR = -1;
+        curTime = 0;
+        for (auto& qr : queries) {
+            while (curL > qr.l) addPos(--curL);
+            while (curR < qr.r) addPos(++curR);
+            while (curL < qr.l) removePos(curL++);
+            while (curR > qr.r) removePos(curR--);
+            while (curTime < qr.t) applyUpdate(updates[curTime++], curL, curR);
+            while (curTime > qr.t) undoUpdate(updates[--curTime], curL, curR);
+            ans[qr.idx] = distinct;
+        }
+        for (int x : ans) cout << x << '\n';
         return 0;
     }
     ```
 
-### 7.4. Hàm apply/undo update
+### 7.4. Hàm apply/undo update (bản rút gọn để tham khảo)
 
 ```cpp
+// Nguyên tắc: oldVal phải được ghi lại TRƯỚC khi đè (xem code đầy đủ ở §7.3).
+// Chỉ chạm vào freq/distinct khi u.pos nằm trong [curL, curR] hiện tại.
 void applyUpdate(Update& u, int curL, int curR) {
-    // Cập nhật giá trị tại u.pos
-    // Nếu u.pos nằm trong [curL, curR]: remove old, add new
-    a[u.pos] = u.newVal;
+    u.oldVal = a[u.pos]; // nhớ giá trị cũ
+    if (curL <= u.pos && u.pos <= curR) { removePos(u.pos); a[u.pos] = u.newVal; addPos(u.pos); }
+    else a[u.pos] = u.newVal;
 }
 
 void undoUpdate(Update& u, int curL, int curR) {
-    // Hoàn tác cập nhật
-    a[u.pos] = u.oldVal;
+    if (curL <= u.pos && u.pos <= curR) { removePos(u.pos); a[u.pos] = u.oldVal; addPos(u.pos); }
+    else a[u.pos] = u.oldVal;
 }
 ```
 

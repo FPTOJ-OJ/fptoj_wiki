@@ -7,20 +7,38 @@
 
 ## 1. Bản chất vấn đề
 
-Bài [Phép toán bit](phep-toan-bit.md) đã giới thiệu các phép toán cơ bản. Bài này tổng hợp các **thủ thuật bit** thường gặp trong thi đấu, giúp code ngắn hơn và chạy nhanh hơn.
+### Bài toán động lực: đếm tập con nộp bài
+
+Bạn có $n = 20$ bài tập, mỗi bài hoặc làm hoặc bỏ. Có bao nhiêu cách chọn tập bài để nộp? Mỗi cách chọn là 1 **tập con** của tập $n$ phần tử → tổng $2^{20} \approx 10^6$ cách, duyệt vừa đủ trong 1 giây!
+
+**Ý tưởng bit:** đánh số bài $0 \dots n-1$, dùng số nguyên `mask` ($n$ bit) biểu diễn 1 cách chọn: bit $i = 1$ nghĩa là làm bài $i$. Duyệt `mask` từ $0$ đến $(1 \ll n)-1$ là duyệt **mọi** tập con:
+
+```cpp
+// Bước 1: tổng số tập con = 2^n
+int total = 1 << n;
+// Bước 2: mỗi mask là 1 tập con; bit i của mask cho biết có chọn bài i không
+for (int mask = 0; mask < total; mask++) {
+    // xử lý tập con mask ở đây (vd: tính tổng điểm)
+}
+```
+
+Từ bài toán đếm tập con này, mọi thủ thuật dưới đây (`(mask-1) & S`, `n & (n-1)`, `1 << i`, ...) đều là công cụ để duyệt/xử lý tập con nhanh hơn.
 
 ### Bảng tổng hợp thủ thuật
 
 | Thủ thuật | Công thức | Ý nghĩa |
 |-----------|-----------|----------|
-| Kiểm tra số chẵn | `n & 1 == 0` | Bit cuối = 0 |
+| Kiểm tra số chẵn | `(n & 1) == 0` | Bit cuối = 0 |
 | Nhân / chia 2 | `n << 1`, `n >> 1` | Dịch bit |
 | Đổi dấu | `~n + 1` hoặc `-n` | Bù 2 |
-| Kiểm tra lũy thừa 2 | `n & (n-1) == 0` | Chỉ có 1 bit 1 |
+| Kiểm tra lũy thừa 2 | `(n & (n - 1)) == 0` (với $n > 0$) | Chỉ có 1 bit 1 |
 | Đếm bit 1 | `__builtin_popcount(n)` | popcount |
 | Lấy bit cuối cùng | `n & (-n)` | Bit 1 thấp nhất |
-| Xóa bit cuối cùng | `n & (n-1)` | Xóa LSB |
+| Xóa bit cuối cùng | `n & (n - 1)` | Xóa LSB |
 | Duyệt tập con | `mask = (mask - 1) & subset` | Liệt kê tập con |
+
+!!! warning "Ưu tiên toán tử trong C++"
+    `==` được ưu tiên hơn `&`, nên **bắt buộc viết ngoặc**: `(n & 1) == 0`, `(n & (n-1)) == 0`. Viết `n & 1 == 0` sẽ bị parse thành `n & (1 == 0)` = luôn 0!
 
 ---
 
@@ -169,13 +187,17 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
     using namespace std;
 
     int main() {
-        int s = 13; // 1101₂ = {0, 2, 3}
+        int s = 13; // 1101₂ = {0, 2, 3} (tập S cần liệt kê tập con)
 
         cout << "Tap con cua S = {0, 2, 3}:" << endl;
+        // Bước 1: bắt đầu từ mask = S (tập đầy đủ)
+        // Bước 2: mỗi vòng xử lý mask rồi nhảy: mask = (mask - 1) & s (tập con kế tiếp)
+        // Bước 3: dừng khi mask = 0 (đã liệt kê xong; nhớ xử lý riêng tập rỗng!)
         for (int mask = s; mask > 0; mask = (mask - 1) & s) {
             cout << mask << " (";
             bool first = true;
             for (int i = 0; i < 32; i++) {
+                // Bước kiểm tra: bit i có nằm trong mask không? (1 << i là mặt nạ bit i)
                 if (mask & (1 << i)) {
                     if (!first) cout << ", ";
                     cout << i;
@@ -191,14 +213,15 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
 === "Python"
 
     ```python
-    s = 13  # 1101₂ = {0, 2, 3}
+    s = 13  # 1101₂ = {0, 2, 3} (tập S cần liệt kê)
 
     print("Tap con cua S = {0, 2, 3}:")
-    mask = s
+    mask = s  # Bước 1: bắt đầu từ tập đầy đủ
     while mask > 0:
+        # Bước 2: bit i nào bật trong mask thì phần tử i thuộc tập con
         elements = [str(i) for i in range(32) if mask & (1 << i)]
         print(f"{mask} ({', '.join(elements)})")
-        mask = (mask - 1) & s
+        mask = (mask - 1) & s  # Bước 3: nhảy sang tập con kế tiếp (dừng khi = 0)
     ```
 
 ### Đếm bit 1 bằng Brian Kernighan
@@ -212,8 +235,8 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
     int popcount(int n) {
         int cnt = 0;
         while (n) {
-            n &= (n - 1); // xóa bit 1 cuối cùng
-            cnt++;
+            n &= (n - 1); // bước xóa: gỡ bit 1 cuối cùng (mỗi vòng mất đúng 1 bit 1)
+            cnt++; // bước đếm: vừa xóa 1 bit → +1
         }
         return cnt;
     }
@@ -231,8 +254,8 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
     def popcount(n):
         cnt = 0
         while n:
-            n &= (n - 1)
-            cnt += 1
+            n &= (n - 1)  # bước xóa: gỡ bit 1 cuối cùng
+            cnt += 1  # bước đếm: vừa xóa 1 bit → +1
         return cnt
 
     print(popcount(13))  # Output: 3
@@ -247,11 +270,13 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
     using namespace std;
 
     bool isPowerOf2(int n) {
+        // Bước 1: n > 0 (loại n = 0 và số âm); Bước 2: chỉ có đúng 1 bit 1
         return n > 0 && (n & (n - 1)) == 0;
     }
 
     int highestPowerOf2(int n) {
         // Tìm lũy thừa 2 lớn nhất <= n
+        // Bước lặp: nhân đôi p chừng nào 2*p còn <= n
         int p = 1;
         while ((p << 1) <= n) p <<= 1;
         return p;
@@ -259,6 +284,7 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
 
     int lowestPowerOf2(int n) {
         // Tìm lũy thừa 2 nhỏ nhất >= n
+        // Bước lặp: nhân đôi p chừng nào p còn < n
         int p = 1;
         while (p < n) p <<= 1;
         return p;
@@ -277,15 +303,18 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
 
     ```python
     def is_power_of_2(n):
+        # Bước 1: n > 0; Bước 2: n & (n-1) == 0 nghĩa là chỉ có 1 bit 1
         return n > 0 and (n & (n - 1)) == 0
 
     def highest_power_of_2(n):
+        # Bước lặp: nhân đôi p chừng nào 2*p còn <= n
         p = 1
         while (p << 1) <= n:
             p <<= 1
         return p
 
     def lowest_power_of_2(n):
+        # Bước lặp: nhân đôi p chừng nào p còn < n
         p = 1
         while p < n:
             p <<= 1
@@ -296,6 +325,61 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
     print(highest_power_of_2(20)) # 16
     print(lowest_power_of_2(20))  # 32
     ```
+
+---
+
+## Cạm bẫy thường gặp
+
+### Lỗi 1: Quên ngoặc với `&`, `|`, `^`
+
+`==` ưu tiên hơn `&` nên **bắt buộc ngoặc** (đã nhắc ở §1, nhắc lại bằng code):
+
+```cpp
+// SAI: bị parse thành n & (1 == 0) = n & 0 = 0 → luôn false!
+if (n & 1 == 0) { /* ... */ }
+
+// ĐÚNG: ngoặc rõ ràng
+if ((n & 1) == 0) { /* chẵn */ }
+if ((n & (n - 1)) == 0) { /* lũy thừa 2 */ }
+```
+
+### Lỗi 2: Shift `>= 31` (int) / `>= 63` (long long) — UB!
+
+```cpp
+// SAI: 1 là int 32-bit; 1 << 31 trở lên là hành vi không xác định (có thể ra số âm/0)
+int mask = 1 << 31;
+
+// ĐÚNG: dùng 1LL và giữ shift < 63; n = 20–22 là ngưỡng duyệt 2^n vừa đủ
+long long mask = 1LL << 20; // 2^20 ≈ 10^6, OK
+// Quy tắc: n <= 20 dùng int; n <= 60 dùng 1LL << n; n lớn hơn → không duyệt bitmask!
+```
+
+### Lỗi 3: `1 << i` tràn khi `i` lớn
+
+```cpp
+// SAI: n = 30, 1 << 30 vẫn OK nhưng 1 << 31 tràn int
+for (int i = 0; i < n; i++) if (mask & (1 << i)) { /* ... */ }
+
+// ĐÚNG:统一 dùng 1LL << i
+for (int i = 0; i < n; i++) if (mask & (1LL << i)) { /* ... */ }
+```
+
+### Lỗi 4: Duyệt tập con quên tập rỗng (`mask = 0`)
+
+```cpp
+// SAI: vòng for dừng ở mask > 0 → BỎ SÓT tập rỗng (đáp án có thể chính là tập rỗng!)
+for (int mask = s; mask > 0; mask = (mask - 1) & s) solve(mask);
+
+// ĐÚNG: xử lý riêng mask = 0, hoặc dùng do-while
+for (int mask = s; ; mask = (mask - 1) & s) {
+    solve(mask); // xử lý cả mask = 0
+    if (mask == 0) break; // bước dừng: đã xử lý xong tập rỗng
+}
+```
+
+| `s` | Vòng SAI liệt kê | Vòng ĐÚNG liệt kê |
+|:---:|---|---|
+| `5` (`101`) | `5, 4, 1` (thiếu `0`) | `5, 4, 1, 0` (đủ $2^2 = 4$ tập) |
 
 ---
 

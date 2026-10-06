@@ -62,10 +62,12 @@ Bộ nhớ: $O(\sqrt{p})$.
 | 6 | 64 | table[64] = 6 |
 | 7 | 27 | table[27] = 7 |
 | 8 | 54 | table[54] = 8 |
-| 9 | 8 | *(đã có table[8]=3, bỏ qua)* |
-| 10 | 16 | *(đã có table[16]=4, bỏ qua)* |
+| 9 | 7 | table[7] = 9 |
+| 10 | 14 | table[14] = 10 |
 
-> **Lưu ý:** Nếu cùng một giá trị $a^j$ xuất hiện nhiều lần, ta giữ chỉ số $j$ nhỏ nhất để tìm được $x$ nhỏ nhất.
+($2^7 = 128 \equiv 27$; $2^8 = 54$; $2^9 = 108 \equiv 7$; $2^{10} = 14 \pmod{101}$ — bạn đọc nên tự nhân tay kiểm tra!)
+
+> **Lưu ý:** Nếu cùng một giá trị $a^j$ xuất hiện nhiều lần (xảy ra khi $j$ vượt quá bậc của $a$), ta giữ chỉ số $j$ nhỏ nhất để tìm được $x$ nhỏ nhất.
 
 **Giant steps:** Tính $a^{-m} = 2^{-11} \pmod{101}$. Theo Fermat: $2^{-11} \equiv (2^{11})^{101-2} \pmod{101}$.
 
@@ -357,16 +359,16 @@ if (table.find(val) == table.end())
 ### Quên $+$ MOD khi trừ trong modulo
 
 ```cpp
-// SAI: (a - b) % MOD có thể âm
-long long cur = (hashT[i + m] - hashT[i] * power[m]) % MOD;
+// SAI: (gamma - ...) % p có thể âm trong C++
+long long nxt = (cur - sub) % p;
 
-// ĐÚNG: Luôn thêm MOD trước khi %
-long long cur = (hashT[i + m] - hashT[i] * power[m] % MOD + MOD) % MOD;
+// ĐÚNG: Luôn cộng p trước khi %
+long long nxt = (cur - sub % p + p) % p;
 ```
 
 ---
 
-## 6. Bài tập luyện tập
+## 7. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |

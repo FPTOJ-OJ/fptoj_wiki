@@ -409,6 +409,9 @@ Vậy tổng số lần chạy là $O(n \log n)$, không phải $O(n^2)$.
     print(f"O(N^2) voi n=10000: {time.time() - start:.3f} giay")
     ```
 
+> ⚠️ **CẢNH BÁO: Đừng chạy thật đoạn Python trên!** Vòng lặp `for i in range(10**8)` trong Python thuần chạy ~20–60 giây (thậm chí hàng phút, treo máy yếu) vì mỗi vòng lặp là một thao tác Python-level, chậm hơn C++ ~50–100 lần. Code trên chỉ để **minh họa lý thuyết**, không phải để chạy thử.
+> Muốn đo $O(N)$ trong Python, hãy giảm xuống `n = 10**6` (~0.02–0.05 s) hoặc `10**7` (~0.3–0.5 s) rồi **nhân tỉ lệ** ra. Hoặc dùng `sum(range(n))` (C-level, nhanh hơn ~10 lần) thay vì vòng lặp cộng tay. Với C++ thì `n = 10**8` chạy được (~0.1–0.3 s), cứ chạy bình thường.
+
 ### Tìm kiếm nhị phân - $O(\log N)$
 
 Tìm kiếm nhị phân là thuật toán kinh điển có độ phức tạp $O(\log N)$:

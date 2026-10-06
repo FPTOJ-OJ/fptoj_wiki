@@ -47,20 +47,63 @@ graph TD
     C --> I["1"]
 ```
 
-**Chạy Alpha-Beta:**
+**Chạy Alpha-Beta (theo dõi α tại MAX-A và β tại MIN-B/C từng bước):**
 
-| Bước | Nút | Loại | $\alpha$ | $\beta$ | Giá trị | Cắt tỉa? |
-|------|-----|------|----------|---------|---------|----------|
+| Bước | Nút | Loại | $\alpha$ (tốt nhất của MAX) | $\beta$ (tốt nhất của MIN) | Giá trị nút | Cắt tỉa? |
+|------|-----|------|-----------------------------|----------------------------|-------------|----------|
 | 1 | D | Lá | — | — | 3 | |
-| 2 | E | Lá | — | — | 5 | |
-| 3 | F | Lá | — | — | 7 | |
-| 4 | B (MIN) | MIN | — | — | $\min(3,5,7) = 3$ | |
-| 5 | A (MAX) | MAX | $\alpha = 3$ | — | 3 | |
-| 6 | G | Lá | — | — | 2 | $2 < \alpha = 3$ → **Cắt!** |
-| 7 | C (MIN) | MIN | — | — | $\min(2, \ldots) = 2$ | |
-| 8 | A (MAX) | MAX | — | — | $\max(3, 2) = 3$ | |
+| 2 | B | MIN (đang duyệt) | $-∞$ (chưa có từ A) | $\beta=\min(+∞,3)=3$ | tạm $v=3$ | |
+| 3 | E | Lá | — | — | 5 | $5 > \beta=3$, MIN bỏ qua |
+| 4 | F | Lá | — | — | 7 | $7 > \beta=3$, MIN bỏ qua |
+| 5 | B (MIN) | chốt | — | 3 | $\min(3,5,7)=3$ | xong, trả 3 lên A |
+| 6 | A | MAX (đang duyệt) | $\alpha=\max(-∞,3)=3$ | $+∞$ | tạm $v=3$ | |
+| 7 | G | Lá | — | — | 2 | $2 \le \alpha=3$: C thấy $v=2\le\alpha$ → **cắt H, I** |
+| 8 | C (MIN) | chốt sớm | 3 | $\beta=\min(+∞,2)=2$ | $\min(2,\ldots)=2$ (không duyệt H, I) | $\alpha\ge\beta$ ($3\ge2$) → cắt |
+| 9 | A (MAX) | chốt | $\alpha=\max(3,2)=3$ | — | $\max(3,2)=3$ | |
 
-Kết quả: MAX chọn giá trị 3. Nhánh $H$ và $I$ bị cắt vì $G$ đã cho giá trị 2 < $\alpha = 3$.
+Kết quả: MAX chọn giá trị 3. Nhánh $H$ và $I$ bị cắt vì $G$ đã cho giá trị 2 < $\alpha = 3$ (MIN-C chắc chắn trả về $\le 2$, không bao giờ vượt được 3 mà MAX-A đã có).
+
+### Lỗi thường gặp (SAI / ĐÚNG)
+
+**Lỗi 1: Nhầm vai trò MAX/MIN (dùng `max` ở nút MIN)**
+
+```cpp
+// SAI: nút MIN lại lấy max
+val = max(val, alphaBeta(child, ...));  // trong nhánh minimizing
+
+// ĐÚNG: MIN dùng min + cập nhật beta; MAX dùng max + cập nhật alpha
+val = min(val, alphaBeta(child, depth + 1, alpha, beta, true));
+beta = min(beta, val);
+```
+
+**Lỗi 2: Khởi tạo α/β sai**
+
+```cpp
+// SAI: alpha = 0, beta = 0 → cắt nhầm ngay khi giá trị âm/dương
+int alpha = 0, beta = 0;
+
+// ĐÚNG: alpha = -vô cực, beta = +vô cực ở nút gốc
+alphaBeta(0, 0, INT_MIN, INT_MAX, true);
+```
+
+**Lỗi 3: Quên sắp xếp thứ tự nước đi (mất hết hiệu quả cắt)**
+
+```cpp
+// SAI: duyệt con theo thứ tự ngẫu nhiên → worst case O(b^d)
+// ĐÚNG: MAX duyệt con tốt nhất trước (giảm dần), MIN duyệt tệ nhất trước (tăng dần)
+// → best case O(b^{d/2}). Với cờ vua: thử nước ăn quân / chiếu trước.
+sort(tree[node].begin(), tree[node].end(), cmp);  // heuristic trước khi lặp
+```
+
+**Lỗi 4: Điều kiện cắt `>` thay vì `>=`**
+
+```cpp
+// SAI: bỏ sót trường hợp alpha == beta (vẫn cắt được an toàn)
+if (alpha > beta) break;
+
+// ĐÚNG: chuẩn Alpha-Beta dùng >=
+if (alpha >= beta) break;  // nhánh này không ảnh hưởng kết quả
+```
 
 ---
 

@@ -143,12 +143,14 @@ Với các bài toán mà kết quả chỉ phụ thuộc vào **thứ tự tư�
     using namespace std;
 
     vector<int> discretize(vector<int>& a) {
-        vector<int> b = a;
-        sort(b.begin(), b.end());
+        vector<int> b = a; // Bước 1: copy để giữ nguyên mảng gốc
+        sort(b.begin(), b.end()); // Bước 2: sort để đưa giá trị bằng nhau về cạnh nhau + lập thứ tự rank
+        // Bước 3: unique dồn phần tử trùng về cuối, erase xóa đi → b chỉ còn giá trị phân biệt, đã sort
         b.erase(unique(b.begin(), b.end()), b.end());
 
         vector<int> res(a.size());
         for (int i = 0; i < (int)a.size(); i++) {
+            // Bước 4: lower_bound tìm vị trí đầu tiên >= a[i] trong b → chính là rank của a[i]
             res[i] = lower_bound(b.begin(), b.end(), a[i]) - b.begin();
         }
         return res;
@@ -171,10 +173,11 @@ Với các bài toán mà kết quả chỉ phụ thuộc vào **thứ tự tư�
 === "Python"
 
     ```python
-    from bisect import bisect_left
+    from bisect import bisect_left  # bisect_left = lower_bound: vị trí đầu tiên >= x
 
     def discretize(a):
-        b = sorted(set(a))
+        b = sorted(set(a))  # Bước 1: set loại trùng + sorted sắp xếp → bảng rank
+        # Bước 2: với mỗi x, bisect_left tìm rank của x trong b
         return [bisect_left(b, x) for x in a]
 
     n = int(input())
@@ -200,20 +203,21 @@ Dùng mảng đếm trên miền giá trị đã rời rạc hoá:
         vector<int> a(n);
         for (int i = 0; i < n; i++) cin >> a[i];
 
-        // Rời rạc hoá
+        // Rời rạc hoá: copy + sort (lập thứ tự) + unique (xóa trùng) → bảng rank b
         vector<int> b = a;
         sort(b.begin(), b.end());
         b.erase(unique(b.begin(), b.end()), b.end());
 
-        int m = b.size(); // số giá trị phân biệt
-        vector<int> cnt(m, 0);
+        int m = b.size(); // số giá trị phân biệt = kích thước miền nén
+        vector<int> cnt(m, 0); // cnt[rank] = tần suất của giá trị có rank đó
         int distinct = 0;
 
         // Ví dụ: đếm số phân biệt trong toàn mảng
         for (int i = 0; i < n; i++) {
+            // Bước ánh xạ: a[i] → rank qua lower_bound (vị trí đầu tiên >= a[i])
             int val = lower_bound(b.begin(), b.end(), a[i]) - b.begin();
-            if (cnt[val] == 0) distinct++;
-            cnt[val]++;
+            if (cnt[val] == 0) distinct++; // rank lần đầu xuất hiện → +1 loại mới
+            cnt[val]++; // cập nhật tần suất
         }
 
         cout << "So phan tu phan biet: " << distinct << endl;
@@ -229,19 +233,77 @@ Dùng mảng đếm trên miền giá trị đã rời rạc hoá:
     n = int(input())
     a = list(map(int, input().split()))
 
-    b = sorted(set(a))
-    m = len(b)
-    cnt = [0] * m
+    b = sorted(set(a))  # bảng rank: set loại trùng + sorted lập thứ tự
+    m = len(b)  # kích thước miền nén
+    cnt = [0] * m  # cnt[rank] = tần suất
     distinct = 0
 
     for val in a:
-        idx = bisect_left(b, val)
+        idx = bisect_left(b, val)  # bước ánh xạ: giá trị → rank
         if cnt[idx] == 0:
-            distinct += 1
-        cnt[idx] += 1
+            distinct += 1  # rank mới xuất hiện lần đầu
+        cnt[idx] += 1  # cập nhật tần suất
 
     print(f"So phan tu phan biet: {distinct}")
     ```
+
+---
+
+## Cạm bẫy thường gặp
+
+### Lỗi 1: Quên `sort` + `unique` (nén sai)
+
+```cpp
+// SAI: unique trên mảng chưa sort → chỉ xóa trùng LIÊN TIẾP, rank sai!
+vector<int> b = a;
+b.erase(unique(b.begin(), b.end()), b.end()); // thiếu sort!
+
+// ĐÚNG: luôn sort trước unique
+vector<int> b = a;
+sort(b.begin(), b.end()); // bước bắt buộc: đưa trùng về cạnh nhau + lập thứ tự
+b.erase(unique(b.begin(), b.end()), b.end());
+```
+
+### Lỗi 2: Nhầm `upper_bound` vs `lower_bound`
+
+| Hàm | Ý nghĩa | Khi nào dùng |
+|:---|:---|:---|
+| `lower_bound` (vị trí đầu tiên `>= x`) | rank của `x` đã tồn tại trong `b` | Nén điểm (mặc định, luôn dùng cái này) |
+| `upper_bound` (vị trí đầu tiên `> x`) | số lượng phần tử `<= x` | Đếm `≤ x`, truy vấn prefix |
+
+```cpp
+// SAI: dùng upper_bound để nén → rank lệch +1 với phần tử trùng
+res[i] = upper_bound(b.begin(), b.end(), a[i]) - b.begin();
+// ĐÚNG: nén điểm dùng lower_bound
+res[i] = lower_bound(b.begin(), b.end(), a[i]) - b.begin();
+```
+
+### Lỗi 3: Query ngoài miền nén
+
+```cpp
+// SAI: query x không có trong b mà vẫn lower_bound rồi dùng trực tiếp
+int idx = lower_bound(b.begin(), b.end(), x) - b.begin();
+cnt[idx]++; // nếu x > mọi phần tử → idx == m → tràn mảng!
+
+// ĐÚNG: kiểm tra biên trước
+int idx = lower_bound(b.begin(), b.end(), x) - b.begin();
+if (idx < m && b[idx] == x) cnt[idx]++; // chỉ đếm khi x thực sự tồn tại
+// hoặc: nén cả query vào b ngay từ đầu (thu thập mọi tọa độ query trước khi sort+unique)
+```
+
+### Lỗi 4: Nén đoạn `[l, r]` mà quên `r+1`
+
+Khi dùng hiệu (difference array) trên tọa độ nén, đoạn `[l, r]` cần 2 mốc: `l` và `r+1`:
+
+```cpp
+// SAI: chỉ nén {l, r} → không biểu diễn được "hết phủ sau r"
+coords = {l1, r1, l2, r2};
+
+// ĐÚNG: nén cả r+1 (điểm kết thúc phủ)
+coords = {l1, r1 + 1, l2, r2 + 1}; // bước thêm mốc kết thúc
+sort + unique;
+diff[idx(l)] += 1; diff[idx(r + 1)] -= 1; // phủ [l, r] trên miền nén
+```
 
 ---
 

@@ -172,20 +172,28 @@ Với truy vấn $\min[l, r]$:
     int n;
     
     void build() {
+        // Bước 0: st[i][0] = đoạn dài 1 (2^0) bắt đầu tại i
         for (int i = 0; i < n; i++)
             st[i][0] = a[i];
-        
+
+        // k: số mũ — đoạn đang xây dài 2^k
+        // i: vị trí bắt đầu đoạn
         for (int k = 1; (1 << k) <= n; k++) {
+            // i + 2^k - 1 < n: đảm bảo đoạn [i, i+2^k-1] nằm trong mảng
             for (int i = 0; i + (1 << k) - 1 < n; i++) {
+                // Ghép 2 nửa dài 2^(k-1): nửa trái [i, ...] + nửa phải [i+2^(k-1), ...]
                 st[i][k] = min(st[i][k - 1],
                                st[i + (1 << (k - 1))][k - 1]);
             }
         }
     }
-    
+
     int query(int l, int r) {
+        // len: độ dài đoạn cần hỏi
         int len = r - l + 1;
+        // k: lũy thừa 2 lớn nhất mà 2^k <= len
         int k = __lg(len);
+        // Ghép 2 đoạn dài 2^k: [l, l+2^k-1] và [r-2^k+1, r] (có thể giao nhau)
         return min(st[l][k],
                    st[r - (1 << k) + 1][k]);
     }
@@ -201,22 +209,26 @@ Với truy vấn $\min[l, r]$:
         def __init__(self, a, func=min):
             self.n = len(a)
             self.func = func
-            self.LOG = self.n.bit_length()
-            self.st = [[0] * self.LOG for _ in range(self.n)]
-            
+            self.LOG = self.n.bit_length()  # số tầng k cần thiết (vì 2^LOG > n)
+            self.st = [[0] * self.LOG for _ in range(self.n)]  # st[i][k]: đoạn dài 2^k từ i
+
+            # Bước 0: đoạn dài 1
             for i in range(self.n):
                 self.st[i][0] = a[i]
-            
+
+            # k: số mũ (độ dài 2^k); i: vị trí bắt đầu
             for k in range(1, self.LOG):
-                for i in range(self.n - (1 << k) + 1):
+                for i in range(self.n - (1 << k) + 1):  # +1 vì i là 0-indexed
+                    # Ghép 2 nửa dài 2^(k-1)
                     self.st[i][k] = self.func(
                         self.st[i][k - 1],
                         self.st[i + (1 << (k - 1))][k - 1]
                     )
-        
+
         def query(self, l, r):
-            length = r - l + 1
-            k = length.bit_length() - 1
+            length = r - l + 1  # len: độ dài đoạn hỏi
+            k = length.bit_length() - 1  # k = floor(log2(len))
+            # Ghép 2 đoạn dài 2^k phủ [l, r]
             return self.func(
                 self.st[l][k],
                 self.st[r - (1 << k) + 1][k]
@@ -287,16 +299,20 @@ GCD là idempotent: $\gcd(x, x) = x$ nên có thể dùng Sparse Table!
     int n;
     
     void build() {
+        // Bước 0: đoạn dài 1 — st[i][0] = gcd của chính a[i]
         for (int i = 0; i < n; i++)
             st[i][0] = a[i];
-        
+
+        // k: số mũ (độ dài 2^k); i: vị trí bắt đầu đoạn
         for (int k = 1; (1 << k) <= n; k++)
             for (int i = 0; i + (1 << k) - 1 < n; i++)
+                // Ghép 2 nửa dài 2^(k-1) bằng gcd (gcd có tính idempotent)
                 st[i][k] = __gcd(st[i][k - 1],
                                   st[i + (1 << (k - 1))][k - 1]);
     }
-    
+
     int query(int l, int r) {
+        // len = r-l+1; k = floor(log2(len)) — 2 đoạn dài 2^k phủ kín [l,r]
         int k = __lg(r - l + 1);
         return __gcd(st[l][k], st[r - (1 << k) + 1][k]);
     }
@@ -310,22 +326,25 @@ GCD là idempotent: $\gcd(x, x) = x$ nên có thể dùng Sparse Table!
     class SparseTableGCD:
         def __init__(self, a):
             self.n = len(a)
-            self.LOG = self.n.bit_length()
-            self.st = [[0] * self.LOG for _ in range(self.n)]
-            
+            self.LOG = self.n.bit_length()  # số tầng k
+            self.st = [[0] * self.LOG for _ in range(self.n)]  # st[i][k]: gcd đoạn dài 2^k từ i
+
+            # Bước 0: đoạn dài 1
             for i in range(self.n):
                 self.st[i][0] = a[i]
-            
+
+            # k: số mũ; i: vị trí bắt đầu — ghép 2 nửa bằng gcd
             for k in range(1, self.LOG):
                 for i in range(self.n - (1 << k) + 1):
                     self.st[i][k] = gcd(
                         self.st[i][k - 1],
                         self.st[i + (1 << (k - 1))][k - 1]
                     )
-        
+
         def query(self, l, r):
-            length = r - l + 1
-            k = length.bit_length() - 1
+            length = r - l + 1  # len đoạn hỏi
+            k = length.bit_length() - 1  # k = floor(log2(len))
+            # Ghép 2 đoạn dài 2^k (giao nhau cũng đúng vì gcd idempotent)
             return gcd(self.st[l][k], self.st[r - (1 << k) + 1][k])
     ```
 

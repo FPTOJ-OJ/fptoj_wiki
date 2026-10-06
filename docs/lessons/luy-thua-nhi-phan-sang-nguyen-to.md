@@ -128,24 +128,24 @@ flowchart TD
 
     ```cpp
     long long power(long long a, long long b) {
-        long long result = 1;
-        while (b > 0) {
-            if (b & 1)
+        long long result = 1; // Bước 1: khởi tạo tích = 1 (phần tử trung hòa)
+        while (b > 0) { // Bước 2: còn mũ thì còn tách bit
+            if (b & 1) // Bước 3: bit cuối = 1 thì nhân a hiện tại vào kết quả
                 result *= a;
-            a *= a;
-            b >>= 1;
+            a *= a; // Bước 4: bình phương a (a^1 -> a^2 -> a^4 -> ...)
+            b >>= 1; // Bước 5: dịch phải, bỏ bit vừa xử lý
         }
         return result;
     }
 
     long long powerMod(long long a, long long b, long long MOD) {
-        long long result = 1;
-        a %= MOD;
-        while (b > 0) {
-            if (b & 1)
+        long long result = 1; // Bước 1: khởi tạo tích = 1
+        a %= MOD; // Bước 2: rút gọn cơ số trước để tránh tràn số
+        while (b > 0) { // Bước 3: còn mũ thì còn tách bit
+            if (b & 1) // Bước 4: bit = 1 thì nhân vào kết quả (mod mỗi bước)
                 result = (__int128)result * a % MOD;
-            a = (__int128)a * a % MOD;
-            b >>= 1;
+            a = (__int128)a * a % MOD; // Bước 5: bình phương a (mod mỗi bước)
+            b >>= 1; // Bước 6: dịch phải sang bit tiếp theo
         }
         return result;
     }
@@ -159,13 +159,13 @@ flowchart TD
 
     # Tự cài đặt để hiểu thuật toán
     def power_mod(a, b, mod):
-        result = 1
-        a %= mod
-        while b > 0:
-            if b & 1:
+        result = 1  # Bước 1: khởi tạo tích = 1
+        a %= mod  # Bước 2: rút gọn cơ số trước
+        while b > 0:  # Bước 3: còn mũ thì còn tách bit
+            if b & 1:  # Bước 4: bit = 1 thì nhân vào kết quả
                 result = result * a % mod
-            a = a * a % mod
-            b >>= 1
+            a = a * a % mod  # Bước 5: bình phương a
+            b >>= 1  # Bước 6: dịch phải sang bit tiếp theo
         return result
     ```
 

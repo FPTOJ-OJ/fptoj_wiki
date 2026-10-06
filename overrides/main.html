@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+{{ super() }}
+<meta name="author" content="FPTOJ Wiki (Ha Tri Kien)" />
+<meta name="keywords" content="lap trinh thi dau, competitive programming, thuat toan, algorithms, C++, Python, ICPC, VOI, IOI, HSG tin hoc, FPTOJ, VNOI, cau truc du lieu, quy hoach dong, do thi, ly thuyet so" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="FPTOJ Wiki" />
+<meta property="og:title" content="{{ page.title }} - FPTOJ Wiki" />
+<meta property="og:description" content="{{ page.description | default(config.site_description, true) }}" />
+<meta property="og:url" content="{{ page.canonical_url }}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ page.title }} - FPTOJ Wiki" />
+<meta name="twitter:description" content="{{ page.description | default(config.site_description, true) }}" />
+<link rel="canonical" href="{{ page.canonical_url }}" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "FPTOJ Wiki",
+  "url": "{{ config.site_url }}",
+  "description": "{{ config.site_description }}",
+  "inLanguage": "vi"
+}
+</script>
+{% endblock %}

@@ -70,9 +70,9 @@ graph TD
 | Thao tác | Thời gian | Không gian |
 |----------|-----------|------------|
 | Xây cây | $O(N \log N)$ | $O(N \log N)$ |
-| Truy vấn 1 đoạn | $O(\log N + k)$ | $O(1)$ |
+| Truy vấn 1 đoạn | $O(N)$ worst-case ($O(\log N + k)$ nếu binary search điểm bắt đầu) | $O(1)$ |
 
-$k$ = số đoạn giao được tìm thấy.
+$k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng quét tuyến tính + dừng sớm trên danh sách đã sắp xếp (đơn giản, đủ nhanh khi mỗi nút ít đoạn); muốn đạt $O(\log N + k)$ hãy thay vòng `for` bằng `upper_bound`/`lower_bound` để tìm vị trí bắt đầu.
 
 ---
 

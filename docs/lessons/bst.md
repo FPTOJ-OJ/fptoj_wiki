@@ -196,51 +196,52 @@ Các biến thể giữ $h = O(\log N)$ luôn đúng:
     };
 
     struct BST {
-        Node* root = nullptr;
+        Node* root = nullptr; // Bước 0: cây rỗng, gốc = NULL
 
         Node* insert(Node* node, int val) {
-            if (node == nullptr) return new Node(val);
-            if (val < node->val)
+            if (node == nullptr) return new Node(val); // Bước 1: tới chỗ trống -> tạo nút mới
+            if (val < node->val) // Bước 2: nhỏ hơn -> rẽ trái
                 node->left = insert(node->left, val);
-            else if (val > node->val)
+            else if (val > node->val) // Bước 3: lớn hơn -> rẽ phải (trùng thì bỏ qua)
                 node->right = insert(node->right, val);
-            return node;
+            return node; // Bước 4: trả nút hiện tại để cha nối lại
         }
 
         void insert(int val) { root = insert(root, val); }
 
         bool search(Node* node, int val) {
-            if (node == nullptr) return false;
-            if (val == node->val) return true;
-            if (val < node->val) return search(node->left, val);
-            return search(node->right, val);
+            if (node == nullptr) return false; // Bước 1: rơi khỏi lá -> không có
+            if (val == node->val) return true; // Bước 2: khớp -> tìm thấy
+            if (val < node->val) return search(node->left, val); // Bước 3: nhỏ -> sang trái
+            return search(node->right, val); // Bước 4: lớn -> sang phải
         }
 
         bool search(int val) { return search(root, val); }
 
         Node* findMin(Node* node) {
-            while (node->left != nullptr)
+            while (node->left != nullptr) // Bước 1: min = đi trái hết cỡ
                 node = node->left;
             return node;
         }
 
         Node* erase(Node* node, int val) {
-            if (node == nullptr) return nullptr;
-            if (val < node->val)
+            if (node == nullptr) return nullptr; // Bước 1: không tìm thấy -> xong
+            if (val < node->val) // Bước 2: nhỏ -> xóa bên trái
                 node->left = erase(node->left, val);
-            else if (val > node->val)
+            else if (val > node->val) // Bước 3: lớn -> xóa bên phải
                 node->right = erase(node->right, val);
-            else {
-                if (node->left == nullptr) {
+            else { // Bước 4: tìm thấy nút cần xóa
+                if (node->left == nullptr) { // TH1: 0 hoặc 1 con phải -> thay bằng con phải
                     Node* temp = node->right;
                     delete node;
                     return temp;
                 }
-                if (node->right == nullptr) {
+                if (node->right == nullptr) { // TH2: chỉ có con trái -> thay bằng con trái
                     Node* temp = node->left;
                     delete node;
                     return temp;
                 }
+                // TH3: 2 con -> copy kế nhiệm (min phải) rồi xóa kế nhiệm ở dưới
                 Node* successor = findMin(node->right);
                 node->val = successor->val;
                 node->right = erase(node->right, successor->val);
@@ -251,10 +252,10 @@ Các biến thể giữ $h = O(\log N)$ luôn đúng:
         void erase(int val) { root = erase(root, val); }
 
         void inorder(Node* node) {
-            if (node == nullptr) return;
-            inorder(node->left);
-            cout << node->val << " ";
-            inorder(node->right);
+            if (node == nullptr) return; // Bước 1: cây rỗng -> dừng
+            inorder(node->left); // Bước 2: duyệt trái
+            cout << node->val << " "; // Bước 3: in gốc
+            inorder(node->right); // Bước 4: duyệt phải (ra dãy tăng dần)
         }
 
         void print() { inorder(root); cout << endl; }
@@ -365,6 +366,18 @@ Các biến thể giữ $h = O(\log N)$ luôn đúng:
     print(tree.inorder())    # [1, 3, 4, 6, 7, 10, 13, 14]
     ```
 
+### Trace chèn 5 số: 8, 3, 10, 1, 6
+
+| Bước | Chèn | Đường so sánh | Cây sau khi chèn |
+|------|------|---------------|------------------|
+| 1 | 8 | Gốc rỗng → 8 làm gốc | `8` |
+| 2 | 3 | 3 < 8 → trái của 8 | `8 trái 3` |
+| 3 | 10 | 10 > 8 → phải của 8 | `8 trái 3, phải 10` |
+| 4 | 1 | 1 < 8 → trái; 1 < 3 → trái của 3 | `3 trái 1` |
+| 5 | 6 | 6 < 8 → trái; 6 > 3 → phải của 3 | `3 phải 6` |
+
+Inorder sau 5 lần chèn: `1 3 6 8 10` (tăng dần).
+
 ---
 
 ## Ứng dụng
@@ -415,11 +428,61 @@ bool isBST(Node* node, long long minVal, long long maxVal) {
 
 ## Lưu ý và cạm bẫy
 
-1. **BST bị méo:** Chèn dãy tăng/giảm dần → cây nghiêng, thoái hoá thành linked list $O(N)$. Trong thi đấu, dùng `set` / `map` (C++) đã cài Red-Black Tree sẵn thay vì tự cài BST thường.
+### 1. BST bị méo → thoái hoá O(N)
 
-2. **Không lưu trùng:** BST cơ bản bỏ qua phần tử trùng. Nếu cần đếm số lần xuất hiện, thêm trường `cnt` vào nút.
+Chèn dãy tăng/giảm dần → cây nghiêng, thoái hoá thành linked list $O(N)$. Trong thi đấu, dùng `set` / `map` (C++) đã cài Red-Black Tree sẵn thay vì tự cài BST thường.
 
-3. **Đệ quy sâu:** BST không cân bằng có thể sâu $O(N)$, gây tràn stack đệ quy. Chuyển sang cài đặt iterative nếu cần.
+### 2. Đệ quy quá sâu gây tràn stack
+
+**SAI:** dùng đệ quy `insert/search/erase` trên cây méo $N = 10^5$ → sâu $10^5$ khung stack → crash.
+
+```cpp
+// SAI: cây méo 1->2->3...->100000, gọi insert đệ quy sâu 100000
+tree.insert(100001); // Stack overflow!
+```
+
+**ĐÚNG:** viết vòng lặp `while` cho `insert/search`, hoặc dùng cây tự cân bằng (`std::set`).
+
+```cpp
+// ĐÚNG: chèn bằng vòng lặp, tốn O(1) bộ nhớ phụ
+Node* cur = root, *par = nullptr;
+while (cur) { par = cur; cur = (val < cur->val) ? cur->left : cur->right; }
+```
+
+### 3. Xử lý khóa trùng
+
+**SAI:** để nhánh `else` chèn trùng sang phải → cây phình, `search/erase` sai ngữ nghĩa đếm.
+
+```cpp
+// SAI: trùng vẫn tạo nút mới
+if (val < node->val) node->left = insert(node->left, val);
+else node->right = insert(node->right, val); // val == node->val cũng rẽ phải!
+```
+
+**ĐÚNG:** bỏ qua trùng, hoặc thêm trường `cnt` nếu cần đếm tần suất.
+
+```cpp
+// ĐÚNG: trùng thì tăng bộ đếm, không tạo nút
+if (val == node->val) { node->cnt++; return node; }
+```
+
+### 4. Kiểm tra BST: dùng `<=` vs `<` sai
+
+**SAI:** chỉ kiểm tra con trực tiếp, hoặc dùng sai biên khi cho phép/không cho phép trùng.
+
+```cpp
+// SAI: chỉ so với cha trực tiếp -> bỏ lọt cháu vi phạm ở xa
+if (node->left && node->left->val > node->val) return false;
+```
+
+**ĐÚNG:** truyền khoảng `(minVal, maxVal)`, cây không trùng dùng `<=`/`>=` để loại biên.
+
+```cpp
+// ĐÚNG: mọi nút trái phải nằm gọn trong (minVal, maxVal)
+if (node->val <= minVal || node->val >= maxVal) return false;
+return isBST(node->left, minVal, node->val) &&
+       isBST(node->right, node->val, maxVal);
+```
 
 ---
 

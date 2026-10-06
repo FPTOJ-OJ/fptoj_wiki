@@ -222,6 +222,49 @@ Kết quả: $P[5]=4$, palindrome dài nhất có tâm tại index 5 trong $T$, 
 - Không cần chèn `^` và `$` nếu cẩn thận kiểm tra biên trong code
 - Manacher là thuật toán "hai con trỏ" kết hợp "tận dụng thông tin đã tính"
 
+### Lỗi thường gặp: SAI / ĐÚNG
+
+**Lỗi 1: Nhầm $P[i]$ trên $T$ với độ dài trên $S$**
+
+$P[i]$ là bán kính trên xâu đã chèn $T$ (đếm cả `#`), nhưng may mắn là con số này **bằng đúng** độ dài palindrome trên xâu gốc $S$. Ví dụ $T$ = `^#a#b#b#a#$`, $P[5] = 4$ → palindrome gốc dài $4$ (`abba`).
+
+```cpp
+// SAI: tưởng P[i] là độ dài trên T nên chia 2
+int len = P[center] / 2;  // ra 2, sai! đáp án đúng là 4
+
+// ĐÚNG: P[i] dùng trực tiếp làm độ dài trên S
+int len = P[center];  // = 4, đúng
+```
+
+**Lỗi 2: Không hiểu công thức `start = (center - maxLen) / 2`**
+
+Vì $T$ = `^` + (`#` + ký tự) lặp lại, nên vị trí $i$ trong $T$ ứng với vị trí $(i - 2) / 2$ trong $S$ (trừ 1 ký tự `^` đầu và chia 2 do mỗi ký tự gốc chiếm 2 ô trong $T$). Biên trái palindrome trong $T$ là $center - maxLen$, nên vị trí bắt đầu trong $S$ là $(center - maxLen) / 2$ (số 2 ở mẫu số triệt tiêu `^` và `#`).
+
+Kiểm tra số: $center = 5$, $maxLen = 4$ → $start = (5 - 4) / 2 = 0$ (đúng, `abba` bắt đầu tại 0). Với $S$ = `babad`, palindrome `bab` có $center = 4$, $maxLen = 3$ → $start = (4-3)/2 = 0$ (đúng).
+
+```cpp
+// SAI: quên chia 2 hoặc trừ sai offset
+int start = center - maxLen;  // ra 1, sai!
+
+// ĐÚNG:
+int start = (center - maxLen) / 2;
+```
+
+**Lỗi 3: Quên `^` và `$` (lính gác 2 đầu)**
+
+Không có `^$`, vòng `while (t[i+P[i]+1] == t[i-P[i]-1])` sẽ đọc ra ngoài mảng khi palindrome chạm biên → crash hoặc rác.
+
+```cpp
+// SAI: không có lính gác, phải kiểm tra biên thủ công
+string t = "#";
+for (char c : s) { t += c; t += '#'; }  // while cần thêm i-P[i]-1 >= 0 && i+P[i]+1 < n
+
+// ĐÚNG: thêm ^$ thì while không bao giờ tràn vì ^ != $ chặn 2 đầu
+string t = "^";
+for (char c : s) { t += '#'; t += c; }
+t += "#$";
+```
+
 ---
 
 ## Bài tập luyện tập

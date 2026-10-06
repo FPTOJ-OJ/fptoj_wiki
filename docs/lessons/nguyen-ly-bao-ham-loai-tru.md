@@ -5,6 +5,10 @@
 
 ## 1. Nguyên Lý Cơ Bản
 
+### Bài toán mở đầu: đếm số chia hết
+
+Trong $[1, 100]$ có bao nhiêu số chia hết cho 2 **hoặc** 3? Đếm số chia hết cho 2 ($50$ số) cộng số chia hết cho 3 ($33$ số) được $83$ — nhưng các số như $6, 12, 18$ (vừa chia hết cho 2 vừa cho 3) bị đếm **2 lần**. Đáp án đúng: $50 + 33 - 16 = 67$. Ý tưởng "cộng rồi trừ phần đếm trùng" này chính là bao hàm–loại trừ, và nó tổng quát hóa lên $n$ tập hợp.
+
 ### 1.1 Công thức 2 tập
 
 Cho hai tập $A$ và $B$, số phần tử trong hợp:

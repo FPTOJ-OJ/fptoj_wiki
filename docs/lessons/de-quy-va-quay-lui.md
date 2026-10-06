@@ -203,9 +203,11 @@ Giả sử tại mỗi bước có $k$ lựa chọn, độ sâu cây tìm kiếm
     #include <bits/stdc++.h>
     using namespace std;
 
+    // Bước 1: nếu n == 0 thì dừng (trường hợp cơ sở)
+    // Bước 2: ngược lại, thu nhỏ bài toán: n! = n * (n-1)!
     long long factorial(int n) {
-        if (n == 0) return 1;
-        return factorial(n - 1) * n;
+        if (n == 0) return 1; // cơ sở: 0! = 1, điểm dừng đệ quy
+        return factorial(n - 1) * n; // gọi bài toán nhỏ hơn (n-1), rồi nhân thêm n
     }
 
     int main() {
@@ -218,8 +220,10 @@ Giả sử tại mỗi bước có $k$ lựa chọn, độ sâu cây tìm kiếm
 
     ```python
     def factorial(n):
+        # Bước 1: nếu n == 0 thì dừng (trường hợp cơ sở)
         if n == 0:
             return 1
+        # Bước 2: thu nhỏ bài toán: n! = n * (n-1)!
         return factorial(n - 1) * n
 
     print(factorial(5))  # 120
@@ -238,18 +242,20 @@ Công thức: $F(n) = F(n-1) + F(n-2)$ với $F(0) = 0$, $F(1) = 1$.
     using namespace std;
 
     // Đệ quy thuần: O(2^n) - chậm!
+    // Lý do: mỗi n sinh 2 nhánh, tính lại cùng giá trị nhiều lần
     long long fibo_slow(int n) {
-        if (n <= 1) return n;
-        return fibo_slow(n - 1) + fibo_slow(n - 2);
+        if (n <= 1) return n; // cơ sở: F(0)=0, F(1)=1
+        return fibo_slow(n - 1) + fibo_slow(n - 2); // chia thành 2 bài toán con nhỏ hơn
     }
 
     // Memoization: O(n)
+    // memo[n] = -1 nghĩa là chưa tính; đã tính thì trả ngay, khỏi đệ quy lại
     long long memo[100];
     long long fibo(int n) {
-        if (n <= 1) return n;
-        if (memo[n] != -1) return memo[n];
-        memo[n] = fibo(n - 1) + fibo(n - 2);
-        return memo[n];
+        if (n <= 1) return n; // cơ sở
+        if (memo[n] != -1) return memo[n]; // bước nhớ: đã có đáp án thì dùng lại
+        memo[n] = fibo(n - 1) + fibo(n - 2); // bước khám phá + lưu vào bảng nhớ
+        return memo[n]; // trả đáp án đã lưu
     }
 
     int main() {
@@ -284,22 +290,24 @@ Template quay lui cơ bản. Dùng mảng `used` đánh dấu số đã chọn, 
     using namespace std;
 
     int n;
-    int perm[20];
-    bool used[20];
+    int perm[20]; // perm[pos] = số đang đặt ở vị trí pos
+    bool used[20]; // used[num] = true nghĩa là số num đã nằm trong perm
 
     void generate(int pos) {
+        // Bước 1 (cơ sở): đã điền đủ n vị trí → in 1 hoán vị
         if (pos > n) {
             for (int i = 1; i <= n; i++)
                 cout << perm[i] << " ";
             cout << "\n";
             return;
         }
+        // Bước 2 (thử): duyệt từng số num chưa dùng
         for (int num = 1; num <= n; num++) {
             if (!used[num]) {
-                perm[pos] = num;
-                used[num] = true;
-                generate(pos + 1);
-                used[num] = false;
+                perm[pos] = num; // bước chọn: đặt num vào vị trí pos
+                used[num] = true; // bước đánh dấu: num đã được dùng
+                generate(pos + 1); // bước khám phá: đệ quy điền vị trí tiếp theo
+                used[num] = false; // bước quay lui: bỏ đánh dấu để nhánh sau dùng lại num
             }
         }
     }
@@ -316,26 +324,43 @@ Template quay lui cơ bản. Dùng mảng `used` đánh dấu số đã chọn, 
 
     ```python
     def generate_permutation(n):
-        used = [False] * (n + 1)
-        perm = []
+        used = [False] * (n + 1)  # used[num] = True nghĩa là num đã nằm trong perm
+        perm = []  # perm đang xây dở, độ dài = vị trí đang điền
 
         def backtrack():
+            # Bước 1 (cơ sở): đủ n số → in 1 hoán vị
             if len(perm) == n:
                 print(*perm)
                 return
+            # Bước 2 (thử): duyệt từng số chưa dùng
             for num in range(1, n + 1):
                 if not used[num]:
-                    perm.append(num)
-                    used[num] = True
-                    backtrack()
-                    perm.pop()
-                    used[num] = False
+                    perm.append(num)  # bước chọn: thêm num vào cuối
+                    used[num] = True  # bước đánh dấu
+                    backtrack()  # bước khám phá: đệ quy sâu hơn
+                    perm.pop()  # bước quay lui: bỏ num ra khỏi perm
+                    used[num] = False  # bước quay lui: mở lại num cho nhánh sau
 
         backtrack()
 
     generate_permutation(3)
     # Output: 1 2 3, 1 3 2, 2 1 3, 2 3 1, 3 1 2, 3 2 1
     ```
+
+#### Trace stack tay `generate` với `n = 3` (nhánh `[1]` đầu tiên)
+
+| Bước | Gọi hàm (stack) | `perm` hiện tại | `used` | Hành động |
+|:---:|---|---|---|---|
+| 1 | `generate(1)` | `[]` | `{}` | thử `num=1` → chọn 1 |
+| 2 | `generate(2)` | `[1]` | `{1}` | thử `num=1` bị dùng, bỏ qua; chọn `num=2` |
+| 3 | `generate(3)` | `[1,2]` | `{1,2}` | `num=1,2` đã dùng; chọn `num=3` |
+| 4 | `generate(4)` | `[1,2,3]` | `{1,2,3}` | `pos > n` → in `1 2 3`, return |
+| 5 | về `generate(3)` | `[1,2]` | `{1,2}` | quay lui: gỡ 3; hết `num` → return |
+| 6 | về `generate(2)` | `[1]` | `{1}` | quay lui: gỡ 2; chọn tiếp `num=3` |
+| 7 | `generate(3)` | `[1,3]` | `{1,3}` | chọn `num=2` (số duy nhất còn trống) |
+| 8 | `generate(4)` | `[1,3,2]` | `{1,3,2}` | `pos > n` → in `1 3 2`, return |
+
+Quy luật: mỗi lần return là 1 lần "quay lui" (gỡ số cuối, mở lại `used`), rồi vòng `for` thử số tiếp theo.
 
 ### Bài toán 4: N-Queens
 
@@ -348,25 +373,27 @@ Xếp $N$ hậu lên bàn cờ $N \times N$. Dùng 3 mảng boolean kiểm tra c
     using namespace std;
 
     int n;
-    bool col[20], diag1[40], diag2[40];
-    int queenPos[20];
+    bool col[20], diag1[40], diag2[40]; // col[j]: cột j đã có hậu; diag1/2: 2 đường chéo đã bị chiếm
+    int queenPos[20]; // queenPos[row] = cột đặt hậu ở hàng row
 
     void solve(int row) {
+        // Bước 1 (cơ sở): xếp xong n hàng → in 1 nghiệm
         if (row > n) {
             for (int i = 1; i <= n; i++)
                 cout << queenPos[i] << " ";
             cout << "\n";
             return;
         }
+        // Bước 2 (thử): duyệt từng cột ở hàng hiện tại
         for (int col_idx = 1; col_idx <= n; col_idx++) {
-            int d1 = row + col_idx;
-            int d2 = row - col_idx + 20;
+            int d1 = row + col_idx; // chỉ số đường chéo chính (tổng cố định)
+            int d2 = row - col_idx + 20; // chỉ số đường chéo phụ (+20 để không âm)
             if (col[col_idx] || diag1[d1] || diag2[d2])
-                continue;
-            queenPos[row] = col_idx;
-            col[col_idx] = diag1[d1] = diag2[d2] = true;
-            solve(row + 1);
-            col[col_idx] = diag1[d1] = diag2[d2] = false;
+                continue; // bước cắt tỉa: ô bị ăn thì bỏ qua
+            queenPos[row] = col_idx; // bước chọn: đặt hậu
+            col[col_idx] = diag1[d1] = diag2[d2] = true; // bước đánh dấu 3 hướng
+            solve(row + 1); // bước khám phá: xếp hàng tiếp theo
+            col[col_idx] = diag1[d1] = diag2[d2] = false; // bước quay lui: gỡ hậu ra
         }
     }
 
@@ -381,25 +408,27 @@ Xếp $N$ hậu lên bàn cờ $N \times N$. Dùng 3 mảng boolean kiểm tra c
 
     ```python
     def solve_n_queens(n):
-        col_used = [False] * n
-        diag1 = [False] * (2 * n)
-        diag2 = [False] * (2 * n)
-        queens = []
+        col_used = [False] * n  # cột nào đã có hậu
+        diag1 = [False] * (2 * n)  # đường chéo chính theo tổng row+c
+        diag2 = [False] * (2 * n)  # đường chéo phụ theo hiệu row-c+n
+        queens = []  # queens[row] = cột đặt hậu
 
         def backtrack(row):
+            # Bước 1 (cơ sở): xếp xong n hàng → in nghiệm
             if row == n:
                 print(queens)
                 return
+            # Bước 2 (thử): duyệt từng cột ở hàng row
             for c in range(n):
                 d1 = row + c
                 d2 = row - c + n
                 if col_used[c] or diag1[d1] or diag2[d2]:
-                    continue
-                queens.append(c)
-                col_used[c] = diag1[d1] = diag2[d2] = True
-                backtrack(row + 1)
-                queens.pop()
-                col_used[c] = diag1[d1] = diag2[d2] = False
+                    continue  # bước cắt tỉa: ô bị ăn thì bỏ
+                queens.append(c)  # bước chọn
+                col_used[c] = diag1[d1] = diag2[d2] = True  # bước đánh dấu
+                backtrack(row + 1)  # bước khám phá
+                queens.pop()  # bước quay lui: gỡ hậu
+                col_used[c] = diag1[d1] = diag2[d2] = False  # bước quay lui: mở lại 3 hướng
 
         backtrack()
 
@@ -416,21 +445,23 @@ Tìm tất cả cách chọn số từ mảng sao cho tổng bằng `target`. D�
     #include <bits/stdc++.h>
     using namespace std;
 
-    int coins[15], coinCount;
-    long long target;
-    vector<int> cur;
+    int coins[15], coinCount; // coins: các mệnh giá; coinCount: số loại
+    long long target; // tổng mục tiêu cần đạt
+    vector<int> cur; // cur: cách chọn đang xây dở
 
     void findWays(int startIdx, long long curSum) {
+        // Bước 1 (cơ sở): tổng vừa đủ target → in 1 cách
         if (curSum == target) {
             for (int x : cur) cout << x << " ";
             cout << "\n";
             return;
         }
+        // Bước 2 (thử): duyệt từ startIdx để không sinh trùng thứ tự
         for (int i = startIdx; i < coinCount; i++) {
-            if (curSum + coins[i] <= target) {
-                cur.push_back(coins[i]);
-                findWays(i, curSum + coins[i]);
-                cur.pop_back();
+            if (curSum + coins[i] <= target) { // bước cắt tỉa: vượt target thì bỏ
+                cur.push_back(coins[i]); // bước chọn: lấy thêm 1 đồng coins[i]
+                findWays(i, curSum + coins[i]); // bước khám phá: truyền i (cho lặp) + tổng mới
+                cur.pop_back(); // bước quay lui: bỏ đồng vừa lấy
             }
         }
     }
@@ -448,17 +479,19 @@ Tìm tất cả cách chọn số từ mảng sao cho tổng bằng `target`. D�
 
     ```python
     def find_ways(coins, target):
-        cur = []
+        cur = []  # cách chọn đang xây dở
 
         def backtrack(start, cur_sum):
+            # Bước 1 (cơ sở): tổng vừa đủ → in 1 cách
             if cur_sum == target:
                 print(cur)
                 return
+            # Bước 2 (thử): duyệt từ start để không sinh trùng
             for i in range(start, len(coins)):
-                if cur_sum + coins[i] <= target:
-                    cur.append(coins[i])
-                    backtrack(i, cur_sum + coins[i])
-                    cur.pop()
+                if cur_sum + coins[i] <= target:  # bước cắt tỉa: vượt target thì bỏ
+                    cur.append(coins[i])  # bước chọn
+                    backtrack(i, cur_sum + coins[i])  # bước khám phá (truyền i cho lặp)
+                    cur.pop()  # bước quay lui
 
         backtrack(0, 0)
 

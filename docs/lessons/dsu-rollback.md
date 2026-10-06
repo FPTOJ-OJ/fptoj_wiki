@@ -92,42 +92,42 @@ Với union by size (không path compression), chiều cao cây tối đa $O(\lo
     using namespace std;
 
     struct DSU_Rollback {
-        vector<int> parent, sz;
-        stack<tuple<int,int,int>> history; // (node, old_parent, old_size_node)
-        int components;
+        vector<int> parent, sz; // parent: gốc; sz: kích thước cụm (để union by size)
+        stack<tuple<int,int,int>> history; // (b, parent cũ của b, size cũ của a)
+        int components; // Số cụm hiện tại
 
         DSU_Rollback(int n) : parent(n + 1), sz(n + 1, 1), components(n) {
-            iota(parent.begin(), parent.end(), 0);
+            iota(parent.begin(), parent.end(), 0); // Bước 0: mỗi đỉnh một cụm
         }
 
         int find(int v) {
-            while (v != parent[v]) v = parent[v];
+            while (v != parent[v]) v = parent[v]; // Bước 1: leo lên gốc, KHÔNG nén đường
             return v;
         }
 
         bool unite(int a, int b) {
-            a = find(a);
+            a = find(a); // Bước 2: tìm gốc 2 bên
             b = find(b);
             if (a == b) {
-                history.push({-1, -1, -1}); // đánh dấu không thay đổi
+                history.push({-1, -1, -1}); // Bước 3: cùng cụm -> đẩy mốc rỗng giữ nhịp undo
                 return false;
             }
-            if (sz[a] < sz[b]) swap(a, b);
-            // Gộp b vào a
+            if (sz[a] < sz[b]) swap(a, b); // Bước 4: a luôn là cụm to hơn
+            // Bước 5: gộp b vào a, lưu (b, parent cũ, size cũ của a) để undo
             history.push({b, parent[b], sz[a]});
             parent[b] = a;
             sz[a] += sz[b];
-            components--;
+            components--; // Bước 6: mất đi 1 cụm
             return true;
         }
 
         void rollback() {
-            auto [b, old_parent, old_sz_a] = history.top();
+            auto [b, old_parent, old_sz_a] = history.top(); // Bước 7: lấy mốc gần nhất
             history.pop();
-            if (b == -1) return; // không có thay đổi
-            sz[parent[b]] = old_sz_a; // parent[b] vẫn là a tại thời điểm gộp
-            parent[b] = old_parent;
-            components++;
+            if (b == -1) return; // Bước 8: mốc rỗng -> không có gì để gỡ
+            sz[parent[b]] = old_sz_a; // Bước 9: khôi phục size của a (parent[b] vẫn là a)
+            parent[b] = old_parent; // Bước 10: tách b về gốc cũ
+            components++; // Bước 11: tăng lại số cụm
         }
     };
 
@@ -214,7 +214,61 @@ Với union by size (không path compression), chiều cao cây tối đa $O(\lo
 
 ---
 
-## 5. Bài tập luyện tập trên FPTOJ
+## 5. Lỗi thường gặp (SAI / ĐÚNG)
+
+### Lỗi 1: Quên đẩy mốc khi `a == b`
+
+**SAI:** `unite` cùng cụm mà không push → số lần `rollback()` lệch khỏi số lần `unite()`.
+
+```cpp
+// SAI: bỏ qua, stack ngắn hơn số thao tác
+if (a == b) return false;
+```
+
+**ĐÚNG:** luôn push mốc `(-1,-1,-1)` để mỗi `unite` ứng với đúng một `rollback`.
+
+```cpp
+// ĐÚNG: giữ nhịp 1-1 giữa unite và rollback
+if (a == b) { history.push({-1, -1, -1}); return false; }
+```
+
+### Lỗi 2: Dùng path compression trong `find`
+
+**SAI:** `parent[v] = find(parent[v])` sửa hàng loạt cha → undo phải lưu cả đường đi, vừa chậm vừa khó.
+
+```cpp
+// SAI: không hoàn tác nổi
+int find(int v) { return v == parent[v] ? v : parent[v] = find(parent[v]); }
+```
+
+**ĐÚNG:** chỉ leo `while`, kết hợp union by size giữ chiều cao $O(\log N)$ mà undo chỉ $O(1)$.
+
+```cpp
+// ĐÚNG: không nén, mỗi unite chỉ đổi đúng 1 parent
+int find(int v) { while (v != parent[v]) v = parent[v]; return v; }
+```
+
+### Lỗi 3: Rollback quá tay (quá số lần unite)
+
+**SAI:** gọi `rollback()` khi stack rỗng → `top()` trên stack rỗng → crash / hành vi không xác định.
+
+```cpp
+// SAI: không kiểm tra
+dsu.rollback(); // stack có thể rỗng!
+```
+
+**ĐÚNG:** lưu checkpoint `snapshot = history.size()` trước khi vào nhánh D&C, chỉ rollback về đúng mốc đó.
+
+```cpp
+// ĐÚNG: quay về đúng checkpoint
+int snap = dsu.history.size();
+// ... unite nhiều lần ...
+while ((int)dsu.history.size() > snap) dsu.rollback();
+```
+
+---
+
+## 6. Bài tập luyện tập trên FPTOJ
 
 Dưới đây là các bài tập giúp bạn rèn luyện kỹ thuật DSU Rollback, từ cơ bản đến nâng cao. Các mã bài đều có dạng `dsur-*` và được liệt kê trong [Problem Set](cses.md#-1q-nhóm-dsu-rollback-gộp-tập-hợp-có-hoàn-tác).
 

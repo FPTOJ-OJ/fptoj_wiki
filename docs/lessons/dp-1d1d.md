@@ -16,6 +16,18 @@
 
 ## 1. Bản chất vấn đề và Sự phân loại
 
+### 1.0 Ví dụ mở đầu: deque tiến hóa thế nào?
+
+Bài toán chia nhóm ở đầu bài với $a = [1, 2, 3]$, $S = [0, 1, 3, 6]$, cost = bình phương tổng đoạn. Theo dõi deque $(j, L, R)$:
+
+| $i$ | Deque trước khi tính | $opt[i]$ (đầu deque) | $dp[i]$ | Deque sau khi chèn $i$ |
+|:---:|---------------------|:---:|:---:|:---|
+| 1 | $\{(0,1,3)\}$ | $j=0$ | $0 + 1^2 = 1$ | $i=1$ tốt hơn $0$ từ vị trí $2$ → $\{(0,1,1), (1,2,3)\}$ |
+| 2 | $\{(0,1,1), (1,2,3)\}$ | $j=1$ | $1 + 2^2 = 5$ | $i=2$ tốt hơn $1$ từ vị trí $3$ → $\{(0,1,1), (1,2,2), (2,3,3)\}$ |
+| 3 | $\{(1,2,2), (2,3,3)\}$ (bỏ $(0,1,1)$ hết hạn) | $j=2$ | $5 + 3^2 = 14$ | — |
+
+Đáp án $dp[3] = 14$ (chia $[1]\,[2,3]$: $1 + 25 = 26$? Không — thử $[1,2]\,[3]$: $9+9=18$? $[1]\,[2]\,[3]$: $1+4+9=14$ ✓ — 3 nhóm riêng lẻ tối ưu vì mọi $a_i > 0$). Mỗi $i$ chỉ nhìn đầu deque ($O(1)$) + chèn nhị phân ($O(\log N)$) → tổng $O(N \log N)$ thay vì $O(N^2)$.
+
 ### 1.1 Công thức tổng quát
 
 Hệ thức quy hoạch động được gọi là dạng $1D/1D$ khi nó có dạng:
@@ -359,6 +371,24 @@ graph TD
     ```
 
 ---
+
+## 3.5 Lỗi thường gặp
+
+```cpp
+// SAI: cost tràn số — prefix tới 1e14, bình phương = 1e28 vượt long long!
+long long sum = prefix[i] - prefix[j];
+return sum * sum;
+
+// ĐÚNG: dùng __int128 cho phép nhân rồi ép về (hoặc đảm bảo prefix nhỏ)
+long long sum = prefix[i] - prefix[j];
+return (long long)((__int128)sum * sum % MOD); // nếu cần mod
+// (không mod: assert sum <= 3e9, hoặc đổi cost phù hợp)
+```
+
+- **Áp deque khi cost không thỏa quadrangle:** code vẫn chạy, ra đáp án sai lặng lẽ. Luôn kiểm tra bất đẳng thức tứ giác trên giấy với 4 chỉ số mẫu trước khi code.
+- **`INF + cost` tràn:** `dp` khởi tạo `INF = 1e18`, cộng thêm cost có thể tràn `long long` → dùng `INF = 4e18` hoặc kiểm tra `dp[j] == INF` thì bỏ qua.
+- **Python `dq.pop(0)`:** list.pop(0) là $O(N)$ → tổng thành $O(N^2)$, mất hết ý nghĩa tối ưu. Dùng `collections.deque` với `popleft()`.
+- **CDQ: quên `dp[mid] = min(dp[mid], best)`:** nếu gán `=` thay vì `min`, thông tin từ các đợt update trước bị mất.
 
 ## 4. Tóm tắt so sánh hai phương pháp
 

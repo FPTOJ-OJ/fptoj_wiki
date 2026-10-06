@@ -44,19 +44,22 @@ Nếu code dài, không biết bug ở đâu:
 
     ```cpp
     // ===== Debug macro =====
+    // Bước 1: debug(x) — in tên biến + giá trị (dùng khi trace giấy thấy sai)
     #define debug(x) cerr << #x << " = " << (x) << endl;
+    // Bước 2: debugv(v) — in cả vector trên 1 dòng (kiểm tra mảng sau mỗi vòng lặp)
     #define debugv(v) { cerr << #v << " = [ "; for (auto x : v) cerr << x << " "; cerr << "]\n"; }
+    // Bước 3: debug2d(m) — in ma trận từng hàng (kiểm tra bảng DP/lưới)
     #define debug2d(m) { cerr << #m << ":\n"; for (auto& row : m) { for (auto x : row) cerr << x << " "; cerr << endl; } }
     
     // Cách dùng:
     int n = 5;
-    debug(n);           // In: n = 5
+    debug(n);           // In: n = 5 (bước kiểm tra: n đọc đúng chưa?)
     
     vector<int> a = {1, 2, 3};
-    debugv(a);          // In: a = [ 1 2 3 ]
+    debugv(a);          // In: a = [ 1 2 3 ] (bước kiểm tra: mảng nhập đúng chưa?)
     
     vector<vector<int>> mat = {{1, 2}, {3, 4}};
-    debug2d(mat);       // In: mat: 1 2 \n 3 4
+    debug2d(mat);       // In: mat: 1 2 \n 3 4 (bước kiểm tra: bảng DP khởi tạo đúng chưa?)
     ```
 
 === "Python"
@@ -92,8 +95,11 @@ Nếu code dài, không biết bug ở đâu:
 
 ```cpp
 // FIX 1: Tối ưu I/O
+// Bước 1: tắt đồng bộ với stdio (cin chạy nhanh như scanf)
 ios::sync_with_stdio(false);
+// Bước 2: gỡ cin khỏi cout (không flush cout trước mỗi lần đọc)
 cin.tie(nullptr);
+// Bước 3: dùng "\n" thay endl (endl ép flush, rất chậm với N lớn)
 cout << result << "\n";  // Thay endl bằng "\n"
 
 // FIX 2: Dùng unordered_map thay vì map
@@ -188,15 +194,19 @@ for (int i = 1; i <= n; i++) cin >> a[i];  // 1-indexed
 
 ```cpp
 // SAI: Kết quả có thể rất lớn → tràn!
+// Bước sai: nhân trực tiếp, a*b có thể vượt 64-bit rồi mới modulo
 long long result = a * b;
 
 // ĐÚNG: Luôn modulo khi đề yêu cầu
+// Bước đúng: ép kiểu nhân an toàn rồi mới modulo
 long long result = (a * b) % MOD;
 
 // SAI: (a - b) % MOD có thể âm
+// Bước sai: C++ cho kết quả âm khi a < b (vd: (3-5) % 7 = -2)
 long long diff = (a - b) % MOD;
 
 // ĐÚNG: + MOD trước khi %
+// Bước đúng: cộng MOD để không âm, % 2 lần cho chắc
 long long diff = ((a - b) % MOD + MOD) % MOD;
 ```
 
@@ -210,6 +220,39 @@ Cách phòng tránh:
 2. Chạy sample test NGAY sau khi code
 3. Kiểm tra input/output format kỹ
 ```
+
+### 5.5. Case-study end-to-end: WA vì trừ modulo âm
+
+**Bài toán:** Cho `a, b`, in `(a - b) % MOD` với `MOD = 1e9+7`. Input: `a = 3, b = 5`. Expected: `999999995`.
+
+**Bước 1 — Input:** `a = 3, b = 5`.
+
+**Bước 2 — Trace giấy (code SAI):**
+
+| Dòng code | `a - b` | `% MOD` (C++) | Output |
+|:---|:---:|:---:|:---:|
+| `cout << (a - b) % MOD;` | `-2` | `-2` (C++ giữ dấu âm!) | `-2` → WA |
+
+**Bước 3 — Output macro (gắn `debug` vào):**
+
+```
+diff_raw = -2
+diff_raw % MOD = -2        ← bước đầu tiên SAI ở đây!
+```
+
+**Bước 4 — Fix (1 dòng):**
+
+```cpp
+// Bước đúng: cộng MOD trước khi % để không bao giờ âm
+long long diff = ((a - b) % MOD + MOD) % MOD;
+cout << diff << "\n"; // 999999995 ✓
+```
+
+| Dòng code | `(a-b) % MOD` | `+ MOD` | `% MOD` lần 2 | Output |
+|:---|:---:|:---:|:---:|:---:|
+| fix | `-2` | `1000000005` | `999999995` | ✓ AC |
+
+**Bài học:** WA modulo âm → luôn viết `((x % MOD) + MOD) % MOD`, và gắn `debug(diff)` ngay sau dòng tính để thấy số âm.
 
 ---
 

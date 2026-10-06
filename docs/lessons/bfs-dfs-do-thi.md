@@ -19,7 +19,7 @@ Thành phố có $N$ ngã tư (đỉnh), $M$ con đường (cạnh) nối các n
 | **Có hướng** | Cạnh có chiều | Theo dõi trên Twitter |
 | **Có trọng số** | Cạnh có giá trị | Bản đồ (khoảng cách) |
 | **Liên thông** | Đi được từ mọi đỉnh đến mọi đỉnh khác | Mạng internet |
-| **Nhị phân** | Chia đỉnh thành 2 tập, cạnh chỉ nối 2 tập khác nhau | Phân công công việc |
+| **Hai phía (Bipartite)** | Chia đỉnh thành 2 tập, cạnh chỉ nối 2 tập khác nhau | Phân công công việc |
 
 ### Biểu diễn đồ thị
 
@@ -130,22 +130,22 @@ BFS sử dụng **hàng đợi (queue)** — cấu trúc dữ liệu FIFO (vào 
     int parent[MAXN];
 
     void bfs(int start) {
-        queue<int> q;
-        q.push(start);
-        visited[start] = true;
-        dist[start] = 0;
-        parent[start] = -1;
+        queue<int> q; // Bước 1: hàng đợi FIFO giữ các đỉnh cùng tầng
+        q.push(start); // Bước 2: đưa đỉnh nguồn vào hàng đợi
+        visited[start] = true; // Bước 3: đánh dấu ngay khi push (tránh push trùng)
+        dist[start] = 0; // Bước 4: khoảng cách nguồn = 0
+        parent[start] = -1; // Bước 5: nguồn không có cha (để truy vết)
 
-        while (!q.empty()) {
-            int u = q.front();
+        while (!q.empty()) { // Bước 6: còn đỉnh chưa xét thì làm tiếp
+            int u = q.front(); // Bước 7: lấy đỉnh đầu hàng (tầng nhỏ nhất)
             q.pop();
 
-            for (int v : adj[u]) {
-                if (!visited[v]) {
-                    visited[v] = true;
-                    dist[v] = dist[u] + 1;
-                    parent[v] = u;
-                    q.push(v);
+            for (int v : adj[u]) { // Bước 8: duyệt mọi đỉnh kề u
+                if (!visited[v]) { // Bước 9: bỏ qua đỉnh đã thăm
+                    visited[v] = true; // Bước 10: đánh dấu ngay khi phát hiện
+                    dist[v] = dist[u] + 1; // Bước 11: tầng v = tầng u + 1
+                    parent[v] = u; // Bước 12: nhớ cha để dựng đường đi
+                    q.push(v); // Bước 13: xếp v vào cuối hàng đợi
                 }
             }
         }
@@ -269,24 +269,24 @@ DFS sử dụng **ngăn xếp (stack)** — có thể cài đặt trực tiếp 
 
     // Cách 1: Đệ quy (đơn giản)
     void dfs(int u) {
-        visited[u] = true;
-        for (int v : adj[u])
-            if (!visited[v])
-                dfs(v);
+        visited[u] = true; // Bước 1: đánh dấu u đã thăm (chống lặp chu trình)
+        for (int v : adj[u]) // Bước 2: thử mọi đỉnh kề
+            if (!visited[v]) // Bước 3: chỉ đi vào đỉnh chưa thăm
+                dfs(v); // Bước 4: đi sâu hết cỡ rồi mới quay lui
     }
 
     // Cách 2: Stack (không đệ quy, tránh tràn stack)
     void dfsIterative(int start) {
-        stack<int> st;
-        st.push(start);
-        while (!st.empty()) {
-            int u = st.top();
+        stack<int> st; // Bước 1: ngăn xếp LIFO mô phỏng đệ quy
+        st.push(start); // Bước 2: bắt đầu từ đỉnh nguồn
+        while (!st.empty()) { // Bước 3: còn đỉnh trong stack thì xét
+            int u = st.top(); // Bước 4: lấy đỉnh trên cùng
             st.pop();
-            if (visited[u]) continue;
-            visited[u] = true;
-            for (int v : adj[u])
+            if (visited[u]) continue; // Bước 5: bỏ qua nếu đã thăm (do push trùng)
+            visited[u] = true; // Bước 6: đánh dấu khi lấy ra
+            for (int v : adj[u]) // Bước 7: đẩy mọi kề chưa thăm vào stack
                 if (!visited[v])
-                    st.push(v);
+                    st.push(v); // Bước 8: đỉnh đẩy sau được xét trước (đi sâu)
         }
     }
     ```

@@ -1,3 +1,6 @@
+---
+description: Lộ trình học Lập trình thi đấu từ zero đến ICPC/VOI — 100+ bài học thuật toán có code mẫu và bài tập
+---
 # 🌟 Hành trình Lập trình Thi đấu: Từ Zero đến Hero
 
 Chào mừng bạn đến với **Vũ trụ Lập trình Thi đấu** của FPTOJ! Bạn có thể xem đây như một trò chơi nhập vai (RPG), nơi bạn bắt đầu từ một "Tân thủ" và rèn luyện kỹ năng qua từng thử thách để trở thành một "Đại cao thủ" (Grandmaster). 
@@ -133,12 +136,12 @@ graph TD
 ### Nhóm 6: Xử lý xâu ký tự (Bài 26 - 29)
 | # | Bài học | Mô tả | Độ khó |
 |---|---------|-------|--------|
+| 25b | [Xâu ký tự cơ bản](xau-co-ban.md) | Thao tác nền tảng với xâu: đếm tần số, palindrome, chuẩn hoá. | ⭐⭐ |
 | 26 | [KMP - Tìm xâu](kmp-tim-xau.md) | Tìm kiếm một đoạn văn bị giấu kín cực nhanh mà không cần đối chiếu lại từ đầu. | ⭐⭐⭐ |
 | 27 | [Hash xâu & Z-algorithm](hash-xau-z-algorithm.md) | Biến chữ thành số để kiểm tra sự giống nhau trong vòng O(1). | ⭐⭐⭐ |
 | 28 | [Manacher](manacher.md) | Truy tìm xâu đối xứng (đọc ngược xuôi như nhau) dài nhất. | ⭐⭐⭐⭐ |
 | 29 | [Suffix Array](suffix-array.md) | Mảng chứa tất cả các hậu tố - cẩm nang bách khoa toàn thư của xâu. | ⭐⭐⭐⭐ |
 | 29b| [Palindrome Tree](palindrome-tree.md) | Cây lưu trữ sự đối xứng (Eertree) siêu việt. | ⭐⭐⭐⭐ |
-| 29c| [Suffix Tree](suffix-tree.md) | Cây hậu tố đầy quyền năng nhưng cực kì khó cài đặt. | ⭐⭐⭐⭐ |
 
 ### Nhóm 7: Toán học & Số học (Bài 30 - 41)
 | # | Bài học | Mô tả | Độ khó |
@@ -216,7 +219,7 @@ graph TD
 | # | Bài học | Nội dung | Độ khó |
 |---|---------|-------|--------|
 | 59 | [DP trên cây](dp-on-trees.md) | Tổ hợp Quy hoạch động và cấu trúc gia phả Cây. | ⭐⭐⭐⭐ |
-| 60 | [Digit DP](digit-dp.md) | Đếm số lượng các con số thõa mãn điều kiện kì quái ở hệ thập phân. | ⭐⭐⭐⭐ |
+| 60 | [Digit DP](digit-dp.md) | Đếm số lượng các con số thỏa mãn điều kiện kì quái ở hệ thập phân. | ⭐⭐⭐⭐ |
 | 61 | [Interval DP](interval-dp.md) | DP trên từng khoảng, chia để trị. | ⭐⭐⭐⭐ |
 | 62 | [Tối ưu DP](dp-optimization.md) | Knuth's, Divide & Conquer DP, CHT, Alien's trick. Đỉnh cao hack não. | ⭐⭐⭐⭐⭐ |
 | 62b| [Quy hoạch động SOS](sos-dp.md) | Sum Over Subsets, thuật toán chạy O(N·2^N) ảo diệu. | ⭐⭐⭐ |

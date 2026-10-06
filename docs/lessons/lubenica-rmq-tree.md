@@ -47,11 +47,11 @@ Cây 5 đỉnh: $(1,2,w=3)$, $(1,3,w=5)$, $(2,4,w=2)$, $(2,5,w=7)$
 |------|-----|-----|-----|-----------------|-----------------|-----------------|-----------------|---------|
 | 1 | 4 | 3 | 1 | $\min(2,3)=2$ | $\max(2,3)=3$ | $\min(5)=5$ | $\max(5)=5$ | $(2,5)$ |
 
-Chi tiết từng bước nhảy:
-1. $depth[4]=2$, $depth[3]=1$, $diff=1$ → nhảy $4$ lên $up[4][0]=2$, minEdge$=2$, maxEdge$=2$.
-2. $u=2$, $v=3$ khác nhau. Xét $j=1$: $up[2][1]=1$, $up[3][1]=0$ khác → nhảy: $u=1$, $v=0$.
-3. Xét $j=0$: $up[1][0]=0$, $up[0][0]=0$ giống → dừng.
-4. Lấy min/max 1 bước cuối: $\min(2,5)=2$, $\max(3,5)=5$.
+Chi tiết từng bước nhảy (đúng logic code `query`):
+1. $depth[4]=2$, $depth[3]=1$, $diff=1$ → nhảy $4$ lên $up[4][0]=2$, $min=2$, $max=2$. Giờ $u=2, v=3$ ngang nhau.
+2. Xét $j=1$: $up[2][1]=0$ (vì $up[2][0]=1$, $up[1][0]=0$), $up[3][1]=0$ → **bằng nhau nên KHÔNG nhảy** (nếu nhảy cả hai sẽ rơi xuống đỉnh $0$ vô nghĩa — đây là bẫy hay gặp).
+3. Xét $j=0$: $up[2][0]=1$, $up[3][0]=1$ → bằng nhau nên KHÔNG nhảy (cả hai đã là con trực tiếp của LCA $=1$).
+4. Bước cuối: $u=2, v=3$ là con trực tiếp của LCA → lấy 1 cạnh mỗi bên: $\min(3,5)=3$? Cộng với đoạn trước đó ($4 \to 2$: $min=2$) → $\min(2,3,5)=2$, $\max(2,3,5)=5$. Kết quả $(2,5)$ khớp bảng trên.
 
 **Truy vấn 2:** Max trên đường đi $4 \to 5$ (cùng nhánh).
 
@@ -94,16 +94,13 @@ $diff=2$ → nhảy: $j=1$ (bit 1): $4 \to up[4][1]=1$, minEdge$=2$, maxEdge$=3$
         cin >> n;                              // Số đỉnh của cây
 
         int LOG = __lg(n) + 1;                 // Số bước nhảy tối đa: log2(N) + 1
-        vector<vector<int>> adj(n + 1);        // Danh sách kề (chỉ số đỉnh)
-        vector<vector<pair<int,int>>> edges(n + 1); // Danh sách kề (đỉnh + trọng số)
+        vector<vector<pair<int,int>>> adj(n + 1); // Danh sách kề duy nhất: (đỉnh kề, trọng số)
 
         for (int i = 0; i < n - 1; i++) {
             int u, v, w;
             cin >> u >> v >> w;                // Đọc cạnh: u, v, trọng số w
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-            edges[u].push_back({v, w});
-            edges[v].push_back({u, w});
+            adj[u].push_back({v, w});
+            adj[v].push_back({u, w});
         }
 
         vector<int> depth(n + 1, 0);           // depth[v] = độ sâu của đỉnh v
@@ -118,7 +115,7 @@ $diff=2$ → nhảy: $j=1$ (bit 1): $4 \to up[4][1]=1$, minEdge$=2$, maxEdge$=3$
 
         while (!q.empty()) {
             int u = q.front(); q.pop();
-            for (auto [v, w] : edges[u]) {
+            for (auto [v, w] : adj[u]) {
                 if (v == up[u][0]) continue;   // Bỏ qua cạnh ngược lên cha
                 depth[v] = depth[u] + 1;        // Con sâu hơn cha 1 đơn vị
                 up[v][0] = u;                   // Tổ tiên 2^0 của v là u (cha trực tiếp)
@@ -256,7 +253,52 @@ $diff=2$ → nhảy: $j=1$ (bit 1): $4 \to up[4][1]=1$, minEdge$=2$, maxEdge$=3$
 
 ---
 
-## Bài tập luyện tập
+## 4. Lỗi thường gặp (SAI / ĐÚNG)
+
+### SAI 1: Nhảy binary lifting mà không kiểm tra đỉnh $0$ → rơi xuống `v = 0` vô nghĩa
+
+```cpp
+// SAI (trace cũ trong bài từng mắc): u=2, v=3, thấy up[2][1] != up[3][1] là nhảy ngay
+// → v nhảy từ 3 xuống 0, mọi min/max sau đó đều rác
+if (up[u][j] != up[v][j]) { u = up[u][j]; v = up[v][j]; }
+```
+
+```cpp
+// ĐÚNG: với ví dụ trên, up[2][1] == up[3][1] == 0 nên KHÔNG nhảy;
+// chỉ nhảy khi hai tổ tiên khác nhau VÀ đều khác 0.
+// Khi u, v đã là con trực tiếp của LCA, vòng lặp không nhảy gì cả
+// mà rơi xuống "bước 3: lấy 1 cạnh cuối" trong code query.
+```
+
+> **Quy tắc nhớ:** đỉnh $0$ là "hư vô" (gốc của gốc). Mọi `up[*][*] = 0` nghĩa là "đã vượt quá gốc" — không được dùng `minEdge[0][*]` / `maxEdge[0][*]` để cập nhật đáp án.
+
+### SAI 2: Khai báo 2 danh sách kề trùng nhau (`adj` + `edges`)
+
+```cpp
+// SAI: vừa lưu adj (không trọng số) vừa lưu edges (có trọng số) → tốn 2x bộ nhớ,
+// dễ quên đồng bộ (thêm cạnh vào adj mà quên edges → BFS mất cạnh)
+```
+
+```cpp
+// ĐÚNG (code đã gộp): chỉ giữ 1 danh sách kề có trọng số
+vector<vector<pair<int,int>>> adj(n + 1); // (đỉnh kề, trọng số)
+```
+
+### SAI 3: Khởi tạo `minEdge` / `maxEdge` của gốc sai
+
+```cpp
+// SAI: để minEdge[1][*] = 0 → min trên đường đi luôn bị kéo về 0
+// SAI: để maxEdge[1][*] = 0 với cạnh âm → max bị sai
+```
+
+```cpp
+// ĐÚNG: gốc không có cạnh đi lên → min = +INF, max = -INF (trung hòa với min/max)
+minEdge[1][0] = INT_MAX; maxEdge[1][0] = INT_MIN; // (code khởi tạo vector đã làm đúng)
+```
+
+---
+
+## 5. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |

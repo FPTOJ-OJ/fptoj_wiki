@@ -124,37 +124,40 @@ $|\Sigma|$ = kích thước bảng chữ cái.
 
         PalindromeTree() {
             tree.resize(2);
-            tree[0].len = -1; tree[0].link = 0;
-            tree[1].len = 0;  tree[1].link = 0;
-            last = 1; sz = 2;
+            tree[0].len = -1; tree[0].link = 0;  // node 0: gốc lẻ (len=-1 để "aba" mở rộng đều 2 đầu)
+            tree[1].len = 0;  tree[1].link = 0;  // node 1: gốc chẵn rỗng (len=0)
+            last = 1; sz = 2;  // last: palindrome hậu tố dài nhất của tiền tố đã xử lý
         }
 
         void extend(int pos) {
-            int cur = last;
-            int c = s[pos] - 'a';
+            int cur = last;  // cur: bắt đầu từ palindrome hậu tố dài nhất
+            int c = s[pos] - 'a';  // c: ký tự hiện tại (dạng chỉ số)
 
+            // Tìm palindrome P sao cho s[pos-1-|P|] == s[pos] (mở rộng được thêm 1 cặp)
             while (true) {
-                int curlen = tree[cur].len;
+                int curlen = tree[cur].len;  // curlen: độ dài palindrome đang thử
+                // pos-1-curlen: vị trí đối xứng bên trái; >= 0 để không tràn mảng
                 if (pos - 1 - curlen >= 0 && s[pos - 1 - curlen] == s[pos])
                     break;
-                cur = tree[cur].link;
+                cur = tree[cur].link;  // không mở rộng được → lùi về suffix link ngắn hơn
             }
 
-            if (tree[cur].next[c]) {
+            if (tree[cur].next[c]) {  // palindrome mới đã tồn tại → không tạo node
                 last = tree[cur].next[c];
                 return;
             }
 
-            last = sz++;
+            last = sz++;  // last mới: node palindrome vừa tạo
             tree.push_back(Node());
-            tree[last].len = tree[cur].len + 2;
-            tree[cur].next[c] = last;
+            tree[last].len = tree[cur].len + 2;  // thêm 1 cặp ký tự 2 đầu → dài thêm 2
+            tree[cur].next[c] = last;  // gắn cạnh c từ P đến palindrome mới
 
-            if (tree[last].len == 1) {
+            if (tree[last].len == 1) {  // palindrome 1 ký tự → link về gốc rỗng
                 tree[last].link = 1;
                 return;
             }
 
+            // Tìm suffix link: palindrome đối xứng dài nhất là hậu tố đúng
             cur = tree[cur].link;
             while (true) {
                 int curlen = tree[cur].len;
@@ -236,6 +239,40 @@ $|\Sigma|$ = kích thước bảng chữ cái.
         pt.extend(i)
     print(pt.count_distinct())
     ```
+
+## 5. Lỗi thường gặp (SAI / ĐÚNG)
+
+**Lỗi 1: Quên 1 trong 2 node gốc**
+
+```cpp
+// SAI: chỉ tạo 1 gốc → palindrome lẻ đầu tiên không mở rộng được
+tree.resize(1); tree[0].len = 0; tree[0].link = 0; last = 0;
+
+// ĐÚNG: luôn 2 gốc — node 0 (len=-1) cho lẻ, node 1 (len=0) cho chẵn
+tree.resize(2);
+tree[0].len = -1; tree[0].link = 0;
+tree[1].len = 0;  tree[1].link = 0;
+last = 1; sz = 2;
+// Đáp án = sz - 2 (trừ 2 gốc) — quên trừ là sai +2.
+```
+
+**Lỗi 2: Link của palindrome độ dài 1**
+
+```cpp
+// SAI: cho palindrome len=1 đi tìm link bằng vòng while chung → có thể link về chính nó
+// ĐÚNG: len == 1 luôn link về node 1 (rỗng), return ngay
+if (tree[last].len == 1) { tree[last].link = 1; return; }
+```
+
+**Lỗi 3: `s[pos-1-curlen]` tràn chỉ số âm**
+
+```cpp
+// SAI: bỏ kiểm tra biên → pos-1-curlen = -1 khi palindrome dài chạm đầu xâu
+if (s[pos - 1 - curlen] == s[pos]) break;
+
+// ĐÚNG: luôn kiểm tra >= 0 trước khi so ký tự
+if (pos - 1 - curlen >= 0 && s[pos - 1 - curlen] == s[pos]) break;
+```
 
 ## Bài tập luyện tập
 

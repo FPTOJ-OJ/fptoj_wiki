@@ -1153,7 +1153,7 @@ Như vậy là hai cách thực hiện khác nhau cần hai độ phức tạp k
 
 Khi độ dài của dãy ma trận tăng lên, sự khác biệt có thể còn lớn hơn nữa. Ví dụ trên đã cho thấy rằng trong một số trường hợp thứ tự thực hiện phép nhân ma trận có ý nghĩa rất lớn đối với việc tìm lời giải của các bài toán.
 
-Trong thực tế, bài toán xác định thứ tự nhân ma trận hiệu quả nhất là một bài toán rất phổ biến, bạn có thể tìm đọc chi tiết thêm tại [đây](../dp/basic-problems.md#5-nhan-ma-tran) hoặc ở [Phần 3 mục 3.5 Phép Nhân Tổ Hợp dãy Ma Trận trong sách Giải thuật và lập trình của thầy Lê Minh Hoàng](../basic/Tai-Lieu-Thuat-Toan.md).
+Trong thực tế, bài toán xác định thứ tự nhân ma trận hiệu quả nhất là một bài toán rất phổ biến, bạn có thể tìm đọc chi tiết thêm tại [bài Nhân ma trận](../../lessons/nhan-ma-tran.md) hoặc ở sách Giải thuật và lập trình của thầy Lê Minh Hoàng.
 
 ## Giải thuật Freivalds kiểm tra tích hai ma trận
 

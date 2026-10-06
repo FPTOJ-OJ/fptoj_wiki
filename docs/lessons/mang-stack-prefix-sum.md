@@ -50,18 +50,18 @@ Mảng truy cập $O(1)$ vì địa chỉ phần tử thứ $i$ được tính t
 
     // Thêm node mới vào đầu — O(1)
     Node* addFirst(Node* head, int value) {
-        Node* newNode = new Node();
-        newNode->data = value;
-        newNode->next = head;
-        return newNode;
+        Node* newNode = new Node(); // Bước 1: cấp phát node mới
+        newNode->data = value; // Bước 2: gán giá trị cho node
+        newNode->next = head; // Bước 3: node mới trỏ vào đầu cũ
+        return newNode; // Bước 4: trả về đầu mới
     }
 
     // Duyệt toàn bộ danh sách — O(N)
     void printList(Node* head) {
-        Node* cur = head;
-        while (cur != NULL) {
-            cout << cur->data << " ";
-            cur = cur->next;
+        Node* cur = head; // Bước 1: bắt đầu từ đầu danh sách
+        while (cur != NULL) { // Bước 2: còn node thì còn in
+            cout << cur->data << " "; // Bước 3: in giá trị hiện tại
+            cur = cur->next; // Bước 4: nhảy sang node kế
         }
     }
     ```
@@ -128,16 +128,16 @@ graph TB
 
     ```cpp
     bool isValid(string s) {
-        stack<char> st;
-        for (char c : s) {
+        stack<char> st; // Bước 1: stack lưu các '(' chưa đóng
+        for (char c : s) { // Bước 2: duyệt từng ký tự
             if (c == '(') {
-                st.push(c);
+                st.push(c); // Bước 3: gặp mở ngoặc thì push vào
             } else {
-                if (st.empty()) return false;
-                st.pop();
+                if (st.empty()) return false; // Bước 4: gặp đóng mà stack rỗng → dư ')'
+                st.pop(); // Bước 5: có mở tương ứng thì pop ra (khớp 1 cặp)
             }
         }
-        return st.empty();
+        return st.empty(); // Bước 6: hết xâu mà stack rỗng mới hợp lệ
     }
     ```
 
@@ -258,14 +258,14 @@ $$
     ```cpp
     vector<int> buildPrefixSum(vector<int>& a) {
         int n = a.size();
-        vector<int> prefix(n + 1, 0);
+        vector<int> prefix(n + 1, 0); // Bước 1: prefix[0]=0 làm mốc, mảng dài n+1
         for (int i = 0; i < n; i++)
-            prefix[i + 1] = prefix[i] + a[i];
+            prefix[i + 1] = prefix[i] + a[i]; // Bước 2: cộng dồn a[i] vào tổng trước đó
         return prefix;
     }
 
     int rangeSum(vector<int>& prefix, int l, int r) {
-        return prefix[r + 1] - prefix[l];
+        return prefix[r + 1] - prefix[l]; // Bước 3: tổng [l,r] = tổng tới r trừ tổng trước l
     }
     ```
 
@@ -281,6 +281,18 @@ $$
     def range_sum(prefix, l, r):
         return prefix[r + 1] - prefix[l]
     ```
+
+**Trace chạy tay prefix sum:** $a = [5, 3, 7, 2]$
+
+| $i$ | $a[i]$ | `prefix[i] + a[i]` | `prefix[i+1]` |
+|-----|--------|---------------------|---------------|
+| — | — | — | `prefix[0] = 0` |
+| 0 | 5 | $0 + 5$ | 5 |
+| 1 | 3 | $5 + 3$ | 8 |
+| 2 | 7 | $8 + 7$ | 15 |
+| 3 | 2 | $15 + 2$ | 17 |
+
+Truy vấn $[1, 3]$: `prefix[4] - prefix[1]` $= 17 - 5 = 12$. Kiểm tra: $3 + 7 + 2 = 12$. Đúng!
 
 ### Đánh giá độ phức tạp
 
@@ -401,10 +413,10 @@ $$
 
     ```cpp
     long long maxSubarraySum(vector<int>& a) {
-        long long maxSum = a[0], curSum = a[0];
-        for (int i = 1; i < a.size(); i++) {
-            curSum = max((long long)a[i], curSum + a[i]);
-            maxSum = max(maxSum, curSum);
+        long long maxSum = a[0], curSum = a[0]; // Bước 1: khởi tạo bằng phần tử đầu
+        for (int i = 1; i < a.size(); i++) { // Bước 2: duyệt từ phần tử thứ 2
+            curSum = max((long long)a[i], curSum + a[i]); // Bước 3: bỏ đoạn cũ nếu nó âm, bắt đầu lại từ a[i]
+            maxSum = max(maxSum, curSum); // Bước 4: cập nhật kỷ lục tốt nhất
         }
         return maxSum;
     }
@@ -506,6 +518,28 @@ Sau khi cộng $k$ vào $\text{diff}[l]$ và trừ $k$ khỏi $\text{diff}[r+1]$
             a[i] = a[i - 1] + diff[i]
         return a
     ```
+
+**Trace chạy tay difference array:** $N = 7$, ban đầu toàn $0$. Hai truy vấn: $[2, 5] += 3$, $[4, 6] += 2$.
+
+| Sau truy vấn | `diff` | Giải thích |
+|--------------|--------|------------|
+| Ban đầu | $[0, 0, 0, 0, 0, 0, 0]$ | — |
+| $[2,5] += 3$ | $[0, 0, 3, 0, 0, 0, -3]$ | `diff[2] += 3`, `diff[6] -= 3` |
+| $[4,6] += 2$ | $[0, 0, 3, 0, 2, 0, -3]$ ($+2$ tại index 4, $-2$ gộp vào index 7 ngoài mảng nên bỏ) | `diff[4] += 2` |
+
+Khôi phục bằng cộng dồn (`a[i] = a[i-1] + diff[i]`):
+
+| $i$ | `diff[i]` | `a[i]` |
+|-----|-----------|--------|
+| 0 | 0 | 0 |
+| 1 | 0 | 0 |
+| 2 | 3 | 3 |
+| 3 | 0 | 3 |
+| 4 | 2 | 5 |
+| 5 | 0 | 5 |
+| 6 | -3 | 2 |
+
+Kết quả $a = [0, 0, 3, 3, 5, 5, 2]$: đoạn $[2,5]$ được $+3$, đoạn $[4,6]$ được thêm $+2$. Đúng!
 
 ### Đánh giá độ phức tạp
 

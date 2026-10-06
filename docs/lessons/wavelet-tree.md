@@ -37,12 +37,13 @@ Mỗi nút lưu mảng `B` — đếm số phần tử thuộc con trái.
 
 ```mermaid
 graph TD
-    A["[1,8]: arr=[4,2,7,1,5,3,8,6]\nB=[0,1,1,1,2,2,3,3]"] --> B["[1,4]: arr=[4,2,1,3]\nB=[0,0,1,2]"]
-    A --> C["[5,8]: arr=[7,5,8,6]\nB=[0,0,1,1]"]
-    B --> D["[1,2]: arr=[2,1]\nB=[0,1]"]
-    B --> E["[3,4]: arr=[4,3]\nB=[0,0]"]
-    C --> F["[5,6]: arr=[5,6]\nB=[0,1]"]
-    C --> G["[7,8]: arr=[7,8]\nB=[0,0]"]
+    A["[1,8]: arr=[4,2,7,1,5,3,8,6]\nB=[0,1,2,2,3,3,4,4,4]"]
+    A --> B["[1,4]: arr=[4,2,1,3]\nB=[0,0,1,2,2]"]
+    A --> C["[5,8]: arr=[7,5,8,6]\nB=[0,0,1,1,2]"]
+    B --> D["[1,2]: arr=[2,1]\nB=[0,0,1]"]
+    B --> E["[3,4]: arr=[4,3]\nB=[0,0,1]"]
+    C --> F["[5,6]: arr=[5,6]\nB=[0,1,1]"]
+    C --> G["[7,8]: arr=[7,8]\nB=[0,1,1]"]
     D --> H["[1,1]: 1"]
     D --> I["[2,2]: 2"]
     E --> J["[3,3]: 3"]
@@ -52,6 +53,9 @@ graph TD
     G --> N["[7,7]: 7"]
     G --> O["[8,8]: 8"]
 ```
+
+!!! warning "Quy ước mảng B trong bài này"
+    `B` có $n+1$ phần tử với `B[0] = 0`; `B[i]` = số phần tử trong `A[0..i-1]` thuộc con trái ($\le mid$). Ví dụ gốc ($n = 8$): $A = [4,2,7,1,5,3,8,6]$, $mid = 4$: các phần tử $\le 4$ ở vị trí $0,1,3,5$ → `B = [0,1,2,2,3,3,4,4,4]` (9 phần tử). Mọi bảng dưới đều theo quy ước này.
 
 ```matplotlib
 import numpy as np
@@ -145,16 +149,16 @@ fig.suptitle('Wavelet Tree: Cách các giá trị được phân hoạch tại m
 plt.tight_layout()
 ```
 
-### Trace: Tìm phần tử nhỏ thứ 3 trong $[0, 7]$ (toàn mảng)
+### Trace: Tìm phần tử nhỏ thứ 3 trong $[1, 8]$ (toàn mảng, 1-indexed)
 
-Mảng: $[4, 2, 7, 1, 5, 3, 8, 6]$, $k = 3$
+Mảng: $[4, 2, 7, 1, 5, 3, 8, 6]$, $k = 3$. Đáp án đúng: mảng sắp xếp $[1,2,3,4,5,6,7,8]$ → số thứ 3 là **3**.
 
-| Bước | Nút | Khoảng | $B$ | Số trái | So sánh | Hành động |
-|------|-----|--------|-----|---------|---------|-----------|
-| 1 | Gốc | $[1,8]$ | $[0,1,1,1,2,2,3,3]$ | $4$ | $k=3 \le 4$ | Sang trái |
-| 2 | Con trái | $[1,4]$ | $[0,0,1,2]$ | $2$ | $k=3 > 2$ | Sang phải, $k=3-2=1$ |
-| 3 | Con phải | $[3,4]$ | $[0,0]$ | $0$ | $k=1 > 0$ | Sang phải, $k=1-0=1$ |
-| 4 | Lá | $[4,4]$ | — | — | — | Kết quả: **4** |
+| Bước | Nút | $B$ | Số phần tử đi trái | So sánh | Hành động |
+|------|-----|-----|-------------------|---------|-----------|
+| 1 | Gốc $[1,8]$ | $[0,1,2,2,3,3,4,4,4]$ | $B[8]-B[0] = 4$ | $k=3 \le 4$ | Sang trái, giữ $k=3$ |
+| 2 | Con trái $[1,4]$ | $[0,0,1,2,2]$ | $B[4]-B[0] = 2$ | $k=3 > 2$ | Sang phải, $k=3-2=1$ |
+| 3 | Con phải $[3,4]$ | $[0,0,1]$ | $B[2]-B[0] = 1$ | $k=1 \le 1$ | Sang trái, giữ $k=1$ |
+| 4 | Lá $[3,3]$ | — | — | — | Kết quả: **3** ✓ |
 
 ---
 
@@ -197,13 +201,14 @@ Khi query trên đoạn $[l, r]$:
 
         WaveletTree(vector<int>::iterator from, vector<int>::iterator to, int x, int y)
             : lo(x), hi(y), left(nullptr), right(nullptr) {
-            if (from == to || lo == hi) return;
+            if (from == to || lo == hi) return; // đoạn rỗng hoặc lá: dừng
             int mid = (lo + hi) / 2;
-            auto f = [mid](int x) { return x <= mid; };
+            auto f = [mid](int x) { return x <= mid; }; // true = về con trái
             B.reserve(to - from + 1);
-            B.push_back(0);
+            B.push_back(0); // B[0] = 0 để công thức B[r]-B[l-1] đúng với l=1
             for (auto it = from; it != to; it++)
-                B.push_back(B.back() + f(*it));
+                B.push_back(B.back() + f(*it)); // prefix count phần tử đi trái
+            // stable_partition: giữ thứ tự tương đối (quan trọng cho ánh xạ l,r)
             auto pivot = stable_partition(from, to, f);
             left = new WaveletTree(from, pivot, lo, mid);
             right = new WaveletTree(pivot, to, mid + 1, hi);
@@ -211,22 +216,23 @@ Khi query trên đoạn $[l, r]$:
 
         // Số phần tử <= k trong [l, r] (1-indexed)
         int countLessEq(int l, int r, int k) {
-            if (l > r || k < lo) return 0;
-            if (hi <= k) return r - l + 1;
-            int lb = B[l - 1], rb = B[r];
+            if (l > r || k < lo) return 0; // đoạn rỗng hoặc k nhỏ hơn mọi giá trị
+            if (hi <= k) return r - l + 1; // cả nút đều <= k
+            int lb = B[l - 1], rb = B[r]; // số phần tử đi trái trước l và tới r
+            // Ánh xạ [l,r] sang 2 con: con trái [lb+1, rb], con phải [l-lb, r-rb]
             return left->countLessEq(lb + 1, rb, k) +
                    right->countLessEq(l - lb, r - rb, k);
         }
 
         // Phần tử nhỏ thứ k trong [l, r] (1-indexed)
         int kth(int l, int r, int k) {
-            if (lo == hi) return lo;
+            if (lo == hi) return lo; // lá: đáp án duy nhất
             int lb = B[l - 1], rb = B[r];
-            int inLeft = rb - lb;
+            int inLeft = rb - lb; // số phần tử của [l,r] đi sang trái
             if (k <= inLeft)
-                return left->kth(lb + 1, rb, k);
+                return left->kth(lb + 1, rb, k); // đáp án ở con trái, giữ k
             else
-                return right->kth(l - lb, r - rb, k - inLeft);
+                return right->kth(l - lb, r - rb, k - inLeft); // sang phải, trừ k
         }
 
         ~WaveletTree() { delete left; delete right; }
@@ -312,7 +318,22 @@ Khi query trên đoạn $[l, r]$:
 
 ---
 
-## 5. Bài tập luyện tập
+## 5. Lỗi thường gặp
+
+```cpp
+// SAI: query 0-indexed trong khi code viết cho 1-indexed
+wt.kth(0, 7, 3); // B[l-1] = B[-1] → đọc ngoài mảng!
+
+// ĐÚNG: cộng 1 khi gọi (vị trí mảng 0..n-1 → query 1..n)
+wt.kth(l + 1, r + 1, k);
+```
+
+- **Dùng `partition` thay vì `stable_partition`:** xáo trộn thứ tự tương đối → ánh xạ `lb/rb` sai, query ra rác. Bắt buộc `stable_partition`.
+- **Miền giá trị `[lo, hi]` quá rộng** (vd `int` đầy đủ $2^{31}$): cây sâu 31 tầng, mỗi tầng $O(N)$ bộ nhớ → MLE/chậm. Luôn **nén giá trị** (discretization) trước khi dựng cây.
+- **Nhầm `B` 0-indexed:** `B` có $n+1$ phần tử, `B[0] = 0`. Công thức `inLeft = B[r] - B[l-1]` chỉ đúng với query 1-indexed.
+- **Tĩnh (static):** Wavelet Tree không hỗ trợ update điểm — cần update thì dùng BIT/fenwick cây hoặc persistent segment tree.
+
+## 6. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
 |---|---|---|---|

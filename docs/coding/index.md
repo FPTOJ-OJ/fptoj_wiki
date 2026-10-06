@@ -1,4 +1,7 @@
-# Lập Trình Cơ Bản — Từ Zero đến Thi Đấu
+---
+description: Học lập trình Python và C++ từ số 0 cho thi đấu — 20 bài Python, 22 bài C++ STL kèm bài tập chạy trực tiếp
+---
+# Lập Trình Cơ Bản - Từ Zero đến Thi Đấu
 
 > **Dành cho:** Người chưa biết gì về lập trình, học sinh cấp 2–3<br>
 > **Mục tiêu:** Nắm vững Python & C++ để thi đấu competitive programming
@@ -60,12 +63,12 @@ Bộ bài học này được thiết kế để đưa bạn **từ con số 0**
 
 ---
 
-## Chương 2: C++ cho Thi Đấu (21 bài)
+## Chương 2: C++ cho Thi Đấu (22 bài)
 
 > **Phù hợp cho:** Người đã vững Python<br>
 > **Sau khi học xong:** Viết được code C++, sử dụng STL, thi đấu hiệu quả
 
-### Tổng quan: 21 bài học C++
+### Tổng quan: 22 bài học C++
 
 ### Phần A — Cơ bản (5 bài)
 
@@ -102,7 +105,7 @@ Bộ bài học này được thiết kế để đưa bạn **từ con số 0**
 | C14 | [algorithm nâng cao](cpp/C14-algorithm-nang-cao.md) | lower_bound, upper_bound | ⭐⭐⭐ |
 | C15 | [Mẹo thi đấu C++](cpp/C15-meo-thi-dau-cpp.md) | Template, trick, cheat sheet | ⭐⭐⭐ |
 
-### Phần E — Tổng hợp & Nâng cao (5 bài)
+### Phần E — Tổng hợp & Nâng cao (6 bài)
 
 | # | Bài học | Mô tả | Độ khó |
 |---|---------|-------|--------|
@@ -111,6 +114,7 @@ Bộ bài học này được thiết kế để đưa bạn **từ con số 0**
 | C18 | [Xử lý xâu nâng cao](cpp/C18-xu-ly-xau-nang-cao.md) | stringstream, getline, pattern thi đấu | ⭐⭐⭐ |
 | C19 | [Matrix & Grid Pattern](cpp/C19-matrix-pattern.md) | BFS/DFS lưới, prefix sum 2D | ⭐⭐⭐ |
 | C20 | [Lambda & Iterator](cpp/C20-lambda-iterator.md) | Lambda, iterator, erase-remove | ⭐⭐⭐ |
+| C22 | [Struct & Operator Overloading](cpp/C22-struct-operator-overloading.md) | Struct, custom comparator cho set/map/priority_queue | ⭐⭐⭐ |
 
 ### Phần F — Tham chiếu nhanh (1 bài)
 
@@ -149,7 +153,7 @@ C01 → C15
 
 ### Tuần 16–18: C++ nâng cao
 ```
-C16 → C20
+C16 → C22
 ```
 
 ---

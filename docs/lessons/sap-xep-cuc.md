@@ -3,6 +3,10 @@
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
 
+## 0. Tại sao phải học?
+
+**Bài toán mở đầu:** Radar ở gốc tọa độ quét 1 vòng. Có $n$ máy bay ở các vị trí khác nhau — liệt kê chúng theo thứ tự radar "nhìn thấy" (góc tăng dần)? Đó chính là sắp xếp cực. Nâng cao hơn: đèn pha chỉ chiếu được nửa mặt phẳng — xoay đèn hướng nào để chiếu trúng nhiều máy bay nhất? Đó là quét góc (angular sweep) + two pointers trên mảng góc nhân đôi. Cả hai đều là tiền đề của Graham Scan (bao lồi).
+
 ## 1. Sắp xếp cực (Polar Sort)
 
 ### 1.1 Ý tưởng
@@ -141,26 +145,29 @@ Sắp xếp tất cả điểm theo góc. Với mỗi điểm $i$, tìm số đi
 === "C++"
 
     ```cpp
+    // Đếm điểm tối đa trong một nửa mặt phẳng qua gốc tọa độ
     int maxPointsInHalfPlane(vector<Point>& points) {
         int n = points.size();
         if (n <= 2) return n;
 
+        // Bước 1: tính góc mỗi điểm rồi sắp xếp
         vector<double> angles;
         for (auto& P : points) {
             angles.push_back(atan2(P.y, P.x));
         }
         sort(angles.begin(), angles.end());
 
-        // Nhân đôi mảng để xử lý vòng tròn
+        // Bước 2: nhân đôi mảng (+2π) để xử lý tính vòng tròn của góc
         vector<double> doubled;
         for (double a : angles) doubled.push_back(a);
         for (double a : angles) doubled.push_back(a + 2 * M_PI);
 
+        // Bước 3: two pointers — với mỗi i, nới j xa nhất còn trong nửa vòng (< π)
         int ans = 0;
         int j = 0;
         for (int i = 0; i < n; i++) {
             while (j < 2 * n && doubled[j] - doubled[i] < M_PI - 1e-9) j++;
-            ans = max(ans, j - i);
+            ans = max(ans, j - i); // đoạn [i, j) nằm trong nửa mặt phẳng
         }
         return ans;
     }
@@ -270,7 +277,11 @@ Cho 2 vector $A$ và $B$. Tìm góc nhỏ nhất (radian) cần quay $A$ để t
 
 ### 5.2 Công thức
 
+Gọi $\theta_A, \theta_B$ là góc của $A, B$ so với trục $x$ (tính bằng `atan2`, thuộc $(-\pi, \pi]$). Hiệu tuyệt đối $|\theta_A - \theta_B|$ là góc quay một chiều; chiều còn lại là $2\pi$ trừ đi nó. Góc nhỏ nhất:
+
 $$\theta = \min(|\theta_A - \theta_B|, 2\pi - |\theta_A - \theta_B|)$$
+
+**Ví dụ số:** $A(1,0) \to \theta_A = 0$; $B(0,1) \to \theta_B = \pi/2$. $|\theta_A-\theta_B| = \pi/2$, $2\pi - \pi/2 = 3\pi/2$ → $\theta = \pi/2 = 90°$ ✓.
 
 === "C++"
 
@@ -285,7 +296,23 @@ $$\theta = \min(|\theta_A - \theta_B|, 2\pi - |\theta_A - \theta_B|)$$
 
 ---
 
-## 6. Bài tập luyện tập (FPTOJ)
+## 6. Lỗi thường gặp
+
+```cpp
+// SAI: so sánh góc bằng == (atan2 trả số thực, 2 điểm cùng tia chưa chắc bằng nhau tuyệt đối)
+if (aa == ab) ...
+
+// ĐÚNG: so với epsilon, rồi tie-break bằng khoảng cách bình phương
+if (abs(aa - ab) > 1e-9) return aa < ab;
+return A.x*A.x + A.y*A.y < B.x*B.x + B.y*B.y;
+```
+
+- **Cùng góc nhưng quên tie-break:** 2 điểm cùng tia mà comparator trả `false` cả 2 chiều → thứ tự không xác định, Graham Scan có thể lấy điểm gần thay vì điểm xa. Luôn tie-break bằng khoảng cách.
+- **`atan2` chậm với $n = 10^5$:** mỗi lần so sánh gọi 2 lần `atan2` → sort thành $O(n \log n)$ phép tính lượng giác, dễ TLE. Cách nhanh: so sánh bằng **nửa mặt phẳng + cross product** (xem bao-lồi), chỉ dùng `atan2` khi $n$ nhỏ hoặc cần giá trị góc thật.
+- **Quên nhân đôi mảng:** quét góc trên mảng đơn sẽ mất các đoạn "vắt qua" $-π/π$ (ví dụ đoạn $[170°, -170°]$). Luôn nhân đôi $+2π$ rồi two pointers.
+- **Biên nửa mở vs nửa đóng:** `< π` hay `<= π`? Điểm đối xứng qua gốc (cách nhau đúng $π$) có tính cùng nửa mặt phẳng đóng — thống nhất với comparator sort, đừng để 2 chỗ lệch nhau.
+
+## 7. Bài tập luyện tập (FPTOJ)
 
 | Bài | Nền tảng | Độ khó | Kiểu bài tập (Bản chất) |
 |-----|----------|--------|------------------------|
@@ -298,7 +325,7 @@ $$\theta = \min(|\theta_A - \theta_B|, 2\pi - |\theta_A - \theta_B|)$$
 | `polar-dominant` | [Đếm điểm trội](https://fptoj.com/problem/polar-dominant) | ⭐⭐⭐ | Góc + sắp xếp |
 | `polar-sector` | [Đèn pha chiếu sáng](https://fptoj.com/problem/polar-sector) | ⭐⭐ | Quét góc |
 
-## 7. Bài tập tự luận
+## 8. Bài tập tự luận
 
 ### Bài 1: Sắp xếp theo góc
 

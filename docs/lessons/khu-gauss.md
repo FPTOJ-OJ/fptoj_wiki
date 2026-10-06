@@ -3,6 +3,12 @@
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
 
+## 0. Mở đầu: giải tay hệ 2 ẩn
+
+$$\begin{cases} 2x + 3y = 8 \\ x - y = 1 \end{cases}$$
+
+Cách bạn làm ở phổ thông: từ phương trình 2, $x = y + 1$, thế vào phương trình 1: $2(y+1) + 3y = 8 \Rightarrow 5y = 6 \Rightarrow y = 1.2$, $x = 2.2$. Khử Gauss là **phiên bản máy móc** của thao tác "thế" này cho hệ $n$ ẩn: dùng hàng này triệt tiêu 1 ẩn ở các hàng khác, lặp lại đến khi ma trận thành dạng bậc thang thì đọc nghiệm. Mọi định thức, nghịch đảo, rank (§2–§4) đều chỉ là "sản phẩm phụ" của cùng một quá trình khử.
+
 ## 1. Khử Gauss (Gaussian Elimination)
 
 ### 1.1 Bài toán
@@ -23,14 +29,28 @@ Biến đổi ma trận augmented $[A | b]$ thành dạng bậc thang (row echel
 === "C++"
 
     ```cpp
+    const long long MOD = 1e9 + 7;
+
+    // Lũy thừa modulo (MOD nguyên tố)
+    long long modPow(long long a, long long e) {
+        long long r = 1;
+        while (e) {
+            if (e & 1) r = r * a % MOD;
+            a = a * a % MOD;
+            e >>= 1;
+        }
+        return r;
+    }
+
     // Giải hệ phương trình tuyến tính modulo MOD
     // Trả về nghiệm hoặc rỗng nếu vô nghiệm/vô số nghiệm
     vector<long long> gaussianElimination(vector<vector<long long>> a, vector<long long> b) {
         int n = a.size();
         int m = a[0].size();
-        const long long MOD = 1e9 + 7;
 
-        // Tạo ma trận augmented
+        // Tạo ma trận augmented (giữ bản sao a0, b0 để kiểm tra nghiệm sau này)
+        vector<vector<long long>> a0 = a;
+        vector<long long> b0 = b;
         vector<vector<long long>> aug(n, vector<long long>(m + 1));
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++)
@@ -41,20 +61,20 @@ Biến đổi ma trận augmented $[A | b]$ thành dạng bậc thang (row echel
         vector<int> where(m, -1);
 
         for (int col = 0, row = 0; col < m && row < n; col++) {
-            // Tìm pivot
-            int sel = row;
+            // Tìm pivot: hàng đầu tiên có phần tử khác 0 (mod MOD) ở cột col
+            // (Với số học modulo, so sánh abs/1e-9 là vô nghĩa — chỉ cần != 0)
+            int sel = -1;
             for (int i = row; i < n; i++) {
-                if (abs(aug[i][col]) > abs(aug[sel][col]))
-                    sel = i;
+                if ((aug[i][col] % MOD + MOD) % MOD != 0) { sel = i; break; }
             }
-            if (abs(aug[sel][col]) < 1e-9) continue;
+            if (sel == -1) continue; // cột toàn 0 → bỏ qua
 
             // Hoán đổi hàng
             swap(aug[sel], aug[row]);
             where[col] = row;
 
             // Khử cột
-            long long inv = powerMod(aug[row][col], MOD - 2, MOD);
+            long long inv = modPow(aug[row][col], MOD - 2);
             for (int i = 0; i < n; i++) {
                 if (i != row) {
                     long long factor = aug[i][col] * inv % MOD;
@@ -70,16 +90,16 @@ Biến đổi ma trận augmented $[A | b]$ thành dạng bậc thang (row echel
         vector<long long> x(m, 0);
         for (int i = 0; i < m; i++) {
             if (where[i] != -1) {
-                x[i] = aug[where[i]][m] * powerMod(aug[where[i]][i], MOD - 2, MOD) % MOD;
+                x[i] = aug[where[i]][m] * modPow(aug[where[i]][i], MOD - 2) % MOD;
             }
         }
 
-        // Kiểm tra vô nghiệm
+        // Kiểm tra vô nghiệm trên ma trận GỐC (aug đã bị biến đổi)
         for (int i = 0; i < n; i++) {
             long long sum = 0;
             for (int j = 0; j < m; j++)
-                sum = (sum + x[j] * aug[i][j]) % MOD;
-            if ((sum - aug[i][m] + MOD) % MOD != 0)
+                sum = (sum + x[j] * a0[i][j]) % MOD;
+            if ((sum - b0[i] % MOD + MOD) % MOD != 0)
                 return {}; // Vô nghiệm
         }
         return x;
@@ -94,16 +114,20 @@ Biến đổi ma trận augmented $[A | b]$ thành dạng bậc thang (row echel
     def gaussian_elimination(a, b):
         n = len(a)
         m = len(a[0])
+        a0 = [row[:] for row in a]  # giữ bản gốc để kiểm tra nghiệm
+        b0 = b[:]
         aug = [a[i][:] + [b[i]] for i in range(n)]
         where = [-1] * m
 
         col, row = 0, 0
         while col < m and row < n:
-            sel = row
+            # Tìm pivot: hàng đầu tiên có phần tử != 0 (mod MOD)
+            sel = -1
             for i in range(row, n):
-                if abs(aug[i][col]) > abs(aug[sel][col]):
+                if aug[i][col] % MOD != 0:
                     sel = i
-            if abs(aug[sel][col]) < 1e-9:
+                    break
+            if sel == -1:
                 col += 1
                 continue
 
@@ -124,10 +148,10 @@ Biến đổi ma trận augmented $[A | b]$ thành dạng bậc thang (row echel
             if where[i] != -1:
                 x[i] = aug[where[i]][m] * pow(aug[where[i]][i], MOD - 2, MOD) % MOD
 
-        # Kiểm tra vô nghiệm
+        # Kiểm tra vô nghiệm trên ma trận GỐC
         for i in range(n):
-            s = sum(x[j] * aug[i][j] for j in range(m)) % MOD
-            if (s - aug[i][m] + MOD) % MOD != 0:
+            s = sum(x[j] * a0[i][j] for j in range(m)) % MOD
+            if (s - b0[i] + MOD) % MOD != 0:
                 return None
         return x
     ```
@@ -147,26 +171,38 @@ Khử ma trận về dạng bậc thang, định thức = tích các phần tử
 === "C++"
 
     ```cpp
+    long long modPow(long long a, long long e) {
+        const long long MOD = 1e9 + 7;
+        long long r = 1;
+        while (e) {
+            if (e & 1) r = r * a % MOD;
+            a = a * a % MOD;
+            e >>= 1;
+        }
+        return r;
+    }
+
     long long determinant(vector<vector<long long>> a) {
         int n = a.size();
         const long long MOD = 1e9 + 7;
         long long det = 1;
 
         for (int col = 0; col < n; col++) {
-            int sel = col;
+            // Tìm pivot != 0 (mod MOD)
+            int sel = -1;
             for (int row = col; row < n; row++) {
-                if (abs(a[row][col]) > abs(a[sel][col]))
-                    sel = row;
+                if ((a[row][col] % MOD + MOD) % MOD != 0) { sel = row; break; }
             }
-            if (abs(a[sel][col]) < 1e-9) return 0;
+            if (sel == -1) return 0; // cột toàn 0 → định thức = 0
 
             if (sel != col) {
                 swap(a[sel], a[col]);
-                det = (MOD - det) % MOD; // nhân -1
+                det = (MOD - det) % MOD; // đổi hàng → nhân -1
             }
 
-            det = det * a[col][col] % MOD;
-            long long inv = powerMod(a[col][col], MOD - 2, MOD);
+            det = det * a[col][col] % MOD; // nhân chéo chính vào định thức
+            long long inv = modPow(a[col][col], MOD - 2, MOD);
+            // Khử các hàng dưới (không cần chuẩn hóa hàng pivot vì det đã nhân)
             for (int row = col + 1; row < n; row++) {
                 long long factor = a[row][col] * inv % MOD;
                 for (int j = col; j < n; j++) {
@@ -189,6 +225,17 @@ Tạo ma trận $[A | I]$ (với $I$ là ma trận đơn vị), khử về $[I |
 === "C++"
 
     ```cpp
+    long long modPow(long long a, long long e) {
+        const long long MOD = 1e9 + 7;
+        long long r = 1;
+        while (e) {
+            if (e & 1) r = r * a % MOD;
+            a = a * a % MOD;
+            e >>= 1;
+        }
+        return r;
+    }
+
     // Trả về ma trận nghịch đảo hoặc ma trận rỗng nếu không khả nghịch
     vector<vector<long long>> inverseMatrix(vector<vector<long long>> a) {
         int n = a.size();
@@ -204,19 +251,21 @@ Tạo ma trận $[A | I]$ (với $I$ là ma trận đơn vị), khử về $[I |
 
         // Khử Gauss
         for (int col = 0; col < n; col++) {
-            int sel = col;
+            // Tìm pivot != 0 (mod MOD)
+            int sel = -1;
             for (int row = col; row < n; row++) {
-                if (abs(aug[row][col]) > abs(aug[sel][col]))
-                    sel = row;
+                if ((aug[row][col] % MOD + MOD) % MOD != 0) { sel = row; break; }
             }
-            if (abs(aug[sel][col]) < 1e-9) return {}; // Không khả nghịch
+            if (sel == -1) return {}; // Không khả nghịch
 
             swap(aug[sel], aug[col]);
 
-            long long inv = powerMod(aug[col][col], MOD - 2, MOD);
+            long long inv = modPow(aug[col][col], MOD - 2, MOD);
+            // Chuẩn hóa hàng pivot thành 1 ở cột col (để vế trái dần thành I)
             for (int j = 0; j < 2 * n; j++)
                 aug[col][j] = aug[col][j] * inv % MOD;
 
+            // Khử cột col ở mọi hàng khác (đưa về 0)
             for (int row = 0; row < n; row++) {
                 if (row != col) {
                     long long factor = aug[row][col];
@@ -253,15 +302,16 @@ Rank của ma trận = số hàng độc lập tuyến tính sau khi khử Gauss
         int rank = 0;
 
         for (int col = 0, row = 0; col < m && row < n; col++) {
-            int sel = row;
+            // Tìm pivot != 0 (mod MOD)
+            int sel = -1;
             for (int i = row; i < n; i++) {
-                if (abs(a[i][col]) > abs(a[sel][col]))
-                    sel = i;
+                if ((a[i][col] % MOD + MOD) % MOD != 0) { sel = i; break; }
             }
-            if (abs(a[sel][col]) < 1e-9) continue;
+            if (sel == -1) continue; // cột toàn 0 → không tăng rank
 
-            swap(a[sel], a[row]);
-            long long inv = powerMod(a[row][col], MOD - 2, MOD);
+            swap(a[sel], a[row]); // đưa pivot lên hàng hiện tại
+            long long inv = modPow(a[row][col], MOD - 2, MOD);
+            // Khử các hàng DƯỚI (trên không cần vì rank chỉ đếm pivot)
             for (int i = row + 1; i < n; i++) {
                 long long factor = a[i][col] * inv % MOD;
                 for (int j = col; j < m; j++) {

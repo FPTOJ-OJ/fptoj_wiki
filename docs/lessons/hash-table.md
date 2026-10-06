@@ -37,10 +37,10 @@ Một hàm băm tốt cần thỏa mãn ba tính chất:
 
     ```cpp
     int simpleHash(string s, int tableSize) {
-        int h = 0;
+        int h = 0; // h: giá trị băm đang xây dở
         for (char c : s)
-            h = (h * 31 + c) % tableSize;
-        return h;
+            h = (h * 31 + c) % tableSize; // bước lăn: nhân 31 (số nguyên tố, rải đều) rồi cộng mã ký tự
+        return h; // bước trả: chỉ số ô [0, M-1]
     }
     ```
 
@@ -48,10 +48,10 @@ Một hàm băm tốt cần thỏa mãn ba tính chất:
 
     ```python
     def simple_hash(s, table_size):
-        h = 0
+        h = 0  # h: giá trị băm đang xây dở
         for c in s:
-            h = (h * 31 + ord(c)) % table_size
-        return h
+            h = (h * 31 + ord(c)) % table_size  # bước lăn: nhân 31 rồi cộng mã ký tự
+        return h  # bước trả: chỉ số ô [0, M-1]
     ```
 
 Hệ số 31 là một số nguyên tố nhỏ, giúp phân phối đều. Giá trị `tableSize` nên chọn là số nguyên tố để giảm xung đột.
@@ -78,6 +78,21 @@ graph LR
 ```
 
 Trong ví dụ trên, `"cat"` và `"dog"` cùng có hash bằng 1, nên chúng nằm trong cùng một danh sách tại ô `[1]`.
+
+#### Trace từng bước insert / search / delete (chaining, `M = 5`)
+
+Giả sử `h("cat") = 1`, `h("dog") = 1` (xung đột!), `h("bird") = 2`, `h("fish") = 4`.
+
+| Bước | Thao tác | Tính `h(key)` | Danh sách tại ô đó trước → sau | Kết quả |
+|:---:|---|---|---|---|
+| 1 | `insert("cat", 3)` | `1` | `[1]: [] → [cat:3]` | chèn vào đầu chain |
+| 2 | `insert("dog", 5)` | `1` | `[1]: [cat:3] → [cat:3, dog:5]` | xung đột → nối vào chain |
+| 3 | `insert("bird", 2)` | `2` | `[2]: [] → [bird:2]` | ô trống, chèn mới |
+| 4 | `search("dog")` | `1` | duyệt `[cat:3, dog:5]`: `cat` ≠ `dog`, `dog` = `dog` | tìm thấy → trả `5` |
+| 5 | `search("fish")` | `4` | duyệt `[ ]`: rỗng | không thấy → `-1` / không tồn tại |
+| 6 | `insert("fish", 1)` | `4` | `[4]: [] → [fish:1]` | chèn mới |
+| 7 | `erase("cat")` | `1` | `[1]: [cat:3, dog:5] → [dog:5]` | xóa node `cat`, chain còn `dog` |
+| 8 | `search("cat")` | `1` | duyệt `[dog:5]`: không có `cat` | không thấy → đã xóa thành công |
 
 **Phương pháp 2: Open Addressing (Địa chỉ mở)**
 
@@ -239,12 +254,12 @@ Hash table là công cụ cực kỳ phổ biến trong lập trình thi đấu.
 
     ```cpp
     vector<int> twoSum(vector<int>& a, int target) {
-        unordered_map<int, int> pos;
+        unordered_map<int, int> pos; // pos[giá trị] = chỉ số đã gặp (tra ngược O(1))
         for (int i = 0; i < a.size(); i++) {
-            int complement = target - a[i];
-            if (pos.count(complement))
-                return {pos[complement], i};
-            pos[a[i]] = i;
+            int complement = target - a[i]; // bước tính: số còn thiếu để đủ target
+            if (pos.count(complement)) // bước tra: số thiếu đã gặp trước đó chưa?
+                return {pos[complement], i}; // bước trả: cặp chỉ số tìm được
+            pos[a[i]] = i; // bước lưu: ghi nhớ số hiện tại cho vòng sau
         }
         return {};
     }
@@ -254,12 +269,12 @@ Hash table là công cụ cực kỳ phổ biến trong lập trình thi đấu.
 
     ```python
     def two_sum(a, target):
-        pos = {}
+        pos = {}  # pos[giá trị] = chỉ số đã gặp
         for i, x in enumerate(a):
-            complement = target - x
-            if complement in pos:
-                return [pos[complement], i]
-            pos[x] = i
+            complement = target - x  # bước tính: số còn thiếu
+            if complement in pos:  # bước tra: số thiếu đã gặp chưa?
+                return [pos[complement], i]  # bước trả
+            pos[x] = i  # bước lưu cho vòng sau
         return []
     ```
 
@@ -332,40 +347,40 @@ Hash table là công cụ cực kỳ phổ biến trong lập trình thi đấu.
 
     ```cpp
     struct HashTable {
-        static const int SIZE = 10007;
-        vector<pair<string,int>> table[SIZE];
+        static const int SIZE = 10007; // kích thước bảng (số nguyên tố → ít xung đột)
+        vector<pair<string,int>> table[SIZE]; // mỗi ô là 1 chain (danh sách cặp key-value)
 
         int hash(string key) {
-            int h = 0;
+            int h = 0; // giá trị băm đang xây
             for (char c : key)
-                h = (h * 31 + c) % SIZE;
-            return h;
+                h = (h * 31 + c) % SIZE; // bước lăn theo từng ký tự
+            return h; // chỉ số ô
         }
 
         void insert(string key, int value) {
-            int idx = hash(key);
+            int idx = hash(key); // bước 1: tìm ô
             for (auto& [k, v] : table[idx]) {
-                if (k == key) {
+                if (k == key) { // bước 2: key đã có → cập nhật giá trị cũ
                     v = value;
                     return;
                 }
             }
-            table[idx].push_back({key, value});
+            table[idx].push_back({key, value}); // bước 3: key mới → nối vào cuối chain
         }
 
         int get(string key) {
-            int idx = hash(key);
-            for (auto& [k, v] : table[idx])
-                if (k == key) return v;
-            return -1;
+            int idx = hash(key); // bước 1: tìm ô
+            for (auto& [k, v] : table[idx]) // bước 2: duyệt chain
+                if (k == key) return v; // bước 3: thấy thì trả giá trị
+            return -1; // bước 4: duyệt hết không thấy → không tồn tại
         }
 
         void erase(string key) {
-            int idx = hash(key);
+            int idx = hash(key); // bước 1: tìm ô
             auto& chain = table[idx];
             for (auto it = chain.begin(); it != chain.end(); it++) {
-                if (it->first == key) {
-                    chain.erase(it);
+                if (it->first == key) { // bước 2: thấy key trong chain
+                    chain.erase(it); // bước 3: xóa node rồi dừng
                     return;
                 }
             }
@@ -501,6 +516,62 @@ Lựa chọn cấu trúc phụ thuộc vào yêu cầu:
 - **Worst case:** $O(N)$ — xảy ra khi tất cả key cùng hash hoặc bị anti-hash attack
 - **Bộ nhớ:** $O(N)$ — cần thêm không gian cho bảng băm và các cấu trúc xử lý xung đột
 - **Load factor $\alpha < 0.75$:** Ngưỡng khuyến nghị để đảm bảo hiệu suất tốt
+
+---
+
+## Cạm bẫy thường gặp
+
+### Lỗi 1: Bị hack `unordered_map` (anti-hash) → TLE
+
+Test xấu có thể ép mọi key cùng hash → mỗi thao tác thành $O(N)$.
+
+```cpp
+// SAI: unordered_map mặc định dễ bị hack trên Codeforces/FPTOJ test adversarial
+unordered_map<int, int> mp;
+
+// ĐÚNG: dùng custom hash ngẫu nhiên (splitmix64) — chuẩn thi đấu
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM); // bước trộn seed ngẫu nhiên → hacker không đoán được
+    }
+};
+unordered_map<int, int, custom_hash> mp; // an toàn trước anti-hash
+```
+
+### Lỗi 2: Quên custom hash cho `pair` / struct
+
+```cpp
+// SAI: unordered_map không có sẵn hash cho pair → CE!
+unordered_map<pair<int,int>, int> mp;
+
+// ĐÚNG: tự định nghĩa hash cho pair
+struct pair_hash {
+    size_t operator()(const pair<int,int>& p) const {
+        return (uint64_t)p.first * 1000000007ULL + p.second; // bước trộn 2 thành phần
+    }
+};
+unordered_map<pair<int,int>, int, pair_hash> mp;
+```
+
+### Lỗi 3: `find` rồi `operator[]` tạo key rác
+
+```cpp
+// SAI: find thấy hay không cũng gọi mp[key] → nếu key chưa có, operator[] TỰ TẠO key với value 0!
+// → map phình to, đếm tần suất sai, vòng lặp duyệt key rác
+if (mp.find(key) != mp.end()) cout << mp[key];
+
+// ĐÚNG: dùng iterator đã tìm được, hoặc chỉ dùng 1 trong 2 cách
+auto it = mp.find(key); // bước tìm 1 lần
+if (it != mp.end()) cout << it->second; // bước dùng: đọc qua iterator, không tạo key mới
+// hoặc gọn: if (mp.count(key)) cout << mp[key]; — nhưng vẫn 2 lần băm, kém hơn iterator
+```
 
 ---
 

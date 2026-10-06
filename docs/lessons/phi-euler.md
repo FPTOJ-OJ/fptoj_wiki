@@ -7,6 +7,18 @@
 
 ## 1. Bản chất vấn đề
 
+### Bài toán động lực: Tính lũy thừa khổng lồ
+
+Giả sử bạn cần tính $7^{10^{18}} \bmod 1000000007$ trong 1 giây. Vòng lặp nhân $10^{18}$ lần là bất khả thi. Ngay cả lũy thừa nhị phân $O(\log n)$ cũng chỉ rút gọn số phép nhân — nhưng số mũ vẫn quá lớn để duyệt.
+
+Định lý Euler cứu chúng ta: nếu $\gcd(a, n) = 1$ thì $a^{\varphi(n)} \equiv 1 \pmod{n}$. Nghĩa là số mũ có thể **rút gọn theo modulo $\varphi(n)$**:
+
+$$a^b \bmod n = a^{b \bmod \varphi(n)} \bmod n \quad (\text{khi } \gcd(a,n)=1)$$
+
+**Ví dụ cụ thể:** Tính $7^{10^{18}} \bmod 1000000007$. Vì $1000000007$ là số nguyên tố nên $\varphi = 1000000006$. Rút gọn mũ: $10^{18} \bmod 1000000006 = ?$ rồi lũy thừa nhị phân với số mũ nhỏ này. Từ $10^{18}$ phép nhân còn vài chục phép!
+
+Vậy câu hỏi nền tảng là: **$\varphi(n)$ là gì và tính nó thế nào?** Đó chính là nội dung bài này.
+
 ### Định nghĩa
 
 Hàm Euler $\varphi(n)$ đếm số nguyên dương $k$ sao cho $1 \le k \le n$ và $\gcd(k, n) = 1$ (nguyên tố cùng nhau với $n$).

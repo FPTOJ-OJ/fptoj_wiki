@@ -7,6 +7,13 @@
 
 ## Bản chất vấn đề
 
+### Bài toán động lực: vì sao cần học bài này?
+
+Bạn gặp 2 kiểu bài rất hay ra thi:
+
+1. **"Tính $n! \bmod p$ với $n$ tới $10^{18}$, $p$ nguyên tố nhỏ (vd $p=10^9+7$)."** Tính trực tiếp $1 \cdot 2 \cdots n$ là không thể — vừa quá lâu, vừa chắc chắn chứa thừa số $p$ (kết quả $=0$). Nhưng bài toán con $\frac{n!}{k!} \bmod p$ hay $n!$ với $n$ gần $p$ (vd $(p-2)!$) lại tính nhanh được nhờ định lý Wilson — đó là nửa đầu bài này.
+2. **"Giải $x^2 \equiv n \pmod{p}$ (vd $x^2 \equiv 5 \pmod{41}$)."** Thử từng $x$ từ $0$ tới $p-1$ tốn $O(p)$ — quá chậm với $p \approx 10^9$. Tonelli-Shanks giải trong $O(\log^2 p)$ — đó là nửa sau bài này. Ứng dụng thật: giải phương trình bậc hai modulo, mật mã đường cong elliptic.
+
 ### Giai thừa modulo
 
 Tính $n! \mod p$ với $p$ nguyên tố. Khi $n < p$, tính trực tiếp $O(n)$. Khi $n \ge p$, $n! \equiv 0 \pmod{p}$ vì chứa thừa số $p$. Ứng dụng: tính $\frac{n!}{k!} \mod p$.
@@ -55,6 +62,8 @@ Tìm $x$ sao cho $x^2 \equiv n \pmod{p}$, với $p$ nguyên tố lẻ.
 
 Nghiệm tồn tại khi $n^{\frac{p-1}{2}} \equiv 1 \pmod{p}$ (Euler's criterion).
 
+**Giải thích từng thành phần:** với $p$ nguyên tố lẻ và $n$ không chia hết cho $p$, lũy thừa $n^{(p-1)/2} \bmod p$ chỉ có thể bằng $1$ hoặc $p-1$ ($\equiv -1$). Bằng $1$ nghĩa là $n$ là **dư bậc hai** (tồn tại $x$ sao cho $x^2 \equiv n$) — ví dụ $2^{(7-1)/2}=2^3=8\equiv 1 \pmod{7}$ nên $x^2\equiv 2 \pmod{7}$ có nghiệm ($x=3,4$). Bằng $-1$ nghĩa là $n$ là **non-residue** (vô nghiệm) — không cần chạy Tonelli-Shanks nữa, trả về $-1$ ngay. Đây chính là dòng `if (power(n, (p-1)/2, p) != 1) return -1;` trong code. Trường hợp $n=0$ xử lý riêng (nghiệm $x=0$).
+
 ### Thuật toán Tonelli-Shanks
 
 **Trường hợp đặc biệt:** $p \equiv 3 \pmod{4}$:
@@ -72,6 +81,16 @@ Phân tích $p - 1 = Q \cdot 2^S$ với $Q$ lẻ. Ý tưởng:
 3. Lặp: Nếu $t = 1$ → trả về $r$. Ngược lại, tìm mũ $i$ nhỏ nhất sao cho $t^{2^i} = 1$. Cập nhật $c, t, r$ và giảm $m$.
 
 Mỗi lần lặp, $m$ giảm 1 nên thuật toán dừng sau tối đa $S$ bước.
+
+**Giải thích từng biến (ánh xạ với code):**
+
+- **$Q, S$** (`q, s` trong code): tách hết thừa số $2$ ra khỏi $p-1$. $Q$ là phần lẻ, $S$ là số lần chia được cho $2$. Ví dụ $p=41$: $40 = 5 \cdot 2^3$ nên $Q=5, S=3$. $S$ càng lớn thì vòng lặp càng nhiều bước.
+- **$z$** (non-residue): "chìa khóa" sinh ra phần tử có bậc đúng $2^S$. Tìm bằng cách thử $z=2,3,\dots$ cho tới khi $z^{(p-1)/2}\equiv -1$. Tồn tại vì đúng một nửa số trong $[1,p-1]$ là non-residue.
+- **$c = z^Q$**: phần tử có bậc $2^S$, dùng để "sửa" $r$ từng bước (mỗi lần bình phương $c$ thì bậc giảm một nửa).
+- **$t = n^Q$**: "thước đo sai số" — $t=1$ nghĩa là $r$ hiện tại đã là nghiệm đúng. Còn $t \ne 1$ thì cần tiếp tục sửa.
+- **$r = n^{(Q+1)/2}$**: nghiệm **xấp xỉ ban đầu** (đúng trong trường hợp $S=1$, tức $p \equiv 3 \pmod{4}$).
+- **$m$** (khởi tạo $m=S$): chặn trên của bậc của $t$. Mỗi vòng lặp tìm $i$ (bậc thực của $t$) rồi đặt $m \leftarrow i$ nên $m$ giảm dần → đảm bảo dừng.
+- **$b = c^{2^{(m-i-1)}}$**: "miếng vá" có bậc đúng $2^{i+1}$; nhân vào $r$ ($r \leftarrow r \cdot b$) và $t$ ($t \leftarrow t \cdot b^2$) để đưa $t$ về bậc thấp hơn.
 
 ### Trace chi tiết
 
@@ -279,7 +298,65 @@ Tính $\prod_{i=L}^{R} i \bmod p$ với $L, R < p$:
 
 ---
 
-## 4. Bài tập luyện tập
+## 4. Lỗi thường gặp (SAI / ĐÚNG)
+
+### SAI 1: $n \ge p$ vẫn đi tính vòng lặp → TLE / sai
+
+```python
+# SAI: n = 10**18, p = 7 → lặp 10**18 lần, treo máy
+res = 1
+for i in range(1, n + 1):
+    res = res * i % p
+```
+
+```python
+# ĐÚNG: n! chứa thừa số p nên bằng 0 ngay
+if n >= p:
+    return 0
+```
+
+### SAI 2: Quên check Euler criterion → lặp vô hạn / trả nghiệm rác
+
+```python
+# SAI: bỏ qua kiểm tra, Tonelli-Shanks với n là non-residue không bao giờ cho t = 1
+def sqrt_mod(n, p):
+    ...  # chạy thẳng vào vòng while t != 1
+```
+
+```python
+# ĐÚNG: kiểm tra trước, vô nghiệm thì trả -1 ngay
+if power(n, (p - 1) // 2, p) != 1:
+    return -1
+```
+
+### SAI 3: Chỉ in một nghiệm, quên nghiệm kép $p - r$
+
+```python
+# SAI: chỉ in r
+print(r)
+```
+
+```python
+# ĐÚNG: nếu r != 0 thì nghiệm còn lại là p - r (vd r=18, p=41 → 23)
+print(r, p - r)
+```
+
+### SAI 4: Tràn số với `res * a` trong C++ khi $p \approx 10^9$
+
+```cpp
+// SAI: res * a có thể tới ~10^18, vẫn vừa long long nhưng
+// nếu dùng int 32-bit thì tràn → sai
+int res = res * a % p;
+```
+
+```cpp
+// ĐÚNG: luôn dùng long long cho res, a, p
+long long res = res * a % p;
+```
+
+---
+
+## 5. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |

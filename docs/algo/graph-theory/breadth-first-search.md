@@ -1,5 +1,5 @@
 
-**Nguồn:** [CP-Algorithms](https://cp-algorithms.com/graph/breadth-first-search.html), [Giải thuật và lập trình - Lê Minh Hoàng](../basic/Tai-Lieu-Thuat-Toan.md)
+**Nguồn:** [CP-Algorithms](https://cp-algorithms.com/graph/breadth-first-search.html), Giải thuật và lập trình - Lê Minh Hoàng
 
 **Biên soạn:**
 - Nguyễn Châu Khanh - VNU University of Engineering and Technology (VNU-UET)
@@ -1165,7 +1165,7 @@ Ta sử dụng **kĩ thuật 0-1 BFS** :
 
 Ta có thể chỉnh sửa một chút từ thuật toán $BFS$ để có được **kĩ thuật 0-1 BFS** :
 - Trong kĩ thuật này, thay vì sử dụng mảng *bool* để đánh dấu lại các đỉnh đã duyệt, ta sẽ kiểm tra điều kiện **khoảng cách ngắn nhất**. Nghĩa là, trong quá trình $BFS$, với mỗi đỉnh $v$ kề với $u$, đỉnh $v$ chỉ được đẩy vào hàng đợi khi và chỉ khi đường đi đi ngắn nhất từ đỉnh nguồn đến $v$ lớn hơn đường đi ngắn nhất từ đỉnh nguồn đến $u$ cộng với trọng số cạnh $u \to v$ (khoảng cách được giảm bớt khi sử dụng cạnh này) .
-- Ta sẽ sử dụng một [hàng đợi hai đầu](../data-structures/Deque.md) *(deque)* thay cho hàng đợi *(queue)* để lưu trữ các đỉnh.  Trong quá trình $BFS$, nếu ta gặp một cạnh có trọng số bằng $0$ thì đỉnh sẽ được đẩy vào **phía trước** của hàng đợi hai đầu. Ngược lại, nếu ta gặp một cạnh có trọng số bằng $1$ thì đỉnh sẽ được đẩy vào **phía sau** của hàng đợi hai đầu.
+- Ta sẽ sử dụng một hàng đợi hai đầu *(deque)* thay cho hàng đợi *(queue)* để lưu trữ các đỉnh.  Trong quá trình $BFS$, nếu ta gặp một cạnh có trọng số bằng $0$ thì đỉnh sẽ được đẩy vào **phía trước** của hàng đợi hai đầu. Ngược lại, nếu ta gặp một cạnh có trọng số bằng $1$ thì đỉnh sẽ được đẩy vào **phía sau** của hàng đợi hai đầu.
     - **Giải thích:** Ta *push* đỉnh kết nối bởi cạnh có trọng số $0$ vào đầu *deque* để giữ cho hàng đợi luôn được sắp xếp theo khoảng cách từ đỉnh nguồn tại mọi thời điểm. Bởi vì, các đỉnh ở gần đầu *queue/deque* hơn thì nó phải có khoảng cách từ gốc gần hơn, mà đỉnh ta *push* vào đầu có khoảng cách bằng chính khoảng cách đỉnh vừa *pop* ra, nên *deque* lúc này thỏa mãn tính chất của *queue* trong $BFS$. 
     - Từ tính chất trên, ta có nhận xét sau: **Kĩ thuật 0-1 BFS** vẫn đúng cho trường hợp đồ thị có trọng số cạnh là $0$ hoặc $x$ $(x \ge 0)$.
 

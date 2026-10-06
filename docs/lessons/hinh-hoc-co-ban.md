@@ -9,6 +9,8 @@
 
 ### Bản chất vấn đề
 
+**Bài toán mở đầu:** Cho 3 điểm $A(0,0)$, $B(4,0)$, $C(1,1)$. Điểm $C$ nằm bên trái hay bên phải đường đi từ $A$ đến $B$? Tam giác $ABC$ có diện tích bao nhiêu? Nếu chỉ dùng công thức khoảng cách Euclid $\sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}$, bạn sẽ chìm trong căn thức và sai số. Bí quyết: **đừng bao giờ dùng căn khi chưa cần** — mọi câu hỏi "trái/phải/diện tích" đều trả lời được bằng 2 phép toán nguyên thủy dưới đây.
+
 Trong mặt phẳng Oxy, một **điểm** $P$ được biểu diễn bằng cặp tọa độ $(x, y)$. Một **vector** $\vec{AB}$ là phép dịch chuyển từ điểm $A$ đến điểm $B$, có thành phần $(B.x - A.x,\ B.y - A.y)$.
 
 Vector không phụ thuộc vào vị trí bắt đầu — hai vector cùng phương và độ dài thì bằng nhau dù ở đâu trên mặt phẳng.

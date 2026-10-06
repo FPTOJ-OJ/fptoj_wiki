@@ -156,19 +156,19 @@ DFS tính $parent$, $depth$, $sz$, $heavy$ cho mỗi đỉnh.
     int parent[MAXN], depth[MAXN], sz[MAXN], heavy[MAXN];
 
     void dfs(int u, int p) {
-        parent[u] = p;
-        sz[u] = 1;
-        heavy[u] = -1;
-        int max_sz = 0;
+        parent[u] = p; // Bước 1a: lưu cha của u để sau này nhảy chain
+        sz[u] = 1; // Bước 1b: ban đầu cây con chỉ có chính u
+        heavy[u] = -1; // Bước 1c: giả sử u là lá (chưa có con nặng)
+        int max_sz = 0; // Bước 1d: kích thước lớn nhất trong các con đã duyệt
 
         for (int v : adj[u]) {
-            if (v == p) continue;
-            depth[v] = depth[u] + 1;
-            dfs(v, u);
-            sz[u] += sz[v];
-            if (sz[v] > max_sz) {
+            if (v == p) continue; // Bước 1e: bỏ qua cạnh về cha
+            depth[v] = depth[u] + 1; // Bước 1f: con sâu hơn cha 1 đơn vị
+            dfs(v, u); // Bước 1g: đệ quy tính sz[v] và heavy[v] trước
+            sz[u] += sz[v]; // Bước 1h: cộng dồn kích thước cây con
+            if (sz[v] > max_sz) { // Bước 1i: con nào to nhất thì làm heavy
                 max_sz = sz[v];
-                heavy[u] = v;
+                heavy[u] = v; // Bước 1j: ghi nhận con nặng của u
             }
         }
     }
@@ -190,20 +190,20 @@ DFS tính $parent$, $depth$, $sz$, $heavy$ cho mỗi đỉnh.
     heavy = [-1] * 200005
 
     def dfs(u, p):
-        parent[u] = p
-        sz[u] = 1
-        heavy[u] = -1
-        max_sz = 0
+        parent[u] = p  # Bước 1a: lưu cha của u
+        sz[u] = 1  # Bước 1b: ban đầu cây con chỉ có chính u
+        heavy[u] = -1  # Bước 1c: giả sử u là lá
+        max_sz = 0  # Bước 1d: kích thước lớn nhất trong các con
 
         for v in adj[u]:
             if v == p:
-                continue
-            depth[v] = depth[u] + 1
-            dfs(v, u)
-            sz[u] += sz[v]
+                continue  # Bước 1e: bỏ qua cạnh về cha
+            depth[v] = depth[u] + 1  # Bước 1f: con sâu hơn cha 1
+            dfs(v, u)  # Bước 1g: đệ quy tính sz[v] trước
+            sz[u] += sz[v]  # Bước 1h: cộng dồn kích thước
             if sz[v] > max_sz:
                 max_sz = sz[v]
-                heavy[u] = v
+                heavy[u] = v  # Bước 1i: con to nhất làm heavy
     ```
 
 ### Bước 2: Decompose - Gán DFS Order
@@ -218,18 +218,18 @@ Thứ tự thăm đỉnh rất quan trọng: gốc, heavy child, heavy child c�
     int val[MAXN], arr[MAXN];
 
     void decompose(int u, int h) {
-        head[u] = h;
-        pos[u] = cur_pos;
-        arr[cur_pos] = val[u];
-        cur_pos++;
+        head[u] = h; // Bước 2a: h là đỉnh đầu chain chứa u
+        pos[u] = cur_pos; // Bước 2b: pos[u] là vị trí của u trong mảng phẳng
+        arr[cur_pos] = val[u]; // Bước 2c: đưa giá trị đỉnh u vào mảng arr
+        cur_pos++; // Bước 2d: tăng con trỏ vị trí cho đỉnh tiếp theo
 
         if (heavy[u] != -1) {
-            decompose(heavy[u], h);
+            decompose(heavy[u], h); // Bước 2e: heavy child ở cùng chain (giữ nguyên h)
         }
 
         for (int v : adj[u]) {
             if (v == parent[u] || v == heavy[u]) continue;
-            decompose(v, v);
+            decompose(v, v); // Bước 2f: light child mở chain mới (head = chính nó)
         }
     }
 
@@ -249,18 +249,18 @@ Thứ tự thăm đỉnh rất quan trọng: gốc, heavy child, heavy child c�
 
     def decompose(u, h):
         global cur_pos
-        head[u] = h
-        pos_arr[u] = cur_pos
-        seg_arr[cur_pos] = val[u]
-        cur_pos += 1
+        head[u] = h  # Bước 2a: h là đỉnh đầu chain chứa u
+        pos_arr[u] = cur_pos  # Bước 2b: pos là vị trí của u trong mảng phẳng
+        seg_arr[cur_pos] = val[u]  # Bước 2c: đưa giá trị u vào mảng
+        cur_pos += 1  # Bước 2d: tăng con trỏ vị trí
 
         if heavy[u] != -1:
-            decompose(heavy[u], h)
+            decompose(heavy[u], h)  # Bước 2e: heavy child ở cùng chain
 
         for v in adj[u]:
             if v == parent[u] or v == heavy[u]:
                 continue
-            decompose(v, v)
+            decompose(v, v)  # Bước 2f: light child mở chain mới
 
     # Gọi:
     # dfs(1, -1)
@@ -280,37 +280,37 @@ Sau khi decompose, ta có mảng `arr[]` phẳng. Dùng Segment Tree để truy 
 
         void init(int _n) {
             n = _n;
-            tree.assign(4 * n, 0);
+            tree.assign(4 * n, 0); // Bước 3a: cây rỗng, cần 4*n ô nhớ
         }
 
         void build(int node, int tl, int tr, long long a[]) {
             if (tl == tr) {
-                tree[node] = a[tl];
+                tree[node] = a[tl]; // Bước 3b: nút lá = giá trị arr[tl]
                 return;
             }
-            int tm = (tl + tr) / 2;
-            build(2 * node, tl, tm, a);
-            build(2 * node + 1, tm + 1, tr, a);
-            tree[node] = tree[2 * node] + tree[2 * node + 1];
+            int tm = (tl + tr) / 2; // Bước 3c: chia đôi đoạn [tl, tr]
+            build(2 * node, tl, tm, a); // Bước 3d: dựng nửa trái
+            build(2 * node + 1, tm + 1, tr, a); // Bước 3e: dựng nửa phải
+            tree[node] = tree[2 * node] + tree[2 * node + 1]; // Bước 3f: nút cha = tổng 2 con
         }
 
         void update(int node, int tl, int tr, int pos, long long val) {
             if (tl == tr) {
-                tree[node] = val;
+                tree[node] = val; // Bước 3g: tới lá thì gán giá trị mới
                 return;
             }
-            int tm = (tl + tr) / 2;
+            int tm = (tl + tr) / 2; // Bước 3h: quyết định đi trái hay phải
             if (pos <= tm)
                 update(2 * node, tl, tm, pos, val);
             else
                 update(2 * node + 1, tm + 1, tr, pos, val);
-            tree[node] = tree[2 * node] + tree[2 * node + 1];
+            tree[node] = tree[2 * node] + tree[2 * node + 1]; // Bước 3i: cập nhật lại tổng
         }
 
         long long query(int node, int tl, int tr, int l, int r) {
-            if (l > tr || r < tl) return 0;
-            if (l <= tl && tr <= r) return tree[node];
-            int tm = (tl + tr) / 2;
+            if (l > tr || r < tl) return 0; // Bước 3j: đoạn không giao nhau
+            if (l <= tl && tr <= r) return tree[node]; // Bước 3k: đoạn nằm gọn trong truy vấn
+            int tm = (tl + tr) / 2; // Bước 3l: chia đôi để truy vấn 2 nửa
             return query(2 * node, tl, tm, l, r) +
                    query(2 * node + 1, tm + 1, tr, l, r);
         }
@@ -323,34 +323,34 @@ Sau khi decompose, ta có mảng `arr[]` phẳng. Dùng Segment Tree để truy 
     class SegTree:
         def __init__(self, n):
             self.n = n
-            self.tree = [0] * (4 * n)
+            self.tree = [0] * (4 * n)  # Bước 3a: cây rỗng, cần 4*n ô
 
         def build(self, node, tl, tr, arr):
             if tl == tr:
-                self.tree[node] = arr[tl]
+                self.tree[node] = arr[tl]  # Bước 3b: nút lá = arr[tl]
                 return
-            tm = (tl + tr) // 2
-            self.build(2 * node, tl, tm, arr)
-            self.build(2 * node + 1, tm + 1, tr, arr)
-            self.tree[node] = self.tree[2 * node] + self.tree[2 * node + 1]
+            tm = (tl + tr) // 2  # Bước 3c: chia đôi đoạn
+            self.build(2 * node, tl, tm, arr)  # Bước 3d: dựng nửa trái
+            self.build(2 * node + 1, tm + 1, tr, arr)  # Bước 3e: dựng nửa phải
+            self.tree[node] = self.tree[2 * node] + self.tree[2 * node + 1]  # Bước 3f: tổng 2 con
 
         def update(self, node, tl, tr, pos, val):
             if tl == tr:
-                self.tree[node] = val
+                self.tree[node] = val  # Bước 3g: tới lá thì gán mới
                 return
-            tm = (tl + tr) // 2
+            tm = (tl + tr) // 2  # Bước 3h: quyết định đi trái hay phải
             if pos <= tm:
                 self.update(2 * node, tl, tm, pos, val)
             else:
                 self.update(2 * node + 1, tm + 1, tr, pos, val)
-            self.tree[node] = self.tree[2 * node] + self.tree[2 * node + 1]
+            self.tree[node] = self.tree[2 * node] + self.tree[2 * node + 1]  # Bước 3i: cập nhật lại tổng
 
         def query(self, node, tl, tr, l, r):
             if l > tr or r < tl:
-                return 0
+                return 0  # Bước 3j: không giao nhau
             if l <= tl and tr <= r:
-                return self.tree[node]
-            tm = (tl + tr) // 2
+                return self.tree[node]  # Bước 3k: nằm gọn trong truy vấn
+            tm = (tl + tr) // 2  # Bước 3l: chia đôi để truy vấn 2 nửa
             return (self.query(2 * node, tl, tm, l, r) +
                     self.query(2 * node + 1, tm + 1, tr, l, r))
     ```
@@ -370,19 +370,19 @@ Mỗi bước nhảy qua một light edge, tối đa $O(\log N)$ bước.
     SegTree st;
 
     long long path_query(int u, int v) {
-        long long res = 0;
-        while (head[u] != head[v]) {
-            if (depth[head[u]] > depth[head[v]]) swap(u, v);
-            res += st.query(1, 0, n - 1, pos[head[v]], pos[v]);
-            v = parent[head[v]];
+        long long res = 0; // Bước 4a: tích lũy đáp án đường đi
+        while (head[u] != head[v]) { // Bước 4b: còn khác chain thì còn phải nhảy
+            if (depth[head[u]] > depth[head[v]]) swap(u, v); // Bước 4c: đảm bảo v ở chain sâu hơn
+            res += st.query(1, 0, n - 1, pos[head[v]], pos[v]); // Bước 4d: cộng cả đoạn chain của v
+            v = parent[head[v]]; // Bước 4e: nhảy v lên cha của đầu chain (qua light edge)
         }
-        if (depth[u] > depth[v]) swap(u, v);
-        res += st.query(1, 0, n - 1, pos[u], pos[v]);
+        if (depth[u] > depth[v]) swap(u, v); // Bước 4f: cùng chain, đưa u lên trên
+        res += st.query(1, 0, n - 1, pos[u], pos[v]); // Bước 4g: cộng đoạn cuối cùng
         return res;
     }
 
     void update_node(int u, long long val) {
-        st.update(1, 0, n - 1, pos[u], val);
+        st.update(1, 0, n - 1, pos[u], val); // Bước 4h: đổi giá trị tại pos[u] trên SegTree
     }
     ```
 
@@ -392,19 +392,19 @@ Mỗi bước nhảy qua một light edge, tối đa $O(\log N)$ bước.
     st = SegTree(n)
 
     def path_query(u, v):
-        res = 0
-        while head[u] != head[v]:
+        res = 0  # Bước 4a: tích lũy đáp án
+        while head[u] != head[v]:  # Bước 4b: còn khác chain thì còn nhảy
             if depth[head[u]] > depth[head[v]]:
-                u, v = v, u
-            res += st.query(1, 0, n - 1, pos_arr[head[v]], pos_arr[v])
-            v = parent[head[v]]
+                u, v = v, u  # Bước 4c: đảm bảo v ở chain sâu hơn
+            res += st.query(1, 0, n - 1, pos_arr[head[v]], pos_arr[v])  # Bước 4d: cộng cả đoạn chain của v
+            v = parent[head[v]]  # Bước 4e: nhảy v lên cha của đầu chain
         if depth[u] > depth[v]:
-            u, v = v, u
-        res += st.query(1, 0, n - 1, pos_arr[u], pos_arr[v])
+            u, v = v, u  # Bước 4f: cùng chain, đưa u lên trên
+        res += st.query(1, 0, n - 1, pos_arr[u], pos_arr[v])  # Bước 4g: cộng đoạn cuối
         return res
 
     def update_node(u, val):
-        st.update(1, 0, n - 1, pos_arr[u], val)
+        st.update(1, 0, n - 1, pos_arr[u], val)  # Bước 4h: đổi giá trị tại pos[u]
     ```
 
 ### Code đầy đủ (Full Solution)

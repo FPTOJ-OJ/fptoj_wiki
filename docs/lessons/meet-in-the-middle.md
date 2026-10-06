@@ -347,12 +347,13 @@ Bài toán: Cho ma trận chi phí $C[N][N]$. Giao mỗi người 1 việc sao c
             }
         }
 
-        // Bước 3: Ghép — dpL[mask] + dpR[full ^ mask]
+        // Bước 3: Ghép — mỗi đỉnh thuộc đúng một nửa.
+        // Với mỗi cách chia mask cho nửa trái, nửa phải nhận phần bù (full ^ mask)
         int full = (1 << n2) - 1;
         int ans = INT_MAX;
         for (int mask = 0; mask < szL; mask++) {
-            if (dpL[mask] < INT_MAX) {
-                ans = min(ans, dpL[mask] + dpR[full]);
+            if (dpL[mask] < INT_MAX && dpR[full ^ mask] < INT_MAX) {
+                ans = min(ans, dpL[mask] + dpR[full ^ mask]);
             }
         }
 
@@ -394,15 +395,29 @@ Bài toán: Cho ma trận chi phí $C[N][N]$. Giao mỗi người 1 việc sao c
                 nmask = mask | (1 << j)
                 dpR[nmask] = min(dpR[nmask], dpR[mask] + c[n1 + j][n1 + cnt])
 
-    # Bước 3: Ghép
-    ans = min(dpL[mask] + dpR[(1 << n2) - 1] for mask in range(szL) if dpL[mask] < float('inf'))
+    # Bước 3: Ghép — mỗi đỉnh thuộc đúng một nửa (phần bù full ^ mask)
+    full = (1 << n2) - 1
+    ans = min(dpL[mask] + dpR[full ^ mask] for mask in range(szL)
+              if dpL[mask] < float('inf') and dpR[full ^ mask] < float('inf'))
 
     print(ans)
     ```
 
 ---
 
-## Bài tập luyện tập
+## 6. Lỗi thường gặp
+
+```cpp
+// SAI: 1 << n1 tràn số khi n1 >= 31 (int 32-bit)
+int szL = 1 << n1;
+
+// ĐÚNG: dùng 1LL, và MITM chỉ dùng khi mỗi nửa n <= 20-22
+long long szL = 1LL << n1;
+```
+
+- **Quên sort mảng tổng** ở bài subset-sum: nửa phải phải sort để binary search (`lower_bound`), không sort sẽ ra đáp án sai.
+- **Ghép sai `dpR[full]`**: mỗi đỉnh chỉ thuộc một nửa — phải ghép `dpL[mask] + dpR[full ^ mask]` (phần bù), không phải cộng nguyên `dpR[full]` cho mọi mask.
+- **Trùng tổng / tràn `long long`**: tổng tập con có thể vượt `int` — dùng `long long` cho mọi tổng.
 
 ### Cơ bản
 

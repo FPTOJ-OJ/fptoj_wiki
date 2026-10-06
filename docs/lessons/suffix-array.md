@@ -125,11 +125,13 @@ Bước 3 ($k=4$): Sắp xếp theo $(rank[i],\ rank[i+4])$
 | 5 | 0 | -1 | (0, -1) |
 | 6 | 2 | -1 | (2, -1) |
 
-Sắp xếp: $SA = [5, 3, 1, 6, 4, 0, 2]$
+Sắp xếp theo cặp ở bước $k=4$ (kết quả **trung gian**, chưa phải đáp án cuối):
+
+$SA = [5, 3, 1, 6, 4, 0, 2]$
 
 Khi $k=8 \geq N=7$, dừng. Mỗi hậu tố đã được phân biệt hoàn toàn.
 
-Kết quả: $SA = [6, 5, 3, 1, 0, 4, 2]$
+Kết quả cuối cùng: $SA = [6, 5, 3, 1, 0, 4, 2]$
 
 ### Cài đặt Doubling
 
@@ -522,6 +524,11 @@ Dùng SA khi cần chính xác 100% hoặc nhiều truy vấn trên cùng xâu. 
 | `saf-chc` | [Xâu con phân biệt theo ký tự đầu](https://fptoj.com/problem/saf-chc) | ⭐⭐ | SA ký tự đầu |
 | `saf-per` | [Chu kỳ ngắn nhất của xâu](https://fptoj.com/problem/saf-per) | ⭐⭐ | Chu kỳ + SA |
 | `saf-blr` | [Xâu con lặp dài nhất](https://fptoj.com/problem/saf-blr) | ⭐⭐ | SA + max LCP |
+| `str-subcnt` | [Đếm xâu con phân biệt](https://fptoj.com/problem/str-subcnt) | ⭐⭐⭐ | Đếm bằng cây hậu tố |
+| `str-match` | [Đếm xuất hiện mẫu](https://fptoj.com/problem/str-match) | ⭐⭐⭐ | Tìm pattern trong văn bản |
+| `str-firstc` | [Xâu con phân biệt theo ký tự đầu](https://fptoj.com/problem/str-firstc) | ⭐⭐ | Đếm theo ký tự đầu |
+| `str-fc` | [Ký tự đầu tiên xuất hiện duy nhất](https://fptoj.com/problem/str-fc) | ⭐⭐ | Bài tập cơ bản |
+| `str-xor` | [LCP xoay vòng](https://fptoj.com/problem/str-xor) | ⭐⭐⭐ | LCP giữa hai hậu tố |
 
 ### Trung bình
 
@@ -544,9 +551,25 @@ Dùng SA khi cần chính xác 100% hoặc nhiều truy vấn trên cùng xâu. 
 
 ---
 
+## Phụ lục: Suffix Tree (Cây hậu tố) — khái niệm
+
+Suffix Tree của xâu $S$ là cây có hướng trong đó mỗi cạnh được gán nhãn bằng 1 xâu con của $S$, và mỗi hậu tố của $S$ tương ứng với 1 đường đi từ gốc đến lá. Suffix Tree gộp các cạnh có nhánh đơn thành một cạnh duy nhất (ví dụ với `"banana"`: `"ana"` thay vì `"a" \to "n" \to "a"`), giúp giảm bộ nhớ từ $O(N^2)$ xuống $O(N)$.
+
+| Cấu trúc | Xây dựng | Tìm pattern $|P|=M$ | Khi nào dùng |
+|:---------|:--------:|:-------------------:|----------------|
+| Suffix Array + LCP | $O(N \log N)$ | $O(M \log N)$ | Mặc định trong thi đấu: code ngắn, đủ nhanh |
+| **Suffix Tree (Ukkonen)** | $O(N)$ | $O(M)$ | Chỉ khi cần tối ưu lý thuyết; cài đặt rất phức tạp |
+
+**Thuật toán Ukkonen** xây Suffix Tree online, từng ký tự một, với 2 ý tưởng chính: **suffix link** (nhảy nhanh như trong Palindrome Tree) và **cây hậu tố ẩn** (chỉ lưu các hậu tố đang hoạt động). Chi tiết xem [CP-Algorithms - Suffix Tree](https://cp-algorithms.com/string/suffix-tree.html).
+
+> **Khuyến nghị thi đấu:** dùng Suffix Array + LCP + RMQ cho mọi bài toán mà Suffix Tree giải được (đếm xâu con phân biệt: $\frac{N(N+1)}{2} - \sum LCP$; LCS: $\max LCP$ trên xâu ghép; pattern matching: binary search trên SA). Code trong bài này đã đủ.
+
+---
+
 ## Tài liệu tham khảo
 
 - [CP-Algorithms - Suffix Array](https://cp-algorithms.com/string/suffix-array.html)
+- [CP-Algorithms - Suffix Tree](https://cp-algorithms.com/string/suffix-tree.html)
 - [VNOI Wiki - Suffix Array](https://wiki.vnoi.info/algo/data-structures/suffix-array)
 - [YouTube - Suffix Array (takeuforward)](https://www.youtube.com/watch?v=0bL1GPeT5FQ)
 - [YouTube - LCP Array & Kasai's Algorithm](https://www.youtube.com/watch?v=71IkJ0GERcI)

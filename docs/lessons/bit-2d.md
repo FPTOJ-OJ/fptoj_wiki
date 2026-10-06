@@ -21,7 +21,7 @@ Cho ma trận $A$ kích thước $N \times M$, thực hiện $Q$ truy vấn:
 | Cấu trúc | Update | Query | Không gian |
 |----------|--------|-------|------------|
 | Duyệt thường | $O(1)$ | $O(N \cdot M)$ | $O(NM)$ |
-| Prefix Sum 2D | $O(1)$ sau $O(NM)$ build | $O(1)$ | $O(NM)$ |
+| Prefix Sum 2D | $O(NM)$ (phải build lại) | $O(1)$ | $O(NM)$ |
 | **BIT 2D** | $O(\log N \cdot \log M)$ | $O(\log N \cdot \log M)$ | $O(NM)$ |
 
 Prefix Sum 2D không hỗ trợ update. BIT 2D hỗ trợ cả update và query.
@@ -135,13 +135,16 @@ $$S(x1,y1,x2,y2) = S(1,1,x2,y2) - S(1,1,x1-1,y2) - S(1,1,x2,y1-1) + S(1,1,x1-1,y
     vector<vector<long long>> bit;
 
     void update(int x, int y, long long val) {
+        // i += i & (-i): nhảy tới nút cha quản lý đoạn lớn hơn (lowbit)
+        // Vòng ngoài theo x, vòng trong theo y → phủ hết các nút cha 2D
         for (int i = x; i <= n; i += i & (-i))
             for (int j = y; j <= m; j += j & (-j))
-                bit[i][j] += val;
+                bit[i][j] += val; // CỘNG dồn delta, không phải gán (=)
     }
 
     long long query(int x, int y) {
         long long res = 0;
+        // i -= i & (-i): nhảy ngược về nút trước đó để cộng dồn
         for (int i = x; i > 0; i -= i & (-i))
             for (int j = y; j > 0; j -= j & (-j))
                 res += bit[i][j];
@@ -198,23 +201,26 @@ $$S(x1,y1,x2,y2) = S(1,1,x2,y2) - S(1,1,x1-1,y2) - S(1,1,x2,y1-1) + S(1,1,x1-1,y
     bit = [[0] * (m + 1) for _ in range(n + 1)]
 
     def update(x, y, val):
+        # i & (-i) = lowbit: bit 1 thấp nhất của i (vd i=6(110) → lowbit=2)
+        # += lowbit để nhảy tới nút cha; -= lowbit để nhảy ngược khi query
         i = x
         while i <= n:
             j = y
             while j <= m:
-                bit[i][j] += val
-                j += j & (-j)
-            i += i & (-i)
+                bit[i][j] += val  # CỘNG dồn delta, không phải gán (=)
+                j += j & (-j)  # nhảy sang nút cha theo chiều y
+            i += i & (-i)  # nhảy sang nút cha theo chiều x
 
     def query(x, y):
+        # Tổng HCN (1,1)→(x,y): cộng dồn các nút BIT phủ kín vùng đó
         res = 0
         i = x
         while i > 0:
             j = y
             while j > 0:
                 res += bit[i][j]
-                j -= j & (-j)
-            i -= i & (-i)
+                j -= j & (-j)  # lùi về nút trước theo y
+            i -= i & (-i)  # lùi về nút trước theo x
         return res
 
     def query_rect(x1, y1, x2, y2):
@@ -238,7 +244,51 @@ $$S(x1,y1,x2,y2) = S(1,1,x2,y2) - S(1,1,x1-1,y2) - S(1,1,x2,y1-1) + S(1,1,x1-1,y
 
 ---
 
-## 5. Bài tập luyện tập
+## 5. Lỗi thường gặp
+
+### SAI: Quên BIT là 1-indexed
+
+```cpp
+// SAI: truyền x = 0 hoặc lặp từ 0
+update(0, 1, val); // vòng for không chạy / truy vấn sai
+```
+
+```cpp
+// ĐÚNG: mọi chỉ số từ 1..n, 1..m
+// Input 0-indexed thì cộng 1 trước khi gọi update/query
+update(x + 1, y + 1, val);
+```
+
+### SAI: Nhầm cộng-gán (`+=`) với gán (`=`)
+
+```cpp
+// SAI: ghi đè làm mất dữ liệu các lần update trước
+bit[i][j] = val;
+```
+
+```cpp
+// ĐÚNG: BIT lưu tổng dồn → luôn cộng delta
+bit[i][j] += val;
+```
+
+### SAI: Build bằng `update` từng ô → $O(NM \log N \log M)$ quá chậm
+
+```cpp
+// SAI (chậm với N, M ≥ 1000): N*M lần update
+for (int i = 1; i <= n; i++)
+    for (int j = 1; j <= m; j++) update(i, j, a[i][j]);
+```
+
+```cpp
+// ĐÚNG: nếu chỉ cần query tĩnh (không update sau đó) → dùng Prefix Sum 2D O(NM).
+// Nếu cần BIT động mà N, M lớn → đọc hết ma trận rồi build O(NM) bằng DP:
+// bit[i][j] = a[i][j] + bit[i-lowbit][j] + bit[i][j-lowbit] - bit[i-lowbit][j-lowbit]
+// (chỉ dùng khi hiểu rõ cấu trúc BIT; còn không thì chấp nhận update từng ô với N, M nhỏ)
+```
+
+---
+
+## 6. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
 |---|---|---|---|

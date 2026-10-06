@@ -54,7 +54,7 @@ Mảng và danh sách liên kết là 2 cấu trúc dữ liệu nền tảng cho
 </tr>
 </table>
 
-Bạn có thể đọc thêm về mảng và danh sách liên kết [ở đây](array-vs-linked-lists.md)
+Bạn có thể đọc thêm về mảng, stack và prefix sum [ở đây](../../lessons/mang-stack-prefix-sum.md)
 
 ## 1.2. Stack, Queue, Deque
 
@@ -131,7 +131,7 @@ Trong trường hợp dữ liệu ngẫu nhiên, các thao tác trên có độ 
 
 - **Cây Đỏ Đen** (Red-Black Tree) là một dạng **cây tìm kiếm nhị phân** (**BST**) mà sau mỗi truy vấn được thực hiện, cây tự cân bằng theo đúng tính chất của nó với độ phức tạp $O(log(N))$. CTDL **set** trong **C++** được cài đặt bằng cây đỏ đen.
   <img src="/uploads/redblack1.png" alt="redblack1" style="max-width: 700px; display: block; margin: 0 auto;" />
-- **Splay tree**, [Skip list](Skip-Lists.md), **Treap** thường được dùng trong các kỳ thi bởi cài đặt đơn giản.
+- **Splay tree**, **Skip list**, **Treap** thường được dùng trong các kỳ thi bởi cài đặt đơn giản.
 
 ## 1.5. Bảng băm (Hash Tables)
 
@@ -146,7 +146,7 @@ Trong trường hợp hàm Hash hoạt động tốt, mỗi bucket có rất ít
 - Tìm 1 khóa: $\mathcal{O}(1)$.
 - Thêm / xóa 1 khóa: $\mathcal{O}(1)$.
 
-Bạn có thể đọc thêm về Hash table [ở đây](hash-table.md)
+Bạn có thể đọc thêm về Hash table [ở đây](../../lessons/hash-table.md)
 
 ## 2. CTDL Truy vấn
 
@@ -208,7 +208,7 @@ Cho đồ thị có $N$ đỉnh. Ta cần thực hiện 2 loại truy vấn:
 
 Disjoint set cho phép ta thực hiện 2 thao tác trên với độ phức tạp $\mathcal{O}(\log{N})$.
 
-Bạn có thể đọc thêm về Disjoint Set ở [bài viết này](disjoint-set.md).
+Bạn có thể đọc thêm về Disjoint Set ở [bài viết này](disjoint-set-union.md).
 
 ## 2.3. Sparse Table
 
@@ -277,7 +277,7 @@ Bài viết sẽ được cập nhật sau
 
 Suffix Array là một CTDL giúp sắp xếp các hậu tố của một xâu theo thứ tự từ điển. CTDL này thường được sử dụng trong các bài toán xử lý xâu.
 
-Bạn có thể đọc thêm về Suffix Array [ở đây](suffix-array.md).
+Bạn có thể đọc thêm về Suffix Array [ở đây](../../lessons/suffix-array.md).
 
 ## 3.4. Suffix Automaton
 

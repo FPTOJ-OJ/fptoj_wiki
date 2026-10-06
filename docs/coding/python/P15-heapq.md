@@ -272,7 +272,14 @@ lists = [list(map(int, input().split())) for _ in range(k)]" data-input="3
 ### Bài 3: Dijkstra
 Cho đồ thị có trọng số. Tìm đường đi ngắn nhất từ đỉnh start.
 
-<div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="5 7
+<div class="cp-pg" data-language="python" data-starter="import heapq
+n, m = map(int, input().split())
+graph = [[] for _ in range(n)]
+for _ in range(m):
+    u, v, w = map(int, input().split())
+    graph[u].append((v, w))
+start = int(input())
+# Viết tiếp: Dijkstra với heapq, in ra mảng dist" data-input="5 7
 0 1 4
 0 2 1
 1 3 1
@@ -285,11 +292,18 @@ Cho đồ thị có trọng số. Tìm đường đi ngắn nhất từ đỉnh 
 ??? tip "Lời giải"
     ```python
     import heapq
-    
+
+    n, m = map(int, input().split())
+    graph = [[] for _ in range(n)]
+    for _ in range(m):
+        u, v, w = map(int, input().split())
+        graph[u].append((v, w))
+    start = int(input())
+
     dist = [float('inf')] * n
     dist[start] = 0
     pq = [(0, start)]
-    
+
     while pq:
         d, u = heapq.heappop(pq)
         if d > dist[u]:
@@ -298,7 +312,7 @@ Cho đồ thị có trọng số. Tìm đường đi ngắn nhất từ đỉnh 
             if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
                 heapq.heappush(pq, (dist[v], v))
-    
+
     print(dist)
     ```
 

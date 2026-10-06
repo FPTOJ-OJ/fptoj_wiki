@@ -7,6 +7,15 @@
 
 ## 1. Bản chất vấn đề
 
+### Vì sao cần Matroid? (đọc phần này trước 3 axiom)
+
+Bạn đã biết 2 thuật toán tham lam kinh điển:
+
+- **Kruskal (MST):** xét cạnh theo trọng số tăng dần, thêm cạnh nếu không tạo chu trình.
+- **Lập lịch có deadline:** xét việc theo lợi nhuận giảm dần, thêm việc nếu còn xếp được lịch.
+
+Cả hai đều "tham thì đúng". Tại sao? Vì cả hai cùng là **một** thuật toán duy nhất chạy trên 2 matroid khác nhau (graphic matroid và partition matroid). Matroid là cái khung chung trả lời câu hỏi: *"bài toán tham lam nào thì đúng?"* — nếu mô hình hóa được thành matroid, tham lam chắc chắn tối ưu, khỏi cần chứng minh riêng.
+
 ### Định nghĩa Matroid
 
 Matroid $\mathcal{M} = (E, \mathcal{I})$ gồm:
@@ -73,9 +82,13 @@ Matroid $\mathcal{M} = (E, \mathcal{I})$ gồm:
 
 **Định lý:** Thuật toán tham lam tìm được tập con độc lập có tổng trọng số lớn nhất trên mọi matroid.
 
-**Chứng minh:** Giả sử thuật toán chọn $A = \{a_1, a_2, \ldots, a_k\}$ (theo thứ tự giảm dần). Nghiệm tối ưu là $B = \{b_1, b_2, \ldots, b_m\}$.
+**Chứng minh (từng bước):** Giả sử tham lam chọn $A = \{a_1, a_2, \ldots, a_k\}$ (theo thứ tự giảm dần $w(a_1) \ge w(a_2) \ge \cdots$). Gọi $B = \{b_1, b_2, \ldots, b_m\}$ là một nghiệm tối ưu (sắp giảm dần tương tự). Ta biến đổi $B$ thành $A$ mà không giảm trọng số:
 
-Bằng exchange property, có thể biến đổi $A$ thành $B$ mà không giảm tổng trọng số. Do đó $A$ là tối ưu.
+1. **So sánh phần tử đầu:** $a_1$ là phần tử nặng nhất trong toàn $E$ (tham lam xét nó đầu tiên và $\{a_1\}$ luôn độc lập theo axiom 1+2), nên $w(a_1) \ge w(b_1)$. Nếu $a_1 \notin B$, thay $b_1$ bằng $a_1$: tập mới vẫn độc lập? $B$ độc lập, $|B| \ge 1$; xét $\{a_1\}$ (độc lập, cỡ 1) với $B$: nếu $a_1 \notin B$ thì exchange property cho phép "nhét" $a_1$ vào $B$ rồi loại $b_1$ ra mà vẫn độc lập — trọng số không giảm vì $w(a_1) \ge w(b_1)$.
+2. **Quy nạp:** giả sử đã biến $k-1$ phần tử đầu của $B$ thành $a_1, \dots, a_{k-1}$ mà vẫn tối ưu. Xét $a_k$: khi tham lam chọn nó, tập $\{a_1, \dots, a_k\}$ độc lập. Áp dụng exchange property giữa tập này (cỡ $k$) và $B$ hiện tại (cỡ $\ge k$): tồn tại phần tử trong $B$ có thể thay bằng $a_k$ mà giữ tính độc lập, và vì tham lam xét theo thứ tự giảm dần, $w(a_k)$ không nhỏ hơn phần tử bị thay.
+3. **Kết thúc:** sau $k$ bước, $B$ chứa $A$. Nếu $|B| > |A|$, tham lam đã dừng nghĩa là mọi phần tử còn lại đều phá vỡ tính độc lập — mâu thuẫn với $B$ độc lập chứa $A$ thực sự. Vậy $|B| = |A|$ và $B = A$ (sai khác hoán vị), nên $A$ tối ưu. ∎
+
+**Bản chất 1 câu:** exchange property đảm bảo "chọn nặng trước không bao giờ kẹt" — mọi lựa chọn tham lam đều nằm trong *ít nhất một* nghiệm tối ưu, nên đi hết quá trình vẫn tối ưu.
 
 ---
 

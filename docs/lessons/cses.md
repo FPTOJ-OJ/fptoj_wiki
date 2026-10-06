@@ -1,3 +1,6 @@
+---
+description: Danh mục 1000+ bài tập FPTOJ theo chuyên đề thuật toán — mỗi bài gắn với bài học lý thuyết tương ứng
+---
 # FPTOJ Problem Set: Danh Mục Bài Tập và Giáo Trình
 
 Tài liệu này là mục lục chuẩn học thuật cho toàn bộ hệ thống bài tập thực hành trên **FPTOJ**. Toàn bộ các bài tập được cấu trúc đồng bộ theo 10 phân nhánh chuyên môn, tương ứng trực tiếp với các chuyên đề lý thuyết trên Wiki.
