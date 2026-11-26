@@ -1,4 +1,4 @@
-# Binary Lifting - Nhảy Nhị Phân Trên Mảng
+# Bài 28: Binary Lifting - Nhảy Nhị Phân Trên Mảng
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - Binary Lifting
@@ -123,8 +123,10 @@ Nhảy $2^i$ bước từ $v$ = nhảy $2^{i-1}$ bước từ $v$ → đến $u 
 
         int n, q;
         cin >> n >> q;
+        if (n <= 0) return 0;
 
-        int LOG = __lg(n) + 1;                   // Số bit cần thiết: ⌊log₂(n)⌋ + 1
+        // Dùng LOG = 60 để hỗ trợ số bước nhảy k lên tới 10^18 (không phụ thuộc vào n!)
+        const int LOG = 60;
         // up[v][j] = đỉnh đến được khi nhảy 2^j bước từ đỉnh v
         vector<vector<int>> up(n, vector<int>(LOG));
 
@@ -141,7 +143,7 @@ Nhảy $2^i$ bước từ $v$ = nhảy $2^{i-1}$ bước từ $v$ → đến $u 
             }
         }
 
-        // Truy vấn: từ đỉnh v, nhảy k bước
+        // Truy vấn: từ đỉnh v, nhảy k bước (k <= 10^18)
         while (q--) {
             int v;
             long long k;
@@ -167,7 +169,7 @@ Nhảy $2^i$ bước từ $v$ = nhảy $2^{i-1}$ bước từ $v$ → đến $u 
     input = sys.stdin.readline                      # Tăng tốc I/O
 
     n, q = map(int, input().split())
-    LOG = n.bit_length()                            # Số bit cần thiết: ⌊log₂(n)⌋ + 1
+    LOG = 60                                        # Hỗ trợ k lên tới 10^18 (kể cả khi n nhỏ)
 
     # up[v][j] = đỉnh đến được khi nhảy 2^j bước từ đỉnh v
     up = [[0] * LOG for _ in range(n)]
@@ -316,3 +318,7 @@ Khi làm việc với đồ thị hàm số (mỗi đỉnh có đúng một cạ
 *   [Segment Tree](segment-tree.md)
 *   [Fenwick Tree (BIT)](fenwick-tree.md)
 *   [Lowest Common Ancestor (LCA) trên cây](lca-binary-lifting.md)
+
+---
+
+**Bài trước:** [← Bài 27: Skip List](skip-list.md) | **Bài tiếp theo:** [Bài 29: Static Wavelet Tree →](wavelet-tree.md)

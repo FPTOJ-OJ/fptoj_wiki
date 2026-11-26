@@ -1,4 +1,4 @@
-# Bài 54: Convex Hull Trick & Li Chao Tree
+# Bài 103: Convex Hull Trick & Li Chao Tree
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
@@ -671,3 +671,7 @@ Ta áp dụng trực tiếp Static CHT Deque với $O(N)$ thời gian.
 | `lc-persist` | [Bền vững](https://fptoj.com/problem/lc-persist) | ⭐⭐⭐⭐ | Persistent Li Chao | [Convex Hull Trick Động](convex-hull-trick.md) |
 | `lc-max-query` | [Query max](https://fptoj.com/problem/lc-max-query) | ⭐⭐⭐⭐ | Li Chao - Query max | [Convex Hull Trick Động](convex-hull-trick.md) |
 | `lc-2d-rect` | [Hình chữ nhật 2D](https://fptoj.com/problem/lc-2d-rect) | ⭐⭐⭐⭐⭐ | Li Chao - Hình chữ nhật 2D | [Convex Hull Trick Động](convex-hull-trick.md) |
+
+---
+
+**Bài trước:** [← Bài 102: Parallel Binary Search](parallel-binary-search.md) | **Bài tiếp theo:** [Bài 104: Ternary Search →](ternary-search.md)

@@ -1,4 +1,4 @@
-# Hàm Möbius & Hàm Nhân Tính
+# Bài 56: Hàm Möbius & Hàm Nhân Tính
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Möbius Function, Multiplicative Functions
@@ -382,3 +382,7 @@ $\mu(n) = 0$ nghĩa là $n$ chia hết cho bình phương nguyên tố (ví dụ
 | `mobius-coprime-cnt` | [Đếm cặp nguyên tố cùng nhau](https://fptoj.com/problem/mobius-coprime-cnt) | ⭐⭐⭐⭐ | Möbius + Inclusion-Exclusion | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
 | `mobius-div-sum` | [Tổng GCD dùng Möbius](https://fptoj.com/problem/mobius-div-sum) | ⭐⭐⭐⭐ | $\sum \gcd(i,j)$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
 | `mobius-triple` | [Đếm bộ gcd=1](https://fptoj.com/problem/mobius-triple) | ⭐⭐⭐⭐ | $\sum \mu(d) \lfloor A/d \rfloor \lfloor B/d \rfloor \lfloor C/d \rfloor$ | [Hàm Mobius & Hàm Nhân Tính](mobius-multiplicative.md) |
+
+---
+
+**Bài trước:** [← Bài 55: Định Lý Thặng Dư Trung Hoa (CRT)](crt.md) | **Bài tiếp theo:** [Bài 57: Giai Thừa Modulo & Căn Bậc Hai Modulo →](factorial-sqrt-mod.md)

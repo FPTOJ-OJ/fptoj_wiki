@@ -1,4 +1,4 @@
-# Bài 59: Đếm Đường Đi Trên Lưới
+# Bài 61: Đếm Đường Đi Trên Lưới
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -406,3 +406,7 @@ Xét lưới $3 \times 3$ (tức $n=3, m=3$), cần đi từ $(0,0)$ đến $(3,
 | `gp-paths-all` | [Đường đi không chạm chéo](https://fptoj.com/problem/gp-paths-all) | ⭐⭐⭐ | Catalan không chạm | [Đếm Đường Đi Trên Lưới](dem-duong-di-luoi.md) |
 | `gp-obstacle` | [Lưới có vật cản](https://fptoj.com/problem/gp-obstacle) | ⭐⭐⭐⭐ | IE + DP đường đi | [Đếm Đường Đi Trên Lưới](dem-duong-di-luoi.md) |
 | `gp-ksteps` | [Đường đi K bước trên đồ thị](https://fptoj.com/problem/gp-ksteps) | ⭐⭐⭐⭐ | Lũy thừa ma trận | [Đếm Đường Đi Trên Lưới](dem-duong-di-luoi.md) |
+
+---
+
+**Bài trước:** [← Bài 60: Nguyên Lý Bao Hàm](nguyen-ly-bao-ham-loai-tru.md) | **Bài tiếp theo:** [Bài 62: Nhân Ma Trận & Lũy Thừa Ma Trận →](nhan-ma-tran.md)

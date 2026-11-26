@@ -1,4 +1,4 @@
-# Giải Thuật Cắt Tỉa Alpha-Beta
+# Bài 105: Giải Thuật Cắt Tỉa Alpha-Beta
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Alpha-Beta Pruning
@@ -117,10 +117,24 @@ Nếu tại nút MIN, giá trị hiện tại $v \le \alpha$ (giá trị tốt n
 
 ## 4. Đánh giá độ phức tạp
 
-| Trường hợp | Thời gian |
-|------------|-----------|
-| Best case (tối ưu thứ tự) | $O(b^{d/2})$ |
-| Worst case | $O(b^d)$ |
+| Trường hợp | Thời gian | Điều kiện xảy ra |
+|---|---|---|
+| **Best case** (tối ưu thứ tự nước đi) | $O(b^{d/2})$ | Nước đi tốt nhất của mỗi nút luôn được xét đầu tiên |
+| **Random order** (thứ tự ngẫu nhiên) | $O(b^{3d/4})$ | Cây ngẫu nhiên đồng đều |
+| **Worst case** (thứ tự tệ nhất) | $O(b^d)$ | Nước đi tệ nhất xét trước → không cắt được nhánh nào |
+
+**Tại sao thứ tự tối ưu lại giảm số mũ từ $d$ xuống $d/2$?**
+Khi nước đi tốt nhất luôn ở đầu: tại một nửa số tầng (ví dụ nút MIN đang phản bác nước đi của MAX), thuật toán chỉ cần tìm ra **1** nước phản đòn đủ mạnh để hạ giá trị xuống $\le \alpha$ là cắt ngay $b-1$ nhánh còn lại; các nút ở tầng đối diện mới phải duyệt đủ $b$ con. Do đó độ phân nhánh hiệu dụng trung bình giảm xuống còn $\sqrt{b}$, tổng nút duyệt là $(\sqrt{b})^d = O(b^{d/2})$ — tức với cùng thời gian, Alpha-Beta nhìn sâu được gấp đôi Minimax.
+
+**Kỹ thuật tăng tốc thực chiến:**
+- **Move Ordering (Sắp xếp nước đi):** Thử trước nước bắt quân (MVV-LVA), nước chiếu, hoặc **Killer Heuristic** (nước từng gây cắt tỉa ở độ sâu tương đương).
+- **Transposition Table:** Dùng Hash (Zobrist Hashing) lưu các trạng thái bàn cờ đã tính để tránh tính lại qua nhiều nhánh trùng nhau.
+
+---
+
+## 5. Lỗi thường gặp (SAI / ĐÚNG)
+
+*(Các lỗi phổ biến trong cài đặt Alpha-Beta đã phân tích kèm ví dụ minh họa ở cuối mục 2: nhầm `max`/`min` giữa hai lượt chơi, khởi tạo $\alpha, \beta$ bằng $0$ thay vì $\pm\infty$, quên sắp xếp thứ tự nước đi và viết điều kiện cắt `alpha > beta` thay vì `alpha >= beta`.)*
 
 ---
 
@@ -264,3 +278,7 @@ Khi quét từ trái sang phải: nút $B1$ trả về 9 → $\alpha = 9$. Nút 
 | `ab-tree-game` | [Game trên cây](https://fptoj.com/problem/ab-tree-game) | ⭐⭐⭐⭐ | Alpha-Beta - Game trên cây | [Alpha-Beta Pruning](alpha-beta.md) |
 | `ab-coloring` | [Tô màu](https://fptoj.com/problem/ab-coloring) | ⭐⭐⭐⭐ | Alpha-Beta - Tô màu đồ thị | [Alpha-Beta Pruning](alpha-beta.md) |
 | `ab-divisor` | [Ước số](https://fptoj.com/problem/ab-divisor) | ⭐⭐⭐⭐ | Alpha-Beta - Chia ước số | [Alpha-Beta Pruning](alpha-beta.md) |
+
+---
+
+**Bài trước:** [← Bài 104: Ternary Search](ternary-search.md) | **Bài tiếp theo:** [Bài 106: Local Search →](local-search.md)

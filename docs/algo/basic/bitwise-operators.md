@@ -549,7 +549,7 @@ Trong C++, phép Logical Right Shift sẽ được sử dụng nếu toán tử 
 Hầu hết mỗi hàm đều có một "flag" riêng biệt mà khi bật lên sẽ mở khóa instruction cho hàm đó. Tuy nhiên, nếu bạn mở khóa thừa thì code bạn vẫn chạy. Vì vậy, để code chạy nhanh hơn, bạn chỉ cần paste dòng sau vào đầu code (trước dòng ```#include```):
 
 ```c++
-## pragma GCC target("popcnt,lzcnt,bmi,bmi2,abm")
+#pragma GCC target("popcnt,lzcnt,bmi,bmi2,abm")
 ```
 
 ``` python

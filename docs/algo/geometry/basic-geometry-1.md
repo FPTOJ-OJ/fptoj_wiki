@@ -82,8 +82,7 @@ Không như phép cộng trừ vector là tương đối trực quan và dễ hi
 Tích vô hướng có thể được định nghĩa bằng đại số hoặc hình học. 2 định nghĩa này là tương đương khi sử dụng tọa độ Descartes.
 
 - Theo đại số, tích vô hướng là tổng các tích tọa độ tương ứng giữa chúng. Ví dụ: tích vô hướng của $\overrightarrow{\rm u}(x_1, y_1)$ và $\overrightarrow{\rm v}(x_2, y_2)$ là $\overrightarrow{\rm u} \cdot \overrightarrow{\rm v} = x_1x_2+y_1y_2$.
-- Theo hình học, tích vô hướng là tích độ lớn của $2$ vector và $\cos$ của góc giữa chúng. Ví dụ: tích vô hướng của $\overrightarrow{\rm u}(x_1, y_1)$ và $\overrightarrow{\rm v}(x_2, y_2)$ là
-$$\overrightarrow{\rm u} \cdot \overrightarrow{\rm v} = | \overrightarrow{\rm u} | \cdot | \overrightarrow{\rm v} | \cdot \cos(\theta)$$ với $\theta$ là góc hợp bởi $\overrightarrow{\rm u}$ và $\overrightarrow{\rm v}$.
+- Theo hình học, tích vô hướng là tích độ lớn của $2$ vector và $\cos$ của góc giữa chúng. Ví dụ: tích vô hướng của $\overrightarrow{\rm u}(x_1, y_1)$ và $\overrightarrow{\rm v}(x_2, y_2)$ là $\overrightarrow{\rm u} \cdot \overrightarrow{\rm v} = |\overrightarrow{\rm u}| \cdot |\overrightarrow{\rm v}| \cdot \cos(\theta)$ với $\theta$ là góc hợp bởi $\overrightarrow{\rm u}$ và $\overrightarrow{\rm v}$.
 
 <img src="/uploads/iHks23u.png" alt="image" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -160,11 +159,11 @@ $$\begin{align}
 
 **Lưu ý:** Một tính chất hữu dụng của tích có hướng trong hình học phẳng là:
 
-\[
+$$
 |\overrightarrow{a} \times \overrightarrow{b}| = |\overrightarrow{a}| \cdot |\overrightarrow{b}| \cdot \sin(\theta)
-\]
+$$
 
-bằng diện tích của hình bình hành có 2 cạnh bên là \( \overrightarrow{a} \) và \( \overrightarrow{b} \).
+bằng diện tích của hình bình hành có 2 cạnh bên là $\overrightarrow{a}$ và $\overrightarrow{b}$.
 
 <img src="/uploads/50a2Cp7.png" alt="image" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -195,8 +194,8 @@ Có vài cách khác nhau để xử lý trường hợp này, một trong số 
 Tương tự, nếu $\overrightarrow{\rm AB} \cdot \overrightarrow{\rm AC} < 0$, điểm gần $C$ nhất là $A$. Nếu cả hai tích vô hướng đều $\ge 0$, thì điểm gần $C$ nhất sẽ nằm giữa $A$ và $B$.
 
 ```cpp
-## define x first
-## define y second
+#define x first
+#define y second
 typedef pair<int, int> pii;
 
 // Compute the dot product AB ⋅ AC

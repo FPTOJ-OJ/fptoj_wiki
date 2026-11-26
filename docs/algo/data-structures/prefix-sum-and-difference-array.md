@@ -229,7 +229,7 @@ Nếu ta chạy $r$ từ $1$ đến $n$, ta có thể cập nhật cuốn chiế
 Độ phức tạp của cách trên là $\mathcal{O}(n)$. Code tham khảo:
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -283,7 +283,7 @@ Gọi $D$ là mảng hiệu của $A$. Để xử lý truy vấn cập nhật, t
 Độ phức tạp thời gian và không gian của cách này đều là $\mathcal{O}(n)$. Code tham khảo:
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 

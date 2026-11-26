@@ -1,4 +1,4 @@
-# Fun with Bits - Những Thủ Thuật Bit Hay Gặp
+# Bài 6: Fun with Bits - Những Thủ Thuật Bit Hay Gặp
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Phép toán bit, Bit Tricks
@@ -172,7 +172,7 @@ $-n = \sim n + 1$. Khi cộng 1 vào $\sim n$, tất cả bit 0 cuối cùng c�
 | Lấy / xóa bit thấp nhất | $O(1)$ | 1 phép AND |
 | Đếm bit 1 (built-in) | $O(1)$ | Hardware hỗ trợ |
 | Đếm bit 1 (Kernighan) | $O(\text{popcount})$ | Tối đa $O(\log n)$ |
-| Duyệt tập con của $S$ | $O(2^{|S|})$ | $|S|$ = số bit 1 |
+| Duyệt tập con của $S$ | $O(2^{\lvert S\rvert})$ | $\lvert S\rvert$ = số bit 1 |
 
 ---
 
@@ -360,7 +360,7 @@ long long mask = 1LL << 20; // 2^20 ≈ 10^6, OK
 // SAI: n = 30, 1 << 30 vẫn OK nhưng 1 << 31 tràn int
 for (int i = 0; i < n; i++) if (mask & (1 << i)) { /* ... */ }
 
-// ĐÚNG:统一 dùng 1LL << i
+// ĐÚNG: thống nhất dùng 1LL << i
 for (int i = 0; i < n; i++) if (mask & (1LL << i)) { /* ... */ }
 ```
 
@@ -396,4 +396,8 @@ for (int mask = s; ; mask = (mask - 1) & s) {
 ## Bài viết liên quan
 
 - [Bài 5: Phép toán bit](phep-toan-bit.md)
-- [Bài 6: Đệ quy và quay lui](de-quy-va-quay-lui.md)
+- [Bài 7: Đệ quy và quay lui](de-quy-va-quay-lui.md)
+
+---
+
+**Bài trước:** [← Bài 5: Phép Toán Bit](phep-toan-bit.md) | **Bài tiếp theo:** [Bài 7: Đệ Quy Và Quay Lui →](de-quy-va-quay-lui.md)

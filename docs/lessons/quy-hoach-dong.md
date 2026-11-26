@@ -1,4 +1,4 @@
-# Bài 12: Quy Hoạch Động (Dynamic Programming) - Từ Nhập Môn Đến Chuyên Sâu
+# Bài 40: Quy Hoạch Động (Dynamic Programming) - Từ Nhập Môn Đến Chuyên Sâu
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Quy hoạch động, Topcoder - DP from Novice to Advanced
@@ -523,3 +523,7 @@ Trong Bitmask DP, trạng thái $next\_mask$ luôn được tính toán dựa tr
 *   [CP-Algorithms - Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 *   [VNOI Wiki - Quy hoạch động cơ bản](https://wiki.vnoi.info/algo/dp/basic-dynamic-programming-1)
 *   [Topcoder - Dynamic Programming: From Novice to Advanced](https://www.topcoder.com/thrive/articles/Dynamic%20Programming:%20From%20Novice%20to%20Advanced)
+
+---
+
+**Bài trước:** [← Bài 39: Matroid](matroid.md) | **Bài tiếp theo:** [Bài 41: Quy Hoạch Động Bitmask →](bitmask-dp.md)

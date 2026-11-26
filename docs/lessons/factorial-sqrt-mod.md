@@ -1,4 +1,4 @@
-# Giai Thừa Modulo & Căn Bậc Hai Modulo
+# Bài 57: Giai Thừa Modulo & Căn Bậc Hai Modulo
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms
@@ -108,28 +108,29 @@ Tìm $x$ sao cho $x^2 \equiv 5 \pmod{41}$ ($p = 41$).
 
 **Bước 1:** Phân tích $p - 1 = 40 = 5 \cdot 2^3$. Vậy $Q = 5$, $S = 3$.
 
-**Bước 2:** Tìm $z$ là non-residue: $z = 2$ (vì $2^{20} \equiv -1 \pmod{41}$).
+**Bước 2:** Tìm $z$ là non-residue nhỏ nhất:
+- Thử $z = 2$: $2^{20} \equiv 1 \pmod{41}$ (vì $17^2 = 289 \equiv 2$), nên $2$ là residue, bỏ qua.
+- Thử $z = 3$: $3^4 = 81 \equiv -1 \pmod{41} \Rightarrow 3^{20} = (3^4)^5 \equiv (-1)^5 = -1 \pmod{41}$. Chọn $z = 3$.
 
 **Bước 3:** Khởi tạo:
 
 | Biến | Giá trị | Công thức |
 |------|---------|-----------|
 | $m$ | 3 | $m = S$ |
-| $c$ | $2^5 = 32$ | $c = z^Q$ |
+| $c$ | $3^5 = 243 \equiv 38 \pmod{41}$ | $c = z^Q$ |
 | $t$ | $5^5 = 3125 \equiv 9 \pmod{41}$ | $t = n^Q$ |
 | $r$ | $5^{(5+1)/2} = 5^3 = 125 \equiv 2 \pmod{41}$ | $r = n^{(Q+1)/2}$ |
 
 **Bước 4:** Vòng lặp:
 
-| Vòng | $t$ | $i$ (số mũ) | $m$ | $c$ | $r$ |
-|------|-----|-------------|-----|-----|-----|
-| 1 | $9$ | $2$ (vì $9^2=81\equiv -1$, $(-1)^2=1$) | $2$ | $32^2=1024\equiv 40$ | $2 \cdot 32 = 64 \equiv 23$ |
-| 2 | $9 \cdot 40 = 360 \equiv 32$ | $1$ (vì $32^2=1024\equiv 40$, $40^2=1600\equiv 1$) | $1$ | $40^2=1600\equiv 1$ | $23 \cdot 40 = 920 \equiv 18$ |
-| 3 | $32 \cdot 1 = 32$ | $1$ | $1$ | — | — |
+| Vòng | $t$ đầu vòng | Tìm $i$ nhỏ nhất ($t^{2^i} \equiv 1$) | $b = c^{2^{m-i-1}}$ | $c \leftarrow b^2$ | $r \leftarrow r \cdot b$ | $t \leftarrow t \cdot c$ | $m \leftarrow i$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 1 | $9$ | $2$ ($9^2 \equiv 40$, $9^4 \equiv 1$) | $38^{2^{3-2-1}} = 38^1 = 38$ | $38^2 \equiv 9$ | $2 \cdot 38 = 76 \equiv 35$ | $9 \cdot 9 = 81 \equiv 40$ | $2$ |
+| 2 | $40$ | $1$ ($40^2 \equiv (-1)^2 = 1$) | $9^{2^{2-1-1}} = 9^1 = 9$ | $9^2 \equiv 40$ | $35 \cdot 9 = 315 \equiv 28$ | $40 \cdot 40 \equiv 1$ | $1$ |
 
-Sau vòng 3, $t = 1$ → dừng. Kết quả $x = r = 18$.
+Sau vòng 2, $t = 1$ → dừng. Kết quả $x = r = 28$.
 
-**Kiểm tra:** $18^2 = 324 \equiv 5 \pmod{41}$ ✓. Nghiệm còn lại: $41 - 18 = 23$.
+**Kiểm tra:** $28^2 = 784 = 19 \times 41 + 5 \equiv 5 \pmod{41}$ ✓. Nghiệm còn lại: $41 - 28 = 13$ ($13^2 = 169 = 4 \times 41 + 5 \equiv 5 \pmod{41}$).
 
 ### Giai thừa modulo: mở rộng
 
@@ -367,3 +368,7 @@ long long res = res * a % p;
 | `fsm-sqrt-check` | [Kiểm tra căn bậc hai modulo](https://fptoj.com/problem/fsm-sqrt-check) | ⭐ | $x^2 \equiv n \pmod{p}$ | [Giai Thừa & Căn Bậc Hai Modulo](factorial-sqrt-mod.md) |
 | `fsm-sqrt-ts` | [Tonelli-Shanks](https://fptoj.com/problem/fsm-sqrt-ts) | ⭐⭐⭐ | Căn bậc hai modulo tổng quát | [Giai Thừa & Căn Bậc Hai Modulo](factorial-sqrt-mod.md) |
 | `fsm-sqrt-both` | [Hai căn bậc hai modulo](https://fptoj.com/problem/fsm-sqrt-both) | ⭐⭐⭐ | Cả hai nghiệm $r$ và $p-r$ | [Giai Thừa & Căn Bậc Hai Modulo](factorial-sqrt-mod.md) |
+
+---
+
+**Bài trước:** [← Bài 56: Hàm Möbius & Hàm Nhân Tính](mobius-multiplicative.md) | **Bài tiếp theo:** [Bài 58: Lý Thuyết Trò Chơi →](ly-thuyet-tro-choi.md)

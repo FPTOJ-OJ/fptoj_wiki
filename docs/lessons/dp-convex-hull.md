@@ -1,4 +1,4 @@
-# Kĩ Thuật Bao Lồi Trong Quy Hoạch Động
+# Bài 95: Kĩ Thuật Bao Lồi Trong Quy Hoạch Động
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki
@@ -26,7 +26,7 @@ Trong đó $C(j, i)$ là hàm **lồi** theo $i$ (ví dụ: $(S[i] - S[j])^2$).
 |-------------|-----------|
 | Duyệt thường | $O(N^2)$ |
 | **Convex Hull Trick** | $O(N \log N)$ hoặc $O(N)$ |
-| Divide & Conquer | $O(N \log N)$ |
+| Divide & Conquer (phân $K$ nhóm) | $O(K N \log N)$ |
 
 ---
 
@@ -89,7 +89,7 @@ Nhớ công thức: với mỗi $j$ đã tính, thêm đường thẳng $m_j = -
 | 3 | 8 | $m=-16, b=26+64=90$ | $\min(0, -48+18=-30, -64+26=-38) = -38$ | $64-38=26$ |
 | 4 | 9 | — | $\min(0, -54+18=-36, -72+26=-46, -144+90=-54) = -54$ | $81-54=27$ |
 
-Đáp án: $dp[4] = 27$ (ví dụ chia $[3]\,[1,4]\,[1]$ với chi phí $9+25+1=35$? Không — thử $[3,1]\,[4,1]$: $16+25=41$? Thực tế tối ưu là 4 nhóm riêng lẻ: $9+1+16+1=27$ ✓).
+Đáp án: $dp[4] = 27$ (phương án tối ưu là tách thành 4 nhóm riêng lẻ: $3^2 + 1^2 + 4^2 + 1^2 = 9+1+16+1=27$, nhỏ hơn cách gộp như $[3,1]\,[4,1]$ cho $4^2+5^2=41$ hay $[3]\,[1,4]\,[1]$ cho $9+25+1=35$).
 
 ### Biểu diễn hình học
 
@@ -167,6 +167,10 @@ Trong CHT, phép nhân chéo (`(b.b - a.b) * (a.m - c.m)`) có thể vượt qu�
 
         // Thêm đường thẳng mới với hệ số góc m và tung độ gốc b
         void add(long long m, long long b) {
+            if (!lines.empty() && lines.back().m == m) {
+                if (lines.back().b <= b) return; // đường mới nằm trên hoàn toàn → bỏ
+                lines.pop_back();                // đường cũ kém hơn → thay thế
+            }
             Line l = {m, b};
             // Xóa các đường thẳng bị đường mới "che" — giữ bao lồi dưới
             while (lines.size() >= 2 && bad(lines[lines.size()-2], lines[lines.size()-1], l))
@@ -240,6 +244,10 @@ Trong CHT, phép nhân chéo (`(b.b - a.b) * (a.m - c.m)`) có thể vượt qu�
             return (b[1] - a[1]) * (a[0] - c[0]) >= (c[1] - a[1]) * (a[0] - b[0])
 
         def add(self, m, b):
+            if self.lines and self.lines[-1][0] == m:
+                if self.lines[-1][1] <= b:
+                    return                 # đường mới nằm trên hoàn toàn → bỏ
+                self.lines.pop()           # đường cũ kém hơn → thay thế
             l = (m, b)                     # mỗi đường thẳng là tuple (m, b)
             # Xóa các đường bị đường mới "che"
             while len(self.lines) >= 2 and self._bad(self.lines[-2], self.lines[-1], l):
@@ -451,3 +459,7 @@ Trong CHT, phép nhân chéo (`(b.b - a.b) * (a.m - c.m)`) có thể vượt qu�
 | `ch-circles` | [Hình Tròn](https://fptoj.com/problem/ch-circles) | ⭐⭐⭐ | Sắp xếp hình tròn | [DP Convex Hull](dp-convex-hull.md) |
 | `ch-arrange` | [Sắp Xếp](https://fptoj.com/problem/ch-arrange) | ⭐⭐⭐ | Sắp xếp dãy số | [DP Convex Hull](dp-convex-hull.md) |
 | `ch-cemetery` | [Nghĩa Trang](https://fptoj.com/problem/ch-cemetery) | ⭐⭐⭐⭐ | Xây nghĩa trang | [DP Convex Hull](dp-convex-hull.md) |
+
+---
+
+**Bài trước:** [← Bài 94: Quy Hoạch Động SOS (Sum Over Subsets)](sos-dp.md) | **Bài tiếp theo:** [Bài 96: Tối ưu Quy Hoạch Động 1 Chiều (1D/1D DP Optimization) →](dp-1d1d.md)

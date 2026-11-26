@@ -361,9 +361,7 @@ Trước tiên, nhận xét là chúng ta chỉ cần tìm độ dài của $t$,
 
 Giả sử ta cố định độ dài của $t$ là $l$ (chỉ xét $l$ là ước của $n$) thì khi đó bài toán đưa về kiểm tra $s[0 \dots l - 1] = s[l \dots 2l-1] = \dots = s[n - l, n - 1]$ $(*)$ có được thỏa mãn hay không. 
 
-Nếu ta dùng thẳng điều kiện $(*)$), với mỗi giá trị của $l$ kiểm tra sẽ cần duyệt qua $O(
-\frac{n}{l})$ cặp xâu liền kề, mỗi cặp kiểm tra xem chúng bằng nhau không mất độ phức tạp $O(l)$, nên độ phức tạp để kiểm tra khi cố định $l$ là $O(
-\frac{n}{l}) * O(l) = O(n)$. $l$ chỉ có thể nhận $O(n^{\frac{1}{3}})$ giá trị khác nhau do là ước của $n$, dẫn tới tổng độ phức tạp là $O(n^{\frac{4}{3}})$. Độ phức tạp này là đủ tốt để AC với $n \leq 10^5$, nhưng ta có thể dùng hàm tiền tố để làm tốt hơn. 
+Nếu ta dùng thẳng điều kiện $(*)$, với mỗi giá trị của $l$ kiểm tra sẽ cần duyệt qua $O(\frac{n}{l})$ cặp xâu liền kề, mỗi cặp kiểm tra xem chúng bằng nhau không mất độ phức tạp $O(l)$, nên độ phức tạp để kiểm tra khi cố định $l$ là $O(\frac{n}{l}) \cdot O(l) = O(n)$. $l$ chỉ có thể nhận $O(n^{\frac{1}{3}})$ giá trị khác nhau do là ước của $n$, dẫn tới tổng độ phức tạp là $O(n^{\frac{4}{3}})$. Độ phức tạp này là đủ tốt để AC với $n \leq 10^5$, nhưng ta có thể dùng hàm tiền tố để làm tốt hơn. 
 
 Chìa khóa ở đây là thay đổi cách viết $(*)$ thành: 
 

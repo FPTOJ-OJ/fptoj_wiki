@@ -1,4 +1,4 @@
-# Bài 32: Suffix Array — Mảng Hậu Tố
+# Bài 48: Suffix Array — Mảng Hậu Tố
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -28,25 +28,25 @@ Ví dụ với $S = \text{"banana\$"}$ (ký tự $\$$ là terminator, nhỏ hơn
 
 | Chỉ số $i$ | Hậu tố $S[i..]$ |
 |:-----------:|:-----------------|
-| 0 | banana$ |
-| 1 | anana$ |
-| 2 | nana$ |
-| 3 | ana$ |
-| 4 | na$ |
-| 5 | a$ |
-| 6 | \$ |
+| 0 | `banana$` |
+| 1 | `anana$` |
+| 2 | `nana$` |
+| 3 | `ana$` |
+| 4 | `na$` |
+| 5 | `a$` |
+| 6 | `$` |
 
 Sắp xếp theo thứ tự từ điển:
 
 | Thứ tự | Chỉ số $SA[i]$ | Hậu tố |
 |:------:|:---------------:|:--------|
-| 0 | 6 | \$ |
-| 1 | 5 | a$ |
-| 2 | 3 | ana$ |
-| 3 | 1 | anana$ |
-| 4 | 0 | banana$ |
-| 5 | 4 | na$ |
-| 6 | 2 | nana$ |
+| 0 | 6 | `$` |
+| 1 | 5 | `a$` |
+| 2 | 3 | `ana$` |
+| 3 | 1 | `anana$` |
+| 4 | 0 | `banana$` |
+| 5 | 4 | `na$` |
+| 6 | 2 | `nana$` |
 
 Kết quả: $SA = [6, 5, 3, 1, 0, 4, 2]$
 
@@ -64,7 +64,7 @@ Ký tự $\$$ nhỏ hơn mọi ký tự khác. Điều này đảm bảo hậu t
 
 **Quy trình:**
 
-1. Khởi tạo $rank[i] = $ mã ASCII của $S[i]$
+1. Khởi tạo $rank[i]$ bằng mã ASCII của $S[i]$
 2. Lặp với $k = 1, 2, 4, 8, \ldots$:
     - Sắp xếp $SA$ theo cặp $(rank[i],\ rank[i+k])$
     - Gán rank mới liên tục: $rank[SA[0]] = 0,\ rank[SA[1]] = 1, \ldots$
@@ -368,7 +368,7 @@ SA-IS rất phức tạp, thường chỉ cần Doubling là đủ cho competiti
 
 | Bài toán | Độ phức tạp | Phương pháp |
 |:---------|:----------:|:------------|
-| Tìm pattern $P$ | $O(|P| \log N)$ | Binary search trên $SA$ |
+| Tìm pattern $P$ | $O(\lvert P\rvert \log N)$ | Binary search trên $SA$ |
 | Đếm xâu con khác nhau | $O(N)$ | Công thức $N(N+1)/2 - \sum LCP$ |
 | Xâu con chung dài nhất | $O(N \log N)$ | $SA + LCP$ trên xâu ghép |
 | LCP của 2 hậu tố bất kỳ | $O(1)$ | Sparse Table trên $LCP$ |
@@ -450,7 +450,7 @@ Ghép hai xâu: $T = S_1 + \text{"\$"} + S_2$. Xây dựng $SA$ và $LCP$ cho $T
                 pos = sa[i];                               // lưu vị trí xâu con
             }
         }
-        return s1.substr(pos, best);
+        return t.substr(pos, best);
     }
     ```
 
@@ -469,7 +469,7 @@ Ghép hai xâu: $T = S_1 + \text{"\$"} + S_2$. Xây dựng $SA$ và $LCP$ cho $T
             if in_s1 != in_s2 and lcp[i] > best:           # một từ S1, một từ S2
                 best = lcp[i]
                 pos = sa[i]
-        return s1[pos:pos+best]
+        return t[pos:pos+best]
     ```
 
 ### Tìm xâu con lặp lại dài nhất
@@ -555,7 +555,7 @@ Dùng SA khi cần chính xác 100% hoặc nhiều truy vấn trên cùng xâu. 
 
 Suffix Tree của xâu $S$ là cây có hướng trong đó mỗi cạnh được gán nhãn bằng 1 xâu con của $S$, và mỗi hậu tố của $S$ tương ứng với 1 đường đi từ gốc đến lá. Suffix Tree gộp các cạnh có nhánh đơn thành một cạnh duy nhất (ví dụ với `"banana"`: `"ana"` thay vì `"a" \to "n" \to "a"`), giúp giảm bộ nhớ từ $O(N^2)$ xuống $O(N)$.
 
-| Cấu trúc | Xây dựng | Tìm pattern $|P|=M$ | Khi nào dùng |
+| Cấu trúc | Xây dựng | Tìm pattern $\lvert P\rvert = M$ | Khi nào dùng |
 |:---------|:--------:|:-------------------:|----------------|
 | Suffix Array + LCP | $O(N \log N)$ | $O(M \log N)$ | Mặc định trong thi đấu: code ngắn, đủ nhanh |
 | **Suffix Tree (Ukkonen)** | $O(N)$ | $O(M)$ | Chỉ khi cần tối ưu lý thuyết; cài đặt rất phức tạp |
@@ -574,4 +574,6 @@ Suffix Tree của xâu $S$ là cây có hướng trong đó mỗi cạnh đượ
 - [YouTube - Suffix Array (takeuforward)](https://www.youtube.com/watch?v=0bL1GPeT5FQ)
 - [YouTube - LCP Array & Kasai's Algorithm](https://www.youtube.com/watch?v=71IkJ0GERcI)
 
-**Bài trước:** [Linked List](linked-list.md) | **Bài tiếp theo:** [Euclid & Modular Inverse](euclid-modular-inverse.md)
+---
+
+**Bài trước:** [← Bài 47: Manacher](manacher.md) | **Bài tiếp theo:** [Bài 49: Palindrome Tree (Eertree) →](palindrome-tree.md)

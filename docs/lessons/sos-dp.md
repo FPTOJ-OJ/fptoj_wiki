@@ -1,4 +1,4 @@
-# Quy Hoạch Động SOS (Sum Over Subsets)
+# Bài 94: Quy Hoạch Động SOS (Sum Over Subsets)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - SOS DP
@@ -117,11 +117,14 @@ plt.tight_layout()
 
 ## 3. Phân tích tính đúng đắn
 
-### Tại sao $O(N \cdot 2^N)$?
+### Tại sao $O(N \cdot 2^N)$ và cập nhật tại chỗ (1 mảng `G`) vẫn đúng?
 
-Sau bước $i$, $G[mask]$ = tổng $F[S]$ với $S \subseteq mask$ và $S$ chỉ khác $mask$ ở các bit $0, 1, \ldots, i$.
+Sau bước $i$, $G[mask]$ = tổng $F[S]$ với $S \subseteq mask$ và $S$ chỉ khác $mask$ ở các bit $0, 1, \ldots, i$. Sau bước $N-1$, $G[mask]$ bằng tổng $F[S]$ trên toàn bộ tập con $S \subseteq mask$.
 
-Sau bước $N-1$, $G[mask]$ = tổng $F[S]$ với $S \subseteq mask$ (tất cả bit).
+**Tại sao không cần mảng phụ 2 chiều `dp[i][mask]`?**
+Ở vòng lặp cho bit $i$, ta chỉ cập nhật các `mask` có **bit $i$ bằng $1$**, và chỉ đọc giá trị tại `mask ^ (1 << i)` — trạng thái có **bit $i$ bằng $0$**. Những `mask` có bit $i$ bằng $0$ hoàn toàn không bị thay đổi trong suốt vòng lặp $i$, nên giá trị `G[mask ^ (1 << i)]` ta đọc vẫn nguyên vẹn là kết quả sau bước $i-1$.
+
+**Chi phí thời gian:** Vòng ngoài lặp $N$ bit, vòng trong lặp $2^N$ mask $\implies$ tổng số phép toán đúng bằng $O(N \cdot 2^N)$.
 
 ---
 
@@ -243,25 +246,49 @@ Cách làm: **đảo ngược điều kiện bit**.
 
 Thay `+=` bằng `max` hoặc `min`:
 
-```cpp
-// G[mask] = max F[S] với S ⊆ mask
-for (int i = 0; i < n; i++)
-    for (int mask = 0; mask < size; mask++)
-        if (mask & (1 << i))
-            G[mask] = max(G[mask], G[mask ^ (1 << i)]);
-```
+=== "C++"
+
+    ```cpp
+    // G[mask] = max F[S] với S ⊆ mask
+    for (int i = 0; i < n; i++)
+        for (int mask = 0; mask < size; mask++)
+            if (mask & (1 << i))
+                G[mask] = max(G[mask], G[mask ^ (1 << i)]);
+    ```
+
+=== "Python"
+
+    ```python
+    # G[mask] = max F[S] với S ⊆ mask
+    for i in range(n):
+        for mask in range(size):
+            if mask & (1 << i):
+                G[mask] = max(G[mask], G[mask ^ (1 << i)])
+    ```
 
 ### 5.3 Đếm số tập con thỏa mãn điều kiện
 
 Thay `+=` bằng phép đếm:
 
-```cpp
-// cnt[mask] = số lượng tập con S ⊆ mask có F[S] > 0
-for (int i = 0; i < n; i++)
-    for (int mask = 0; mask < size; mask++)
-        if (mask & (1 << i))
-            cnt[mask] += cnt[mask ^ (1 << i)];
-```
+=== "C++"
+
+    ```cpp
+    // cnt[mask] = số lượng tập con S ⊆ mask có F[S] > 0
+    for (int i = 0; i < n; i++)
+        for (int mask = 0; mask < size; mask++)
+            if (mask & (1 << i))
+                cnt[mask] += cnt[mask ^ (1 << i)];
+    ```
+
+=== "Python"
+
+    ```python
+    # cnt[mask] = số lượng tập con S ⊆ mask có F[S] > 0
+    for i in range(n):
+        for mask in range(size):
+            if mask & (1 << i):
+                cnt[mask] += cnt[mask ^ (1 << i)]
+    ```
 
 ---
 
@@ -304,7 +331,7 @@ vector<long long> G(size, -INF);
 | Phép toán tập hợp | Phép thao tác bit |
 |:---|:---|
 | Tập con ($S \subseteq mask$) | $S \mathbin{\&} mask = S$ |
-| Tập cha ($S \supseteq mask$) | $S \mathbin{|} mask = S$ |
+| Tập cha ($S \supseteq mask$) | $S \mathbin{\vert} mask = S$ |
 | Không giao ($S \cap mask = \emptyset$) | $S \mathbin{\&} mask = 0$ |
 
 Với bài toán đếm cặp $i \mathbin{\&} j = 0$:
@@ -329,3 +356,7 @@ Trong đó $G$ là SOS DP trên tập con (subset sum), và $(2^N-1) \oplus mask
 | `sos-gcd-set` | [GCD Tập Hợp](https://fptoj.com/problem/sos-gcd-set) | ⭐⭐⭐⭐ | GCD của tập hợp | [SOS DP](sos-dp.md) |
 | `sos-seven-and` | [Bảy Số AND](https://fptoj.com/problem/sos-seven-and) | ⭐⭐⭐⭐⭐ | Bảy số AND | [SOS DP](sos-dp.md) |
 | `sos-xor-pair` | [Cặp XOR](https://fptoj.com/problem/sos-xor-pair) | ⭐⭐ | Đếm cặp XOR | [SOS DP](sos-dp.md) |
+
+---
+
+**Bài trước:** [← Bài 93: Tối ưu Quy Hoạch Động](dp-optimization.md) | **Bài tiếp theo:** [Bài 95: Kĩ Thuật Bao Lồi Trong Quy Hoạch Động →](dp-convex-hull.md)

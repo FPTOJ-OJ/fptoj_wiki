@@ -258,9 +258,10 @@ else cout << "Khong tim thay";
 
 ## Bài viết liên quan
 
-- [C12: Set & Map ←](C12-set-map.md)
+- [C13: Queue, Stack, Deque ←](C13-queue-stack-deque.md)
 - [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
 
 ---
 
+**Bài trước:** [C13: Queue, Stack, Deque](C13-queue-stack-deque.md)<br>
 **Bài tiếp theo:** [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)

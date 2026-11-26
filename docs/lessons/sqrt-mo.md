@@ -1,4 +1,4 @@
-# Bài 53: Chia căn & Mo's Algorithm - Xử lý truy vấn!
+# Bài 100: Chia căn & Mo's Algorithm - Xử lý truy vấn!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
@@ -465,13 +465,12 @@ Tổng di chuyển của L: O(Q × √N) vì mỗi truy vấn L di chuyển tố
 
         def add(pos):
             nonlocal cur_ans
-            # Thêm arr[pos] vào đoạn, cập nhật cur_ans
-            pass
+            # Ví dụ minh họa: tính tổng đoạn (thay đổi logic này theo từng bài toán)
+            cur_ans += arr[pos]
 
         def remove(pos):
             nonlocal cur_ans
-            # Xóa arr[pos] khỏi đoạn, cập nhật cur_ans
-            pass
+            cur_ans -= arr[pos]
 
         for l, r, idx in queries:
             while cur_l > l:
@@ -1233,3 +1232,7 @@ sort(queries.begin(), queries.end(),
 - Cần `O(log N)` mỗi truy vấn → dùng Segment Tree / BIT
 - Có cập nhật đoạn → dùng Segment Tree với lazy propagation
 - Dữ liệu nhỏ → dùng cách trực tiếp, không cần phức tạp hóa
+
+---
+
+**Bài trước:** [← Bài 99: Suffix Automaton](suffix-automaton.md) | **Bài tiếp theo:** [Bài 101: Treap & PBDS →](treap-pbds.md)

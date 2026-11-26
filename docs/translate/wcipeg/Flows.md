@@ -11,7 +11,7 @@ Mạng luồng là một đồ thị có hướng thỏa mãn:
 * Không có cung đi vào đỉnh phát hay ra từ đỉnh thu
 * Với mỗi cung $(u,v)$ gọi một số thực dương $c(u,v)$ là sức chứa
 
-Ta biểu diễn mạng luồng bằng $G=(V,s,t,c)$ với $s,t \in V$, $c:V \times V \rightarrow [0, \infty) $ và $\forall v, c(v,s)=c(t,v)=0$. Tồn tại cung $(u,v)$ khi và chỉ khi $c(u,v)>0$.
+Ta biểu diễn mạng luồng bằng $G=(V,s,t,c)$ với $s,t \in V$, $c:V \times V \rightarrow [0, \infty)$ và $\forall v, c(v,s)=c(t,v)=0$. Tồn tại cung $(u,v)$ khi và chỉ khi $c(u,v)>0$.
 
 ## Luồng hợp lệ (Admissible flows)
 

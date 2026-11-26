@@ -1,4 +1,4 @@
-# Bài 50: Tối ưu Quy Hoạch Động - Knuth, D&C, CHT
+# Bài 93: Tối ưu Quy Hoạch Động - Knuth, D&C, CHT
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
@@ -210,11 +210,17 @@ graph TD
     
     const int MAXN = 50005;
     const int MAXK = 105;
-    const long long INF = 1e18;
+    const long long INF = 4e18;
     
     int n, K;
-    long long C[MAXN][MAXN]; // C[k][j] là chi phí đoạn từ k+1 đến j
+    long long pref[MAXN];      // Tổng tiền tố của dãy a[1..n]
     long long dp[MAXK][MAXN];
+    
+    // Chi phí đoạn [k+1..j] tính trong O(1), tránh cấp phát mảng 2D C[N][N] quá lớn
+    long long cost(int k, int j) {
+        long long s = pref[j] - pref[k];
+        return s * s;          // Ví dụ: chi phí bình phương tổng nhóm
+    }
     
     // Tính dp[row][lo..hi] với khoảng tìm kiếm điểm tối ưu trong [optL, optR]
     void solve(int row, int lo, int hi, int optL, int optR) {
@@ -222,11 +228,12 @@ graph TD
     
         int mid = (lo + hi) / 2;
         dp[row][mid] = INF;
-        int best_k = -1;
+        int best_k = optL;
     
         // Điểm cắt k chỉ có thể tối đa là mid - 1
         for (int k = optL; k <= min(mid - 1, optR); k++) {
-            long long val = dp[row - 1][k] + C[k][mid];
+            if (dp[row - 1][k] >= INF) continue;
+            long long val = dp[row - 1][k] + cost(k, mid);
             if (val < dp[row][mid]) {
                 dp[row][mid] = val;
                 best_k = k;
@@ -242,7 +249,12 @@ graph TD
         ios_base::sync_with_stdio(false);
         cin.tie(nullptr);
     
-        // Đọc n, K và khởi tạo chi phí C...
+        if (!(cin >> n >> K)) return 0;
+        for (int i = 1; i <= n; i++) {
+            long long x;
+            cin >> x;
+            pref[i] = pref[i - 1] + x;
+        }
         // Base case: 
         dp[0][0] = 0;
         for (int j = 1; j <= n; j++) dp[0][j] = INF;
@@ -261,31 +273,37 @@ graph TD
     ```python
     import sys
     
-    INF = float('inf')
+    INF = 10**18
     
-    def solve_dc(row, lo, hi, opt_l, opt_r, dp, C):
+    def solve_dc(row, lo, hi, opt_l, opt_r, dp, pref):
         if lo > hi:
             return
     
         mid = (lo + hi) // 2
         dp[row][mid] = INF
-        best_k = -1
+        best_k = opt_l
     
         for k in range(opt_l, min(mid, opt_r + 1)):
-            val = dp[row - 1][k] + C[k][mid]
+            if dp[row - 1][k] >= INF:
+                continue
+            s = pref[mid] - pref[k]
+            val = dp[row - 1][k] + s * s
             if val < dp[row][mid]:
                 dp[row][mid] = val
                 best_k = k
     
-        solve_dc(row, lo, mid - 1, opt_l, best_k, dp, C)
-        solve_dc(row, mid + 1, hi, best_k, opt_r, dp, C)
+        solve_dc(row, lo, mid - 1, opt_l, best_k, dp, pref)
+        solve_dc(row, mid + 1, hi, best_k, opt_r, dp, pref)
     
-    def compute_dp(n, K, C):
+    def compute_dp(n, K, a):
+        pref = [0] * (n + 1)
+        for i in range(1, n + 1):
+            pref[i] = pref[i - 1] + a[i - 1]
         dp = [[INF] * (n + 1) for _ in range(K + 1)]
         dp[0][0] = 0
         
         for i in range(1, K + 1):
-            solve_dc(i, 1, n, 0, n - 1, dp, C)
+            solve_dc(i, 1, n, 0, n - 1, dp, pref)
             
         return dp[K][n]
     ```
@@ -293,7 +311,7 @@ graph TD
 **Độ phức tạp thời gian:** Mỗi tầng đệ quy của hàm chia để trị mất tổng thời gian là $O(\text{optR} - \text{optL})$ trên tất cả các lời gọi. Tổng độ phức tạp tính toán cho một dòng là $O(N \log N)$. Khi tính toàn bộ $K$ dòng, tổng thời gian là $O(K \cdot N \log N)$.
 
 !!! tip "Đọc thêm"
-    Một biến thể khác của chia để trị trên DP là **CDQ phân治 (online-to-offline)** kèm tối ưu deque/tìm kiếm nhị phân — xem chi tiết tại [Tối ưu DP 1 chiều (1D1D)](dp-1d1d.md).
+    Một biến thể khác của chia để trị trên DP là **CDQ phân trị (online-to-offline)** kèm tối ưu deque/tìm kiếm nhị phân — xem chi tiết tại [Tối ưu DP 1 chiều (1D1D)](dp-1d1d.md).
 
 ---
 
@@ -640,23 +658,23 @@ Vì hàm $f(k)$ lồi, số lượng thành phần tối ưu được chọn là
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
-    
-    const int MAXN = 50005;
+
     const long long INF = 1e18;
-    int n, K;
-    long long C[MAXN][MAXN]; // C[j][i] là chi phí đoạn từ j đến i
-    
-    // Tính quy hoạch động 1D với hình phạt lambda
-    // Trả về {tổng chi phí, số lượng đoạn đã chọn}
-    pair<long long, int> solve_dp(long long lambda) {
+
+    // Bài toán mẫu: Chia mảng a[1..n] thành đúng K đoạn liên tiếp,
+    // chi phí mỗi đoạn [l, r] là cost(l, r) = (prefix[r] - prefix[l - 1])^2 (tính O(1)).
+    // Trả về {tổng chi phí tối ưu (đã cộng K*lambda), số đoạn tối thiểu để đạt giá trị đó}
+    pair<long long, int> solve_dp(int n, const vector<long long>& pref, long long lambda) {
         vector<long long> dp(n + 1, INF);
         vector<int> cnt(n + 1, 0);
-        
+
         dp[0] = 0;
         for (int i = 1; i <= n; i++) {
             for (int j = 0; j < i; j++) {
-                long long val = dp[j] + C[j + 1][i] + lambda;
-                if (val < dp[i]) {
+                long long sumSeg = pref[i] - pref[j];
+                long long val = dp[j] + sumSeg * sumSeg + lambda;
+                // Khi bằng nhau, ưu tiên ít đoạn hơn để kiểm soát biên hàm lồi không nghiêm ngặt
+                if (val < dp[i] || (val == dp[i] && cnt[j] + 1 < cnt[i])) {
                     dp[i] = val;
                     cnt[i] = cnt[j] + 1;
                 }
@@ -664,23 +682,27 @@ Vì hàm $f(k)$ lồi, số lượng thành phần tối ưu được chọn là
         }
         return {dp[n], cnt[n]};
     }
-    
-    long long get_min_cost() {
-        long long lo = 0, hi = 1e12;
+
+    long long get_min_cost(int n, int K, const vector<long long>& a) {
+        vector<long long> pref(n + 1, 0);
+        for (int i = 1; i <= n; i++) pref[i] = pref[i - 1] + a[i - 1];
+
+        // Phạm vi tìm kiếm lambda: có thể âm nếu chi phí cộng thêm cần khuyến khích tăng số đoạn
+        long long lo = -1e12, hi = 1e12;
         long long ans = -1;
-        
-        // Tìm kiếm nhị phân lambda
-        for (int iter = 0; iter < 60; iter++) {
+
+        while (lo <= hi) {
             long long mid = lo + (hi - lo) / 2;
-            auto [cost, segments] = solve_dp(mid);
-            
-            if (segments >= K) {
-                // Số đoạn nhiều hơn hoặc bằng K -> tăng hình phạt lambda để giảm số đoạn
-                ans = cost - K * mid;
-                lo = mid + 1;
-            } else {
-                // Số đoạn ít hơn K -> giảm hình phạt lambda
+            auto [cost, segments] = solve_dp(n, pref, mid);
+
+            if (segments <= K) {
+                // Chọn ít hơn hoặc bằng K đoạn -> có thể giảm phạt lambda để tăng số đoạn,
+                // đồng thời cập nhật kết quả bằng (tổng phạt - K * lambda)
+                ans = cost - 1LL * K * mid;
                 hi = mid - 1;
+            } else {
+                // Chọn nhiều hơn K đoạn -> tăng hình phạt lambda để ép giảm số đoạn
+                lo = mid + 1;
             }
         }
         return ans;
@@ -690,34 +712,41 @@ Vì hàm $f(k)$ lồi, số lượng thành phần tối ưu được chọn là
 === "Python"
 
     ```python
-    def solve_dp_lambda(n, K, C, lam):
-        # Trả về (dp_val, segments)
-        dp = [float('inf')] * (n + 1)
+    def solve_dp_lambda(n, pref, lam):
+        """Giải DP không ràng buộc với chi phí phạt lam cho mỗi đoạn."""
+        INF = 10**18
+        dp = [INF] * (n + 1)
         cnt = [0] * (n + 1)
         dp[0] = 0
-        
+
         for i in range(1, n + 1):
             for j in range(i):
-                val = dp[j] + C[j + 1][i] + lam
-                if val < dp[i]:
+                seg_sum = pref[i] - pref[j]
+                val = dp[j] + seg_sum * seg_sum + lam
+                if val < dp[i] or (val == dp[i] and cnt[j] + 1 < cnt[i]):
                     dp[i] = val
                     cnt[i] = cnt[j] + 1
         return dp[n], cnt[n]
 
-    def alien_trick(n, K, C):
-        lo, hi = 0, 10**12
+    def alien_trick(n, K, a):
+        pref = [0] * (n + 1)
+        for i in range(n):
+            pref[i + 1] = pref[i] + a[i]
+
+        lo, hi = -10**12, 10**12
         ans = -1
-        
-        for _ in range(60):
+        while lo <= hi:
             mid = (lo + hi) // 2
-            cost, segments = solve_dp_lambda(n, K, C, mid)
-            if segments >= K:
+            cost, segments = solve_dp_lambda(n, pref, mid)
+            if segments <= K:
                 ans = cost - K * mid
-                lo = mid + 1
-            else:
                 hi = mid - 1
+            else:
+                lo = mid + 1
         return ans
     ```
+
+*(Lưu ý: Trong thực tế khi $N$ lớn tới $10^5$, bước `solve_dp` bên trong sẽ được tăng tốc từ $O(N^2)$ xuống $O(N)$ hoặc $O(N \log N)$ bằng Convex Hull Trick / Deque để tổng thời gian đạt $O(N \log C)$.)*
 
 ---
 
@@ -726,54 +755,52 @@ Vì hàm $f(k)$ lồi, số lượng thành phần tối ưu được chọn là
 ### 7.1 Ý tưởng toán học
 Slope Trick được áp dụng khi hàm trạng thái quy hoạch động $f(x)$ là một **hàm lồi liên tục phân đoạn tuyến tính** (Piecewise Linear Convex Function). 
 Một hàm như vậy được đặc trưng hoàn toàn bởi:
-1. Giá trị nhỏ nhất của hàm số: $min\_val$.
-2. Tập hợp các **điểm gãy** (breakpoints) tại đó hệ số góc thay đổi. 
+1. Giá trị nhỏ nhất của hàm số: $\text{min\_val}$.
+2. Tập hợp các **điểm gãy** (breakpoints) tại đó hệ số góc thay đổi.
 
-Hệ số góc của hàm số chỉ nhận các giá trị nguyên, tăng dần từ trái sang phải.
-Ta sử dụng hai hàng đợi ưu tiên (Priority Queue):
-- `left` (Max-Heap): Lưu các điểm gãy nơi hệ số góc $< 0$.
-- `right` (Min-Heap): Lưu các điểm gãy nơi hệ số góc $> 0$.
+Hệ số góc của hàm số chỉ nhận các giá trị nguyên, tăng dần từ trái sang phải. Ta thường lưu các điểm gãy bằng Priority Queue:
+- `left_heap` (Max-Heap): lưu các điểm gãy bên trái điểm tối ưu (nơi hệ số góc $< 0$).
+- `right_heap` (Min-Heap): lưu các điểm gãy bên phải điểm tối ưu (nơi hệ số góc $> 0$, dùng khi bài toán có nhánh tăng bên phải).
 
-### 7.2 Ví dụ bài toán chuyển hàng
-Xét bài toán cập nhật trạng thái:
+### 7.2 Ví dụ bài toán: Biến đổi dãy không giảm (Chi phí $\min \sum |x_i - a_i|$)
+Xét bài toán kinh điển: Cho dãy $a_1, \dots, a_n$. Ta muốn chọn dãy $x_1 \le x_2 \le \dots \le x_n$ sao cho tổng $\sum_{i=1}^n |x_i - a_i|$ nhỏ nhất. Công thức quy hoạch động:
 $$dp_i(x) = \min_{y \le x} \{ dp_{i-1}(y) \} + |x - a_i|$$
 
-Ta thêm một hàm trị tuyệt đối (hình chữ V) có điểm gãy tại $a_i$ vào hàm quy hoạch động. Điểm tối ưu sẽ dịch chuyển và ta cần cập nhật các heap điểm gãy tương ứng.
+- **Phép lấy $\min_{y \le x}$ (Prefix Min):** San phẳng toàn bộ nhánh phải có hệ số góc $> 0$ về $0$ (chỉ cần duy trì một Max-Heap `left_heap` cho phần hệ số góc $\le 0$).
+- **Phép cộng thêm $|x - a_i|$:** Làm hệ số góc bên trái $a_i$ giảm $1$ và bên phải $a_i$ tăng $1$, tương đương đẩy $a_i$ **hai lần** vào tập điểm gãy rồi cắt bỏ điểm lớn nhất để đưa hệ số góc tối đa về $0$:
+  - Đẩy `a_i` vào `left_heap`.
+  - Nếu `a_i < left_heap.top()`, ta phải chuyển đỉnh lớn nhất của `left_heap` sang nhánh phải và cộng phần chênh lệch `left_heap.top() - a_i` vào `min_val`, sau đó `pop` đỉnh đó và đẩy thêm một bản sao của `a_i` vào `left_heap` (gộp lại thành: đẩy `a_i` vào `left_heap` hai lần, nếu vẫn muốn giữ tổng quát: `left_heap.push(a); left_heap.push(a); min_val += left_heap.top() - a; left_heap.pop();` chú ý nếu `a >= top` thì `top == a` nên hiệu bằng $0$).
 
 === "C++"
 
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
-    
+
     int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+
         int n;
         if (!(cin >> n)) return 0;
-    
-        priority_queue<long long> left_heap; // Max-heap quản lý nhánh dốc đi xuống
-        priority_queue<long long, vector<long long>, greater<long long>> right_heap; // Min-heap quản lý nhánh dốc đi lên
+
+        // Chỉ cần Max-Heap vì bài toán prefix-min ép nhánh phải luôn có hệ số góc = 0
+        priority_queue<long long> left_heap;
         long long min_val = 0;
-    
+
         for (int i = 0; i < n; i++) {
             long long a;
             cin >> a;
-    
-            // Thêm điểm gãy của hàm trị tuyệt đối vào cả hai heap
+
+            // Cộng hàm |x - a|: đẩy a vào 2 lần (một lần để chuyển bậc góc, một lần thay thế)
             left_heap.push(a);
-            right_heap.push(a);
-    
-            // Cân bằng hai heap: Nếu đỉnh dốc trái lớn hơn dốc phải
-            if (left_heap.top() > right_heap.top()) {
-                long long l = left_heap.top(); left_heap.pop();
-                long long r = right_heap.top(); right_heap.pop();
-                left_heap.push(r);
-                right_heap.push(l);
-            }
-    
-            // Giá trị nhỏ nhất tăng thêm khoảng cách từ a tới điểm gãy tối ưu hiện tại
-            min_val += abs(a - left_heap.top());
+            left_heap.push(a);
+
+            // Đỉnh cao nhất bị đẩy sang nhánh phẳng (> opt) nên min_val tăng thêm (opt - a)
+            min_val += left_heap.top() - a;
+            left_heap.pop();
         }
-    
+
         cout << min_val << "\n";
         return 0;
     }
@@ -786,30 +813,24 @@ Ta thêm một hàm trị tuyệt đối (hình chữ V) có điểm gãy tại 
     import sys
 
     def solve():
-        input = sys.stdin.read
-        data = input().split()
+        data = sys.stdin.read().split()
         if not data:
             return
-        
+
         n = int(data[0])
-        left_heap = []  # Max-heap (lưu giá trị âm)
-        right_heap = [] # Min-heap
+        left_heap = []  # Max-Heap lưu bằng giá trị âm
         min_val = 0
-    
+
         for i in range(1, n + 1):
             a = int(data[i])
-            
+
+            # Đẩy a vào 2 lần; heapq dùng số âm để giả lập Max-Heap
             heapq.heappush(left_heap, -a)
-            heapq.heappush(right_heap, a)
-    
-            if -left_heap[0] > right_heap[0]:
-                l = -heapq.heappop(left_heap)
-                r = heapq.heappop(right_heap)
-                heapq.heappush(left_heap, -r)
-                heapq.heappush(right_heap, l)
-    
-            min_val += abs(a - (-left_heap[0]))
-    
+            heapq.heappush(left_heap, -a)
+
+            top_val = -heapq.heappop(left_heap)
+            min_val += top_val - a
+
         print(min_val)
 
     if __name__ == '__main__':
@@ -850,7 +871,7 @@ Ta thêm một hàm trị tuyệt đối (hình chữ V) có điểm gãy tại 
 
 ---
 
-## 10. Tổng kết quy trình lựa chọn tối ưu
+## 9. Tổng kết quy trình lựa chọn tối ưu
 
 ```mermaid
 graph TD
@@ -865,3 +886,7 @@ graph TD
 ```
 
 Hãy thực hiện tuần tự việc viết lời giải quy hoạch động ngây thơ trước để kiểm nghiệm tính đúng đắn của công thức chuyển trạng thái, sau đó mới áp dụng các công cụ tối ưu toán học/hình học để nâng cao hiệu năng chạy chương trình.
+
+---
+
+**Bài trước:** [← Bài 92: Interval DP](interval-dp.md) | **Bài tiếp theo:** [Bài 94: Quy Hoạch Động SOS (Sum Over Subsets) →](sos-dp.md)

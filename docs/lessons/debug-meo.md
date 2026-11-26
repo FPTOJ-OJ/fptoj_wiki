@@ -1,4 +1,4 @@
-# Bài 38: Debug & Mẹo Thi Đấu
+# Bài 79: Debug & Mẹo Thi Đấu
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, Codeforces blogs, Kinh nghiệm thi đấu
@@ -365,15 +365,15 @@ ll div(ll a, ll b) { return mul(a, inv(b)); }
 
 ### Độ phức tạp vs Giới hạn N
 
-| Độ phức tạp | N tối đa (1 giây) | N tối đa (2 giây) |
-|-------------|-------------------|-------------------|
-| O(log N) | 10^18 | 10^18 |
-| O(N) | 10^8 | 2×10^8 |
-| O(N log N) | 10^6 | 2×10^6 |
-| O(N²) | 10^4 | 1.5×10^4 |
-| O(N³) | 500 | 700 |
-| O(2^N) | 25 | 26 |
-| O(N!) | 11 | 12 |
+| Độ phức tạp | $N$ tối đa (1 giây) | $N$ tối đa (2 giây) |
+| :--- | :---: | :---: |
+| $O(\log N)$ | $10^{18}$ | $10^{18}$ |
+| $O(N)$ | $10^8$ | $2 \times 10^8$ |
+| $O(N \log N)$ | $10^6$ | $2 \times 10^6$ |
+| $O(N^2)$ | $10^4$ | $1.5 \times 10^4$ |
+| $O(N^3)$ | $500$ | $700$ |
+| $O(2^N)$ | $25$ | $26$ |
+| $O(N!)$ | $11$ | $12$ |
 
 ### Các hằng số MOD thường dùng
 
@@ -401,4 +401,6 @@ const ll MOD3 = 998244353;   // Dùng cho NTT (FFT)
 - [Codeforces - Common Mistakes](https://codeforces.com/blog/entry/67216)
 - [USACO Guide - Debugging](https://usaco.guide/general/debugging)
 
-**Bài trước:** [Sinh testcase ←](sinh-testcase.md) | **Bài tiếp theo:** [Về trang tổng hợp →](index.md)
+---
+
+**Bài trước:** [← Bài 78: Sinh Testcase & Stress Test](sinh-testcase.md) | **Bài tiếp theo:** [Bài 80: Tổ Chức Code & Chuẩn Bị Nộp Bài →](to-chuc-code.md)

@@ -1,4 +1,4 @@
-# Bài 10: BFS & DFS - Duyệt Đồ Thị
+# Bài 31: BFS & DFS - Duyệt Đồ Thị
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - BFS, Cây DFS và ứng dụng, CP-Algorithms
@@ -2215,3 +2215,7 @@ Toàn bộ 30 bài tập BFS/DFS dưới đây được thiết kế riêng, t�
         return 0;
     }
     ```
+
+---
+
+**Bài trước:** [← Bài 30: Interval Tree Trên Tập Đoạn Thẳng](interval-tree.md) | **Bài tiếp theo:** [Bài 32: BFS 0-1 →](bfs-01.md)

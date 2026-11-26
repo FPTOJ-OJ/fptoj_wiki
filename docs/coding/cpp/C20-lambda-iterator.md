@@ -656,10 +656,10 @@ Cho mảng $n$ số nguyên và số $k$. Tìm $k$ phần tử xuất hiện nhi
 
 ## Bài viết liên quan
 
-- [C06: Hàm trong C++ →](C06-ham.md)
-- [C10: Vector nâng cao →](C10-vector-nang-cao.md)
-- [C11: sort & algorithm →](C11-sort-algorithm.md)
+- [C19: Matrix & Grid Pattern ←](C19-matrix-pattern.md)
+- [C21: Tham chiếu nhanh →](C21-tham-chieu-nhanh.md)
 
 ---
 
-**Quay lại:** [Chương 2: C++ cho Thi Đấu](index.md)
+**Bài trước:** [C19: Matrix & Grid Pattern](C19-matrix-pattern.md)<br>
+**Bài tiếp theo:** [C21: Tham chiếu nhanh →](C21-tham-chieu-nhanh.md)

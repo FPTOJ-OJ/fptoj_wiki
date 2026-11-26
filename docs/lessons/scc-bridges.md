@@ -1,4 +1,4 @@
-# Bài 40: SCC & Cầu & Khớp - Thành phần liên thông mạnh!
+# Bài 81: SCC & Cầu & Khớp - Thành phần liên thông mạnh!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây DFS, CP-Algorithms
@@ -856,35 +856,127 @@ graph LR
 
 Tập đỉnh mà giữa bất kỳ 2 đỉnh nào, tồn tại **≥ 2 đường đi cạnh-disjoint** (không chia sẻ cạnh).
 
-→ Tương đương: trong 2ECC, **không có cầu** nào.
-
-Cách tìm: Xóa tất cả cầu, mỗi thành phần liên thông còn lại là 1 block 2ECC.
+→ Tương đương: trong 2ECC, **không có cầu** nào. Sau khi xóa tất cả cầu (giữ mảng đánh dấu `isBridgeEdge[edgeId]` tìm được từ bước Tarjan tìm cầu ở mục 5), mỗi thành phần liên thông còn lại là một block 2ECC.
 
 === "C++"
 
     ```cpp
-    // DSU gộp các đỉnh không bị tách bởi cầu
-    // Sau khi tìm cầu, duyệt lại DFS bỏ qua cầu
-    int comp[MAXN];  // comp[u] = id của 2ECC chứa u
+    // Sau khi tìm được các cạnh cầu và lưu đánh dấu vào isBridgeEdge[eid]
+    vector<pair<int, int>> adjEdge[MAXN]; // {đỉnh kề v, chỉ số cạnh eid}
+    bool isBridgeEdge[MAXM];
+    int comp2ECC[MAXN], compCnt = 0;
 
-    void dfs2ecc(int u, int id, int parent) {
-        comp[u] = id;
-        for (int v : adj[u]) {
-            if (v == parent || comp[v] != 0) continue;
-            // Kiểm tra (u,v) có phải cầu không
-            if (isBridge(u, v)) continue;
-            dfs2ecc(v, id, u);
+    void dfs2ecc(int u, int id) {
+        comp2ECC[u] = id;
+        for (auto [v, eid] : adjEdge[u]) {
+            if (isBridgeEdge[eid] || comp2ECC[v] != 0) continue;
+            dfs2ecc(v, id);
         }
     }
     ```
 
-### 7.2. 2-Vertex-Connected Components (Biconnected Components)
+=== "Python"
 
-Tập đỉnh mà giữa bất kỳ 2 đỉnh nào, tồn tại **≥ 2 đường đi vertex-disjoint** (không chia sẻ đỉnh ngoài 2 đỉnh đầu).
+    ```python
+    def build_2ecc(n, adj_edges, is_bridge):
+        """Gán nhãn comp[u] cho từng thành phần song liên thông cạnh (2ECC)."""
+        comp = [0] * (n + 1)
+        cid = 0
+        for s in range(1, n + 1):
+            if comp[s] != 0:
+                continue
+            cid += 1
+            stack = [s]
+            comp[s] = cid
+            while stack:
+                u = stack.pop()
+                for v, eid in adj_edges[u]:
+                    if not is_bridge[eid] and comp[v] == 0:
+                        comp[v] = cid
+                        stack.append(v)
+        return cid, comp
+    ```
 
-→ Tương đương: trong biconnected component, **không có khớp** nào.
+### 7.2. 2-Vertex-Connected Components (Biconnected Components & Block-Cut Tree)
 
-Cách tìm: Dùng DFS + stack cạnh. Khi phát hiện khớp, pop stack cho đến khi lấy được tất cả cạnh trong block.
+Một **Biconnected Component (BCC)** là tập con cực đại các cạnh sao cho đồ thị con không có đỉnh khớp (giữa hai đỉnh bất kỳ luôn có $\ge 2$ đường đi không chung đỉnh trung gian).
+
+- **Ý tưởng:** Trong lúc chạy Tarjan, mỗi khi đi qua cạnh xuôi $(u, v)$ (chưa thăm) hoặc cạnh ngược $(u, v)$ (đã thăm trước đó ở tổ tiên), ta đẩy cạnh $(u, v)$ vào `edgeStack`. Khi `low[v] >= num[u]` ($u$ là điểm khớp chia tách nhánh con $v$), ta lần lượt lấy các cạnh từ `edgeStack` ra cho tới khi gặp lại cạnh $(u, v)$: toàn bộ các cạnh vừa lấy tạo thành **một BCC hoàn chỉnh**.
+- **Block-Cut Tree:** Nếu nối mỗi đỉnh khớp với mọi BCC chứa nó (hoặc tổng quát nối mỗi đỉnh gốc và mỗi node-BCC), ta thu được một cây mới gọi là *Block-Cut Tree*, giúp giải bài toán đường đi né đỉnh khớp trong $O(N \log N)$.
+
+=== "C++"
+
+    ```cpp
+    vector<pair<int, int>> edgeStack;
+    vector<vector<pair<int, int>>> bccs; // Danh sách các BCC (mỗi BCC là tập cạnh)
+
+    void dfsBCC(int u, int p, int& timer, vector<int>& num, vector<int>& low,
+                const vector<vector<int>>& adj) {
+        num[u] = low[u] = ++timer;
+        for (int v : adj[u]) {
+            if (v == p) continue;
+            if (num[v] == 0) {
+                edgeStack.push_back({u, v});
+                dfsBCC(v, u, timer, num, low, adj);
+                low[u] = min(low[u], low[v]);
+                if (low[v] >= num[u]) {
+                    vector<pair<int, int>> comp;
+                    while (true) {
+                        auto e = edgeStack.back();
+                        edgeStack.pop_back();
+                        comp.push_back(e);
+                        if (e.first == u && e.second == v) break;
+                    }
+                    bccs.push_back(move(comp));
+                }
+            } else if (num[v] < num[u]) {
+                // Cạnh ngược (back edge): chỉ đẩy một lần khi v là tổ tiên thực sự
+                edgeStack.push_back({u, v});
+                low[u] = min(low[u], num[v]);
+            }
+        }
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def find_bcc(n, adj):
+        """Tìm toàn bộ Biconnected Components (trả về danh sách tập cạnh của mỗi BCC)."""
+        num = [0] * (n + 1)
+        low = [0] * (n + 1)
+        timer = 0
+        edge_stack = []
+        bccs = []
+
+        def dfs(u, p):
+            nonlocal timer
+            timer += 1
+            num[u] = low[u] = timer
+            for v in adj[u]:
+                if v == p:
+                    continue
+                if num[v] == 0:
+                    edge_stack.append((u, v))
+                    dfs(v, u)
+                    low[u] = min(low[u], low[v])
+                    if low[v] >= num[u]:
+                        comp = []
+                        while True:
+                            e = edge_stack.pop()
+                            comp.append(e)
+                            if e == (u, v):
+                                break
+                        bccs.append(comp)
+                elif num[v] < num[u]:
+                    edge_stack.append((u, v))
+                    low[u] = min(low[u], num[v])
+
+        for i in range(1, n + 1):
+            if num[i] == 0:
+                dfs(i, -1)
+        return bccs
+    ```
 
 ### 7.3. Tìm cầu trong mạng
 
@@ -986,9 +1078,9 @@ if (parent == -1 && childCount >= 2)  // ← Phải kiểm tra cả 2 điều ki
 
 ## Bài viết liên quan
 
-- [Bài 10: BFS & DFS - Duyệt đồ thị](bfs-dfs-do-thi.md)
-- [Bài 13: MST, Dijkstra, Topo Sort](mst-dijkstra-topo-sort.md)
-- [Bài 8b: DSU - Disjoint Set Union](dsu.md)
+- [Bài 31: BFS & DFS - Duyệt đồ thị](bfs-dfs-do-thi.md)
+- [Bài 33: MST, Dijkstra, Topo Sort](mst-dijkstra-topo-sort.md)
+- [Bài 17: DSU - Disjoint Set Union](dsu.md)
 
 ---
 
@@ -1003,4 +1095,6 @@ if (parent == -1 && childCount >= 2)  // ← Phải kiểm tra cả 2 điều ki
 - [USACO Guide - BCCs](https://usaco.gold/adv/BCC-2CC)
 - [YouTube - Bridges and Articulation Points (Tushar Roy)](https://www.youtube.com/watch?v=2kRElkFdgG0)
 
-**Bài tiếp theo:** [Bài 41: Network Flow](network-flow.md)
+---
+
+**Bài trước:** [← Bài 80: Tổ Chức Code & Chuẩn Bị Nộp Bài](to-chuc-code.md) | **Bài tiếp theo:** [Bài 82: Network Flow →](network-flow.md)

@@ -1,4 +1,4 @@
-# Bài 48: Digit DP
+# Bài 91: Digit DP
 
 > **Tác giả:** FPTOJ Team<br>
 > **Tham khảo:** CP-Algorithms, USACO Guide
@@ -1061,4 +1061,4 @@ Nếu vượt quá, cân nhắc giảm dimensions hoặc dùng $map$ thay vì m�
 
 ---
 
-> **Bài tiếp theo:** [Bài 49: Interval DP](interval-dp.md)
+**Bài trước:** [← Bài 90: DP trên cây](dp-on-trees.md) | **Bài tiếp theo:** [Bài 92: Interval DP →](interval-dp.md)

@@ -11,6 +11,33 @@ Trong phát triển ứng dụng, bảng hash thuận tiện để lưu trữ d�
 
 Giả sử, chúng ta được yêu cầu tìm một số lượng ống nhỏ nhất để xây dựng một đường ống với chiều dài cố định và chúng ta có 38 ống. Bằng cách chia thành hai tập – 19 và tính toán tất cả trường hợp ghép ống có thể ở mỗi tập, chúng ta tạo ra một bảng hash kết nối giữa độ dài mà các tổ hợp ống tạo thành với số lượng ống ít nhất cần dùng. Sau đó, với mỗi tổ hợp ống được xây dựng trong một tập, chúng ta có thể tra cứu liệu có tồn tại đường ống với độ dài phù hợp ở tập bên kia để cả hai ống tạo nên một đường ống với độ dài yêu cầu với số ống là ít nhất.
 
+> **Xem thêm:** Bài giảng đầy đủ về cài đặt Chaining, Open Addressing, chống hack `unordered_map` trong C++ và bài tập tại [Hash Table (Bảng Băm)](../../lessons/hash-table.md).
+
+## Cài đặt chống hack `unordered_map` trong C++
+
+Trong thi đấu (đặc biệt trên Codeforces), `std::unordered_map` dùng hàm băm mặc định dễ bị test cố tình tạo va chạm làm suy biến xuống $O(N^2)$. Dùng `splitmix64` làm custom hash để đảm bảo $O(1)$ kỳ vọng:
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15ULL;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+        return x ^ (x >> 31);
+    }
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM =
+            chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
+// unordered_map<long long, int, custom_hash> mp;
+```
+
 ## Các tài liệu tham khảo:
 
 - [Topcoder](https://www.topcoder.com/community/data-science/data-science-tutorials/data-structures/)

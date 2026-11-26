@@ -1,4 +1,4 @@
-# Bài 21: Greedy (Tham Lam) - Chọn Tốt Nhất Mỗi Bước!
+# Bài 38: Greedy (Tham Lam) - Chọn Tốt Nhất Mỗi Bước!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Tham lam
@@ -473,8 +473,8 @@ double greedy01 = 160; // SAI
 
 ## Bài viết liên quan
 
-- [Bài 2: Thuật toán sắp xếp](thuat-toan-sap-xep.md)
-- [Bài 12: Quy hoạch động](quy-hoach-dong.md)
+- [Bài 3: Thuật toán sắp xếp](thuat-toan-sap-xep.md)
+- [Bài 40: Quy hoạch động](quy-hoach-dong.md)
 
 ## Tài liệu tham khảo
 
@@ -483,4 +483,6 @@ double greedy01 = 160; // SAI
 - [GeeksforGeeks - Greedy Algorithms](https://www.geeksforgeeks.org/dsa/greedy-algorithms/)
 - [USACO Guide - Greedy Algorithms](https://usaco.guide/bronze/intro-greedy)
 
-**Bài tiếp theo:** [Hình học cơ bản →](hinh-hoc-co-ban.md)
+---
+
+**Bài trước:** [← Bài 37: LCA & Binary Lifting](lca-binary-lifting.md) | **Bài tiếp theo:** [Bài 39: Matroid →](matroid.md)

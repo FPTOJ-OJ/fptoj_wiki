@@ -105,7 +105,7 @@ Tác giả xin được chia sẻ với các bạn các template trình chấm d
 ## Template dành cho C++:
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 // Tên chương trình
 const string NAME = "template";
@@ -113,7 +113,7 @@ const string NAME = "template";
 const int NTEST = 100;
 
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
-## define rand rd
+#define rand rd
 
 // Viết lại hàm random để sử dụng cho thuận tiện. Hàm random này sinh ngẫu nhiên số trong phạm vi long long, số sinh ra >= l và <= h.
 long long Rand(long long l, long long h) {

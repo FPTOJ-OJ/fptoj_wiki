@@ -107,7 +107,7 @@ Tuy nhiên, thuật toán này có một nhược điểm, đó là **gọi lạ
 ### Ví dụ cài đặt thuật toán cho trò chơi bốc sỏi
 Đầu tiên, ta cần thêm các thư viện cần thiết, cũng như khai báo mảng $dp$ để nhớ kết quả của những trạng thái đã đệ quy.
 ```c++
-## include<bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -280,7 +280,7 @@ Cũng cần chú ý rằng các trò chơi được xem xét trong phần địn
 **Trò chơi tổng**: Cho trò chơi $G_1(S_1,Q_1, T_1)$ và $G_2(S_2,Q_2,T_2)$ với $S_i,Q_i, T_i$ là tập trạng thái, tập các bước di chuyển hợp lệ và tập trạng thái kết thúc ứng với trò chơi $1$ và $2$, trò chơi tổng $G = G_1 + G_2$ là trò chơi có:
 - Tập trạng thái $S = S_1 \times S_2$, tức trạng thái của trò chơi tổng là các cặp trạng thái $(x_1, x_2)$ với $x_1$ là trạng thái thuộc $S_1$ và $x_2$ là trạng thái thuộc $S_2$.
 - Tập các bước di chuyển hợp lệ $Q = (Q_1\times \{x_2\}) \cup (\{x_1\} \times Q_2)$, nghĩa là một bước di chuyển hợp lệ trong trò chơi tổng sẽ tương ứng với việc thực hiện một bước di chuyển hợp lệ trong trò chơi con $G_1$ hoặc $G_2$ và giữ nguyên trạng thái trò chơi còn lại.
-- Tập các trạng thái kết thúc $$T = \{ (x_1, x_2) : x_1 \in T_1 \wedge x_2 \in T_2 \}$$, nghĩa là trạng thái kết thúc của trò chơi tổng là trạng thái mà cả hai trò chơi $G_1$ và $G_2$ đều kết thúc.
+- Tập các trạng thái kết thúc $$T = \{ (x_1, x_2) : x_1 \in T_1 \wedge x_2 \in T_2 \}$$, nghĩa là trạng thái kết thúc của trò chơi tổng là trạng thái mà cả hai trò chơi$G_1$và$G_2$ đều kết thúc.
 
 > Ví dụ: trò chơi Nim có $3$ đống sỏi có thể xem như trò chơi tổng của ba trò chơi $G_1$, $G_2$ và $G_3$, với $G_1$ là trò chơi chỉ bốc ở đống sỏi thứ $1$, $G_2$ là trò chơi chỉ bốc ở đống sỏi thứ $2$, $G_3$ là trò chơi chỉ bốc ở đống sỏi thứ $3$.
 

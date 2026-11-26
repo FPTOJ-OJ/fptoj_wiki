@@ -1,4 +1,4 @@
-# Bài 39: Tổ Chức Code & Chuẩn Bị Nộp Bài
+# Bài 80: Tổ Chức Code & Chuẩn Bị Nộp Bài
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung:** Kỹ năng tổ chức code, quản lý thư mục, chuẩn bị nộp USB
@@ -128,17 +128,18 @@ echo Ket qua: !pass! PASS, !fail! FAIL
 pause
 ```
 
-> **Linux/macOS (`run.sh`)** — cùng logic, khác cú pháp:
-> ```bash
-> #!/bin/bash
-> g++ -std=c++17 -O2 -Wall -o bai1 bai1.cpp || { echo "COMPILE ERROR!"; exit 1; }
-> for f in test/*.in; do
->   base=$(basename "$f" .in)
->   ./bai1 < "$f" > test/temp.out
->   if diff -w "test/$base.out" test/temp.out > /dev/null; then echo "[PASS] $base";
->   else echo "[FAIL] $base"; fi
-> done
-> ```
+**Linux/macOS (`run.sh`)** — cùng logic, khác cú pháp:
+
+```bash
+#!/bin/bash
+g++ -std=c++17 -O2 -Wall -o bai1 bai1.cpp || { echo "COMPILE ERROR!"; exit 1; }
+for f in test/*.in; do
+  base=$(basename "$f" .in)
+  ./bai1 < "$f" > test/temp.out
+  if diff -w "test/$base.out" test/temp.out > /dev/null; then echo "[PASS] $base";
+  else echo "[FAIL] $base"; fi
+done
+```
 
 ---
 
@@ -492,4 +493,6 @@ Sau khi đã setup xong, thử nộp bài trên các nền tảng để quen wor
 - [VNOI Wiki - Kỹ năng thi](https://wiki.vnoi.info/algo/skill/Ki-nang-thi-cu)
 - [USACO Guide - Contest Strategy](https://usaco.guide/general/contests)
 
-**Bài trước:** [Debug & Mẹo ←](debug-meo.md) | **Bài tiếp theo:** [Về trang tổng hợp →](index.md)
+---
+
+**Bài trước:** [← Bài 79: Debug & Mẹo Thi Đấu](debug-meo.md) | **Bài tiếp theo:** [Bài 81: SCC & Cầu & Khớp →](scc-bridges.md)

@@ -116,7 +116,7 @@ Ví dụ các bước giải bài toán tìm cây khung nhỏ nhất với thu�
 3 4 3
 4 1 4
 */
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Cấu trúc để lưu các cạnh đồ thị
@@ -239,9 +239,9 @@ Trong chứng minh này, mình có quy ước sử dụng một số kí hiệu:
 * $A - B$ : tập hợp các phần tử thuộc $A$ mà không thuộc $B$
 
 Giờ cùng đi vào chi tiết chứng minh nhé (づ◔ ͜ʖ◔)づ
-- Gọi $T$ là cây khung đầu ra của thuật toán Kruskal và $T^ \times $ là một cây khung nhỏ nhất, ta sẽ chứng minh tổng trọng số trên $T$ và $T^ \times $ bằng nhau : $c(T)$ = $c(T^ \times )$
-- Nếu $c(T)$ = $c(T^ \times )$ ⇒ hiển nhiên đúng
-- Nếu $c(T)$ ≠ $c(T^ \times )$ gọi $(u, v)$ là cạnh $\in$ $T$ mà $\notin$ $T^ \times $ hay thuộc $T - T^ \times $. Gọi $S$ là thành phần liên thông chứa u tại thời điểm $(u, v)$ được thêm vào $T$.
+- Gọi $T$ là cây khung đầu ra của thuật toán Kruskal và $T^*$ là một cây khung nhỏ nhất, ta sẽ chứng minh tổng trọng số trên $T$ và $T^*$ bằng nhau : $c(T)$ = $c(T^*)$
+- Nếu $c(T)$ = $c(T^*)$ ⇒ hiển nhiên đúng
+- Nếu $c(T)$ ≠ $c(T^*)$ gọi $(u, v)$ là cạnh $\in$ $T$ mà $\notin$ $T^*$ hay thuộc $T - T^*$. Gọi $S$ là thành phần liên thông chứa u tại thời điểm $(u, v)$ được thêm vào $T$.
     **Nhận xét:** 
     Dễ thấy nếu xóa cạnh $(u, v)$ trên $T$ thì sẽ tách thành 2 **thành phần liên thông** $S$ và $G - S$. 
     Đây là một **lát cắt**, ta có thể thêm bất cứ cạnh nào nối giữa 2 **thành phần liên thông** này để tạo thành một cây mới ⇒ $(u, v)$ $\in$ lát cắt $(S, G - S)$.
@@ -250,11 +250,11 @@ Giờ cùng đi vào chi tiết chứng minh nhé (づ◔ ͜ʖ◔)づ
     Ta sẽ chứng minh $(u, v)$ thuộc **lát cắt nhỏ nhất** $(S, G - S)$
     - Nếu tồn tại đường đi trọng số $e$ từ $S$ đến $G - S$ có trọng số nhỏ hơn $(u, v)$, thuật toán kruskal sẽ chọn $e$ thay vì $(u, v)$ ⇒ vô lý.
     ⇒ *Ta khẳng định $(u, v)$ có **trọng số nhỏ nhất** trong các cạnh từ $S$ đến $(G - S)$.* **(1)**
-    - Mặt khác, bởi vì $T^ \times $ là 1 cây khung nhỏ nhất nên  có một đường từ $S$ tới $G - S$, gọi cạnh thuộc đường này là $(x, y)$. Xét cây khung :
-    ${T^ \times }' = T^ \times  \cup (u, v) - (x, y)$ ⇒ $c({T^ \times }') = c(T^ \times ) + c(u, v) - c(x, y)$
-    - Do theo **(1)** có:  $c(u, v) ≤ c(x, y)$ nên $c({T^ \times }') ≤ c(T^ \times )$ mà $T^ \times $ là cây khung nhỏ nhất ⇒ $c({T^ \times }')$ = $c(T^ \times )$ và ${T^ \times }'$ cũng là **cây khung nhỏ nhất** ⇒ $|T - {T^ \times }'|$ = $|T - T^ \times | - 1$
-    ***Ý nghĩa :** Như vậy ta đã biến đổi được **cây khung nhỏ nhất** ${T^ \times }$ thành cây khung ${T^ \times }'$ cũng là **cây khung nhỏ nhất** mà làm giảm số cạnh khác nhau của $T$ và ${T^ \times }$ đi 1 cạnh*
-    - Lặp lại cách chứng minh với mỗi cạnh thuộc $T - {T^ \times }'$, ta sẽ biến đổi được ${T^ \times }'$ thành ${T}$, hay nói cách khác đã đã biến đổi cây khung nhỏ nhất ban đầu về cây khung đầu ra của Kruskal : $c(T) = c(T^ \times )$.
+    - Mặt khác, bởi vì $T^*$ là 1 cây khung nhỏ nhất nên  có một đường từ $S$ tới $G - S$, gọi cạnh thuộc đường này là $(x, y)$. Xét cây khung :
+    ${T^*}' = T^* \cup (u, v) - (x, y)$ ⇒ $c({T^*}') = c(T^*) + c(u, v) - c(x, y)$
+    - Do theo **(1)** có:  $c(u, v) ≤ c(x, y)$ nên $c({T^*}') ≤ c(T^*)$ mà $T^*$ là cây khung nhỏ nhất ⇒ $c({T^*}')$ = $c(T^*)$ và ${T^*}'$ cũng là **cây khung nhỏ nhất** ⇒ $|T - {T^*}'|$ = $|T - T^*| - 1$
+    ***Ý nghĩa :** Như vậy ta đã biến đổi được **cây khung nhỏ nhất** ${T^*}$ thành cây khung ${T^*}'$ cũng là **cây khung nhỏ nhất** mà làm giảm số cạnh khác nhau của $T$ và ${T^*}$ đi 1 cạnh*
+    - Lặp lại cách chứng minh với mỗi cạnh thuộc $T - {T^*}'$, ta sẽ biến đổi được ${T^*}'$ thành ${T}$, hay nói cách khác đã đã biến đổi cây khung nhỏ nhất ban đầu về cây khung đầu ra của Kruskal : $c(T) = c(T^*)$.
 
 **Đánh giá độ phức tạp thuật toán:** 
 Gọi $n$ là số đỉnh, $m$ là số cạnh của đồ thị
@@ -293,10 +293,10 @@ Ví dụ các bước giải bài toán tìm cây khung nhỏ nhất với thu�
 3 4 3
 4 1 4
 */
-## include "bits/stdc++.h"
+#include "bits/stdc++.h"
 using namespace std;
-## define fi first
-## define se second
+#define fi first
+#define se second
 
 const int N = 1e5 + 5;
 const int INF = 1e9;
@@ -415,7 +415,7 @@ Chính là độ phức tạp của thuật toán tìm cây khung nhỏ nhất m
 3 4 3
 4 1 4
 */
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 struct Edge {
@@ -499,11 +499,11 @@ Cho đồ thị vô hướng $G$ gồm $n$ đỉnh và $m$ cạnh. Yêu cầu v�
 3 2 9
 5 6 29
 */
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-## define fi first
-## define se second
-## define bit(x, k) (1ll&(x >> k))
+#define fi first
+#define se second
+#define bit(x, k) (1ll&(x >> k))
 
 using ll = long long;
 const int N = 2e5 + 5;
@@ -665,10 +665,10 @@ Cho đồ thị vô hướng có trọng số $G$ gồm $n$ đỉnh và $m$ cạ
 2 4 2
 3 4 1
 */
-## include "bits/stdc++.h"
+#include "bits/stdc++.h"
 using namespace std;
-## define fi first
-## define se second
+#define fi first
+#define se second
 
 const int N = 1e5 + 5;
 

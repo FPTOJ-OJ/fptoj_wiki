@@ -1,4 +1,4 @@
-# Bài 2: Thuật Toán Sắp Xếp - Ai Là Vua Tốc Độ?
+# Bài 3: Thuật Toán Sắp Xếp - Ai Là Vua Tốc Độ?
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán sắp xếp
@@ -902,22 +902,22 @@ Hãy thử sức với các bài tập sắp xếp và tối ưu thuật toán s
 
 | Bài | Nền tảng | Độ khó | Mục đích |
 |---|---|---|---|
-| [Sắp xếp dãy số](https://fptoj.com/problem/sort-basic) | FPTOJ | ⭐ | Làm quen với sắp xếp mảng cơ bản tăng dần ~O(N \log N)~ |
+| [Sắp xếp dãy số](https://fptoj.com/problem/sort-basic) | FPTOJ | ⭐ | Làm quen với sắp xếp mảng cơ bản tăng dần $O(N \log N)$ |
 | [Sắp xếp giảm dần](https://fptoj.com/problem/sort-desc) | FPTOJ | ⭐ | Thực hành sắp xếp mảng theo chiều giảm dần |
 | [Số lượng giá trị khác nhau](https://fptoj.com/problem/sort-distinct) | FPTOJ | ⭐⭐ | Sắp xếp mảng để đếm các phần tử khác nhau hiệu quả |
 | [Xếp hạng học sinh](https://fptoj.com/problem/sort-points) | FPTOJ | ⭐⭐ | Thực hành viết hàm so sánh (comparator) tùy biến cho cấu trúc dữ liệu |
 | [Sắp xếp chẵn lẻ](https://fptoj.com/problem/sort-parity) | FPTOJ | ⭐⭐ | Rèn luyện kỹ năng viết custom comparator phức tạp theo điều kiện |
 | [Tìm số trung vị](https://fptoj.com/problem/sort-median) | FPTOJ | ⭐⭐ | Tìm phần tử đứng giữa mảng sau khi đã sắp xếp |
-| [Cặp số gần nhau nhất](https://fptoj.com/problem/sort-closest) | FPTOJ | ⭐⭐⭐ | Tối ưu hóa việc tìm hiệu nhỏ nhất từ ~O(N^2)~ về ~O(N \log N)~ |
+| [Cặp số gần nhau nhất](https://fptoj.com/problem/sort-closest) | FPTOJ | ⭐⭐⭐ | Tối ưu hóa việc tìm hiệu nhỏ nhất từ $O(N^2)$ về $O(N \log N)$ |
 | [Lịch họp tối đa](https://fptoj.com/problem/sort-meetings) | FPTOJ | ⭐⭐⭐ | Ứng dụng sắp xếp trong giải thuật Tham lam (Greedy) chọn khoảng không giao nhau |
 | [Ghép cặp mũ bảo hiểm](https://fptoj.com/problem/sort-pairs) | FPTOJ | ⭐⭐⭐⭐ | Phối hợp Sắp xếp tham lam và kỹ thuật Hai con trỏ (Two Pointers) |
 | [Đếm số cặp nghịch thế](https://fptoj.com/problem/sort-inversions) | FPTOJ | ⭐⭐⭐⭐⭐ | Ứng dụng giải thuật chia để trị của Merge Sort để đếm số cặp nghịch thế |
 
 ## Bài viết liên quan
 
-- [Bài 1: Độ phức tạp thời gian](do-phuc-tap-thoi-gian.md)
-- [Bài 4: Kĩ thuật hai con trỏ](ky-thuat-hai-con-tro.md)
-- [Bài 21: Greedy](greedy.md)
+- [Bài 2: Độ phức tạp thời gian](do-phuc-tap-thoi-gian.md)
+- [Bài 8: Kĩ thuật hai con trỏ](ky-thuat-hai-con-tro.md)
+- [Bài 38: Greedy](greedy.md)
 
 ## Tài liệu tham khảo
 
@@ -927,4 +927,6 @@ Hãy thử sức với các bài tập sắp xếp và tối ưu thuật toán s
 - [YouTube - Sorting Algorithms Visualized](https://www.youtube.com/watch?v=kPRA0W1kECg)
 - [Toptal - Sorting Algorithms Animations](https://www.toptal.com/developers/sorting-algorithms)
 
-**Bài tiếp theo:** [Tìm kiếm nhị phân →](tim-kiem-nhi-phan.md)
+---
+
+**Bài trước:** [← Bài 2: Độ Phức Tạp Thời Gian](do-phuc-tap-thoi-gian.md) | **Bài tiếp theo:** [Bài 4: Tìm Kiếm Nhị Phân →](tim-kiem-nhi-phan.md)

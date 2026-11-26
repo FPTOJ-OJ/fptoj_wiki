@@ -1,4 +1,4 @@
-# Đường Đi - Chu Trình Euler
+# Bài 36: Đường Đi - Chu Trình Euler
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - Eulerian Path
@@ -140,7 +140,142 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
 
 ## Code minh họa
 
-### Đường đi Euler trên đồ thị có hướng
+### 1. Đường đi / Chu trình Euler trên đồ thị vô hướng
+
+> Với đồ thị vô hướng, mỗi cạnh $(u, v)$ xuất hiện trong cả `adj[u]` và `adj[v]`, vì vậy ta gắn cho mỗi cạnh một chỉ số `id` và dùng mảng `used[id]` để không đi ngược lại cạnh vừa đi qua.
+
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+
+        int n, m;
+        cin >> n >> m;
+
+        vector<vector<pair<int,int>>> adj(n); // {đỉnh kề, chỉ số cạnh}
+        vector<int> deg(n, 0);
+        for (int i = 0; i < m; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back({v, i});
+            adj[v].push_back({u, i});
+            deg[u]++;
+            deg[v]++;
+        }
+
+        int odd = 0, start = -1, anyEdge = -1;
+        for (int i = 0; i < n; i++) {
+            if (deg[i] > 0 && anyEdge == -1) anyEdge = i;
+            if (deg[i] % 2 != 0) {
+                odd++;
+                if (start == -1) start = i;
+            }
+        }
+
+        if (odd != 0 && odd != 2) {
+            cout << "Khong ton tai duong di Euler\n";
+            return 0;
+        }
+        if (m == 0) { cout << "0\n"; return 0; }
+        if (start == -1) start = anyEdge; // Chu trình: chọn đỉnh có ít nhất 1 cạnh
+
+        vector<int> ptr(n, 0), path;
+        vector<bool> used(m, false);
+        stack<int> stk;
+        stk.push(start);
+
+        while (!stk.empty()) {
+            int u = stk.top();
+            while (ptr[u] < (int)adj[u].size() && used[adj[u][ptr[u]].second]) ptr[u]++;
+            if (ptr[u] < (int)adj[u].size()) {
+                auto [v, id] = adj[u][ptr[u]++];
+                used[id] = true;
+                stk.push(v);
+            } else {
+                path.push_back(u);
+                stk.pop();
+            }
+        }
+
+        // Phải đi qua đủ m cạnh (tức path.size() == m + 1) để đảm bảo đồ thị liên thông
+        if ((int)path.size() != m + 1) {
+            cout << "Khong ton tai duong di Euler\n";
+            return 0;
+        }
+        reverse(path.begin(), path.end());
+        for (int v : path) cout << v << " ";
+        cout << "\n";
+        return 0;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    import sys
+    input = sys.stdin.readline
+
+    n, m = map(int, input().split())
+    adj = [[] for _ in range(n)]
+    deg = [0] * n
+    for eid in range(m):
+        u, v = map(int, input().split())
+        adj[u].append((v, eid))
+        adj[v].append((u, eid))
+        deg[u] += 1
+        deg[v] += 1
+
+    odd = 0
+    start = -1
+    any_edge = -1
+    for i in range(n):
+        if deg[i] > 0 and any_edge == -1:
+            any_edge = i
+        if deg[i] % 2 == 1:
+            odd += 1
+            if start == -1:
+                start = i
+
+    if odd not in (0, 2):
+        print("Khong ton tai duong di Euler")
+        sys.exit(0)
+    if m == 0:
+        print(0)
+        sys.exit(0)
+    if start == -1:
+        start = any_edge
+
+    ptr = [0] * n
+    used = [False] * m
+    stack = [start]
+    path = []
+
+    while stack:
+        u = stack[-1]
+        while ptr[u] < len(adj[u]) and used[adj[u][ptr[u]][1]]:
+            ptr[u] += 1
+        if ptr[u] < len(adj[u]):
+            v, eid = adj[u][ptr[u]]
+            ptr[u] += 1
+            used[eid] = True
+            stack.append(v)
+        else:
+            path.append(u)
+            stack.pop()
+
+    if len(path) != m + 1:
+        print("Khong ton tai duong di Euler")
+    else:
+        path.reverse()
+        print(*path)
+    ```
+
+### 2. Đường đi Euler trên đồ thị có hướng
 
 === "C++"
 
@@ -167,9 +302,10 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
         }
 
         // Bước 4: kiểm tra điều kiện đường đi Euler có hướng
-        int start = -1, end = -1; // start: out-in=1; end: in-out=1
+        int start = -1, end = -1, anyEdge = -1; // start: out-in=1; end: in-out=1
         bool valid = true;
         for (int i = 0; i < n; i++) {
+            if (out_deg[i] > 0 && anyEdge == -1) anyEdge = i;
             if (out_deg[i] - in_deg[i] == 1) { // Bước 5: ứng viên đỉnh đầu
                 if (start != -1) { valid = false; break; } // Bước 6: quá 1 đỉnh đầu -> loại
                 start = i;
@@ -186,8 +322,8 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
             cout << "Khong ton tai duong di Euler\n";
             return 0;
         }
-
-        if (start == -1) start = 0; // Bước 9: không có đỉnh lệch -> chu trình, bắt đầu ở 0
+        if (m == 0) { cout << "0\n"; return 0; }
+        if (start == -1) start = anyEdge; // Bước 9: không có đỉnh lệch -> chu trình, bắt đầu ở đỉnh có cạnh
 
         // Bước 10: thuật toán Hierholzer dùng ngăn xếp
         vector<int> path; // Bước 11: chứa các đỉnh theo thứ tự ngược lúc quay lui
@@ -210,6 +346,12 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
             }
         }
 
+        // Kiểm tra liên thông yếu: phải đi qua đủ m cạnh (path.size() == m + 1)
+        if ((int)path.size() != m + 1) {
+            cout << "Khong ton tai duong di Euler\n";
+            return 0;
+        }
+
         reverse(path.begin(), path.end()); // Bước 18: đảo lại vì ghi theo thứ tự quay lui
 
         for (int v : path) cout << v << " ";
@@ -221,7 +363,6 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
 === "Python"
 
     ```python
-    from collections import deque
     import sys
     input = sys.stdin.readline
 
@@ -238,9 +379,11 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
         in_deg[v] += 1
 
     # Bước 4: kiểm tra điều kiện (1 đỉnh đầu out-in=1, 1 đỉnh cuối in-out=1)
-    start = end = -1
+    start = end = any_edge = -1
     valid = True
     for i in range(n):
+        if out_deg[i] > 0 and any_edge == -1:
+            any_edge = i
         if out_deg[i] - in_deg[i] == 1: # Bước 5: ứng viên đỉnh đầu
             if start != -1:
                 valid = False
@@ -257,10 +400,12 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
 
     if not valid:
         print("Khong ton tai duong di Euler")
-        exit()
-
-    if start == -1: # Bước 8: không lệch -> chu trình, bắt đầu ở 0
-        start = 0
+        sys.exit(0)
+    if m == 0:
+        print(0)
+        sys.exit(0)
+    if start == -1: # Bước 8: không lệch -> chu trình, bắt đầu ở đỉnh có cạnh
+        start = any_edge
 
     # Bước 9: thuật toán Hierholzer dùng ngăn xếp
     for i in range(n): # Bước 10: sắp xếp để ra thứ tự từ điển
@@ -279,8 +424,11 @@ Hierholzer tối ưu hơn Fleury vì không cần kiểm tra cầu.
             path.append(u)
             stack.pop()
 
-    path.reverse() # Bước 17: đảo lại vì ghi lúc quay lui
-    print(*path)
+    if len(path) != m + 1:
+        print("Khong ton tai duong di Euler")
+    else:
+        path.reverse() # Bước 17: đảo lại vì ghi lúc quay lui
+        print(*path)
     ```
 
 ---
@@ -351,3 +499,7 @@ for (int v : path) cout << v << " ";
 | [euler-de-bruijn](https://fptoj.com/problem/euler-de-bruijn) | FPTOJ | ⭐⭐⭐⭐ | Chuỗi De Bruijn |
 | [euler-word-chain](https://fptoj.com/problem/euler-word-chain) | FPTOJ | ⭐⭐⭐⭐ | Sắp xếp chuỗi từ tiếng Anh |
 | [euler-postman](https://fptoj.com/problem/euler-postman) | FPTOJ | ⭐⭐⭐⭐⭐ | Người đưa thư Trung Hoa |
+
+---
+
+**Bài trước:** [← Bài 35: SPFA (Shortest Path Faster Algorithm)](spfa.md) | **Bài tiếp theo:** [Bài 37: LCA & Binary Lifting →](lca-binary-lifting.md)

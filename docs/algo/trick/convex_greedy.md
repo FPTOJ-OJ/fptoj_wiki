@@ -127,7 +127,7 @@ Bởi thế, ta có thể dùng ý tưởng tham lam được đề cập ở ph
 ### Cài đặt
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
  
 struct carrot {
@@ -201,7 +201,7 @@ và vế phải giảm dần khi $x$ tăng dần. Vì thế, ta có thể dùng 
 Một số lưu ý khi cài đặt thuật toán trên: sẽ có thể tồn tại giá trị $m$ mà số lượng chi phí tăng $< m$ bé hơn $k$, nhưng số lượng chi phí tăng $\le m$ thì lại lớn hơn $k$ (vì có thể có nhiều chi phí tăng đúng bằng $m$). Ta cần phải cẩn thận khi cài đặt trường hợp này.
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 const long long INF = 4E18;
@@ -347,7 +347,7 @@ Vì thế, bài toán có thể được giải với độ phức tạp $O(n (\
 Ở đây mình không sử dụng $\epsilon$; thay vào đó, điều kiện thoát của mình là khi tổng của $\hat{x}_u$ cách $x$ tối đa là $n$.
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 long double log_prob(long double c, long double b) {

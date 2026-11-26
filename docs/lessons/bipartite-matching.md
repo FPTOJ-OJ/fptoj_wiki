@@ -1,4 +1,4 @@
-# Bài 42: Bipartite Matching - Ghép cặp trên đồ thị hai phía
+# Bài 83: Bipartite Matching - Ghép cặp trên đồ thị hai phía
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, USACO Guide
@@ -562,23 +562,29 @@ Sau khi chạy thuật toán matching, ta tìm min vertex cover bằng BFS trên
 ```mermaid
 graph LR
     subgraph "L"
-        A["1"]
-        B["2"]
-        C["3"]
+        A["1 (đã phủ)"]
+        B["2 (chưa phủ)"]
+        C["3 (chưa phủ)"]
     end
     subgraph "R"
-        D["a"]
-        E["b"]
-        F["c"]
+        D["a (đã phủ)"]
+        E["b (chưa phủ)"]
+        F["c (chưa phủ)"]
     end
+    A ===|"ghép"| E
+    B ===|"ghép"| F
     A --- D
-    A --- E
     B --- E
-    B --- F
     C --- D
+    style A fill:#2ecc71,color:#fff
+    style D fill:#2ecc71,color:#fff
+    style B fill:#e74c3c,color:#fff
+    style C fill:#e74c3c,color:#fff
+    style E fill:#e74c3c,color:#fff
+    style F fill:#e74c3c,color:#fff
 ```
 
-Trong ví dụ trên, đỉnh xanh lá nằm trong vertex cover, đỉnh đỏ không nằm trong.
+Trong ví dụ trên (ghép đôi $1\text{-}b, 2\text{-}f$; đỉnh $3$ chưa ghép $\Rightarrow$ BFS đi từ $3 \to a$ không qua $1$), tập các đỉnh **xanh lá** ($\{1, a\}$) tạo thành Minimum Vertex Cover cỡ $2$.
 
 ### Đánh giá độ phức tạp
 
@@ -704,120 +710,85 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
     #include <bits/stdc++.h>
     using namespace std;
 
-    const int MAXN = 505;
-    const int INF = 1e9;
+    const long long INF = 1e18;
 
-    int n;
-    int cost[MAXN][MAXN];
-    int lx[MAXN], ly[MAXN];
-    int matchX[MAXN], matchY[MAXN];
-    int slack[MAXN], slackX[MAXN];
-    bool visitedX[MAXN], visitedY[MAXN];
+    // Thuật toán Hungarian O(N^3) tìm Minimum Weight Perfect Matching (chi phí nhỏ nhất)
+    // Đầu vào: ma trận cost kích thước N x N (0-indexed, chấp nhận cả trọng số âm)
+    // Trả về: {tổng chi phí nhỏ nhất, vector matchX (matchX[i] là việc gán cho người i)}
+    pair<long long, vector<int>> hungarian(const vector<vector<long long>>& cost) {
+        int n = (int)cost.size();
+        // u[1..n], v[0..n]: biến đối ngẫu (potentials) thỏa u[i] + v[j] <= cost[i-1][j-1]
+        vector<long long> u(n + 1, 0), v(n + 1, 0);
+        // p[j]: người đang ghép với việc j; way[j]: việc trước đó trên đường tăng
+        vector<int> p(n + 1, 0), way(n + 1, 0);
 
-    void hungarian() {
-        // Bước 0: lx[u] = nhãn trái (khởi tạo = max hàng), ly[v] = nhãn phải (=0)
-        for (int i = 0; i < n; i++) {
-            lx[i] = -INF;
-            ly[i] = 0;
-            matchX[i] = matchY[i] = -1;
-            for (int j = 0; j < n; j++) {
-                lx[i] = max(lx[i], cost[i][j]);
-            }
-        }
+        for (int i = 1; i <= n; i++) {
+            p[0] = i;
+            int j0 = 0;
+            vector<long long> minv(n + 1, INF);
+            vector<bool> used(n + 1, false);
 
-        for (int u = 0; u < n; u++) {
-            for (int v = 0; v < n; v++) {
-                slack[v] = INF; // Bước 1: slack[v] = khoảng cách tới cạnh tight gần nhất
-                slackX[v] = -1; // Bước 2: slackX[v] = đỉnh trái nào tạo ra slack đó
-            }
-            memset(visitedX, false, sizeof(visitedX));
-            memset(visitedY, false, sizeof(visitedY));
+            do {
+                used[j0] = true;
+                int i0 = p[j0];
+                long long delta = INF;
+                int j1 = 0;
 
-            int x, y = -1;
-            matchX[u] = -1;
-
-            queue<int> q;
-            visitedX[u] = true; // Bước 3: bắt đầu cây xen kẽ từ u chưa ghép
-            q.push(u);
-
-            while (y == -1) {
-                while (!q.empty() && y == -1) {
-                    x = q.front(); q.pop();
-                    for (int v = 0; v < n; v++) {
-                        if (visitedY[v]) continue;
-                        int gap = lx[x] + ly[v] - cost[x][v]; // Bước 4: độ lệch khỏi tight
-                        if (gap == 0) { // Bước 5: cạnh tight -> mở rộng cây
-                            visitedY[v] = true;
-                            if (matchY[v] == -1) {
-                                y = v; // Bước 6: gặp đỉnh phải trống -> có đường tăng
-                            } else {
-                                visitedX[matchY[v]] = true;
-                                q.push(matchY[v]);
-                            }
-                        } else if (slack[v] > gap) { // Bước 7: ghi nhận gap nhỏ nhất
-                            slack[v] = gap;
-                            slackX[v] = x;
+                for (int j = 1; j <= n; j++) {
+                    if (!used[j]) {
+                        long long cur = cost[i0 - 1][j - 1] - u[i0] - v[j];
+                        if (cur < minv[j]) {
+                            minv[j] = cur;
+                            way[j] = j0;
+                        }
+                        if (minv[j] < delta) {
+                            delta = minv[j];
+                            j1 = j;
                         }
                     }
                 }
 
-                if (y != -1) break;
-
-                int delta = INF; // Bước 8: delta = slack nhỏ nhất để nới nhãn
-                for (int v = 0; v < n; v++) {
-                    if (!visitedY[v]) delta = min(delta, slack[v]);
-                }
-                for (int i = 0; i < n; i++) { // Bước 9: hạ lx, nâng ly để thêm cạnh tight
-                    if (visitedX[i]) lx[i] -= delta;
-                    if (visitedY[i]) ly[i] += delta;
-                }
-                for (int v = 0; v < n; v++) {
-                    if (!visitedY[v]) slack[v] -= delta;
-                }
-
-                for (int v = 0; v < n; v++) { // Bước 10: cạnh vừa thành tight -> mở cây
-                    if (!visitedY[v] && slack[v] == 0) {
-                        visitedY[v] = true;
-                        if (matchY[v] == -1) {
-                            y = v;
-                        } else {
-                            visitedX[matchY[v]] = true;
-                            q.push(matchY[v]);
-                        }
+                for (int j = 0; j <= n; j++) {
+                    if (used[j]) {
+                        u[p[j]] += delta;
+                        v[j] -= delta;
+                    } else {
+                        minv[j] -= delta;
                     }
                 }
-            }
+                j0 = j1;
+            } while (p[j0] != 0);
 
-            while (y != -1) { // Bước 11: đảo đường tăng qua slackX để tăng matching
-                int py = matchX[slackX[y]];
-                matchX[slackX[y]] = y;
-                matchY[y] = slackX[y];
-                y = py;
-            }
+            // Truy vết đảo đường tăng để cập nhật ghép đôi
+            do {
+                int j1 = way[j0];
+                p[j0] = p[j1];
+                j0 = j1;
+            } while (j0);
         }
+
+        vector<int> matchX(n);
+        for (int j = 1; j <= n; j++) {
+            matchX[p[j] - 1] = j - 1;
+        }
+        return {-v[0], matchX};
     }
 
     int main() {
         ios_base::sync_with_stdio(false);
         cin.tie(nullptr);
 
+        int n;
         cin >> n;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+        vector<vector<long long>> cost(n, vector<long long>(n));
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
                 cin >> cost[i][j];
-            }
-        }
 
-        hungarian();
-
-        int totalCost = 0;
-        for (int i = 0; i < n; i++) {
-            totalCost += cost[i][matchX[i]];
-        }
+        auto [totalCost, matchX] = hungarian(cost);
         cout << totalCost << "\n";
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
             cout << i + 1 << " " << matchX[i] + 1 << "\n";
-        }
 
         return 0;
     }
@@ -827,76 +798,59 @@ Thuật toán Hungarian (Kuhn-Munkres) hoạt động trên nguyên lý đối n
 
     ```python
     import sys
-    from collections import deque
 
     input = sys.stdin.readline
-    INF = float('inf')
+    INF = 10**18
 
     def hungarian(cost):
+        """Thuật toán Hungarian O(N^3) tìm Minimum Weight Perfect Matching."""
         n = len(cost)
-        lx = [max(row) for row in cost]
-        ly = [0] * n
-        matchX = [-1] * n
-        matchY = [-1] * n
+        u = [0] * (n + 1)
+        v = [0] * (n + 1)
+        p = [0] * (n + 1)
+        way = [0] * (n + 1)
 
-        for u in range(n):
-            slack = [INF] * n
-            slackX = [-1] * n
-            visitedX = [False] * n
-            visitedY = [False] * n
+        for i in range(1, n + 1):
+            p[0] = i
+            j0 = 0
+            minv = [INF] * (n + 1)
+            used = [False] * (n + 1)
 
-            matchX[u] = -1
-            visitedX[u] = True
-            q = deque([u])
-            y = -1
-
-            while y == -1:
-                while q and y == -1:
-                    x = q.popleft()
-                    for v in range(n):
-                        if visitedY[v]:
-                            continue
-                        gap = lx[x] + ly[v] - cost[x][v]
-                        if gap == 0:
-                            visitedY[v] = True
-                            if matchY[v] == -1:
-                                y = v
-                            else:
-                                visitedX[matchY[v]] = True
-                                q.append(matchY[v])
-                        elif slack[v] > gap:
-                            slack[v] = gap
-                            slackX[v] = x
-
-                if y != -1:
+            while True:
+                used[j0] = True
+                i0 = p[j0]
+                delta = INF
+                j1 = 0
+                for j in range(1, n + 1):
+                    if not used[j]:
+                        cur = cost[i0 - 1][j - 1] - u[i0] - v[j]
+                        if cur < minv[j]:
+                            minv[j] = cur
+                            way[j] = j0
+                        if minv[j] < delta:
+                            delta = minv[j]
+                            j1 = j
+                for j in range(n + 1):
+                    if used[j]:
+                        u[p[j]] += delta
+                        v[j] -= delta
+                    else:
+                        minv[j] -= delta
+                j0 = j1
+                if p[j0] == 0:
                     break
 
-                delta = min(slack[v] for v in range(n) if not visitedY[v])
-                for i in range(n):
-                    if visitedX[i]:
-                        lx[i] -= delta
-                    if visitedY[i]:
-                        ly[i] += delta
-                    if not visitedY[i]:
-                        slack[i] -= delta
+            while True:
+                j1 = way[j0]
+                p[j0] = p[j1]
+                j0 = j1
+                if j0 == 0:
+                    break
 
-                for v in range(n):
-                    if not visitedY[v] and slack[v] == 0:
-                        visitedY[v] = True
-                        if matchY[v] == -1:
-                            y = v
-                        else:
-                            visitedX[matchY[v]] = True
-                            q.append(matchY[v])
-
-            while y != -1:
-                py = matchX[slackX[y]]
-                matchX[slackX[y]] = y
-                matchY[y] = slackX[y]
-                y = py
-
-        total = sum(cost[i][matchX[i]] for i in range(n))
-        return total, matchX
+        match_x = [0] * n
+        for j in range(1, n + 1):
+            match_x[p[j] - 1] = j - 1
+        return -v[0], match_x
 
     n = int(input())
     cost = [list(map(int, input().split())) for _ in range(n)]
@@ -1117,3 +1071,7 @@ flowchart TD
 - [USACO Guide - Bipartite Matching](https://usaco.guide/adv/max-flow?lang=cpp)
 - [CP-Algorithms - Hungarian Algorithm](https://cp-algorithms.com/graph/hungarian-algorithm.html)
 - [KACTL - Hopcroft-Karp](https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/HopcroftKarp.h)
+
+---
+
+**Bài trước:** [← Bài 82: Network Flow](network-flow.md) | **Bài tiếp theo:** [Bài 84: 2-SAT →](2sat.md)

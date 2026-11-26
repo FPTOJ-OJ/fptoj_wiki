@@ -206,7 +206,7 @@ Cách giải bài này cũng tương tự như những bài trước.
 Đầu tiên là phải xác định trạng thái là gì. Ở mỗi ô có nhiều nhất 2 cách có thể tới được ô đó, từ ô bên trái và ô phía trên. Do vậy, để tìm trạng thái hiện tại, ta phải tính trước các ô có thể đến được nó.
 
 Ta có công thức truy hồi sau:
-$S[i][j]=A[i][j] + max(S[i-1][j], if$ $ i>0 ; S[i][j-1], if$  $j>0)$
+$S[i][j]=A[i][j] + max(S[i-1][j], if$ $i>0 ; S[i][j-1], if$  $j>0)$
 (trong đó, $i$ là hàng, $j$ là cột, $A[i][j]$ là số táo ở ô $i,j$)
 $S[i][j]$ có thể được tính từ trái sang phải, từ trên xuống dưới, hoặc từ trên xuống, từ trái sang.
 
@@ -232,7 +232,7 @@ Phần này sẽ giới thiệu với bạn những bài toán cùng với một
 
 Cho đồ thị vô hướng $G$ có trọng số dương và $N$ đỉnh.
 
-Ban đầu bạn có số tiền là $M$. Để đi qua đỉnh $i$, bạn phải trả số tiền là $S[i]$. Và đương nhiên, nếu không đủ tiền thì bạn không đi được. Tìm đường đi ngắn nhất từ 1 tới $N$ thỏa mãn tiêu chí trên. Nếu có nhiều đường ngắn nhất, in ra đường với chi phí nhỏ nhất. Giới hạn: $1<N \le 100 $; $0 \le M \le 100$;  $0 \le S[i] \le 100$.
+Ban đầu bạn có số tiền là $M$. Để đi qua đỉnh $i$, bạn phải trả số tiền là $S[i]$. Và đương nhiên, nếu không đủ tiền thì bạn không đi được. Tìm đường đi ngắn nhất từ 1 tới $N$ thỏa mãn tiêu chí trên. Nếu có nhiều đường ngắn nhất, in ra đường với chi phí nhỏ nhất. Giới hạn: $1<N \le 100$; $0 \le M \le 100$;  $0 \le S[i] \le 100$.
 
 Có thể dễ dàng thấy đây là một bài Dijkstra cơ bản, tuy nhiên chỉ khác ở chỗ nó có thêm một điều kiện. Trong bài toán Dijkstra cơ bản ta có  $Min[i]$ , là độ dài đường đi ngắn nhất từ 1 tới $i$. Còn ở đây, chúng ta cần phải quan tâm đến số tiền còn lại. Do đó chúng ta có thể mở rộng mảng này thành $Min[i][j]$ , là độ dài đường đi ngắn nhất tới $i$, và còn lại số tiền là $j$. Bằng cách này bài toán đã được đưa về bài toán Dijkstra quen thuộc. Tại mỗi bước ta tìm trạng thái $(i,j)$ có quãng đường ngắn nhất, đánh dấu là đã thăm rồi update cho các trạng thái cạnh nó. Đáp án sẽ là $Min[N][j]$ có giá trị nhỏ nhất (và $j$ lớn nhất trong số các $Min[N][j]$ có cùng giá trị).
 

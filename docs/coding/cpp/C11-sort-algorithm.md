@@ -373,9 +373,10 @@ long long sum = accumulate(a.begin(), a.end(), 0LL);
 
 ## Bài viết liên quan
 
-- [C09: Pair & Tuple ←](C09-pair-tuple.md)
-- [C13: Queue, Stack, Deque →](C13-queue-stack-deque.md)
+- [C10: Vector nâng cao ←](C10-vector-nang-cao.md)
+- [C12: Set & Map →](C12-set-map.md)
 
 ---
 
-**Bài tiếp theo:** [C13: Queue, Stack, Deque →](C13-queue-stack-deque.md)
+**Bài trước:** [C10: Vector nâng cao](C10-vector-nang-cao.md)<br>
+**Bài tiếp theo:** [C12: Set & Map →](C12-set-map.md)

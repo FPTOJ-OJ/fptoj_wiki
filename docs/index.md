@@ -61,7 +61,7 @@ Dành cho người chưa biết gì về lập trình, học sinh cấp 2–3 v�
 
 Bộ bài học do chúng mình biên soạn từ cơ bản đến nâng cao. 
 
-🔗 **[Xem chi tiết toàn bộ 71 bài học chính (+ ~30 bài phụ) →](lessons/index.md)** · **[Xem lộ trình tương tác →](lessons/roadmap.md)**
+🔗 **[Xem chi tiết toàn bộ 106 bài học →](lessons/index.md)** · **[Xem lộ trình tương tác →](lessons/roadmap.md)**
 
 | Phân loại | Chủ đề tiêu biểu |
 |-----------|------------------|

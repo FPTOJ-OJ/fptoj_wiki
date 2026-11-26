@@ -1,4 +1,4 @@
-# SPFA (Shortest Path Faster Algorithm)
+# Bài 35: SPFA (Shortest Path Faster Algorithm)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - SPFA
@@ -280,11 +280,14 @@ Dưới đây là danh sách 8 bài tập thực hành được đồng bộ tr�
 | Mã bài | Tên bài tập | Độ khó | Chuyên đề | Bản chất bài tập | Lời giải chi tiết |
 | :--- | :--- | :---: | :--- | :--- | :--- |
 | `spfa-basic` | [Hành trình thu thập](https://fptoj.com/problem/spfa-basic) | ⭐ | SPFA | SPFA cơ bản tìm đường ngắn nhất có cạnh âm | [Xem hướng dẫn](https://fptoj.com/problem/spfa-basic/solution) |
-| `spfa-detect` | [Khai thác tài nguyên](https://fptoj.com/problem/spfa-detect) | ⭐ | SPFA | Phát hiện chu trình âm từ ~S~ | [Xem hướng dẫn](https://fptoj.com/problem/spfa-detect/solution) |
+| `spfa-detect` | [Khai thác tài nguyên](https://fptoj.com/problem/spfa-detect) | ⭐ | SPFA | Phát hiện chu trình âm từ $S$ | [Xem hướng dẫn](https://fptoj.com/problem/spfa-detect/solution) |
 | `spfa-grid` | [Dịch chuyển trên lưới](https://fptoj.com/problem/spfa-grid) | ⭐⭐ | SPFA | SPFA trên bảng lưới 2D | [Xem hướng dẫn](https://fptoj.com/problem/spfa-grid/solution) |
 | `spfa-longest` | [Con đường thương nhân](https://fptoj.com/problem/spfa-longest) | ⭐⭐ | SPFA | Đường đi dài nhất hoặc phát hiện chu trình dương | [Xem hướng dẫn](https://fptoj.com/problem/spfa-longest/solution) |
 | `spfa-slf` | [Đồ thị lưới hiểm trở](https://fptoj.com/problem/spfa-slf) | ⭐⭐ | SPFA | Tối ưu hàng đợi SLF (Small Label First) | [Xem hướng dẫn](https://fptoj.com/problem/spfa-slf/solution) |
 | `spfa-cycle` | [Bẫy thời gian](https://fptoj.com/problem/spfa-cycle) | ⭐⭐⭐ | SPFA | Tìm và truy vết cụ thể chu trình âm | [Xem hướng dẫn](https://fptoj.com/problem/spfa-cycle/solution) |
-| `spfa-k-neg` | [Chuyến đi giới hạn](https://fptoj.com/problem/spfa-k-neg) | ⭐⭐⭐ | SPFA | Đường ngắn nhất đi tối đa ~K~ cạnh âm | [Xem hướng dẫn](https://fptoj.com/problem/spfa-k-neg/solution) |
+| `spfa-k-neg` | [Chuyến đi giới hạn](https://fptoj.com/problem/spfa-k-neg) | ⭐⭐⭐ | SPFA | Đường ngắn nhất đi tối đa $K$ cạnh âm | [Xem hướng dẫn](https://fptoj.com/problem/spfa-k-neg/solution) |
 | `spfa-limit` | [Sức bền của xe](https://fptoj.com/problem/spfa-limit) | ⭐⭐⭐⭐ | SPFA | Trạng thái tích lũy pin và reset tại trạm sạc | [Xem hướng dẫn](https://fptoj.com/problem/spfa-limit/solution) |
 
+---
+
+**Bài trước:** [← Bài 34: Floyd-Warshall & Bellman-Ford](floyd-warshall-bellman-ford.md) | **Bài tiếp theo:** [Bài 36: Đường Đi →](euler-circuit.md)

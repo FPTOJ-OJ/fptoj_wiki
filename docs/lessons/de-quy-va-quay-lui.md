@@ -1,4 +1,4 @@
-# Bài 6: Đệ Quy Và Quay Lui
+# Bài 7: Đệ Quy Và Quay Lui
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Đệ quy và thuật toán quay lui
@@ -637,7 +637,7 @@ Mỗi lần gọi hàm đệ quy, một frame mới được đẩy vào stack. 
 ## Bài viết liên quan
 
 - [Bài 5: Phép toán bit](phep-toan-bit.md)
-- [Bài 12: Quy hoạch động](quy-hoach-dong.md)
+- [Bài 40: Quy hoạch động](quy-hoach-dong.md)
 
 ---
 
@@ -647,4 +647,6 @@ Mỗi lần gọi hàm đệ quy, một frame mới được đẩy vào stack. 
 - [GeeksforGeeks - Backtracking Algorithms](https://www.geeksforgeeks.org/dsa/backtracking-algorithms/)
 - [USACO Guide - Backtracking](https://usaco.guide/bronze/intro-complete)
 
-**Bài tiếp theo:** [Mảng, Stack, Prefix Sum →](mang-stack-prefix-sum.md)
+---
+
+**Bài trước:** [← Bài 6: Fun with Bits](fun-with-bits.md) | **Bài tiếp theo:** [Bài 8: Kĩ Thuật Hai Con Trỏ →](ky-thuat-hai-con-tro.md)

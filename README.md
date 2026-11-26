@@ -24,7 +24,7 @@ For **absolute beginners**. Learn programming from scratch before diving into al
 
 ### Algorithm Lessons
 
-71+ main lessons (100+ including sub-lessons) from basic to advanced, with detailed explanations, code samples, and diagrams.
+106 lessons from basic to advanced, with detailed explanations, code samples, and diagrams.
 
 🔗 **[View all lessons →](docs/lessons/index.md)** · **[Interactive roadmap →](docs/lessons/roadmap.md)**
 

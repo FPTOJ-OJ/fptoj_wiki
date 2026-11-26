@@ -235,11 +235,11 @@ $(f \times g)(ab)$
 
 $= \sum_{r\|a, s\|b}{f(rs) g(ab/rs)}$
 
-$ = \sum_{r\|a, s\|b}{f(r) f(s) g(a/r) g(b/s)}$
+$= \sum_{r\|a, s\|b}{f(r) f(s) g(a/r) g(b/s)}$
 
-$ = \sum_{r\|a}{f(r) g(a/r)} \sum_{s\|b}{f(s) g(b/s)}$
+$= \sum_{r\|a}{f(r) g(a/r)} \sum_{s\|b}{f(s) g(b/s)}$
 
-$ = (f \times g)(a) (f \times g)(b)$
+$= (f \times g)(a) (f \times g)(b)$
 
 Như vậy, $(f \times g)$ cũng là hàm nhân tính.
 

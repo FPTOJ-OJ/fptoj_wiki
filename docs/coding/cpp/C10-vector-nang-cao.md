@@ -236,20 +236,7 @@ for (int i = 0; i < 3; i++) {
 ## Bài tập thực hành
 
 ### Bài 1: Chuyển vị ma trận
-Đọc ma trận m×n. In ra ma trận chuyển vị.
-
-**Input:**
-```
-2 3
-1 2 3
-4 5 6
-```
-**Output:**
-```
-1 4
-2 5
-3 6
-```
+Đọc ma trận m×n (`2 3`, hàng 1: `1 2 3`, hàng 2: `4 5 6`). In ra ma trận chuyển vị (`1 4`, `2 5`, `3 6`).
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="2 3
 1 2 3
@@ -300,9 +287,10 @@ for (int i = 0; i < 3; i++) {
 
 ## Bài viết liên quan
 
-- [C04: Mảng & Vector ←](C04-mang-vector.md)
-- [C12: Set & Map →](C12-set-map.md)
+- [C09: pair & tuple ←](C09-pair-tuple.md)
+- [C11: sort & &lt;algorithm&gt; →](C11-sort-algorithm.md)
 
 ---
 
-**Bài tiếp theo:** [C12: Set & Map →](C12-set-map.md)
+**Bài trước:** [C09: pair & tuple](C09-pair-tuple.md)<br>
+**Bài tiếp theo:** [C11: sort & &lt;algorithm&gt; →](C11-sort-algorithm.md)

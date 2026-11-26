@@ -319,9 +319,10 @@ for (auto it = s.begin(); it != s.end(); ) {
 
 ## Bài viết liên quan
 
-- [C10: Vector nâng cao ←](C10-vector-nang-cao.md)
-- [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)
+- [C11: sort & &lt;algorithm&gt; ←](C11-sort-algorithm.md)
+- [C13: Queue, Stack, Deque →](C13-queue-stack-deque.md)
 
 ---
 
-**Bài tiếp theo:** [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)
+**Bài trước:** [C11: sort & &lt;algorithm&gt;](C11-sort-algorithm.md)<br>
+**Bài tiếp theo:** [C13: Queue, Stack, Deque →](C13-queue-stack-deque.md)

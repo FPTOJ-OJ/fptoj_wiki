@@ -1,4 +1,4 @@
-# Static Wavelet Tree - Truy Vấn Thứ Tự Trên Đoạn
+# Bài 29: Static Wavelet Tree - Truy Vấn Thứ Tự Trên Đoạn
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Wavelet Tree
@@ -180,9 +180,11 @@ Khi query trên đoạn $[l, r]$:
 
 | Thao tác | Thời gian | Không gian |
 |----------|-----------|------------|
-| Xây cây | $O(N \log N)$ | $O(N \log N)$ |
-| $k$-th smallest | $O(\log N)$ | $O(1)$ |
-| Count less than $x$ | $O(\log N)$ | $O(1)$ |
+| Xây cây | $O(N \log \sigma)$ | $O(N \log \sigma)$ |
+| $k$-th smallest | $O(\log \sigma)$ | $O(1)$ |
+| Count less than or equal $x$ | $O(\log \sigma)$ | $O(1)$ |
+
+*(Với $\sigma = \max(A) - \min(A) + 1$; sau khi nén tọa độ thì $\sigma \le N$, nên độ phức tạp trở thành $O(N \log N)$ và $O(\log N)$.)*
 
 ---
 
@@ -202,7 +204,8 @@ Khi query trên đoạn $[l, r]$:
         WaveletTree(vector<int>::iterator from, vector<int>::iterator to, int x, int y)
             : lo(x), hi(y), left(nullptr), right(nullptr) {
             if (from == to || lo == hi) return; // đoạn rỗng hoặc lá: dừng
-            int mid = (lo + hi) / 2;
+            // Chia đôi đúng chuẩn floor (tránh kẹt vô hạn với số âm và tránh tràn lo+hi)
+            int mid = lo + ((hi - lo) >> 1);
             auto f = [mid](int x) { return x <= mid; }; // true = về con trái
             B.reserve(to - from + 1);
             B.push_back(0); // B[0] = 0 để công thức B[r]-B[l-1] đúng với l=1
@@ -291,6 +294,14 @@ Khi query trên đoạn $[l, r]$:
             self.left = WaveletTree(left_data, lo, mid)
             self.right = WaveletTree(right_data, mid + 1, hi)
 
+        def count_less_eq(self, l, r, k):
+            if l > r or k < self.lo:
+                return 0
+            if self.hi <= k:
+                return r - l + 1
+            lb, rb = self.B[l - 1], self.B[r]
+            return self.left.count_less_eq(lb + 1, rb, k) + self.right.count_less_eq(l - lb, r - rb, k)
+
         def kth(self, l, r, k):
             if self.lo == self.hi:
                 return self.lo
@@ -314,6 +325,9 @@ Khi query trên đoạn $[l, r]$:
         if parts[0] == 1:
             l, r, k = parts[1], parts[2], parts[3]
             print(wt.kth(l, r, k))
+        else:
+            l, r, x = parts[1], parts[2], parts[3]
+            print(wt.count_less_eq(l, r, x))
     ```
 
 ---
@@ -353,3 +367,7 @@ wt.kth(l + 1, r + 1, k);
 **Bài liên quan:**
 *   [Segment Tree](segment-tree.md)
 *   [Persistent Segment Tree](persistent-segment-tree.md)
+
+---
+
+**Bài trước:** [← Bài 28: Binary Lifting](binary-lifting-array.md) | **Bài tiếp theo:** [Bài 30: Interval Tree Trên Tập Đoạn Thẳng →](interval-tree.md)

@@ -1,4 +1,4 @@
-# Hàm Phi Euler ($\varphi$) - Đếm Số Nguyên Tố Cùng Nhau
+# Bài 53: Hàm Phi Euler ($\varphi$) - Đếm Số Nguyên Tố Cùng Nhau
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - Euler's Totient
@@ -265,7 +265,7 @@ Giải thích từng bước chạy của thuật toán sàng $\varphi$:
 | `phi-range` | [Sàng Phi Euler](https://fptoj.com/problem/phi-range) | ⭐⭐ | Sàng $\varphi(1..N)$ | [Hàm Phi Euler](phi-euler.md) |
 | `phi-sum` | [Tổng Phi Euler trên đoạn](https://fptoj.com/problem/phi-sum) | ⭐⭐ | Prefix sum $\varphi$ | [Hàm Phi Euler](phi-euler.md) |
 | `phi-frac` | [Đếm phân số tối giản](https://fptoj.com/problem/phi-frac) | ⭐⭐ | $\sum \varphi(i)$ | [Hàm Phi Euler](phi-euler.md) |
-| `phi-multi` | [Tổng Phi trên ước](https://fptoj.com/problem/phi-multi) | ⭐ | Tính chất $\sum_{d|n} \varphi(d) = n$ | [Hàm Phi Euler](phi-euler.md) |
+| `phi-multi` | [Tổng Phi trên ước](https://fptoj.com/problem/phi-multi) | ⭐ | Tính chất $\sum_{d \mid n} \varphi(d) = n$ | [Hàm Phi Euler](phi-euler.md) |
 | `phi-gcd-sum` | [Tổng GCD với Phi Euler](https://fptoj.com/problem/phi-gcd-sum) | ⭐⭐⭐ | $\sum \gcd(i, N)$ dùng $\varphi$ | [Hàm Phi Euler](phi-euler.md) |
 | `phi-div-euler` | [Chia modulo bằng định lý Euler](https://fptoj.com/problem/phi-div-euler) | ⭐⭐⭐ | $a \times b^{\varphi(M)-1} \bmod M$ | [Hàm Phi Euler](phi-euler.md) |
 | `phi-exponent` | [Lũy thừa modulo bằng định lý Euler](https://fptoj.com/problem/phi-exponent) | ⭐⭐⭐ | $a^n \bmod M$ rút gọn số mũ | [Hàm Phi Euler](phi-euler.md) |
@@ -279,3 +279,6 @@ Giải thích từng bước chạy của thuật toán sàng $\varphi$:
 | [CSES - Counting Divisors](https://cses.fi/problemset/task/1713) | CSES | ⭐⭐ | Đếm ước số của $N$ |
 | [CSES - Divisor Analysis](https://cses.fi/problemset/task/2182) | CSES | ⭐⭐⭐ | Phân tích các ước (số lượng, tổng, tích) |
 
+---
+
+**Bài trước:** [← Bài 52: Số Học Nâng Cao](so-hoc-nang-cao.md) | **Bài tiếp theo:** [Bài 54: Định Lý Wilson & Định Lý Lucas →](wilson-lucas.md)

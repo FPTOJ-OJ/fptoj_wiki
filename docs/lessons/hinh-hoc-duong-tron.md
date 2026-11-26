@@ -1,4 +1,4 @@
-# Bài 60: Hình Học Đường Tròn
+# Bài 69: Hình Học Đường Tròn
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -669,3 +669,7 @@ if (d2 <= r*r) ... // trong / trên / ngoài tùy <, ==, >
         if __name__ == '__main__':
             main()
         ```
+
+---
+
+**Bài trước:** [← Bài 68: Phương Trình Đường Thẳng & Giao Điểm](phuong-trinh-duong-thang.md) | **Bài tiếp theo:** [Bài 70: Định Lý Pick & Đếm Điểm Nguyên →](dinh-ly-pick.md)

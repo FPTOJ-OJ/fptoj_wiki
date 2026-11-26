@@ -1,4 +1,4 @@
-# Bài 58: Nguyên Lý Bao Hàm - Loại Trừ
+# Bài 60: Nguyên Lý Bao Hàm - Loại Trừ
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -276,3 +276,7 @@ Sắp xếp các ô cấm theo thứ tự. Với mỗi ô cấm $i$, đếm số
 | `ie-relprime-sum` | [Tổng số nguyên tố cùng nhau](https://fptoj.com/problem/ie-relprime-sum) | ⭐⭐ | IE + Euler | [Nguyên Lý Bao Hàm Loại Trừ](nguyen-ly-bao-ham-loai-tru.md) |
 | `ie-divisor-sum` | [Đếm cặp GCD = d](https://fptoj.com/problem/ie-divisor-sum) | ⭐⭐⭐⭐ | IE + Möbius | [Nguyên Lý Bao Hàm Loại Trừ](nguyen-ly-bao-ham-loai-tru.md) |
 | `ie-nonzero-sum` | [Tập con tổng bằng S](https://fptoj.com/problem/ie-nonzero-sum) | ⭐ | IE + duyệt bitmask | [Nguyên Lý Bao Hàm Loại Trừ](nguyen-ly-bao-ham-loai-tru.md) |
+
+---
+
+**Bài trước:** [← Bài 59: Sàng Nâng Cao & Hàm Ước](sang-nang-cao-ham-uoc.md) | **Bài tiếp theo:** [Bài 61: Đếm Đường Đi Trên Lưới →](dem-duong-di-luoi.md)

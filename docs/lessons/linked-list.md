@@ -1,4 +1,4 @@
-# Bài 33: Linked List — Danh Sách Liên Kết
+# Bài 13: Linked List — Danh Sách Liên Kết
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** GeeksforGeeks, CP-Algorithms
@@ -603,4 +603,6 @@ Luyện tập trực tiếp trên [FPTOJ](https://fptoj.com) — tất cả bài
 - [CP-Algorithms — Linked List](https://cp-algorithms.com/)
 - [YouTube — Linked List (takeuforward)](https://www.youtube.com/watch?v=Nq7ok6w23SA)
 
-**Bài tiếp theo:** [Bài 11: Queue cơ bản](queue.md)
+---
+
+**Bài trước:** [← Bài 12: Rời Rạc Hoá (Nén Số)](discretization.md) | **Bài tiếp theo:** [Bài 14: Queue →](queue.md)

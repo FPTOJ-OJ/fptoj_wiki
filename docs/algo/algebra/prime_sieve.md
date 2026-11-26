@@ -456,7 +456,7 @@ Dựa vào công thức trên, đầu tiên ta sẽ gán <code>f[i] = i</code>. 
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
     using namespace std;
     
     const int maxn = 1e6;
@@ -610,8 +610,8 @@ Một cách khác, vì biến `bool` lưu trong bộ nhớ thường là $1$ byt
 === "C++"
 
     ```cpp
-    ## define doc(n) (prime_bits[n >> 3] & (1 << (n & 7)))
-    ## define set(n) {prime_bits[n >> 3] |= (1 << (n & 7));}
+    #define doc(n) (prime_bits[n >> 3] & (1 << (n & 7)))
+    #define set(n) {prime_bits[n >> 3] |= (1 << (n & 7));}
     vector<int> prime_bits;
     void sieve_bits(int n){
         prime_bits.assign((n >> 3) + 5, 0);

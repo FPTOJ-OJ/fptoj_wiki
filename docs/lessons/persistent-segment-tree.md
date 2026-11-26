@@ -1,4 +1,4 @@
-# Persistent Data Structures - Lưu Lịch Sử Thay Đổi
+# Bài 26: Persistent Data Structures - Lưu Lịch Sử Thay Đổi
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Persistent Data Structures, CP-Algorithms
@@ -370,3 +370,7 @@ tree.push_back(tree[old]); // copy rồi mới sửa tree[id]
 *   [Segment Tree](segment-tree.md)
 *   [Cải tiến Segment Tree](improved-seg-tree.md)
 *   [Fenwick Tree (BIT)](fenwick-tree.md)
+
+---
+
+**Bài trước:** [← Bài 25: Sparse Table](sparse-table.md) | **Bài tiếp theo:** [Bài 27: Skip List →](skip-list.md)

@@ -746,7 +746,7 @@ Lưu ý rằng các hàm trên chỉ hỗ trợ số `int`, nhưng cũng có cá
 
 #### 2.3.2 Biểu diễn Tập hợp
 
-Mọi tập con của tập hợp $\{0, 1, 2, ..., n-1\}$ có thể được biểu diễn dưới dạng một số nguyên n-bit mà các bit 1 cho biếtnhững nào phần tử thuộc tập con. Đây là một cách hiệu quả để biểu diễn tập hợp, vì mỗi phần tử chỉ yêu cầu một bit bộ nhớ, và các phép toán tập hợp có thể được cài đặt dưới dạng phép toán bit.
+Mọi tập con của tập hợp $\{0, 1, 2, ..., n-1\}$ có thể được biểu diễn dưới dạng một số nguyên n-bit mà các bit 1 cho biết những nào phần tử thuộc tập con. Đây là một cách hiệu quả để biểu diễn tập hợp, vì mỗi phần tử chỉ yêu cầu một bit bộ nhớ, và các phép toán tập hợp có thể được cài đặt dưới dạng phép toán bit.
 
 Ví dụ, vì `int` là kiểu 32-bit, một số `int` có thể biểu diễn bất kỳ tập con nào của tập hợp $\{0, 1, 2, ..., 31\}$. Biểu diễn bit của tập hợp $\{1, 3, 4, 8\}$ là
 
@@ -795,7 +795,7 @@ Lưu ý rằng trong C++, `~x` không phải là $-x$, mà là $-x-1$. Do đó, 
 
 Một ưu điểm lớn của việc biểu diễn tập hợp dưới dạng bit là các phép toán tập hợp (giao, hợp, hiệu) có thể được thực hiện trong thời gian $O(1)$. Ngoài ra, duyệt qua tất cả các phần tử của tập hợp có thể được thực hiện trong thời gian $O(n)$.
 
-Tuy nhiên, có một giới hạn: kích thước của tập hợp bị giới hạn bởi số bit trong kiểu số nguyên. Đối với kiểu `int`, tập hợpnhiều nhấtchứa 32 phần tử, và đối với kiểu `long long`, tập hợpnhiều nhấtchứa 64 phần tử. Nếu cần tập hợp lớn hơn, có thể sử dụng mảng bit.
+Tuy nhiên, có một giới hạn: kích thước của tập hợp bị giới hạn bởi số bit trong kiểu số nguyên. Đối với kiểu `int`, tập hợp nhiều nhất chứa 32 phần tử, và đối với kiểu `long long`, tập hợp nhiều nhất chứa 64 phần tử. Nếu cần tập hợp lớn hơn, có thể sử dụng mảng bit.
 
 ```
 for (int i = 0; i < 32; i++) {
@@ -807,10 +807,19 @@ for (int i = 0; i < 32; i++) {
 **Phép toán Tập hợp** Bảng 2.1 cho thấy cách các phép toán tập hợp có thể được cài đặt dưới dạng phép toán bit. Ví dụ, code sau đầu tiên xây dựng tập $x = \{1, 3, 4, 8\}$ và $y = \{3, 6, 8, 9\}$ và sau đó xây dựng tập $z = x \cup y = \{1, 3, 4, 6, 8, 9\}$ :
 
 
+| Phép toán tập hợp | Ký hiệu toán học | Phép toán bit (C++) |
+| :--- | :---: | :--- |
+| Giao (Intersection) | $A \cap B$ | `a & b` |
+| Hợp (Union) | $A \cup B$ | `a | b` |
+| Phần bù (Complement) | $\bar{A}$ | `~a` |
+| Hiệu (Difference) | $A \setminus B$ | `a & (~b)` |
+
 **Bảng 2.1** Cài đặt phép toán tập hợp dưới dạng phép toán bit
 
-```
-int x = (1<<1) | (1<<3) | (1<<4) | (1<<8);\nint y = (1<<3) | (1<<6) | (1<<8) | (1<<9);\nint z = x|y;
+```cpp
+int x = (1<<1) | (1<<3) | (1<<4) | (1<<8);
+int y = (1<<3) | (1<<6) | (1<<8) | (1<<9);
+int z = x | y;
 cout << __builtin_popcount(z) << "\n"; // 6
 ```
 
@@ -902,8 +911,6 @@ for (int i = 1; i <= n; i++) {
  ...
 }
 ```
-}
-```
 
 Sau đó, độ phức tạp thời gian của code sau là $O(n^2)$:
 
@@ -917,7 +924,7 @@ for (int i = 1; i <= n; i++) {
 
 Tổng quát, nếu có k vòng lặp lồng nhau và mỗi vòng lặp đi qua n giá trị, độ phức tạp thời gian là $O(n^k)$.
 
-Độ phức tạp thời gian không cho chúng ta biết chính xác số lần code bên trong vòng lặp được thực thi,vì nó chỉ cho thấy thứ tự tăng trưởng và bỏ qua các hệ số hằng số. Trong các ví dụ sau, code bên trong vòng lặp được thực thi 3n, n + 5, và $\lceil n/2 \rceil$ lần, nhưng độ phức tạp thời gian của mỗi code là O(n).
+Độ phức tạp thời gian không cho chúng ta biết chính xác số lần code bên trong vòng lặp được thực thi, vì nó chỉ cho thấy thứ tự tăng trưởng và bỏ qua các hệ số hằng số. Trong các ví dụ sau, code bên trong vòng lặp được thực thi 3n, n + 5, và $\lceil n/2 \rceil$ lần, nhưng độ phức tạp thời gian của mỗi code là O(n).
 
 ```cpp
 for (int i = 1; i <= 3*n; i++) {
@@ -1005,14 +1012,14 @@ Danh sách sau chứa các độ phức tạp thời gian phổ biến của thu
 - **O(1)** Thời gian chạy của thuật toán *hằng số* không phụ thuộc vào kích thước đầu vào. Một thuật toán hằng số điển hình là công thức trực tiếp tính câu trả lời.
 - **$O(\log n)$** Thuật toán logarithm thường chia đôi kích thước đầu vào tại mỗi bước. Thời gian chạy của thuật toán như vậy là logarithm, vì $\log_2 n$ bằng số lần n phải được chia cho 2 để được 1. Lưu ý rằng cơ số của logarithm không được hiển thị trong độ phức tạp thời gian.
 - **$O(\sqrt{n})$** Thuật toán căn bậc hai chậm hơn $O(\log n)$ nhưng nhanh hơn O(n). Một tính chất đặc biệt của căn bậc hai là $\sqrt{n} = n/\sqrt{n}$, nên n phần tử có thể được chia thành $O(\sqrt{n})$ khối mỗi khối $O(\sqrt{n})$ phần tử.
-- **O(n)** Thuật toán *tuyến tính* đi qua đầu vào một số lần hằng số. Đây thường là độ phức tạp thời gian tốt nhất có thể,vìthường cần truy cập mỗi phần tử đầu vào ít nhất một lần trước khi báo cáo câu trả lời.
-- **$O(n \log n)$** Độ phức tạp thời gian này thường cho thấy thuật toán sắp xếp đầu vào,vì độ phức tạp thời gian của các thuật toán sắp xếp hiệu quả là $O(n \log n)$. Một khả năng khác là thuật toán sử dụng cấu trúc dữ liệu mà mỗi phép toán mất $O(\log n)$ thời gian.
+- **O(n)** Thuật toán *tuyến tính* đi qua đầu vào một số lần hằng số. Đây thường là độ phức tạp thời gian tốt nhất có thể, vì thường cần truy cập mỗi phần tử đầu vào ít nhất một lần trước khi báo cáo câu trả lời.
+- **$O(n \log n)$** Độ phức tạp thời gian này thường cho thấy thuật toán sắp xếp đầu vào, vì độ phức tạp thời gian của các thuật toán sắp xếp hiệu quả là $O(n \log n)$. Một khả năng khác là thuật toán sử dụng cấu trúc dữ liệu mà mỗi phép toán mất $O(\log n)$ thời gian.
 - **$O(n^2)$** Thuật toán bậc hai thường chứa hai vòng lặp lồng nhau. Có thể đi qua tất cả các cặp của phần tử đầu vào trong $O(n^2)$ thời gian.
 - **$O(n^3)$** Thuật toán *bậc ba* thường chứa ba vòng lặp lồng nhau. Có thể đi qua tất cả các bộ ba của phần tử đầu vào trong $O(n^3)$ thời gian.
 - **$O(2^n)$** Độ phức tạp thời gian này thường cho thấy thuật toán duyệt qua tất cả tập con của phần tử đầu vào. Ví dụ, các tập con của $\{1, 2, 3\}$ là $\emptyset$, $\{1\}$, $\{2\}$, $\{3\}$, $\{1, 2\}$, $\{1, 3\}$, $\{2, 3\}$, và $\{1, 2, 3\}$.
 - **O(n!)** Độ phức tạp thời gian này thường cho thấy thuật toán duyệt qua tất cả hoán vị của phần tử đầu vào. Ví dụ, các hoán vị của $\{1, 2, 3\}$ là (1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), và (3, 2, 1).
 
-Thuật toán là *đa thức* nếu độ phức tạp thời gian của nó nhiều nhất là $O(n^k)$ trong đó k là hằng số. Tất cả các độ phức tạp thời gian trên trừ $O(2^n)$ và O(n!) là đa thức. Trong thực tế, hằng số k thường nhỏ,do đó độ phức tạp thời gian đa thứcđại khái có nghĩa là thuật toán có thể xử lý đầu vào lớn.
+Thuật toán là *đa thức* nếu độ phức tạp thời gian của nó nhiều nhất là $O(n^k)$ trong đó k là hằng số. Tất cả các độ phức tạp thời gian trên trừ $O(2^n)$ và O(n!) là đa thức. Trong thực tế, hằng số k thường nhỏ, do đó độ phức tạp thời gian đa thứcđại khái có nghĩa là thuật toán có thể xử lý đầu vào lớn.
 
 Hầu hết các thuật toán trong cuốn sách này là đa thức. Tuy nhiên, có nhiều bài toán quan trọng mà không biết thuật toán đa thức nào, tức là không ai biết cách giải chúng một cách hiệu quả. Các bài toán *NP-hard* là một tập hợp quan trọng các bài toán, mà không biết thuật toán đa thức nào.
 
@@ -1022,9 +1029,9 @@ Ví dụ, giả sử rằng giới hạn thời gian cho bài toán là một gi
 
 Mặt khác, cho kích thước đầu vào, chúng ta có thể thử *đoán* độ phức tạp thời gian yêu cầu của thuật toán giải bài toán. Bảng 3.1 chứa một số ước tính hữu ích giả sử giới hạn thời gian là một giây.
 
-Ví dụ, nếu kích thước đầu vào là $n = 10^5$, có thểmong đợi rằng độ phức tạp thời gian của thuật toán là O(n) hoặc $O(n \log n)$. Thông tin này giúp dễ dàng hơn trong việc thiết kế thuật toán,vì nó loại trừ các phương pháp sẽ cho ra thuật toán có độ phức tạp thời gian tệ hơn.
+Ví dụ, nếu kích thước đầu vào là $n = 10^5$, có thểmong đợi rằng độ phức tạp thời gian của thuật toán là O(n) hoặc $O(n \log n)$. Thông tin này giúp dễ dàng hơn trong việc thiết kế thuật toán, vì nó loại trừ các phương pháp sẽ cho ra thuật toán có độ phức tạp thời gian tệ hơn.
 
-Tuy nhiên, điều quan trọng là nhớ rằng độ phức tạp thời gian chỉ là một ước tính của hiệu suất,vì nó che giấu các hệ số hằng số. Ví dụ, một thuật toán chạy trong thời gian O(n) có thể thực hiện n/2 hoặc 5n phép toán, điều này có ảnh hưởng quan trọng đến thời gian chạy thực tế của thuật toán.
+Tuy nhiên, điều quan trọng là nhớ rằng độ phức tạp thời gian chỉ là một ước tính của hiệu suất, vì nó che giấu các hệ số hằng số. Ví dụ, một thuật toán chạy trong thời gian O(n) có thể thực hiện n/2 hoặc 5n phép toán, điều này có ảnh hưởng quan trọng đến thời gian chạy thực tế của thuật toán.
 
 | Kích thước đầu vào | Độ phức tạp thời gianmong đợi |
 |--------------------|---------------------------|
@@ -1049,9 +1056,9 @@ for (int i = 1; i <= n; i++) {
 }
 ```
 
-Tuy nhiên, giới hạn tốt hơn là O(n), và sẽ rấtgây hiểu lầm khi đưa ra giới hạn $O(n^2}$,vì thực tế mọi người đều giả sử rằng ký hiệu O được sử dụng để đưa ra một ước tính chính xác về độ phức tạp thời gian.
+Tuy nhiên, giới hạn tốt hơn là O(n), và sẽ rấtgây hiểu lầm khi đưa ra giới hạn $O(n^2)$,vì thực tế mọi người đều giả sử rằng ký hiệu O được sử dụng để đưa ra một ước tính chính xác về độ phức tạp thời gian.
 
-Cũng có hai ký hiệu phổ biến khác. Ký hiệu $\Omega$ cho một *giới hạn dưới* cho thời gian chạy của thuật toán. Độ phức tạp thời gian của thuật toán là $\Omega(f(n))$, nếu có các hằng số c và $n_0$ sao cho thuật toán thực hiện ít nhất cf(n) phép toán cho tất cả đầu vào mà $n \ge n_0$. Cuối cùng, ký hiệu $\Theta$ cho một *giới hạn chính xác*: độ phức tạp thời gian của thuật toán là $\Theta(f(n))$ nếu nóvừa là O(f(n)) vừa là $\Omega(f(n))$. Ví dụ,vì độ phức tạp thời gian của thuật toán trênvừa là O(n) vừa là $\Omega(n)$, nó cũng là $\Theta(n)$.
+Cũng có hai ký hiệu phổ biến khác. Ký hiệu $\Omega$ cho một *giới hạn dưới* cho thời gian chạy của thuật toán. Độ phức tạp thời gian của thuật toán là $\Omega(f(n))$, nếu có các hằng số c và $n_0$ sao cho thuật toán thực hiện ít nhất cf(n) phép toán cho tất cả đầu vào mà $n \ge n_0$. Cuối cùng, ký hiệu $\Theta$ cho một *giới hạn chính xác*: độ phức tạp thời gian của thuật toán là $\Theta(f(n))$ nếu nóvừa là O(f(n)) vừa là $\Omega(f(n))$. Ví dụ, vì độ phức tạp thời gian của thuật toán trênvừa là O(n) vừa là $\Omega(n)$, nó cũng là $\Theta(n)$.
 
 Chúng ta có thể sử dụng các ký hiệu trên trongnhiều tình huống, không chỉđược dùng cho tham chiếu đến độ phức tạp thời gian của thuật toán. Ví dụ, chúng ta có thể nói rằng một mảng chứa O(n) giá trị, hoặc rằng một thuật toán gồm $O(\log n)$ vòng.
 
@@ -1106,7 +1113,7 @@ Xem xét bài toán con tìm mảng con có tổng lớn nhất kết thúc tạ
 1. Mảng con chỉ chứa phần tử tại vị trí k.
 2. Mảng con gồm một mảng con kết thúc tại vị trí k-1, theo sau là phần tử tại vị trí k.
 
-Trong trường hợp sau,vì chúng ta muốn tìm mảng con có tổng lớn nhất, mảng con kết thúc tại vị trí k-1cũngnên có tổng lớn nhất. Do đó, chúng ta có thể giải bài toán hiệu quả bằng cách tính tổng mảng con lớn nhất cho mỗi vị trí kết thúc từ trái sang phải.
+Trong trường hợp sau, vì chúng ta muốn tìm mảng con có tổng lớn nhất, mảng con kết thúc tại vị trí k-1cũngnên có tổng lớn nhất. Do đó, chúng ta có thể giải bài toán hiệu quả bằng cách tính tổng mảng con lớn nhất cho mỗi vị trí kết thúc từ trái sang phải.
 
 Code sau cài đặt thuật toán:
 
@@ -1119,7 +1126,7 @@ for (int k = 0; k < n; k++) {
 cout << best << "\n";
 ```
 
-Thuật toán chỉ chứa một vòng lặp đi qua đầu vào, nên độ phức tạp thời gian là O(n). Đây cũng là độ phức tạp thời gian tốt nhất có thể,vì bất kỳ thuật toán nào cho bài toán đều phải kiểm tra tất cả các phần tử mảng ít nhất một lần.
+Thuật toán chỉ chứa một vòng lặp đi qua đầu vào, nên độ phức tạp thời gian là O(n). Đây cũng là độ phức tạp thời gian tốt nhất có thể, vì bất kỳ thuật toán nào cho bài toán đều phải kiểm tra tất cả các phần tử mảng ít nhất một lần.
 
 **So sánh Hiệu suất** Các thuật toán trên hiệu quả như thế nào trong thực tế? Bảng 3.2 cho thấy thời gian chạy của các thuật toán trên cho các giá trị khác nhau của n trên máy tính hiện đại. Trong mỗi kiểm tra, đầu vào được tạo ngẫu nhiên, và thời gian cần để đọc đầu vào không được đo.
 
@@ -1140,7 +1147,7 @@ So sánh cho thấy tất cả các thuật toán hoạt động nhanh khi kích
 
 Cho một bàn cờ $n \times n$, bài toán tiếp theo của chúng ta là đếm số cách chúng ta có thể đặt *hai* quân hậu lên bàn cờ sao cho chúng không tấn công nhau. Ví dụ, như Hình 3.2 cho thấy, có tám cách để đặt hai quân hậu lên bàn cờ $3 \times 3$. Ký hiệu q(n) là số tổ hợp hợp lệ cho bàn cờ $n \times n$. Ví dụ, q(3) = 8, và Bảng 3.3 cho thấy các giá trị của q(n) cho $1 \le n \le 10$.
 
-Để bắt đầu, một cách đơn giản để giải bài toán là đi qua tất cả các cách có thể để đặt hai quân hậu lên bàn cờ và đếm các tổ hợp mà quân hậu không tấn công nhau. Thuật toán như vậy hoạt động trong $O(n^4)$ thời gian,vì có $n^2$ cách để chọn vị trí của quân hậu đầu tiên, và cho mỗi vị trí đó, có $n^2 - 1$ cách để chọn vị trí của quân hậu thứ hai.
+Để bắt đầu, một cách đơn giản để giải bài toán là đi qua tất cả các cách có thể để đặt hai quân hậu lên bàn cờ và đếm các tổ hợp mà quân hậu không tấn công nhau. Thuật toán như vậy hoạt động trong $O(n^4)$ thời gian, vì có $n^2$ cách để chọn vị trí của quân hậu đầu tiên, và cho mỗi vị trí đó, có $n^2 - 1$ cách để chọn vị trí của quân hậu thứ hai.
 
 Vì số tổ hợp tăng nhanh, một thuật toán đếm tổ hợp từng cái một chắc chắn sẽ quá chậm để xử lý các giá trị lớn hơn của n. Do đó, để tạo ra thuật toán hiệu quả, chúng ta cần tìm cách đếm tổ hợp theo nhóm. Một quan sát hữu ích là khá dễ dàng để tính số ô mà một quân hậu tấn công (Hình 3.3). Đầu tiên, nó luôn tấn công n-1 ô theo chiều ngang và n-1 ô theo chiều dọc. Sau đó, cho cả hai đường chéo, nó tấn công d-1 ô trong đó d là số ô trên đường chéo. Sử dụng thông tin này, chúng ta có thể tính trong thời gian O(1) số ô mà quân hậu kia có thể được đặt, cho ra thuật toán thời gian $O(n^2)$.
 
@@ -1185,7 +1192,7 @@ có thể được chứng minh bằng cách sử dụng quy nạp và công th�
 
 ## Chương 4: Sắp xếp và Tìm kiếm
 
-Nhiều thuật toán hiệu quả dựa trên việc sắp xếp dữ liệu đầu vào,vì sắp xếp thường làm cho việc giải bài toán dễ dàng hơn. Chương này thảo luận lý thuyết và thực hành về sắp xếp như một công cụ thiết kế thuật toán.
+Nhiều thuật toán hiệu quả dựa trên việc sắp xếp dữ liệu đầu vào, vì sắp xếp thường làm cho việc giải bài toán dễ dàng hơn. Chương này thảo luận lý thuyết và thực hành về sắp xếp như một công cụ thiết kế thuật toán.
 
 Phần 4.1 đầu tiên thảo luận ba thuật toán sắp xếp quan trọng: sắp xếp nổi bọt, sắp xếp trộn, và sắp xếp đếm. Sau đó, chúng ta sẽ học cách sử dụng thuật toán sắp xếp có sẵn trong thư viện chuẩn C++.
 
@@ -1219,7 +1226,7 @@ Sau vòng đầu tiên của sắp xếp nổi bọt, phần tử lớn nhất s
 
 Ví dụ, Hình 4.2 cho thấy vòng hoán đổi đầu tiên khi sắp xếp nổi bọt được sử dụng để sắp xếp một mảng.
 
-Sắp xếp nổi bọt là một ví dụ về thuật toán sắp xếp luôn hoán đổi các phần tử *liên tiếp* trong mảng. Hóa ra rằng độ phức tạp thời gian của thuật toán như vậy *luôn* ít nhất là $O(n^2}$,vìở trường hợp xấu nhất, $O(n^2)$ hoán đổi được yêu cầu để sắp xếp mảng.
+Sắp xếp nổi bọt là một ví dụ về thuật toán sắp xếp luôn hoán đổi các phần tử *liên tiếp* trong mảng. Hóa ra rằng độ phức tạp thời gian của thuật toán như vậy *luôn* ít nhất là $O(n^2)$,vìở trường hợp xấu nhất, $O(n^2)$ hoán đổi được yêu cầu để sắp xếp mảng.
 
 **Đảo ngược** Một khái niệm hữu ích khi phân tích thuật toán sắp xếp là *đảo ngược*: một cặp chỉ số mảng (a, b) sao cho a < b và array[a] > array[b], tức là các phần tử sai thứ tự. Ví dụ, mảng trong Hình 4.3 có ba đảo ngược: (3, 4), (3, 5), và (6, 7).
 
@@ -1233,7 +1240,7 @@ Hoán đổi một cặp phần tử liên tiếp sai thứ tự loại bỏ ch�
 
 #### 4.1.2 Sắp xếp Trộn
 
-Nếu chúng ta muốn tạo ra thuật toán sắp xếp hiệu quả,chúng ta phải có thể sắp xếp lại các phần tử nằm ở các phần khác nhau của mảng. Có một số thuật toán sắp xếp như vậy hoạt động trong $O(n \log n)$ thời gian. Một trong số đó là *sắp xếp trộn*, dựa trên đệ quy. Sắp xếp trộn sắp xếp mảng con $array[a \dots b]$ như sau:
+Nếu chúng ta muốn tạo ra thuật toán sắp xếp hiệu quả, chúng ta phải có thể sắp xếp lại các phần tử nằm ở các phần khác nhau của mảng. Có một số thuật toán sắp xếp như vậy hoạt động trong $O(n \log n)$ thời gian. Một trong số đó là *sắp xếp trộn*, dựa trên đệ quy. Sắp xếp trộn sắp xếp mảng con $array[a \dots b]$ như sau:
 
 1. Nếu a = b, không làm gì, vì mảng con chỉ chứa một phần tử đã được sắp xếp.
 2. Tính vị trí của phần tử giữa: $k = \lfloor (a+b)/2 \rfloor$.
@@ -1243,13 +1250,13 @@ Nếu chúng ta muốn tạo ra thuật toán sắp xếp hiệu quả,chúng ta
 
 Ví dụ, Hình 4.4 cho thấy cách sắp xếp trộn sắp xếp một mảng gồm tám phần tử. Đầu tiên, thuật toán chia mảng thành hai mảng con bốn phần tử. Sau đó, nó sắp xếp các mảng con này đệ quy bằng cách gọi chính nó. Cuối cùng, nó trộn các mảng con đã được sắp xếp thành một mảng đã được sắp xếp gồm tám phần tử.
 
-Sắp xếp trộn là một thuật toán hiệu quả,vì nó chia đôi kích thước mảng con tại mỗi bước. Sau đó, việc trộn các mảng con đã được sắp xếp có thể thực hiện trong thời gian tuyến tính,vì chúng ta đã được sắp xếp. Vì có $O(\log n)$ cấp đệ quy, và xử lý mỗi cấp mất tổng cộng O(n) thời gian, thuật toán hoạt động trong $O(n \log n)$ thời gian.
+Sắp xếp trộn là một thuật toán hiệu quả, vì nó chia đôi kích thước mảng con tại mỗi bước. Sau đó, việc trộn các mảng con đã được sắp xếp có thể thực hiện trong thời gian tuyến tính, vì chúng ta đã được sắp xếp. Vì có $O(\log n)$ cấp đệ quy, và xử lý mỗi cấp mất tổng cộng O(n) thời gian, thuật toán hoạt động trong $O(n \log n)$ thời gian.
 
 ![](images/_page_50_Figure_2.jpeg)
 
 #### 4.1.3 Giới hạn dưới Sắp xếp
 
-Có thể sắp xếp mảng nhanh hơn $O(n \log n)$ thời gian không? Hóa ra điều này *không* possible khichúng ta giới hạn bản thân trong các thuật toán sắp xếp dựa trên so sánh các phần tử mảng.
+Có thể sắp xếp mảng nhanh hơn $O(n \log n)$ thời gian không? Hóa ra điều này *không* khả thi khichúng ta giới hạn bản thân trong các thuật toán sắp xếp dựa trên so sánh các phần tử mảng.
 
 Giới hạn dưới cho độ phức tạp thời gian có thể được chứng minh bằng cách xem xét sắp xếp như một quá trình mà mỗi so sánh hai phần tử cho thêm thông tin về nội dung của mảng. Hình 4.5 minh họa cây được tạo ra trong quá trình này.
 
@@ -1271,13 +1278,13 @@ Giới hạn dưới $\Omega(n \log n)$ không áp dụng cho các thuật toán
 
 Thuật toán tạo ra một mảng sổ sách, mà các chỉ số là các phần tử của mảng gốc. Thuật toán duyệt qua mảng gốc và tính số lần mỗi phần tử xuất hiện trong mảng. Ví dụ, Hình 4.6 cho thấy một mảng và mảng sổ sách tương ứng. Ví dụ, giá trị tại vị trí 3 là 2, vì giá trị 3 xuất hiện 2 lần trong mảng gốc.
 
-Việc xây dựng mảng sổ sách mất O(n) thời gian. Sau đó, mảng đã được sắp xếp có thể được tạo ra trong O(n) thời gian,vì số lần xuất hiện của mỗi phần tử có thể được truy xuất từ mảng sổ sách. Do đó, tổng độ phức tạp thời gian của sắp xếp đếm là O(n).
+Việc xây dựng mảng sổ sách mất O(n) thời gian. Sau đó, mảng đã được sắp xếp có thể được tạo ra trong O(n) thời gian, vì số lần xuất hiện của mỗi phần tử có thể được truy xuất từ mảng sổ sách. Do đó, tổng độ phức tạp thời gian của sắp xếp đếm là O(n).
 
 Sắp xếp đếm là một thuật toán rất hiệu quả nhưng nó chỉ có thể được sử dụng khi hằng số c đủ nhỏ, sao cho các phần tử mảng có thể được sử dụng làm chỉ số trong mảng sổ sách.
 
 #### 4.1.5 Sắp xếp trong Thực tế
 
-Trong thực tế,gần như không bao giờ là ý tưởng tốt để cài đặt thuật toán sắp xếp tự làm,vì tất cả các ngôn ngữ lập trình hiện đại đều có các thuật toán sắp xếp tốt trong thư viện chuẩn. Có nhiều lý do để sử dụng hàm thư viện: nó chắc chắn đúng và hiệu quả, và cũng dễ sử dụng.
+Trong thực tế, gần như không bao giờ là ý tưởng tốt để cài đặt thuật toán sắp xếp tự làm, vì tất cả các ngôn ngữ lập trình hiện đại đều có các thuật toán sắp xếp tốt trong thư viện chuẩn. Có nhiều lý do để sử dụng hàm thư viện: nó chắc chắn đúng và hiệu quả, và cũng dễ sử dụng.
 
 Trong C++, hàm `sort` sắp xếp<sup>1</sup> nội dung của cấu trúc dữ liệu một cách hiệu quả. Ví dụ, code sau sắp xếp các phần tử của vector theo thứ tự tăng dần:
 
@@ -1313,7 +1320,7 @@ Sắp xếp xâu có nghĩa là các ký tự của xâu được sắp xếp. V
 
 **Toán tử so sánh** Hàm `sort` yêu cầu một *toán tử so sánh* được định nghĩa cho kiểu dữ liệu của các phần tử cần sắp xếp. Khi sắp xếp, toán tử này sẽ được sử dụngmỗi khi cần tìm thứ tự của hai phần tử.
 
-Hầu hết các kiểu dữ liệu C++ có toán tử so sánh tích hợp, và các phần tử củanhững kiểu có thể được sắp xếp tự động. Số được sắp xếp theo giá trị của chúng, và xâu được sắp xếp theo thứ tự bảng chữ cái. Cặp được sắp xếp chủ yếu theo phần tử đầu tiên và thứ yếu theo phần tử thứ hai:
+Hầu hết các kiểu dữ liệu C++ có toán tử so sánh tích hợp, và các phần tử của những kiểu có thể được sắp xếp tự động. Số được sắp xếp theo giá trị của chúng, và xâu được sắp xếp theo thứ tự bảng chữ cái. Cặp được sắp xếp chủ yếu theo phần tử đầu tiên và thứ yếu theo phần tử thứ hai:
 
 ```cpp
 vector<pair<int,int>> v;
@@ -1399,11 +1406,11 @@ Một số bài toán khác có thể được giải theo cách tương tự tr
 
 Thuật toán *đường quét* mô hình hóa bài toán dưới dạng một tập hợp các sự kiện được xử lý theo thứ tự đã sắp xếp. Ví dụ, giả sử có một nhà hàng và chúng ta biết thời gian đến và rời đi của tất cả khách hàng vào một ngày nhất định. Nhiệm vụ của chúng ta là tìm ra số lượng khách hàng tối đacùng lúc visited nhà hàng cùng một lúc.
 
-Ví dụ, Hình 4.7 cho thấy một instance của bài toán mà có bốn khách hàng A, B, C, và D. Trong trường hợp này, số lượng khách hàngcùng lúc tối đa là ba giữa thời điểm A đến và B rời đi.
+Ví dụ, Hình 4.7 cho thấy một instance của bài toán mà có bốn khách hàng A, B, C, và D. Trong trường hợp này, số lượng khách hàng cùng lúc tối đa là ba giữa thời điểm A đến và B rời đi.
 
 Để giải bài toán, chúng ta tạo hai sự kiện cho mỗi khách hàng: một sự kiện cho đến và một sự kiện cho rời đi. Sau đó, chúng ta sắp xếp các sự kiện và đi qua chúng theo thời gian. Để tìm số lượng khách hàng tối đa, chúng ta duy trì một bộ đếm mà giá trị tăng khi khách hàng đến và giảm khi khách hàng rời đi. Giá trị lớn nhất của bộ đếm là câu trả lời cho bài toán.
 
-Hình 4.8 cho thấy các sự kiện trong ví dụ của chúng ta. Mỗi khách hàng được gán hai sự kiện: "+" biểu thị khách hàng đến và "-" biểu thị khách hàng rời đi. Thuật toán kết quả hoạt động trong $O(n \log n)$ thời gian,vì sắp xếp các sự kiện mất $O(n \log n)$ thời gian và phần đường quét mất O(n) thời gian.
+Hình 4.8 cho thấy các sự kiện trong ví dụ của chúng ta. Mỗi khách hàng được gán hai sự kiện: "+" biểu thị khách hàng đến và "-" biểu thị khách hàng rời đi. Thuật toán kết quả hoạt động trong $O(n \log n)$ thời gian, vì sắp xếp các sự kiện mất $O(n \log n)$ thời gian và phần đường quét mất O(n) thời gian.
 
 ![](images/_page_54_Figure_10.jpeg)
 
@@ -1415,11 +1422,11 @@ Hình 4.8 cho thấy các sự kiện trong ví dụ của chúng ta. Mỗi khá
 
 #### 4.2.2 Lập lịch Sự kiện
 
-Nhiều bài toán lập lịch có thể được giải bằng cách sắp xếp dữ liệu đầu vào và sau đó sử dụng chiến lược *tham lam* để xây dựng giải pháp. Thuật toán tham lam luôn đưa ra lựa chọntrông tốt nhất tại thời điểm đó và không bao giờ rút lại lựa chọn của mình.
+Nhiều bài toán lập lịch có thể được giải bằng cách sắp xếp dữ liệu đầu vào và sau đó sử dụng chiến lược *tham lam* để xây dựng giải pháp. Thuật toán tham lam luôn đưa ra lựa chọn trông tốt nhất tại thời điểm đó và không bao giờ rút lại lựa chọn của mình.
 
-Ví dụ, xem xét bài toán sau: Cho *n* sự kiện với thời gian bắt đầu và kết thúc, tìm một lịch trìnhchứa càng nhiều sự kiện càng tốt. Ví dụ, Hình 4.9 cho thấy một instance của bài toán mà giải pháp tối ưu là chọn hai sự kiện.
+Ví dụ, xem xét bài toán sau: Cho *n* sự kiện với thời gian bắt đầu và kết thúc, tìm một lịch trình chứa càng nhiều sự kiện càng tốt. Ví dụ, Hình 4.9 cho thấy một instance của bài toán mà giải pháp tối ưu là chọn hai sự kiện.
 
-Trong bài toán này, có several cách chúng ta có thể sắp xếp dữ liệu đầu vào. Một chiến lược là sắp xếp các sự kiện theo *độ dài* của chúng và chọn các sự kiện *ngắn* nhất có thể. Tuy nhiên, chiến lược này không phải lúc nào cũng hoạt động, như được chỉ ra trong Hình 4.10. Sau đó, một ý tưởng khác là sắp xếp các sự kiện theo *thời gian bắt đầu* của chúng và luôn chọn sự kiện tiếp theo có thể *bắt đầu* *sớm* nhất. Tuy nhiên, chúng ta có thể tìm thấy phảnví dụ cho chiến lược này, được chỉ ra trong Hình 4.11.
+Trong bài toán này, có một số cách chúng ta có thể sắp xếp dữ liệu đầu vào. Một chiến lược là sắp xếp các sự kiện theo *độ dài* của chúng và chọn các sự kiện *ngắn* nhất có thể. Tuy nhiên, chiến lược này không phải lúc nào cũng hoạt động, như được chỉ ra trong Hình 4.10. Sau đó, một ý tưởng khác là sắp xếp các sự kiện theo *thời gian bắt đầu* của chúng và luôn chọn sự kiện tiếp theo có thể *bắt đầu* *sớm* nhất. Tuy nhiên, chúng ta có thể tìm thấy phảnví dụ cho chiến lược này, được chỉ ra trong Hình 4.11.
 
 Ý tưởng thứ ba là sắp xếp các sự kiện theo *thời gian kết thúc* của chúng và luôn chọn sự kiện tiếp theo có thể *kết thúc* *sớm* nhất. Hóa ra thuật toán này *luôn* tạo ra giải pháp tối ưu. Đểchứng minh điều này, xem xét điều gì xảy ra nếu chúng ta đầu tiên chọn một sự kiện kết thúc muộn hơn sự kiện kết thúc sớm nhất. Bây giờ, chúng ta sẽ cónhiều nhất cùng số lượng lựa chọn còn lại làm thế nào chúng ta có thể chọn sự kiện tiếp theo. Do đó, chọn một sự kiện kết thúc muộn không bao giờ có thể cho ra giải pháp tốt hơn, và thuật toán tham lam là đúng.
 
@@ -1480,7 +1487,7 @@ Trong cài đặt này, phạm vi của mảng con đang hoạt động là $a \
 
 ![](images/_page_58_Figure_3.jpeg)
 
-**Phương pháp thứ hai** Một cách khác để cài đặt tìm kiếm nhị phân là đi qua mảng từ trái sang phải thực hiện *các bước nhảy*. Độ dài bước nhảy ban đầu là n/2, và độ dài bước nhảy được chia đôi trên mỗi vòng: đầu tiên n/4, sau đó n/8, sau đó n/16, v.v., cho đến cuối cùng độ dài là 1. Trên mỗi vòng, chúng ta thực hiện các bước nhảy cho đến khichúng ta sẽ kết thúc bên ngoài mảng hoặc trong một phần tử mà giá trị vượt quá giá trị mục tiêu. Sau các bước nhảy,hoặc phần tử mong muốn đã được tìm thấy hoặc chúng ta biết rằng nó không xuất hiện trong mảng. Hình 4.15 minh họa kỹ thuật trong ví dụ của chúng ta.
+**Phương pháp thứ hai** Một cách khác để cài đặt tìm kiếm nhị phân là đi qua mảng từ trái sang phải thực hiện *các bước nhảy*. Độ dài bước nhảy ban đầu là n/2, và độ dài bước nhảy được chia đôi trên mỗi vòng: đầu tiên n/4, sau đó n/8, sau đó n/16, v.v., cho đến cuối cùng độ dài là 1. Trên mỗi vòng, chúng ta thực hiện các bước nhảy cho đến khichúng ta sẽ kết thúc bên ngoài mảng hoặc trong một phần tử mà giá trị vượt quá giá trị mục tiêu. Sau các bước nhảy, hoặc phần tử mong muốn đã được tìm thấy hoặc chúng ta biết rằng nó không xuất hiện trong mảng. Hình 4.15 minh họa kỹ thuật trong ví dụ của chúng ta.
 
 Code sau cài đặt tìm kiếm:
 
@@ -1494,7 +1501,7 @@ if (array[k] == x) {
 }
 ```
 
-Trong quá trình tìm kiếm, biến b chứa độ dài bước nhảy hiện tại. Độ phức tạp thời gian của thuật toán là $O(\log n)$, vì code trong vòng lặp while được thực hiệnnhiều nhất hai lần cho mỗi độ dài bước nhảy.
+Trong quá trình tìm kiếm, biến b chứa độ dài bước nhảy hiện tại. Độ phức tạp thời gian của thuật toán là $O(\log n)$, vì code trong vòng lặp while được thực hiện nhiều nhất hai lần cho mỗi độ dài bước nhảy.
 
 #### 4.3.2 Tìm Nghiệm Tối ưu
 
@@ -1503,7 +1510,6 @@ Giả sử chúng ta đang giải bài toán và có hàm `valid(x)` trả về 
 Ý tưởng là tìm kiếm nhị phân cho giá trị lớn nhất của x mà `valid(x)` là `false`. Do đó, giá trị tiếp theo k = x + 1 là giá trị nhỏ nhất có thể mà `valid(k)` là `true`. Tìm kiếm có thể được cài đặt như sau:
 
 
-4.3 Binary Search 49
 
 ![](images/_page_59_Figure_1.jpeg)
 
@@ -1517,25 +1523,25 @@ for (int b = z; b >= 1; b /= 2) {
 int k = x+1;
 ```
 
-Độ dài bước nhảy ban đầu z phải là một giới hạn trên cho câu trả lời, tức là bất kỳ giá trị nào màchúng ta chắc chắn biết rằng `valid(z)` là `true`. Thuật toán gọi hàm `valid` $O(\log z)$ lần, nên thời gian chạy phụ thuộc vào hàm `valid`. Ví dụ, nếu hàm hoạt động trong O(n) thời gian, thời gian chạy là $O(n \log z)$.
+Độ dài bước nhảy ban đầu z phải là một giới hạn trên cho câu trả lời, tức là bất kỳ giá trị nào mà chúng ta chắc chắn biết rằng `valid(z)` là `true`. Thuật toán gọi hàm `valid` $O(\log z)$ lần, nên thời gian chạy phụ thuộc vào hàm `valid`. Ví dụ, nếu hàm hoạt động trong O(n) thời gian, thời gian chạy là $O(n \log z)$.
 
 **Ví dụ** Xem xét bài toán mà nhiệm vụ của chúng ta là xử lý k công việc sử dụng n máy. Mỗi máy i được gán một số nguyên $p_i$: thời gian để xử lý một công việc. Thời gian tối thiểu để xử lý tất cả công việc là gì?
 
 Ví dụ, giả sử k = 8, n = 3 và thời gian xử lý là $p_1 = 2$, $p_2 = 3$, và $p_3 = 7$. Trong trường hợp này, tổng thời gian xử lý tối thiểu là 9, bằng cách theo lịch trình trong Hình 4.16.
 
-Đặt `valid(x)` là hàm tìm ra xem có thể xử lý tất cả công việc sử dụngnhiều nhất x đơn vị thời gian hay không. Trong ví dụ của chúng ta, rõ ràng `valid(9)` là `true`,vì chúng ta có thể theo lịch trình trong Hình 4.16. Mặt khác, `valid(8)` phải là `false`,vì thời gian xử lý tối thiểu là 9.
+Đặt `valid(x)` là hàm tìm ra xem có thể xử lý tất cả công việc sử dụng nhiều nhất x đơn vị thời gian hay không. Trong ví dụ của chúng ta, rõ ràng `valid(9)` là `true`,vì chúng ta có thể theo lịch trình trong Hình 4.16. Mặt khác, `valid(8)` phải là `false`,vì thời gian xử lý tối thiểu là 9.
 
-Tính giá trị của `valid(x)` dễ dàng,vì mỗi máy i có thể xử lýnhiều nhất $\lfloor x/p_i \rfloor$ công việc trong x đơn vị thời gian. Do đó, nếu tổng tất cả giá trị $\lfloor x/p_i \rfloor$ là k hoặc nhiều hơn, x là nghiệm hợp lệ. Sau đó, chúng ta có thể sử dụng tìm kiếm nhị phân để tìm giá trị tối thiểu của x mà `valid(x)` là `true`.
+Tính giá trị của `valid(x)` dễ dàng, vì mỗi máy i có thể xử lýnhiều nhất $\lfloor x/p_i \rfloor$ công việc trong x đơn vị thời gian. Do đó, nếu tổng tất cả giá trị $\lfloor x/p_i \rfloor$ là k hoặc nhiều hơn, x là nghiệm hợp lệ. Sau đó, chúng ta có thể sử dụng tìm kiếm nhị phân để tìm giá trị tối thiểu của x mà `valid(x)` là `true`.
 
 Thuật toán kết quả hiệu quả như thế nào? Hàm `valid` mất O(n) thời gian, nên thuật toán hoạt động trong $O(n \log z)$ thời gian, trong đó z là giới hạn trên cho câu trả lời. Một giá trị có thể cho z là $kp_1$ tương ứng với giải pháp mà chỉ máy đầu tiên được sử dụng để xử lý tất cả công việc. Đây chắc chắn là giới hạn trên hợp lệ.
 
 ## Chương 5: Cấu trúc Dữ liệu
 
-Chương này giới thiệu các cấu trúc dữ liệu quan trọng nhất của thư viện chuẩn C++. Trong lập trình thi đấu, điều crucial là biếtnhững nào cấu trúc dữ liệu có sẵn trong thư viện chuẩn và cách sử dụng chúng. Điều này thường tiết kiệm một lượng lớn thời gian khi cài đặt thuật toán.
+Chương này giới thiệu các cấu trúc dữ liệu quan trọng nhất của thư viện chuẩn C++. Trong lập trình thi đấu, điều crucial là biết những nào cấu trúc dữ liệu có sẵn trong thư viện chuẩn và cách sử dụng chúng. Điều này thường tiết kiệm một lượng lớn thời gian khi cài đặt thuật toán.
 
 Phần 5.1 đầu tiên mô tả cấu trúc vector là một mảng động hiệu quả. Sau đó, chúng ta sẽ tập trung vào việc sử dụng iterator và range với cấu trúc dữ liệu, và thảo luận ngắn gọn về deque, stack, và queue.
 
-Phần 5.2 thảo luận set, map và priority queue. Các cấu trúc dữ liệu đó thường được sử dụng như khối xây dựng của thuật toán hiệu quả,vì chúng ta cho phép chúng ta duy trì các cấu trúc động hỗ trợ cả tìm kiếm hiệu quả và cập nhật.
+Phần 5.2 thảo luận set, map và priority queue. Các cấu trúc dữ liệu đó thường được sử dụng như khối xây dựng của thuật toán hiệu quả, vì chúng ta cho phép chúng ta duy trì các cấu trúc động hỗ trợ cả tìm kiếm hiệu quả và cập nhật.
 
 Phần 5.3 cho thấy một số kết quả về hiệu suất của cấu trúc dữ liệu trong thực tế. Như chúng ta sẽ thấy, có những khác biệt hiệu suất quan trọng không thể được phát hiện chỉ bằng cách nhìn vào độ phức tạp thời gian.
 
@@ -1547,7 +1553,7 @@ Trong C++, mảng thông thường là cấu trúc kích thước cố định, 
 int array[n];
 ```
 
-*Mảng động* là một mảng mà kích thước có thể được thay đổi trong quá trình thực thi chương trình. Thư viện chuẩn C++ cung cấp several mảng động, hữu ích nhất trong số đó là cấu trúc vector.
+*Mảng động* là một mảng mà kích thước có thể được thay đổi trong quá trình thực thi chương trình. Thư viện chuẩn C++ cung cấp một số mảng động, hữu ích nhất trong số đó là cấu trúc vector.
 
 #### 5.1.1 Vector
 
@@ -1701,8 +1707,8 @@ cout << q.back() << "\n"; // 5
 
 Thư viện chuẩn C++ chứa hai cấu trúc set:
 
-- `set` dựa trên cây tìm kiếm nhị phân cân bằng và các phép toán hoạt động trong O(log n) thời gian.
-- `unordered_set` dựa trên bảng băm và các phép toán hoạt động, trung bình,<sup>1</sup> trong O(1) thời gian.
+- `set` dựa trên cây tìm kiếm nhị phân cân bằng và các phép toán hoạt động trong $O(\log n)$ thời gian.
+- `unordered_set` dựa trên bảng băm và các phép toán hoạt động, trung bình,<sup>1</sup> trong $O(1)$ thời gian.
 
 Cả hai cấu trúc đều hiệu quả, và thường có thể sử dụng một trong hai. Vì chúng được sử dụng theo cùng cách, chúng ta tập trung vào cấu trúc `set` trong các ví dụ sau.
 
@@ -1734,7 +1740,7 @@ s.insert(3);
 cout << s.count(3) << "\n"; // 1
 ```
 
-Set có thể được sử dụngphần lớn giống như vector, nhưng không thể truy cập các phần tử sử dụng ký hiệu `[]`. Code sau in số lượng phần tử trong set và sau đó duyệt qua các phần tử:
+Set có thể được sử dụng phần lớn giống như vector, nhưng không thể truy cập các phần tử sử dụng ký hiệu `[]`. Code sau in số lượng phần tử trong set và sau đó duyệt qua các phần tử:
 
 ```cpp
 cout << s.size() << "\n";
@@ -1752,7 +1758,7 @@ if (it == s.end()) {
 }
 ```
 
-**Set có thứ tự** Sự khác biệt chính giữa hai cấu trúc set C++ là `set` là *có thứ tự*, trong khi `unordered_set` thì không. Do đó, nếu chúng ta muốn duy trì thứ tự của các phần tử,chúng ta phải sử dụng cấu trúc `set`.
+**Set có thứ tự** Sự khác biệt chính giữa hai cấu trúc set C++ là `set` là *có thứ tự*, trong khi `unordered_set` thì không. Do đó, nếu chúng ta muốn duy trì thứ tự của các phần tử, chúng ta phải sử dụng cấu trúc `set`.
 
 Ví dụ, xem xét bài toán tìm giá trị nhỏ nhất và lớn nhất trong set. Để làm điều này hiệu quả, chúng ta cần sử dụng cấu trúc `set`. Vì các phần tử được sắp xếp, chúng ta có thể tìm giá trị nhỏ nhất và lớn nhất như sau:
 
@@ -1762,7 +1768,7 @@ auto last = s.end(); last--;
 cout << *first << " " << *last << "\n";
 ```
 
-Lưu ý rằng vì `end()` trỏ đến phần tử sau phần tử cuối cùng,chúng ta phải giảm iterator đi một.
+Lưu ý rằng vì `end()` trỏ đến phần tử sau phần tử cuối cùng, chúng ta phải giảm iterator đi một.
 
 Cấu trúc `set` cũng cung cấp các hàm `lower_bound(x)` và `upper_bound(x)` trả về iterator đến phần tử nhỏ nhất trong set mà giá trị *ít nhất* hoặc *lớn hơn* x, tương ứng. Trong cả hai hàm, nếu phần tử được yêu cầu không tồn tại, giá trị trả về là `end()`.
 
@@ -1771,7 +1777,7 @@ cout << *s.lower_bound(x) << "\n";
 cout << *s.upper_bound(x) << "\n";
 ```
 
-**Multiset** *Multiset* là một set có thể có several bản sao của cùng giá trị. C++ có các cấu trúc `multiset` và `unordered_multiset` tương tự như `set` và `unordered_set`. Ví dụ, code sau thêm ba bản sao của giá trị 5 vào multiset.
+**Multiset** *Multiset* là một set có thể có nhiều bản sao của cùng giá trị. C++ có các cấu trúc `multiset` và `unordered_multiset` tương tự như `set` và `unordered_set`. Ví dụ, code sau thêm ba bản sao của giá trị 5 vào multiset.
 
 ```cpp
 multiset<int> s;
@@ -1945,11 +1951,11 @@ Bảng 5.1 cho thấy kết quả của thí nghiệm mà các thuật toán tr�
 | $8 \cdot 10^{6}$ | 4.68 | 1.46 | 0.06 |
 | $16 \cdot 10^6$ | 9.57 | 2.83 | 0.11 |
 
-thuật toán nhanh hơn khoảng hai lần so với thuật toán set, và thuật toán sắp xếp nhanh hơn hơn mười lần so với thuật toán set. Lưu ý rằng cả thuật toán set và thuật toán sắp xếp đều hoạt động trong $O(n \log n)$ thời gian; nhưngcái sau nhanh hơn nhiều. Lý do cho điều này là sắp xếp là phép toán đơn giản, trong khi cây tìm kiếm nhị phân cân bằng được sử dụng trong set là cấu trúc dữ liệu phức tạp.
+thuật toán nhanh hơn khoảng hai lần so với thuật toán set, và thuật toán sắp xếp nhanh hơn hơn mười lần so với thuật toán set. Lưu ý rằng cả thuật toán set và thuật toán sắp xếp đều hoạt động trong $O(n \log n)$ thời gian; nhưng cái sau nhanh hơn nhiều. Lý do cho điều này là sắp xếp là phép toán đơn giản, trong khi cây tìm kiếm nhị phân cân bằng được sử dụng trong set là cấu trúc dữ liệu phức tạp.
 
 #### 5.3.2 Map so với Mảng
 
-Map là cấu trúc tiện lợi so với mảng,vì bất kỳ chỉ số nào cũng có thể được sử dụng, nhưng chúng cũng có các hệ số hằng số lớn. Trong thí nghiệm tiếp theo, chúng ta tạo một vector gồm n số nguyên ngẫu nhiên giữa 1 và $10^6$ và sau đó xác định giá trị xuất hiện nhiều nhất bằng cách đếm số lần xuất hiện của mỗi phần tử. Đầu tiên chúng ta sử dụng map, nhưng vì giới hạn trên $10^6$ khá nhỏ,chúng ta cũng có thể sử dụng mảng.
+Map là cấu trúc tiện lợi so với mảng, vì bất kỳ chỉ số nào cũng có thể được sử dụng, nhưng chúng cũng có các hệ số hằng số lớn. Trong thí nghiệm tiếp theo, chúng ta tạo một vector gồm n số nguyên ngẫu nhiên giữa 1 và $10^6$ và sau đó xác định giá trị xuất hiện nhiều nhất bằng cách đếm số lần xuất hiện của mỗi phần tử. Đầu tiên chúng ta sử dụng map, nhưng vì giới hạn trên $10^6$ khá nhỏ, chúng ta cũng có thể sử dụng mảng.
 
 Bảng 5.2 cho thấy kết quả của thí nghiệm. Trong khi `unordered_map` nhanh hơn khoảng ba lần so với `map`, thì mảng nhanh hơn gần một trăm lần. Do đó, mảng nên được sử dụng khi có thể thay vì map. Đặc biệt, lưu ý rằng trong khi `unordered_map` cung cấp các phép toán O(1) thời gian, có các hệ số hằng số lớn bị ẩn trong cấu trúc dữ liệu.
 
@@ -1965,7 +1971,7 @@ Bảng 5.2 cho thấy kết quả của thí nghiệm. Trong khi `unordered_map`
 
 #### 5.3.3 Hàng đợi Ưu tiên so với Multiset
 
-Hàng đợi Ưu tiên có thực sự nhanh hơn multiset không? Để tìm hiểu, chúng ta thực hiện thí nghiệm khác mà chúng ta tạo hai vector gồm n số int ngẫu nhiên. Đầu tiên, chúng ta thêm tất cả phần tử của vector đầu tiên vào cấu trúc dữ liệu. Sau đó,chúng ta đi qua vector thứ hai vàliên tục xóa phần tử nhỏ nhất khỏi cấu trúc dữ liệu và thêm phần tử mới vào nó.
+Hàng đợi Ưu tiên có thực sự nhanh hơn multiset không? Để tìm hiểu, chúng ta thực hiện thí nghiệm khác mà chúng ta tạo hai vector gồm n số int ngẫu nhiên. Đầu tiên, chúng ta thêm tất cả phần tử của vector đầu tiên vào cấu trúc dữ liệu. Sau đó, chúng ta đi qua vector thứ hai vàliên tục xóa phần tử nhỏ nhất khỏi cấu trúc dữ liệu và thêm phần tử mới vào nó.
 
 Bảng 5.3 cho thấy kết quả của thí nghiệm. Hóa ra trong bài toán này Hàng đợi Ưu tiên nhanh hơn khoảng năm lần so với multiset.
 
@@ -1985,7 +1991,7 @@ Trong phần này, chúng ta đi qua các khái niệm cơ bản của quy hoạ
 
 Giả sử chúng ta được cho một tập hợp giá trị tiền coins = $\{c_1, c_2, \dots, c_k\}$ và một số tiền mục tiêu n, và chúng ta được yêu cầu xây dựng số tiền n sử dụng ít tiền nhất có thể. Không cógiới hạn về số lần chúng ta có thể sử dụng mỗi giá trị tiền. Ví dụ, nếu $coins = \{1, 2, 5\}$ và n = 12, giải pháp tối ưu là 5 + 5 + 2 = 12, yêu cầu ba đồng tiền.
 
-Có một thuật toán tham lam tự nhiên để giải bài toán: luôn chọn đồng tiền lớn nhất có thể sao cho tổng giá trị tiền không vượt quá số tiền mục tiêu. Ví dụ, nếu n = 12, chúng ta đầu tiên chọn hai đồng tiền giá trị 5, và sau đó một đồng tiền giá trị 2, hoàn thành giải pháp. Đâytrông như một chiến lược hợp lý, nhưng nó có luôn tối ưu không?
+Có một thuật toán tham lam tự nhiên để giải bài toán: luôn chọn đồng tiền lớn nhất có thể sao cho tổng giá trị tiền không vượt quá số tiền mục tiêu. Ví dụ, nếu n = 12, chúng ta đầu tiên chọn hai đồng tiền giá trị 5, và sau đó một đồng tiền giá trị 2, hoàn thành giải pháp. Đây trông như một chiến lược hợp lý, nhưng nó có luôn tối ưu không?
 
 Hóa ra chiến lược này *không* phải lúc nào cũng hoạt động. Ví dụ, nếu coins = $\{1, 3, 4\}$ và n = 6, giải pháp tối ưu chỉ có hai đồng tiền (3 + 3 = 6) nhưng chiến lược tham lam tạo ra giải pháp với ba đồng tiền (4 + 1 + 1 = 6). Phảnví dụ đơn giản này cho thấy thuật toán tham lam là không đúng.<sup>1</sup>
 
@@ -1995,7 +2001,7 @@ Tuy nhiên, sử dụng quy hoạch động, chúng ta có thể tạo ra thuậ
 
 #### 6.1.2 Tìm Nghiệm Tối ưu
 
-Để sử dụng quy hoạch động,chúng ta nên xây dựng bài toán đệ quy sao cho nghiệm của bài toán có thể được tính từ nghiệm của các bài toán con nhỏ hơn. Trong bài toán tiền, một bài toán đệ quy tự nhiên là tính giá trị của hàm `solve(x)`: số tiền tối thiểu cần thiết để tạo thành tổng x? Rõ ràng, giá trị của hàm phụ thuộc vào giá trị của các đồng tiền. Ví dụ, nếu $coins = \{1, 3, 4\}$, các giá trị đầu tiên của hàm như sau:
+Để sử dụng quy hoạch động, chúng ta nên xây dựng bài toán đệ quy sao cho nghiệm của bài toán có thể được tính từ nghiệm của các bài toán con nhỏ hơn. Trong bài toán tiền, một bài toán đệ quy tự nhiên là tính giá trị của hàm `solve(x)`: số tiền tối thiểu cần thiết để tạo thành tổng x? Rõ ràng, giá trị của hàm phụ thuộc vào giá trị của các đồng tiền. Ví dụ, nếu $coins = \{1, 3, 4\}$, các giá trị đầu tiên của hàm như sau:
 
 ```cpp
 solve(0) = 0
@@ -2031,7 +2037,7 @@ Bây giờ chúng ta sẵn sàng đưa ra một hàm đệ quy tổng quát tín
 
 $$solve(x) = \begin{cases} \infty & x < 0 \\ 0 & x = 0 \\ \min_{c \in coins} solve(x - c) + 1 & x > 0 \end{cases}$$
 
-Đầu tiên, nếu x < 0, giá trị là vô cực,vì không thể tạo thành tổng âm. Sau đó, nếu x = 0, giá trị là0, vì không cần đồng tiền nào để tạo thành tổng rỗng. Cuối cùng, nếu x > 0, biến c đi qua tất cả các khả năngnhư thế nào chọn đồng tiền đầu tiên của tổng.
+Đầu tiên, nếu x < 0, giá trị là vô cực, vì không thể tạo thành tổng âm. Sau đó, nếu x = 0, giá trị là0, vì không cần đồng tiền nào để tạo thành tổng rỗng. Cuối cùng, nếu x > 0, biến c đi qua tất cả các khả năngnhư thế nào chọn đồng tiền đầu tiên của tổng.
 
 Khi đã tìm thấy hàm đệ quy giải bài toán, chúng ta có thể trực tiếp cài đặt giải pháp trong C++ (hằng số INF biểu thị vô cực):
 
@@ -2077,9 +2083,9 @@ int solve(int x) {
 
 Hàm xử lý các trường hợp cơ sở x < 0 và x = 0 như trước. Sau đó nó kiểm tra từ `ready[x]` xem `solve(x)` đã được lưu trữ trong `value[x]` chưa, và nếu có, hàm trực tiếp trả về nó. Nếu không hàm tính giá trị của `solve(x)` đệ quy và lưu trữ nó trong `value[x]`.
 
-Hàm này hoạt động hiệu quả,vì câu trả lời cho mỗi tham số x chỉ được tính đệ quy một lần. Sau khi giá trị của `solve(x)` đã được lưu trữ trong `value[x]`,nó có thể được truy xuất hiệu quảmỗi khi hàm sẽ được gọi lại với tham số x. Độ phức tạp thời gian của thuật toán là O(nk), trong đó n là số tiền mục tiêu và k là số đồng tiền.
+Hàm này hoạt động hiệu quả, vì câu trả lời cho mỗi tham số x chỉ được tính đệ quy một lần. Sau khi giá trị của `solve(x)` đã được lưu trữ trong `value[x]`,nó có thể được truy xuất hiệu quảmỗi khi hàm sẽ được gọi lại với tham số x. Độ phức tạp thời gian của thuật toán là O(nk), trong đó n là số tiền mục tiêu và k là số đồng tiền.
 
-**Cài đặt lặp** Lưu ý rằngchúng ta cũng có thể *lặp* xây dựng mảng `value` sử dụng vòng lặp như sau:
+**Cài đặt lặp** Lưu ý rằng chúng ta cũng có thể *lặp* xây dựng mảng `value` sử dụng vòng lặp như sau:
 
 ```cpp
 value[0] = 0;
@@ -2093,15 +2099,15 @@ for (int x = 1; x <= n; x++) {
 }
 ```
 
-Thực tế,hầu hết lập trình viên thi đấu thích cài đặt này,vì nó ngắn hơn và có các hệ số hằng số nhỏ hơn. Từ bây giờ,chúng ta cũng sử dụng cài đặt lặp trong các ví dụ. Tuy nhiên, thường dễ dàng hơn để nghĩ về giải pháp quy hoạch động theo các hàm đệ quy.
+Thực tế, hầu hết lập trình viên thi đấu thích cài đặt này, vì nó ngắn hơn và có các hệ số hằng số nhỏ hơn. Từ bây giờ, chúng ta cũng sử dụng cài đặt lặp trong các ví dụ. Tuy nhiên, thường dễ dàng hơn để nghĩ về giải pháp quy hoạch động theo các hàm đệ quy.
 
-**Xây dựng Giải pháp** Đôi khichúng ta được yêu cầu cả tìm giá trị của giải pháp tối ưu và đưa ra ví dụ làm thế nào giải pháp như vậy có thể được xây dựng. Để xây dựng giải pháp tối ưu trong bài toán tiền,chúng ta có thể khai báo một mảng mới cho biết cho mỗi số tiền đồng tiền đầu tiên trong giải pháp tối ưu:
+**Xây dựng Giải pháp** Đôi khichúng ta được yêu cầu cả tìm giá trị của giải pháp tối ưu và đưa ra ví dụ làm thế nào giải pháp như vậy có thể được xây dựng. Để xây dựng giải pháp tối ưu trong bài toán tiền, chúng ta có thể khai báo một mảng mới cho biết cho mỗi số tiền đồng tiền đầu tiên trong giải pháp tối ưu:
 
 ```cpp
 int first[N];
 ```
 
-Sau đó,chúng ta có thể sửa đổi thuật toán như sau:
+Sau đó, chúng ta có thể sửa đổi thuật toán như sau:
 
 ```cpp
 value[0] = 0;
@@ -2170,7 +2176,7 @@ count[x] += count[x-c];
 
 ### 6.2 Các ví dụ thêm
 
-Sau khi đã thảo luận các khái niệm cơ bản của quy hoạch động,chúng ta bây giờ sẵn sàng đi qua một tập hợp bài toán có thể được giải hiệu quả sử dụng quy hoạch động. Như chúng ta sẽ thấy, quy hoạch động là kỹ thuật linh hoạt cónhiều ứng dụng trong thiết kế thuật toán.
+Sau khi đã thảo luận các khái niệm cơ bản của quy hoạch động, chúng ta bây giờ sẵn sàng đi qua một tập hợp bài toán có thể được giải hiệu quả sử dụng quy hoạch động. Như chúng ta sẽ thấy, quy hoạch động là kỹ thuật linh hoạt cónhiều ứng dụng trong thiết kế thuật toán.
 
 ![](images/_page_78_Figure_2.jpeg)
 
@@ -2180,7 +2186,7 @@ Sau khi đã thảo luận các khái niệm cơ bản của quy hoạch động
 
 *Dãy con tăng dài nhất* trong mảng gồm *n* phần tử là một chuỗi có độ dài tối đa các phần tử mảng đi từ trái sang phải, và mỗi phần tử trong chuỗi lớn hơn phần tử trước đó. Ví dụ, Hình 6.1 cho thấy dãy con tăng dài nhất trong mảng gồm tám phần tử.
 
-Chúng ta có thể tìm hiệu quả dãy con tăng dài nhất trong mảng sử dụng quy hoạch động. Đặt `length(k)` là độ dài của dãy con tăng dài nhất kết thúc tại vị trí k. Sau đó,nếu chúng ta tính tất cả giá trị của `length(k)` trong đó $0 \le k \le n-1$,chúng ta sẽphát hiện độ dài của dãy con tăng dài nhất. Giá trị của hàm cho mảng ví dụ của chúng ta như sau:
+Chúng ta có thể tìm hiệu quả dãy con tăng dài nhất trong mảng sử dụng quy hoạch động. Đặt `length(k)` là độ dài của dãy con tăng dài nhất kết thúc tại vị trí k. Sau đó, nếu chúng ta tính tất cả giá trị của `length(k)` trong đó $0 \le k \le n-1$,chúng ta sẽphát hiện độ dài của dãy con tăng dài nhất. Giá trị của hàm cho mảng ví dụ của chúng ta như sau:
 
 ```
 length(0) = 1
@@ -2197,7 +2203,7 @@ Ví dụ, length(6) = 4,vì dãy con tăng dài nhất kết thúc tại vị tr
 
 Để tính giá trị của length(k),chúng ta nên tìm vị trí i < k sao cho array[i] < array[k] và length(i) lớn nhất có thể. Sau đó chúng ta biết rằng length(k) = length(i) + 1,vì đây là cách tối ưu để thêm array[k] vào dãy con. Tuy nhiên, nếu không có vị trí i như vậy, thì length(k) = 1, có nghĩa là dãy con chỉ chứa array[k].
 
-Vì tất cả giá trị của hàm có thể được tính từ các giá trị nhỏ hơn,chúng ta có thể sử dụng quy hoạch động để tính các giá trị. Trong code sau, giá trị của hàm sẽ được lưu trữ trong mảng `length`.
+Vì tất cả giá trị của hàm có thể được tính từ các giá trị nhỏ hơn, chúng ta có thể sử dụng quy hoạch động để tính các giá trị. Trong code sau, giá trị của hàm sẽ được lưu trữ trong mảng `length`.
 
 ```cpp
 for (int k = 0; k < n; k++) {
@@ -2214,17 +2220,17 @@ Thuật toán kết quả rõ ràng hoạt động trong $O(n^2)$ thời gian.<s
 
 #### 6.2.2 Đường đi trong Lưới
 
-Bài toán tiếp theo của chúng ta là tìm đường đi từ góc trên bên trái đến góc dưới bên phải của lưới $n \times n$, vớigiới hạn rằngchúng ta chỉ có thể di chuyển xuống và phải. Mỗi ô chứa một số nguyên, và đường đinên được xây dựng sao cho tổng các giá trị dọc theo đường đi lớn nhất có thể.
+Bài toán tiếp theo của chúng ta là tìm đường đi từ góc trên bên trái đến góc dưới bên phải của lưới $n \times n$, vớigiới hạn rằng chúng ta chỉ có thể di chuyển xuống và phải. Mỗi ô chứa một số nguyên, và đường đinên được xây dựng sao cho tổng các giá trị dọc theo đường đi lớn nhất có thể.
 
 Ví dụ, Hình 6.2 cho thấy đường đi tối ưu trong lưới $5 \times 5$. Tổng các giá trị trên đường đi là 67, và đây là tổng lớn nhất có thể trên đường đi từ góc trên bên trái đến góc dưới bên phải.
 
-Giả sử rằng các hàng và cột của lưới được đánh số từ 1 đến n, và value[y][x] bằng giá trị của ô (y, x). Đặt sum(y, x) là tổng tối đa trên đường đi từ góc trên bên trái đến ô (y, x). Sau đó, sum(n, n) cho chúng ta biết tổng tối đa từ góc trên bên trái đến góc dưới bên phải. Ví dụ, trong lưới trên, sum(5, 5) = 67. Bây giờchúng ta có thể sử dụng công thức
+Giả sử rằng các hàng và cột của lưới được đánh số từ 1 đến n, và value[y][x] bằng giá trị của ô (y, x). Đặt sum(y, x) là tổng tối đa trên đường đi từ góc trên bên trái đến ô (y, x). Sau đó, sum(n, n) cho chúng ta biết tổng tối đa từ góc trên bên trái đến góc dưới bên phải. Ví dụ, trong lưới trên, sum(5, 5) = 67. Bây giờ chúng ta có thể sử dụng công thức
 
 $$sum(y, x) = \max(sum(y, x - 1), sum(y - 1, x)) + value[y][x],$$
 
 dựa trên quan sát rằng đường đi kết thúc tại ô (y, x) có thể đến từ ô (y, x - 1) hoặc từ ô (y - 1, x) (Hình 6.3). Do đó, chúng ta chọn hướng tối đa hóa tổng. Chúng ta giả sử sum(y, x) = 0 nếu y = 0 hoặc x = 0, do đó công thức đệ quy cũng hoạt động cho các ô ngoài cùng bên trái và trên cùng.
 
-Vì hàm `sum` có hai tham số, mảng quy hoạch động cũng có hai chiều. Ví dụ,chúng tacó thể sử dụng mảng
+Vì hàm `sum` có hai tham số, mảng quy hoạch động cũng có hai chiều. Ví dụ, chúng tacó thể sử dụng mảng
 
 <sup>2</sup>Trong bài toán này, cũng có thể tính các giá trị quy hoạch động hiệu quả hơn trong $O(n \log n)$ thời gian. Bạn có thể tìm cách làm điều này không?
 
@@ -2250,17 +2256,17 @@ Thuật ngữ *cái túi* đề cập đến các bài toán mà một tập h�
 
 Trong phần này, chúng ta tập trung vào bài toán sau: Cho một danh sách trọng số $[w_1, w_2, ..., w_n]$, xác định tất cả các tổng có thể được xây dựng sử dụng các trọng số. Ví dụ, Hình 6.4 cho thấy các tổng có thể cho trọng số [1, 3, 3, 5]. Trong trường hợp này, tất cả các tổng giữa 0...12 đều có thể, trừ 2 và 10. Ví dụ, tổng 7 có thểvì chúng ta có thể chọn trọng số [1, 3, 3].
 
-Để giải bài toán, chúng ta tập trung vào các bài toán con màchúng ta chỉ sử dụng k trọng số đầu tiên để xây dựng tổng. Đặt possible(x,k) = true nếuchúng ta có thể xây dựng tổng x sử dụng k trọng số đầu tiên, và nếu không possible(x,k) = false. Giá trị của hàm có thể được tính đệ quy sử dụng công thức
+Để giải bài toán, chúng ta tập trung vào các bài toán con mà chúng ta chỉ sử dụng k trọng số đầu tiên để xây dựng tổng. Đặt possible(x, k) = true nếu chúng ta có thể xây dựng tổng x sử dụng k trọng số đầu tiên, và nếu không possible(x, k) = false. Giá trị của hàm có thể được tính đệ quy sử dụng công thức
 
 ```
 possible(x, k) = possible(x - w_k, k - 1) or possible(x, k - 1),
 ```
 
-dựa trên thực tế rằngchúng ta có thểhoặc sử dụng hoặc không sử dụng trọng số $w_k$ trong tổng. Nếu chúng ta sử dụng $w_k$, nhiệm vụ còn lại là tạo thành tổng $x - w_k$ sử dụng k - 1 trọng số đầu tiên, vànếu chúng ta không sử dụng $w_k$, nhiệm vụ còn lại là tạo thành tổng x sử dụng k - 1 trọng số đầu tiên. Trường hợp cơ sở là
+dựa trên thực tế rằng chúng ta có thểhoặc sử dụng hoặc không sử dụng trọng số $w_k$ trong tổng. Nếu chúng ta sử dụng $w_k$, nhiệm vụ còn lại là tạo thành tổng $x - w_k$ sử dụng k - 1 trọng số đầu tiên, vànếu chúng ta không sử dụng $w_k$, nhiệm vụ còn lại là tạo thành tổng x sử dụng k - 1 trọng số đầu tiên. Trường hợp cơ sở là
 
 $$possible(x, 0) = \begin{cases} true & x = 0\\ false & x \neq 0, \end{cases}$$
 
-vì nếu không sử dụng trọng số nào,chúng ta chỉ có thể tạo thành tổng 0. Cuối cùng, possible(x, n) cho chúng ta biết whetherchúng ta có thể xây dựng tổng x sử dụng tất cả trọng số.
+vì nếu không sử dụng trọng số nào, chúng ta chỉ có thể tạo thành tổng 0. Cuối cùng, possible(x, n) cho chúng ta biết whetherchúng ta có thể xây dựng tổng x sử dụng tất cả trọng số.
 
 **Hình 6.4** Xây dựng tổng sử dụng trọng số [1, 3, 3, 5]
 
@@ -2275,7 +2281,7 @@ vì nếu không sử dụng trọng số nào,chúng ta chỉ có thể tạo t
 | k = 3 | ✓ | ✓ | | ✓ | ✓ | | ✓ | ✓ | | | | | |
 | k = 4 | ✓ | ✓ | | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | | ✓ | ✓ |
 
-Hình 6.5 cho thấy tất cả giá trị của hàm cho trọng số [1, 3, 3, 5] (ký hiệu "✓" biểu thị giá trị true). Ví dụ, hàng k = 2 cho chúng ta biết rằngchúng ta có thể xây dựng các tổng [0, 1, 3, 4] sử dụng trọng số [1, 3].
+Hình 6.5 cho thấy tất cả giá trị của hàm cho trọng số [1, 3, 3, 5] (ký hiệu "✓" biểu thị giá trị true). Ví dụ, hàng k = 2 cho chúng ta biết rằng chúng ta có thể xây dựng các tổng [0, 1, 3, 4] sử dụng trọng số [1, 3].
 
 Đặt m là tổng tất cả trọng số. Giải pháp quy hoạch động thời gian O(nm) sau tương ứng với hàm đệ quy:
 
@@ -2308,7 +2314,7 @@ Lưu ý rằng ý tưởng quy hoạch động tổng quát trình bày trong ph
 
 Sử dụng quy hoạch động, thường có thể thay đổi vòng lặp trên hoán vị thành vòng lặp trên tập con. Lợi ích của điều này là n!, số lượng
 
-hoán vị, lớn hơn nhiều so với $2^n$, số lượng tập con. Ví dụ, nếu n = 20, $n! \approx 2.4 \cdot 10^{18}$ và $2^n \approx 10^6$. Do đó, cho certain giá trị của n,chúng ta có thể hiệu quả đi qua các tập con nhưng không đi qua các hoán vị.
+hoán vị, lớn hơn nhiều so với $2^n$, số lượng tập con. Ví dụ, nếu n = 20, $n! \approx 2.4 \cdot 10^{18}$ và $2^n \approx 10^6$. Do đó, cho một số giá trị của n, chúng ta có thể hiệu quả đi qua các tập con nhưng không đi qua các hoán vị.
 
 Ví dụ, xem xét bài toán sau: Có một thang máy với trọng lượng tối đa x, và n người muốn đi từ tầng trệt đến tầng trên cùng. Các người được đánh số $0, 1, \ldots, n-1$, và trọng lượng của người i là weight[i]. Số chuyến đi tối thiểu cần thiết để đưa tất cả mọi người đến tầng trên cùng là gì?
 
@@ -2322,7 +2328,7 @@ Ví dụ, giả sử x = 12, n = 5, và trọng lượng như sau:
 
 Trong kịch bản này, số chuyến đi tối thiểu là hai. Một giải pháp tối ưu như sau: đầu tiên, người 0, 2, và 3 đi thang máy (tổng trọng lượng 11), và sau đó, người 1 và 4 đi thang máy (tổng trọng lượng 12).
 
-Bài toán có thể được giải dễ dàng trong O(n!n) thời gian bằng cách kiểm tra tất cả hoán vị có thể của n người. Tuy nhiên,chúng ta có thể sử dụng quy hoạch động để tạo thuật toán thời gian $O(2^n n)$ hiệu quả hơn. Ý tưởng là tính cho mỗi tập hợp người hai giá trị: số chuyến đi tối thiểu cần thiết và trọng lượng tối thiểu của người đi trong nhóm cuối cùng.
+Bài toán có thể được giải dễ dàng trong O(n!n) thời gian bằng cách kiểm tra tất cả hoán vị có thể của n người. Tuy nhiên, chúng ta có thể sử dụng quy hoạch động để tạo thuật toán thời gian $O(2^n n)$ hiệu quả hơn. Ý tưởng là tính cho mỗi tập hợp người hai giá trị: số chuyến đi tối thiểu cần thiết và trọng lượng tối thiểu của người đi trong nhóm cuối cùng.
 
 Đặt rides(S) là số chuyến đi tối thiểu cho tập hợp S, và đặt last(S) là trọng lượng tối thiểu của chuyến đi cuối cùng trong giải pháp mà số chuyến đi là tối thiểu. Ví dụ, trong kịch bản trên
 
@@ -2330,9 +2336,9 @@ $$rides(\{3,4\}) = 2 \text{ và } last(\{3,4\}) = 5,$$
 
 vì cách tối ưu cho người 3 và 4 đến tầng trên cùng làhọ đi hai chuyến riêng biệt và người 4 đi trước, điều nàytối thiểu hóa trọng lượng của chuyến đi thứ hai. Tất nhiên, mục tiêu cuối cùng của chúng ta là tính giá trị của $rides(\{0...n-1\})$.
 
-Chúng ta có thể tính giá trị của các hàm đệ quy và sau đó áp dụng quy hoạch động. Để tính giá trị cho tập hợp S,chúng ta đi qua tất cả người thuộc S và tối ưu chọn người cuối cùng p vào thang máy. Mỗi lựa chọn như vậy cho ra bài toán con cho tập hợp người nhỏ hơn. Nếu $\texttt{last}(S \setminus p) + \texttt{weight}[p] \leq x$,chúng ta có thể thêm p vào chuyến đi cuối cùng. Nếu không,chúng ta phải đặt một chuyến đi mới chỉ chứa p.
+Chúng ta có thể tính giá trị của các hàm đệ quy và sau đó áp dụng quy hoạch động. Để tính giá trị cho tập hợp S, chúng ta đi qua tất cả người thuộc S và tối ưu chọn người cuối cùng p vào thang máy. Mỗi lựa chọn như vậy cho ra bài toán con cho tập hợp người nhỏ hơn. Nếu $\texttt{last}(S \setminus p) + \texttt{weight}[p] \leq x$,chúng ta có thể thêm p vào chuyến đi cuối cùng. Nếu không, chúng ta phải đặt một chuyến đi mới chỉ chứa p.
 
-Một cách tiện lợi để cài đặt tính toán quy hoạch động là sử dụng thao tác bit. Đầu tiên,chúng ta khai báo mảng
+Một cách tiện lợi để cài đặt tính toán quy hoạch động là sử dụng thao tác bit. Đầu tiên, chúng ta khai báo mảng
 
 ```cpp
 pair<int,int> best[1<<N];
@@ -2347,7 +2353,7 @@ chứa cho mỗi tập hợp S một cặp (rides(S), last(S)). Cho tập hợp 
 best[0] = {0,0};
 ```
 
-Sau đó,chúng ta có thểđiền vào mảng như sau:
+Sau đó, chúng ta có thểđiền vào mảng như sau:
 
 ```cpp
 for (int s = 1; s < (1<<n); s++) {
@@ -2381,19 +2387,19 @@ Bài toán có thể được giải sử dụng quy hoạch động bằng các
 - [][] | | |
 - [7[7]
 
-Giả sử rằng các hàng của lưới được đánh chỉ số từ 1 đến n. Đặt count(k, x) là số cách để xây dựng giải pháp cho các hàng $1 \dots k$ sao cho xâu x tương ứng với hàng k. Có thể sử dụng quy hoạch động ở đây,vì trạng thái của hàng bịgiới hạn chỉ bởi trạng thái của hàng trước đó.
+Giả sử rằng các hàng của lưới được đánh chỉ số từ 1 đến n. Đặt count(k, x) là số cách để xây dựng giải pháp cho các hàng $1 \dots k$ sao cho xâu x tương ứng với hàng k. Có thể sử dụng quy hoạch động ở đây, vì trạng thái của hàng bịgiới hạn chỉ bởi trạng thái của hàng trước đó.
 
 Giải pháp hợp lệ nếu hàng 1 không chứa ký tự $\square$, hàng n không chứa ký tự $\square$, và tất cả các hàng liên tiếp tương thích. Ví dụ, các hàng $\square \square \square \square \square \square \square \square \square \square \square \square \square \square \square \square \square \square \square$ 
 
-Vì một hàng gồm m ký tự và có bốn lựa chọn cho mỗi ký tự, số hàng khác nhau nhiều nhất là $4^m$.chúng ta có thể đi qua $O(4^m)$ trạng thái có thể cho mỗi hàng, và cho mỗi trạng thái, có $O(4^m)$ trạng thái có thể cho hàng trước, nên độ phức tạp thời gian của giải pháp là $O(n4^{2m})$. Trong thực tế, đó là ý tưởng tốt để xoay lưới sao cho cạnh ngắn hơn có độ dài m,vì hệ số $4^{2m}$chi phối độ phức tạp thời gian.
+Vì một hàng gồm m ký tự và có bốn lựa chọn cho mỗi ký tự, số hàng khác nhau nhiều nhất là $4^m$.chúng ta có thể đi qua $O(4^m)$ trạng thái có thể cho mỗi hàng, và cho mỗi trạng thái, có $O(4^m)$ trạng thái có thể cho hàng trước, nên độ phức tạp thời gian của giải pháp là $O(n4^{2m})$. Trong thực tế, đó là ý tưởng tốt để xoay lưới sao cho cạnh ngắn hơn có độ dài m, vì hệ số $4^{2m}$chi phối độ phức tạp thời gian.
 
-Có thể làm cho giải pháp hiệu quả hơn bằng cách sử dụng biểu diễn compact hơn cho các hàng. Hóa ra chỉ cần biếtnhững nào cột của hàng trước chứa ô trên của gạch dọc. Do đó,chúng ta có thể biểu diễn hàng sử dụng chỉ các ký tự $\sqcap$ và $\square$, trong đó $\square$ là sự kết hợp của các ký tự $\sqcup$, $\square$, và $\square$. Sử dụng biểu diễn này, chỉ có $2^m$ hàng khác nhau, và độ phức tạp thời gian là $O(n2^{2m})$.
+Có thể làm cho giải pháp hiệu quả hơn bằng cách sử dụng biểu diễn compact hơn cho các hàng. Hóa ra chỉ cần biết những nào cột của hàng trước chứa ô trên của gạch dọc. Do đó, chúng ta có thể biểu diễn hàng sử dụng chỉ các ký tự $\sqcap$ và $\square$, trong đó $\square$ là sự kết hợp của các ký tự $\sqcup$, $\square$, và $\square$. Sử dụng biểu diễn này, chỉ có $2^m$ hàng khác nhau, và độ phức tạp thời gian là $O(n2^{2m})$.
 
 Lưu ý cuối cùng, cũng có một công thức trực tiếp để tính số cách lát gạch:
 
 $$\prod_{a=1}^{\lceil n/2 \rceil} \prod_{b=1}^{\lceil m/2 \rceil} 4 \cdot \left( \cos^2 \frac{\pi a}{n+1} + \cos^2 \frac{\pi b}{m+1} \right)$$
 
-Công thức này rất hiệu quả,vì nó tính số cách lát gạch trong O(nm) thời gian, nhưng vì câu trả lời là tích của các số thực, vấn đề khi sử dụng công thức là làm thế nào để lưu trữ chính xác các kết quả trung gian.
+Công thức này rất hiệu quả, vì nó tính số cách lát gạch trong O(nm) thời gian, nhưng vì câu trả lời là tích của các số thực, vấn đề khi sử dụng công thức là làm thế nào để lưu trữ chính xác các kết quả trung gian.
 
 ## Chương 7: Thuật toán Đồ thị
 
@@ -2421,7 +2427,7 @@ Trong phần này, chúng ta đầu tiên đi qua thuật ngữ được sử d�
 
 *Đường đi* dẫn từ nút này đến nút khác thông qua các cạnh của đồ thị. *Độ dài* của đường đi là số cạnh trong đó. Ví dụ, Hình 7.2 cho thấy đường đi $1 \rightarrow 3 \rightarrow 4 \rightarrow 5$ độ dài 3 từ nút 1 đến nút 5. *Chu trình* là đường đi mà nút đầu và nút cuối giống nhau. Ví dụ, Hình 7.3 cho thấy chu trình $1 \rightarrow 3 \rightarrow 4 \rightarrow 1$.
 
-Đồ thị là *liên thông* nếu có đường đi giữa bất kỳ hai nút nào. Trong Hình 7.4, đồ thị bên trái liên thông, nhưng đồ thị bên phải không liên thông,vì không thể đi từ nút 4 đến bất kỳ nút nào khác.
+Đồ thị là *liên thông* nếu có đường đi giữa bất kỳ hai nút nào. Trong Hình 7.4, đồ thị bên trái liên thông, nhưng đồ thị bên phải không liên thông, vì không thể đi từ nút 4 đến bất kỳ nút nào khác.
 
 Các phần liên thông của đồ thị được gọi là *thành phần*. Ví dụ, đồ thị trong Hình 7.5 có ba thành phần: {1, 2, 3}, {4, 5, 6, 7}, và {8}.
 
@@ -2457,7 +2463,7 @@ Hình 7.10 cho thấy bậc vào và bậc ra của mỗi nút của đồ thị
 
 #### 7.1.2 Biểu diễn Đồ thị
 
-Có several cách để biểu diễn đồ thị trong thuật toán. Lựa chọn cấu trúc dữ liệu phụ thuộc vào kích thước đồ thị và cách thuật toán xử lý nó. Tiếp theochúng ta sẽ đi qua ba biểu diễn phổ biến.
+Có một số cách để biểu diễn đồ thị trong thuật toán. Lựa chọn cấu trúc dữ liệu phụ thuộc vào kích thước đồ thị và cách thuật toán xử lý nó. Tiếp theochúng ta sẽ đi qua ba biểu diễn phổ biến.
 
 **Danh sách kề** Trong biểu diễn danh sách kề, mỗi nút x của đồ thị được gán một *danh sách kề* gồm các nút mà có cạnh từ x. Danh sách kề là cách phổ biến nhất để biểu diễn đồ thị, vàhầu hết thuật toán có thể được cài đặt hiệu quả sử dụng chúng.
 
@@ -2499,7 +2505,7 @@ adj[3].push_back({4,5});
 adj[4].push_back({1,2});
 ```
 
-Sử dụng danh sách kề,chúng ta có thể hiệu quả tìm các nút màchúng ta có thể di chuyển từ nút cho trước thông qua cạnh. Ví dụ, vòng lặp sau đi qua tất cả nút màchúng ta có thể di chuyển từ nút s:
+Sử dụng danh sách kề, chúng ta có thể hiệu quả tìm các nút mà chúng ta có thể di chuyển từ nút cho trước thông qua cạnh. Ví dụ, vòng lặp sau đi qua tất cả nút mà chúng ta có thể di chuyển từ nút s:
 
 ```cpp
 for (auto u : adj[s]) {
@@ -2513,7 +2519,7 @@ for (auto u : adj[s]) {
 int adj[N][N];
 ```
 
-trong đó mỗi giá trị adj[a][b] cho biết whether đồ thị chứa cạnh từ nút a đến nút b. Nếu cạnh được bao gồm trong đồ thị, thì adj[a][b] = 1, và nếu không adj[a][b] = 0. Ví dụ, ma trận kề cho đồ thị trong Hình 7.12a là
+trong đó mỗi giá trị adj[a][b] cho biết liệu đồ thị chứa cạnh từ nút a đến nút b. Nếu cạnh được bao gồm trong đồ thị, thì adj[a][b] = 1, và nếu không adj[a][b] = 0. Ví dụ, ma trận kề cho đồ thị trong Hình 7.12a là
 
 $$\begin{bmatrix} 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 1 & 0 & 0 & 0 \end{bmatrix}.$$
 
@@ -2565,9 +2571,9 @@ Phần này thảo luận hai thuật toán đồ thị cơ bản: DFS và BFS. 
 
 DFS là kỹ thuật duyệt đồ thị đơn giản. Thuật toán bắt đầu tại nút bắt đầu và tiến đến tất cả nút khác có thể đạt được từ nút bắt đầu sử dụng các cạnh của đồ thị.
 
-DFS luôn theo một đường đi đơn trong đồ thị càng lâu càng tốt cho đến khi nó tìm thấy nút mới. Sau đó,nó quay lại các nút trước và bắt đầu khám phá các phần khác của đồ thị. Thuật toán theo dõi các nút đã thăm, sao cho nó xử lý mỗi nút chỉ một lần.
+DFS luôn theo một đường đi đơn trong đồ thị càng lâu càng tốt cho đến khi nó tìm thấy nút mới. Sau đó, nó quay lại các nút trước và bắt đầu khám phá các phần khác của đồ thị. Thuật toán theo dõi các nút đã thăm, sao cho nó xử lý mỗi nút chỉ một lần.
 
-Hình 7.13 cho thấy cách DFS xử lý đồ thị. Tìm kiếm có thể bắt đầu tại bất kỳ nút nào của đồ thị; trong ví dụ nàychúng ta bắt đầu tìm kiếm tại nút 1. Đầu tiên tìm kiếm khám phá đường đi $1 \rightarrow 2 \rightarrow 3 \rightarrow 5$, sau đó quay lại nút 1 và thăm nút còn lại 4.
+Hình 7.13 cho thấy cách DFS xử lý đồ thị. Tìm kiếm có thể bắt đầu tại bất kỳ nút nào của đồ thị; trong ví dụ này chúng ta bắt đầu tìm kiếm tại nút 1. Đầu tiên tìm kiếm khám phá đường đi $1 \rightarrow 2 \rightarrow 3 \rightarrow 5$, sau đó quay lại nút 1 và thăm nút còn lại 4.
 
 **Cài đặt** DFS có thể được cài đặt tiện lợi sử dụng đệ quy. Hàm `dfs` sau bắt đầu DFS tại nút cho trước. Hàm giả sử rằng đồ thị được lưu trữ dưới dạng danh sách kề trong mảng
 
@@ -2608,13 +2614,13 @@ void dfs(int s) {
 
 #### 7.2.2 BFS (Tìm kiếm theo Chiều rộng)
 
-*BFS* thăm các nút của đồ thị theo thứ tự tăng dần khoảng cách từ nút bắt đầu. Do đó,chúng ta có thể tính khoảng cách từ nút bắt đầu đến tất cả nút khác sử dụng BFS. Tuy nhiên, BFS khó cài đặt hơn DFS.
+*BFS* thăm các nút của đồ thị theo thứ tự tăng dần khoảng cách từ nút bắt đầu. Do đó, chúng ta có thể tính khoảng cách từ nút bắt đầu đến tất cả nút khác sử dụng BFS. Tuy nhiên, BFS khó cài đặt hơn DFS.
 
 BFS đi qua các nút từng cấp một. Đầu tiên tìm kiếm khám phá các nút mà khoảng cách từ nút bắt đầu là 1, sau đó các nút mà khoảng cách là 2, và cứ thế. Quá trình này tiếp tục cho đến khi tất cả nút đã được thăm.
 
 Hình 7.14 cho thấy cách BFS xử lý đồ thị. Giả sử tìm kiếm bắt đầu tại nút 1. Đầu tiên tìm kiếm thăm nút 2 và 4 với khoảng cách 1, sau đó nút 3 và 5 với khoảng cách 2, và cuối cùng nút 6 với khoảng cách 3.
 
-**Cài đặt** BFS khó cài đặt hơn DFS,vì thuật toán thăm các nút ở các phần khác nhau của đồ thị. Cài đặt điển hình dựa trên hàng đợi chứa các nút. Tại mỗi bước, nút tiếp theo trong hàng đợi sẽ được xử lý.
+**Cài đặt** BFS khó cài đặt hơn DFS, vì thuật toán thăm các nút ở các phần khác nhau của đồ thị. Cài đặt điển hình dựa trên hàng đợi chứa các nút. Tại mỗi bước, nút tiếp theo trong hàng đợi sẽ được xử lý.
 
 Code sau giả sử rằng đồ thị được lưu trữ dưới dạng danh sách kề và duy trì các cấu trúc dữ liệu sau:
 
@@ -2624,7 +2630,7 @@ bool visited[N];
 int distance[N];
 ```
 
-Hàng đợi q chứa các nút cần xử lý theo thứ tự tăng dần khoảng cách. Các nút mới luôn được thêm vào cuối hàng đợi, và nút ở đầu hàng đợi là nút tiếp theo cần xử lý. Mảng `visited` cho biếtnhững nào nút tìm kiếm đã thăm, và mảng `distance` sẽ chứa khoảng cách từ nút bắt đầu đến tất cả nút của đồ thị.
+Hàng đợi q chứa các nút cần xử lý theo thứ tự tăng dần khoảng cách. Các nút mới luôn được thêm vào cuối hàng đợi, và nút ở đầu hàng đợi là nút tiếp theo cần xử lý. Mảng `visited` cho biết những nào nút tìm kiếm đã thăm, và mảng `distance` sẽ chứa khoảng cách từ nút bắt đầu đến tất cả nút của đồ thị.
 
 Tìm kiếm có thể được cài đặt như sau, bắt đầu tại nút x:
 
@@ -2652,11 +2658,11 @@ Giống như DFS, độ phức tạp thời gian của BFS là O(n+m), trong đ�
 
 #### 7.2.3 Ứng dụng
 
-Sử dụng các thuật toán duyệt đồ thị,chúng ta có thể kiểm tranhiều tính chất của đồ thị. Thường thì cả DFS và BFS đều có thể được sử dụng, nhưng trong thực tế, DFS là lựa chọn tốt hơn,vì nó dễ cài đặt hơn. Trong các ứng dụng được mô tả dưới đâychúng ta sẽ giả sử rằng đồ thị vô hướng.
+Sử dụng các thuật toán duyệt đồ thị, chúng ta có thể kiểm tranhiều tính chất của đồ thị. Thường thì cả DFS và BFS đều có thể được sử dụng, nhưng trong thực tế, DFS là lựa chọn tốt hơn, vì nó dễ cài đặt hơn. Trong các ứng dụng được mô tả dưới đây chúng ta sẽ giả sử rằng đồ thị vô hướng.
 
-**Kiểm tra Liên thông** Đồ thị liên thông nếu có đường đi giữa bất kỳ hai nút nào của đồ thị. Do đó,chúng ta có thể kiểm tra xem đồ thị có liên thông bằng cách bắt đầu tại nútbất kỳ và tìm hiểu xemchúng ta có thể đạt được tất cả nút khác.
+**Kiểm tra Liên thông** Đồ thị liên thông nếu có đường đi giữa bất kỳ hai nút nào của đồ thị. Do đó, chúng ta có thể kiểm tra xem đồ thị có liên thông bằng cách bắt đầu tại nútbất kỳ và tìm hiểu xemchúng ta có thể đạt được tất cả nút khác.
 
-Ví dụ, trong Hình 7.15, vì DFS từ nút 1 không thăm tất cả nút,chúng ta có thể kết luận rằng đồ thị không liên thông. Tương tự,chúng ta cũng có thể tìm tất cả thành phần liên thông của đồ thị bằng cách duyệt qua các nút và luôn bắt đầu DFS mới nếu nút hiện tại chưa thuộc thành phần nào.
+Ví dụ, trong Hình 7.15, vì DFS từ nút 1 không thăm tất cả nút, chúng ta có thể kết luận rằng đồ thị không liên thông. Tương tự, chúng ta cũng có thể tìm tất cả thành phần liên thông của đồ thị bằng cách duyệt qua các nút và luôn bắt đầu DFS mới nếu nút hiện tại chưa thuộc thành phần nào.
 
 **Phát hiện Chu trình** Đồ thị chứa chu trình nếu trong quá trình duyệt đồ thị, chúng taphát hiện nút mà láng giềng (khác với nút trước trong đường đi hiện tại) đã được thăm. Ví dụ, trong Hình 7.16, DFS từ nút 1cho thấy rằng đồ thị chứa chu trình. Sau khi di chuyển từ nút 2 đến nút 5chúng ta nhận thấy láng giềng 3 của nút 5 đã được thăm. Do đó, đồ thị chứa chu trình đi qua nút 3, ví dụ, $3 \rightarrow 2 \rightarrow 5 \rightarrow 3$.
 
@@ -2668,17 +2674,17 @@ Ví dụ, trong Hình 7.15, vì DFS từ nút 1 không thăm tất cả nút,ch�
 
 ![](images/_page_95_Picture_5.jpeg)
 
-Một cách khác để xác định xem đồ thị có chứa chu trình là đơn giản tính số nút và số cạnh trong mỗi thành phần. Nếu thành phần chứa c nút và không có chu trình,nó phải chứa chính xác c-1 cạnh (nênnó phải là cây). Nếu có c hoặc nhiều cạnh hơn, thành phần chắc chắn chứa chu trình.
+Một cách khác để xác định xem đồ thị có chứa chu trình là đơn giản tính số nút và số cạnh trong mỗi thành phần. Nếu thành phần chứa c nút và không có chu trình, nó phải chứa chính xác c-1 cạnh (nênnó phải là cây). Nếu có c hoặc nhiều cạnh hơn, thành phần chắc chắn chứa chu trình.
 
 **Kiểm tra Tính hai phần** Đồ thị là hai phần nếu các nút của nó có thể được tô màu sử dụng hai màu sao cho không có nút kề nhau cùng màu. Thật surprising dễ dàng để kiểm tra xem đồ thị có phải hai phần sử dụng thuật toán duyệt đồ thị.
 
-Ý tưởng là chọn hai màu X và Y, tô màu nút bắt đầu X, tất cả láng giềng Y, tất cả láng giềng của chúng X, và cứ thế. Nếu tại một thời điểm nào đó của tìm kiếmchúng ta nhận thấy hai nút kề nhau cùng màu, điều này có nghĩa là đồ thị không phải hai phần. Nếu không đồ thị là hai phần và một cách tô màu đã được tìm thấy.
+Ý tưởng là chọn hai màu X và Y, tô màu nút bắt đầu X, tất cả láng giềng Y, tất cả láng giềng của chúng X, và cứ thế. Nếu tại một thời điểm nào đó của tìm kiếm chúng ta nhận thấy hai nút kề nhau cùng màu, điều này có nghĩa là đồ thị không phải hai phần. Nếu không đồ thị là hai phần và một cách tô màu đã được tìm thấy.
 
-Ví dụ, trong Hình 7.17, DFS từ nút 1 cho thấy đồ thị không phải hai phần,vìchúng ta nhận thấy cả nút 2 và 5đều nên có cùng màu, trong khi chúng là nút kề nhau trong đồ thị.
+Ví dụ, trong Hình 7.17, DFS từ nút 1 cho thấy đồ thị không phải hai phần, vìchúng ta nhận thấy cả nút 2 và 5đều nên có cùng màu, trong khi chúng là nút kề nhau trong đồ thị.
 
-Thuật toán này luôn hoạt động,vì khi chỉ có hai màu có sẵn, màu của nút bắt đầu trong thành phần xác định màu của tất cả nút khác trong thành phần. Không có sự khác biệt nào về màu sắc.
+Thuật toán này luôn hoạt động, vì khi chỉ có hai màu có sẵn, màu của nút bắt đầu trong thành phần xác định màu của tất cả nút khác trong thành phần. Không có sự khác biệt nào về màu sắc.
 
-Lưu ý rằng trong trường hợp tổng quátrất khó tìm ra whether các nút trong đồ thị có thể được tô màu sử dụng k màu sao cho không nút kề nhau cùng màu. Bài toán là NP-hard ngay từ k=3.
+Lưu ý rằng trong trường hợp tổng quátrất khó kiểm tra xem các nút trong đồ thị có thể được tô màu sử dụng k màu sao cho không nút kề nhau cùng màu. Bài toán là NP-hard ngay từ k=3.
 
 ### 7.3 Đường đi Ngắn nhất
 
@@ -2722,15 +2728,15 @@ for (int i = 1; i <= n-1; i++) {
 }
 ```
 
-Độ phức tạp thời gian của thuật toán là O(nm),vì thuật toán gồm n-1 vòng và duyệt qua tất cả m cạnh trong vòng. Nếu không có chu trình âm trong đồ thị, tất cả khoảng cách là cuối cùng sau n-1 vòng,vì mỗi đường đi ngắn nhất có thể chứanhiều nhất n-1 cạnh.
+Độ phức tạp thời gian của thuật toán là O(nm),vì thuật toán gồm n-1 vòng và duyệt qua tất cả m cạnh trong vòng. Nếu không có chu trình âm trong đồ thị, tất cả khoảng cách là cuối cùng sau n-1 vòng, vì mỗi đường đi ngắn nhất có thể chứa nhiều nhất n-1 cạnh.
 
-Có several cách để tối ưu thuật toán trong thực tế. Đầu tiên, khoảng cách cuối cùng thường có thể được tìm thấy sớm hơn sau n-1 vòng, nênchúng ta có thể đơn giản dừng thuật toán nếu không khoảng cách nào có thể được giảm trong vòng. Biến thể nâng cao hơn là *thuật toán SPFA* ("Shortest Path Faster Algorithm" [8]) duy trì hàng đợi nút có thể được sử dụng để giảm khoảng cách. Chỉ các nút trong hàng đợi sẽ được xử lý, điều này thường cho ra tìm kiếm hiệu quả hơn.
+Có một số cách để tối ưu thuật toán trong thực tế. Đầu tiên, khoảng cách cuối cùng thường có thể được tìm thấy sớm hơn sau n-1 vòng, nên chúng ta có thể đơn giản dừng thuật toán nếu không khoảng cách nào có thể được giảm trong vòng. Biến thể nâng cao hơn là *thuật toán SPFA* ("Shortest Path Faster Algorithm" [8]) duy trì hàng đợi nút có thể được sử dụng để giảm khoảng cách. Chỉ các nút trong hàng đợi sẽ được xử lý, điều này thường cho ra tìm kiếm hiệu quả hơn.
 
 **Chu trình Âm** Thuật toán Bellman-Ford cũng có thể được sử dụng để kiểm tra xem đồ thị có chứa chu trình có độ dài âm hay không. Trong trường hợp này, bất kỳ đường đi nào chứa chu trình có thể đượcrút ngắnvô hạn lần, nên khái niệm đường đi ngắn nhất không có ý nghĩa. Ví dụ, đồ thị trong Hình 7.19 chứa chu trình âm $2 \rightarrow 3 \rightarrow 4 \rightarrow 2$ với độ dài -4.
 
 Chu trình âm có thể được phát hiện sử dụng thuật toán Bellman-Ford bằng cách chạy thuật toán cho n vòng. Nếu vòng cuối giảm bất kỳ khoảng cách nào, đồ thị chứa chu trình âm. Lưu ý rằng thuật toán này có thể được sử dụng để tìm kiếm chu trình âm trong toàn bộ đồ thị bất kể nút bắt đầu.
 
-### 7.3.2 Thuật toán Dijkstra
+#### 7.3.2 Thuật toán Dijkstra
 
 Thuật toán Dijkstra tìm đường đi ngắn nhất từ nút bắt đầu đến tất cả nút của đồ thị, giống như thuật toán Bellman-Ford. Ưu điểm của thuật toán Dijkstra là nó
 
@@ -2741,15 +2747,14 @@ Thuật toán Dijkstra tìm đường đi ngắn nhất từ nút bắt đầu �
 
 hiệu quả hơn và có thể được sử dụng để xử lý đồ thị lớn. Tuy nhiên, thuật toán yêu cầu không có cạnh trọng số âm trong đồ thị.
 
-Giống như thuật toán Bellman-Ford, thuật toán Dijkstra duy trì khoảng cách đến các nút và giảm chúng trong quá trình tìm kiếm. Tại mỗi bước, thuật toán Dijkstra chọn nút chưa được xử lý mà khoảng cách nhỏ nhất có thể. Sau đó, thuật toán đi qua tất cả cạnh bắt đầu từ nút và giảm khoảng cách sử dụng chúng. Thuật toán Dijkstra hiệu quả,vì nó chỉ xử lý mỗi cạnh trong đồ thị một lần, sử dụng thực tế rằng không có cạnh âm.
+Giống như thuật toán Bellman-Ford, thuật toán Dijkstra duy trì khoảng cách đến các nút và giảm chúng trong quá trình tìm kiếm. Tại mỗi bước, thuật toán Dijkstra chọn nút chưa được xử lý mà khoảng cách nhỏ nhất có thể. Sau đó, thuật toán đi qua tất cả cạnh bắt đầu từ nút và giảm khoảng cách sử dụng chúng. Thuật toán Dijkstra hiệu quả, vì nó chỉ xử lý mỗi cạnh trong đồ thị một lần, sử dụng thực tế rằng không có cạnh âm.
 
 Hình 7.20 cho thấy cách thuật toán Dijkstra xử lý đồ thị. Giống như trong thuật toán Bellman-Ford, khoảng cách ban đầu đến tất cả nút, trừ nút bắt đầu, là vô cực. Thuật toán xử lý các nút theo thứ tự 1, 5, 4, 2, 3, và tại mỗi nút giảm khoảng cách sử dụng các cạnh bắt đầu từ nút. Lưu ý rằng khoảng cách đến nút không bao giờ thay đổi sau khi xử lý nút.
 
-**Cài đặt** Cài đặt hiệu quả của thuật toán Dijkstra yêu cầuchúng ta có thể hiệu quả tìm nút khoảng cách tối thiểu chưa được xử lý. Cấu trúc dữ liệu phù hợp cho điều này là priority queue chứa các nút còn lại sắp xếp theo khoảng cách. Sử dụng priority queue, nút tiếp theo cần xử lý có thể được truy xuất trong thời gian logarithm.
+**Cài đặt** Cài đặt hiệu quả của thuật toán Dijkstra yêu cầu chúng ta có thể hiệu quả tìm nút khoảng cách tối thiểu chưa được xử lý. Cấu trúc dữ liệu phù hợp cho điều này là priority queue chứa các nút còn lại sắp xếp theo khoảng cách. Sử dụng priority queue, nút tiếp theo cần xử lý có thể được truy xuất trong thời gian logarithm.
 
 Cài đặt sách giáo khoa điển hình của thuật toán Dijkstra sử dụng priority queue có phép toán để sửa đổi giá trị trong hàng đợi. Điều này cho phép chúng ta có một instance duy nhất của mỗi nút trong hàng đợi và cập nhật khoảng cách khi cần. Tuy nhiên, priority queue thư viện chuẩn không cung cấp phép toán như vậy, và một cài đặt hơi khác thường được sử dụng trong lập trình thi đấu.
 
-**7.3 Đường đi Ngắn nhất 91**
 
 Ý tưởng là thêm instance mới của nút vào priority queue khi khoảng cách thay đổi.
 
@@ -2759,9 +2764,9 @@ Cài đặt thuật toán Dijkstra của chúng ta tính khoảng cách tối th
 priority_queue<pair<int,int>> q;
 ```
 
-chứa cặp dạng (-d, x), có nghĩa là khoảng cách hiện tại đến nút x là d. Mảng `distance` chứa khoảng cách đến mỗi nút, và mảng `processed` cho biết whether nút đã được xử lý.
+chứa cặp dạng (-d, x), có nghĩa là khoảng cách hiện tại đến nút x là d. Mảng `distance` chứa khoảng cách đến mỗi nút, và mảng `processed` cho biết liệu nút đã được xử lý.
 
-Lưu ý rằng priority queue chứa khoảng cách *âm* đến nút. Lý do cho điều này là phiên bản mặc định của priority queue C++ tìm phần tửtối đa, trong khi chúng ta muốn tìm phần tửtối thiểu. Bằng cáchsử dụng khoảng cách âm,chúng ta có thể trực tiếp sử dụng priority queue mặc định.<sup>2</sup> Cũng lưu ý rằng trong khi có thể có several instance của nút trong priority queue, chỉ instance với khoảng cáchtối thiểu sẽ được xử lý.
+Lưu ý rằng priority queue chứa khoảng cách *âm* đến nút. Lý do cho điều này là phiên bản mặc định của priority queue C++ tìm phần tửtối đa, trong khi chúng ta muốn tìm phần tửtối thiểu. Bằng cáchsử dụng khoảng cách âm, chúng ta có thể trực tiếp sử dụng priority queue mặc định.<sup>2</sup> Cũng lưu ý rằng trong khi có thể có một số instance của nút trong priority queue, chỉ instance với khoảng cáchtối thiểu sẽ được xử lý.
 
 Cài đặt như sau:
 
@@ -2785,7 +2790,7 @@ while (!q.empty()) {
 }
 ```
 
-Độ phức tạp thời gian của cài đặt trên là $O(n + m \log m)$,vì thuật toán đi qua tất cả nút của đồ thị và thêm cho mỗi cạnhnhiều nhất một khoảng cách vào priority queue.
+Độ phức tạp thời gian của cài đặt trên là $O(n + m \log m)$,vì thuật toán đi qua tất cả nút của đồ thị và thêm cho mỗi cạnh nhiều nhất một khoảng cách vào priority queue.
 
 **Cạnh Âm** Hiệu suất của thuật toán Dijkstra dựa trên thực tế rằng đồ thị không có cạnh âm. Tuy nhiên, nếu đồ thị có cạnh âm, thuật toán có thể cho kết quả không chính xác. Ví dụ, xem xét đồ thị trong Hình 7.21. Đường đi ngắn nhất từ nút 1 đến nút 4 là $1 \rightarrow 3 \rightarrow 4$ và độ dài của nó là 1. Tuy nhiên, thuật toán Dijkstra không chính xác tìm đường đi $1 \rightarrow 2 \rightarrow 4$ bằng cách tham lam theo các cạnh trọng sốtối thiểu.
 
@@ -2803,7 +2808,7 @@ while (!q.empty()) {
 
 *Thuật toán Floyd-Warshall* cung cấp một cách tiếp cận thay thế để giải bài toán tìm đường đi ngắn nhất. Không giống như các thuật toán khác trong chương này, nó tìm đường đi ngắn nhất giữa tất cả cặp nút của đồ thị trong một lần chạy.
 
-Thuật toán duy trì ma trận chứa khoảng cách giữa các nút. Ma trận ban đầu được xây dựng trực tiếp dựa trên ma trận kề của đồ thị. Sau đó, thuật toán gồm các vòng liên tiếp, và trên mỗi vòng,nó chọn nút mới có thể đóng vai trò trung gian trong đường đi từ bây giờ, và giảm khoảng cách sử dụng nút này.
+Thuật toán duy trì ma trận chứa khoảng cách giữa các nút. Ma trận ban đầu được xây dựng trực tiếp dựa trên ma trận kề của đồ thị. Sau đó, thuật toán gồm các vòng liên tiếp, và trên mỗi vòng, nó chọn nút mới có thể đóng vai trò trung gian trong đường đi từ bây giờ, và giảm khoảng cách sử dụng nút này.
 
 Hãy mô phỏng thuật toán Floyd-Warshall cho đồ thị trong Hình 7.22. Trong trường hợp này, ma trận ban đầu như sau:
 
@@ -2813,7 +2818,6 @@ Trên vòng đầu tiên, nút 1 là nút trung gian mới. Có đường đi m�
 
 $$\begin{bmatrix} 0 & 5 & \infty & 9 & 1 \\ 5 & 0 & 2 & \mathbf{14} & \mathbf{6} \\ \infty & 2 & 0 & 7 & \infty \\ 9 & \mathbf{14} & 7 & 0 & 2 \\ 1 & \mathbf{6} & \infty & 2 & 0 \end{bmatrix}$$
 
-**7.3 Đường đi Ngắn nhất 93**
 
 **Hình 7.23** Đường đi ngắn nhất từ nút 2 đến nút 4
 
@@ -2867,13 +2871,13 @@ Vì cài đặt của thuật toán Floyd-Warshall đơn giản, thuật toán c
 
 ### 7.4 Đồ thị Có hướng Không chu trình (DAG)
 
-Một lớp quan trọng của đồ thị là *đồ thị có hướng không chu trình*, còn gọi là *DAG*. Các đồ thị như vậy không chứa chu trình, vànhiều bài toán dễ giải hơnnếu chúng ta có thể giả sử rằng đây là trường hợp. Đặc biệt,chúng ta có thể luôn xây dựng sắp xếp tô-pô cho đồ thị và sau đó áp dụng quy hoạch động.
+Một lớp quan trọng của đồ thị là *đồ thị có hướng không chu trình*, còn gọi là *DAG*. Các đồ thị như vậy không chứa chu trình, vànhiều bài toán dễ giải hơnnếu chúng ta có thể giả sử rằng đây là trường hợp. Đặc biệt, chúng ta có thể luôn xây dựng sắp xếp tô-pô cho đồ thị và sau đó áp dụng quy hoạch động.
 
 #### 7.4.1 Sắp xếp Tô-pô
 
 *Sắp xếp tô-pô* là một thứ tự của các nút trong đồ thị có hướng sao cho nếu có đường đi từ nút a đến nút b, thì nút a xuất hiện trước nút b trong thứ tự. Ví dụ, trong Hình 7.24, một sắp xếp tô-pô có thể là [4, 1, 5, 2, 3, 6].
 
-Đồ thị có hướng có sắp xếp tô-pô chính xác khi nó không chu trình. Nếu đồ thị chứa chu trình, không thể hình thành sắp xếp tô-pô,vì không nút nào của chu trình có thể xuất hiện trước các nút khác của chu trình trong thứ tự. Hóa ra DFS có thể được sử dụng để cả kiểm tra xem đồ thị có hướng có chứa chu trình và, nếu không, để xây dựng sắp xếp tô-pô.
+Đồ thị có hướng có sắp xếp tô-pô chính xác khi nó không chu trình. Nếu đồ thị chứa chu trình, không thể hình thành sắp xếp tô-pô, vì không nút nào của chu trình có thể xuất hiện trước các nút khác của chu trình trong thứ tự. Hóa ra DFS có thể được sử dụng để cả kiểm tra xem đồ thị có hướng có chứa chu trình và, nếu không, để xây dựng sắp xếp tô-pô.
 
 ![](images/_page_103_Figure_2.jpeg)
 
@@ -2888,26 +2892,26 @@ Một lớp quan trọng của đồ thị là *đồ thị có hướng không 
 
 Ban đầu, trạng thái của mỗi nút là 0. Khi tìm kiếm đến nút lần đầu tiên, trạng thái trở thành 1. Cuối cùng, sau khi tất cả cạnh từ nút đã được xử lý, trạng thái trở thành 2.
 
-Nếu đồ thị chứa chu trình,chúng ta sẽphát hiện điều này trong quá trình tìm kiếm, vì sớm hay muộnchúng ta sẽ đến nút mà trạng thái là 1. Trong trường hợp này, không thể xây dựng sắp xếp tô-pô. Nếu đồ thị không chứa chu trình,chúng ta có thể xây dựng sắp xếp tô-pô bằng cách thêm mỗi nút vào danh sách khi trạng thái trở thành 2. Cuối cùng, chúng ta đảo ngược danh sách và có sắp xếp tô-pô cho đồ thị.
+Nếu đồ thị chứa chu trình, chúng ta sẽphát hiện điều này trong quá trình tìm kiếm, vì sớm hay muộn chúng ta sẽ đến nút mà trạng thái là 1. Trong trường hợp này, không thể xây dựng sắp xếp tô-pô. Nếu đồ thị không chứa chu trình, chúng ta có thể xây dựng sắp xếp tô-pô bằng cách thêm mỗi nút vào danh sách khi trạng thái trở thành 2. Cuối cùng, chúng ta đảo ngược danh sách và có sắp xếp tô-pô cho đồ thị.
 
 Bây giờ chúng ta sẵn sàng xây dựng sắp xếp tô-pô cho đồ thị ví dụ. Tìm kiếm đầu tiên (Hình 7.25) tiến hành từ nút 1 đến nút 6, và thêm nút 6, 3, 2, và 1 vào danh sách. Sau đó, tìm kiếm thứ hai (Hình 7.26) tiến hành từ nút 4 đến nút 5 và thêm nút 5 và 4 vào danh sách. Danh sách đảo ngược cuối cùng là [4, 5, 1, 2, 3, 6], tương ứng với sắp xếp tô-pô (Hình 7.27). Lưu ý rằng sắp xếp tô-pô không duy nhất; có thể có nhiều sắp xếp tô-pô cho đồ thị.
 
-Hình 7.28 cho thấy đồ thị không có sắp xếp tô-pô. Trong quá trình tìm kiếm,chúng ta đến nút 2 mà trạng thái là 1, có nghĩa là đồ thị chứa chu trình. Thực tế, có chu trình $2 \to 3 \to 5 \to 2$.
+Hình 7.28 cho thấy đồ thị không có sắp xếp tô-pô. Trong quá trình tìm kiếm, chúng ta đến nút 2 mà trạng thái là 1, có nghĩa là đồ thị chứa chu trình. Thực tế, có chu trình $2 \to 3 \to 5 \to 2$.
 
-**Hình 7.28** Đồ thị này không có sắp xếp tô-pô,vì nó chứa chu trình
+**Hình 7.28** Đồ thị này không có sắp xếp tô-pô, vì nó chứa chu trình
 
 ![](images/_page_104_Figure_3.jpeg)
 
 #### 7.4.2 Quy hoạch Động
 
-Sử dụng quy hoạch động,chúng ta có thể hiệu quả trả lờinhiều câu hỏi liên quan đến đường đi trong đồ thị có hướng không chu trình. Ví dụ về các câu hỏi như vậy:
+Sử dụng quy hoạch động, chúng ta có thể hiệu quả trả lời nhiều câu hỏi liên quan đến đường đi trong đồ thị có hướng không chu trình. Ví dụ về các câu hỏi như vậy:
 
 - Đường đi ngắn nhất/dài nhất từ nút a đến nút b là gì?
 - Có bao nhiêu đường đi khác nhau?
 - Số cạnh tối thiểu/tối đa trong đường đi là gì?
 - Nút nào xuất hiện trong mọi đường đi có thể?
 
-Lưu ý rằngnhiều bài toán trên khó giải hoặc không được xác định tốt cho đồ thị tổng quát.
+Lưu ý rằng nhiều bài toán trên khó giải hoặc không được xác định tốt cho đồ thị tổng quát.
 
 Ví dụ, xem xét bài toán tính số đường đi từ nút a đến nút b. Đặt paths(x) là số đường đi từ nút a đến nút x. Trường hợp cơ sở, paths(a) = 1. Sau đó, để tính giá trị khác của paths(x),chúng ta có thể sử dụng công thức đệ quy
 
@@ -2927,7 +2931,7 @@ vì các cạnh kết thúc tại nút 6 là $2 \to 6$ và $3 \to 6$. Vì paths(
 - $1 \rightarrow 4 \rightarrow 5 \rightarrow 2 \rightarrow 3 \rightarrow 6$
 - $1 \rightarrow 4 \rightarrow 5 \rightarrow 2 \rightarrow 6$
 
-**Xử lý Đường đi Ngắn nhất** Quy hoạch động cũng có thể được sử dụng để trả lời câu hỏi liên quan đến đường đi *ngắn nhất* trong đồ thị tổng quát (không nhất thiết không chu trình). Cụ thể,nếu chúng ta biết khoảng cách tối thiểu từ nút bắt đầu đến các nút khác (ví dụ, sau khi sử dụng thuật toán Dijkstra),chúng ta có thể dễ dàng tạo đồ thị có hướng *đường đi ngắn nhất*
+**Xử lý Đường đi Ngắn nhất** Quy hoạch động cũng có thể được sử dụng để trả lời câu hỏi liên quan đến đường đi *ngắn nhất* trong đồ thị tổng quát (không nhất thiết không chu trình). Cụ thể, nếu chúng ta biết khoảng cách tối thiểu từ nút bắt đầu đến các nút khác (ví dụ, sau khi sử dụng thuật toán Dijkstra),chúng ta có thể dễ dàng tạo đồ thị có hướng *đường đi ngắn nhất*
 
 **Hình 7.29** Tính số đường đi từ nút 1 đến nút 6
 
@@ -2947,7 +2951,7 @@ cho biết cho mỗi nút các cách có thể để đạt được nút sử d
 
 **Bài toán Tiền Xem xét Lại** Thực tế, *bất kỳ* bài toán quy hoạch động nào cũng có thể được biểu diễn dưới dạng đồ thị có hướng không chu trình mà mỗi nút tương ứng với trạng thái quy hoạch động và các cạnh cho biết cách các trạng thái phụ thuộc lẫn nhau.
 
-Ví dụ, xem xét bài toán tạo thành số tiền n sử dụng tiền $\{c_1, c_2, \ldots, c_k\}$ (Phần 6.1.1). Trong kịch bản này,chúng ta có thể xây dựng đồ thị mà mỗi nút tương ứng với số tiền, và các cạnh cho thấy cách tiền có thể được chọn. Ví dụ, Hình 7.31 cho thấy đồ thị cho tiền $\{1, 3, 4\}$ và n = 6. Sử dụng biểu diễn này, đường đi ngắn nhất từ nút 0 đến nút n tương ứng với giải pháp có số tiền tối thiểu, và tổng số đường đi từ nút 0 đến nút n bằng tổng số nghiệm.
+Ví dụ, xem xét bài toán tạo thành số tiền n sử dụng tiền $\{c_1, c_2, \ldots, c_k\}$ (Phần 6.1.1). Trong kịch bản này, chúng ta có thể xây dựng đồ thị mà mỗi nút tương ứng với số tiền, và các cạnh cho thấy cách tiền có thể được chọn. Ví dụ, Hình 7.31 cho thấy đồ thị cho tiền $\{1, 3, 4\}$ và n = 6. Sử dụng biểu diễn này, đường đi ngắn nhất từ nút 0 đến nút n tương ứng với giải pháp có số tiền tối thiểu, và tổng số đường đi từ nút 0 đến nút n bằng tổng số nghiệm.
 
 ### 7.5 Đồ thị Kế thừa
 
@@ -2969,15 +2973,15 @@ Một lớp đặc biệt khác của đồ thị có hướng là *đồ thị 
 
 #### 7.5.1 Tìm Điểm kế thừa
 
-Vì mỗi nút của đồ thị kế thừa có người kế thừa duy nhất,chúng ta cũng có thể định nghĩa hàm succ(x, k) cho biết nút màchúng ta sẽ đạt đượcnếu chúng ta bắt đầu tại nút x và đi k bước về phía trước. Ví dụ, trong đồ thị ví dụ succ(4, 6) = 2,vì chúng ta sẽ đạt được nút 2 bằng cách đi 6 bước từ nút 4 (Hình 7.33).
+Vì mỗi nút của đồ thị kế thừa có người kế thừa duy nhất, chúng ta cũng có thể định nghĩa hàm succ(x, k) cho biết nút mà chúng ta sẽ đạt đượcnếu chúng ta bắt đầu tại nút x và đi k bước về phía trước. Ví dụ, trong đồ thị ví dụ succ(4, 6) = 2,vì chúng ta sẽ đạt được nút 2 bằng cách đi 6 bước từ nút 4 (Hình 7.33).
 
 Một cách trực tiếp để tính giá trị của succ(x, k) là bắt đầu tại nút x và đi k bước về phía trước, mất O(k) thời gian. Tuy nhiên, sử dụng tiền xử lý, bất kỳ giá trị nào của succ(x, k) có thể được tính chỉ trong $O(\log k)$ thời gian.
 
-Đặt u là số bước tối đa chúng ta sẽ ever đi. Ý tưởng là tính trước tất cả giá trị của succ(x, k) trong đó k là lũy thừa của hai và nhiều nhất u. Điều này có thể được thực hiện hiệu quả,vì chúng ta có thể sử dụng đệ quy sau:
+Đặt u là số bước tối đa chúng ta sẽ ever đi. Ý tưởng là tính trước tất cả giá trị của succ(x, k) trong đó k là lũy thừa của hai và nhiều nhất u. Điều này có thể được thực hiện hiệu quả, vì chúng ta có thể sử dụng đệ quy sau:
 
 $$succ(x,k) = \begin{cases} succ(x) & k = 1\\ succ(succ(x,k/2),k/2) & k > 1 \end{cases}$$
 
-Ý tưởng là đường đi độ dài k bắt đầu tại nút x có thể được chia thành hai đường đi độ dài k/2. Tính trước tất cả giá trị của succ(x, k) trong đó k là lũy thừa của hai và nhiều nhất u mất $O(n \log u)$ thời gian,vì $O(\log u)$ giá trị được tính cho mỗi nút. Trong đồ thị ví dụ, các giá trị đầu tiên như sau:
+Ý tưởng là đường đi độ dài k bắt đầu tại nút x có thể được chia thành hai đường đi độ dài k/2. Tính trước tất cả giá trị của succ(x, k) trong đó k là lũy thừa của hai và nhiều nhất u mất $O(n \log u)$ thời gian, vì $O(\log u)$ giá trị được tính cho mỗi nút. Trong đồ thị ví dụ, các giá trị đầu tiên như sau:
 
 | | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 |---|---|---|---|---|---|---|---|---|---|
@@ -2990,7 +2994,7 @@ $$succ(x,k) = \begin{cases} succ(x) & k = 1\\ succ(succ(x,k/2),k/2) & k > 1 \end
 
 ![](images/_page_107_Figure_4.jpeg)
 
-Sau khi tiền xử lý, bất kỳ giá trị nào của succ(x, k) có thể được tính bằng cách biểu diễn k dưới dạng tổng các lũy thừa của hai. Biểu diễn như vậy luôn gồm $O(\log k)$ phần, nên tính giá trị của succ(x, k) mất $O(\log k)$ thời gian. Ví dụ,nếu chúng ta muốn tính giá trị của succ(x, 11), chúng ta sử dụng công thức
+Sau khi tiền xử lý, bất kỳ giá trị nào của succ(x, k) có thể được tính bằng cách biểu diễn k dưới dạng tổng các lũy thừa của hai. Biểu diễn như vậy luôn gồm $O(\log k)$ phần, nên tính giá trị của succ(x, k) mất $O(\log k)$ thời gian. Ví dụ, nếu chúng ta muốn tính giá trị của succ(x, 11), chúng ta sử dụng công thức
 
 $$succ(x, 11) = succ(succ(succ(x, 8), 2), 1).$$
 
@@ -3002,7 +3006,7 @@ $$succ(4, 11) = succ(succ(succ(4, 8), 2), 1) = 5.$$
 
 Xem xét đồ thị kế thừa chỉ chứa đường đi kết thúc trong chu trình. Chúng ta có thể hỏi các câu hỏi sau:nếu chúng ta bắt đầu đi tại nút bắt đầu, nút đầu tiên trong chu trình là gì và chu trình chứa bao nhiêu nút? Ví dụ, trong Hình 7.34, chúng ta bắt đầu đi tại nút 1, nút đầu tiên thuộc chu trình là nút 4, và chu trình gồm ba nút (4, 5, và 6).
 
-Một cách đơn giản để phát hiện chu trình là đi trong đồ thị và theo dõi tất cả nút đã được thăm. Khi nút được thăm lần thứ hai,chúng ta có thể kết luận rằng nút là nút đầu tiên trong chu trình. Phương pháp này hoạt động trong O(n) thời gian và cũng sử dụng O(n) bộ nhớ. Tuy nhiên, có thuật toán tốt hơn cho phát hiện chu trình. Độ phức tạp thời gian của thuật toán như vậy vẫn là O(n), nhưng chúng chỉ sử dụng O(1) bộ nhớ, điều này có thể là cải thiện quan trọng nếu n lớn.
+Một cách đơn giản để phát hiện chu trình là đi trong đồ thị và theo dõi tất cả nút đã được thăm. Khi nút được thăm lần thứ hai, chúng ta có thể kết luận rằng nút là nút đầu tiên trong chu trình. Phương pháp này hoạt động trong O(n) thời gian và cũng sử dụng O(n) bộ nhớ. Tuy nhiên, có thuật toán tốt hơn cho phát hiện chu trình. Độ phức tạp thời gian của thuật toán như vậy vẫn là O(n), nhưng chúng chỉ sử dụng O(1) bộ nhớ, điều này có thể là cải thiện quan trọng nếu n lớn.
 
 Một thuật toán như vậy là thuật toán Floyd, đi trong đồ thị sử dụng hai con trỏ a và b. Cả hai con trỏ bắt đầu tại nút bắt đầu x. Sau đó, trên mỗi lượt, con trỏ a đi một bước về phía trước và con trỏ b đi hai bước về phía trước. Quá trình tiếp tục cho đến khi các con trỏ gặp nhau:
 
@@ -3042,11 +3046,11 @@ while (a != b) {
 
 Cây khung chứa tất cả nút của đồ thị và một số cạnh sao cho có đường đi giữa bất kỳ hai nút nào. Giống như cây nói chung, cây khung liên thông và không chu trình. Trọng số của cây khung là tổng trọng số cạnh. Ví dụ, Hình 7.35 cho thấy đồ thị và một trong những cây khung của nó. Trọng số của cây khung này là 3 + 5 + 9 + 3 + 2 = 22.
 
-*Cây khung nhỏ nhất* là cây khung mà trọng số nhỏ nhất có thể. Hình 7.36 cho thấy cây khung nhỏ nhất cho đồ thị ví dụ với trọng số 20. Tương tự, *cây khung lớn nhất* là cây khung mà trọng số lớn nhất có thể. Hình 7.37 cho thấy cây khung lớn nhất cho đồ thị ví dụ với trọng số 32. Lưu ý rằng đồ thị có thể có several cây khung nhỏ nhất và lớn nhất, nên các cây không duy nhất.
+*Cây khung nhỏ nhất* là cây khung mà trọng số nhỏ nhất có thể. Hình 7.36 cho thấy cây khung nhỏ nhất cho đồ thị ví dụ với trọng số 20. Tương tự, *cây khung lớn nhất* là cây khung mà trọng số lớn nhất có thể. Hình 7.37 cho thấy cây khung lớn nhất cho đồ thị ví dụ với trọng số 32. Lưu ý rằng đồ thị có thể có một số cây khung nhỏ nhất và lớn nhất, nên các cây không duy nhất.
 
 ![](images/_page_109_Figure_2.jpeg)
 
-Hóa ra several phương pháp tham lam có thể được sử dụng để xây dựng cây khung nhỏ nhất và lớn nhất. Phần này thảo luận hai thuật toán xử lý các cạnh của đồ thị sắp xếp theo trọng số. Chúng ta tập trung vào tìm cây khung nhỏ nhất, nhưng các thuật toán tương tự cũng có thể tìm cây khung lớn nhất bằng cách xử lý các cạnh theo thứ tự đảo ngược.
+Hóa ra có một số phương pháp tham lam có thể được sử dụng để xây dựng cây khung nhỏ nhất và lớn nhất. Phần này thảo luận hai thuật toán xử lý các cạnh của đồ thị sắp xếp theo trọng số. Chúng ta tập trung vào tìm cây khung nhỏ nhất, nhưng các thuật toán tương tự cũng có thể tìm cây khung lớn nhất bằng cách xử lý các cạnh theo thứ tự đảo ngược.
 
 #### 7.6.1 Thuật toán Kruskal
 
@@ -3058,13 +3062,13 @@ Ví dụ, hãy xây dựng cây khung nhỏ nhất cho đồ thị ví dụ (Hì
 
 ![](images/_page_110_Figure_2.jpeg)
 
-Sau đó,chúng ta đi qua danh sách và thêm mỗi cạnh vào đồ thị nếu nó nối hai thành phần riêng biệt. Hình 7.38 cho thấy các bước của thuật toán. Ban đầu, mỗi nút thuộc thành phần riêng. Sau đó, các cạnh đầu tiên trong danh sách (5–6, 1–2, 3–6, và 1–5) được thêm vào đồ thị. Sau đó, cạnh tiếp theo sẽ là 2–3, nhưng cạnh này không được thêm,vì nó sẽ tạo ra chu trình. Điều tương tự áp dụng cho cạnh 2–5. Cuối cùng, cạnh 4–6 được thêm, và cây khung nhỏ nhất hoàn thành.
+Sau đó, chúng ta đi qua danh sách và thêm mỗi cạnh vào đồ thị nếu nó nối hai thành phần riêng biệt. Hình 7.38 cho thấy các bước của thuật toán. Ban đầu, mỗi nút thuộc thành phần riêng. Sau đó, các cạnh đầu tiên trong danh sách (5–6, 1–2, 3–6, và 1–5) được thêm vào đồ thị. Sau đó, cạnh tiếp theo sẽ là 2–3, nhưng cạnh này không được thêm, vì nó sẽ tạo ra chu trình. Điều tương tự áp dụng cho cạnh 2–5. Cuối cùng, cạnh 4–6 được thêm, và cây khung nhỏ nhất hoàn thành.
 
-**Tại sao Hoạt động?** Câu hỏi tốt *tại sao* thuật toán Kruskal hoạt động. Tại sao chiến lược tham lam đảm bảo rằngchúng ta sẽ tìm thấy cây khung nhỏ nhất?
+**Tại sao Hoạt động?** Câu hỏi tốt *tại sao* thuật toán Kruskal hoạt động. Tại sao chiến lược tham lam đảm bảo rằng chúng ta sẽ tìm thấy cây khung nhỏ nhất?
 
 Hãy xem điều gì xảy ra nếu cạnh trọng số nhỏ nhất của đồ thị *không* được bao gồm trong cây khung. Ví dụ, giả sử rằng cây khung nhỏ nhất của đồ thị ví dụ sẽ không chứa cạnh trọng số nhỏ nhất 5–6. Chúng ta không biết cấu trúc chính xác của cây khung như vậy, nhưng trong bất kỳ trường hợp nào nó phải chứa một số cạnh. Giả sử rằng cây sẽ trông như cây trong Hình 7.39.
 
-Tuy nhiên, không thể rằng cây trong Hình 7.39 sẽ là cây khung nhỏ nhất,vì chúng ta có thể loại bỏ cạnh khỏi cây và thay thế nó bằng cạnh trọng số
+Tuy nhiên, không thể rằng cây trong Hình 7.39 sẽ là cây khung nhỏ nhất, vì chúng ta có thể loại bỏ cạnh khỏi cây và thay thế nó bằng cạnh trọng số
 
 **Hình 7.39** Cây khung nhỏ nhất giả thuyết
 
@@ -3076,12 +3080,10 @@ Tuy nhiên, không thể rằng cây trong Hình 7.39 sẽ là cây khung nhỏ 
 
 nhỏ nhất 5–6. Điều này tạo ra cây khung mà trọng số *nhỏ hơn*, được chỉ ra trong Hình 7.40.
 
-Vì lý do này, luôn tối ưu để bao gồm cạnh trọng số nhỏ nhất trong cây để tạo ra cây khung nhỏ nhất. Sử dụng lập luận tương tự,chúng ta có thể cho thấy rằng cũng tối ưu để thêm cạnh tiếp theo theo thứ tự trọng số vào cây, và cứ thế. Do đó, thuật toán Kruskal luôn tạo ra cây khung nhỏ nhất.
+Vì lý do này, luôn tối ưu để bao gồm cạnh trọng số nhỏ nhất trong cây để tạo ra cây khung nhỏ nhất. Sử dụng lập luận tương tự, chúng ta có thể cho thấy rằng cũng tối ưu để thêm cạnh tiếp theo theo thứ tự trọng số vào cây, và cứ thế. Do đó, thuật toán Kruskal luôn tạo ra cây khung nhỏ nhất.
 
 **Cài đặt** Khi cài đặt thuật toán Kruskal, tiện lợi để sử dụng biểu diễn danh sách cạnh của đồ thị. Giai đoạn đầu tiên của thuật toán sắp xếp các cạnh trong danh sách trong $O(m \log m)$ thời gian. Sau đó, giai đoạn thứ hai của thuật toán xây dựng cây khung nhỏ nhất như sau:
 
-```
-for (...) {
 ```cpp
 for (auto e : edges) {
  int a, b, w;
@@ -3092,7 +3094,7 @@ for (auto e : edges) {
 
 Vòng lặp đi qua các cạnh trong danh sách và luôn xử lý cạnh (a, b) trong đó a và b là hai nút. Cần hai hàm: hàm `same` xác định xem a và b có trong cùng thành phần không, và hàm `unite` nối các thành phần chứa a và b.
 
-Vấn đề là làm thế nào để cài đặt hiệu quả hàm `same` và `unite`. Một khả năng là cài đặt hàm `same` dưới dạng duyệt đồ thị và kiểm tra xemchúng ta có thể đi từ nút a đến nút b. Tuy nhiên, độ phức tạp thời gian của hàm như vậy sẽ là O(n+m) và thuật toán kết quả sẽ chậm,vì hàm `same` sẽ được gọi cho mỗi cạnh trong đồ thị.
+Vấn đề là làm thế nào để cài đặt hiệu quả hàm `same` và `unite`. Một khả năng là cài đặt hàm `same` dưới dạng duyệt đồ thị và kiểm tra xemchúng ta có thể đi từ nút a đến nút b. Tuy nhiên, độ phức tạp thời gian của hàm như vậy sẽ là O(n+m) và thuật toán kết quả sẽ chậm, vì hàm `same` sẽ được gọi cho mỗi cạnh trong đồ thị.
 
 Chúng ta sẽ giải bài toán sử dụng cấu trúc union-find cài đặt cả hai hàm trong $O(\log n)$ thời gian. Do đó, độ phức tạp thời gian của thuật toán Kruskal sẽ là $O(m \log n)$ sau khi sắp xếp danh sách cạnh.
 
@@ -3116,7 +3118,7 @@ Trong trường hợp này đại diện của các tập hợp là 4, 5, và 2.
 
 Để nối hai tập hợp, đại diện của tập hợp này được kết nối đến đại diện của tập hợp kia. Ví dụ, Hình 7.42 cho thấy cách có thể để nối tập hợp $\{1, 4, 7\}$ và $\{2, 3, 6, 8\}$. Từ đây, phần tử 2 là đại diện cho toàn bộ tập hợp và đại diện cũ 4 trỏ đến phần tử 2.
 
-Hiệu suất của cấu trúc union-find phụ thuộc vào cách các tập hợp được nối. Hóa rachúng ta có thể theo chiến lược đơn giản: luôn kết nối đại diện của tập hợp *nhỏ hơn* đến đại diện của tập hợp *lớn hơn* (hoặc nếu các tập hợp cùng kích thước,chúng ta có thể đưa ra lựa chọnbất kỳ). Sử dụng chiến lược này, độ dài của bất kỳ đường đi nào sẽ là $O(\log n)$, nênchúng ta có thể tìm đại diện của bất kỳ phần tử nào hiệu quả bằng cách theo đường đi tương ứng.
+Hiệu suất của cấu trúc union-find phụ thuộc vào cách các tập hợp được nối. Hóa rachúng ta có thể theo chiến lược đơn giản: luôn kết nối đại diện của tập hợp *nhỏ hơn* đến đại diện của tập hợp *lớn hơn* (hoặc nếu các tập hợp cùng kích thước, chúng ta có thể đưa ra lựa chọnbất kỳ). Sử dụng chiến lược này, độ dài của bất kỳ đường đi nào sẽ là $O(\log n)$, nên chúng ta có thể tìm đại diện của bất kỳ phần tử nào hiệu quả bằng cách theo đường đi tương ứng.
 
 **Cài đặt** Cấu trúc union-find có thể được cài đặt tiện lợi sử dụng mảng. Trong cài đặt sau, mảng `link` cho biết cho mỗi phần tử phần tử tiếp theo trong đường đi, hoặc chính phần tử nếu nó là đại diện, và mảng `size` cho biết cho mỗi đại diện kích thước của tập hợp tương ứng.
 
@@ -3183,17 +3185,17 @@ Ví dụ, Hình 7.43 cho thấy cách thuật toán Prim xây dựng cây khung 
 
 Giống như thuật toán Dijkstra, thuật toán Prim có thể được cài đặt hiệu quả sử dụng priority queue. Priority queue nên chứa tất cả nút có thể được kết nối đến thành phần hiện tại sử dụng một cạnh duy nhất, theo thứ tự tăng dần trọng số của các cạnh tương ứng.
 
-Độ phức tạp thời gian của thuật toán Prim là $O(n + m \log m)$ bằng độ phức tạp thời gian của thuật toán Dijkstra. Trong thực tế, thuật toán Prim và Kruskal đều hiệu quả, và lựa chọn thuật toán là vấn đề sở thích. Tuy nhiên,hầu hết lập trình viên thi đấu sử dụng thuật toán Kruskal.
+Độ phức tạp thời gian của thuật toán Prim là $O(n + m \log m)$ bằng độ phức tạp thời gian của thuật toán Dijkstra. Trong thực tế, thuật toán Prim và Kruskal đều hiệu quả, và lựa chọn thuật toán là vấn đề sở thích. Tuy nhiên, hầu hết lập trình viên thi đấu sử dụng thuật toán Kruskal.
 
 ## Chương 8: Chủ đề Thiết kế Thuật toán
 
 Chương này thảo luận một lựa chọn các chủ đề thiết kế thuật toán.
 
-Phần 8.1 tập trung vào thuật toán song song bit sử dụng thao tác bit để xử lý dữ liệu hiệu quả. Thông thường,chúng ta có thể thay thế vòng lặp for bằng thao tác bit, điều này có thể cải thiện đáng kể thời gian chạy của thuật toán.
+Phần 8.1 tập trung vào thuật toán song song bit sử dụng thao tác bit để xử lý dữ liệu hiệu quả. Thông thường, chúng ta có thể thay thế vòng lặp for bằng thao tác bit, điều này có thể cải thiện đáng kể thời gian chạy của thuật toán.
 
-Phần 8.2 trình bày kỹ thuật phân tích amortized, có thể được sử dụng để ước tính thời gian cần cho chuỗi phép toán trong thuật toán. Sử dụng kỹ thuật,chúng ta có thể phân tích thuật toán xác định phần tử nhỏ hơn gần nhất và trượt cửa sổ tối thiểu.
+Phần 8.2 trình bày kỹ thuật phân tích amortized, có thể được sử dụng để ước tính thời gian cần cho chuỗi phép toán trong thuật toán. Sử dụng kỹ thuật, chúng ta có thể phân tích thuật toán xác định phần tử nhỏ hơn gần nhất và trượt cửa sổ tối thiểu.
 
-Phần 8.3 thảo luận tìm kiếm tam phân và các kỹ thuật khác để tính hiệu quả giá trị tối thiểu của certain hàm.
+Phần 8.3 thảo luận tìm kiếm tam phân và các kỹ thuật khác để tính hiệu quả giá trị tối thiểu của một số hàm.
 
 ### 8.1 Thuật toán Song song Bit
 
@@ -3223,7 +3225,7 @@ int hamming(string a, string b) {
 }
 ```
 
-Tuy nhiên, vì các xâu gồm bit,chúng ta có thể tối ưu giải pháp bằng cách lưu trữ xâu dưới dạng số nguyên và tính khoảng cách sử dụng thao tác bit. Đặc biệt, nếu $k \le 32$,chúng ta có thể chỉ lưu trữ xâu dưới dạng giá trị int và sử dụng hàm sau để tính khoảng cách:
+Tuy nhiên, vì các xâu gồm bit, chúng ta có thể tối ưu giải pháp bằng cách lưu trữ xâu dưới dạng số nguyên và tính khoảng cách sử dụng thao tác bit. Đặc biệt, nếu $k \le 32$,chúng ta có thể chỉ lưu trữ xâu dưới dạng giá trị int và sử dụng hàm sau để tính khoảng cách:
 
 ```cpp
 int hamming(int a, int b) {
@@ -3266,9 +3268,9 @@ for (int i = 0; i < n; i++) {
 }
 ```
 
-Sau đó, sau khiphát hiện có count cột mà cả hai ô đều đen,chúng ta có thể sử dụng công thức count(count - 1)/2 để tính số lưới con mà hàng đầu tiên là a và hàng cuối cùng là b.
+Sau đó, sau khiphát hiện có count cột mà cả hai ô đều đen, chúng ta có thể sử dụng công thức count(count - 1)/2 để tính số lưới con mà hàng đầu tiên là a và hàng cuối cùng là b.
 
-Để tạo thuật toán song song bit,chúng ta biểu diễn mỗi hàng k dưới dạng bitset n-bit row[k] trong đó bit 1 biểu thị ô đen. Sau đó,chúng ta có thể tính số cột mà hàng a và b đều có ô đen sử dụng phép and và đếm số bit 1. Điều này có thể được thực hiện tiện lợi như sau sử dụng cấu trúc bitset:
+Để tạo thuật toán song song bit, chúng ta biểu diễn mỗi hàng k dưới dạng bitset n-bit row[k] trong đó bit 1 biểu thị ô đen. Sau đó, chúng ta có thể tính số cột mà hàng a và b đều có ô đen sử dụng phép and và đếm số bit 1. Điều này có thể được thực hiện tiện lợi như sau sử dụng cấu trúc bitset:
 
 ```cpp
 int count = (row[a]&row[b]).count();
@@ -3294,7 +3296,7 @@ Bảng 8.2 cho thấy so sánh thuật toán ban đầu và thuật toán song s
 
 Cho đồ thị có hướng không chu trình gồm n nút, xem xét bài toán tính cho mỗi nút x giá trị reach(x): số nút có thể đạt được từ nút x. Ví dụ, Hình 8.2 cho thấy đồ thị và các giá trị reach.
 
-Bài toán có thể được giải sử dụng quy hoạch động trong $O(n^2)$ thời gian bằng cách xây dựng cho mỗi nút danh sách nút có thể đạt được từ nó. Sau đó, để tạo thuật toán song song bit,chúng ta biểu diễn mỗi danh sách dưới dạng bitset n bit. Điều này cho phépchúng ta hiệu quả tính hợp của hai danh sách như vậy sử dụng phép or. Giả sử rằng reach là mảng cấu trúc bitset và đồ thị được lưu trữ dưới dạng danh sách kề trong adj, tính toán cho nút x có thể thực hiện như sau:
+Bài toán có thể được giải sử dụng quy hoạch động trong $O(n^2)$ thời gian bằng cách xây dựng cho mỗi nút danh sách nút có thể đạt được từ nó. Sau đó, để tạo thuật toán song song bit, chúng ta biểu diễn mỗi danh sách dưới dạng bitset n bit. Điều này cho phép chúng ta hiệu quả tính hợp của hai danh sách như vậy sử dụng phép or. Giả sử rằng reach là mảng cấu trúc bitset và đồ thị được lưu trữ dưới dạng danh sách kề trong adj, tính toán cho nút x có thể thực hiện như sau:
 
 ```cpp
 reach[x][x] = 1;
@@ -3325,9 +3327,9 @@ Cấu trúc của thuật toán thường trực tiếp cho chúng ta biết đ�
 
 Trong *kỹ thuật hai con trỏ*, hai con trỏ đi qua mảng. Cả hai con trỏ chỉ di chuyển theo một hướng, đảm bảo rằng thuật toán hoạt động hiệu quả. Ví dụ đầu tiên về cách áp dụng kỹ thuật, xem xét bài toán mà chúng ta được cho mảng gồm n số nguyên dương và tổng mục tiêu x, và chúng ta muốn tìm mảng con có tổng là x hoặc báo cáo rằng không có mảng con như vậy.
 
-Bài toán có thể được giải trong O(n) thời gian bằng cách sử dụng kỹ thuật hai con trỏ. Ý tưởng là duy trì con trỏ trỏ đến giá trị đầu tiên và cuối cùng của mảng con. Trên mỗi lượt, con trỏ trái di chuyển một bước sang phải, và con trỏ phải di chuyển sang phải càng lâucàng tốt cho đến khi tổng mảng con kết quảnhiều nhất là x. Nếu tổng trở thành chính xác x, giải pháp đã được tìm thấy.
+Bài toán có thể được giải trong O(n) thời gian bằng cách sử dụng kỹ thuật hai con trỏ. Ý tưởng là duy trì con trỏ trỏ đến giá trị đầu tiên và cuối cùng của mảng con. Trên mỗi lượt, con trỏ trái di chuyển một bước sang phải, và con trỏ phải di chuyển sang phải càng lâucàng tốt cho đến khi tổng mảng con kết quá nhiều nhất là x. Nếu tổng trở thành chính xác x, giải pháp đã được tìm thấy.
 
-Ví dụ, Hình 8.3 cho thấy cách thuật toán xử lý mảng khi tổng mục tiêu là x = 8. Mảng con ban đầu chứa giá trị 1, 3, và 2, có tổng là 6. Sau đó, con trỏ trái di chuyển một bước sang phải, và con trỏ phải không di chuyển,vì nếu không tổng sẽ vượt quá x. Cuối cùng, con trỏ trái di chuyển một bước sang phải, và con trỏ phải di chuyển hai bước sang phải. Tổng của mảng con là 2 + 5 + 1 = 8, nên mảng con mong muốn đã được tìm thấy.
+Ví dụ, Hình 8.3 cho thấy cách thuật toán xử lý mảng khi tổng mục tiêu là x = 8. Mảng con ban đầu chứa giá trị 1, 3, và 2, có tổng là 6. Sau đó, con trỏ trái di chuyển một bước sang phải, và con trỏ phải không di chuyển, vì nếu không tổng sẽ vượt quá x. Cuối cùng, con trỏ trái di chuyển một bước sang phải, và con trỏ phải di chuyển hai bước sang phải. Tổng của mảng con là 2 + 5 + 1 = 8, nên mảng con mong muốn đã được tìm thấy.
 
 Thời gian chạy của thuật toán phụ thuộc vào số bước con trỏ phải di chuyển. Trong khi không có giới hạn trên hữu ích về số bước con trỏ có thể di chuyển
 
@@ -3339,27 +3341,27 @@ Thời gian chạy của thuật toán phụ thuộc vào số bước con trỏ
 
 ![](images/_page_120_Figure_3.jpeg)
 
-trên *một* lượt, chúng ta biết rằng con trỏ di chuyển tổng cộng O(n) bước trong thuật toán,vì nó chỉ di chuyển sang phải. Vì cả con trỏ trái và phải đều di chuyển O(n) bước, thuật toán hoạt động trong O(n) thời gian.
+trên *một* lượt, chúng ta biết rằng con trỏ di chuyển tổng cộng O(n) bước trong thuật toán, vì nó chỉ di chuyển sang phải. Vì cả con trỏ trái và phải đều di chuyển O(n) bước, thuật toán hoạt động trong O(n) thời gian.
 
 **Bài toán 2SUM** Bài toán khác có thể được giải sử dụng kỹ thuật hai con trỏ là *bài toán 2SUM*: cho mảng gồm n số và tổng mục tiêu x, tìm hai giá trị mảng sao cho tổng của chúng là x, hoặc báo cáo rằng không có giá trị như vậy.
 
-Để giải bài toán, đầu tiênchúng ta sắp xếp giá trị mảng theo thứ tự tăng dần. Sau đó,chúng ta duyệt qua mảng sử dụng hai con trỏ. Con trỏ trái bắt đầu tại giá trị đầu tiên và di chuyển một bước sang phải trên mỗi lượt. Con trỏ phải bắt đầu tại giá trị cuối cùng và luôn di chuyển sang trái cho đến khi tổng của giá trị trái và phảinhiều nhất là x. Nếu tổng là chính xác x, giải pháp đã được tìm thấy.
+Để giải bài toán, đầu tiên chúng ta sắp xếp giá trị mảng theo thứ tự tăng dần. Sau đó, chúng ta duyệt qua mảng sử dụng hai con trỏ. Con trỏ trái bắt đầu tại giá trị đầu tiên và di chuyển một bước sang phải trên mỗi lượt. Con trỏ phải bắt đầu tại giá trị cuối cùng và luôn di chuyển sang trái cho đến khi tổng của giá trị trái và phải nhiều nhất là x. Nếu tổng là chính xác x, giải pháp đã được tìm thấy.
 
 Ví dụ, Hình 8.4 cho thấy cách thuật toán xử lý mảng khi tổng mục tiêu là x = 12. Ở vị trí ban đầu, tổng của giá trị là 1 + 10 = 11 nhỏ hơn x. Sau đó con trỏ trái di chuyển một bước sang phải, và con trỏ phải di chuyển ba bước sang trái, và tổng trở thành 4 + 7 = 11. Sau đó, con trỏ trái di chuyển một bước sang phải. Con trỏ phải không di chuyển, và giải pháp 5 + 7 = 12 đã được tìm thấy.
 
 Thời gian chạy của thuật toán là $O(n \log n)$,vì nó đầu tiên sắp xếp mảng trong $O(n \log n)$ thời gian, và sau đó cả hai con trỏ di chuyển O(n) bước.
 
-Lưu ý rằng cũng có thể giải bài toán theo cách khác trong $O(n \log n)$ thời gian sử dụng tìm kiếm nhị phân. Trong giải pháp như vậy, đầu tiênchúng ta sắp xếp mảng và sau đó duyệt qua các giá trị mảng và cho mỗi giá trị tìm kiếm nhị phân cho giá trị khác cho ra tổng x. Thực tế,nhiều bài toán có thể được giải sử dụng kỹ thuật hai con trỏ cũng có thể được giải sử dụng sắp xếp hoặc cấu trúc set, đôi khi với hệ số logarithm bổ sung.
+Lưu ý rằng cũng có thể giải bài toán theo cách khác trong $O(n \log n)$ thời gian sử dụng tìm kiếm nhị phân. Trong giải pháp như vậy, đầu tiên chúng ta sắp xếp mảng và sau đó duyệt qua các giá trị mảng và cho mỗi giá trị tìm kiếm nhị phân cho giá trị khác cho ra tổng x. Thực tế, nhiều bài toán có thể được giải sử dụng kỹ thuật hai con trỏ cũng có thể được giải sử dụng sắp xếp hoặc cấu trúc set, đôi khi với hệ số logarithm bổ sung.
 
-Bài toán kSUM tổng quát hơn cũng thú vị. Trong bài toán nàychúng ta phải tìm k phần tử sao cho tổng của chúng là x. Hóa rachúng ta có thể giải bài toán 3SUM trong $O(n^2)$ thời gian bằng cách mở rộng thuật toán 2SUM trên. Bạn có thể thấy làm thế nào chúng ta có thể làm điều này? Trong thời gian dài, thực tếmọi người nghĩ rằng $O(n^2)$ sẽ là độ phức tạp thời gian tốt nhất có thể cho bài toán 3SUM. Tuy nhiên, năm 2014, Grønlund và Pettie [12] cho thấy rằng đây không phải là trường hợp.
+Bài toán kSUM tổng quát hơn cũng thú vị. Trong bài toán này chúng ta phải tìm k phần tử sao cho tổng của chúng là x. Hóa rachúng ta có thể giải bài toán 3SUM trong $O(n^2)$ thời gian bằng cách mở rộng thuật toán 2SUM trên. Bạn có thể thấy làm thế nào chúng ta có thể làm điều này? Trong thời gian dài, thực tếmọi người nghĩ rằng $O(n^2)$ sẽ là độ phức tạp thời gian tốt nhất có thể cho bài toán 3SUM. Tuy nhiên, năm 2014, Grønlund và Pettie [12] cho thấy rằng đây không phải là trường hợp.
 
 #### 8.2.2 Phần tử Nhỏ hơn Gần nhất
 
-Phân tích amortized thường được sử dụng để ước tính số phép toán thực hiện trên cấu trúc dữ liệu. Các phép toán có thể được phân phối không đều sao chohầu hết phép toán xảy ra trong certain giai đoạn của thuật toán, nhưng tổng số phép toán bị giới hạn.
+Phân tích amortized thường được sử dụng để ước tính số phép toán thực hiện trên cấu trúc dữ liệu. Các phép toán có thể được phân phối không đều sao chohầu hết phép toán xảy ra trong một số giai đoạn của thuật toán, nhưng tổng số phép toán bị giới hạn.
 
 Ví dụ, giả sử chúng ta muốn tìm cho mỗi phần tử mảng *phần tử nhỏ hơn gần nhất*, tức là phần tử nhỏ hơn đầu tiên đi trước phần tử trong mảng. Có thể không có phần tử như vậy, trong trường hợp đó thuật toánnên báo cáo điều này. Tiếp theochúng ta sẽ giải hiệu quả bài toán sử dụng cấu trúc stack.
 
-Chúng ta đi qua mảng từ trái sang phải và duy trì stack các phần tử mảng. Tại mỗi vị trí mảng,chúng ta loại bỏ phần tử khỏi stack cho đến khi phần tử trên cùng nhỏ hơn phần tử hiện tại, hoặc stack rỗng. Sau đó,chúng ta báo cáo rằng phần tử trên cùng là phần tử nhỏ hơn gần nhất của phần tử hiện tại, hoặc nếu stack rỗng, không có phần tử như vậy. Cuối cùng,chúng ta thêm phần tử hiện tại vào stack.
+Chúng ta đi qua mảng từ trái sang phải và duy trì stack các phần tử mảng. Tại mỗi vị trí mảng, chúng ta loại bỏ phần tử khỏi stack cho đến khi phần tử trên cùng nhỏ hơn phần tử hiện tại, hoặc stack rỗng. Sau đó, chúng ta báo cáo rằng phần tử trên cùng là phần tử nhỏ hơn gần nhất của phần tử hiện tại, hoặc nếu stack rỗng, không có phần tử như vậy. Cuối cùng, chúng ta thêm phần tử hiện tại vào stack.
 
 Hình 8.5 cho thấy cách thuật toán xử lý mảng. Đầu tiên, phần tử 1 được thêm vào stack. Vì nó là phần tử đầu tiên trong mảng, nó rõ ràng không có phần tử nhỏ hơn gần nhất. Sau đó, các phần tử 3 và 4 được thêm vào stack. Phần tử nhỏ hơn gần nhất của 4 là 3, và phần tử nhỏ hơn gần nhất của 3 là 1. Sau đó, phần tử tiếp theo 2 nhỏ hơn hai phần tử trên cùng trong stack, nên các phần tử 3 và 4 bị loại bỏ khỏi stack. Do đó, phần tử nhỏ hơn gần nhất của 2 là 1. Sau đó, phần tử 2 được thêm vào stack. Thuật toán tiếp tục như thế này, cho đến khi toàn bộ mảng đã được xử lý.
 
@@ -3367,13 +3369,13 @@ Hình 8.5 cho thấy cách thuật toán xử lý mảng. Đầu tiên, phần t
 
 **Hình 8.5** Tìm phần tử nhỏ hơn gần nhất trong thời gian tuyến tính sử dụng stack
 
-Hiệu suất của thuật toán phụ thuộc vào tổng số phép toán stack. Nếu phần tử hiện tại lớn hơn phần tử trên cùng trong stack,nó trực tiếp được thêm vào stack, điều này hiệu quả. Tuy nhiên, đôi khi stack có thể chứa several phần tử lớn hơn và mất thời gian để loại bỏ chúng. Tuy nhiên, mỗi phần tử được thêm *chính xác một lần* vào stack và loại bỏ *nhiều nhất một lần* khỏi stack. Do đó, mỗi phần tử gây ra O(1) phép toán stack, và thuật toán hoạt động trong O(n) thời gian.
+Hiệu suất của thuật toán phụ thuộc vào tổng số phép toán stack. Nếu phần tử hiện tại lớn hơn phần tử trên cùng trong stack, nó trực tiếp được thêm vào stack, điều này hiệu quả. Tuy nhiên, đôi khi stack có thể chứa một số phần tử lớn hơn và mất thời gian để loại bỏ chúng. Tuy nhiên, mỗi phần tử được thêm *chính xác một lần* vào stack và loại bỏ *nhiều nhất một lần* khỏi stack. Do đó, mỗi phần tử gây ra O(1) phép toán stack, và thuật toán hoạt động trong O(n) thời gian.
 
 #### 8.2.3 Trượt Cửa sổ Tối thiểu
 
 *Trượt cửa sổ* là mảng con kích thước hằng số di chuyển từ trái sang phải qua mảng. Tại mỗi vị trí cửa sổ, chúng ta muốn tính một số thông tin về các phần tử bên trong cửa sổ. Tiếp theochúng ta sẽ tập trung vào bài toán duy trì *trượt cửa sổ tối thiểu*, có nghĩa là chúng ta muốn báo cáo giá trị nhỏ nhất bên trong mỗi cửa sổ.
 
-Các cực tiểu trượt cửa sổ có thể được tính sử dụng ý tưởng tương tự mà chúng ta đã sử dụng để tính phần tử nhỏ hơn gần nhất. Lần nàychúng ta duy trì hàng đợi mà mỗi phần tử lớn hơn phần tử trước, và phần tử đầu tiên luôn tương ứng với phần tử tối thiểu bên trong cửa sổ. Sau mỗi lần di chuyển cửa sổ,chúng ta loại bỏ phần tử khỏi cuối hàng đợi cho đến khi phần tử cuối hàng đợi nhỏ hơn phần tử cửa sổ mới, hoặc hàng đợi trở thành rỗng. Chúng tôi cũng loại bỏ phần tử đầu hàng đợi nếu nó không còn bên trong cửa sổ. Cuối cùng, chúng tôi thêm phần tử cửa sổ mới vào hàng đợi.
+Các cực tiểu trượt cửa sổ có thể được tính sử dụng ý tưởng tương tự mà chúng ta đã sử dụng để tính phần tử nhỏ hơn gần nhất. Lần này chúng ta duy trì hàng đợi mà mỗi phần tử lớn hơn phần tử trước, và phần tử đầu tiên luôn tương ứng với phần tử tối thiểu bên trong cửa sổ. Sau mỗi lần di chuyển cửa sổ, chúng ta loại bỏ phần tử khỏi cuối hàng đợi cho đến khi phần tử cuối hàng đợi nhỏ hơn phần tử cửa sổ mới, hoặc hàng đợi trở thành rỗng. Chúng tôi cũng loại bỏ phần tử đầu hàng đợi nếu nó không còn bên trong cửa sổ. Cuối cùng, chúng tôi thêm phần tử cửa sổ mới vào hàng đợi.
 
 Hình 8.6 cho thấy cách thuật toán xử lý mảng khi kích thước trượt cửa sổ là 4. Tại vị trí cửa sổ đầu tiên, giá trị nhỏ nhất là 1. Sau đó cửa sổ di chuyển một bước sang phải. Phần tử mới 3 nhỏ hơn các phần tử 4 và 5 trong hàng đợi, nên các phần tử 4 và 5 bị loại bỏ khỏi hàng đợi và phần tử 3
 
@@ -3381,7 +3383,7 @@ Hình 8.6 cho thấy cách thuật toán xử lý mảng khi kích thước trư
 
 ![](images/_page_122_Figure_8.jpeg)
 
-được thêm vào hàng đợi. Giá trị nhỏ nhất vẫn là 1. Sau đó, cửa sổ di chuyển again, và phần tử nhỏ nhất 1 không còn thuộc cửa sổ. Do đó,nó bị loại bỏ khỏi hàng đợi, và giá trị nhỏ nhất bây giờ là 3. Cũng phần tử mới 4 được thêm vào hàng đợi. Phần tử mới tiếp theo 1 nhỏ hơn tất cả phần tử trong hàng đợi, nên tất cả phần tử bị loại bỏ khỏi hàng đợi, và nó chỉ chứa phần tử 1. Cuối cùng, cửa sổđạt đến vị trí cuối cùng. Phần tử 2 được thêm vào hàng đợi, nhưng giá trị nhỏ nhất bên trong cửa sổ vẫn là 1.
+được thêm vào hàng đợi. Giá trị nhỏ nhất vẫn là 1. Sau đó, cửa sổ di chuyển again, và phần tử nhỏ nhất 1 không còn thuộc cửa sổ. Do đó, nó bị loại bỏ khỏi hàng đợi, và giá trị nhỏ nhất bây giờ là 3. Cũng phần tử mới 4 được thêm vào hàng đợi. Phần tử mới tiếp theo 1 nhỏ hơn tất cả phần tử trong hàng đợi, nên tất cả phần tử bị loại bỏ khỏi hàng đợi, và nó chỉ chứa phần tử 1. Cuối cùng, cửa sổđạt đến vị trí cuối cùng. Phần tử 2 được thêm vào hàng đợi, nhưng giá trị nhỏ nhất bên trong cửa sổ vẫn là 1.
 
 Vì mỗi phần tử mảng được thêm vào hàng đợi chính xác một lần và loại bỏ khỏi hàng đợi nhiều nhất một lần, thuật toán hoạt động trong O(n) thời gian.
 
@@ -3393,13 +3395,13 @@ Giả sử có hàm f(x) mà đầu tiên chỉ giảm, sau đóđạt đến gi
 
 Tìm kiếm tam phân cung cấp cách hiệu quả để tìm giá trị tối thiểu của hàm mà đầu tiên giảm và sau đó tăng. Giả sử chúng ta biết rằng giá trị của x màtối thiểu hóa f(x) nằm trong khoảng $[x_L, x_R]$. Ý tưởng là chia khoảng thành ba phần bằng nhau $[x_L, a]$, [a, b], và $[b, x_R]$ bằng cách chọn
 
-$$a = \frac{2x_L + x_R}{3}$$ và $b = \frac{x_L + 2x_R}{3}$.
+$a = \frac{2x_L + x_R}{3}$ và $b = \frac{x_L + 2x_R}{3}$.
 
 Sau đó, nếu f(a) < f(b), chúng ta kết luận rằng tối thiểu phải nằm trong khoảng $[x_L, b]$, và nếu không nó phải nằm trong khoảng $[a, x_R]$. Sau đó, chúng ta đệ quy tiếp tục tìm kiếm, cho đến khi kích thước của khoảng hoạt động đủ nhỏ.
 
 Ví dụ, Hình 8.8 cho thấy bước đầu tiên của tìm kiếm tam phân trong kịch bản ví dụ. Vì f(a) > f(b), khoảng mới trở thành $[a, x_R]$.
 
-**Fig. 8.7** A function and its minimum value
+**Hình 8.7** Một hàm số và giá trị cực tiểu của nó
 
 ![](images/_page_123_Figure_12.jpeg)
 
@@ -3410,15 +3412,15 @@ Ví dụ, Hình 8.8 cho thấy bước đầu tiên của tìm kiếm tam phân 
 
 **Hình 8.9** Ví dụ về hàm lồi: $f(x) = x^2$
 
-Trong thực tế,chúng ta thường xem xét hàm mà tham số là số nguyên, và tìm kiếm kết thúc khi khoảng chỉ chứa một phần tử. Vì kích thước của khoảng mới luôn bằng 2/3 của khoảng trước, thuật toán hoạt động trong $O(\log n)$ thời gian, trong đó n là số phần tử trong khoảng ban đầu.
+Trong thực tế, chúng ta thường xem xét hàm mà tham số là số nguyên, và tìm kiếm kết thúc khi khoảng chỉ chứa một phần tử. Vì kích thước của khoảng mới luôn bằng 2/3 của khoảng trước, thuật toán hoạt động trong $O(\log n)$ thời gian, trong đó n là số phần tử trong khoảng ban đầu.
 
-Lưu ý rằng khi làm việc với tham số nguyên,chúng ta cũng có thể sử dụng *tìm kiếm nhị phân* thay vì tìm kiếm tam phân,vì nó chỉ cần tìm vị trí đầu tiên x mà f(x) < f(x+1).
+Lưu ý rằng khi làm việc với tham số nguyên, chúng ta cũng có thể sử dụng *tìm kiếm nhị phân* thay vì tìm kiếm tam phân, vì nó chỉ cần tìm vị trí đầu tiên x mà f(x) < f(x+1).
 
 #### 8.3.2 Hàm Lồi
 
 Hàm là *lồi* nếu đoạn thẳng giữa bất kỳ hai điểm nào trên đồ thị của hàm luôn nằm trên hoặc trên đồ thị. Ví dụ, Hình 8.9 cho thấy đồ thị của $f(x) = x^2$, là hàm lồi. Thực tế, đoạn thẳng giữa điểm a và b nằm trên đồ thị.
 
-Nếu chúng ta biết rằng giá trị tối thiểu của hàm lồi nằm trong khoảng $[x_L, x_R]$,chúng ta có thể sử dụng tìm kiếm tam phân để tìm nó. Tuy nhiên, lưu ý rằng several điểm của hàm lồi có thể có giá trị tối thiểu. Ví dụ, f(x) = 0 là lồi và giá trị tối thiểu là 0.
+Nếu chúng ta biết rằng giá trị tối thiểu của hàm lồi nằm trong khoảng $[x_L, x_R]$,chúng ta có thể sử dụng tìm kiếm tam phân để tìm nó. Tuy nhiên, lưu ý rằng một số điểm của hàm lồi có thể có giá trị tối thiểu. Ví dụ, f(x) = 0 là lồi và giá trị tối thiểu là 0.
 
 Hàm lồi có một số tính chất hữu ích: nếu f(x) và g(x) là hàm lồi, thì cũng f(x)+g(x) và $\max(f(x),g(x))$ là hàm lồi. Ví dụ,
 
@@ -3428,15 +3430,15 @@ nếu chúng ta có n hàm lồi $f_1, f_2, \ldots, f_n$, chúng ta ngay lập t
 
 Cho n số $a_1, a_2, \ldots, a_n$, xem xét bài toán tìm giá trị của x màtối thiểu hóa tổng
 
-$$|a_1 - x| + |a_2 - x| + \cdots + |a_n - x|$$.
+$$|a_1 - x| + |a_2 - x| + \cdots + |a_n - x|$$
 
 Ví dụ, nếu các số là [1, 2, 9, 2, 6], giải pháp tối ưu là chọn x = 2, tạo ra tổng
 
 $$|1-2|+|2-2|+|9-2|+|2-2|+|6-2|=12.$$
 
-Vì mỗi hàm $|a_k - x|$ là lồi, tổng cũng lồi, nênchúng ta có thể sử dụng tìm kiếm tam phân để tìm giá trị tối ưu của x. Tuy nhiên, cũng có giải pháp dễ dàng hơn. Hóa ra lựa chọn tối ưu cho x luôn là *trung vị* của các số, tức là phần tử giữa sau khi sắp xếp. Ví dụ, danh sách [1, 2, 9, 2, 6] trở thành [1, 2, 2, 6, 9] sau khi sắp xếp, nên trung vị là 2.
+Vì mỗi hàm $|a_k - x|$ là lồi, tổng cũng lồi, nên chúng ta có thể sử dụng tìm kiếm tam phân để tìm giá trị tối ưu của x. Tuy nhiên, cũng có giải pháp dễ dàng hơn. Hóa ra lựa chọn tối ưu cho x luôn là *trung vị* của các số, tức là phần tử giữa sau khi sắp xếp. Ví dụ, danh sách [1, 2, 9, 2, 6] trở thành [1, 2, 2, 6, 9] sau khi sắp xếp, nên trung vị là 2.
 
-Trung vị luôn tối ưu,vì nếu x nhỏ hơn trung vị, tổng trở nên nhỏ hơn bằng cách tăng x, và nếu x lớn hơn trung vị, tổng trở nên nhỏ hơn bằng cách giảm x. Nếu n chẵn và có hai trung vị, cả hai trung vị và tất cả giá trị giữa chúng là lựa chọn tối ưu.
+Trung vị luôn tối ưu, vì nếu x nhỏ hơn trung vị, tổng trở nên nhỏ hơn bằng cách tăng x, và nếu x lớn hơn trung vị, tổng trở nên nhỏ hơn bằng cách giảm x. Nếu n chẵn và có hai trung vị, cả hai trung vị và tất cả giá trị giữa chúng là lựa chọn tối ưu.
 
 Sau đó, xem xét bài toántối thiểu hóa hàm
 
@@ -3451,7 +3453,7 @@ Một lần nữa, hàm này lồi vàchúng ta có thể sử dụng tìm kiế
 
 $$nx^2 - 2x(a_1 + a_2 + \dots + a_n) + (a_1^2 + a_2^2 + \dots + a_n^2)$$
 
-Phần cuối cùng không phụ thuộc vào x, nênchúng ta có thể bỏ qua nó. Các phần còn lại tạo thành hàm $nx^2 - 2xs$ trong đó $s = a_1 + a_2 + \cdots + a_n$. Đây là parabol mở lên với nghiệm x = 0 và x = 2s/n, và giá trị tối thiểu là trung bình của các nghiệm x = s/n, tức là trung bình của các số $a_1, a_2, \ldots, a_n$.
+Phần cuối cùng không phụ thuộc vào x, nên chúng ta có thể bỏ qua nó. Các phần còn lại tạo thành hàm $nx^2 - 2xs$ trong đó $s = a_1 + a_2 + \cdots + a_n$. Đây là parabol mở lên với nghiệm x = 0 và x = 2s/n, và giá trị tối thiểu là trung bình của các nghiệm x = s/n, tức là trung bình của các số $a_1, a_2, \ldots, a_n$.
 
 ## Chương 9: Truy vấn Đoạn
 
@@ -3459,13 +3461,13 @@ Trong chương này, chúng ta thảo luận cấu trúc dữ liệu để xử 
 
 Phần 9.1 tập trung vào tình huống đơn giản mà giá trị mảng không được sửa đổi giữa các truy vấn. Trong trường hợp này chỉ cần tiền xử lý mảng sao chochúng ta có thể hiệu quả xác định câu trả lời cho bất kỳ truy vấn có thể nào. Chúng ta sẽ đầu tiên học cách xử lý truy vấn tổng sử dụng mảng tổng tiền tố, và sau đóchúng ta sẽ thảo luận thuật toán bảng thưa cho xử lý truy vấn tối thiểu.
 
-Phần 9.2 trình bày hai cấu trúc cây cho phép chúng ta cả xử lý truy vấn và cập nhật giá trị mảng hiệu quả. Cây chỉ số nhị phân hỗ trợ truy vấn tổng và có thể được xem như phiên bản động của mảng tổng tiền tố. Cây phân đoạn là cấu trúc linh hoạt hơn hỗ trợ truy vấn tổng, truy vấn tối thiểu, và several truy vấn khác. Các phép toán của cả hai cấu trúc hoạt động trong thời gian logarithm.
+Phần 9.2 trình bày hai cấu trúc cây cho phép chúng ta cả xử lý truy vấn và cập nhật giá trị mảng hiệu quả. Cây chỉ số nhị phân hỗ trợ truy vấn tổng và có thể được xem như phiên bản động của mảng tổng tiền tố. Cây phân đoạn là cấu trúc linh hoạt hơn hỗ trợ truy vấn tổng, truy vấn tối thiểu, và một số truy vấn khác. Các phép toán của cả hai cấu trúc hoạt động trong thời gian logarithm.
 
 ### 9.1 Truy vấn trên Mảng Tĩnh
 
 Trong phần này, chúng ta tập trung vào tình huống mà mảng là *tĩnh*, tức là giá trị mảng không bao giờ được cập nhật giữa các truy vấn. Trong trường hợp này, chỉ cần tiền xử lý mảng sao cho chúng ta có thể trả lời hiệu quả truy vấn đoạn.
 
-Đầu tiênchúng ta sẽ thảo luận cách đơn giản để xử lý truy vấn tổng sử dụng mảng tổng tiền tố, có thể được tổng quát hóa lên các chiều cao hơn. Sau đó,chúng ta sẽ học thuật toán bảng thưa cho xử lý truy vấn tối thiểu, khó hơn một chút. Lưu ý rằng trong khi chúng ta tập trung vào xử lý truy vấn tối thiểu, chúng ta luôn cũng có thể xử lý truy vấn tối đa sử dụng phương pháp tương tự.
+Đầu tiên chúng ta sẽ thảo luận cách đơn giản để xử lý truy vấn tổng sử dụng mảng tổng tiền tố, có thể được tổng quát hóa lên các chiều cao hơn. Sau đó, chúng ta sẽ học thuật toán bảng thưa cho xử lý truy vấn tối thiểu, khó hơn một chút. Lưu ý rằng trong khi chúng ta tập trung vào xử lý truy vấn tối thiểu, chúng ta luôn cũng có thể xử lý truy vấn tối đa sử dụng phương pháp tương tự.
 
 #### 9.1.1 Truy vấn Tổng
 
@@ -3479,7 +3481,7 @@ Bằng cách định nghĩa $sum_q(0, -1) = 0$, công thức trên cũng đúng 
 
 Ví dụ, Hình 9.2 cho thấy cách tính tổng giá trị trong đoạn [3, 6] sử dụng mảng tổng tiền tố. Chúng ta có thể thấy trong mảng gốc rằng $sum_q(3, 6) = 8 + 6 + 1 + 4 = 19$. Sử dụng mảng tổng tiền tố, chúng ta chỉ cần kiểm tra hai giá trị: $sum_q(3, 6) = sum_q(0, 6) - sum_q(0, 2) = 27 - 8 = 19$.
 
-**Chiều cao hơn** Cũng có thể tổng quát hóa ý tưởng này lên các chiều cao hơn. Ví dụ, Hình 9.3 cho thấy mảng tổng tiền tố hai chiều có thể được sử dụng để tính tổng bất kỳ mảng con hình chữ nhật nào trong O(1) thời gian. Mỗi tổng trong mảng này
+**Chiều cao hơn** Cũng có thể tổng quát hóa ý tưởng này lên các chiều cao hơn. Ví dụ, Hình 9.3 cho thấy mảng tổng tiền tố hai chiều có thể được sử dụng để tính tổng bất kỳ mảng con hình chữ nhật nào trong $O(1)$ thời gian. Mỗi tổng trong mảng này
 
 ![](images/_page_127_Figure_8.jpeg)
 
@@ -3493,7 +3495,7 @@ Ví dụ, Hình 9.2 cho thấy cách tính tổng giá trị trong đoạn [3, 6
 
 tương ứng với mảng con bắt đầu ở góc trên bên trái của mảng. Tổng của mảng con xám có thể được tính sử dụng công thức
 
-$$S(A) - S(B) - S(C) + S(D)$$.
+$$S(A) - S(B) - S(C) + S(D)$$
 
 trong đó S(X) biểu thị tổng giá trị trong mảng con hình chữ nhật từ góc trên bên trái đến vị trí của X.
 
@@ -3523,7 +3525,7 @@ Lưu ý rằng cũng có các kỹ thuật tinh vi sử dụng đó chúng ta c�
 
 ### 9.2 Cấu trúc Cây
 
-Phần này trình bày hai cấu trúc cây, sử dụng đó chúng ta có thể cả xử lý truy vấn đoạn và cập nhật giá trị mảng trong thời gian logarithm. Đầu tiên, chúng ta thảo luận cây chỉ số nhị phân hỗ trợ truy vấn tổng, và sau đó, chúng ta tập trung vào cây phân đoạn cũng hỗ trợ several truy vấn khác.
+Phần này trình bày hai cấu trúc cây, sử dụng đó chúng ta có thể cả xử lý truy vấn đoạn và cập nhật giá trị mảng trong thời gian logarithm. Đầu tiên, chúng ta thảo luận cây chỉ số nhị phân hỗ trợ truy vấn tổng, và sau đó, chúng ta tập trung vào cây phân đoạn cũng hỗ trợ một số truy vấn khác.
 
 #### 9.2.1 Cây Nhị phân Chỉ mục (BIT)
 
@@ -3535,13 +3537,12 @@ $$tree[k] = sum_a(k - p(k) + 1, k),$$
 
 tức là mỗi vị trí k chứa tổng giá trị trong đoạn của mảng gốc mà độ dài là p(k) và kết thúc tại vị trí k. Ví dụ, vì p(6) = 2, tree[6]
 
-**9.2 Cấu trúc Cây 123**
 
 ![](images/_page_130_Figure_1.jpeg)
 
 chứa giá trị của $sum_q(5,6)$. Hình 9.6 cho thấy mảng và cây chỉ số nhị phân tương ứng. Hình 9.7 cho thấy rõ ràng hơn cách mỗi giá trị trong cây chỉ số nhị phân tương ứng với đoạn trong mảng gốc.
 
-Sử dụng cây chỉ số nhị phân, bất kỳ giá trị nào của $\operatorname{sum}_q(1,k)$ có thể được tính trong $O(\log n)$ thời gian,vì đoạn [1,k] luôn có thể được chia thành $O(\log n)$ đoạn con mà tổng đã được lưu trữ trong cây. Ví dụ, để tính giá trị của $\operatorname{sum}_q(1,7)$, chúng ta chia đoạn [1,7] thành ba đoạn con [1,4], [5,6], và [7,7] (Hình 9.8). Vì tổng của các đoạn con có sẵn trong cây, chúng ta có thể tính tổng của toàn bộ đoạn sử dụng công thức
+Sử dụng cây chỉ số nhị phân, bất kỳ giá trị nào của $\operatorname{sum}_q(1,k)$ có thể được tính trong $O(\log n)$ thời gian, vì đoạn [1,k] luôn có thể được chia thành $O(\log n)$ đoạn con mà tổng đã được lưu trữ trong cây. Ví dụ, để tính giá trị của $\operatorname{sum}_q(1,7)$, chúng ta chia đoạn [1,7] thành ba đoạn con [1,4], [5,6], và [7,7] (Hình 9.8). Vì tổng của các đoạn con có sẵn trong cây, chúng ta có thể tính tổng của toàn bộ đoạn sử dụng công thức
 
 $$sum_q(1,7) = sum_q(1,4) + sum_q(5,6) + sum_q(7,7) = 16 + 7 + 4 = 27.$$
 
@@ -3551,7 +3552,7 @@ $$sum_a(a, b) = sum_a(1, b) - sum_a(1, a - 1)$$
 
 Chúng ta có thể tính cả $sum_q(1, b)$ và $sum_q(1, a - 1)$ trong $O(\log n)$ thời gian, nên tổng độ phức tạp thời gian là $O(\log n)$.
 
-Sau khi cập nhật giá trị mảng, several giá trị trong cây chỉ số nhị phânnên được cập nhật. Ví dụ, khi giá trị tại vị trí 3 thay đổi,chúng ta nên cập nhật
+Sau khi cập nhật giá trị mảng, một số giá trị trong cây chỉ số nhị phânnên được cập nhật. Ví dụ, khi giá trị tại vị trí 3 thay đổi, chúng ta nên cập nhật
 
 **Hình 9.9** Cập nhật giá trị trong cây chỉ số nhị phân
 
@@ -3592,7 +3593,6 @@ void add(int k, int x) {
 
 Độ phức tạp thời gian của cả hai hàm là $O(\log n)$,vì các hàm truy cập $O(\log n)$ giá trị trong cây chỉ số nhị phân, và mỗi di chuyển đến vị trí tiếp theo mất O(1) thời gian.
 
-**9.2 Cấu trúc Cây 125**
 
 **Hình 9.10** Mảng và cây phân đoạn tương ứng cho truy vấn tổng
 
@@ -3606,13 +3606,13 @@ void add(int k, int x) {
 
 Cây phân đoạn là cấu trúc dữ liệu cung cấp hai phép toán thời gian $O(\log n)$: xử lý truy vấn đoạn và cập nhật giá trị mảng. Cây phân đoạn hỗ trợ truy vấn tổng, truy vấn tối thiểu, vànhiều truy vấn khác. Cây phân đoạn có nguồn gốc trong thuật toán hình học (xem, ví dụ, Bentley và Wood [4]), và cài đặt bottom-up thanh lịch trình bày trong phần này theo sách giáo khoa của Stańczyk [30].
 
-Cây phân đoạn là cây nhị phân mà các nút cấp dưới cùng tương ứng với các phần tử mảng, và các nút khác chứa thông tin cần thiết để xử lý truy vấn đoạn. Khi thảo luận cây phân đoạn, chúng ta giả sử rằng kích thước của mảng là lũy thừa của hai, và đánh chỉ số từ 0 được sử dụng,vì nó tiện lợi để xây dựng cây phân đoạn cho mảng như vậy. Nếu kích thước của mảng không phải lũy thừa của hai,chúng ta luôn có thể thêm phần tử_extra vào nó.
+Cây phân đoạn là cây nhị phân mà các nút cấp dưới cùng tương ứng với các phần tử mảng, và các nút khác chứa thông tin cần thiết để xử lý truy vấn đoạn. Khi thảo luận cây phân đoạn, chúng ta giả sử rằng kích thước của mảng là lũy thừa của hai, và đánh chỉ số từ 0 được sử dụng, vì nó tiện lợi để xây dựng cây phân đoạn cho mảng như vậy. Nếu kích thước của mảng không phải lũy thừa của hai, chúng ta luôn có thể thêm phần tử_extra vào nó.
 
 Chúng ta sẽ đầu tiên thảo luận cây phân đoạn hỗ trợ truy vấn tổng. Ví dụ, Hình 9.10 cho thấy mảng và cây phân đoạn tương ứng cho truy vấn tổng. Mỗi nút cây bên trong tương ứng với đoạn mảng mà kích thước là lũy thừa của hai. Khi cây phân đoạn hỗ trợ truy vấn tổng, giá trị của mỗi nút bên trong là tổng các giá trị mảng tương ứng, và nó có thể được tính dưới dạng tổng giá trị của nút con trái và phải.
 
 Hóa ra bất kỳ đoạn [a, b] nào cũng có thể được chia thành $O(\log n)$ đoạn con mà giá trị được lưu trữ trong nút cây. Ví dụ, Hình 9.11 cho thấy đoạn [2, 7] trong mảng gốc và trong cây phân đoạn. Trong trường hợp này, hai nút cây tương ứng với đoạn, và $\sup_q (2, 7) = 9 + 17 = 26$. Khi tổng được tính sử dụng các nút nằm càng cao càng tốt trong cây, nhiều nhất hai nút trên mỗi cấp cây là cần thiết. Do đó, tổng số nút là $O(\log n)$.
 
-Sau khi cập nhật mảng,chúng ta nên cập nhật tất cả nút mà giá trị phụ thuộc vào giá trị đã cập nhật. Điều này có thể được thực hiện bằng cách duyệt đường đi từ phần tử mảng đã cập nhật đến nút trên cùng và cập nhật các nút dọc theo đường đi. Ví dụ, Hình 9.12 cho thấy các nút thay đổi khi giá trị tại vị trí 5 thay đổi. Đường đi từ dưới lên luôn gồm $O(\log n)$ nút, nên mỗi cập nhật thay đổi $O(\log n)$ nút trong cây.
+Sau khi cập nhật mảng, chúng ta nên cập nhật tất cả nút mà giá trị phụ thuộc vào giá trị đã cập nhật. Điều này có thể được thực hiện bằng cách duyệt đường đi từ phần tử mảng đã cập nhật đến nút trên cùng và cập nhật các nút dọc theo đường đi. Ví dụ, Hình 9.12 cho thấy các nút thay đổi khi giá trị tại vị trí 5 thay đổi. Đường đi từ dưới lên luôn gồm $O(\log n)$ nút, nên mỗi cập nhật thay đổi $O(\log n)$ nút trong cây.
 
 ![](images/_page_133_Figure_1.jpeg)
 
@@ -3636,7 +3636,6 @@ Sau khi cập nhật mảng,chúng ta nên cập nhật tất cả nút mà giá
 
 Ví dụ, Hình 9.13 cho thấy cách cây ví dụ được lưu trữ. Lưu ý rằng cha của tree[k] là $\texttt{tree}[\lfloor k/2 \rfloor]$, con trái là tree[2k], và con phải là tree[2k+1]. Ngoài ra, vị trí của nút (khác nút trên cùng) là chẵn nếu nó là con trái và lẻ nếu nó là con phải.
 
-**9.2 Cấu trúc Cây 127**
 
 Hàm sau tính giá trị của $sum_q(a, b)$:
 
@@ -3653,7 +3652,7 @@ int sum(int a, int b) {
 }
 ```
 
-Hàm duy trì đoạn trong mảng cây phân đoạn. Ban đầu, đoạn là [a+n,b+n]. Tại mỗi bước, đoạn được di chuyển lên một cấp cao hơn trong cây, và giá trị của các nút không thuộc đoạn cao hơn được thêm vào tổng.
+Hàm duy trì đoạn trong mảng cây phân đoạn. Ban đầu, đoạn là [a+n, b+n]. Tại mỗi bước, đoạn được di chuyển lên một cấp cao hơn trong cây, và giá trị của các nút không thuộc đoạn cao hơn được thêm vào tổng.
 
 Hàm sau tăng giá trị mảng tại vị trí k lên x:
 
@@ -3662,45 +3661,44 @@ void add(int k, int x) {
  k += n;
  tree[k] += x;
  for (k /= 2; k >= 1; k /= 2) {
- tree[k] = tree[2*k]+tree[2*k+1];
+ tree[k] = tree[2*k] + tree[2*k+1];
  }
 }
 ```
 
 Đầu tiên giá trị tại cấp dưới cùng của cây được cập nhật. Sau đó, giá trị của tất cả nút cây bên trong được cập nhật, cho đến khi nút trên cùng của cây được đạt.
 
-Cả hai hàm trên hoạt động trong $O(\log n)$ thời gian,vì cây phân đoạn gồm n phần tử gồm $O(\log n)$ cấp và các hàm di chuyển lên một cấp cao hơn trong cây tại mỗi bước.
+Cả hai hàm trên hoạt động trong $O(\log n)$ thời gian, vì cây phân đoạn gồm n phần tử gồm $O(\log n)$ cấp và các hàm di chuyển lên một cấp cao hơn trong cây tại mỗi bước.
 
 **Truy vấn khác** Cây phân đoạn có thể hỗ trợ bất kỳ truy vấn đoạn nào mà chúng ta có thể chia đoạn thành hai phần, tính câu trả lời riêng cho cả hai phần, và sau đó hiệu quả kết hợp các câu trả lời. Ví dụ về các truy vấn như vậy là tối thiểu và tối đa, ước chung lớn nhất, và thao tác bit and, or, và xor.
 
 Ví dụ, cây phân đoạn trong Hình 9.14 hỗ trợ truy vấn tối thiểu. Trong cây này, mỗi nút chứa giá trị nhỏ nhất trong đoạn mảng tương ứng. Nút trên cùng của cây chứa giá trị nhỏ nhất trong toàn bộ mảng. Các phép toán có thể được cài đặt như trước, nhưng thay vì tổng, cực tiểu được tính.
 
-Cấu trúc cây phân đoạn cũng cho phép chúng ta sử dụng phương pháp tìm kiếm nhị phân để định vị phần tử mảng. Ví dụ, nếu cây hỗ trợ truy vấn tối thiểu,chúng ta có thể tìm vị trí của phần tử có giá trị nhỏ nhất trong $O(\log n)$ thời gian. Ví dụ, Hình 9.15 cho thấy cách phần tử có giá trị nhỏ nhất 1 có thể được tìm thấy bằng cách duyệt đường đi xuống từ nút trên cùng.
+Cấu trúc cây phân đoạn cũng cho phép chúng ta sử dụng phương pháp tìm kiếm nhị phân để định vị phần tử mảng. Ví dụ, nếu cây hỗ trợ truy vấn tối thiểu, chúng ta có thể tìm vị trí của phần tử có giá trị nhỏ nhất trong $O(\log n)$ thời gian. Ví dụ, Hình 9.15 cho thấy cách phần tử có giá trị nhỏ nhất 1 có thể được tìm thấy bằng cách duyệt đường đi xuống từ nút trên cùng.
 
 ![](images/_page_135_Figure_1.jpeg)
 
 #### 9.2.3 Kỹ thuật Bổ sung
 
-**Nén Chỉ mục** Một giới hạn trong cấu trúc dữ liệu được xây dựng trên mảng là các phần tử được đánh chỉ số sử dụng các số nguyên liên tiếp. Khó khăn phát sinh khi chỉ số lớn cần thiết. Ví dụ,nếu chúng ta muốn sử dụng chỉ số $10^9$, mảng nên chứa $10^9$ phần tử sẽ yêu cầu quá nhiều bộ nhớ.
+**Nén Chỉ mục** Một giới hạn trong cấu trúc dữ liệu được xây dựng trên mảng là các phần tử được đánh chỉ số sử dụng các số nguyên liên tiếp. Khó khăn phát sinh khi chỉ số lớn cần thiết. Ví dụ, nếu chúng ta muốn sử dụng chỉ số $10^9$, mảng nên chứa $10^9$ phần tử sẽ yêu cầu quá nhiều bộ nhớ.
 
-Tuy nhiên,nếu chúng ta biết tất cả chỉ số cần thiết trong thuật toán trước,chúng ta có thể bypass giới hạn này bằng cách sử dụng *nén chỉ mục*. Ý tưởng là thay thế các chỉ số gốc bằng các số nguyên liên tiếp 0, 1, 2, và cứ thế. Để làm điều này, chúng ta định nghĩa hàm c nén các chỉ mục. Hàm cho mỗi chỉ số gốc i chỉ số nén c(i) sao cho nếu a và b là hai chỉ số và a < b, thì c(a) < c(b). Sau khi nén chỉ mục, chúng ta có thể thực hiện tiện lợi truy vấn sử dụng chúng.
+Tuy nhiên, nếu chúng ta biết tất cả chỉ số cần thiết trong thuật toán trước, chúng ta có thể bypass giới hạn này bằng cách sử dụng *nén chỉ mục*. Ý tưởng là thay thế các chỉ số gốc bằng các số nguyên liên tiếp 0, 1, 2, và cứ thế. Để làm điều này, chúng ta định nghĩa hàm c nén các chỉ mục. Hàm cho mỗi chỉ số gốc i chỉ số nén c(i) sao cho nếu a và b là hai chỉ số và a < b, thì c(a) < c(b). Sau khi nén chỉ mục, chúng ta có thể thực hiện tiện lợi truy vấn sử dụng chúng.
 
 Hình 9.16 cho thấy ví dụ đơn giản về nén chỉ mục. Ở đây chỉ chỉ số 2, 5, và 7 thực sự được sử dụng, và tất cả giá trị mảng khác bằng 0. Các chỉ số nén là c(2) = 0, c(5) = 1, và c(7) = 2, cho phép chúng ta tạo mảng nén chỉ chứa ba phần tử.
 
 
-**9.2 Cấu trúc Cây 129**
 
 ![](images/_page_136_Figure_1.jpeg)
 
-Sau khi nén chỉ mục,chúng ta có thể, ví dụ, xây dựng cây phân đoạn cho mảng nén và thực hiện truy vấn. Sự sửa đổiduy nhất cần làchúng ta phải nén chỉ mục trước truy vấn: đoạn [a, b] trong mảng gốc tương ứng với đoạn [c(a), c(b)] trong mảng nén.
+Sau khi nén chỉ mục, chúng ta có thể, ví dụ, xây dựng cây phân đoạn cho mảng nén và thực hiện truy vấn. Sự sửa đổiduy nhất cần làchúng ta phải nén chỉ mục trước truy vấn: đoạn [a, b] trong mảng gốc tương ứng với đoạn [c(a), c(b)] trong mảng nén.
 
-**Cập nhật Đoạn** Cho đến nay,chúng ta đã cài đặt cấu trúc dữ liệu hỗ trợ truy vấn đoạn và cập nhật giá trị đơn. Hãy bây giờ xem xét tình huống đối diện, màchúng ta nên cập nhật đoạn và truy xuất giá trị đơn. Chúng ta tập trung vào phép toán tăng tất cả phần tử trong đoạn [a, b] lên x.
+**Cập nhật Đoạn** Cho đến nay, chúng ta đã cài đặt cấu trúc dữ liệu hỗ trợ truy vấn đoạn và cập nhật giá trị đơn. Hãy bây giờ xem xét tình huống đối diện, mà chúng ta nên cập nhật đoạn và truy xuất giá trị đơn. Chúng ta tập trung vào phép toán tăng tất cả phần tử trong đoạn [a, b] lên x.
 
 Hóa rachúng ta có thể sử dụng cấu trúc dữ liệu trình bày trong chương này cũng trong tình huống này. Để làm điều này, chúng ta xây dựng *mảng hiệu* mà giá trị cho biết sự khác biệt giữa các giá trị liên tiếp trong mảng gốc. Mảng gốc là mảng tổng tiền tố của mảng hiệu. Hình 9.17 cho thấy mảng và mảng hiệu tương ứng. Ví dụ, giá trị 2 tại vị trí 6 trong mảng gốc tương ứng với tổng 3-2+4-3=2 trong mảng hiệu.
 
 Lợi thế của mảng hiệu làchúng ta có thể cập nhật đoạn trong mảng gốc bằng cách thay đổi chỉ hai phần tử trong mảng hiệu. Chính xác hơn, để tăng giá trị trong đoạn [a, b] lên x, chúng ta tăng giá trị tại vị trí a lên x và giảm giá trị tại vị trí b+1 xuống x. Ví dụ, để tăng giá trị mảng gốc giữa vị trí 1 và 4 lên 3, chúng ta tăng giá trị mảng hiệu tại vị trí 1 lên 3 và giảm giá trị tại vị trí 5 xuống 3 (Hình 9.18).
 
-Do đó, chúng ta chỉ cập nhật giá trị đơn và xử lý truy vấn tổng trong mảng hiệu, nênchúng ta có thể sử dụng cây chỉ số nhị phân hoặc cây phân đoạn. Nhiệm vụ khó hơn là tạo cấu trúc dữ liệu hỗ trợ *cả* truy vấn đoạn và cập nhật đoạn. Trong Phần 15.2.1,chúng ta sẽ thấy rằng cũng điều này có thể sử dụng cây phân đoạn lazy.
+Do đó, chúng ta chỉ cập nhật giá trị đơn và xử lý truy vấn tổng trong mảng hiệu, nên chúng ta có thể sử dụng cây chỉ số nhị phân hoặc cây phân đoạn. Nhiệm vụ khó hơn là tạo cấu trúc dữ liệu hỗ trợ *cả* truy vấn đoạn và cập nhật đoạn. Trong Phần 15.2.1,chúng ta sẽ thấy rằng cũng điều này có thể sử dụng cây phân đoạn lazy.
 
 ## Chương 10: Thuật toán Cây
 
@@ -3708,7 +3706,7 @@ Các tính chất đặc biệt của cây cho phép chúng ta tạo thuật to�
 
 Phần 10.1 giới thiệu các khái niệm và thuật toán cơ bản liên quan đến cây. Bài toán trung tâm là tìm đường kính của cây, tức là khoảng cáchtối đa giữa hai nút. Chúng ta sẽ học hai thuật toán tuyến tính để giải bài toán.
 
-Phần 10.2 tập trung vào xử lý truy vấn trên cây. Chúng ta sẽ học cách sử dụng mảng duyệt cây để xử lý various truy vấn liên quan đến cây con và đường đi. Sau đó,chúng ta sẽ thảo luận phương pháp xác định tổ tiên chung thấp nhất, và thuật toán offline dựa trên gộp cấu trúc dữ liệu.
+Phần 10.2 tập trung vào xử lý truy vấn trên cây. Chúng ta sẽ học cách sử dụng mảng duyệt cây để xử lý various truy vấn liên quan đến cây con và đường đi. Sau đó, chúng ta sẽ thảo luận phương pháp xác định tổ tiên chung thấp nhất, và thuật toán offline dựa trên gộp cấu trúc dữ liệu.
 
 Phần 10.3 trình bày hai kỹ thuật xử lý cây nâng cao: phân tích trọng tâm và phân tích nhẹ-nặng.
 
@@ -3755,7 +3753,7 @@ dfs(x, 0);
 
 Trong lời gọi đầu tiên e=0, vì không có nút trước, và được phép tiến theo bất kỳ hướng nào trong cây.
 
-**Quy hoạch Động** Quy hoạch động có thể được sử dụng để tính một số thông tin trong quá trình duyệt cây. Ví dụ, code sau tính cho mỗi nút s giá trị count[s]: số nút trong cây con của nó. Cây con chứa chính nút và tất cả nút trong cây con của con nó, nênchúng ta có thể tính số nút đệ quy như sau:
+**Quy hoạch Động** Quy hoạch động có thể được sử dụng để tính một số thông tin trong quá trình duyệt cây. Ví dụ, code sau tính cho mỗi nút s giá trị count[s]: số nút trong cây con của nó. Cây con chứa chính nút và tất cả nút trong cây con của con nó, nên chúng ta có thể tính số nút đệ quy như sau:
 
 ```cpp
 void dfs(int s, int e) {
@@ -3767,7 +3765,6 @@ void dfs(int s, int e) {
  }
 }
 ```
-```
 
 **Duyệt Cây Nhị phân** Trong cây nhị phân, mỗi nút có cây con trái và phải (có thể rỗng), và có ba thứ tự duyệt cây phổ biến:
 
@@ -3777,7 +3774,7 @@ void dfs(int s, int e) {
 
 Ví dụ, trong Hình 10.3, tiền thứ tự là [1, 2, 4, 5, 6, 3, 7], trung thứ tự là [4, 2, 6, 5, 1, 3, 7], và hậu thứ tự là [4, 6, 5, 2, 7, 3, 1].
 
-Nếu chúng ta biết tiền thứ tự và trung thứ tự của cây,chúng ta có thể tái tạo cấu trúc chính xác của nó. Ví dụ, câyduy nhất có thể với tiền thứ tự [1, 2, 4, 5, 6, 3, 7] và
+Nếu chúng ta biết tiền thứ tự và trung thứ tự của cây, chúng ta có thể tái tạo cấu trúc chính xác của nó. Ví dụ, câyduy nhất có thể với tiền thứ tự [1, 2, 4, 5, 6, 3, 7] và
 
 **Hình 10.3** Cây nhị phân
 
@@ -3789,7 +3786,7 @@ Nếu chúng ta biết tiền thứ tự và trung thứ tự của cây,chúng 
 
 ![](images/_page_140_Figure_4.jpeg)
 
-trung thứ tự [4, 2, 6, 5, 1, 3, 7] được chỉ ra trong Hình 10.3. Hậu thứ tự và trung thứ tự cũng duy nhất xác định cấu trúc của cây. Tuy nhiên,nếu chúng ta chỉ biết tiền thứ tự và hậu thứ tự, có thể có nhiều hơn một cây phù hợp với các thứ tự.
+trung thứ tự [4, 2, 6, 5, 1, 3, 7] được chỉ ra trong Hình 10.3. Hậu thứ tự và trung thứ tự cũng duy nhất xác định cấu trúc của cây. Tuy nhiên, nếu chúng ta chỉ biết tiền thứ tự và hậu thứ tự, có thể có nhiều hơn một cây phù hợp với các thứ tự.
 
 #### 10.1.2 Tính Đường kính
 
@@ -3799,7 +3796,7 @@ Tiếp theochúng ta sẽ thảo luận hai thuật toán O(n) thời gian để
 
 **Thuật toán Đầu tiên** Cách tổng quát để tiếp cận bài toán cây là đầu tiên gốc câybất kỳ và sau đó giải bài toán riêng cho mỗi cây con. Thuật toán đầu tiên của chúng ta để tính đường kính dựa trên ý tưởng này.
 
-Một quan sát quan trọng là mỗi đường đi trong cây gốc có *điểm cao nhất*: nút cao nhất thuộc đường đi. Do đó,chúng ta có thể tính cho mỗi nút x độ dài của đường đi dài nhất mà điểm cao nhất là x. Một trong số các đường đi đó tương ứng với đường kính của cây. Ví dụ, trong Hình 10.5, nút 1 là điểm cao nhất trên đường đi tương ứng với đường kính.
+Một quan sát quan trọng là mỗi đường đi trong cây gốc có *điểm cao nhất*: nút cao nhất thuộc đường đi. Do đó, chúng ta có thể tính cho mỗi nút x độ dài của đường đi dài nhất mà điểm cao nhất là x. Một trong số các đường đi đó tương ứng với đường kính của cây. Ví dụ, trong Hình 10.5, nút 1 là điểm cao nhất trên đường đi tương ứng với đường kính.
 
 Chúng ta tính cho mỗi nút *x* hai giá trị:
 
@@ -3817,7 +3814,7 @@ Ví dụ, trong Hình 10.5, toLeaf(1) = 2, vì có đường đi $1 \to 2 \to 6$
 
 Quy hoạch động có thể được sử dụng để tính các giá trị trên cho tất cả nút trong O(n) thời gian. Đầu tiên, để tính toLeaf(x),chúng ta đi qua con của x, chọn con c có toLeaf(c)tối đa, và cộng thêm một vào giá trị này. Sau đó, để tính maxLength(x),chúng ta chọn hai con khác nhau a và b sao cho tổng toLeaf(a) + toLeaf(b)tối đa và cộng thêm hai vào tổng này. (Các trường hợp mà x có ít hơn hai con là trường hợp đặc biệt dễ.)
 
-**Thuật toán Thứ hai** Cách hiệu quả khác để tính đường kính của cây dựa trên hai lần DFS. Đầu tiên,chúng ta chọn nútbất kỳ a trong cây và tìm nút xa nhất b từ a. Sau đó,chúng ta tìm nút xa nhất c từ b. Đường kính của cây là khoảng cách giữa b và c.
+**Thuật toán Thứ hai** Cách hiệu quả khác để tính đường kính của cây dựa trên hai lần DFS. Đầu tiên, chúng ta chọn nútbất kỳ a trong cây và tìm nút xa nhất b từ a. Sau đó, chúng ta tìm nút xa nhất c từ b. Đường kính của cây là khoảng cách giữa b và c.
 
 Ví dụ, Hình 10.6 cho thấy cách có thể để chọn nút a, b, và c khi tính đường kính cho cây ví dụ.
 
@@ -3853,9 +3850,9 @@ maxLength(5) = 3, maxLength(6) = 3
 
 ![](images/_page_142_Figure_13.jpeg)
 
-thông qua con 2 của nó (Hình 10.9). Phần này dễ giải trong O(n) thời gian,vì chúng ta có thể sử dụng quy hoạch động như chúng ta đã làm trước đó.
+thông qua con 2 của nó (Hình 10.9). Phần này dễ giải trong O(n) thời gian, vì chúng ta có thể sử dụng quy hoạch động như chúng ta đã làm trước đó.
 
-Sau đó, phần thứ hai của bài toán là tính cho mỗi nút x độ dàitối đa của đường đi lên trên thông qua cha p. Ví dụ, đường đi dài nhất từ nút 3 đi thông qua cha 1 (Hình 10.10). Cái nhìn đầu tiên, có vẻ nhưchúng ta nên đầu tiên di chuyển đến p và sau đó chọn đường đi dài nhất (lên hoặc xuống) từ p. Tuy nhiên, điều này không phải lúc nào cũng hoạt động,vì đường đi như vậy có thể đi thông qua x (Hình 10.11). Tuy nhiên,chúng ta có thể giải phần thứ hai trong O(n) thời gian bằng cách lưu trữ độ dàitối đa của hai đường đi cho mỗi nút x:
+Sau đó, phần thứ hai của bài toán là tính cho mỗi nút x độ dàitối đa của đường đi lên trên thông qua cha p. Ví dụ, đường đi dài nhất từ nút 3 đi thông qua cha 1 (Hình 10.10). Cái nhìn đầu tiên, có vẻ nhưchúng ta nên đầu tiên di chuyển đến p và sau đó chọn đường đi dài nhất (lên hoặc xuống) từ p. Tuy nhiên, điều này không phải lúc nào cũng hoạt động, vì đường đi như vậy có thể đi thông qua x (Hình 10.11). Tuy nhiên, chúng ta có thể giải phần thứ hai trong O(n) thời gian bằng cách lưu trữ độ dàitối đa của hai đường đi cho mỗi nút x:
 
 - $maxLength_1(x)$: độ dàitối đa của đường đi từ x đến lá
 - $maxLength_2(x)$: độ dàitối đa của đường đi từ x đến lá, theo hướng khác với đường đi đầu tiên
@@ -3870,9 +3867,9 @@ Trong phần này chúng ta tập trung vào xử lý *truy vấn* trên cây g�
 
 #### 10.2.1 Tìm Tổ tiên
 
-Tổ tiên thứ k của nút x trong cây gốc là nút màchúng ta sẽ đạt đượcnếu chúng ta di chuyển k cấp lên từ x. Đặt ancestor(x, k) là tổ tiên thứ k của nút x (hoặc 0 nếu không có tổ tiên như vậy). Ví dụ, trong Hình 10.12, ancestor(2, 1) = 1 và ancestor(8, 2) = 4.
+Tổ tiên thứ k của nút x trong cây gốc là nút mà chúng ta sẽ đạt đượcnếu chúng ta di chuyển k cấp lên từ x. Đặt ancestor(x, k) là tổ tiên thứ k của nút x (hoặc 0 nếu không có tổ tiên như vậy). Ví dụ, trong Hình 10.12, ancestor(2, 1) = 1 và ancestor(8, 2) = 4.
 
-Một cách dễ dàng để tính bất kỳ giá trị nào của ancestor(x, k) là thực hiện chuỗi k di chuyển trong cây. Tuy nhiên, độ phức tạp thời gian của phương pháp này là O(k), có thể chậm,vì cây gồm n nút có thể có đường đi gồm n nút.
+Một cách dễ dàng để tính bất kỳ giá trị nào của ancestor(x, k) là thực hiện chuỗi k di chuyển trong cây. Tuy nhiên, độ phức tạp thời gian của phương pháp này là O(k), có thể chậm, vì cây gồm n nút có thể có đường đi gồm n nút.
 
 May mắn thay, chúng ta có thể tính hiệu quả bất kỳ giá trị nào của ancestor(x, k) trong $O(\log k)$ thời gian sau tiền xử lý. Như trong Phần 7.5.1, ý tưởng là đầu tiên tính trước tất cả giá trị của ancestor(x, k) trong đó k là lũy thừa của hai. Ví dụ, giá trị cho cây trong Hình 10.12 như sau:
 
@@ -3905,7 +3902,6 @@ Một tính chất quan trọng của mảng duyệt cây là mỗi cây con c�
 
 **Hình 10.14** Cây con của nút 4 trong mảng duyệt cây
 
-**10.2 Truy vấn trên Cây 139**
 
 ![](images/_page_145_Figure_1.jpeg)
 
@@ -3925,15 +3921,15 @@ Một tính chất quan trọng của mảng duyệt cây là mỗi cây con c�
 | 9 | 2 | 1 | 1 | 4 | 1 | 1 | 1 | 1 |
 | 2 | 3 | 4 | 5 | 3 | 4 | 3 | 1 | 1 |
 
-Sử dụng mảng này,chúng ta có thể tính tổng giá trị trong bất kỳ cây con nào bằng cách đầu tiên xác định kích thước cây con và sau đó tổng hợp giá trị của các nút tương ứng. Ví dụ, Hình 10.16 cho thấy giá trị mà chúng ta truy cập khi tính tổng giá trị trong cây con của nút 4. Hàng cuối cùng của mảng cho chúng ta biết rằng tổng giá trị là 3 + 4 + 3 + 1 = 11.
+Sử dụng mảng này, chúng ta có thể tính tổng giá trị trong bất kỳ cây con nào bằng cách đầu tiên xác định kích thước cây con và sau đó tổng hợp giá trị của các nút tương ứng. Ví dụ, Hình 10.16 cho thấy giá trị mà chúng ta truy cập khi tính tổng giá trị trong cây con của nút 4. Hàng cuối cùng của mảng cho chúng ta biết rằng tổng giá trị là 3 + 4 + 3 + 1 = 11.
 
-Để trả lời truy vấn hiệu quả, chỉ cần lưu trữ hàng cuối cùng của mảng trong cây chỉ số nhị phân hoặc cây phân đoạn. Sau đó,chúng ta có thể cả cập nhật giá trị và tính tổng giá trị trong $O(\log n)$ thời gian.
+Để trả lời truy vấn hiệu quả, chỉ cần lưu trữ hàng cuối cùng của mảng trong cây chỉ số nhị phân hoặc cây phân đoạn. Sau đó, chúng ta có thể cả cập nhật giá trị và tính tổng giá trị trong $O(\log n)$ thời gian.
 
-**Truy vấn Đường đi** Sử dụng mảng duyệt cây,chúng ta cũng có thể tính hiệu quả tổng giá trị trên đường đi từ nút gốc đến bất kỳ nút nào của cây. Ví dụ, xem xét bài toán mà nhiệm vụ của chúng ta là xử lý hai loại truy vấn: cập nhật giá trị nút và tính tổng giá trị trên đường đi từ gốc đến nút.
+**Truy vấn Đường đi** Sử dụng mảng duyệt cây, chúng ta cũng có thể tính hiệu quả tổng giá trị trên đường đi từ nút gốc đến bất kỳ nút nào của cây. Ví dụ, xem xét bài toán mà nhiệm vụ của chúng ta là xử lý hai loại truy vấn: cập nhật giá trị nút và tính tổng giá trị trên đường đi từ gốc đến nút.
 
 Để giải bài toán, chúng ta xây dựng mảng duyệt cây chứa cho mỗi nút định danh, kích thước cây con, và tổng giá trị trên đường đi từ gốc đến nút (Hình 10.17). Khi giá trị của nút tăng lên x, tổng của tất cả nút trong cây con tăng lên x. Ví dụ, Hình 10.18 cho thấy mảng sau khi tăng giá trị nút 4 lên 1.
 
-Để hỗ trợ cả hai phép toán,chúng ta cần có thể tăng tất cả giá trị trong đoạn và truy xuất giá trị đơn. Điều này có thể được thực hiện trong $O(\log n)$ thời gian sử dụng cây chỉ số nhị phân hoặc cây phân đoạn và mảng hiệu (xem Phần 9.2.3).
+Để hỗ trợ cả hai phép toán, chúng ta cần có thể tăng tất cả giá trị trong đoạn và truy xuất giá trị đơn. Điều này có thể được thực hiện trong $O(\log n)$ thời gian sử dụng cây chỉ số nhị phân hoặc cây phân đoạn và mảng hiệu (xem Phần 9.2.3).
 
 ![](images/_page_146_Figure_2.jpeg)
 
@@ -3963,9 +3959,9 @@ Sử dụng mảng này,chúng ta có thể tính tổng giá trị trong bất 
 
 Bài toán điển hình là xử lý hiệu quả truy vấn yêu cầu chúng ta tìm tổ tiên chung thấp nhất của hai nút. Tiếp theochúng ta sẽ thảo luận hai kỹ thuật hiệu quả để xử lý truy vấn như vậy.
 
-**Phương pháp Thứ nhất** Vìchúng ta có thể hiệu quả tìm tổ tiên thứ *k* của bất kỳ nút nào trong cây,chúng ta có thể sử dụng thực tế này để chia bài toán thành hai phần. Chúng ta sử dụng hai con trỏ ban đầu trỏ đến hai nút mà tổ tiên chung thấp nhấtchúng ta nên tìm.
+**Phương pháp Thứ nhất** Vìchúng ta có thể hiệu quả tìm tổ tiên thứ *k* của bất kỳ nút nào trong cây, chúng ta có thể sử dụng thực tế này để chia bài toán thành hai phần. Chúng ta sử dụng hai con trỏ ban đầu trỏ đến hai nút mà tổ tiên chung thấp nhấtchúng ta nên tìm.
 
-Đầu tiên,chúng ta đảm bảo rằng các con trỏ trỏ đến nút cùng cấp trong cây. Nếu đây không phải trường hợp ban đầu,chúng ta di chuyển một con trỏ lên trên. Sau đó,chúng ta
+Đầu tiên, chúng ta đảm bảo rằng các con trỏ trỏ đến nút cùng cấp trong cây. Nếu đây không phải trường hợp ban đầu, chúng ta di chuyển một con trỏ lên trên. Sau đó, chúng ta
 
 **Hình 10.20** Hai bước để tìm tổ tiên chung thấp nhất của nút 5 và 8
 
@@ -3978,15 +3974,15 @@ Bài toán điển hình là xử lý hiệu quả truy vấn yêu cầu chúng 
 
 **Hình 10.21** Mảng duyệt cây mở rộng để xử lý truy vấn tổ tiên chung thấp nhất
 
-xác định số bước tối thiểu cần thiết để di chuyển cả hai con trỏ lên trên sao cho chúng sẽ trỏ đến cùng nút. Nút mà con trỏ trỏ sau đó là tổ tiên chung thấp nhất. Vì cả hai phần của thuật toán có thể được thực hiện trong $O(\log n)$ thời gian sử dụng thông tin đã tính trước,chúng ta có thể tìm tổ tiên chung thấp nhất của bất kỳ hai nút nào trong $O(\log n)$ thời gian.
+xác định số bước tối thiểu cần thiết để di chuyển cả hai con trỏ lên trên sao cho chúng sẽ trỏ đến cùng nút. Nút mà con trỏ trỏ sau đó là tổ tiên chung thấp nhất. Vì cả hai phần của thuật toán có thể được thực hiện trong $O(\log n)$ thời gian sử dụng thông tin đã tính trước, chúng ta có thể tìm tổ tiên chung thấp nhất của bất kỳ hai nút nào trong $O(\log n)$ thời gian.
 
-Hình 10.20 cho thấy cách chúng ta có thể tìm tổ tiên chung thấp nhất của nút 5 và 8 trong kịch bản ví dụ. Đầu tiên,chúng ta di chuyển con trỏ thứ hai lên một cấp sao cho nó trỏ đến nút 6 mà cùng cấp với nút 5. Sau đó,chúng ta di chuyển cả hai con trỏ một bước lên nút 2, là tổ tiên chung thấp nhất.
+Hình 10.20 cho thấy cách chúng ta có thể tìm tổ tiên chung thấp nhất của nút 5 và 8 trong kịch bản ví dụ. Đầu tiên, chúng ta di chuyển con trỏ thứ hai lên một cấp sao cho nó trỏ đến nút 6 mà cùng cấp với nút 5. Sau đó, chúng ta di chuyển cả hai con trỏ một bước lên nút 2, là tổ tiên chung thấp nhất.
 
-**Phương pháp Thứ hai** Cách khác để giải bài toán, đề xuất bởi Bender và Farach-Colton [3], dựa trên mảng duyệt cây mở rộng, đôi khi được gọi là *cây Euler tour*. Để xây dựng mảng,chúng ta đi qua các nút cây sử dụng DFS và thêm mỗi nút vào mảng *luôn* khi DFS đi qua nút (không chỉ lần thăm đầu tiên). Do đó, nút có k con xuất hiện k+1 lần trong mảng, và có tổng cộng 2n-1 nút trong mảng. Chúng ta lưu trữ hai giá trị trong mảng: định danh nút và độ sâu của nút trong cây. Hình 10.21 cho thấy mảng kết quả trong kịch bản ví dụ.
+**Phương pháp Thứ hai** Cách khác để giải bài toán, đề xuất bởi Bender và Farach-Colton [3], dựa trên mảng duyệt cây mở rộng, đôi khi được gọi là *cây Euler tour*. Để xây dựng mảng, chúng ta đi qua các nút cây sử dụng DFS và thêm mỗi nút vào mảng *luôn* khi DFS đi qua nút (không chỉ lần thăm đầu tiên). Do đó, nút có k con xuất hiện k+1 lần trong mảng, và có tổng cộng 2n-1 nút trong mảng. Chúng ta lưu trữ hai giá trị trong mảng: định danh nút và độ sâu của nút trong cây. Hình 10.21 cho thấy mảng kết quả trong kịch bản ví dụ.
 
 Bây giờ chúng ta có thể tìm tổ tiên chung thấp nhất của nút a và b bằng cách tìm nút có độ sâu *tối thiểu* giữa nút a và b trong mảng. Ví dụ, Hình 10.22 cho thấy cách tìm tổ tiên chung thấp nhất của nút 5 và 8. Nút độ sâu tối thiểu giữa chúng là nút 2 mà độ sâu là 2, nên tổ tiên chung thấp nhất của nút 5 và 8 là nút 2.
 
-Lưu ý rằngvì nút có thể xuất hiện several lần trong mảng, có thể có nhiều cách để chọn vị trí của nút a và b. Tuy nhiên, bất kỳ lựa chọn nào cũng xác định đúng tổ tiên chung thấp nhất của nút.
+Lưu ý rằng vì nút có thể xuất hiện nhiều lần trong mảng, có thể có nhiều cách để chọn vị trí của nút a và b. Tuy nhiên, bất kỳ lựa chọn nào cũng xác định đúng tổ tiên chung thấp nhất của nút.
 
 | | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
 |---|---|---|---|---|---|---|---|---|---|---|----|----|----|----|-----|
@@ -3999,21 +3995,20 @@ Lưu ý rằngvì nút có thể xuất hiện several lần trong mảng, có t
 
 ![](images/_page_148_Figure_5.jpeg)
 
-Sử dụng kỹ thuật này, để tìm tổ tiên chung thấp nhất của hai nút, chỉ cần xử lý truy vấn tối thiểu đoạn. Cách thông thường là sử dụng cây phân đoạn để xử lý truy vấn như vậy trong $O(\log n)$ thời gian. Tuy nhiên,vì mảng là tĩnh,chúng ta cũng có thể xử lý truy vấn trong O(1) thời gian sau $O(n \log n)$ thời gian tiền xử lý.
+Sử dụng kỹ thuật này, để tìm tổ tiên chung thấp nhất của hai nút, chỉ cần xử lý truy vấn tối thiểu đoạn. Cách thông thường là sử dụng cây phân đoạn để xử lý truy vấn như vậy trong $O(\log n)$ thời gian. Tuy nhiên, vì mảng là tĩnh, chúng ta cũng có thể xử lý truy vấn trong O(1) thời gian sau $O(n \log n)$ thời gian tiền xử lý.
 
-**Tính Khoảng cách** Cuối cùng, xem xét bài toán xử lý truy vấn mà chúng ta cần tính khoảng cách giữa nút a và b (tức là độ dài đường đi giữa a và b). Hóa ra bài toán này giảm xuống tìm tổ tiên chung thấp nhất của nút. Đầu tiên,chúng ta gốc câybất kỳ. Sau đó, khoảng cách của nút a và b có thể được tính sử dụng công thức
+**Tính Khoảng cách** Cuối cùng, xem xét bài toán xử lý truy vấn mà chúng ta cần tính khoảng cách giữa nút a và b (tức là độ dài đường đi giữa a và b). Hóa ra bài toán này giảm xuống tìm tổ tiên chung thấp nhất của nút. Đầu tiên, chúng ta gốc câybất kỳ. Sau đó, khoảng cách của nút a và b có thể được tính sử dụng công thức
 
-$$depth(a) + depth(b) - 2 \cdot depth(c)$$,
+$$depth(a) + depth(b) - 2 \cdot depth(c)$$
 
 trong đó c là tổ tiên chung thấp nhất của a và b.
 
-Ví dụ, để tính khoảng cách giữa nút 5 và 8 trong Hình 10.23, đầu tiênchúng ta xác định rằng tổ tiên chung thấp nhất của nút là nút 2. Sau đó, vì độ sâu của nút là depth(5) = 3, depth(8) = 4, và depth(2) = 2, chúng ta kết luận rằng khoảng cách giữa nút 5 và 8 là $3 + 4 - 2 \cdot 2 = 3$.
+Ví dụ, để tính khoảng cách giữa nút 5 và 8 trong Hình 10.23, đầu tiên chúng ta xác định rằng tổ tiên chung thấp nhất của nút là nút 2. Sau đó, vì độ sâu của nút là depth(5) = 3, depth(8) = 4, và depth(2) = 2, chúng ta kết luận rằng khoảng cách giữa nút 5 và 8 là $3 + 4 - 2 \cdot 2 = 3$.
 
 #### 10.2.4 Gộp Cấu trúc Dữ liệu
 
 Cho đến nay, chúng ta đã thảo luận thuật toán *online* cho truy vấn cây. Các thuật toán đó có thể xử lý truy vấn lần lượt sao cho mỗi truy vấn được trả lời trước khi nhận truy vấn tiếp theo. Tuy nhiên, trongnhiều bài toán, tính chất online không cần thiết, vàchúng ta có thể sử dụng thuật toán *offline* để giải chúng. Các thuật toán như vậy
 
-**10.2 Truy vấn trên Cây 143**
 
 ![](images/_page_149_Figure_1.jpeg)
 
@@ -4023,15 +4018,15 @@ Một phương pháp để xây dựng thuật toán offline là thực hiện d
 
 Ví dụ, xem xét bài toán sau: Chúng ta được cho cây gốc mà mỗi nút có một giá trị. Nhiệm vụ của chúng ta là xử lý truy vấn hỏi tính số nút có giá trị x trong cây con của nút s. Ví dụ, trong Hình 10.24, cây con của nút 4 chứa hai nút mà giá trị là 3.
 
-Trong bài toán này,chúng ta có thể sử dụng cấu trúc map để trả lời truy vấn. Ví dụ, Hình 10.25 cho thấy map cho nút 4 và con của nó.nếu chúng ta tạo cấu trúc dữ liệu như vậy cho mỗi nút,chúng ta có thể dễ dàng xử lý tất cả truy vấn đã cho,vì chúng ta có thể xử lý tất cả truy vấn liên quan đến nút ngay sau khi tạo cấu trúc dữ liệu.
+Trong bài toán này, chúng ta có thể sử dụng cấu trúc map để trả lời truy vấn. Ví dụ, Hình 10.25 cho thấy map cho nút 4 và con của nó.nếu chúng ta tạo cấu trúc dữ liệu như vậy cho mỗi nút, chúng ta có thể dễ dàng xử lý tất cả truy vấn đã cho, vì chúng ta có thể xử lý tất cả truy vấn liên quan đến nút ngay sau khi tạo cấu trúc dữ liệu.
 
-Tuy nhiên, sẽ quá chậm để tạo tất cả cấu trúc dữ liệu từ đầu. Thay vào đó, tại mỗi nút s, chúng ta tạo cấu trúc dữ liệu ban đầu d[s] chỉ chứa giá trị của s. Sau đó,chúng ta đi qua con của s và $merge\ d[s]$ và tất cả cấu trúc dữ liệu d[u] mà u là con của s. Ví dụ, trong cây trên, map cho nút 4 được tạo bằng cách gộp map trong Hình 10.26. Ở đây map đầu tiên là cấu trúc dữ liệu ban đầu cho nút 4, và ba map khác tương ứng với nút 7, 8, và 9.
+Tuy nhiên, sẽ quá chậm để tạo tất cả cấu trúc dữ liệu từ đầu. Thay vào đó, tại mỗi nút s, chúng ta tạo cấu trúc dữ liệu ban đầu d[s] chỉ chứa giá trị của s. Sau đó, chúng ta đi qua con của s và $merge\ d[s]$ và tất cả cấu trúc dữ liệu d[u] mà u là con của s. Ví dụ, trong cây trên, map cho nút 4 được tạo bằng cách gộp map trong Hình 10.26. Ở đây map đầu tiên là cấu trúc dữ liệu ban đầu cho nút 4, và ba map khác tương ứng với nút 7, 8, và 9.
 
 Việc gộp tại nút s có thể thực hiện như sau: Chúng ta đi qua con của s và tại mỗi con u gộp d[s] và d[u]. Chúng ta luôn sao chép nội dung từ d[u] sang d[s]. Tuy nhiên, trước đó, chúng ta *swap* nội dung của d[s] và d[u] nếu d[s] nhỏ hơn
 
 d[u]. Bằng cách làm điều này, mỗi giá trị chỉ được sao chép $O(\log n)$ lần trong quá trình duyệt cây, đảm bảo rằng thuật toán hiệu quả.
 
-Để swap nội dung của hai cấu trúc dữ liệu a và b hiệu quả,chúng ta có thể chỉ sử dụng code sau:
+Để swap nội dung của hai cấu trúc dữ liệu a và b hiệu quả, chúng ta có thể chỉ sử dụng code sau:
 
 ```cpp
 swap(a,b);
@@ -4047,7 +4042,7 @@ Trong phần này, chúng ta thảo luận hai kỹ thuật xử lý cây nâng 
 
 *Trọng tâm* của một cây n nút là một nút mà việc loại bỏ nó chia cây thành các cây con mỗi cây chứa nhiều nhất $\lfloor n/2 \rfloor$ nút. Mọi cây đều có một trọng tâm, và nó có thể được tìm bằng cách chọn gốc cây tùy ý và luôn di chuyển đến cây con có số lượng nút lớn nhất, cho đến khi nút hiện tại là trọng tâm.
 
-Trong kỹ thuật *phân tích trọng tâm*, đầu tiênchúng ta xác định trọng tâm của cây và xử lý tất cả đường đi đi thông qua trọng tâm. Sau đó,chúng ta loại bỏ trọng tâm khỏi cây và xử lý các cây con còn lại đệ quy. Vì loại bỏ trọng tâm luôn tạo ra cây con mà kích thướcnhiều nhất bằng một nửa kích thước của cây gốc, độ phức tạp thời gian của thuật toán như vậy là $O(n \log n)$, với điều kiện chúng ta có thể xử lý mỗi cây con trong thời gian tuyến tính.
+Trong kỹ thuật *phân tích trọng tâm*, đầu tiên chúng ta xác định trọng tâm của cây và xử lý tất cả đường đi đi thông qua trọng tâm. Sau đó, chúng ta loại bỏ trọng tâm khỏi cây và xử lý các cây con còn lại đệ quy. Vì loại bỏ trọng tâm luôn tạo ra cây con mà kích thước nhiều nhất bằng một nửa kích thước của cây gốc, độ phức tạp thời gian của thuật toán như vậy là $O(n \log n)$, với điều kiện chúng ta có thể xử lý mỗi cây con trong thời gian tuyến tính.
 
 Ví dụ, Hình 10.27 cho thấy bước đầu tiên của thuật toán phân tích trọng tâm. Trong cây này, nút 5 là trọng tâmduy nhất, nên đầu tiên chúng ta xử lý tất cả đường đi đi thông qua
 
@@ -4061,17 +4056,17 @@ Ví dụ, Hình 10.27 cho thấy bước đầu tiên của thuật toán phân 
 
 nút 5. Sau đó, nút 5 bị loại bỏ khỏi cây, và chúng ta xử lý ba cây con $\{1, 2\}$, $\{3, 4\}$, và $\{6, 7, 8\}$ đệ quy.
 
-Sử dụng phân tích trọng tâm,chúng ta có thể, ví dụ, tính hiệu quả số đường đi độ dài x trong cây. Khi xử lý cây, đầu tiên chúng ta tìm trọng tâm và tính số đường đi đi thông qua nó, có thể được thực hiện trong thời gian tuyến tính. Sau đó,chúng ta loại bỏ trọng tâm và đệ quy xử lý các cây nhỏ hơn. Thuật toán kết quả hoạt động trong $O(n \log n)$ thời gian.
+Sử dụng phân tích trọng tâm, chúng ta có thể, ví dụ, tính hiệu quả số đường đi độ dài x trong cây. Khi xử lý cây, đầu tiên chúng ta tìm trọng tâm và tính số đường đi đi thông qua nó, có thể được thực hiện trong thời gian tuyến tính. Sau đó, chúng ta loại bỏ trọng tâm và đệ quy xử lý các cây nhỏ hơn. Thuật toán kết quả hoạt động trong $O(n \log n)$ thời gian.
 
 #### 10.3.2 Phân tích Nhẹ-Nặng (Heavy-Light)
 
-Phân tích nhẹ-nặng<sup>1</sup> chia các nút của cây thành tập hợp đường đi được gọi là đường đi nặng. Các đường đi nặng được tạo sao cho đường đi giữa bất kỳ hai nút cây nào có thể được biểu diễn dưới dạng $O(\log n)$ đường đi con của đường đi nặng. Sử dụng kỹ thuật,chúng ta có thể thao tác nút trên đường đi giữa nút câygần như như phần tử trong mảng, chỉ với hệ số bổ sung $O(\log n)$.
+Phân tích nhẹ-nặng<sup>1</sup> chia các nút của cây thành tập hợp đường đi được gọi là đường đi nặng. Các đường đi nặng được tạo sao cho đường đi giữa bất kỳ hai nút cây nào có thể được biểu diễn dưới dạng $O(\log n)$ đường đi con của đường đi nặng. Sử dụng kỹ thuật, chúng ta có thể thao tác nút trên đường đi giữa nút câygần như như phần tử trong mảng, chỉ với hệ số bổ sung $O(\log n)$.
 
-Để xây dựng đường đi nặng, đầu tiênchúng ta gốc câybất kỳ. Sau đó,chúng ta bắt đầu đường đi nặng đầu tiên tại gốc cây và luôn di chuyển đến nút có cây con kích thướctối đa. Sau đó,chúng ta đệ quy xử lý các cây con còn lại. Ví dụ, trong Hình 10.28, có bốn đường đi nặng: 1–2–6–8, 3, 4–7, và 5 (lưu ý rằng hai đường đi chỉ có một nút).
+Để xây dựng đường đi nặng, đầu tiên chúng ta gốc câybất kỳ. Sau đó, chúng ta bắt đầu đường đi nặng đầu tiên tại gốc cây và luôn di chuyển đến nút có cây con kích thước tối đa. Sau đó, chúng ta đệ quy xử lý các cây con còn lại. Ví dụ, trong Hình 10.28, có bốn đường đi nặng: 1–2–6–8, 3, 4–7, và 5 (lưu ý rằng hai đường đi chỉ có một nút).
 
-Bây giờ, xem xét bất kỳ đường đi nào giữa hai nút trong cây. Vì chúng ta luôn chọn cây con kích thướctối đa khi tạo đường đi nặng, điều này đảm bảo rằngchúng ta có thể chia đường đi thành $O(\log n)$ đường đi con sao cho mỗi đường đi là đường đi con của một đường đi nặng duy nhất. Ví dụ, trong Hình 10.28, đường đi giữa nút 7 và 8 có thể được chia thành hai đường đi con nặng: đầu tiên 7–4, sau đó 1–2–6–8.
+Bây giờ, xem xét bất kỳ đường đi nào giữa hai nút trong cây. Vì chúng ta luôn chọn cây con kích thước tối đa khi tạo đường đi nặng, điều này đảm bảo rằng chúng ta có thể chia đường đi thành $O(\log n)$ đường đi con sao cho mỗi đường đi là đường đi con của một đường đi nặng duy nhất. Ví dụ, trong Hình 10.28, đường đi giữa nút 7 và 8 có thể được chia thành hai đường đi con nặng: đầu tiên 7–4, sau đó 1–2–6–8.
 
-Lợi ích của phân tích nhẹ-nặng là mỗi đường đi nặng có thể được xử lý như mảng nút. Ví dụ,chúng ta có thể gán cây phân đoạn cho mỗi đường đi nặng và hỗ trợ truy vấn đường đi tinh vi, chẳng hạn như tính giá trị nút tối thiểu trong đường đi hoặc tăng giá trị của mỗi nút trong đường đi. Các truy vấn như vậy có thể được
+Lợi ích của phân tích nhẹ-nặng là mỗi đường đi nặng có thể được xử lý như mảng nút. Ví dụ, chúng ta có thể gán cây phân đoạn cho mỗi đường đi nặng và hỗ trợ truy vấn đường đi tinh vi, chẳng hạn như tính giá trị nút tối thiểu trong đường đi hoặc tăng giá trị của mỗi nút trong đường đi. Các truy vấn như vậy có thể được
 
 <sup>1</sup>Sleator và Tarjan [29] giới thiệu ý tưởng trong ngữ cảnh cấu trúc dữ liệu link/cut tree.
 
@@ -4091,19 +4086,19 @@ Phần 11.2 khám phá cách tiếp cận bài toán tổ hợp: làm thế nào
 
 Phần 11.3 cho thấy cách sử dụng ma trận trong lập trình thuật toán. Ví dụ, chúng ta sẽ học cách làm cho thuật toán quy hoạch động hiệu quả hơn bằng cáchsử dụng cách hiệu quả để tính lũy thừa ma trận.
 
-Phần 11.4 đầu tiên thảo luận kỹ thuật cơ bản để tính xác suất của sự kiện và khái niệm chuỗi Markov. Sau đó,chúng ta sẽ thấy ví dụ về thuật toán dựa trên ngẫu nhiên.
+Phần 11.4 đầu tiên thảo luận kỹ thuật cơ bản để tính xác suất của sự kiện và khái niệm chuỗi Markov. Sau đó, chúng ta sẽ thấy ví dụ về thuật toán dựa trên ngẫu nhiên.
 
-Phần 11.5 tập trung vào lý thuyết trò chơi. Đầu tiên, chúng ta sẽ học cách chơi tối ưu trò chơi gậy đơn giản sử dụng lý thuyết nim, và sau đó,chúng ta sẽ tổng quát hóa chiến lược cho phạm vi rộng các trò chơi khác.
+Phần 11.5 tập trung vào lý thuyết trò chơi. Đầu tiên, chúng ta sẽ học cách chơi tối ưu trò chơi gậy đơn giản sử dụng lý thuyết nim, và sau đó, chúng ta sẽ tổng quát hóa chiến lược cho phạm vi rộng các trò chơi khác.
 
 ### 11.1 Lý thuyết Số
 
-Lý thuyết số là nhánh toán học nghiên cứu số nguyên. Trong phần này,chúng ta sẽ thảo luận một lựa chọn các chủ đề và thuật toán lý thuyết số, chẳng hạn như tìm số nguyên tố và ước, và giải phương trình nguyên.
+Lý thuyết số là nhánh toán học nghiên cứu số nguyên. Trong phần này, chúng ta sẽ thảo luận một lựa chọn các chủ đề và thuật toán lý thuyết số, chẳng hạn như tìm số nguyên tố và ước, và giải phương trình nguyên.
 
 #### 11.1.1 Số nguyên tố và Ước
 
 Số nguyên a được gọi là *ước* hoặc *ước số* của số nguyên b nếu a chia hết b. Nếu a là ước của b, chúng ta viết $a \mid b$, và nếu không chúng ta viết $a \nmid b$. Ví dụ, các ước của 24 là 1, 2, 3, 4, 6, 8, 12, và 24.
 
-Số nguyên n > 1 là *số nguyên tố* nếu các ước dươngduy nhất của nó là 1 và n. Ví dụ, 7, 19, và 41 là số nguyên tố, nhưng 35 không phải số nguyên tố,vì $5 \cdot 7 = 35$. Với mọi số nguyên n > 1, có một *phân tích thừa số nguyên tố* duy nhất
+Số nguyên n > 1 là *số nguyên tố* nếu các ước dươngduy nhất của nó là 1 và n. Ví dụ, 7, 19, và 41 là số nguyên tố, nhưng 35 không phải số nguyên tố, vì $5 \cdot 7 = 35$. Với mọi số nguyên n > 1, có một *phân tích thừa số nguyên tố* duy nhất
 
 $$n=p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_k^{\alpha_k},$$
 
@@ -4123,7 +4118,7 @@ $$\sigma(n) = \prod_{i=1}^{k} (1 + p_i + \dots + p_i^{\alpha_i}) = \prod_{i=1}^{
 
 trong đó dạng sau dựa trên công thức cấp số cộng. Ví dụ, $\sigma(12) = (2^3 - 1)/(2 - 1) \cdot (3^2 - 1)/(3 - 1) = 28$.
 
-**Thuật toán Cơ bản** Nếu số nguyên n không phải số nguyên tố, nó có thể được biểu diễn dưới dạng tích $a \cdot b$, trong đó $a \leq \sqrt{n}$ hoặc $b \leq \sqrt{n}$, nên nó chắc chắn có ước giữa 2 và $\lfloor \sqrt{n} \rfloor$. Sử dụng quan sát này,chúng ta có thể cả kiểm tra xem số nguyên có phải số nguyên tố và tìm phân tích thừa số nguyên tố của nó trong $O(\sqrt{n})$ thời gian.
+**Thuật toán Cơ bản** Nếu số nguyên n không phải số nguyên tố, nó có thể được biểu diễn dưới dạng tích $a \cdot b$, trong đó $a \leq \sqrt{n}$ hoặc $b \leq \sqrt{n}$, nên nó chắc chắn có ước giữa 2 và $\lfloor \sqrt{n} \rfloor$. Sử dụng quan sát này, chúng ta có thể cả kiểm tra xem số nguyên có phải số nguyên tố và tìm phân tích thừa số nguyên tố của nó trong $O(\sqrt{n})$ thời gian.
 
 Hàm `prime` sau kiểm tra xem số nguyên n cho trước có phải số nguyên tố. Hàm cố gắng chia n cho tất cả số nguyên giữa 2 và $\lfloor \sqrt{n} \rfloor$, và nếu không có số nào chia hết n, thì n là số nguyên tố.
 
@@ -4156,7 +4151,7 @@ vector<int> factors(int n) {
 
 Lưu ý rằng mỗi thừa số nguyên tố xuất hiện trong vector nhiều lần như nó chia hết số. Ví dụ, $12 = 2^2 \cdot 3$, nên kết quả của hàm là [2, 2, 3].
 
-**Tính chất của Số nguyên tố** Dễ dàng chứng minh rằng có vô số số nguyên tố. Nếu số lượng số nguyên tố là hữu hạn,chúng ta có thể xây dựng tập hợp $P = \{p_1, p_2, \dots, p_n\}$ sẽ chứa tất cả số nguyên tố. Ví dụ, $p_1 = 2$, $p_2 = 3$, $p_3 = 5$, và cứ thế. Tuy nhiên, sử dụng tập hợp P như vậy,chúng ta có thể tạo số nguyên tố mới
+**Tính chất của Số nguyên tố** Dễ dàng chứng minh rằng có vô số số nguyên tố. Nếu số lượng số nguyên tố là hữu hạn, chúng ta có thể xây dựng tập hợp $P = \{p_1, p_2, \dots, p_n\}$ sẽ chứa tất cả số nguyên tố. Ví dụ, $p_1 = 2$, $p_2 = 3$, $p_3 = 5$, và cứ thế. Tuy nhiên, sử dụng tập hợp P như vậy, chúng ta có thể tạo số nguyên tố mới
 
 $$p_1 p_2 \cdots p_n + 1$$
 
@@ -4200,9 +4195,9 @@ Vòng lặp bên trong của thuật toán được thực thi $\lfloor n/x \rfl
 
 $$\sum_{x=2}^{n} \lfloor n/x \rfloor = \lfloor n/2 \rfloor + \lfloor n/3 \rfloor + \lfloor n/4 \rfloor + \dots = O(n \log n).$$
 
-Thực tế, thuật toán hiệu quả hơn,vì vòng lặp bên trong sẽ chỉ được thực thi nếu số x là số nguyên tố. Có thể chứng minh rằng thời gian chạy của thuật toán chỉ là $O(n \log \log n)$, độ phức tạp rất gần O(n). Trong thực tế, sàng Eratosthenes rất hiệu quả; Bảng 11.1 cho thấy một số thời gian chạy thực tế.
+Thực tế, thuật toán hiệu quả hơn, vì vòng lặp bên trong sẽ chỉ được thực thi nếu số x là số nguyên tố. Có thể chứng minh rằng thời gian chạy của thuật toán chỉ là $O(n \log \log n)$, độ phức tạp rất gần O(n). Trong thực tế, sàng Eratosthenes rất hiệu quả; Bảng 11.1 cho thấy một số thời gian chạy thực tế.
 
-Có several cách để mở rộng sàng Eratosthenes. Ví dụ,chúng ta có thể tính cho mỗi số k thừa số nguyên tố nhỏ nhất (Hình 11.2). Sau đó,chúng ta có thể hiệu quả phân tích thừa số bất kỳ số nào giữa $2 \dots n$ sử dụng sàng. (Lưu ý rằng số n có $O(\log n)$ thừa số nguyên tố.)
+Có một số cách để mở rộng sàng Eratosthenes. Ví dụ, chúng ta có thể tính cho mỗi số k thừa số nguyên tố nhỏ nhất (Hình 11.2). Sau đó, chúng ta có thể hiệu quả phân tích thừa số bất kỳ số nào giữa $2 \dots n$ sử dụng sàng. (Lưu ý rằng số n có $O(\log n)$ thừa số nguyên tố.)
 
 **Bảng 11.1** Thời gian chạy của sàng Eratosthenes
 
@@ -4233,6 +4228,8 @@ Ví dụ,
 
 $$gcd(30, 12) = gcd(12, 6) = gcd(6, 0) = 6.$$
 
+#### 11.1.3 Thuật toán Euclid
+
 Thuật toán có thể được cài đặt như sau:
 
 ```cpp
@@ -4256,11 +4253,11 @@ $$ax + by = \gcd(a, b).$$
 
 Ví dụ, khi a = 30 và b = 12,
 
-$$30 \cdot 1 + 12 \cdot (-2) = 6$$.
+$$30 \cdot 1 + 12 \cdot (-2) = 6$$
 
 Chúng ta cũng có thể giải bài toán này sử dụng công thức $gcd(a, b) = gcd(b, a \mod b)$. Giả sử rằng chúng ta đã giải bài toán cho $gcd(b, a \mod b)$, và chúng ta biết giá trị x' và y' mà
 
-$$bx' + (a \mod b)y' = gcd(a, b)$$.
+$$bx' + (a \mod b)y' = gcd(a, b)$$
 
 Sau đó, vì $a \mod b = a - \lfloor a/b \rfloor \cdot b$,
 
@@ -4270,7 +4267,7 @@ bằng
 
 $$ay' + b(x' - \lfloor a/b \rfloor \cdot y') = gcd(a, b).$$
 
-Do đó,chúng ta có thể chọn x = y' và $y = x' - \lfloor a/b \rfloor \cdot y'$. Sử dụng ý tưởng này, hàm sau trả về tuple $(x, y, \gcd(a, b))$ thỏa mãn phương trình.
+Do đó, chúng ta có thể chọn x = y' và $y = x' - \lfloor a/b \rfloor \cdot y'$. Sử dụng ý tưởng này, hàm sau trả về tuple $(x, y, \gcd(a, b))$ thỏa mãn phương trình.
 
 ```cpp
 tuple<int,int,int> gcd(int a, int b) {
@@ -4299,7 +4296,7 @@ Thường có nhu cầu tính hiệu quả giá trị của $x^n \mod m$. Điề
 
 $$x^{n} = \begin{cases} 1 & n = 0\\ x^{n/2} \cdot x^{n/2} & n \text{ chẵn}\\ x^{n-1} \cdot x & n \text{ lẻ} \end{cases}$$
 
-Ví dụ, để tính giá trị của $x^{100}$, đầu tiênchúng ta tính giá trị của $x^{50}$ và sau đó sử dụng công thức $x^{100} = x^{50} \cdot x^{50}$. Sau đó, để tính giá trị của $x^{50}$, đầu tiên chúng ta tính giá trị của $x^{25}$ và cứ thế. Vì n luôn chia đôi khi nó chẵn, tính toán chỉ mất $O(\log n)$ thời gian.
+Ví dụ, để tính giá trị của $x^{100}$, đầu tiên chúng ta tính giá trị của $x^{50}$ và sau đó sử dụng công thức $x^{100} = x^{50} \cdot x^{50}$. Sau đó, để tính giá trị của $x^{50}$, đầu tiên chúng ta tính giá trị của $x^{25}$ và cứ thế. Vì n luôn chia đôi khi nó chẵn, tính toán chỉ mất $O(\log n)$ thời gian.
 
 Thuật toán có thể được cài đặt như sau:
 
@@ -4331,11 +4328,11 @@ cho tất cả số nguyên dương nguyên tố cùng nhau x và m. Ví dụ, �
 
 Nếu m là số nguyên tố, $\varphi(m) = m - 1$, nên công thức trở thành
 
-$$x^{m-1} \mod m = 1$$.
+$$x^{m-1} \mod m = 1$$
 
 được gọi là định lý Fermat nhỏ. Điều này cũng ngụ ý rằng
 
-$$x^n \mod m = x^{n \mod (m-1)} \mod m$$.
+$$x^n \mod m = x^{n \mod (m-1)} \mod m$$
 
 có thể được sử dụng để tính giá trị của $x^n$ nếu n rất lớn.
 
@@ -4345,11 +4342,11 @@ $$x \cdot \operatorname{inv}_m(x) \mod m = 1.$$
 
 Ví dụ, $inv_{17}(6) = 3$,vì $6 \cdot 3 \mod 17 = 1$.
 
-Sử dụng nghịch đảo modular,chúng ta có thể chia số modulo m,vì chia cho x tương ứng với nhân với $\operatorname{inv}_m(x)$. Ví dụ,vì chúng ta biết rằng $\operatorname{inv}_{17}(6) = 3$,chúng ta có thể tính giá trị của $36/6 \mod 17$ theo cách khác sử dụng công thức $36 \cdot 3 \mod 17$.
+Sử dụng nghịch đảo modular, chúng ta có thể chia số modulo m, vì chia cho x tương ứng với nhân với $\operatorname{inv}_m(x)$. Ví dụ, vì chúng ta biết rằng $\operatorname{inv}_{17}(6) = 3$,chúng ta có thể tính giá trị của $36/6 \mod 17$ theo cách khác sử dụng công thức $36 \cdot 3 \mod 17$.
 
 Nghịch đảo modular tồn tại chính xác khi x và m nguyên tố cùng nhau. Trong trường hợp này, nó có thể được tính sử dụng công thức
 
-$$\operatorname{inv}_m(x) = x^{\varphi(m)-1}$$.
+$$\operatorname{inv}_m(x) = x^{\varphi(m)-1}$$
 
 dựa trên định lý Euler. Đặc biệt, nếu m là số nguyên tố, $\varphi(m)=m-1$ và công thức trở thành
 
@@ -4365,7 +4362,7 @@ Công thức trên cho phép chúng ta tính hiệu quả nghịch đảo modula
 
 **Phương trình Diophantine** *Phương trình Diophantine* là phương trình dạng
 
-$$ax + by = c$$,
+$$ax + by = c$$
 
 trong đó a, b, và c là hằng số và giá trị của x và y phải được tìm thấy. Mỗi số trong phương trình phải là số nguyên. Ví dụ, một nghiệm cho phương trình
 
@@ -4379,7 +4376,7 @@ $$ax + by = \gcd(a, b).$$
 
 Phương trình Diophantine có thể được giải chính xác khi c chia hết cho gcd(a, b). Ví dụ, hãy tìm số nguyên x và y thỏa mãn phương trình
 
-$$39x + 15y = 12$$.
+$$39x + 15y = 12$$
 
 Phương trình có thể được giải, vì gcd(39, 15) = 3 và $3 \mid 12$. Thuật toán Euclid mở rộng cho chúng ta
 
@@ -4391,20 +4388,22 @@ $$39 \cdot 8 + 15 \cdot (-20) = 12$$
 
 nên nghiệm cho phương trình là x = 8 và y = -20.
 
-Nghiệm cho phương trình Diophantine không duy nhất,vì chúng ta có thể tạo số lượng nghiệm vô hạnnếu chúng ta biết một nghiệm. Nếu cặp (x, y) là nghiệm, thì tất cả các cặp
+Nghiệm cho phương trình Diophantine không duy nhất, vì chúng ta có thể tạo số lượng nghiệm vô hạnnếu chúng ta biết một nghiệm. Nếu cặp (x, y) là nghiệm, thì tất cả các cặp
 
 $$\left(x + \frac{kb}{\gcd(a,b)}, y - \frac{ka}{\gcd(a,b)}\right)$$
 
 cũng là nghiệm, trong đó k là bất kỳ số nguyên nào.
 
-**Định lý Thặng dư Trung Hoa** *Định lý thặng dư Trung Hoa* giảimột nhóm phương trình dạng
+**Định lý Thặng dư Trung Hoa** *Định lý thặng dư Trung Hoa* giải một nhóm phương trình dạng
 
-$$\begin{array}{rcl}
-x &= a_1 \bmod m_1 \\
-x &= a_2 \bmod m_2
-\end{array}$$
-
-$x = a_n \mod m_n$
+$$
+\begin{aligned}
+x &\equiv a_1 \pmod{m_1} \\
+x &\equiv a_2 \pmod{m_2} \\
+&\vdots \\
+x &\equiv a_n \pmod{m_n}
+\end{aligned}
+$$
 
 trong đó tất cả các cặp $m_1, m_2, \ldots, m_n$ nguyên tố cùng nhau.
 
@@ -4448,7 +4447,6 @@ $$x + m_1 m_2 \cdots m_n$$
 
 Tổ hợp nghiên cứu phương pháp đếm các tổ hợp của đối tượng. Thường thì mục tiêu là tìm cách đếm tổ hợp hiệu quả mà không tạo ra từng tổ hợp riêng biệt. Trong phần này, chúng ta thảo luận một lựa chọn các kỹ thuật tổ hợp có thể được áp dụng cho số lượng lớn bài toán.
 
-**11.2 Tổ hợp 157**
 
 #### 11.2.1 Hệ số Nhị thức
 
@@ -4466,7 +4464,7 @@ với trường hợp cơ sở
 
 $$\binom{n}{0} = \binom{n}{n} = 1.$$
 
-Để xem tại sao công thức này hoạt động, xem xét phần tử tùy ý x trong tập hợp. Nếu chúng ta quyết định bao gồm x trong tập con, nhiệm vụ còn lại là chọn k-1 phần tử từ n-1 phần tử. Sau đó,nếu chúng ta không bao gồm x trong tập con,chúng ta phải chọn k phần tử từ n-1 phần tử.
+Để xem tại sao công thức này hoạt động, xem xét phần tử tùy ý x trong tập hợp. Nếu chúng ta quyết định bao gồm x trong tập con, nhiệm vụ còn lại là chọn k-1 phần tử từ n-1 phần tử. Sau đó, nếu chúng ta không bao gồm x trong tập con, chúng ta phải chọn k phần tử từ n-1 phần tử.
 
 Một cách khác để tính hệ số nhị thức là sử dụng công thức
 
@@ -4500,13 +4498,12 @@ cho biết số cách tập hợp gồm n phần tử có thể được chia th
 
 **Hộp và Quả bóng** "Hộp và quả bóng" là mô hình hữu ích, trong đó chúng ta đếm cách đặt k quả bóng vào n hộp. Hãy xem xét ba kịch bản:
 
-Kịch bản 1: Mỗi hộp có thể chứanhiều nhất một quả bóng. Ví dụ, khi n = 5 và k = 2, có 10 tổ hợp (Hình 11.5). Trong kịch bản này, số tổ hợp trực tiếp là hệ số nhị thức $\binom{n}{k}$.
+Kịch bản 1: Mỗi hộp có thể chứa nhiều nhất một quả bóng. Ví dụ, khi n = 5 và k = 2, có 10 tổ hợp (Hình 11.5). Trong kịch bản này, số tổ hợp trực tiếp là hệ số nhị thức $\binom{n}{k}$.
 
-Kịch bản 2: Hộp có thể chứa nhiều quả bóng. Ví dụ, khi n=5 và k=2, có 15 tổ hợp (Hình 11.6). Trong kịch bản này, quá trình đặt quả bóng vào hộp có thể được biểu diễn dưới dạng xâu gồm ký tự "o" và "$\rightarrow$". Ban đầu, giả sử rằng chúng ta đang đứng ở hộp ngoài cùng bên trái. Ký tự "o" có nghĩa là chúng ta đặt quả bóng vào hộp hiện tại, và ký tự "$\rightarrow$" có nghĩa là chúng ta di chuyển sang hộp tiếp theo bên phải. Bây giờ mỗi nghiệm là xâu độ dài k+n-1 chứa k ký tự "o" và n-1 ký tự "$\rightarrow$". Ví dụ, nghiệm góc trên bên phải trong Hình 11.6 tương ứng với xâu "$\rightarrow$ 0 $\rightarrow$ 0 o $\rightarrow$". Do đó,chúng ta có thể kết luận rằng số tổ hợp là $\binom{k+n-1}{k}$.
+Kịch bản 2: Hộp có thể chứa nhiều quả bóng. Ví dụ, khi n=5 và k=2, có 15 tổ hợp (Hình 11.6). Trong kịch bản này, quá trình đặt quả bóng vào hộp có thể được biểu diễn dưới dạng xâu gồm ký tự "o" và "$\rightarrow$". Ban đầu, giả sử rằng chúng ta đang đứng ở hộp ngoài cùng bên trái. Ký tự "o" có nghĩa là chúng ta đặt quả bóng vào hộp hiện tại, và ký tự "$\rightarrow$" có nghĩa là chúng ta di chuyển sang hộp tiếp theo bên phải. Bây giờ mỗi nghiệm là xâu độ dài k+n-1 chứa k ký tự "o" và n-1 ký tự "$\rightarrow$". Ví dụ, nghiệm góc trên bên phải trong Hình 11.6 tương ứng với xâu "$\rightarrow$ 0 $\rightarrow$ 0 o $\rightarrow$". Do đó, chúng ta có thể kết luận rằng số tổ hợp là $\binom{k+n-1}{k}$.
 
-Kịch bản 3: Mỗi hộp có thể chứanhiều nhất một quả bóng, và ngoài ra, không hai hộp kề nhau có thể cả hai chứa quả bóng. Ví dụ, khi n=5 và k=2, có 6 tổ hợp (Hình 11.7). Trong kịch bản này,chúng ta có thể giả sử rằng k quả bóng ban đầu được đặt trong hộp và có hộp trống giữa mỗi hai hộp kề nhau. Nhiệm vụ còn lại là chọn vị trí cho các hộp trống còn lại. Có n-2k+1 hộp như vậy và k+1 vị trí cho chúng. Do đó, sử dụng công thức của Kịch bản 2, số nghiệm là $\binom{n-k+1}{n-2k+1}$.
+Kịch bản 3: Mỗi hộp có thể chứa nhiều nhất một quả bóng, và ngoài ra, không hai hộp kề nhau có thể cả hai chứa quả bóng. Ví dụ, khi n=5 và k=2, có 6 tổ hợp (Hình 11.7). Trong kịch bản này, chúng ta có thể giả sử rằng k quả bóng ban đầu được đặt trong hộp và có hộp trống giữa mỗi hai hộp kề nhau. Nhiệm vụ còn lại là chọn vị trí cho các hộp trống còn lại. Có n-2k+1 hộp như vậy và k+1 vị trí cho chúng. Do đó, sử dụng công thức của Kịch bản 2, số nghiệm là $\binom{n-k+1}{n-2k+1}$.
 
-**11.2 Tổ hợp 159**
 
 ![](images/_page_165_Figure_1.jpeg)
 
@@ -4550,9 +4547,8 @@ Nếu biểu thức ngoặc không hợp lệ, nó phải chứa tiền tố mà
 
 $$\binom{2n}{n} - \binom{2n}{n+1} = \binom{2n}{n} - \frac{n}{n+1} \binom{2n}{n} = \frac{1}{n+1} \binom{2n}{n}.$$
 
-**Đếm Cây** Chúng ta cũng có thể đếm certain cấu trúc cây sử dụng số Catalan. Đầu tiên, $C_n$ bằng số cây nhị phân gồm n nút, giả sử rằng con trái và phải được phân biệt. Ví dụ, vì $C_3 = 5$, có 5 cây nhị phân gồm 3 nút (Hình 11.8). Sau đó, $C_n$ cũng bằng số cây gốc tổng quát gồm n + 1 nút. Ví dụ, có 5 cây gốc gồm 4 nút (Hình 11.9).
+**Đếm Cây** Chúng ta cũng có thể đếm một số cấu trúc cây sử dụng số Catalan. Đầu tiên, $C_n$ bằng số cây nhị phân gồm n nút, giả sử rằng con trái và phải được phân biệt. Ví dụ, vì $C_3 = 5$, có 5 cây nhị phân gồm 3 nút (Hình 11.8). Sau đó, $C_n$ cũng bằng số cây gốc tổng quát gồm n + 1 nút. Ví dụ, có 5 cây gốc gồm 4 nút (Hình 11.9).
 
-**11.2 Tổ hợp 161**
 
 **Hình 11.8** Có 5 cây nhị phân gồm 3 nút
 
@@ -4608,9 +4604,9 @@ $$X_3 = \{(1, 2, 3), (2, 1, 3)\}$$
 
 Số hoán vị có chỗ đúng bằng
 
-$$n! - |X_1 \cup X_2 \cup \cdots \cup X_n|$$.
+$$n! - |X_1 \cup X_2 \cup \cdots \cup X_n|$$
 
-nên chỉ cần tính $|X_1 \cup X_2 \cup \cdots \cup X_n|$. Sử dụng bao hàm-loại trừ, điều này giảm xuống tính kích thước giao. Hơn nữa, giao của c tập hợp khác nhau $X_k$ có (n-c)! phần tử,vì giao như vậy gồm tất cả hoán vị chứa c phần tử ở vị trí gốc. Do đó,chúng ta có thể hiệu quả tính kích thước giao. Ví dụ, khi n=3,
+nên chỉ cần tính $|X_1 \cup X_2 \cup \cdots \cup X_n|$. Sử dụng bao hàm-loại trừ, điều này giảm xuống tính kích thước giao. Hơn nữa, giao của c tập hợp khác nhau $X_k$ có (n-c)! phần tử, vì giao như vậy gồm tất cả hoán vị chứa c phần tử ở vị trí gốc. Do đó, chúng ta có thể hiệu quả tính kích thước giao. Ví dụ, khi n=3,
 
 $$|X_1 \cup X_2 \cup X_3| = |X_1| + |X_2| + |X_3| -|X_1 \cap X_2| - |X_1 \cap X_3| - |X_2 \cap X_3| +|X_1 \cap X_2 \cap X_3| = 2 + 2 + 2 - 1 - 1 - 1 + 1 = 4,$$
 
@@ -4620,7 +4616,6 @@ Hóa ra bài toán cũng có thể được giải *không* sử dụng bao hàm
 
 $$f(n) = \begin{cases} 0 & n = 1\\ 1 & n = 2\\ (n-1)(f(n-2) + f(n-1)) & n > 2 \end{cases}$$
 
-**11.2 Tổ hợp 163**
 
 **Hình 11.12** Bốn vòng cổ đối xứng
 
@@ -4630,7 +4625,7 @@ Công thức có thể được chứng minh bằng cách xem xét các khả n�
 
 Tùy chọn 1: Chúng ta cũng thay thế phần tử x bằng phần tử 1. Sau đó, nhiệm vụ còn lại là tạo hoán vị có chỗ đúng của n-2 phần tử.
 
-Tùy chọn 2: Chúng ta thay thế phần tử x bằng phần tử khác 1. Bây giờchúng ta phải tạo hoán vị có chỗ đúng của n-1 phần tử,vì chúng ta không thể thay thế phần tử x bằng phần tử 1, và tất cả phần tử khác phải được thay đổi.
+Tùy chọn 2: Chúng ta thay thế phần tử x bằng phần tử khác 1. Bây giờ chúng ta phải tạo hoán vị có chỗ đúng của n-1 phần tử, vì chúng ta không thể thay thế phần tử x bằng phần tử 1, và tất cả phần tử khác phải được thay đổi.
 
 #### 11.2.4 Burnside
 
@@ -4642,7 +4637,7 @@ trong đó có n cách để thay đổi vị trí của tổ hợp, và có c(k
 
 Ví dụ, hãy tính số vòng cổ gồm n hạt, trong đó mỗi hạt có m màu có thể. Hai vòng cổ đối xứng nếu chúng giống nhau sau khi xoay. Ví dụ, Hình 11.12 cho thấy bốn vòng cổ đối xứng, nên được đếm là một tổ hợp duy nhất.
 
-Có n cách để thay đổi vị trí của vòng cổ,vì nó có thể được xoay $k=0,1,\ldots,n-1$ bước theo chiều kim đồng hồ. Ví dụ, nếu k=0, tất cả $m^n$ vòng cổgiữ nguyên nguyên, và nếu k=1, chỉ m vòng cổ mà mỗi hạt có cùng màugiữ nguyên nguyên. Trong trường hợp tổng quát, tổng cộng $m^{\gcd(k,n)}$ vòng cổgiữ nguyên nguyên,vì các khối hạt kích thước $\gcd(k,n)}$ sẽ thay thế lẫn nhau. Do đó, theo Burnside, số vòng cổ khác nhau là
+Có n cách để thay đổi vị trí của vòng cổ, vì nó có thể được xoay $k=0,1,\ldots,n-1$ bước theo chiều kim đồng hồ. Ví dụ, nếu k=0, tất cả $m^n$ vòng cổgiữ nguyên, và nếu k=1, chỉ m vòng cổ mà mỗi hạt có cùng màugiữ nguyên. Trong trường hợp tổng quát, tổng cộng $m^{\gcd(k,n)}$ vòng cổgiữ nguyên, vì các khối hạt kích thước $\gcd(k,n)$ sẽ thay thế lẫn nhau. Do đó, theo Burnside, số vòng cổ khác nhau là
 
 $$\frac{1}{n}\sum_{k=0}^{n-1}m^{\gcd(k,n)}.$$
 
@@ -4651,7 +4646,7 @@ Ví dụ, số vòng cổ khác nhau gồm 4 hạt và 3 màu là
 $$\frac{3^4 + 3 + 3^2 + 3}{4} = 24.$$
 
 
-**Fig. 11.13** There are 16 distinct labeled trees of 4 nodes
+**Hình 11.13** Có 16 cây có nhãn phân biệt gồm 4 đỉnh
 
 ![](images/_page_170_Figure_2.jpeg)
 
@@ -4673,7 +4668,6 @@ Chúng ta có thể tạo mã Prüfer cho bất kỳ cây nào, và quan trọng
 
 $$A = \begin{bmatrix} 6 & 13 & 7 & 4 \\ 7 & 0 & 8 & 2 \\ 9 & 5 & 4 & 18 \end{bmatrix}$$
 
-**11.3 Ma trận 165**
 
 là ma trận kích thước $3 \times 4$, tức là nó có 3 hàng và 4 cột. Ký hiệu [i, j] đề cập đến phần tử trong hàng i và cột j trong ma trận. Ví dụ, trong ma trận trên, A[2, 3] = 8 và A[3, 1] = 9.
 
@@ -4737,7 +4731,6 @@ $$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix} \cdot \begin
 
 <sup>1</sup>Trong khi thuật toán thời gian $O(n^3)$ trực tiếp đủ trong lập trình thi đấu, có các thuật toán *lý thuyết* hiệu quả hơn. Năm 1969, Strassen [31] phát hiện thuật toán đầu tiên như vậy, bây giờ được gọi là *thuật toán Strassen*, có độ phức tạp thời gian $O(n^{2.81})$. Thuật toán tốt nhất hiện tại, đề xuất bởi Le Gall [11] năm 2014, hoạt động trong $O(n^{2.37})$ thời gian.
 
-**11.3 Ma trận 167**
 
 Lũy thừa $A^k$ của ma trận A được xác định nếu A là ma trận vuông. Định nghĩa dựa trên nhân ma trận:
 
@@ -4763,7 +4756,7 @@ $$f(n) = c_1 f(n-1) + c_2 f(n-2) + \dots + c_k f(n-k),$$
 
 trong đó $c_1, c_2, \ldots, c_k$ là các hệ số hằng số.
 
-Quy hoạch động có thể được sử dụng để tính bất kỳ giá trị nào của f(n) trong O(kn) thời gian bằng cách tính tất cả giá trị của f(0), f(1), ..., f(n) lần lượt. Tuy nhiên, như chúng ta sẽ thấy tiếp theo,chúng ta cũng có thể tính giá trị của f(n) trong $O(k^3 \log n)$ thời gian sử dụng phép toán ma trận. Đây là cải thiện quan trọng nếu k nhỏ và n lớn.
+Quy hoạch động có thể được sử dụng để tính bất kỳ giá trị nào của f(n) trong O(kn) thời gian bằng cách tính tất cả giá trị của f(0), f(1), ..., f(n) lần lượt. Tuy nhiên, như chúng ta sẽ thấy tiếp theo, chúng ta cũng có thể tính giá trị của f(n) trong $O(k^3 \log n)$ thời gian sử dụng phép toán ma trận. Đây là cải thiện quan trọng nếu k nhỏ và n lớn.
 
 **Số Fibonacci** Ví dụ đơn giản về dãy tuyến tính là hàm sau định nghĩa số Fibonacci:
 
@@ -4776,7 +4769,7 @@ $$f(n) = f(n-1) + f(n-2)$$
 
 Trong trường hợp này, k = 2 và $c_1 = c_2 = 1$.
 
-Để tính hiệu quả số Fibonacci,chúng ta biểu diễn công thức Fibonacci dưới dạng ma trận vuông X kích thước $2 \times 2$, mà điều sau đúng:
+Để tính hiệu quả số Fibonacci, chúng ta biểu diễn công thức Fibonacci dưới dạng ma trận vuông X kích thước $2 \times 2$, mà điều sau đúng:
 
 $$X \cdot \begin{bmatrix} f(i) \\ f(i+1) \end{bmatrix} = \begin{bmatrix} f(i+1) \\ f(i+2) \end{bmatrix}$$
 
@@ -4788,7 +4781,7 @@ Ví dụ,
 
 $$\begin{bmatrix} 0 & 1 \\ 1 & 1 \end{bmatrix} \cdot \begin{bmatrix} f(5) \\ f(6) \end{bmatrix} = \begin{bmatrix} 0 & 1 \\ 1 & 1 \end{bmatrix} \cdot \begin{bmatrix} 5 \\ 8 \end{bmatrix} = \begin{bmatrix} 8 \\ 13 \end{bmatrix} = \begin{bmatrix} f(6) \\ f(7) \end{bmatrix}.$$
 
-Do đó,chúng ta có thể tính f(n) sử dụng công thức
+Do đó, chúng ta có thể tính f(n) sử dụng công thức
 
 $$\begin{bmatrix} f(n) \\ f(n+1) \end{bmatrix} = X^n \cdot \begin{bmatrix} f(0) \\ f(1) \end{bmatrix} = \begin{bmatrix} 0 & 1 \\ 1 & 1 \end{bmatrix}^n \cdot \begin{bmatrix} 0 \\ 1 \end{bmatrix}.$$
 
@@ -4804,7 +4797,6 @@ $$X = \begin{bmatrix} 0 & 1 & 0 & \cdots & 0 \\ 0 & 0 & 1 & \cdots & 0 \\ \vdots
 
 Trong k-1 hàng đầu, mỗi phần tử là 0 trừ một phần tử là 1. Các hàng này thay thế f(i) bằng f(i+1), f(i+1) bằng f(i+2), và cứ thế. Sau đó, hàng cuối cùng chứa các hệ số của dãy để tính giá trị mới f(i+k).
 
-**11.3 Ma trận 169**
 
 **Hình 11.16** Đồ thị ví dụ cho phép toán ma trận
 
@@ -4828,7 +4820,7 @@ $$M^4 = \begin{bmatrix} 0 & 0 & 1 & 1 & 1 & 0 \\ 2 & 0 & 0 & 0 & 2 & 2 \\ 0 & 2 
 
 cho số đường đi chứa chính xác 4 cạnh. Ví dụ, $M^4[2, 5] = 2$,vì có hai đường đi 4 cạnh từ nút 2 đến nút 5: $2 \to 1 \to 4 \to 2 \to 5$ và $2 \to 6 \to 3 \to 2 \to 5$.
 
-Sử dụng ý tưởng tương tự trong đồ thị có trọng số,chúng ta có thể tính cho mỗi cặp nút (a, b) độ dài ngắn nhất của đường đi từ a đến b và chứa chính xác n
+Sử dụng ý tưởng tương tự trong đồ thị có trọng số, chúng ta có thể tính cho mỗi cặp nút (a, b) độ dài ngắn nhất của đường đi từ a đến b và chứa chính xác n
 
 cạnh. Để tính điều này, chúng ta định nghĩa nhân ma trận theo cách mới, sao cho chúng ta không tính số đường đi màtối thiểu hóa độ dài đường đi.
 
@@ -4852,9 +4844,8 @@ chúng ta có thể kết luận rằng độ dài tối thiểu của đường
 
 #### 11.3.4 Khử Gauss
 
-Khử Gauss là cách có hệ thống để giảimột nhóm phương trình tuyến tính. Ý tưởng là biểu diễn phương trình dưới dạng ma trận và sau đó áp dụng chuỗi phép toán hàng ma trận đơn giản vừa bảo toàn thông tin phương trình vừa xác định giá trị cho mỗi biến.
+Khử Gauss là cách có hệ thống để giải một nhóm phương trình tuyến tính. Ý tưởng là biểu diễn phương trình dưới dạng ma trận và sau đó áp dụng chuỗi phép toán hàng ma trận đơn giản vừa bảo toàn thông tin phương trình vừa xác định giá trị cho mỗi biến.
 
-**11.3 Ma trận 171**
 
 Giả sử rằng chúng ta được chomột nhóm n phương trình tuyến tính, mỗi phương trình chứa n biến:
 
@@ -4870,7 +4861,7 @@ Chúng ta biểu diễn phương trình dưới dạng ma trận như sau:
 
 $$\begin{bmatrix} a_{1,1} & a_{1,2} & \cdots & a_{1,n} & b_1 \\ a_{2,1} & a_{2,2} & \cdots & a_{2,n} & b_2 \\ \vdots & \vdots & \ddots & \vdots & \vdots \\ a_{n,1} & a_{n,2} & \cdots & a_{n,n} & b_n \end{bmatrix}$$
 
-Để giải phương trình,chúng ta muốn chuyển đổi ma trận thành
+Để giải phương trình, chúng ta muốn chuyển đổi ma trận thành
 
 $$\begin{bmatrix} 1 & 0 & \cdots & 0 & c_1 \\ 0 & 1 & \cdots & 0 & c_2 \\ \vdots & \vdots & \ddots & \vdots & \vdots \\ 0 & 0 & \cdots & 1 & c_n \end{bmatrix},$$
 
@@ -4894,7 +4885,7 @@ Trong trường hợp này ma trận như sau:
 
 $$\begin{bmatrix} 2 & 4 & 1 & 16 \\ 1 & 2 & 5 & 17 \\ 3 & 1 & 1 & 8 \end{bmatrix}$$
 
-Chúng ta xử lý ma trận theo cột. Tại mỗi bước,chúng ta đảm bảo rằng cột hiện tại có số một ở vị trí đúng và tất cả giá trị khác bằng 0. Để xử lý cột đầu tiên, đầu tiênchúng ta nhân hàng đầu tiên với $\frac{1}{2}$:
+Chúng ta xử lý ma trận theo cột. Tại mỗi bước, chúng ta đảm bảo rằng cột hiện tại có số một ở vị trí đúng và tất cả giá trị khác bằng 0. Để xử lý cột đầu tiên, đầu tiên chúng ta nhân hàng đầu tiên với $\frac{1}{2}$:
 
 $$\begin{bmatrix} 1 & 2 & \frac{1}{2} & 8 \\ 1 & 2 & 5 & 17 \\ 3 & 1 & 1 & 8 \end{bmatrix}$$
 
@@ -4918,12 +4909,13 @@ Bây giờ cột cuối cùng của ma trận cho chúng ta biết rằng nghi�
 
 Lưu ý rằng khử Gauss chỉ hoạt động nếumột nhóm phương trình có nghiệm *duy nhất*. Ví dụ, nhóm
 
-$$\begin{aligned}
+$$
+\begin{aligned}
  x_1 + x_2 &= 2 \\
  2x_1 + 2x_2 &= 4 
- \end{aligned}$$
+ \end{aligned}
+$$
 
-**11.3 Ma trận 173**
 
 có số lượng nghiệm vô hạn, vì cả hai phương trình chứa cùng thông tin. Mặt khác, nhóm
 
@@ -4931,21 +4923,19 @@ $$x_1 + x_2 = 5$$
 
 $x_1 + x_2 = 7$ 
 
-cannot be solved, because the equations are contradictory. If there is no unique solution, we will notice this during the algorithm, because at some point we will not be able to successfully process a column.
-
-không thể giải,vì phương trình mâu thuẫn. Nếu không có nghiệm duy nhất,chúng ta sẽnhận thấy điều này trong thuật toán,vìở một thời điểm nào đóchúng ta sẽ không thể xử lý thành công cột.
+không thể giải, vì phương trình mâu thuẫn. Nếu không có nghiệm duy nhất, chúng ta sẽnhận thấy điều này trong thuật toán, vìở một thời điểm nào đóchúng ta sẽ không thể xử lý thành công cột.
 
 ### 11.4 Xác suất
 
-*Xác suất* là số thực giữa 0 và 1 cho biết sự kiện có thể xảy ra như thế nào. Nếu sự kiện chắc chắn xảy ra, xác suất là 1, và nếu sự kiệnkhông thể, xác suất là 0. Xác suất của sự kiện được ký hiệu $P(\cdots)$ trong đó ba dấu chấmmô tả sự kiện. Ví dụ, khi tung xúc xắc, có sáu kết quả có thể $1, 2, \ldots, 6$, và P("kết quả là chẵn") = 1/2.
+*Xác suất* là số thực giữa 0 và 1 cho biết sự kiện có thể xảy ra như thế nào. Nếu sự kiện chắc chắn xảy ra, xác suất là 1, và nếu sự kiện không thể, xác suất là 0. Xác suất của sự kiện được ký hiệu $P(\cdots)$ trong đó ba dấu chấmmô tả sự kiện. Ví dụ, khi tung xúc xắc, có sáu kết quả có thể $1, 2, \ldots, 6$, và P("kết quả là chẵn") = 1/2.
 
-Để tính xác suất của sự kiện,chúng ta có thểhoặc sử dụng tổ hợp hoặc mô phỏng quá trình tạo sự kiện. Ví dụ, xem xét thí nghiệm chúng ta rút ba lá bài trên cùng từ bộ bài đã xáo trộn.<sup>2</sup> Xác suất mỗi lá bài có cùng giá trị (ví dụ, $\clubsuit 8$, $\clubsuit 8$, và $\diamondsuit 8$) là gì?
+Để tính xác suất của sự kiện, chúng ta có thểhoặc sử dụng tổ hợp hoặc mô phỏng quá trình tạo sự kiện. Ví dụ, xem xét thí nghiệm chúng ta rút ba lá bài trên cùng từ bộ bài đã xáo trộn.<sup>2</sup> Xác suất mỗi lá bài có cùng giá trị (ví dụ, $\clubsuit 8$, $\clubsuit 8$, và $\diamondsuit 8$) là gì?
 
 Một cách để tính xác suất là sử dụng công thức
 
 số kết quả mong muốn / tổng số kết quả.
 
-Trong ví dụ của chúng ta, kết quả mong muốn lànhững mà giá trị mỗi lá bài giống nhau. Có $13\binom{4}{3}$ kết quả như vậy,vì có 13 khả năng cho giá trị lá bài và $\binom{4}{3}$ cách để chọn 3 chất từ 4 chất có thể. Sau đó, có tổng cộng $\binom{52}{3}$ kết quả,vì chúng ta chọn 3 lá từ 52 lá. Do đó, xác suất sự kiện là
+Trong ví dụ của chúng ta, kết quả mong muốn lànhững mà giá trị mỗi lá bài giống nhau. Có $13\binom{4}{3}$ kết quả như vậy, vì có 13 khả năng cho giá trị lá bài và $\binom{4}{3}$ cách để chọn 3 chất từ 4 chất có thể. Sau đó, có tổng cộng $\binom{52}{3}$ kết quả, vì chúng ta chọn 3 lá từ 52 lá. Do đó, xác suất sự kiện là
 
 $$\frac{13\binom{4}{3}}{\binom{52}{3}} = \frac{1}{425}.$$
 
@@ -4971,7 +4961,7 @@ Ví dụ, khi tung xúc xắc, p(x) = 1/6 cho mỗi kết quả x, nên xác su�
 
 $$p(2) + p(4) + p(6) = 1/2.$$
 
-Vì sự kiện được biểu diễn dưới dạng tập hợp,chúng ta có thể thao tác chúng sử dụng phép toán tập hợp tiêu chuẩn:
+Vì sự kiện được biểu diễn dưới dạng tập hợp, chúng ta có thể thao tác chúng sử dụng phép toán tập hợp tiêu chuẩn:
 
 - *Bổ sung* $\bar{A}$ có nghĩa là "A không xảy ra." Ví dụ, khi tung xúc xắc, bổ sung của $A = \{2, 4, 6\}$ là $\bar{A} = \{1, 3, 5\}$.
 - *Hợp* $A \cup B$ có nghĩa là "A hoặc B xảy ra." Ví dụ, hợp của $A = \{2, 5\}$ và $B = \{4, 5, 6\}$ là $A \cup B = \{2, 4, 5, 6\}$.
@@ -4981,13 +4971,12 @@ Vì sự kiện được biểu diễn dưới dạng tập hợp,chúng ta có 
 
 $$P(\bar{A}) = 1 - P(A).$$
 
-Đôi khi,chúng ta có thể giải bài toán dễ dàng sử dụng bổ sung bằng cách giải bài toán ngược lại. Ví dụ, xác suấtđạt được ít nhất một sáu khi tung xúc xắc mười lần là
+Đôi khi, chúng ta có thể giải bài toán dễ dàng sử dụng bổ sung bằng cách giải bài toán ngược lại. Ví dụ, xác suấtđạt được ít nhất một sáu khi tung xúc xắc mười lần là
 
-$$1 - (5/6)^{10}$$.
+$$1 - (5/6)^{10}$$
 
 Ở đây 5/6 là xác suất kết quả của một lần tung không phải sáu, và $(5/6)^{10}$ là xác suất không lần nào trong mười lần tung là sáu. Bổ sung của điều này là câu trả lời cho bài toán.
 
-**11.4 Xác suất 175**
 
 **Hợp** Xác suất của $A \cup B$ được tính sử dụng công thức
 
@@ -5003,7 +4992,7 @@ $$P(A \cup B) = P(A) + P(B).$$
 
 **Giao** Xác suất của $A \cap B$ có thể được tính sử dụng công thức
 
-$$P(A \cap B) = P(A)P(B|A)$$.
+$$P(A \cap B) = P(A)P(B|A)$$
 
 trong đó P(B|A) là *xác suất có điều kiện* B xảy ra giả sử rằng chúng ta biết A xảy ra. Ví dụ, sử dụng sự kiện của ví dụ trước, P(B|A) = 1/3,vì chúng ta biết rằng kết quả thuộc tập hợp $\{2, 4, 6\}$, và một trong các kết quả nhỏ hơn 4. Do đó,
 
@@ -5016,13 +5005,13 @@ và $P(B|A) = P(B)$,
 
 có nghĩa là thực tế B xảy ra không thay đổi xác suất của A, và ngược lại. Trong trường hợp này, xác suất giao là
 
-$$P(A \cap B) = P(A)P(B)$$.
+$$P(A \cap B) = P(A)P(B)$$
 
 #### 11.4.2 Biến ngẫu nhiên
 
 *Biến ngẫu nhiên* là giá trị được tạo ra bởi quá trình ngẫu nhiên. Ví dụ, khi tung hai xúc xắc, biến ngẫu nhiên có thể là
 
-$$X =$$ "tổng các kết quả".
+$X =$ "tổng các kết quả".
 
 Ví dụ, nếu kết quả là [4, 6] (có nghĩa là đầu tiên chúng ta tung bốn và sau đó sáu), thì giá trị của X là 10.
 
@@ -5042,7 +5031,7 @@ trong đó x đi qua tất cả giá trị có thể của X.
 
 Ví dụ, khi tung xúc xắc, kết quả kỳ vọng là
 
-$$1/6 \cdot 1 + 1/6 \cdot 2 + 1/6 \cdot 3 + 1/6 \cdot 4 + 1/6 \cdot 5 + 1/6 \cdot 6 = 7/2$$.
+$$1/6 \cdot 1 + 1/6 \cdot 2 + 1/6 \cdot 3 + 1/6 \cdot 4 + 1/6 \cdot 5 + 1/6 \cdot 6 = 7/2$$
 
 Tính chất hữu ích của giá trị kỳ vọng là *tuyến tính*. Điều này có nghĩa là tổng $E[X_1 + X_2 + \cdots + X_n]$ luôn bằng tổng $E[X_1] + E[X_2] + \cdots + E[X_n]$. Điều này đúng ngay cả khi biến ngẫu nhiên phụ thuộc lẫn nhau. Ví dụ, khi tung hai xúc xắc, tổng giá trị kỳ vọng là
 
@@ -5060,13 +5049,14 @@ $$\left(\frac{n-1}{n}\right)^n$$
 
 vì không quả bóng nàonên được đặt vào nó. Do đó, sử dụng tính tuyến tính, số hộp trống kỳ vọng là
 
-$$n \cdot \left(\frac{n-1}{n}\right)^n$$.
+$$n \cdot \left(\frac{n-1}{n}\right)^n$$
 
-**11.4 Xác suất 177**
 
 **Phân phối** *Phân phối* của biến ngẫu nhiên X cho thấy xác suất của mỗi giá trị mà X có thể có. Phân phối gồm các giá trị P(X = x). Ví dụ, khi tung hai xúc xắc, phân phối cho tổng là:
 
-$$\begin{array}{c|ccccccccccccccccccccccccccccccccccc$$
+| Tổng $x$ | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| $P(X = x)$ | $1/36$ | $2/36$ | $3/36$ | $4/36$ | $5/36$ | $6/36$ | $5/36$ | $4/36$ | $3/36$ | $2/36$ | $1/36$ |
 
 Trong *phân phối đều*, biến ngẫu nhiên X có n giá trị có thể $a, a + 1, \ldots, b$ và xác suất của mỗi giá trị là 1/n. Ví dụ, khi tung xúc xắc, a = 1, b = 6, và P(X = x) = 1/6 cho mỗi giá trị x.
 
@@ -5084,7 +5074,7 @@ Ví dụ, khi tung xúc xắc mười lần, xác suất tung sáu đúng ba l�
 
 Giá trị kỳ vọng của X trong phân phối nhị thức là
 
-$$E[X] = pn$$.
+$$E[X] = pn$$
 
 Trong *phân phối hình học*, xác suất một lần thử thành công là p, và chúng ta tiếp tục cho đến khi lần thành công đầu tiên xảy ra. Biến ngẫu nhiên X đếm số lần thử cần thiết, và xác suất của giá trị x là
 
@@ -5092,7 +5082,7 @@ $$P(X = x) = (1 - p)^{x-1}p,$$
 
 trong đó $(1 - p)^{x-1}$ tương ứng với các lần thử không thành công và p tương ứng với lần thử thành công đầu tiên.
 
-Ví dụ,nếu chúng ta tung xúc xắc cho đến khiđạt được sáu, xác suất số lần tung chính xác 4 là $(5/6)^3 \cdot 1/6$.
+Ví dụ, nếu chúng ta tung xúc xắc cho đến khiđạt được sáu, xác suất số lần tung chính xác 4 là $(5/6)^3 \cdot 1/6$.
 
 Giá trị kỳ vọng của *X* trong phân phối hình học là
 
@@ -5106,29 +5096,28 @@ $$E[X] = \frac{1}{p}.$$
 
 *Chuỗi Markov* là quá trình ngẫu nhiên gồm các trạng thái và chuyển đổi giữa chúng. Đối với mỗi trạng thái, chúng ta biết xác suất di chuyển đến trạng thái khác. Chuỗi Markov có thể được biểu diễn dưới dạng đồ thị mà nút tương ứng với trạng thái và cạnhmô tả các chuyển đổi.
 
-Ví dụ, xem xét bài toán mà chúng ta ở tầng 1 trong tòa nhà n tầng. Tại mỗi bước,chúng tangẫu nhiên đi bộhoặc lên một tầng hoặc xuống một tầng, trừ rằng chúng ta luôn đi lên một tầng từ tầng 1 và đi xuống một tầng từ tầng n. Xác suất ở tầng m sau k bước là gì?
+Ví dụ, xem xét bài toán mà chúng ta ở tầng 1 trong tòa nhà n tầng. Tại mỗi bước, chúng tangẫu nhiên đi bộhoặc lên một tầng hoặc xuống một tầng, trừ rằng chúng ta luôn đi lên một tầng từ tầng 1 và đi xuống một tầng từ tầng n. Xác suất ở tầng m sau k bước là gì?
 
 Trong bài toán này, mỗi tầng của tòa nhà tương ứng với trạng thái trong chuỗi Markov. Ví dụ, Hình 11.18 cho thấy chuỗi khi n = 5.
 
 Phân phối xác suất của chuỗi Markov là vector $[p_1, p_2, ..., p_n]$, trong đó $p_k$ là xác suất trạng thái hiện tại là k. Công thức $p_1 + p_2 + \cdots + p_n = 1$ luôn đúng.
 
-Trong kịch bản trên, phân phối ban đầu là [1, 0, 0, 0, 0],vì chúng ta luôn bắt đầu ở tầng 1. Phân phối tiếp theo là [0, 1, 0, 0, 0],vì chúng ta chỉ có thể di chuyển từ tầng 1 đến tầng 2. Sau đó,chúng ta có thểhoặc đi lên một tầng hoặc đi xuống một tầng, nên phân phối tiếp theo là [1/2, 0, 1/2, 0, 0], và cứ thế.
+Trong kịch bản trên, phân phối ban đầu là [1, 0, 0, 0, 0],vì chúng ta luôn bắt đầu ở tầng 1. Phân phối tiếp theo là [0, 1, 0, 0, 0],vì chúng ta chỉ có thể di chuyển từ tầng 1 đến tầng 2. Sau đó, chúng ta có thểhoặc đi lên một tầng hoặc đi xuống một tầng, nên phân phối tiếp theo là [1/2, 0, 1/2, 0, 0], và cứ thế.
 
-Cách hiệu quả để mô phỏng đi bộ trong chuỗi Markov là sử dụng quy hoạch động. Ý tưởng là duy trì phân phối xác suất, và tại mỗi bước đi qua tất cả khả năngchúng ta có thể di chuyển. Sử dụng phương pháp này,chúng ta có thể mô phỏng đi bộ m bước trong $O(n^2m)$ thời gian.
+Cách hiệu quả để mô phỏng đi bộ trong chuỗi Markov là sử dụng quy hoạch động. Ý tưởng là duy trì phân phối xác suất, và tại mỗi bước đi qua tất cả khả năng chúng ta có thể di chuyển. Sử dụng phương pháp này, chúng ta có thể mô phỏng đi bộ m bước trong $O(n^2m)$ thời gian.
 
 Các chuyển đổi của chuỗi Markov cũng có thể được biểu diễn dưới dạng ma trận cập nhật phân phối xác suất. Trong kịch bản trên, ma trận là
 
 $$\begin{bmatrix} 0 & 1/2 & 0 & 0 & 0 \\ 1 & 0 & 1/2 & 0 & 0 \\ 0 & 1/2 & 0 & 1/2 & 0 \\ 0 & 0 & 1/2 & 0 & 1 \\ 0 & 0 & 0 & 1/2 & 0 \end{bmatrix}.$$
 
-Khi chúng ta nhân phân phối xác suất với ma trận này, chúng ta có được phân phối mới sau một bước di chuyển. Ví dụ,chúng ta có thể di chuyển từ phân phối
+Khi chúng ta nhân phân phối xác suất với ma trận này, chúng ta có được phân phối mới sau một bước di chuyển. Ví dụ, chúng ta có thể di chuyển từ phân phối
 
-**11.4 Xác suất 179**
 
 [1, 0, 0, 0, 0] đến phân phối [0, 1, 0, 0, 0] như sau:
 
 $$\begin{bmatrix} 0 & 1/2 & 0 & 0 & 0 \\ 1 & 0 & 1/2 & 0 & 0 \\ 0 & 1/2 & 0 & 1/2 & 0 \\ 0 & 0 & 1/2 & 0 & 1 \\ 0 & 0 & 0 & 1/2 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}.$$
 
-Bằng cách tính lũy thừa ma trận hiệu quả,chúng ta có thể tính phân phối sau m bước trong $O(n^3 \log m)$ thời gian.
+Bằng cách tính lũy thừa ma trận hiệu quả, chúng ta có thể tính phân phối sau m bước trong $O(n^3 \log m)$ thời gian.
 
 #### 11.4.4 Thuật toán Ngẫu nhiên
 
@@ -5145,23 +5134,23 @@ Hóa ra chúng ta có thể tìm thống kê thứ tự sử dụng thuật toá
 
 Giả sử phần trái chứa a phần tử và phần phải chứa b phần tử. Nếu a = k, phần tử x là thống kê thứ tự k. Nếu không, nếu a > k, chúng ta đệ quy tìm thống kê thứ tự k cho phần trái, và nếu a < k, chúng ta đệ quy tìm thống kê thứ tự r cho phần phải trong đó r = k - a - 1. Tìm kiếm tiếp tục theo cách tương tự, cho đến khi phần tử mong muốn được tìm thấy.
 
-Khi mỗi phần tử x được chọn ngẫu nhiên, kích thước mảngkhoảng chia đôi tại mỗi bước, nên độ phức tạp thời gian để tìm thống kê thứ tự kkhoảng là
+Khi mỗi phần tử x được chọn ngẫu nhiên, kích thước mảng khoảng chia đôi tại mỗi bước, nên độ phức tạp thời gian để tìm thống kê thứ tự kkhoảng là
 
-$$n + n/2 + n/4 + n/8 + \cdots = O(n)$$.
+$$n + n/2 + n/4 + n/8 + \cdots = O(n)$$
 
 **Hình 11.19** Tô màu hợp lệ của đồ thị
 
 ![](images/_page_186_Figure_2.jpeg)
 
-Lưu ý rằng trường hợp xấu nhất của thuật toán yêu cầu $O(n^2)$ thời gian,vì có thể x luôn được chọn sao cho nó là một trong những phần tử nhỏ nhất hoặc lớn nhất trong mảng và O(n) bước cần thiết. Tuy nhiên, xác suất điều nàyrất nhỏđến mức chúng ta có thể giả sử rằng điều này không bao giờ xảy ra trong thực tế.
+Lưu ý rằng trường hợp xấu nhất của thuật toán yêu cầu $O(n^2)$ thời gian, vì có thể x luôn được chọn sao cho nó là một trong những phần tử nhỏ nhất hoặc lớn nhất trong mảng và O(n) bước cần thiết. Tuy nhiên, xác suất điều nàyrất nhỏđến mức chúng ta có thể giả sử rằng điều này không bao giờ xảy ra trong thực tế.
 
-**Xác minh Nhân Ma trận** Cho ma trận A, B, và C, mỗi ma trận kích thước $n \times n$, bài toán tiếp theo của chúng ta là *xác minh* xem AB = C có đúng không. Tất nhiên, chúng ta có thể giải bài toán bằng cách chỉ tính tích AB trong $O(n^3)$ thời gian, nhưngmọi người có thể hy vọng rằng xác minh câu trả lời sẽ dễ hơn so với tính từ đầu.
+**Xác minh Nhân Ma trận** Cho ma trận A, B, và C, mỗi ma trận kích thước $n \times n$, bài toán tiếp theo của chúng ta là *xác minh* xem AB = C có đúng không. Tất nhiên, chúng ta có thể giải bài toán bằng cách chỉ tính tích AB trong $O(n^3)$ thời gian, nhưng mọi người có thể hy vọng rằng xác minh câu trả lời sẽ dễ hơn so với tính từ đầu.
 
 Hóa ra chúng ta có thể giải bài toán sử dụng thuật toán Monte Carlo mà độ phức tạp thời gian chỉ là $O(n^2)$. Ý tưởng đơn giản: chúng ta chọn vector ngẫu nhiên X gồm n phần tử và tính ma trận ABX và CX. Nếu ABX = CX, chúng ta báo cáo rằng AB = C, và nếu không chúng ta báo cáo rằng $AB \neq C$.
 
 Độ phức tạp thời gian của thuật toán là $O(n^2)$,vì chúng ta có thể tính ma trận ABX và CX trong $O(n^2)$ thời gian. Chúng ta có thể tính ma trận ABX hiệu quả bằng cách sử dụng biểu diễn A(BX), nên chỉ hai phép nhân ma trận kích thước $n \times n$ và $n \times 1$ cần thiết.
 
-Nhược điểm của thuật toán là có cơ hội nhỏ rằng thuật toánphạm lỗi khi nó báo cáo rằng AB = C. Ví dụ,
+Nhược điểm của thuật toán là có cơ hội nhỏ rằng thuật toán phạm lỗi khi nó báo cáo rằng AB = C. Ví dụ,
 
 $$\begin{bmatrix} 6 & 8 \\ 1 & 3 \end{bmatrix} \neq \begin{bmatrix} 8 & 7 \\ 3 & 2 \end{bmatrix},$$
 
@@ -5169,13 +5158,12 @@ nhưng
 
 $$\begin{bmatrix} 6 & 8 \\ 1 & 3 \end{bmatrix} \begin{bmatrix} 3 \\ 6 \end{bmatrix} = \begin{bmatrix} 8 & 7 \\ 3 & 2 \end{bmatrix} \begin{bmatrix} 3 \\ 6 \end{bmatrix}.$$
 
-Tuy nhiên, trong thực tế, xác suất thuật toánphạm lỗi rất nhỏ, vàchúng ta có thể giảm xác suất bằng cách xác minh kết quả sử dụngnhiều vector ngẫu nhiên X trước khi báo cáo rằng AB = C.
+Tuy nhiên, trong thực tế, xác suất thuật toán phạm lỗi rất nhỏ, vàchúng ta có thể giảm xác suất bằng cách xác minh kết quả sử dụng nhiều vector ngẫu nhiên X trước khi báo cáo rằng AB = C.
 
 **Tô màu Đồ thị** Cho một đồ thị chứa n nút và m cạnh, bài toán cuối cùng của chúng ta là tìm cách tô màu các nút bằng hai màu sao cho ít nhất m/2 cạnh có các điểm cuối khác màu. Ví dụ, Hình 11.19 cho thấy một cách tô màu hợp lệ của đồ thị. Trong trường hợp này, đồ thị chứa bảy cạnh, và các điểm cuối của năm cạnh có màu khác nhau.
 
 Bài toán có thể được giải sử dụng thuật toán Las Vegas tạo ra các cách tô màu ngẫu nhiên cho đến khi cách tô màu hợp lệ được tìm thấy. Trong cách tô màu ngẫu nhiên, màu của mỗi nút được chọn độc lập sao cho xác suất cả hai màu là 1/2. Do đó, số cạnh kỳ vọng mà các điểm cuối có màu khác nhau là m/2.
 
-**11.4 Xác suất 181**
 
 Vì dự kiến rằng cách tô màu ngẫu nhiên là hợp lệ, chúng ta sẽ nhanh chóng tìm thấy cách tô màu hợp lệ trong thực tế.
 
@@ -5183,7 +5171,7 @@ Vì dự kiến rằng cách tô màu ngẫu nhiên là hợp lệ, chúng ta s�
 
 Trong phần này, chúng ta tập trung vào trò chơi hai người chơi mà người chơi di chuyển xen kẽ và có cùng tập hợp nước đi có sẵn, và không có yếu tố ngẫu nhiên. Mục tiêu của chúng ta là tìm chiến lược mà chúng ta có thể theo để thắng trò chơi bất kể đối thủ làm gì, nếu chiến lược như vậy tồn tại.
 
-Hóa ra có chiến lược tổng quát cho các trò chơi như vậy, và chúng ta có thể phân tích trò chơi sử dụng *lý thuyết nim*. Đầu tiên, chúng ta sẽ phân tích trò chơi đơn giản mà người chơi loại bỏ gậy khỏi đống, và sau đó,chúng ta sẽ tổng quát hóa chiến lược sử dụng trong các trò chơi đó cho trò chơi khác.
+Hóa ra có chiến lược tổng quát cho các trò chơi như vậy, và chúng ta có thể phân tích trò chơi sử dụng *lý thuyết nim*. Đầu tiên, chúng ta sẽ phân tích trò chơi đơn giản mà người chơi loại bỏ gậy khỏi đống, và sau đó, chúng ta sẽ tổng quát hóa chiến lược sử dụng trong các trò chơi đó cho trò chơi khác.
 
 #### 11.5.1 Trạng thái Trò chơi
 
@@ -5199,11 +5187,11 @@ Ví dụ, nếu n = 10, trò chơi có thể tiến hành như sau:
 
 Trò chơi này gồm các trạng thái $0, 1, 2, \ldots, n$, trong đó số trạng thái tương ứng với số gậy còn lại.
 
-Trạng thái thắng là trạng thái mà người chơi sẽ thắng trò chơi nếu họ chơi tối ưu, và *trạng thái thua* là trạng thái mà người chơi sẽ thua trò chơi nếu đối thủ chơi tối ưu. Hóa ra chúng ta có thể phân loại tất cả trạng thái của trò chơi sao cho mỗi trạng tháihoặc là trạng thái thắng hoặc trạng thái thua.
+Trạng thái thắng là trạng thái mà người chơi sẽ thắng trò chơi nếu họ chơi tối ưu, và *trạng thái thua* là trạng thái mà người chơi sẽ thua trò chơi nếu đối thủ chơi tối ưu. Hóa ra chúng ta có thể phân loại tất cả trạng thái của trò chơi sao cho mỗi trạng thái hoặc là trạng thái thắng hoặc trạng thái thua.
 
 Trong trò chơi trên, trạng thái 0 rõ ràng là trạng thái thua, vì người chơi không thể thực hiện nước đi nào. Trạng thái 1, 2, và 3 là trạng thái thắng, vì người chơi có thể loại bỏ 1, 2, hoặc 3 gậy và thắng trò chơi. Trạng thái 4, lần lượt, là trạng thái thua, vì bất kỳ nước đi nào dẫn đến trạng thái thắng cho đối thủ.
 
-Tổng quát hơn, nếu có nước đi dẫn từ trạng thái hiện tại đến trạng thái thua, nó là trạng thái thắng, và nếu không nó là trạng thái thua. Sử dụng quan sát này,chúng ta có thể phân loại tất cả trạng thái của trò chơi bắt đầu với trạng thái thua mà không có nước đi có thể. Hình 11.20 cho thấy phân loại trạng thái $0 \dots 15$ (W biểu thị trạng thái thắng và L biểu thị trạng thái thua).
+Tổng quát hơn, nếu có nước đi dẫn từ trạng thái hiện tại đến trạng thái thua, nó là trạng thái thắng, và nếu không nó là trạng thái thua. Sử dụng quan sát này, chúng ta có thể phân loại tất cả trạng thái của trò chơi bắt đầu với trạng thái thua mà không có nước đi có thể. Hình 11.20 cho thấy phân loại trạng thái $0 \dots 15$ (W biểu thị trạng thái thắng và L biểu thị trạng thái thua).
 
 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 |
 |---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|
@@ -5233,7 +5221,6 @@ Trạng thái cuối cùng trong trò chơi này luôn là trạng thái 1, là 
 
 Có n đống trong nim, và mỗi đống chứa một số gậy. Người chơi di chuyển xen kẽ, và trên mỗi lượt, người chơi chọn đống vẫn còn chứa gậy và loại bỏ bất kỳ số lượng gậy nào khỏi nó. Người thắng là người chơi loại bỏ gậy cuối cùng.
 
-**11.5 Lý thuyết Trò chơi 183**
 
 Các trạng thái trong nim có dạng $[x_1, x_2, ..., x_n]$, trong đó $x_i$ biểu thị số gậy trong đống i. Ví dụ, [10, 12, 5] là trạng thái mà có ba đống với 10, 12, và 5 gậy. Trạng thái [0, 0, ..., 0] là trạng thái thua, vì không thể loại bỏ gậy nào, và đây luôn là trạng thái cuối cùng.
 
@@ -5243,7 +5230,7 @@ Nhưng tổng nim liên quan đến trò chơi nim như thế nào? Chúng ta c�
 
 Trạng thái thua: Trạng thái cuối cùng [0, 0, ..., 0] là trạng thái thua, và tổng nim là 0, như expected. Trong các trạng thái thua khác, bất kỳ nước đi nào dẫn đến trạng thái thắng, vì khi một giá trị $x_i$ thay đổi, tổng nim cũng thay đổi, nên tổng nim khác 0 sau nước đi.
 
-Trạng thái thắng: Chúng ta có thể di chuyển đến trạng thái thua nếu có bất kỳ đống i nào mà $x_i \oplus s < x_i$. Trong trường hợp này,chúng ta có thể loại bỏ gậy khỏi đống i sao cho nó sẽ chứa $x_i \oplus s$ gậy, sẽ dẫn đến trạng thái thua. Luôn có đống như vậy, mà $x_i$ có bit 1 tại vị trí bit 1 ngoài cùng bên trái của s.
+Trạng thái thắng: Chúng ta có thể di chuyển đến trạng thái thua nếu có bất kỳ đống i nào mà $x_i \oplus s < x_i$. Trong trường hợp này, chúng ta có thể loại bỏ gậy khỏi đống i sao cho nó sẽ chứa $x_i \oplus s$ gậy, sẽ dẫn đến trạng thái thua. Luôn có đống như vậy, mà $x_i$ có bit 1 tại vị trí bit 1 ngoài cùng bên trái của s.
 
 **Ví dụ** Ví dụ, xem xét trạng thái [10, 12, 5]. Trạng thái này là trạng thái thắng, vì tổng nim là 3. Do đó, phải có nước đi dẫn đến trạng thái thua. Tiếp theo chúng ta sẽ tìm hiểu nước đi như vậy.
 
@@ -5267,13 +5254,13 @@ Kích thước mới của đống phải là $10 \oplus 3 = 9$, nên chúng ta 
 
 ![](images/_page_190_Figure_2.jpeg)
 
-Ý tưởng là đầu tiên chơi trò chơi misère giống trò chơi tiêu chuẩn, nhưng thay đổi chiến lược ở cuối trò chơi. Chiến lược mới sẽ được giới thiệu trong tình huống mà mỗi đống sẽ chứanhiều nhất một gậy sau nước đi tiếp theo. Trong trò chơi tiêu chuẩn,chúng ta nên chọn nước đi sau đó có số đống chẵn với một gậy. Tuy nhiên, trong trò chơi misère, chúng ta chọn nước đi sao cho có số đống lẻ với một gậy.
+Ý tưởng là đầu tiên chơi trò chơi misère giống trò chơi tiêu chuẩn, nhưng thay đổi chiến lược ở cuối trò chơi. Chiến lược mới sẽ được giới thiệu trong tình huống mà mỗi đống sẽ chứa nhiều nhất một gậy sau nước đi tiếp theo. Trong trò chơi tiêu chuẩn, chúng ta nên chọn nước đi sau đó có số đống chẵn với một gậy. Tuy nhiên, trong trò chơi misère, chúng ta chọn nước đi sao cho có số đống lẻ với một gậy.
 
-Chiến lược này hoạt động vì trạng thái mà chiến lược thay đổi luôn xuất hiện trong trò chơi, và trạng thái này là trạng thái thắng,vì nó chứa đúng một đống có nhiều hơn một gậy nên tổng nim không phải 0.
+Chiến lược này hoạt động vì trạng thái mà chiến lược thay đổi luôn xuất hiện trong trò chơi, và trạng thái này là trạng thái thắng, vì nó chứa đúng một đống có nhiều hơn một gậy nên tổng nim không phải 0.
 
 #### 11.5.3 Định lý Sprague-Grundy
 
-*Định lý Sprague-Grundy* tổng quát hóa chiến lược sử dụng trong nim cho tất cả trò chơithỏa mãn các yêu cầu sau:
+*Định lý Sprague-Grundy* tổng quát hóa chiến lược sử dụng trong nim cho tất cả trò chơi thỏa mãn các yêu cầu sau:
 
 - Có hai người chơi di chuyển xen kẽ.
 - Trò chơi gồm trạng thái, và các nước đi có thể trong trạng thái không phụ thuộc vào lượt của ai.
@@ -5281,18 +5268,17 @@ Chiến lược này hoạt động vì trạng thái mà chiến lược thay �
 - Trò chơi chắc chắn kết thúc sớm hay muộn.
 - Người chơi có thông tin hoàn chỉnh về trạng thái và nước đi được phép, và không có tính ngẫu nhiên trong trò chơi.
 
-**Số Grundy** Ý tưởng là tính cho mỗi trạng thái trò chơi *số Grundy* tương ứng với số gậy trong đống nim. Khi chúng ta biết số Grundy của tất cả trạng thái,chúng ta có thể chơi trò chơi giống trò chơi nim.
+**Số Grundy** Ý tưởng là tính cho mỗi trạng thái trò chơi *số Grundy* tương ứng với số gậy trong đống nim. Khi chúng ta biết số Grundy của tất cả trạng thái, chúng ta có thể chơi trò chơi giống trò chơi nim.
 
 Số Grundy của trạng thái trò chơi được tính sử dụng công thức
 
 $$mex(\{g_1, g_2, \ldots, g_n\}),$$
 
-trong đó $g_1, g_2, \ldots, g_n$ là số Grundy của trạng thái màchúng ta có thể di chuyển từ trạng thái, và hàm mex cho biết số không âm nhỏ nhất không có trong tập hợp. Ví dụ, $mex(\{0, 1, 3\}) = 2$. Nếu trạng thái không có nước đi có thể, số Grundy là 0, vì $mex(\emptyset) = 0$.
+trong đó $g_1, g_2, \ldots, g_n$ là số Grundy của trạng thái mà chúng ta có thể di chuyển từ trạng thái, và hàm mex cho biết số không âm nhỏ nhất không có trong tập hợp. Ví dụ, $mex(\{0, 1, 3\}) = 2$. Nếu trạng thái không có nước đi có thể, số Grundy là 0, vì $mex(\emptyset) = 0$.
 
 Ví dụ, Hình 11.23 cho thấy đồ thị trạng thái của trò chơi mà mỗi trạng thái được gán số Grundy. Số Grundy của trạng thái thua là 0, và số Grundy của trạng thái thắng là số dương.
 
 
-**11.5 Lý thuyết Trò chơi 185**
 
 **Hình 11.24** Các nước đi có thể trên lượt đầu tiên
 
@@ -5346,7 +5332,6 @@ $g(3) = 1$
 
 $g(4) = 0$
 
-**11.5 Lý thuyết Trò chơi 187**
 
 $$g(5) = 2$$
 
@@ -5364,9 +5349,9 @@ Chương này thảo luận một lựa chọn các thuật toán đồ thị n�
 
 Phần 12.1 trình bày thuật toán tìm các thành phần liên thông mạnh của đồ thị. Sau đó, chúng ta sẽ học cách giải hiệu quả bài toán 2SAT sử dụng thuật toán.
 
-Phần 12.2 tập trung vào đường đi Euler và Hamilton. Đường đi Euler đi qua mỗi cạnh của đồ thị chính xác một lần, và đường đi Hamilton thăm mỗi nút chính xác một lần. Trong khi các khái niệmtrông khátương tự ở cái nhìn đầu tiên, các bài toán tính toán liên quan đến chúng rất khác nhau.
+Phần 12.2 tập trung vào đường đi Euler và Hamilton. Đường đi Euler đi qua mỗi cạnh của đồ thị chính xác một lần, và đường đi Hamilton thăm mỗi nút chính xác một lần. Trong khi các khái niệm trông khá tương tự ở cái nhìn đầu tiên, các bài toán tính toán liên quan đến chúng rất khác nhau.
 
-Phần 12.3 đầu tiên cho thấy cách chúng ta có thể xác định luồng cực đại từ nguồn đến đích trong đồ thị. Sau đó,chúng ta sẽ thấy cách giảm several bài toán đồ thị khác sang bài toán luồng cực đại.
+Phần 12.3 đầu tiên cho thấy cách chúng ta có thể xác định luồng cực đại từ nguồn đến đích trong đồ thị. Sau đó, chúng ta sẽ thấy cách giảm một số bài toán đồ thị khác sang bài toán luồng cực đại.
 
 Phần 12.4 thảo luận tính chất của DFS và bài toán liên quan đến đồ thị liên thông kép.
 
@@ -5405,13 +5390,13 @@ Giai đoạn thứ hai của thuật toán Kosaraju tạo thành các thành ph�
 
 Sau đó, thuật toán đi qua danh sách nút được tạo bởi tìm kiếm đầu tiên, theo thứ tự *đảo ngược*. Nếu nút chưa thuộc thành phần nào, thuật toán tạo thành phần mới bằng cách bắt đầu DFS thêm tất cả nút mới tìm thấy trong quá trình tìm kiếm vào thành phần mới. Lưu ý rằng vì tất cả cạnh bị đảo ngược, các thành phần không "rò rỉ" sang phần khác của đồ thị.
 
-Hình 12.5 cho thấy cách thuật toán xử lý đồ thị ví dụ. Thứ tự xử lý của nút là [3, 7, 6, 1, 2, 5, 4]. Đầu tiên, nút 3 tạo thành phần $\{3, 6, 7\}$. Sau đó, nút 7 và 6 bị bỏ qua,vì chúng ta đã thuộc thành phần nào. Sau đó, nút 1 tạo thành phần $\{1, 2\}$, và nút 2 bị bỏ qua. Cuối cùng, nút 5 và 4 tạo thành phần $\{5\}$ và $\{4\}$.
+Hình 12.5 cho thấy cách thuật toán xử lý đồ thị ví dụ. Thứ tự xử lý của nút là [3, 7, 6, 1, 2, 5, 4]. Đầu tiên, nút 3 tạo thành phần $\{3, 6, 7\}$. Sau đó, nút 7 và 6 bị bỏ qua, vì chúng ta đã thuộc thành phần nào. Sau đó, nút 1 tạo thành phần $\{1, 2\}$, và nút 2 bị bỏ qua. Cuối cùng, nút 5 và 4 tạo thành phần $\{5\}$ và $\{4\}$.
 
 Độ phức tạp thời gian của thuật toán là O(n+m), vì thuật toán thực hiện hai lần DFS.
 
 #### 12.1.2 Bài toán 2SAT
 
-In the 2SAT problem, we are given a logical formula
+Trong bài toán 2SAT, ta được cho một công thức logic
 
 $$(a_1 \vee b_1) \wedge (a_2 \vee b_2) \wedge \cdots \wedge (a_m \vee b_m),$$
 
@@ -5429,11 +5414,11 @@ Tuy nhiên, công thức
 
 $$L_2 = (x_1 \lor x_2) \land (x_1 \lor \neg x_2) \land (\neg x_1 \lor x_3) \land (\neg x_1 \lor \neg x_3)$$
 
-luôn sai, bất kể chúng ta gán giá trị như thế nào. Lý do cho điều này là chúng ta không thể chọn giá trị cho $x_1$ mà không tạo ra mâu thuẫn. Nếu $x_1$ là false, cả $x_2$ và $\neg x_2$đều nên đúng điều nàykhông thể, và nếu $x_1$ là true, cả $x_3$ và $\neg x_3$đều nên đúng điều này cũngkhông thể.
+luôn sai, bất kể chúng ta gán giá trị như thế nào. Lý do cho điều này là chúng ta không thể chọn giá trị cho $x_1$ mà không tạo ra mâu thuẫn. Nếu $x_1$ là false, cả $x_2$ và $\neg x_2$đều nên đúng điều này không thể, và nếu $x_1$ là true, cả $x_3$ và $\neg x_3$đều nên đúng điều này cũng không thể.
 
 Instance của bài toán 2SAT có thể được biểu diễn dưới dạng *đồ thị hàm ý* mà nút tương ứng với biến $x_i$ và phủ định $\neg x_i$, và cạnh xác định kết nối giữa các biến. Mỗi cặp $(a_i \lor b_i)$ tạo ra hai cạnh: $\neg a_i \to b_i$ và $\neg b_i \to a_i$. Điều này có nghĩa là nếu $a_i$ không giữ, $b_i$ phải giữ, và ngược lại. Ví dụ, Hình 12.6 cho thấy đồ thị hàm ý của $L_1$, và Hình 12.7 cho thấy đồ thị hàm ý của $L_2$.
 
-Cấu trúc của đồ thị hàm ý cho chúng ta biết whether có thể gán giá trị biến sao cho công thức đúng. Điều này có thể được thực hiện chính xác khi không có nút $x_i$ và $\neg x_i$ mà cả hai nút thuộc cùng thành phần liên thông
+Cấu trúc của đồ thị hàm ý cho chúng ta biết liệu có thể gán giá trị biến sao cho công thức đúng. Điều này có thể được thực hiện chính xác khi không có nút $x_i$ và $\neg x_i$ mà cả hai nút thuộc cùng thành phần liên thông
 
 **Hình 12.6** Đồ thị hàm ý của $L_1$
 
@@ -5447,7 +5432,7 @@ Cấu trúc của đồ thị hàm ý cho chúng ta biết whether có thể gá
 
 mạnh. Nếu có nút như vậy, đồ thị chứa đường đi từ $x_i$ đến $\neg x_i$ và cũng đường đi từ $\neg x_i$ đến $x_i$, nên cả $x_i$ và $\neg x_i$đều nên đúng điều này không thể. Ví dụ, đồ thị hàm ý của $L_1$ không có nút $x_i$ và $\neg x_i$ mà cả hai nút thuộc cùng thành phần liên thông mạnh, nên có nghiệm. Sau đó, trong đồ thị hàm ý của $L_2$ tất cả nút thuộc cùng thành phần liên thông mạnh, nên không có nghiệm.
 
-Nếu nghiệm tồn tại, giá trị cho biến có thể được tìm thấy bằng cách đi qua nút của đồ thị thành phần theo thứ tự sắp xếp tô-pô đảo ngược. Tại mỗi bước, chúng ta xử lý thành phần không chứa cạnh dẫn đến thành phần chưa được xử lý. Nếu biến trong thành phần chưa được gán giá trị, giá trị sẽ được xác định theo giá trị trong thành phần, và nếu chúng đã có giá trị, giá trịgiữ nguyên nguyên. Quá trình tiếp tục cho đến khi mỗi biến được gán giá trị.
+Nếu nghiệm tồn tại, giá trị cho biến có thể được tìm thấy bằng cách đi qua nút của đồ thị thành phần theo thứ tự sắp xếp tô-pô đảo ngược. Tại mỗi bước, chúng ta xử lý thành phần không chứa cạnh dẫn đến thành phần chưa được xử lý. Nếu biến trong thành phần chưa được gán giá trị, giá trị sẽ được xác định theo giá trị trong thành phần, và nếu chúng đã có giá trị, giá trịgiữ nguyên. Quá trình tiếp tục cho đến khi mỗi biến được gán giá trị.
 
 Hình 12.8 cho thấy đồ thị thành phần của $L_1$. Các thành phần là $A = \{\neg x_4\}$, $B = \{x_1, x_2, \neg x_3\}$, $C = \{\neg x_1, \neg x_2, x_3\}$, và $D = \{x_4\}$. Khi xây dựng nghiệm, đầu tiên chúng ta xử lý thành phần D mà $x_4$ trở thành true. Sau đó, chúng ta xử lý thành phần C mà $x_1$ và $x_2$ trở thành false và $x_3$ trở thành true. Tất cả biến đã được gán giá trị, nên các thành phần còn lại A và B không thay đổi giá trị biến.
 
@@ -5457,7 +5442,7 @@ Bài toán khó hơn là *bài toán 3SAT*, trong đó mỗi phần của công 
 
 ### 12.2 Đường đi Hamilton
 
-Trong phần này chúng ta thảo luận hai loại đường đi đặc biệt trong đồ thị: đường đi Euler là đường đi đi qua mỗi cạnh chính xác một lần, và đường đi Hamilton là đường đi thăm mỗi nút chính xác một lần. Trong khi các đường đitrông khátương tự ở cái nhìn đầu tiên, các bài toán tính toán liên quan đến chúng rất khác nhau.
+Trong phần này chúng ta thảo luận hai loại đường đi đặc biệt trong đồ thị: đường đi Euler là đường đi đi qua mỗi cạnh chính xác một lần, và đường đi Hamilton là đường đi thăm mỗi nút chính xác một lần. Trong khi các đường đitrông khá tương tự ở cái nhìn đầu tiên, các bài toán tính toán liên quan đến chúng rất khác nhau.
 
 ![](images/_page_199_Figure_2.jpeg)
 
@@ -5472,7 +5457,7 @@ Sự tồn tại của đường đi Euler và chu trình Euler phụ thuộc v�
 
 Trong trường hợp đầu tiên, mỗi đường đi Euler cũng là chu trình Euler. Trong trường hợp thứ hai, nút bậc lẻ là điểm cuối của đường đi Euler, không phải chu trình Euler. Trong Hình 12.9, nút 1, 3, và 4 có bậc 2, và nút 2 và 5 có bậc 3. Chính xác hai nút có bậc lẻ, nên có đường đi Euler giữa nút 2 và 5, nhưng đồ thị không có chu trình Euler. Trong Hình 12.10, tất cả nút có bậc chẵn, nên đồ thị có chu trình Euler.
 
-Để xác định whether đồ thị có hướng có đường đi Euler, chúng ta tập trung vào bậc vào và bậc ra của nút. Đồ thị có hướng chứa đường đi Euler chính xác khi tất cả cạnh thuộc cùng thành phần liên thông mạnh và
+Để xác định xem đồ thị có hướng có đường đi Euler, chúng ta tập trung vào bậc vào và bậc ra của nút. Đồ thị có hướng chứa đường đi Euler chính xác khi tất cả cạnh thuộc cùng thành phần liên thông mạnh và
 
 - tại mỗi nút, bậc vào bằng bậc ra, hoặc
 - tại một nút, bậc vào lớn hơn bậc ra một, tại nút khác, bậc ra lớn hơn bậc vào một, và tại tất cả nút khác, bậc vào bằng bậc ra.
@@ -5485,7 +5470,7 @@ Trong trường hợp đầu tiên, mỗi đường đi Euler cũng là chu trì
 
 2, và nút 5 có bậc vào 2 và bậc ra 1. Do đó, đồ thị chứa đường đi Euler từ nút 2 đến nút 5.
 
-**Xây dựng** *Thuật toán Hierholzer* là phương pháp hiệu quả để xây dựng chu trình Euler cho đồ thị. Thuật toán gồm several vòng, mỗi vòng thêm cạnh mới vào chu trình. Tất nhiên, chúng ta giả sử rằng đồ thị chứa chu trình Euler; nếu không thuật toán Hierholzer không thể tìm thấy nó.
+**Xây dựng** *Thuật toán Hierholzer* là phương pháp hiệu quả để xây dựng chu trình Euler cho đồ thị. Thuật toán gồm một số vòng, mỗi vòng thêm cạnh mới vào chu trình. Tất nhiên, chúng ta giả sử rằng đồ thị chứa chu trình Euler; nếu không thuật toán Hierholzer không thể tìm thấy nó.
 
 Thuật toán bắt đầu với chu trình rỗng chỉ chứa một nút duy nhất và sau đó mở rộng chu trình từng bước bằng cách thêm chu trình con vào nó. Quá trình tiếp tục cho đến khi tất cả cạnh đã được thêm vào chu trình. Chu trình được mở rộng bằng cách tìm nút x thuộc chu trình nhưng có cạnh đi ra không được bao gồm trong chu trình. Sau đó, đường đi mới từ nút x chỉ chứa cạnh chưa có trong chu trình được xây dựng. Sớm hay muộn, đường đi sẽ quay lại nút x, tạo ra chu trình con.
 
@@ -5509,7 +5494,7 @@ Cách đơn giản để tìm đường đi Hamilton là sử dụng thuật to�
 
 **Hình 12.13** Đồ thị, đường đi Hamilton và chu trình Hamilton
 
-ít nhất O(n!),vì có n! cách khác nhau để chọn thứ tự n nút. Sau đó, sử dụng quy hoạch động,chúng ta có thể tạo giải pháp thời gian $O(2^n n^2)$ hiệu quả hơn, xác định cho mỗi tập hợp nút S và mỗi nút $x \in S$ xem có đường đi thăm tất cả nút của S chính xác một lần và kết thúc tại nút x.
+ít nhất O(n!),vì có n! cách khác nhau để chọn thứ tự n nút. Sau đó, sử dụng quy hoạch động, chúng ta có thể tạo giải pháp thời gian $O(2^n n^2)$ hiệu quả hơn, xác định cho mỗi tập hợp nút S và mỗi nút $x \in S$ xem có đường đi thăm tất cả nút của S chính xác một lần và kết thúc tại nút x.
 
 #### 12.2.3 Ứng dụng
 
@@ -5545,16 +5530,16 @@ Quy tắc Warnsdorf là heuristic đơn giản và hiệu quả để tìm lư�
 
 **Hình 12.16** Sử dụng quy tắc Warnsdorf để xây dựng lượt đi ngựa
 
-| 1 | | | | а |
+| 1 | | | | a |
 |---|---|---|---|---|
 | | | 2 | | |
 | b | | | | e |
-| | С | | d | |
+| | c | | d | |
 | | | | | |
 
 ### 12.3 Luồng Cực đại
 
-Trong bài toán *luồng cực đại*, chúng ta được cho đồ thị có hướng có trọng số chứa hai nút đặc biệt: *nguồn* là nút không có cạnh đi vào, và *đích* là nút không có cạnh đi ra. Nhiệm vụ của chúng ta là gửi nhiều luồng nhất có thể từ nguồn đến đích. Mỗi cạnh có dung lượnggiới hạn luồng có thể đi qua cạnh, và tại mỗi nút trung gian, luồng đi vào và đi ra phải bằng nhau.
+Trong bài toán *luồng cực đại*, chúng ta được cho đồ thị có hướng có trọng số chứa hai nút đặc biệt: *nguồn* là nút không có cạnh đi vào, và *đích* là nút không có cạnh đi ra. Nhiệm vụ của chúng ta là gửi nhiều luồng nhất có thể từ nguồn đến đích. Mỗi cạnh có dung lượng giới hạn luồng có thể đi qua cạnh, và tại mỗi nút trung gian, luồng đi vào và đi ra phải bằng nhau.
 
 Ví dụ, xem xét đồ thị trong Hình 12.17, trong đó nút 1 là nguồn và nút 6 là đích. Luồng cực đại trong đồ thị này là 7, được chỉ ra trong Hình 12.18. Ký hiệu v/k có nghĩa là luồng v đơn vị được định tuyến qua cạnh mà dung lượng là k đơn vị. Kích thước luồng là 7, vì nguồn gửi 3+4 đơn vị luồng và đích nhận 5+2 đơn vị luồng. Dễ dàng thấy rằng luồng này là cực đại, vì tổng dung lượng của cạnh dẫn đến đích là 7.
 
@@ -5570,7 +5555,6 @@ Ví dụ, xem xét lại đồ thị trong Hình 12.17. Kích thước cắt t�
 
 ![](images/_page_203_Figure_12.jpeg)
 
-**12.3 Luồng Cực đại 199**
 
 **Hình 12.19** Cắt tối thiểu của đồ thị là 7
 
@@ -5588,7 +5572,7 @@ Thuật toán Ford-Fulkerson tìm luồng cực đại trong đồ thị. Thuậ
 
 Thuật toán sử dụng biểu diễn đồ thị đặc biệt mà mỗi cạnh gốc có cạnh đảo ngược theo hướng khác. Trọng số của mỗi cạnh cho biết thêm bao nhiêu luồng chúng ta có thể định tuyến qua nó. Tại đầu thuật toán, trọng số của mỗi cạnh gốc bằng dung lượng cạnh, và trọng số của mỗi cạnh đảo ngược là 0. Hình 12.20 cho thấy biểu diễn mới cho đồ thị ví dụ.
 
-Thuật toán Ford-Fulkerson gồm several vòng. Trên mỗi vòng, thuật toán tìm đường đi từ nguồn đến đích sao cho mỗi cạnh trên đường đi có trọng số dương. Nếu có nhiều hơn một đường đi có sẵn, bất kỳ đường đi nào có thể được chọn. Sau khi chọn đường đi, luồng tăng x đơn vị, trong đó x là trọng số cạnh nhỏ nhất trên đường đi. Ngoài ra, trọng số của mỗi cạnh trên đường đi giảm x, và trọng số của mỗi cạnh đảo ngược tăng x.
+Thuật toán Ford-Fulkerson gồm một số vòng. Trên mỗi vòng, thuật toán tìm đường đi từ nguồn đến đích sao cho mỗi cạnh trên đường đi có trọng số dương. Nếu có nhiều hơn một đường đi có sẵn, bất kỳ đường đi nào có thể được chọn. Sau khi chọn đường đi, luồng tăng x đơn vị, trong đó x là trọng số cạnh nhỏ nhất trên đường đi. Ngoài ra, trọng số của mỗi cạnh trên đường đi giảm x, và trọng số của mỗi cạnh đảo ngược tăng x.
 
 Ý tưởng là tăng luồng giảm lượng luồng có thể đi qua cạnh trong tương lai. Mặt khác, có thể hủy luồng sau sử dụng cạnh đảo ngược nếu hóa ra sẽ có lợi khi định tuyến luồng theo cách khác. Thuật toán tăng luồng miễn là có đường đi từ nguồn đến đích qua cạnh trọng số dương. Sau đó, nếu không có đường đi như vậy, thuật toán kết thúc và luồng cực đại đã được tìm thấy.
 
@@ -5600,11 +5584,10 @@ Hình 12.21 cho thấy cách thuật toán Ford-Fulkerson tìm luồng cực đ�
 
 thuật toán chọn đường đi $1 \rightarrow 2 \rightarrow 3 \rightarrow 5 \rightarrow 6$. Trọng số cạnh tối thiểu trên đường đi này là 2, nên luồng tăng 2 đơn vị. Sau đó, thuật toán chọn ba đường đi khác tăng luồng 3, 1, và 1 đơn vị. Sau đó, không có đường đi với cạnh trọng số dương, nên luồng cực đại là 2 + 3 + 1 + 1 = 7.
 
-**Tìm Đường đi** Thuật toán Ford-Fulkerson không chỉ định cáchchúng ta nên chọn đường đi tăng luồng. Trong bất kỳ trường hợp nào, thuật toán sẽ kết thúc sớm hay muộn và đúng tìm luồng cực đại. Tuy nhiên, hiệu suất của thuật toán phụ thuộc vào cách đường đi được chọn. Cách đơn giản để tìm đường đi là sử dụng DFS. Thường thì điều này hoạt động tốt, nhưng trong trường hợp xấu nhất, mỗi đường đi chỉ tăng luồng một đơn vị, và thuật toán chậm. May mắn thay, chúng ta có thể tránh tình huống này bằng cách sử dụng một trong các kỹ thuật sau:
+**Tìm Đường đi** Thuật toán Ford-Fulkerson không chỉ định cách chúng ta nên chọn đường đi tăng luồng. Trong bất kỳ trường hợp nào, thuật toán sẽ kết thúc sớm hay muộn và đúng tìm luồng cực đại. Tuy nhiên, hiệu suất của thuật toán phụ thuộc vào cách đường đi được chọn. Cách đơn giản để tìm đường đi là sử dụng DFS. Thường thì điều này hoạt động tốt, nhưng trong trường hợp xấu nhất, mỗi đường đi chỉ tăng luồng một đơn vị, và thuật toán chậm. May mắn thay, chúng ta có thể tránh tình huống này bằng cách sử dụng một trong các kỹ thuật sau:
 
 *Thuật toán Edmonds-Karp* chọn mỗi đường đi sao cho số cạnh trên đường đi ít nhất có thể. Điều này có thể được thực hiện bằng cách sử dụng BFS thay vì
 
-**12.3 Luồng Cực đại 201**
 
 **Hình 12.22** Nút 1, 2, và 4 thuộc tập hợp A
 
@@ -5616,11 +5599,11 @@ của DFS để tìm đường đi. Có thể chứng minh rằng điều này �
 
 Trong thực tế, thuật toán chia dung lượng dễ cài đặt hơn, vì DFS có thể được sử dụng để tìm đường đi. Cả hai thuật toán đều đủ hiệu quả cho các bài toán thường xuất hiện trong cuộc thi lập trình.
 
-**Cắt Tối thiểu** Hóa ra khi thuật toán Ford-Fulkerson đã tìm thấy luồng cực đại, nó cũng đã xác định cắt tối thiểu. Xem xét đồ thị được tạo ra bởi thuật toán, và đặt A là tập hợp nút có thể đạt được từ nguồn sử dụng cạnh trọng số dương. Bây giờ cắt tối thiểu gồm các cạnh của đồ thị gốc bắt đầu tại nút nào đó trong A, kết thúc tại nút nào đó ngoài A, và dung lượng được sử dụnghoàn toàn trong luồng cực đại. Ví dụ, trong Hình 12.22, A gồm nút 1, 2, và 4, và các cạnh cắt tối thiểu là $2 \rightarrow 3$ và $4 \rightarrow 5$, trọng số là 6 + 1 = 7.
+**Cắt Tối thiểu** Hóa ra khi thuật toán Ford-Fulkerson đã tìm thấy luồng cực đại, nó cũng đã xác định cắt tối thiểu. Xem xét đồ thị được tạo ra bởi thuật toán, và đặt A là tập hợp nút có thể đạt được từ nguồn sử dụng cạnh trọng số dương. Bây giờ cắt tối thiểu gồm các cạnh của đồ thị gốc bắt đầu tại nút nào đó trong A, kết thúc tại nút nào đó ngoài A, và dung lượng được sử dụng hoàn toàn trong luồng cực đại. Ví dụ, trong Hình 12.22, A gồm nút 1, 2, và 4, và các cạnh cắt tối thiểu là $2 \rightarrow 3$ và $4 \rightarrow 5$, trọng số là 6 + 1 = 7.
 
 Tại sao luồng được tạo ra bởi thuật toán là cực đại và tại sao cắt là tối thiểu? Lý do là đồ thị không thể chứa luồng mà kích thước lớn hơn trọng số của bất kỳ cắt nào của đồ thị. Do đó, khi luồng và cắt bằng nhau, chúng là luồng cực đại và cắt tối thiểu.
 
-Để xem tại sao điều trên đúng, xem xét bất kỳ cắt nào của đồ thị mà nguồn thuộc A, đích thuộc B, và có một số cạnh giữa các tập hợp (Hình 12.23). Kích thước cắt là tổng trọng số của các cạnh đi từ A đến B. Đây là giới hạn trên cho luồng trong đồ thị,vì luồng phải tiến hành từ A đến B. Do đó, kích thước luồng cực đại nhỏ hơn hoặc bằng kích thước bất kỳ cắt nào trong đồ thị. Mặt khác, thuật toán Ford-Fulkerson tạo ra luồng mà kích thước *chính xác* bằng kích thước cắt trong đồ thị. Do đó, luồng phải là luồng cực đại, và cắt phải là cắt tối thiểu.
+Để xem tại sao điều trên đúng, xem xét bất kỳ cắt nào của đồ thị mà nguồn thuộc A, đích thuộc B, và có một số cạnh giữa các tập hợp (Hình 12.23). Kích thước cắt là tổng trọng số của các cạnh đi từ A đến B. Đây là giới hạn trên cho luồng trong đồ thị, vì luồng phải tiến hành từ A đến B. Do đó, kích thước luồng cực đại nhỏ hơn hoặc bằng kích thước bất kỳ cắt nào trong đồ thị. Mặt khác, thuật toán Ford-Fulkerson tạo ra luồng mà kích thước *chính xác* bằng kích thước cắt trong đồ thị. Do đó, luồng phải là luồng cực đại, và cắt phải là cắt tối thiểu.
 
 <sup>1</sup>Thuật toán thanh lịch này không được biết đến nhiều; mô tả chi tiết có thể tìm thấy trong sách giáo khoa của Ahuja, Magnanti, và Orlin [1].
 
@@ -5636,9 +5619,8 @@ Hóa ra số đường đi không giao cạnhtối đa luôn bằng luồng cự
 
 **Đường đi Không giao nút** Sau đó, xem xét bài toán tìm số *đường đi không giao nút*tối đa từ nguồn đến đích. Trong trường hợp này, mỗi nút, trừ nguồn và đích, có thể xuất hiện trongnhiều nhất một đường đi, có thể giảm số đường đi không giao nhautối đa. Thực tế, trong đồ thị ví dụ, số đường đi không giao núttối đa là 1 (Hình 12.25).
 
-Chúng ta cũng có thể giảm bài toán này sang bài toán luồng cực đại. Vì mỗi nút có thể xuất hiện trongnhiều nhất một đường đi,chúng ta phải giới hạn luồng đi qua nút. Cấu trúc tiêu chuẩn cho điều này là chia mỗi nút thành hai nút sao cho
+Chúng ta cũng có thể giảm bài toán này sang bài toán luồng cực đại. Vì mỗi nút có thể xuất hiện trongnhiều nhất một đường đi, chúng ta phải giới hạn luồng đi qua nút. Cấu trúc tiêu chuẩn cho điều này là chia mỗi nút thành hai nút sao cho
 
-**12.3 Luồng Cực đại 203**
 
 **Hình 12.26** Cấu trúc giới hạn luồng qua nút
 
@@ -5670,13 +5652,12 @@ Nếu điều kiện định lý Hall không đúng, tập hợp X giải thích
 
 **Định lý Kőnig** *Phủ nút tối thiểu* của đồ thị là tập hợp nút tối thiểu sao cho mỗi cạnh của đồ thị có ít nhất một điểm cuối trong tập hợp. Trong đồ thị tổng quát, tìm phủ nút tối thiểu là bài toán NP-hard. Tuy nhiên, nếu đồ thị là hai phần, *định lý Kőnig*cho chúng ta biết rằng kích thước phủ nút tối thiểu luôn bằng kích thước ghép đôi cực đại. Do đó, chúng ta có thể tính kích thước phủ nút tối thiểu sử dụng thuật toán luồng cực đại.
 
-**12.3 Luồng Cực đại 205**
 
 ![](images/_page_210_Figure_1.jpeg)
 
 Ví dụ, vì ghép đôi cực đại của đồ thị ví dụ là 3, định lý Kőnigcho chúng ta biết rằng kích thước phủ nút tối thiểu cũng là 3. Hình 12.31 cho thấy cách phủ như vậy có thể được xây dựng.
 
-Các nút *không* thuộc phủ nút tối thiểu tạo thành *tập độc lập cực đại*. Đây là tập hợp nút lớn nhất có thể sao cho không hai nút trong tập hợp được kết nối bằng cạnh. Một lần nữa, tìm tập độc lập cực đại trong đồ thị tổng quát là bài toán NP-hard, nhưng trong đồ thị hai phầnchúng ta có thể sử dụng định lý Kőnig để giải bài toán hiệu quả. Hình 12.32 cho thấy tập độc lập cực đại cho đồ thị ví dụ.
+Các nút *không* thuộc phủ nút tối thiểu tạo thành *tập độc lập cực đại*. Đây là tập hợp nút lớn nhất có thể sao cho không hai nút trong tập hợp được kết nối bằng cạnh. Một lần nữa, tìm tập độc lập cực đại trong đồ thị tổng quát là bài toán NP-hard, nhưng trong đồ thị hai phần chúng ta có thể sử dụng định lý Kőnig để giải bài toán hiệu quả. Hình 12.32 cho thấy tập độc lập cực đại cho đồ thị ví dụ.
 
 #### 12.3.4 Phủ Đường đi
 
@@ -5692,11 +5673,10 @@ nút phải. Có cạnh từ nút trái đến nút phải nếu có cạnh như
 
 Ví dụ, Hình 12.35 cho thấy đồ thị ghép đôi cho đồ thị trong Hình 12.33. Ghép đôi cực đại là 4, nên phủ đường đi không giao nút tối thiểu gồm 7-4=3 đường đi.
 
-**Phủ đường đi Tổng quát** *Phủ đường đi tổng quát* là phủ đường đi mà nút có thể thuộc nhiều hơn một đường đi. Phủ đường đi tổng quát tối thiểu có thể nhỏ hơn phủ đường đi không giao nút tối thiểu,vì nút có thể được sử dụngnhiều lần trong đường đi. Xem xét lại đồ thị trong Hình 12.33. Phủ đường đi tổng quát tối thiểu của đồ thị này gồm hai đường đi (Hình 12.36).
+**Phủ đường đi Tổng quát** *Phủ đường đi tổng quát* là phủ đường đi mà nút có thể thuộc nhiều hơn một đường đi. Phủ đường đi tổng quát tối thiểu có thể nhỏ hơn phủ đường đi không giao nút tối thiểu, vì nút có thể được sử dụng nhiều lần trong đường đi. Xem xét lại đồ thị trong Hình 12.33. Phủ đường đi tổng quát tối thiểu của đồ thị này gồm hai đường đi (Hình 12.36).
 
 Phủ đường đi tổng quát tối thiểu có thể được tìm thấygần như giống như phủ đường đi không giao nút tối thiểu. Chỉ cần thêm một số cạnh mới vào đồ thị ghép đôi sao cho có cạnh $a \rightarrow b$ nếu có đường đi từ a đến b trong đồ thị gốc (có thể qua nhiều nút). Hình 12.37 cho thấy đồ thị ghép đôi kết quả cho đồ thị ví dụ.
 
-**12.3 Luồng Cực đại 207**
 
 **Hình 12.37** Đồ thị ghép đôi để tìm phủ đường đi tổng quát tối thiểu
 
@@ -5706,7 +5686,7 @@ Phủ đường đi tổng quát tối thiểu có thể được tìm thấyg�
 
 ![](images/_page_212_Picture_4.jpeg)
 
-**Định lý Dilworth** *Antichain* là tập hợp nút trong đồ thị sao cho không có đường đi từ nút này đến nút khác sử dụng cạnh của đồ thị. *Định lý Dilworth* phát biểu rằng trong đồ thị có hướng không chu trình, kích thước phủ đường đi tổng quát tối thiểu bằng kích thước antichain cực đại. Ví dụ, trong Hình 12.38, nút 3 và 7 tạo thành antichain gồm hai nút. Đây là antichain cực đại,vì phủ đường đi tổng quát tối thiểu của đồ thị này có hai đường đi (Hình 12.36).
+**Định lý Dilworth** *Antichain* là tập hợp nút trong đồ thị sao cho không có đường đi từ nút này đến nút khác sử dụng cạnh của đồ thị. *Định lý Dilworth* phát biểu rằng trong đồ thị có hướng không chu trình, kích thước phủ đường đi tổng quát tối thiểu bằng kích thước antichain cực đại. Ví dụ, trong Hình 12.38, nút 3 và 7 tạo thành antichain gồm hai nút. Đây là antichain cực đại, vì phủ đường đi tổng quát tối thiểu của đồ thị này có hai đường đi (Hình 12.36).
 
 ### 12.4 Cây DFS
 
@@ -5714,7 +5694,7 @@ Khi DFS xử lý đồ thị liên thông, nó cũng tạo *cây khung* có hư�
 
 Ví dụ, Hình 12.39 cho thấy đồ thị và cây DFS tương ứng. Các cạnh liền nét là cạnh cây, và các cạnh nét đứt là cạnh ngược.
 
-Trong phần này,chúng ta sẽ thảo luận một số ứng dụng cho cây DFS trong xử lý đồ thị.
+Trong phần này, chúng ta sẽ thảo luận một số ứng dụng cho cây DFS trong xử lý đồ thị.
 
 #### 12.4.1 Tính Liên thông Kép
 
@@ -5752,7 +5732,7 @@ $\{1, 2, 3, 4\}$ đến nút 5. Tuy nhiên, cạnh $6 \rightarrow 7$ không ph�
 
 Tìm điểm khuyết khó hơn một chút, nhưng chúng ta có thể sử dụng lại cây DFS. Đầu tiên, nếu nút x là gốc cây, nó là điểm khuyết chính xác khi nó có hai hoặc nhiều con hơn. Sau đó, nếu x không phải gốc, nó là điểm khuyết chính xác khi nó có con mà cây con không chứa cạnh ngược đến tổ tiên của x.
 
-Ví dụ, trong Hình 12.42, nút 5 là điểm khuyết, vìnó là gốc và có hai con, và nút 7 là điểm khuyết, vì cây con của con 8 không chứa cạnh ngược đến tổ tiên của 7. Tuy nhiên, nút 2 không phải điểm khuyết, vì có cạnh ngược $3 \rightarrow 4$, và nút 8 không phải điểm khuyết,vì nó không có con nào.
+Ví dụ, trong Hình 12.42, nút 5 là điểm khuyết, vìnó là gốc và có hai con, và nút 7 là điểm khuyết, vì cây con của con 8 không chứa cạnh ngược đến tổ tiên của 7. Tuy nhiên, nút 2 không phải điểm khuyết, vì có cạnh ngược $3 \rightarrow 4$, và nút 8 không phải điểm khuyết, vì nó không có con nào.
 
 #### 12.4.2 Đồ thị con Euler
 
@@ -5760,7 +5740,7 @@ Ví dụ, trong Hình 12.42, nút 5 là điểm khuyết, vìnó là gốc và c
 
 Xem xét bài toán tính tổng số đồ thị con Euler cho đồ thị liên thông. Hóa ra có công thức đơn giản cho điều này: luôn có $2^k$ đồ thị con Euler trong đó k là số cạnh ngược trong cây DFS của đồ thị. Lưu ý rằng k = m - (n - 1) trong đó n là số nút và m là số cạnh.
 
-Cây DFS giúp hiểu tại sao công thức này đúng. Xem xét bất kỳ tập con cố định nào của cạnh ngược trong cây DFS. Để tạo đồ thị con Euler chứa các cạnh này,chúng ta cần chọn tập con cạnh cây sao cho mỗi nút có bậc chẵn. Để làm điều này, chúng ta xử lý cây từ dưới lên và luôn bao gồm cạnh cây trong đồ thị con chính xác khinó trỏ đến nút mà bậc chẵn với cạnh. Sau đó, vì tổng bậc chẵn, bậc của nút gốc cũng sẽ chẵn.
+Cây DFS giúp hiểu tại sao công thức này đúng. Xem xét bất kỳ tập con cố định nào của cạnh ngược trong cây DFS. Để tạo đồ thị con Euler chứa các cạnh này, chúng ta cần chọn tập con cạnh cây sao cho mỗi nút có bậc chẵn. Để làm điều này, chúng ta xử lý cây từ dưới lên và luôn bao gồm cạnh cây trong đồ thị con chính xác khinó trỏ đến nút mà bậc chẵn với cạnh. Sau đó, vì tổng bậc chẵn, bậc của nút gốc cũng sẽ chẵn.
 
 ## Chương 13: Hình học
 
@@ -5772,7 +5752,7 @@ Phần 13.2 tập trung vào thuật toán đường quét đóng vai trò quan 
 
 ### 13.1 Kỹ thuật Hình học
 
-Thách thức khi giải bài toán hình học là làm thế nào tiếp cận bài toán sao cho số trường hợp đặc biệt ít nhất có thể và có cách tiện lợi để cài đặt giải pháp. Trong phần này,chúng ta sẽ đi qua một tập hợp công cụ làm cho việc giải bài toán hình học dễ dàng hơn.
+Thách thức khi giải bài toán hình học là làm thế nào tiếp cận bài toán sao cho số trường hợp đặc biệt ít nhất có thể và có cách tiện lợi để cài đặt giải pháp. Trong phần này, chúng ta sẽ đi qua một tập hợp công cụ làm cho việc giải bài toán hình học dễ dàng hơn.
 
 #### 13.1.1 Số Phức
 
@@ -5782,7 +5762,7 @@ Thách thức khi giải bài toán hình học là làm thế nào tiếp cận
 
 ![](images/_page_216_Figure_2.jpeg)
 
-Lớp số phức C++ `complex` hữu ích khi giải bài toán hình học. Sử dụng lớp chúng ta có thể biểu diễn điểm và vector dưới dạng số phức, và sử dụng tính năng của lớp để thao tác chúng. Để làm điều này,để chúng ta đầu tiên định nghĩa kiểu tọa độ C. Tùy thuộc vào tình huống, kiểu phù hợp là `long long` hoặc `long double`. Quy tắc tổng quát, nên sử dụng tọa độ nguyên khi có thể, vì tính toán với số nguyên là chính xác.
+Lớp số phức C++ `complex` hữu ích khi giải bài toán hình học. Sử dụng lớp chúng ta có thể biểu diễn điểm và vector dưới dạng số phức, và sử dụng tính năng của lớp để thao tác chúng. Để làm điều này, để chúng ta đầu tiên định nghĩa kiểu tọa độ C. Tùy thuộc vào tình huống, kiểu phù hợp là `long long` hoặc `long double`. Quy tắc tổng quát, nên sử dụng tọa độ nguyên khi có thể, vì tính toán với số nguyên là chính xác.
 
 Đây là định nghĩa kiểu tọa độ có thể:
 
@@ -5794,7 +5774,7 @@ typedef long long C;
 typedef long double C;
 ```
 
-Sau đó,chúng ta có thể định nghĩa kiểu phức P biểu diễn điểm hoặc vector:
+Sau đó, chúng ta có thể định nghĩa kiểu phức P biểu diễn điểm hoặc vector:
 
 ```cpp
 typedef complex<C> P;
@@ -5811,8 +5791,6 @@ Ví dụ, code sau tạo điểm p = (4, 2) và in tọa độ x và y:
 
 ```cpp
 P p = {4,2};
-cout << p.X << "" << p.Y << "\n"; // 4 2
-```cpp
 cout << p.X << " " << p.Y << "\n"; // 4 2
 ```
 
@@ -5882,7 +5860,7 @@ Tích có hướng $(p - s_1) \times (p - s_2)$ cho chúng ta biết vị trí c
 
 **Giao Đoạn thẳng** Tiếp theo, xem xét bài toán kiểm tra xem hai đoạn thẳng *ab* và *cd* có cắt nhau không. Hóa ra nếu đoạn thẳng cắt nhau, có ba trường hợp có thể:
 
-Trường hợp 1: Các đoạn thẳng trên cùng đường thẳng và chúng chồng lên nhau. Trong trường hợp này, có vô số điểm giao. Ví dụ, trong Hình 13.4, tất cả điểm giữa c và b là điểm giao. Để phát hiện trường hợp này,chúng ta có thể sử dụng tích có hướng để kiểm tra xem tất cả điểm trên cùng đường thẳng. Nếu có, chúng ta có thể sắp xếp chúng và kiểm tra xem các đoạn thẳng chồng lên nhau.
+Trường hợp 1: Các đoạn thẳng trên cùng đường thẳng và chúng chồng lên nhau. Trong trường hợp này, có vô số điểm giao. Ví dụ, trong Hình 13.4, tất cả điểm giữa c và b là điểm giao. Để phát hiện trường hợp này, chúng ta có thể sử dụng tích có hướng để kiểm tra xem tất cả điểm trên cùng đường thẳng. Nếu có, chúng ta có thể sắp xếp chúng và kiểm tra xem các đoạn thẳng chồng lên nhau.
 
 Trường hợp 2: Các đoạn thẳng có đỉnh chung là điểm giaoduy nhất. Ví dụ, trong Hình 13.5 điểm giao là b = c. Trường hợp này dễ kiểm tra, vì chỉ có bốn khả năng cho điểm giao: a = c, a = d, b = c, và b = d.
 
@@ -5892,7 +5870,7 @@ Trường hợp 2: Các đoạn thẳng có đỉnh chung là điểm giaoduy nh
 
 ![](images/_page_219_Picture_5.jpeg)
 
-**Fig. 13.6** Trường hợp 3: các đoạn thẳng có điểm giao không phải đỉnh
+**Hình 13.6** Trường hợp 3: các đoạn thẳng có điểm giao không phải đỉnh
 
 ![](images/_page_219_Picture_7.jpeg)
 
@@ -5906,7 +5884,7 @@ Trường hợp 3: Có đúng một điểm giao không phải đỉnh của b�
 
 $$\frac{|(a-c)\times(b-c)|}{2},$$
 
-trong đó a, b, và c là các đỉnh của tam giác. Sử dụng thực tế này,chúng ta có thể suy ra công thức tính khoảng cách ngắn nhất giữa điểm và đường thẳng. Ví dụ, trong Hình 13.7, d là khoảng cách ngắn nhất giữa điểm p và đường thẳng được định nghĩa bởi điểm $s_1$ và $s_2$.
+trong đó a, b, và c là các đỉnh của tam giác. Sử dụng thực tế này, chúng ta có thể suy ra công thức tính khoảng cách ngắn nhất giữa điểm và đường thẳng. Ví dụ, trong Hình 13.7, d là khoảng cách ngắn nhất giữa điểm p và đường thẳng được định nghĩa bởi điểm $s_1$ và $s_2$.
 
 **Hình 13.8** Điểm a bên trong và điểm b bên ngoài đa giác
 
@@ -5922,7 +5900,7 @@ $$d = \frac{(s_1 - p) \times (s_2 - p)}{|s_2 - s_1|}.$$
 
 **Điểm trong Đa giác** Cuối cùng, xem xét bài toán kiểm tra xem điểm nằm trong hay ngoài đa giác. Ví dụ, trong Hình 13.8, điểm a bên trong đa giác và điểm b bên ngoài đa giác.
 
-Cách tiện lợi để giải bài toán là gửi *tia* từ điểm theo hướngbất kỳ và tính số lần nó chạm ranh giới đa giác. Nếu số lẻ, điểm bên trong đa giác, và nếu số chẵn, điểm bên ngoài đa giác.
+Cách tiện lợi để giải bài toán là gửi *tia* từ điểm theo hướng bất kỳ và tính số lần nó chạm ranh giới đa giác. Nếu số lẻ, điểm bên trong đa giác, và nếu số chẵn, điểm bên ngoài đa giác.
 
 Ví dụ, trong Hình 13.9, tia từ a chạm 1 và 3 lần ranh giới đa giác, nên a bên trong đa giác. Tương tự, tia từ b chạm 0 và 2 lần ranh giới đa giác, nên b bên ngoài đa giác.
 
@@ -5933,7 +5911,7 @@ Công thức tổng quát tính diện tích đa giác, đôi khi được gọi
 $$\frac{1}{2} \left| \sum_{i=1}^{n-1} (p_i \times p_{i+1}) \right| = \frac{1}{2} \left| \sum_{i=1}^{n-1} (x_i y_{i+1} - x_{i+1} y_i) \right|.$$
 
 
-**Fig. 13.10** A polygon whose area is 17/2
+**Hình 13.10** Một đa giác có diện tích bằng 17/2
 
 ![](images/_page_221_Picture_3.jpeg)
 
@@ -5955,7 +5933,7 @@ trong đó các đỉnh đa giác là $p_i$ và $p_{i+1}$. Nếu $x_{i+1} > x_i$
 
 $$\left| \sum_{i=1}^{n-1} (x_{i+1} - x_i) \frac{y_i + y_{i+1}}{2} \right| = \frac{1}{2} \left| \sum_{i=1}^{n-1} (x_i y_{i+1} - x_{i+1} y_i) \right|.$$
 
-Lưu ý rằng giá trị tuyệt đối của tổng được lấy, vì giá trị của tổng có thể dương hoặc âm, tùy thuộc vào whether chúng ta đi theo chiều kim đồng hồ hay ngược chiều kim đồng hồ dọc theo ranh giới đa giác.
+Lưu ý rằng giá trị tuyệt đối của tổng được lấy, vì giá trị của tổng có thể dương hoặc âm, tùy thuộc vào việc chúng ta đi theo chiều kim đồng hồ hay ngược chiều kim đồng hồ dọc theo ranh giới đa giác.
 
 **Hình 13.12** Tính diện tích đa giác sử dụng định lý Pick
 
@@ -5963,11 +5941,11 @@ Lưu ý rằng giá trị tuyệt đối của tổng được lấy, vì giá t
 
 **Định lý Pick** *Định lý Pick* cung cấp cách khác để tính diện tích đa giác, giả sử rằng tất cả đỉnh đa giác có tọa độ nguyên. Định lý Pickcho chúng ta biết rằng diện tích đa giác là
 
-$$a + b/2 - 1$$,
+$$a + b/2 - 1$$
 
 trong đó a là số điểm nguyên bên trong đa giác và b là số điểm nguyên trên ranh giới đa giác. Ví dụ, diện tích đa giác trong Hình 13.12 là
 
-$$6 + 7/2 - 1 = 17/2$$.
+$$6 + 7/2 - 1 = 17/2$$
 
 #### 13.1.4 Hàm Khoảng cách
 
@@ -5978,7 +5956,7 @@ $$\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$$
 
 Hàm khoảng cách thay thế là *khoảng cách Manhattan* mà khoảng cách giữa điểm $(x_1, y_1)$ và $(x_2, y_2)$ là
 
-$$|x_1 - x_2| + |y_1 - y_2|$$.
+$$|x_1 - x_2| + |y_1 - y_2|$$
 
 Ví dụ, trong Hình 13.13, khoảng cách Euclid giữa các điểm là
 
@@ -5986,7 +5964,7 @@ $$\sqrt{(5-2)^2 + (2-1)^2} = \sqrt{10}$$
 
 và khoảng cách Manhattan là
 
-$$|5-2|+|2-1|=4$$.
+$$|5-2|+|2-1|=4$$
 
 ![](images/_page_223_Picture_2.jpeg)
 
@@ -6019,7 +5997,7 @@ Ví dụ, nếu $p_1 = (1, 0)$ và $p_2 = (3, 3)$, tọa độ chuyển đổi l
 
 $$|1-3|+|0-3| = \max(|1-6|, |-1-0|) = 5.$$
 
-Tọa độ chuyển đổi cung cấp cách đơn giản để thao tác với khoảng cách Manhattan,vì chúng ta có thể xem xét tọa độ x và y riêng biệt. Đặc biệt, để tối đa khoảng cách Manhattan,chúng ta nên tìm hai điểm mà tọa độ chuyển đổi tối đa giá trị
+Tọa độ chuyển đổi cung cấp cách đơn giản để thao tác với khoảng cách Manhattan, vì chúng ta có thể xem xét tọa độ x và y riêng biệt. Đặc biệt, để tối đa khoảng cách Manhattan, chúng ta nên tìm hai điểm mà tọa độ chuyển đổi tối đa giá trị
 
 $$\max(|x_1'-x_2'|, |y_1'-y_2'|).$$
 
@@ -6031,7 +6009,7 @@ Nhiều bài toán hình học có thể được giải sử dụng thuật to�
 
 #### 13.2.1 Điểm Giao nhau
 
-Cho tập hợp n đoạn thẳng, mỗi đoạnhoặc ngang hoặc dọc, xem xét bài toán đếm tổng số điểm giao. Ví dụ, trong Hình 13.17, có năm đoạn thẳng và ba điểm giao.
+Cho tập hợp n đoạn thẳng, mỗi đoạn hoặc ngang hoặc dọc, xem xét bài toán đếm tổng số điểm giao. Ví dụ, trong Hình 13.17, có năm đoạn thẳng và ba điểm giao.
 
 **Hình 13.17** Năm đoạn thẳng với ba điểm giao
 
@@ -6041,7 +6019,7 @@ Cho tập hợp n đoạn thẳng, mỗi đoạnhoặc ngang hoặc dọc, xem x
 
 ![](images/_page_225_Figure_3.jpeg)
 
-Dễ dàng giải bài toán trong $O(n^2)$ thời gian,vì chúng ta có thể đi qua tất cả cặp đoạn thẳng có thể và kiểm tra xem chúng có cắt nhau. Tuy nhiên,chúng ta có thể giải bài toán hiệu quả hơn trong $O(n \log n)$ thời gian sử dụng thuật toán đường quét và cấu trúc dữ liệu truy vấn đoạn. Ý tưởng là xử lý các điểm cuối của đoạn thẳng từ trái sang phải và tập trung vào ba loại sự kiện:
+Dễ dàng giải bài toán trong $O(n^2)$ thời gian, vì chúng ta có thể đi qua tất cả cặp đoạn thẳng có thể và kiểm tra xem chúng có cắt nhau. Tuy nhiên, chúng ta có thể giải bài toán hiệu quả hơn trong $O(n \log n)$ thời gian sử dụng thuật toán đường quét và cấu trúc dữ liệu truy vấn đoạn. Ý tưởng là xử lý các điểm cuối của đoạn thẳng từ trái sang phải và tập trung vào ba loại sự kiện:
 
 - (1) đoạn ngang bắt đầu
 - (2) đoạn ngang kết thúc
@@ -6049,9 +6027,9 @@ Dễ dàng giải bài toán trong $O(n^2)$ thời gian,vì chúng ta có thể 
 
 Hình 13.18 cho thấy các sự kiện trong kịch bản ví dụ.
 
-Sau khi tạo sự kiện,chúng ta đi qua chúng từ trái sang phải và sử dụng cấu trúc dữ liệu duy trì tọa độ y của các đoạn ngang đang hoạt động. Tại sự kiện 1, chúng ta thêm tọa độ y của đoạn vào cấu trúc, và tại sự kiện 2, chúng ta xóa tọa độ y khỏi cấu trúc. Điểm giao được tính tại sự kiện 3: khi xử lý đoạn dọc giữa điểm $y_1$ và $y_2$, chúng ta đếm số đoạn ngang hoạt động mà tọa độ y nằm giữa $y_1$ và $y_2$, và thêm số này vào tổng số điểm giao.
+Sau khi tạo sự kiện, chúng ta đi qua chúng từ trái sang phải và sử dụng cấu trúc dữ liệu duy trì tọa độ y của các đoạn ngang đang hoạt động. Tại sự kiện 1, chúng ta thêm tọa độ y của đoạn vào cấu trúc, và tại sự kiện 2, chúng ta xóa tọa độ y khỏi cấu trúc. Điểm giao được tính tại sự kiện 3: khi xử lý đoạn dọc giữa điểm $y_1$ và $y_2$, chúng ta đếm số đoạn ngang hoạt động mà tọa độ y nằm giữa $y_1$ và $y_2$, và thêm số này vào tổng số điểm giao.
 
-Để lưu trữ tọa độ y của đoạn ngang,chúng ta có thể sử dụng cây chỉ số nhị phân hoặc cây phân đoạn, có thể với nén chỉ mục. Xử lý mỗi sự kiện mất $O(\log n)$ thời gian, nên thuật toán hoạt động trong $O(n \log n)$ thời gian.
+Để lưu trữ tọa độ y của đoạn ngang, chúng ta có thể sử dụng cây chỉ số nhị phân hoặc cây phân đoạn, có thể với nén chỉ mục. Xử lý mỗi sự kiện mất $O(\log n)$ thời gian, nên thuật toán hoạt động trong $O(n \log n)$ thời gian.
 
 #### 13.2.2 Bài toán Cặp điểm Gần nhất
 
@@ -6077,7 +6055,7 @@ giá trị d: khoảng cáchtối thiểu giữa hai điểm đã thấy cho đ�
 
 Nếu điểm hiện tại là (x, y) và có điểm bên trái trong khoảng cách nhỏ hơn d, tọa độ x của điểm như vậy phải nằm giữa [x - d, x] và tọa độ y phải nằm giữa [y - d, y + d]. Do đó, chỉ cần xem xét điểm nằm trong các phạm vi đó, làm cho thuật toán hiệu quả. Ví dụ, trong Hình 13.20, vùng được đánh dấu bằng nét đứt chứa các điểm có thể trong khoảng cách d từ điểm hoạt động.
 
-Hiệu suất của thuật toán dựa trên thực tế rằng vùng luôn chỉ chứa O(1) điểm. Để xem tại sao điều này đúng, xem xét Hình 13.21. Vì khoảng cáchtối thiểu hiện tại giữa hai điểm là d, mỗi ô $d/2 \times d/2$ có thể chứanhiều nhất một điểm. Do đó, cónhiều nhất tám điểm trong vùng.
+Hiệu suất của thuật toán dựa trên thực tế rằng vùng luôn chỉ chứa O(1) điểm. Để xem tại sao điều này đúng, xem xét Hình 13.21. Vì khoảng cáchtối thiểu hiện tại giữa hai điểm là d, mỗi ô $d/2 \times d/2$ có thể chứa nhiều nhất một điểm. Do đó, cónhiều nhất tám điểm trong vùng.
 
 ![](images/_page_227_Picture_2.jpeg)
 
@@ -6087,7 +6065,7 @@ Hiệu suất của thuật toán dựa trên thực tế rằng vùng luôn ch�
 
 **Hình 13.23** Xây dựng phần trên bao lồi sử dụng thuật toán Andrew
 
-Chúng ta có thể đi qua các điểm trong vùng trong $O(\log n)$ thời gian bằng cách duy trì tập hợp điểm mà tọa độ x nằm giữa [x-d,x] sao cho các điểm được sắp xếp theo thứ tự tăng dần tọa độ y. Độ phức tạp thời gian của thuật toán là $O(n \log n)$,vì chúng ta đi qua n điểm và xác định cho mỗi điểm điểm gần nhất bên trái trong $O(\log n)$ thời gian.
+Chúng ta có thể đi qua các điểm trong vùng trong $O(\log n)$ thời gian bằng cách duy trì tập hợp điểm mà tọa độ x nằm giữa [x-d, x] sao cho các điểm được sắp xếp theo thứ tự tăng dần tọa độ y. Độ phức tạp thời gian của thuật toán là $O(n \log n)$,vì chúng ta đi qua n điểm và xác định cho mỗi điểm điểm gần nhất bên trái trong $O(\log n)$ thời gian.
 
 #### 13.2.3 Bài toán Bao lồi
 
@@ -6120,9 +6098,9 @@ Xuyên suốt chương, chúng ta giả sử rằng tất cả xâu được đ�
 
 #### 14.1.1 Cấu trúc Trie
 
-*Trie* là cây gốc duy trì tập hợp xâu. Mỗi xâu trong tập hợp được lưu trữ dưới dạng chuỗi ký tự bắt đầu tại nút gốc. Nếu hai xâu có tiền tố chung, chúng cũng có chuỗi chung trong cây. Ví dụ, trie trong Hình 14.2 tương ứng với tập hợp {CANAL, CANDY, THE, THERE}. Vòng tròn trong nút có nghĩa là xâu trong tập hợp kết thúc tại nút.
+*Trie* là cây gốc duy trì tập hợp xâu. Mỗi xâu trong tập hợp được lưu trữ dưới dạng chuỗi ký tự bắt đầu tại nút gốc. Nếu hai xâu có tiền tố chung, chúng cũng có chuỗi chung trong cây. Ví dụ, trie trong Hình 14.2 tương ứng với tập hợp {CANAL, CANDY, THE, Đây}. Vòng tròn trong nút có nghĩa là xâu trong tập hợp kết thúc tại nút.
 
-Sau khi xây dựng trie,chúng ta có thể dễ dàng kiểm tra xem nó có chứa xâu cho trước bằng cách theo chuỗi bắt đầu tại nút gốc. Chúng ta cũng có thể thêm xâu mới vào trie bằng cách đầu tiên theo chuỗi và sau đó thêm nút mới nếu cần. Cả hai phép toán hoạt động trong O(n) thời gian trong đó n là độ dài xâu.
+Sau khi xây dựng trie, chúng ta có thể dễ dàng kiểm tra xem nó có chứa xâu cho trước bằng cách theo chuỗi bắt đầu tại nút gốc. Chúng ta cũng có thể thêm xâu mới vào trie bằng cách đầu tiên theo chuỗi và sau đó thêm nút mới nếu cần. Cả hai phép toán hoạt động trong O(n) thời gian trong đó n là độ dài xâu.
 
 Trie có thể được lưu trữ trong mảng
 
@@ -6132,10 +6110,9 @@ int trie[N][A];
 
 trong đó N là số nút tối đa (tổng độ dài tối đa của xâu trong tập hợp) và A là kích thước bảng chữ cái. Các nút trie được đánh số $0, 1, 2, \ldots$ sao cho số của nút gốc là 0, và trie[s][c] chỉ định nút tiếp theo trong chuỗi khi chúng ta di chuyển từ nút s sử dụng ký tự c.
 
-Có several cách để mở rộng cấu trúc trie. Ví dụ, giả sử chúng ta được cho truy vấn yêu cầu tính số xâu trong tập hợp có tiền tố nhất định. Chúng ta có thể làm điều này hiệu quả bằng cách lưu trữ cho mỗi nút trie số xâu mà chuỗi đi qua nút.
+Có một số cách để mở rộng cấu trúc trie. Ví dụ, giả sử chúng ta được cho truy vấn yêu cầu tính số xâu trong tập hợp có tiền tố nhất định. Chúng ta có thể làm điều này hiệu quả bằng cách lưu trữ cho mỗi nút trie số xâu mà chuỗi đi qua nút.
 
 
-14.1 Basic Topics 227
 
 **Hình 14.3** Giá trị hàm lcs để xác định dãy con chung dài nhất của TOUR và OPERA
 
@@ -6152,7 +6129,7 @@ Quy hoạch động có thể được sử dụng để giải nhiều bài to�
 
 **Dãy con Chung Dài nhất** *Dãy con chung dài nhất* của hai xâu là xâu dài nhất xuất hiện như dãy con trong cả hai xâu. Ví dụ, dãy con chung dài nhất của TOUR và OPERA là OR.
 
-Sử dụng quy hoạch động,chúng ta có thể xác định dãy con chung dài nhất của hai xâu x và y trong O(nm) thời gian, trong đó n và m biểu thị độ dài xâu. Để làm điều này, chúng ta định nghĩa hàm lcs(i, j) cho biết độ dài dãy con chung dài nhất của tiền tố x[0...i] và y[0...j]. Sau đó,chúng ta có thể sử dụng đệ quy
+Sử dụng quy hoạch động, chúng ta có thể xác định dãy con chung dài nhất của hai xâu x và y trong O(nm) thời gian, trong đó n và m biểu thị độ dài xâu. Để làm điều này, chúng ta định nghĩa hàm lcs(i, j) cho biết độ dài dãy con chung dài nhất của tiền tố x[0...i] và y[0...j]. Sau đó, chúng ta có thể sử dụng đệ quy
 
 $$lcs(i,j) = \begin{cases} lcs(i-1,j-1) + 1 & \text{nếu } x[i] = y[j] \\ \max(lcs(i,j-1), lcs(i-1,j)) & \text{ngược lại.} \end{cases}$$
 
@@ -6205,7 +6182,7 @@ Ví dụ, hãy tính giá trị băm của xâu ABACB. Mã ký tự của A, B, 
 
 $$(65 \cdot 3^4 + 66 \cdot 3^3 + 65 \cdot 3^2 + 66 \cdot 3^1 + 67 \cdot 3^0) \mod 97 = 40$$
 
-Khi băm đa thức được sử dụng,chúng ta có thể tính giá trị băm của bất kỳ xâu con nào của xâu s trong O(1) thời gian sau O(n) thời gian tiền xử lý. Ý tưởng là xây dựng mảng h sao cho h[k] chứa giá trị băm của tiền tố s[0...k]. Các giá trị mảng có thể được tính đệ quy như sau:
+Khi băm đa thức được sử dụng, chúng ta có thể tính giá trị băm của bất kỳ xâu con nào của xâu s trong O(1) thời gian sau O(n) thời gian tiền xử lý. Ý tưởng là xây dựng mảng h sao cho h[k] chứa giá trị băm của tiền tố s[0...k]. Các giá trị mảng có thể được tính đệ quy như sau:
 
 $$h[0] = s[0]$$
 
@@ -6224,13 +6201,13 @@ giả sử rằng a > 0. Nếu a = 0, giá trị băm đơn giản là h[b].
 
 #### 14.2.2 Ứng dụng
 
-Chúng ta có thể giải hiệu quảnhiều bài toán xâu sử dụng băm,vì nó cho phép chúng ta so sánhbất kỳ xâu con của xâu trong O(1) thời gian. Thực tế,chúng ta thường có thể chỉ lấy thuật toán brute force và làm cho nó hiệu quả bằng cách sử dụng băm.
+Chúng ta có thể giải hiệu quá nhiều bài toán xâu sử dụng băm, vì nó cho phép chúng ta so sánhbất kỳ xâu con của xâu trong $O(1)$ thời gian. Thực tế, chúng ta thường có thể chỉ lấy thuật toán brute force và làm cho nó hiệu quả bằng cách sử dụng băm.
 
 **Khớp Mẫu** Bài toán xâu cơ bản là bài toán *khớp mẫu*: cho xâu s và mẫu p, tìm vị trí mà p xuất hiện trong s. Ví dụ, mẫu ABC xuất hiện tại vị trí 0 và 5 trong xâu ABCABABCA (Hình 14.5).
 
-Chúng ta có thể giải bài toán khớp mẫu trong $O(n^2)$ thời gian sử dụng thuật toán brute force đi qua tất cả vị trí mà p có thể xuất hiện trong s và so sánh xâu theo ký tự. Sau đó,chúng ta có thể làm cho thuật toán brute force hiệu quả sử dụng băm, vì mỗi so sánh xâu chỉ mất O(1) thời gian. Điều này cho ra thuật toán O(n) thời gian.
+Chúng ta có thể giải bài toán khớp mẫu trong $O(n^2)$ thời gian sử dụng thuật toán brute force đi qua tất cả vị trí mà p có thể xuất hiện trong s và so sánh xâu theo ký tự. Sau đó, chúng ta có thể làm cho thuật toán brute force hiệu quả sử dụng băm, vì mỗi so sánh xâu chỉ mất O(1) thời gian. Điều này cho ra thuật toán O(n) thời gian.
 
-**Xâu con Khác nhau** Xem xét bài toán đếm số xâu con *khác nhau* độ dài k trong xâu. Ví dụ, xâu ABABAB có hai xâu con khác nhau độ dài 3: ABA và BAB. Sử dụng băm,chúng ta có thể tính giá trị băm của mỗi xâu con và giảm bài toán xuống đếm số nguyên khác nhau trong danh sách, có thể được thực hiện trong $O(n \log n)$ thời gian.
+**Xâu con Khác nhau** Xem xét bài toán đếm số xâu con *khác nhau* độ dài k trong xâu. Ví dụ, xâu ABABAB có hai xâu con khác nhau độ dài 3: ABA và BAB. Sử dụng băm, chúng ta có thể tính giá trị băm của mỗi xâu con và giảm bài toán xuống đếm số nguyên khác nhau trong danh sách, có thể được thực hiện trong $O(n \log n)$ thời gian.
 
 **Hình 14.5** Mẫu ABC xuất hiện hai lần trong xâu ABCABABCA
 
@@ -6238,9 +6215,9 @@ Chúng ta có thể giải bài toán khớp mẫu trong $O(n^2)$ thời gian s�
 |---|---|---|---|---|---|---|---|---|
 | A | B | C | A | B | A | B | C | A |
 
-**Xoay Tối thiểu** *Xoay* của xâu có thể được tạo bằng cáchliên tục di chuyển ký tự đầu tiên của xâu đến cuối xâu. Ví dụ, các xoay của ATLAS là ATLAS, TLASA, LASAT, ASATL, và SATLA. Tiếp theochúng ta sẽ xem xét bài toán tìm xoay *tối thiểu* theo thứ tự từ điển của xâu. Ví dụ, xoay tối thiểu của ATLAS là ASATL.
+**Xoay Tối thiểu** *Xoay* của xâu có thể được tạo bằng cách liên tục di chuyển ký tự đầu tiên của xâu đến cuối xâu. Ví dụ, các xoay của ATLAS là ATLAS, TLASA, LASAT, ASATL, và SATLA. Tiếp theochúng ta sẽ xem xét bài toán tìm xoay *tối thiểu* theo thứ tự từ điển của xâu. Ví dụ, xoay tối thiểu của ATLAS là ASATL.
 
-Chúng ta có thể giải hiệu quả bài toán bằng cách kết hợp băm xâu và tìm kiếm nhị phân. Ý tưởng chính là chúng ta có thể tìm ra thứ tự từ điển của hai xâu trong thời gian logarithm. Đầu tiên, chúng ta tính độ dài tiền tố chung của xâu sử dụng tìm kiếm nhị phân. Ở đây băm cho phép chúng ta kiểm tra trong O(1) thời gian whether hai tiền tố độ dài nhất định khớp. Sau đó, chúng ta kiểm tra ký tự tiếp theo sau tiền tố chung, xác định thứ tự xâu.
+Chúng ta có thể giải hiệu quả bài toán bằng cách kết hợp băm xâu và tìm kiếm nhị phân. Ý tưởng chính là chúng ta có thể tìm ra thứ tự từ điển của hai xâu trong thời gian logarithm. Đầu tiên, chúng ta tính độ dài tiền tố chung của xâu sử dụng tìm kiếm nhị phân. Ở đây băm cho phép chúng ta kiểm tra trong O(1) thời gian liệu hai tiền tố độ dài nhất định khớp. Sau đó, chúng ta kiểm tra ký tự tiếp theo sau tiền tố chung, xác định thứ tự xâu.
 
 Sau đó, để giải bài toán, chúng ta xây dựng xâu chứa hai bản sao của xâu gốc (ví dụ, ATLASATLAS) và đi qua các xâu con độ dài n duy trì xâu con tối thiểu. Vì mỗi so sánh có thể được thực hiện trong $O(\log n)$ thời gian, thuật toán hoạt động trong $O(n \log n)$ thời gian.
 
@@ -6262,7 +6239,7 @@ Kịch bản 1: Xâu x và y được so sánh với nhau. Xác suất xung đ�
 
 Kịch bản 2: Xâu x được so sánh với xâu $y_1, y_2, ..., y_n$. X xác suất một hoặc nhiều xung đột là
 
-$$1 - (1 - 1/B)^n$$.
+$$1 - (1 - 1/B)^n$$
 
 Kịch bản 3: Tất cả cặp xâu $x_1, x_2, \dots, x_n$ được so sánh với nhau. Xác suất một hoặc nhiều xung đột là
 
@@ -6285,7 +6262,7 @@ Hiện tượng trong Kịch bản 3 được gọi là *nghịch lý sinh nhậ
 
 Chúng ta có thể làm xác suất xung đột nhỏ hơn bằng cách tính *nhiều* giá trị băm sử dụng tham số khác nhau. Không chắc rằng xung đột sẽ xảy ra trong tất cả giá trị băm cùng lúc. Ví dụ, hai giá trị băm với tham số $B \approx 10^9$ tương ứng với một giá trị băm với tham số $B \approx 10^{18}$, làm cho xác suất xung đột rất nhỏ.
 
-Một số người sử dụng hằng số $B = 2^{32}$ và $B = 2^{64}$, điều này tiện lợi, vì phép toán với số nguyên 32- và 64-bit được tính modulo $2^{32}$ và $2^{64}$. Tuy nhiên, đây *không* phải lựa chọn tốt,vì có thể tạo đầu vào luôn tạo ra xung đột khi hằng số dạng $2^x$ được sử dụng [23].
+Một số người sử dụng hằng số $B = 2^{32}$ và $B = 2^{64}$, điều này tiện lợi, vì phép toán với số nguyên 32- và 64-bit được tính modulo $2^{32}$ và $2^{64}$. Tuy nhiên, đây *không* phải lựa chọn tốt, vì có thể tạo đầu vào luôn tạo ra xung đột khi hằng số dạng $2^x$ được sử dụng [23].
 
 ### 14.3 Thuật toán Z
 
@@ -6298,17 +6275,16 @@ Ví dụ, Hình 14.6 cho thấy mảng Z của ABCABCABAB. Trong mảng, ví d�
 
 Tiếp theochúng ta mô tả thuật toán, gọi là thuật toán Z xây dựng hiệu quả mảng Z trong O(n) thời gian. Thuật toán tính giá trị mảng Z từ trái sang phải bằng cách cả sử dụng thông tin đã lưu trữ trong mảng và so sánh xâu con theo ký tự.
 
-Để tính hiệu quả giá trị mảng Z, thuật toán duy trì khoảng [x, y] sao cho $s[x \dots y]$ là tiền tố của s, giá trị z[x] đã được xác định, và y lớn nhất có thể. Vì chúng ta biết rằng $s[0 \dots y - x]$ và $s[x \dots y]$ bằng nhau,chúng ta có thể sử dụng thông tin này khi tính các giá trị mảng tiếp theo. Giả sử rằng chúng ta đã tính giá trị z[0], z[1], ..., z[k-1] và chúng ta muốn tính giá trị z[k]. Có ba kịch bản có thể:
+Để tính hiệu quả giá trị mảng Z, thuật toán duy trì khoảng [x, y] sao cho $s[x \dots y]$ là tiền tố của s, giá trị z[x] đã được xác định, và y lớn nhất có thể. Vì chúng ta biết rằng $s[0 \dots y - x]$ và $s[x \dots y]$ bằng nhau, chúng ta có thể sử dụng thông tin này khi tính các giá trị mảng tiếp theo. Giả sử rằng chúng ta đã tính giá trị z[0], z[1], ..., z[k-1] và chúng ta muốn tính giá trị z[k]. Có ba kịch bản có thể:
 
 Kịch bản 1: y < k. Trong trường hợp này, chúng ta không có thông tin về vị trí k, nên chúng ta tính giá trị z[k] bằng cách so sánh xâu con theo ký tự. Ví dụ, trong Hình 14.7, chưa có khoảng [x, y], nên chúng ta so sánh xâu con bắt đầu tại vị trí 0 và 3 theo ký tự. Vì z[3] = 5, khoảng [x, y] mới trở thành [3, 7].
 
 Kịch bản 2: $y \ge k$ và $k + z[k - x] \le y$. Trong trường hợp này chúng ta biết rằng z[k] = z[k - x], vì s[0 ... y - x] và s[x ... y] bằng nhau và chúng ta nằm trong khoảng [x, y]. Ví dụ, trong Hình 14.8, chúng ta kết luận rằng z[4] = z[1] = 0.
 
-Kịch bản 3: $y \ge k$ và k + z[k - x] > y. Trong trường hợp này chúng ta biết rằng $z[k] \ge y - k + 1$. Tuy nhiên, vì chúng ta không có thông tin sau vị trí y,chúng ta phải so sánh xâu con theo ký tự bắt đầu tại vị trí y - k + 1 và y + 1. Ví dụ, trong Hình 14.9, chúng ta biết rằng $z[6] \ge 2$. Sau đó, vì $s[2] \ne s[8]$, hóa ra rằng, thực tế, z[6] = 2.
+Kịch bản 3: $y \ge k$ và k + z[k - x] > y. Trong trường hợp này chúng ta biết rằng $z[k] \ge y - k + 1$. Tuy nhiên, vì chúng ta không có thông tin sau vị trí y, chúng ta phải so sánh xâu con theo ký tự bắt đầu tại vị trí y - k + 1 và y + 1. Ví dụ, trong Hình 14.9, chúng ta biết rằng $z[6] \ge 2$. Sau đó, vì $s[2] \ne s[8]$, hóa ra rằng, thực tế, z[6] = 2.
 
 <sup>1</sup>Gusfield [13] trình bày thuật toán Z như phương pháp đơn giản nhất đã biết cho khớp mẫu tuyến tính và gán ý tưởng gốc cho Main và Lorentz [22].
 
-**14.3 Thuật toán Z 233**
 
 **Hình 14.8** Kịch bản 2: Tính giá trị z[4]
 
@@ -6318,15 +6294,15 @@ Kịch bản 3: $y \ge k$ và k + z[k - x] > y. Trong trường hợp này chún
 
 ![](images/_page_237_Figure_4.jpeg)
 
-Thuật toán kết quả hoạt động trong O(n) thời gian, vì always khi hai ký tự khớp khi so sánh xâu con theo ký tự, giá trị y tăng. Do đó, tổng công việc cần thiết để so sánh xâu con chỉ là O(n).
+Thuật toán kết quả hoạt động trong O(n) thời gian, vì mỗi khi hai ký tự khớp khi so sánh xâu con theo ký tự, giá trị y tăng. Do đó, tổng công việc cần thiết để so sánh xâu con chỉ là O(n).
 
 #### 14.3.2 Ứng dụng
 
-Thuật toán Z cung cấp cách thay thế để giải nhiều bài toán xâu có thể cũng được giải sử dụng băm. Tuy nhiên, không giống băm, thuật toán Z luôn hoạt động và không có rủi ro xung đột. Trong thực tế, thường là vấn đề sở thích whether sử dụng băm hay thuật toán Z.
+Thuật toán Z cung cấp cách thay thế để giải nhiều bài toán xâu có thể cũng được giải sử dụng băm. Tuy nhiên, không giống băm, thuật toán Z luôn hoạt động và không có rủi ro xung đột. Trong thực tế, thường là vấn đề sở thích liệu sử dụng băm hay thuật toán Z.
 
-**Khớp Mẫu** Xem xét lại bài toán khớp mẫu, trong đó nhiệm vụ của chúng ta là tìm các xuất hiện của mẫu p trong xâu s. Chúng ta đã giải bài toán sử dụng băm, nhưng bây giờchúng ta sẽ thấy thuật toán Z xử lý bài toán như thế nào.
+**Khớp Mẫu** Xem xét lại bài toán khớp mẫu, trong đó nhiệm vụ của chúng ta là tìm các xuất hiện của mẫu p trong xâu s. Chúng ta đã giải bài toán sử dụng băm, nhưng bây giờ chúng ta sẽ thấy thuật toán Z xử lý bài toán như thế nào.
 
-Ý tưởng thường xuyên trong xử lý xâu là xây dựng xâu gồm nhiều phần riêng biệt được phân tách bằng ký tự đặc biệt. Trong bài toán này,chúng ta có thể xây dựng xâu p # s, trong đó p và s được phân tách bằng ký tự đặc biệt # không xuất hiện trong xâu. Sau đó, mảng Z của p # s cho chúng ta biết vị trí mà p xuất hiện trong s, vì các vị trí đó chứa độ dài của p.
+Ý tưởng thường xuyên trong xử lý xâu là xây dựng xâu gồm nhiều phần riêng biệt được phân tách bằng ký tự đặc biệt. Trong bài toán này, chúng ta có thể xây dựng xâu p # s, trong đó p và s được phân tách bằng ký tự đặc biệt # không xuất hiện trong xâu. Sau đó, mảng Z của p # s cho chúng ta biết vị trí mà p xuất hiện trong s, vì các vị trí đó chứa độ dài của p.
 
 ![](images/_page_238_Figure_2.jpeg)
 
@@ -6340,7 +6316,6 @@ Hình 14.10 cho thấy mảng Z cho s = ABCABABCA và p = ABC. Vị trí 4 và 9
 
 Thường tiện lợi để biểu diễn mảng hậu tố theo chiều dọc và cũng hiển thị các hậu tố tương ứng (Hình 14.13). Tuy nhiên, lưu ý rằng mảng hậu tốbản thân chỉ chứa vị trí bắt đầu của hậu tố và không chứa ký tự.
 
-**14.4 Mảng Hậu tố 235**
 
 ![](images/_page_239_Figure_1.jpeg)
 
@@ -6350,7 +6325,7 @@ Thường tiện lợi để biểu diễn mảng hậu tố theo chiều dọc 
 
 Cách đơn giản và hiệu quả để tạo mảng hậu tố của xâu là sử dụng cấu trúc gấp đôi tiền tố, hoạt động trong $O(n \log^2 n)$ hoặc $O(n \log n)$ thời gian, tùy thuộc vào cài đặt. Thuật toán gồm các vòng đánh số $0, 1, \ldots, \lceil \log_2 n \rceil$, và vòng i đi qua xâu con có độ dài $2^i$. Trong vòng, mỗi xâu con x độ dài $2^i$ được gán nhãn nguyên l(x) sao cho l(a) = l(b) chính xác khi a = b và l(a) < l(b) chính xác khi a < b.
 
-Trên vòng 0, mỗi xâu con chỉ gồm một ký tự, và chúng ta có thể, ví dụ, sử dụng nhãn A=1, B=2, và cứ thế. Sau đó, trên vòng i, trong đó i>0, chúng ta sử dụng nhãn cho xâu con độ dài $2^{i-1}$ để xây dựng nhãn cho xâu con độ dài $2^{i}$. Để gán nhãn l(x) cho xâu con x độ dài $2^{i}$, chúng ta chia x thành hai nửa a và b độ dài $2^{i-1}$ mà nhãn là l(a) và l(b). (Nếu nửa thứ hai bắt đầu ngoài xâu, chúng ta giả sử rằng nhãn là 0.) Đầu tiên, chúng ta gán x *nhãn ban đầu* là cặp (l(a), l(b)). Sau đó, sau khi tất cả xâu con độ dài $2^{i}$ đã được gán nhãn ban đầu, chúng ta sắp xếp nhãn ban đầu và gán *nhãn cuối* là các số nguyên liên tiếp 1, 2, 3, v.v. Mục đích gán nhãn là sau vòng cuối, mỗi xâu con có nhãn *duy nhất*, và nhãn cho thấy thứ tự từ điển của xâu con. Sau đó,chúng ta có thể dễ dàng xây dựng mảng hậu tố dựa trên nhãn.
+Trên vòng 0, mỗi xâu con chỉ gồm một ký tự, và chúng ta có thể, ví dụ, sử dụng nhãn A=1, B=2, và cứ thế. Sau đó, trên vòng i, trong đó i>0, chúng ta sử dụng nhãn cho xâu con độ dài $2^{i-1}$ để xây dựng nhãn cho xâu con độ dài $2^{i}$. Để gán nhãn l(x) cho xâu con x độ dài $2^{i}$, chúng ta chia x thành hai nửa a và b độ dài $2^{i-1}$ mà nhãn là l(a) và l(b). (Nếu nửa thứ hai bắt đầu ngoài xâu, chúng ta giả sử rằng nhãn là 0.) Đầu tiên, chúng ta gán x *nhãn ban đầu* là cặp (l(a), l(b)). Sau đó, sau khi tất cả xâu con độ dài $2^{i}$ đã được gán nhãn ban đầu, chúng ta sắp xếp nhãn ban đầu và gán *nhãn cuối* là các số nguyên liên tiếp 1, 2, 3, v.v. Mục đích gán nhãn là sau vòng cuối, mỗi xâu con có nhãn *duy nhất*, và nhãn cho thấy thứ tự từ điển của xâu con. Sau đó, chúng ta có thể dễ dàng xây dựng mảng hậu tố dựa trên nhãn.
 
 Hình 14.14 cho thấy việc xây dựng nhãn cho ABAACBAB. Ví dụ, sau vòng 1, chúng ta biết rằng l(AB) = 2 và l(AA) = 1. Sau đó, trên vòng 2, nhãn ban đầu cho ABAA là (2, 1). Vì có hai nhãn ban đầu nhỏ hơn ((1, 6) và (2, 0)), nhãn cuối là l(ABAA) = 3. Lưu ý rằng trong ví dụ này, mỗi nhãn là duy nhất sau
 
@@ -6369,13 +6344,13 @@ Hình 14.14 cho thấy việc xây dựng nhãn cho ABAACBAB. Ví dụ, sau vòn
 
 **Hình 14.15** Tìm các xuất hiện của BA trong ABAACBAB sử dụng mảng hậu tố
 
-sau vòng 2, vì bốn ký tự đầu tiên của xâu con xác địnhhoàn toàn thứ tự từ điển.
+sau vòng 2, vì bốn ký tự đầu tiên của xâu con xác định hoàn toàn thứ tự từ điển.
 
-Thuật toán kết quả hoạt động trong $O(n \log^2 n)$ thời gian,vì có $O(\log n)$ vòng và chúng ta sắp xếp danh sách n cặp trên mỗi vòng. Thực tế, cài đặt $O(n \log n)$ cũng có thể,vì chúng ta có thể sử dụng thuật toán sắp xếp tuyến tính để sắp xếp cặp. Tuy nhiên, cài đặt $O(n \log^2 n)$ trực tiếp chỉ sử dụng hàm `sort` C++ thường đủ hiệu quả.
+Thuật toán kết quả hoạt động trong $O(n \log^2 n)$ thời gian, vì có $O(\log n)$ vòng và chúng ta sắp xếp danh sách n cặp trên mỗi vòng. Thực tế, cài đặt $O(n \log n)$ cũng có thể, vì chúng ta có thể sử dụng thuật toán sắp xếp tuyến tính để sắp xếp cặp. Tuy nhiên, cài đặt $O(n \log^2 n)$ trực tiếp chỉ sử dụng hàm `sort` C++ thường đủ hiệu quả.
 
 #### 14.4.2 Tìm Mẫu
 
-Sau khi xây dựng mảng hậu tố,chúng ta có thể hiệu quả tìm các xuất hiện của bất kỳ mẫu nào trong xâu. Điều này có thể được thực hiện trong $O(k \log n)$ thời gian, trong đó n là độ dài xâu và k là độ dài mẫu. Ý tưởng là xử lý mẫu theo ký tự và duy trì khoảng trong mảng hậu tố tương ứng với tiền tố của mẫu đã xử lý cho đến nay. Sử dụng tìm kiếm nhị phân,chúng ta có thể hiệu quả cập nhật khoảng sau mỗi ký tự mới.
+Sau khi xây dựng mảng hậu tố, chúng ta có thể hiệu quả tìm các xuất hiện của bất kỳ mẫu nào trong xâu. Điều này có thể được thực hiện trong $O(k \log n)$ thời gian, trong đó n là độ dài xâu và k là độ dài mẫu. Ý tưởng là xử lý mẫu theo ký tự và duy trì khoảng trong mảng hậu tố tương ứng với tiền tố của mẫu đã xử lý cho đến nay. Sử dụng tìm kiếm nhị phân, chúng ta có thể hiệu quả cập nhật khoảng sau mỗi ký tự mới.
 
 Ví dụ, xem xét tìm các xuất hiện của mẫu BA trong xâu ABAACBAB (Hình 14.15). Đầu tiên, phạm vi tìm kiếm là [0,7],bao phủ toàn bộ mảng hậu tố. Sau đó, sau khi xử lý ký tự B, khoảng trở thành [4,6]. Cuối cùng, sau khi xử lý ký tự A, khoảng trở thành [5,6]. Do đó, chúng ta kết luận rằng BA có hai xuất hiện trong ABAACBAB tại vị trí 1 và 5.
 
@@ -6385,7 +6360,6 @@ So với băm xâu và thuật toán Z đã thảo luận trước, ưu điểm 
 
 *Mảng LCP* của xâu cho biết cho mỗi hậu tố *giá trị LCP*: độ dài *tiền tố chung dài nhất* của hậu tố và hậu tố tiếp theo trong mảng hậu tố. Hình 14.16
 
-**14.4 Mảng Hậu tố 237**
 
 **Hình 14.16** Mảng LCP của xâu ABAACBAB
 
@@ -6404,9 +6378,9 @@ cho thấy mảng LCP cho xâu ABAACBAB. Ví dụ, giá trị LCP của hậu t�
 
 Tiếp theo chúng tôi trình bày thuật toán hiệu quả, do Kasai et al. [18], để xây dựng mảng LCP của xâu, với điều kiện chúng ta đã xây dựng mảng hậu tố. Thuật toán dựa trên quan sát sau: Xem xét hậu tố mà giá trị LCP là x. Nếu chúng ta loại bỏ ký tự đầu tiên khỏi hậu tố và có hậu tố khác, chúng ta ngay lập tức biết rằng giá trị LCP phải ít nhất x-1. Ví dụ, trong Hình 14.16, giá trị LCP của hậu tố BAACBAB là 2, nên chúng ta biết rằng giá trị LCP của hậu tố AACBAB phải ít nhất 1. Thực tế, nóchính xác là 1.
 
-Chúng ta có thể sử dụng quan sát trên để xây dựng hiệu quả mảng LCP bằng cách tính giá trị LCP theo thứ tự giảm dần độ dài hậu tố. Tại mỗi hậu tố, chúng ta tính giá trị LCP bằng cách so sánh hậu tố và hậu tố tiếp theo trong mảng hậu tố theo ký tự. Bây giờchúng ta có thể sử dụng thực tế rằng chúng ta biết giá trị LCP của hậu tố có thêm một ký tự. Do đó, giá trị LCP hiện tại phải ít nhất x-1, trong đó x là giá trị LCP trước, và chúng ta không cần so sánh x-1 ký tự đầu tiên của hậu tố. Thuật toán kết quả hoạt động trong O(n) thời gian,vì chỉ O(n) so sánh được thực hiện trong thuật toán.
+Chúng ta có thể sử dụng quan sát trên để xây dựng hiệu quả mảng LCP bằng cách tính giá trị LCP theo thứ tự giảm dần độ dài hậu tố. Tại mỗi hậu tố, chúng ta tính giá trị LCP bằng cách so sánh hậu tố và hậu tố tiếp theo trong mảng hậu tố theo ký tự. Bây giờ chúng ta có thể sử dụng thực tế rằng chúng ta biết giá trị LCP của hậu tố có thêm một ký tự. Do đó, giá trị LCP hiện tại phải ít nhất x-1, trong đó x là giá trị LCP trước, và chúng ta không cần so sánh x-1 ký tự đầu tiên của hậu tố. Thuật toán kết quả hoạt động trong O(n) thời gian, vì chỉ O(n) so sánh được thực hiện trong thuật toán.
 
-Sử dụng mảng LCP, chúng ta có thể giải hiệu quả một số bài toán xâu nâng cao. Ví dụ, để tính số xâu con khác nhau trong xâu,chúng ta có thể chỉ trừ tổng tất cả giá trị trong mảng LCP từ tổng số xâu con, tức là câu trả lời cho bài toán là
+Sử dụng mảng LCP, chúng ta có thể giải hiệu quả một số bài toán xâu nâng cao. Ví dụ, để tính số xâu con khác nhau trong xâu, chúng ta có thể chỉ trừ tổng tất cả giá trị trong mảng LCP từ tổng số xâu con, tức là câu trả lời cho bài toán là
 
 $$\frac{n(n+1)}{2}-c,$$
 
@@ -6422,17 +6396,17 @@ Chương cuối cùng này trình bày một lựa chọn các thuật toán và
 
 Phần 15.1 thảo luận kỹ thuật căn bậc hai để tạo cấu trúc dữ liệu và thuật toán. Các giải pháp như vậy thường dựa trên ý tưởng chia chuỗi n phần tử thành $O(\sqrt{n})$ khối, mỗi khối gồm $O(\sqrt{n})$ phần tử.
 
-Phần 15.2 khám phá thêm khả năng của cây phân đoạn. Ví dụ,chúng ta sẽ thấy cách tạo cây phân đoạn hỗ trợ cả truy vấn đoạn và cập nhật đoạn cùng lúc.
+Phần 15.2 khám phá thêm khả năng của cây phân đoạn. Ví dụ, chúng ta sẽ thấy cách tạo cây phân đoạn hỗ trợ cả truy vấn đoạn và cập nhật đoạn cùng lúc.
 
 Phần 15.3 trình bày cấu trúc dữ liệu treap cho phép chúng ta hiệu quả tách mảng thành hai phần và gộp hai mảng thành mảng duy nhất.
 
-Phần 15.4 tập trung vào tối ưu giải pháp quy hoạch động. Đầu tiênchúng ta sẽ học kỹ thuật bao lồi được sử dụng với hàm tuyến tính, và sau đóchúng ta sẽ thảo luận tối ưu chia để trị và tối ưu Knuth.
+Phần 15.4 tập trung vào tối ưu giải pháp quy hoạch động. Đầu tiên chúng ta sẽ học kỹ thuật bao lồi được sử dụng với hàm tuyến tính, và sau đóchúng ta sẽ thảo luận tối ưu chia để trị và tối ưu Knuth.
 
 Phần 15.5 đề cập đến các kỹ thuật thiết kế thuật toán linh tinh, chẳng hạn như meet in the middle và tìm kiếm nhị phân song song.
 
 ### 15.1 Kỹ thuật Căn bậc hai
 
-Căn bậc hai có thể được xem như "logarithm của người nghèo": độ phức tạp $O(\sqrt{n})$ tốt hơn O(n) nhưng tệ hơn $O(\log n)$. Trong bất kỳ trường hợp nào,nhiều cấu trúc dữ liệu và thuật toán liên quan đến căn bậc hai nhanh và có thể sử dụng trong thực tế. Phần này cho thấy một số ví dụ về cách căn bậc hai có thể được sử dụng trong thiết kế thuật toán.
+Căn bậc hai có thể được xem như "logarithm của người nghèo": độ phức tạp $O(\sqrt{n})$ tốt hơn O(n) nhưng tệ hơn $O(\log n)$. Trong bất kỳ trường hợp nào, nhiều cấu trúc dữ liệu và thuật toán liên quan đến căn bậc hai nhanh và có thể sử dụng trong thực tế. Phần này cho thấy một số ví dụ về cách căn bậc hai có thể được sử dụng trong thiết kế thuật toán.
 
 #### 15.1.1 Cấu trúc Dữ liệu
 
@@ -6449,9 +6423,17 @@ Hiệu suất cấu trúc kết quả trong thực tế như thế nào? Để t
 **Hình 15.3** Để xác định giá trị tối thiểu trong đoạn, đoạn được chia thành giá trị đơn lẻ và khối
 
 
-**Table 15.1** The running times of three data structures for range minimum queries: a segment tree $(O(\log n))$ , a square root structure $(O(\sqrt{n}))$ , and a plain array (O(n))
+| Cấu trúc dữ liệu | Cập nhật 1 phần tử | Truy vấn cực tiểu đoạn | Ghi chú thực nghiệm |
+| :--- | :---: | :---: | :--- |
+| Segment Tree | $O(\log n)$ | $O(\log n)$ | Nhanh ổn định khi $n$ lớn ($n > 2^{18}$) |
+| Cấu trúc căn bậc hai | $O(\sqrt{n})$ | $O(\sqrt{n})$ | Khá cạnh tranh khi $n \le 2^{18}$ nhờ cài đơn giản |
+| Mảng thông thường | $O(1)$ | $O(n)$ | Chậm khi $n$ lớn |
 
-**Fig. 15.4** An instance of the letter distance problem
+*(Ghi chú: bảng số liệu đo thực nghiệm giây chạy gốc trong PDF bị khuyết khi trích xuất; bảng trên tóm tắt độ phức tạp lý thuyết và nhận xét từ đoạn văn gốc.)*
+
+**Bảng 15.1** Thời gian chạy của ba cấu trúc dữ liệu cho bài toán tìm cực tiểu trên đoạn: Segment Tree $O(\log n)$, cấu trúc căn bậc hai $O(\sqrt{n})$ và mảng thường $O(n)$
+
+**Hình 15.4** Một ví dụ của bài toán khoảng cách chữ cái
 
 | A | C | E | A |
 |---|---|---|---|
@@ -6465,13 +6447,13 @@ Tiếp theo chúng ta thảo luận hai bài toán có thể được giải hi�
 
 **Khoảng cách Chữ cái** Bài toán đầu tiên như sau: Chúng ta được cho lưới $n \times n$ mà mỗi ô được gán một chữ cái. Khoảng cách Manhattan tối thiểu giữa hai ô có cùng chữ cái là gì? Ví dụ, trong Hình 15.4 khoảng cách tối thiểu là 2 giữa hai ô có chữ cái "D."
 
-Để giải bài toán,chúng ta có thể đi qua tất cả chữ cái xuất hiện trong lưới, và cho mỗi chữ cái c, xác định khoảng cách tối thiểu giữa hai ô có chữ cái c. Xem xét hai thuật toán để xử lý chữ cái c cố định:
+Để giải bài toán, chúng ta có thể đi qua tất cả chữ cái xuất hiện trong lưới, và cho mỗi chữ cái c, xác định khoảng cách tối thiểu giữa hai ô có chữ cái c. Xem xét hai thuật toán để xử lý chữ cái c cố định:
 
 Thuật toán 1: Đi qua tất cả cặp ô chứa chữ cái c và xác định cặp khoảng cách tối thiểu. Thuật toán này hoạt động trong $O(k^2)$ thời gian, trong đó k là số ô có chữ cái c.
 
 Thuật toán 2: Thực hiện BFS đồng thời bắt đầu tại mỗi ô có chữ cái c. Tìm kiếm mất $O(n^2)$ thời gian.
 
-Cả hai thuật toán có certain tình huống xấu nhất. Trường hợp xấu nhất cho Thuật toán 1 là lưới mà mỗi ô có cùng màu, trong trường hợp đó $k=n^2$ và thuật toán mất $O(n^4)$ thời gian. Sau đó, trường hợp xấu nhất cho Thuật toán 2 là lưới mà mỗi ô có màu khác nhau. Trong trường hợp này, thuật toán được thực hiện $O(n^2)$ lần, mất $O(n^4)$ thời gian.
+Cả hai thuật toán đều có một số tình huống xấu nhất. Trường hợp xấu nhất cho Thuật toán 1 là lưới mà mỗi ô có cùng màu, trong trường hợp đó $k=n^2$ và thuật toán mất $O(n^4)$ thời gian. Sau đó, trường hợp xấu nhất cho Thuật toán 2 là lưới mà mỗi ô có màu khác nhau. Trong trường hợp này, thuật toán được thực hiện $O(n^2)$ lần, mất $O(n^4)$ thời gian.
 
 **Hình 15.5** Một lượt trong trò chơi ô đen. Khoảng cách tối thiểu từ *X* đến ô đen là 3
 
@@ -6479,7 +6461,7 @@ Cả hai thuật toán có certain tình huống xấu nhất. Trường hợp x
 
 ![](images/_page_245_Picture_3.jpeg)
 
-Tuy nhiên,chúng ta có thể *kết hợp* các thuật toán sao cho chúng hoạt động như thuật toán con của thuật toán duy nhất. Ý tưởng là quyết định cho mỗi màu c riêng biệt thuật toán nào sử dụng. Rõ ràng, Thuật toán 1 hoạt động tốt nếu k nhỏ, và Thuật toán 2 phù hợp nhất cho trường hợp k lớn. Do đó,chúng ta có thể cố định hằng số k và sử dụng Thuật toán 1 nếu k nhiều nhất k, và nếu không sử dụng Thuật toán 2.
+Tuy nhiên, chúng ta có thể *kết hợp* các thuật toán sao cho chúng hoạt động như thuật toán con của thuật toán duy nhất. Ý tưởng là quyết định cho mỗi màu c riêng biệt thuật toán nào sử dụng. Rõ ràng, Thuật toán 1 hoạt động tốt nếu k nhỏ, và Thuật toán 2 phù hợp nhất cho trường hợp k lớn. Do đó, chúng ta có thể cố định hằng số k và sử dụng Thuật toán 1 nếu k nhiều nhất k, và nếu không sử dụng Thuật toán 2.
 
 Đặc biệt, bằng cách chọn $x = \sqrt{n^2} = n$, chúng ta có thuật toán hoạt động trong $O(n^3)$ thời gian. Đầu tiên, mỗi ô được xử lý sử dụng Thuật toán 1 được so sánh với nhiều nhất n ô khác, nên xử lý các ô đó mất $O(n^3)$ thời gian. Sau đó, vì có nhiều nhất n màu xuất hiện trong nhiều hơn n ô, Thuật toán 2 được thực hiện nhiều nhất n lần, và tổng thời gian chạy cũng là $O(n^3)$.
 
@@ -6509,7 +6491,7 @@ Sau đó, bằng cách chọn $k = \sqrt{n^2} = n$, chúng ta có thuật toán 
 
 ![](images/_page_246_Picture_5.jpeg)
 
-Bảng 15.2 cho thấy kết quả thí nghiệm mà thuật toán $O(n^3)$ thời gian cho trò chơi ô đen được thực hiện cho các giá trị k khác nhau khi n = 500. Thứ tự ô được sơn đen được chọn ngẫu nhiên. Trong trường hợp này, tham số tối ưu có vẻkhoảng k = 2000.
+Bảng 15.2 cho thấy kết quả thí nghiệm mà thuật toán $O(n^3)$ thời gian cho trò chơi ô đen được thực hiện cho các giá trị k khác nhau khi n = 500. Thứ tự ô được sơn đen được chọn ngẫu nhiên. Trong trường hợp này, tham số tối ưu có vẻ khoảng k = 2000.
 
 #### 15.1.3 Phân hoạch Số nguyên
 
@@ -6517,9 +6499,9 @@ Giả sử có gậy có độ dài n, và nó được chia thành một số p
 
 Hóa ra cónhiều nhất $O(\sqrt{n})$ độ dài khác nhau. Cụ thể cách tối ưu để tạo ra nhiều độ dài khác nhau nhất là bao gồm độ dài $1, 2, \ldots, k$. Sau đó, vì
 
-$$1+2+\cdots+k=\frac{k(k+1)}{2}$$,
+$$1+2+\cdots+k=\frac{k(k+1)}{2}$$
 
-chúng ta có thể kết luận rằng k có thểnhiều nhất $O(\sqrt{n})$. Tiếp theo,chúng ta sẽ thấy cách quan sát này có thể được sử dụng khi thiết kế thuật toán.
+chúng ta có thể kết luận rằng k có thể nhiều nhất $O(\sqrt{n})$. Tiếp theo, chúng ta sẽ thấy cách quan sát này có thể được sử dụng khi thiết kế thuật toán.
 
 **Bài toán Cái túi** Xem xét bài toán cái túi mà chúng ta được cho danh sách trọng số nguyên $[w_1, w_2, ..., w_k]$ sao cho $w_1 + w_2 + \cdots + w_k = n$, và nhiệm vụ của chúng ta là xác định tất cả tổng trọng số có thể. Ví dụ, Hình 15.7 cho thấy các tổng có thể sử dụng trọng số [3, 3, 4].
 
@@ -6529,7 +6511,7 @@ chúng ta có thể kết luận rằng k có thểnhiều nhất $O(\sqrt{n})$.
 |---|---|---|---|---|---|---|---|---|---|----|
 | ✓ | | | ✓ | ✓ | | ✓ | ✓ | | | ✓ |
 
-Sử dụng thuật toán cái túi tiêu chuẩn (Phần 6.2.3),chúng ta có thể giải bài toán trong O(nk) thời gian, nên nếu k = O(n), độ phức tạp thời gian trở thành $O(n^2)$. Tuy nhiên, vì cónhiều nhất $O(\sqrt{n})$ trọng số khác nhau,thực tế chúng ta có thể giải bài toán hiệu quả hơn bằng cách đồng thời xử lý tất cả trọng số có giá trị nhất định. Ví dụ, nếu trọng số là [3, 3, 4], đầu tiên chúng ta xử lý hai trọng số giá trị 3 và sau đó trọng số giá trị 4. Không khó để sửa đổi thuật toán cái túi tiêu chuẩn sao cho xử lý mỗi nhóm trọng số bằng nhau chỉ mất O(n) thời gian, cho ra thuật toán $O(n\sqrt{n})$ thời gian.
+Sử dụng thuật toán cái túi tiêu chuẩn (Phần 6.2.3),chúng ta có thể giải bài toán trong O(nk) thời gian, nên nếu k = O(n), độ phức tạp thời gian trở thành $O(n^2)$. Tuy nhiên, vì cónhiều nhất $O(\sqrt{n})$ trọng số khác nhau, thực tế chúng ta có thể giải bài toán hiệu quả hơn bằng cách đồng thời xử lý tất cả trọng số có giá trị nhất định. Ví dụ, nếu trọng số là [3, 3, 4], đầu tiên chúng ta xử lý hai trọng số giá trị 3 và sau đó trọng số giá trị 4. Không khó để sửa đổi thuật toán cái túi tiêu chuẩn sao cho xử lý mỗi nhóm trọng số bằng nhau chỉ mất O(n) thời gian, cho ra thuật toán $O(n\sqrt{n})$ thời gian.
 
 **Tạo Xâu** Ví dụ khác, giả sử chúng ta được cho xâu độ dài n và từ điển từ có tổng độ dài m. Nhiệm vụ của chúng ta là đếm số cách chúng ta có thể tạo xâu sử dụng các từ. Ví dụ, có bốn cách để tạo xâu ABAB sử dụng từ $\{A, B, AB\}$:
 
@@ -6538,7 +6520,7 @@ Sử dụng thuật toán cái túi tiêu chuẩn (Phần 6.2.3),chúng ta có t
 - A + B + AB
 - AB + AB
 
-Sử dụng quy hoạch động,chúng ta có thể tính cho mỗi $k=0,1,\ldots,n$ số cách tạo tiền tố độ dài k của xâu. Một cách để làm điều này là sử dụng trie chứa đảo ngược của tất cả từ trong từ điển, cho ra thuật toán $O(n^2+m)$ thời gian. Tuy nhiên, phương pháp khác là sử dụng băm xâu và thực tế rằng cónhiều nhất $O(\sqrt{m})$ độ dài từ khác nhau. Do đó,chúng ta có thể giới hạn bản thân trong độ dài từ thực sự tồn tại. Điều này có thể được thực hiện bằng cách tạo tập hợp chứa tất cả giá trị băm của từ, cho ra thuật toán mà thời gian chạy là $O(n\sqrt{m}+m)$ (sử dụng `unordered_set`).
+Sử dụng quy hoạch động, chúng ta có thể tính cho mỗi $k=0,1,\ldots,n$ số cách tạo tiền tố độ dài k của xâu. Một cách để làm điều này là sử dụng trie chứa đảo ngược của tất cả từ trong từ điển, cho ra thuật toán $O(n^2+m)$ thời gian. Tuy nhiên, phương pháp khác là sử dụng băm xâu và thực tế rằng cónhiều nhất $O(\sqrt{m})$ độ dài từ khác nhau. Do đó, chúng ta có thể giới hạn bản thân trong độ dài từ thực sự tồn tại. Điều này có thể được thực hiện bằng cách tạo tập hợp chứa tất cả giá trị băm của từ, cho ra thuật toán mà thời gian chạy là $O(n\sqrt{m}+m)$ (sử dụng `unordered_set`).
 
 #### 15.1.4 Thuật toán Mo
 
@@ -6563,7 +6545,7 @@ Do đó, tất cả truy vấn mà điểm cuối bên trái nằm trong khối 
 
 Để giải bài toán, chúng ta duy trì mảng `count` mà `count[x]` cho biết số lần phần tử x xuất hiện trong đoạn hoạt động. Khi chúng ta di chuyển từ truy vấn này sang truy vấn khác, đoạn hoạt động thay đổi. Ví dụ, xem xét hai đoạn trong Hình 15.8. Khi chúng ta di chuyển từ đoạn thứ nhất sang đoạn thứ hai, sẽ có ba bước: điểm cuối bên trái di chuyển một bước sang phải, và điểm cuối bên phải di chuyển hai bước sang phải.
 
-Sau mỗi bước, mảng `count` cần được cập nhật. Sau khi thêm phần tử x, chúng ta tăng giá trị $\mathtt{count}[x]$ lên 1, và nếu $\mathtt{count}[x] = 1$ sau đó,chúng ta cũng tăng câu trả lời cho truy vấn lên 1. Tương tự, sau khi xóa phần tử x, chúng ta giảm giá trị $\mathtt{count}[x]$ xuống 1, và nếu $\mathtt{count}[x] = 0$ sau đó,chúng ta cũng giảm câu trả lời cho truy vấn xuống 1. Vì mỗi bước yêu cầu O(1) thời gian, thuật toán hoạt động trong $O(n\sqrt{n})$ thời gian.
+Sau mỗi bước, mảng `count` cần được cập nhật. Sau khi thêm phần tử x, chúng ta tăng giá trị $\mathtt{count}[x]$ lên 1, và nếu $\mathtt{count}[x] = 1$ sau đó, chúng ta cũng tăng câu trả lời cho truy vấn lên 1. Tương tự, sau khi xóa phần tử x, chúng ta giảm giá trị $\mathtt{count}[x]$ xuống 1, và nếu $\mathtt{count}[x] = 0$ sau đó, chúng ta cũng giảm câu trả lời cho truy vấn xuống 1. Vì mỗi bước yêu cầu O(1) thời gian, thuật toán hoạt động trong $O(n\sqrt{n})$ thời gian.
 
 ### 15.2 Cây Phân đoạn Nâng cao
 
@@ -6595,29 +6577,29 @@ int sum(int a, int b, int k, int x, int y) {
 }
 ```
 
-Sử dụng hàm này,chúng ta có thể tính tổng trong đoạn [a, b] như sau:
+Sử dụng hàm này, chúng ta có thể tính tổng trong đoạn [a, b] như sau:
 
 ```cpp
 int s = sum(a,b,1,0,n-1);
 ```
 
-Tham số k chỉ ra vị trí hiện tại trong cây. Ban đầu k bằng 1,vì chúng ta bắt đầu tại gốc cây. Đoạn [x,y] tương ứng với k và ban đầu là [0,n-1]. Khi tính tổng, nếu [x,y] nằm ngoài [a,b], tổng là 0, và nếu [x,y] hoàn toàn nằm trong [a,b], tổng có thể được tìm thấy trong tree. Nếu [x,y] một phần nằm trong [a,b], tìm kiếm tiếp tục đệ quy sang trái và phải của [x,y]. Nửa trái là [x,d], và nửa phải là [d+1,y], trong đó $d=\lfloor \frac{x+y}{2} \rfloor$.
+Tham số k chỉ ra vị trí hiện tại trong cây. Ban đầu k bằng 1,vì chúng ta bắt đầu tại gốc cây. Đoạn [x, y] tương ứng với k và ban đầu là [0,n-1]. Khi tính tổng, nếu [x, y] nằm ngoài [a, b], tổng là 0, và nếu [x, y] hoàn toàn nằm trong [a, b], tổng có thể được tìm thấy trong tree. Nếu [x, y] một phần nằm trong [a, b], tìm kiếm tiếp tục đệ quy sang trái và phải của [x, y]. Nửa trái là [x, d], và nửa phải là [d+1,y], trong đó $d=\lfloor \frac{x+y}{2} \rfloor$.
 
 Hình 15.9 cho thấy cách tìm kiếm tiến hành khi tính giá trị $sum_q(a, b)$. Các nút xám biểu thị nút mà đệ quy dừng và tổng có thể được tìm thấy trong tree. Cũng trong cài đặt này, các phép toán mất $O(\log n)$ thời gian, vì tổng số nút được truy cập là $O(\log n)$.
 
 #### 15.2.1 Trì hoãn Lan truyền
 
-Sử dụng trì hoãn lan truyền,chúng ta có thể xây dựng cây phân đoạn hỗ trợ cả cập nhật đoạn và truy vấn đoạn trong $O(\log n)$ thời gian. Ý tưởng là thực hiện cập nhật và truy vấn từ trên xuống và thực hiện cập nhật lười biếng sao cho chúng chỉ được lan truyền xuống cây khi cần thiết.
+Sử dụng trì hoãn lan truyền, chúng ta có thể xây dựng cây phân đoạn hỗ trợ cả cập nhật đoạn và truy vấn đoạn trong $O(\log n)$ thời gian. Ý tưởng là thực hiện cập nhật và truy vấn từ trên xuống và thực hiện cập nhật lười biếng sao cho chúng chỉ được lan truyền xuống cây khi cần thiết.
 
 ![](images/_page_250_Figure_2.jpeg)
 
-Fig. 15.9 Traversing a segment tree from top to bottom
+**Hình 15.9** Duyệt cây phân đoạn từ trên xuống dưới
 
 ![](images/_page_250_Figure_4.jpeg)
 
 **Hình 15.10** Cây phân đoạn lazy cho cập nhật và truy vấn đoạn
 
-Các nút của cây phân đoạn lazy chứa hai loại thông tin. Giống như trong cây phân đoạn thông thường, mỗi nút chứa tổng, giá trị tối thiểu, hoặc một số giá trị khác liên quan đến mảng con tương ứng. Ngoài ra, nút có thể chứa thông tin về cập nhật lazy chưa được lan truyền đến con. Cây phân đoạn lazy có thể hỗ trợ hai loại cập nhật đoạn: mỗi giá trị mảng trong đoạnhoặc được *tăng* lên một giá trị nào đó hoặc *gán* một giá trị nào đó. Cả hai phép toán có thể được cài đặt sử dụng ý tưởng tương tự, và thậm chí có thể tạo cây hỗ trợ cả hai phép toán cùng lúc.
+Các nút của cây phân đoạn lazy chứa hai loại thông tin. Giống như trong cây phân đoạn thông thường, mỗi nút chứa tổng, giá trị tối thiểu, hoặc một số giá trị khác liên quan đến mảng con tương ứng. Ngoài ra, nút có thể chứa thông tin về cập nhật lazy chưa được lan truyền đến con. Cây phân đoạn lazy có thể hỗ trợ hai loại cập nhật đoạn: mỗi giá trị mảng trong đoạn hoặc được *tăng* lên một giá trị nào đó hoặc *gán* một giá trị nào đó. Cả hai phép toán có thể được cài đặt sử dụng ý tưởng tương tự, và thậm chí có thể tạo cây hỗ trợ cả hai phép toán cùng lúc.
 
 Hãy xem xét ví dụ mà mục tiêu là tạo cây phân đoạn hỗ trợ hai phép toán: tăng mỗi giá trị trong [a, b] lên hằng số và tính tổng giá trị trong [a, b]. Để đạt mục tiêu này, chúng ta tạo cây mà mỗi nút có hai giá trị s/z: s biểu thị tổng giá trị trong đoạn, và z biểu thị giá trị cập nhật lazy, có nghĩa là tất cả giá trị trong đoạn nên được tăng lên z. Hình 15.10 cho thấy ví dụ về cây như vậy, trong đó z = 0 trong tất cả nút, có nghĩa là không có cập nhật lazy đang diễn ra.
 
@@ -6647,11 +6629,9 @@ và giá trị tổng như vậy có thể được tính hiệu quả sử dụ
 
 $$z_1(0+1+\cdots+y-x)=z_1\frac{(y-x)(y-x+1)}{2}.$$
 
-Khi lan truyền cập nhật trong cây, chỉ số của p(u) thay đổi, vì trong mỗi đoạn [x, y], các giá trị được tính cho u = 0, 1, ..., y - x. Tuy nhiên,chúng ta có thể dễ dàng xử lý điều này,vì p'(u) = p(u + h) là đa thức bậc bằng p(u). Ví dụ, nếu $p(u) = t_2u^2 + t_1u + t_0$, thì
+Khi lan truyền cập nhật trong cây, chỉ số của p(u) thay đổi, vì trong mỗi đoạn [x, y], các giá trị được tính cho u = 0, 1, ..., y - x. Tuy nhiên, chúng ta có thể dễ dàng xử lý điều này, vì p'(u) = p(u + h) là đa thức bậc bằng p(u). Ví dụ, nếu $p(u) = t_2u^2 + t_1u + t_0$, thì
 
 $$p'(u) = t_2(u+h)^2 + t_1(u+h) + t_0 = t_2u^2 + (2ht_2 + t_1)u + t_2h^2 + t_1h + t_0.$$
-
-#### 15.2.2 Cây Động
 
 #### 15.2.2 Cây Động
 
@@ -6683,11 +6663,11 @@ x->value = 5;
 
 **Cây Phân đoạn Thưa** Cây phân đoạn động là cấu trúc hữu ích khi mảng cơ bản là *thưa*, tức là phạm vi [0, n-1] của chỉ số cho phép lớn, nhưng hầu hết giá trị mảng là 0. Trong khi cây phân đoạn thông thường sẽ sử dụng O(n) bộ nhớ, cây phân đoạn động chỉ sử dụng $O(k \log n)$ bộ nhớ, trong đó k là số phép toán được thực hiện.
 
-Cây phân đoạn thưa ban đầu chỉ có một nút [0, n-1] giá trị 0, có nghĩa là mọi giá trị mảng là 0. Sau cập nhật, nút mới được thêm động vào cây. Bất kỳ đường đi nào từ gốc đến lá chứa $O(\log n)$ nút, nên mỗi phép toán cây phân đoạn thêmnhiều nhất $O(\log n)$ nút mới vào cây. Do đó, sau k phép toán, cây chứa $O(k \log n)$ nút. Ví dụ, Hình 15.13 cho thấy cây phân đoạn thưa n=16, và phần tử tại vị trí 3 và 10 đã được sửa đổi.
+Cây phân đoạn thưa ban đầu chỉ có một nút [0, n-1] giá trị 0, có nghĩa là mọi giá trị mảng là 0. Sau cập nhật, nút mới được thêm động vào cây. Bất kỳ đường đi nào từ gốc đến lá chứa $O(\log n)$ nút, nên mỗi phép toán cây phân đoạn thêm nhiều nhất $O(\log n)$ nút mới vào cây. Do đó, sau k phép toán, cây chứa $O(k \log n)$ nút. Ví dụ, Hình 15.13 cho thấy cây phân đoạn thưa n=16, và phần tử tại vị trí 3 và 10 đã được sửa đổi.
 
-Lưu ý rằng nếu chúng ta biết tất cả phần tử sẽ được cập nhật trong thuật toán trước, cây phân đoạn động không cần thiết,vì chúng ta có thể sử dụng cây phân đoạn thông thường với nén chỉ mục (Phần 9.2.3). Tuy nhiên, điều này không thể khi chỉ số được tạo trong thuật toán.
+Lưu ý rằng nếu chúng ta biết tất cả phần tử sẽ được cập nhật trong thuật toán trước, cây phân đoạn động không cần thiết, vì chúng ta có thể sử dụng cây phân đoạn thông thường với nén chỉ mục (Phần 9.2.3). Tuy nhiên, điều này không thể khi chỉ số được tạo trong thuật toán.
 
-**Cây Phân đoạn Bền vững** Sử dụng cài đặt động,chúng ta cũng có thể tạo *cây phân đoạn bền vững* lưu trữ *lịch sử sửa đổi* của cây. Trong cài đặt như vậy, chúng ta có thể hiệu quả truy cập tất cả phiên bản cây đã tồn tại trong thuật toán. Khi lịch sử sửa đổi có sẵn, chúng ta có thể thực hiện truy vấn trong bất kỳ cây trước đó như trong cây phân đoạn thông thường, vì cấu trúc đầy đủ
+**Cây Phân đoạn Bền vững** Sử dụng cài đặt động, chúng ta cũng có thể tạo *cây phân đoạn bền vững* lưu trữ *lịch sử sửa đổi* của cây. Trong cài đặt như vậy, chúng ta có thể hiệu quả truy cập tất cả phiên bản cây đã tồn tại trong thuật toán. Khi lịch sử sửa đổi có sẵn, chúng ta có thể thực hiện truy vấn trong bất kỳ cây trước đó như trong cây phân đoạn thông thường, vì cấu trúc đầy đủ
 
 ![](images/_page_254_Figure_2.jpeg)
 
@@ -6699,11 +6679,11 @@ Lưu ý rằng nếu chúng ta biết tất cả phần tử sẽ được cập
 
 của mỗi cây được lưu trữ. Chúng ta cũng có thể tạo cây mới dựa trên cây trước và sửa đổi chúng độc lập.
 
-Xem xét chuỗi cập nhật trong Hình 15.14, trong đó nút được đánh dấu thay đổi và nút khácgiữ nguyên nguyên. Sau mỗi cập nhật,hầu hết nút của câygiữ nguyên nguyên, nên cách compact lưu trữ lịch sử sửa đổi là biểu diễn mỗi cây lịch sử dưới dạng tổ hợp nút mới và cây con của cây trước. Hình 15.15 cho thấy cách lịch sử sửa đổi có thể được lưu trữ. Cấu trúc mỗi cây trước có thể được tái tạo bằng cách theo con trỏ bắt đầu tại nút gốc tương ứng. Vì mỗi phép toán chỉ thêm $O(\log n)$ nút mới vào cây, có thể lưu trữ đầy đủ lịch sử sửa đổi của cây.
+Xem xét chuỗi cập nhật trong Hình 15.14, trong đó nút được đánh dấu thay đổi và nút khácgiữ nguyên. Sau mỗi cập nhật, hầu hết nút của câygiữ nguyên, nên cách compact lưu trữ lịch sử sửa đổi là biểu diễn mỗi cây lịch sử dưới dạng tổ hợp nút mới và cây con của cây trước. Hình 15.15 cho thấy cách lịch sử sửa đổi có thể được lưu trữ. Cấu trúc mỗi cây trước có thể được tái tạo bằng cách theo con trỏ bắt đầu tại nút gốc tương ứng. Vì mỗi phép toán chỉ thêm $O(\log n)$ nút mới vào cây, có thể lưu trữ đầy đủ lịch sử sửa đổi của cây.
 
 #### 15.2.3 Cấu trúc Dữ liệu trong Nút
 
-Thay vì giá trị đơn lẻ, nút cây phân đoạn cũng có thể chứa *cấu trúc dữ liệu* duy trì thông tin về đoạn tương ứng. Ví dụ, giả sửchúng ta nên có thể hiệu quả đếm số lần xuất hiện của phần tử x trong đoạn [a, b]. Để làm điều này,chúng ta có thể tạo cây phân đoạn mà mỗi nút được gán cấu trúc dữ liệu có thể được hỏi bao nhiêu lần phần tử x xuất hiện trong đoạn tương ứng. Sau đó, câu trả lời cho truy vấn có thể được tính bằng cách kết hợp kết quả từ nút thuộc đoạn.
+Thay vì giá trị đơn lẻ, nút cây phân đoạn cũng có thể chứa *cấu trúc dữ liệu* duy trì thông tin về đoạn tương ứng. Ví dụ, giả sửchúng ta nên có thể hiệu quả đếm số lần xuất hiện của phần tử x trong đoạn [a, b]. Để làm điều này, chúng ta có thể tạo cây phân đoạn mà mỗi nút được gán cấu trúc dữ liệu có thể được hỏi bao nhiêu lần phần tử x xuất hiện trong đoạn tương ứng. Sau đó, câu trả lời cho truy vấn có thể được tính bằng cách kết hợp kết quả từ nút thuộc đoạn.
 
 Nhiệm vụ còn lại là chọn cấu trúc dữ liệu phù hợp cho bài toán. Lựa chọn tốt là cấu trúc map mà key là phần tử mảng và value cho biết mỗi phần tử xuất hiện bao nhiêu lần trong đoạn. Hình 15.16 cho thấy mảng và cây phân đoạn tương ứng. Ví dụ, nút gốc câycho chúng ta biết rằng phần tử 1 xuất hiện 4 lần trong mảng.
 
@@ -6719,7 +6699,7 @@ Nhiệm vụ còn lại là chọn cấu trúc dữ liệu phù hợp cho bài t
 
 **Hình 15.17** Mảng hai chiều và cây phân đoạn tương ứng để tính tổng mảng con hình chữ nhật
 
-Mỗi truy vấn trong cây phân đoạn trên hoạt động trong $O(\log^2 n)$ thời gian, vì mỗi nút có cấu trúc map mà các phép toán mất $O(\log n)$ thời gian. Cây sử dụng $O(n \log n)$ bộ nhớ,vì nó có $O(\log n)$ cấp, và mỗi cấp chứa n phần tử được phân phối trong cấu trúc map.
+Mỗi truy vấn trong cây phân đoạn trên hoạt động trong $O(\log^2 n)$ thời gian, vì mỗi nút có cấu trúc map mà các phép toán mất $O(\log n)$ thời gian. Cây sử dụng $O(n \log n)$ bộ nhớ, vì nó có $O(\log n)$ cấp, và mỗi cấp chứa n phần tử được phân phối trong cấu trúc map.
 
 #### 15.2.4 Cây Hai chiều
 
@@ -6755,7 +6735,6 @@ Ví dụ, Hình 15.19 cho thấy cách chia mảng ví dụ thành hai mảng sa
 
 **Gộp** Phép toán gộp hai treap tạo treap duy nhất nối các mảng. Hai treap được xử lý đồng thời, và tại mỗi bước, treap mà gốc có trọng số nhỏ nhất được chọn. Nếu gốc treap trái có trọng số nhỏ nhất, gốc và cây con trái được di chuyển sang treap mới và cây con phải trở thành gốc mới của treap trái. Tương tự, nếu gốc treap phải
 
-**15.3 Treap 255**
 
 **Hình 15.20** Gộp hai mảng thành mảng, trước khi gộp
 
@@ -6851,7 +6830,7 @@ merge(treap, right, left);
 
 #### 15.3.3 Kỹ thuật Bổ sung
 
-Phép toán tách và gộp của treap rất mạnh mẽ,vì chúng ta có thể tự do "cắt và dán" mảng trong thời gian logarithm sử dụng chúng. Treap cũng có thể được mở rộng sao cho chúng hoạt độnggần như giống cây phân đoạn. Ví dụ, ngoài duy trì kích thước mỗi cây con,chúng ta cũng có thể duy trì tổng giá trị, giá trị tối thiểu, v.v.
+Phép toán tách và gộp của treap rất mạnh mẽ, vì chúng ta có thể tự do "cắt và dán" mảng trong thời gian logarithm sử dụng chúng. Treap cũng có thể được mở rộng sao cho chúng hoạt độnggần như giống cây phân đoạn. Ví dụ, ngoài duy trì kích thước mỗi cây con, chúng ta cũng có thể duy trì tổng giá trị, giá trị tối thiểu, v.v.
 
 ![](images/_page_261_Figure_2.jpeg)
 
@@ -6871,7 +6850,7 @@ Phần này thảo luận các kỹ thuật tối ưu giải pháp quy hoạch �
 
 *Kỹ thuật bao lồi* cho phép chúng ta hiệu quả tìm giá trị hàm tối thiểu tại điểm x cho trước trong tập hợp n hàm tuyến tính dạng f(x) = ax + b. Ví dụ, Hình 15.23 cho thấy các hàm $f_1(x) = x + 2$, $f_2(x) = x/3 + 4$, $f_3(x) = x/6 + 5$, và $f_4(x) = -x/4 + 7$. Giá trị tối thiểu tại điểm x = 4 là $f_2(4) = 16/3$.
 
-Ý tưởng là chia trục x thành các phạm vi mà một hàm nhất định có giá trị tối thiểu. Hóa ra mỗi hàm sẽ cónhiều nhất một phạm vi, và chúng ta có thể lưu trữ các phạm vi trong danh sách sắp xếp sẽ chứanhiều nhất n phạm vi. Ví dụ,
+Ý tưởng là chia trục x thành các phạm vi mà một hàm nhất định có giá trị tối thiểu. Hóa ra mỗi hàm sẽ cónhiều nhất một phạm vi, và chúng ta có thể lưu trữ các phạm vi trong danh sách sắp xếp sẽ chứa nhiều nhất n phạm vi. Ví dụ,
 
 
 **Hình 15.24** Các phạm vi mà $f_1$, $f_2$, và $f_4$ có giá trị tối thiểu
@@ -6891,25 +6870,25 @@ Chúng ta có thể dễ dàng giải bài toán sử dụng quy hoạch động
 Ý tưởng là duy trì một tập hợp các hàm tuyến tính, ban đầu chỉ chứa hàm f(x) = x, nghĩa là chúng ta không có phiếu giảm giá. Để tính giá trị $u_i$ cho một buổi hòa nhạc, chúng ta tìm hàm f trong tập hợp mà tối thiểu hóa giá trị $f(p_i)$, có thể thực hiện trong $O(\log n)$ thời gian sử dụng kỹ thuật bao lồi. Sau đó, chúng ta thêm hàm $f(x) = d_i x + u_i$ vào tập hợp, và chúng ta có thể sử dụng nó để tham dự một buổi hòa nhạc khác sau. Thuật toán kết quả hoạt động trong $O(n \log n)$ thời gian.
 
 
-**Fig. 15.25** An optimal way to divide a sequence into three blocks
+**Hình 15.25** Một cách tối ưu để chia dãy thành ba khối
 
 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
 |---|---|---|---|---|---|---|---|
 | 2 | 3 | 1 | 2 | 2 | 3 | 4 | 1 |
 
-Lưu ý rằng nếu additionally biết rằng $p_i \le p_{i+1}$ cho tất cả buổi hòa nhạc liên tiếp i và i+1,chúng ta có thể giải bài toán hiệu quả hơn trong O(n) thời gian,vì chúng ta có thể xử lý các đoạn từ trái sang phải và tìm mỗi lựa chọn tối ưu trong thời gian amortized hằng số thay vì sử dụng tìm kiếm nhị phân.
+Lưu ý rằng nếu biết thêm rằng $p_i \le p_{i+1}$ cho tất cả buổi hòa nhạc liên tiếp i và i+1,chúng ta có thể giải bài toán hiệu quả hơn trong O(n) thời gian, vì chúng ta có thể xử lý các đoạn từ trái sang phải và tìm mỗi lựa chọn tối ưu trong thời gian amortized hằng số thay vì sử dụng tìm kiếm nhị phân.
 
 #### 15.4.2 Tối ưu Chia để trị
 
-Tối ưu chia để trị có thể được áp dụng cho certain bài toán quy hoạch động mà chuỗi $s_1, s_2, \ldots, s_n$ gồm n phần tử phải được chia thành k dãy con các phần tử liên tiếp. Hàm chi phí cost(a, b) được cho, xác định chi phí tạo dãy con $s_a, s_{a+1}, \ldots, s_b$. Tổng chi phí chia là tổng chi phí riêng lẻ của các dãy con, và nhiệm vụ của chúng ta là tìm cách chia tối thiểu tổng chi phí.
+Tối ưu chia để trị có thể được áp dụng cho một số bài toán quy hoạch động mà chuỗi $s_1, s_2, \ldots, s_n$ gồm n phần tử phải được chia thành k dãy con các phần tử liên tiếp. Hàm chi phí cost(a, b) được cho, xác định chi phí tạo dãy con $s_a, s_{a+1}, \ldots, s_b$. Tổng chi phí chia là tổng chi phí riêng lẻ của các dãy con, và nhiệm vụ của chúng ta là tìm cách chia tối thiểu tổng chi phí.
 
 Ví dụ, giả sử chúng ta có chuỗi số nguyên dương và $cost(a, b) = (s_a + s_{a+1} + \dots + s_b)^2$. Hình 15.25 cho thấy cách tối ưu chia chuỗi thành ba dãy con sử dụng hàm chi phí này. Tổng chi phí chia là $(2 + 3 + 1)^2 + (2 + 2 + 3)^2 + (4 + 1)^2 = 110$.
 
 Chúng ta có thể giải bài toán bằng cách định nghĩa hàm solve(i, j) cho biết tổng chi phí tối thiểu chia i phần tử đầu tiên $s_1, s_2, \ldots, s_i$ thành j dãy con. Rõ ràng, solve(n, k) bằng câu trả lời cho bài toán. Để tính giá trị solve(i, j),chúng ta phải tìm vị trí $1 \le p \le i$ tối thiểu giá trị
 
-$$solve(p-1, i-1) + cost(p, i)$$.
+$$solve(p-1, i-1) + cost(p, i)$$
 
-Ví dụ, trong Hình 15.25, lựa chọn tối ưu cho solve(8, 3) là p = 7. Cách đơn giản để tìm vị trí tối ưu là kiểm tra tất cả vị trí 1, 2, ..., i, mất O(n) thời gian. Bằng cách tính tất cả giá trị solve(i, j) như vậy,chúng ta có thuật toán quy hoạch động hoạt động trong $O(n^2k)$ thời gian. Tuy nhiên, sử dụng tối ưu chia để trị, chúng ta có thể cải thiện độ phức tạp thời gian thành $O(nk \log n)$.
+Ví dụ, trong Hình 15.25, lựa chọn tối ưu cho solve(8, 3) là p = 7. Cách đơn giản để tìm vị trí tối ưu là kiểm tra tất cả vị trí 1, 2, ..., i, mất O(n) thời gian. Bằng cách tính tất cả giá trị solve(i, j) như vậy, chúng ta có thuật toán quy hoạch động hoạt động trong $O(n^2k)$ thời gian. Tuy nhiên, sử dụng tối ưu chia để trị, chúng ta có thể cải thiện độ phức tạp thời gian thành $O(nk \log n)$.
 
 Tối ưu chia để trị có thể được sử dụng nếu hàm chi phí thỏa mãn *bất đẳng thức tứ giác*
 
@@ -6919,13 +6898,13 @@ cho tất cả $a \le b \le c \le d$. Đặt pos(i, j) biểu thị vị trí nh
 
 Ý tưởng là tạo hàm calc(j, a, b, x, y) tính tất cả giá trị solve(i, j) cho $a \le i \le b$ và j cố định sử dụng thông tin $x \le pos(i, j) \le y$. Hàm đầu tiên tính giá trị solve(z, j) trong đó $z = \lfloor (a + b)/2 \rfloor$. Sau đó nó thực hiện gọi đệ quy calc(j, a, z - 1, x, p) và calc(j, z + 1, b, p, y) trong đó p = pos(z, j). Ở đây thực tế $pos(i, j) \le pos(i + 1, j)$ được sử dụng để giới hạn phạm vi tìm kiếm. Để tính tất cả giá trị solve(i, j), chúng ta thực hiện gọi hàm calc(j, 1, n, 1, n) cho mỗi $j = 1, 2, \ldots, k$. Vì mỗi gọi hàm như vậy mất $O(n \log n)$ thời gian, thuật toán kết quả hoạt động trong $O(nk \log n)$ thời gian.
 
-Cuối cùng, hãy chứng minh rằng hàm chi phí bình phương tổng trong ví dụ thỏa mãn bất đẳng thức tứ giác. Đặt sum(a,b) biểu thị tổng giá trị trong đoạn [a,b], và đặt x = sum(b,c), y = sum(a,c) - sum(b,c), và z = sum(b,d) - sum(b,c). Sử dụng ký hiệu này, bất đẳng thức tứ giác trở thành
+Cuối cùng, hãy chứng minh rằng hàm chi phí bình phương tổng trong ví dụ thỏa mãn bất đẳng thức tứ giác. Đặt sum(a, b) biểu thị tổng giá trị trong đoạn [a, b], và đặt x = sum(b, c), y = sum(a, c) - sum(b, c), và z = sum(b, d) - sum(b, c). Sử dụng ký hiệu này, bất đẳng thức tứ giác trở thành
 
-$$(x + y)^2 + (x + z)^2 \le (x + y + z)^2 + x^2$$,
+$$(x + y)^2 + (x + z)^2 \le (x + y + z)^2 + x^2$$
 
 bằng
 
-$$0 < 2yz$$.
+$$0 < 2yz$$
 
 Vì y và z là giá trị không âm, điều này hoàn tất chứng minh.
 
@@ -6957,25 +6936,24 @@ cho tất cả giá trị $a \le b \le c \le d$. Lưu ý rằng bất đẳng th
 
 $$pos(i, j-1) \le pos(i, j) \le pos(i+1, j).$$
 
-Bây giờchúng ta có thể thực hiện n vòng $1, 2, \ldots, n$, và trên vòng k tính giá trị solve(i, j) trong đó j - i + 1 = k, tức là chúng ta xử lý dãy con theo thứ tự tăng dần độ dài. Vì chúng ta biết rằng pos(i, j) phải nằm giữa pos(i, j - 1) và pos(i + 1, j),chúng ta có thể thực hiện mỗi vòng trong O(n) thời gian, và tổng độ phức tạp thời gian của thuật toán trở thành $O(n^2)$.
+Bây giờ chúng ta có thể thực hiện n vòng $1, 2, \ldots, n$, và trên vòng k tính giá trị solve(i, j) trong đó j - i + 1 = k, tức là chúng ta xử lý dãy con theo thứ tự tăng dần độ dài. Vì chúng ta biết rằng pos(i, j) phải nằm giữa pos(i, j - 1) và pos(i + 1, j),chúng ta có thể thực hiện mỗi vòng trong O(n) thời gian, và tổng độ phức tạp thời gian của thuật toán trở thành $O(n^2)$.
 
 ### 15.5 Linh tinh
 
 Phần này trình bày một lựa chọn các kỹ thuật thiết kế thuật toán linh tinh. Chúng ta thảo luận kỹ thuật meet in the middle, thuật toán quy hoạch động đếm tập con, kỹ thuật tìm kiếm nhị phân song song, và giải pháp offline cho bài toán kết nối động.
 
-**15.5 Linh tinh 263**
 
 #### 15.5.1 Meet in the Middle
 
-Kỹ thuật *meet in the middle* chia không gian tìm kiếm thành hai phần kích thướckhoảng bằng nhau, thực hiện tìm kiếm riêng cho cả hai phần, và cuối cùng kết hợp kết quả tìm kiếm. Meet in the middle cho phép chúng ta tăng tốc certain thuật toán $O(2^n)$ thời gian sao cho chúng hoạt động trong chỉ $O(2^{n/2})$ thời gian. Lưu ý rằng $O(2^{n/2})$ nhanh hơn nhiều so với $O(2^n)$,vì $2^{n/2} = \sqrt{2^n}$. Sử dụng thuật toán $O(2^n)$chúng ta có thể xử lý đầu vào $n \approx 20$, nhưng sử dụng thuật toán $O(2^{n/2})$ giới hạn là $n \approx 40$.
+Kỹ thuật *meet in the middle* chia không gian tìm kiếm thành hai phần kích thước khoảng bằng nhau, thực hiện tìm kiếm riêng cho cả hai phần, và cuối cùng kết hợp kết quả tìm kiếm. Meet in the middle cho phép chúng ta tăng tốc một số thuật toán $O(2^n)$ thời gian sao cho chúng hoạt động trong chỉ $O(2^{n/2})$ thời gian. Lưu ý rằng $O(2^{n/2})$ nhanh hơn nhiều so với $O(2^n)$,vì $2^{n/2} = \sqrt{2^n}$. Sử dụng thuật toán $O(2^n)$chúng ta có thể xử lý đầu vào $n \approx 20$, nhưng sử dụng thuật toán $O(2^{n/2})$ giới hạn là $n \approx 40$.
 
-Giả sử chúng ta được cho tập hợp n số nguyên và nhiệm vụ của chúng ta là xác định whether tập hợp có tập con với tổng x. Ví dụ, cho tập hợp $\{2, 4, 5, 9\}$ và x = 15,chúng ta có thể chọn tập con $\{2, 4, 9\}$,vì 2 + 4 + 9 = 15. Chúng ta có thể dễ dàng giải bài toán trong $O(2^n)$ thời gian bằng cách đi qua mọi tập con có thể, nhưng tiếp theochúng ta sẽ giải bài toán hiệu quả hơn trong $O(2^{n/2})$ thời gian sử dụng meet in the middle.
+Giả sử chúng ta được cho tập hợp n số nguyên và nhiệm vụ của chúng ta là xác định xem tập hợp có tập con với tổng x. Ví dụ, cho tập hợp $\{2, 4, 5, 9\}$ và x = 15,chúng ta có thể chọn tập con $\{2, 4, 9\}$,vì 2 + 4 + 9 = 15. Chúng ta có thể dễ dàng giải bài toán trong $O(2^n)$ thời gian bằng cách đi qua mọi tập con có thể, nhưng tiếp theochúng ta sẽ giải bài toán hiệu quả hơn trong $O(2^{n/2})$ thời gian sử dụng meet in the middle.
 
-Ý tưởng là chia tập hợp thành hai tập A và B sao cho cả hai tập chứakhoảng một nửa số. Chúng ta thực hiện hai tìm kiếm: tìm kiếm đầu tiên tạo tất cả tập con của A và lưu tổng vào danh sách $S_A$, và tìm kiếm thứ hai tạo danh sách tương tự $S_B$ cho B. Sau đó, chỉ cần kiểm tra xemchúng tacó thể chọn một phần tử từ $S_A$ và phần tử khác từ $S_B$ sao cho tổng là x, có thể chính xác khi tập hợp gốc chứa tập con với tổng x.
+Ý tưởng là chia tập hợp thành hai tập A và B sao cho cả hai tập chứa khoảng một nửa số. Chúng ta thực hiện hai tìm kiếm: tìm kiếm đầu tiên tạo tất cả tập con của A và lưu tổng vào danh sách $S_A$, và tìm kiếm thứ hai tạo danh sách tương tự $S_B$ cho B. Sau đó, chỉ cần kiểm tra xemchúng tacó thể chọn một phần tử từ $S_A$ và phần tử khác từ $S_B$ sao cho tổng là x, có thể chính xác khi tập hợp gốc chứa tập con với tổng x.
 
 Ví dụ, hãy xem cách tập hợp $\{2, 4, 5, 9\}$ được xử lý. Đầu tiên, chúng ta chia tập hợp thành $A = \{2, 4\}$ và $B = \{5, 9\}$. Sau đó, chúng ta tạo danh sách $S_A = [0, 2, 4, 6]$ và $S_B = [0, 5, 9, 14]$. Vì $S_A$ chứa tổng 6 và $S_B$ chứa tổng 9, chúng ta kết luận rằng tập hợp gốc có tập con với tổng 6 + 9 = 15.
 
-Với cài đặt tốt,chúng ta có thể tạo danh sách $S_A$ và $S_B$ trong $O(2^{n/2})$ thời gian sao cho danh sách được sắp xếp. Sau đó,chúng ta có thể sử dụng thuật toán hai con trỏ để kiểm tra trong $O(2^{n/2})$ thời gian whether tổng x có thể được tạo từ $S_A$ và $S_B$. Do đó, tổng độ phức tạp thời gian của thuật toán là $O(2^{n/2})$.
+Với cài đặt tốt, chúng ta có thể tạo danh sách $S_A$ và $S_B$ trong $O(2^{n/2})$ thời gian sao cho danh sách được sắp xếp. Sau đó, chúng ta có thể sử dụng thuật toán hai con trỏ để kiểm tra trong $O(2^{n/2})$ thời gian liệu tổng x có thể được tạo từ $S_A$ và $S_B$. Do đó, tổng độ phức tạp thời gian của thuật toán là $O(2^{n/2})$.
 
 #### 15.5.2 Đếm Tập con
 
@@ -7002,7 +6980,7 @@ $$sum(\{0, 2\}) = value[\emptyset] + value[\{0\}] + value[\{2\}] + value[\{0, 2\
 
 = 3 + 1 + 5 + 1 = 10.
 
-Tiếp theochúng ta sẽ thấy cách giải bài toán trong $O(2^n n)$ thời gian sử dụng quy hoạch động và thao tác bit. Ý tưởng là xem xét bài toán con màgiới hạnnhững nào phần tử có thể bị xóa khỏi S.
+Tiếp theochúng ta sẽ thấy cách giải bài toán trong $O(2^n n)$ thời gian sử dụng quy hoạch động và thao tác bit. Ý tưởng là xem xét bài toán con màgiới hạn những nào phần tử có thể bị xóa khỏi S.
 
 Đặt partial(S, k) biểu thị tổng giá trị tập con của S với hạn chế rằng chỉ phần tử $0 \dots k$ có thể bị xóa khỏi S. Ví dụ,
 
@@ -7022,7 +7000,7 @@ $$\mathsf{partial}(S,k) = \begin{cases} \mathsf{partial}(S,k-1) & k \notin S \\ 
 
 Ở đây chúng ta tập trung vào phần tử k. Nếu $k \in S$, có hai tùy chọn:chúng ta có thểhoặc giữ k trong tập con hoặc xóa nó khỏi tập con.
 
-**Cài đặt** Có cáchđặc biệt thông minh để cài đặt giải pháp quy hoạch động sử dụng thao tác bit. Cụ thểchúng ta có thể khai báo mảng
+**Cài đặt** Có cáchđặc biệt thông minh để cài đặt giải pháp quy hoạch động sử dụng thao tác bit. Cụ thể chúng ta có thể khai báo mảng
 
 ```cpp
 int sum[1<<N];
@@ -7036,13 +7014,12 @@ for (int s = 0; s < (1<<n); s++) {
 }
 ```
 
-**15.5 Linh tinh 265**
 
 ![](images/_page_268_Figure_1.jpeg)
 
 ![](images/_page_268_Figure_2.jpeg)
 
-Sau đó,chúng ta có thểđiền vào mảng như sau:
+Sau đó, chúng ta có thểđiền vào mảng như sau:
 
 ```cpp
 for (int k = 0; k < n; k++) {
@@ -7056,25 +7033,25 @@ Code này tính giá trị partial(S, k) cho $k = 0 \dots n - 1$ vào mảng `su
 
 #### 15.5.3 Tìm kiếm Nhị phân Song song
 
-*Tìm kiếm nhị phân song song* là kỹ thuật cho phép chúng ta làm cho một số thuật toán dựa trên tìm kiếm nhị phân hiệu quả hơn. Ý tưởng tổng quát là thực hiện several tìm kiếm nhị phân đồng thời, thay vì thực hiện tìm kiếm riêng biệt.
+*Tìm kiếm nhị phân song song* là kỹ thuật cho phép chúng ta làm cho một số thuật toán dựa trên tìm kiếm nhị phân hiệu quả hơn. Ý tưởng tổng quát là thực hiện một số tìm kiếm nhị phân đồng thời, thay vì thực hiện tìm kiếm riêng biệt.
 
 Ví dụ, xem xét bài toán sau: Có n thành phố đánh số $1, 2, \ldots, n$. Ban đầu không có đường giữa các thành phố. Sau đó, trong m ngày, mỗi ngày đường mới được xây dựng giữa hai thành phố. Cuối cùng, chúng ta được cho k truy vấn dạng (a, b), và nhiệm vụ của chúng ta là xác định cho mỗi truy vấn thời điểm sớm nhất khi thành phố a và b được kết nối. Chúng ta có thể giả sử rằng tất cả cặp thành phố được yêu cầu được kết nối sau m ngày.
 
 Hình 15.27 cho thấy kịch bản ví dụ có bốn thành phố. Giả sử truy vấn là $q_1 = (1, 4)$ và $q_2 = (2, 3)$. Câu trả lời cho $q_1$ là 2, vì thành phố 1 và 4 được kết nối sau ngày 2, và câu trả lời cho $q_2$ là 4, vì thành phố 2 và 3 được kết nối sau ngày 4.
 
-Hãy đầu tiên xem xét bài toán dễ hơn mà chúng ta chỉ có một truy vấn (a, b). Trong trường hợp này,chúng ta có thể sử dụng cấu trúc union-find để mô phỏng quá trình thêm đường vào mạng. Sau mỗi đường mới, chúng ta kiểm tra whether thành phố a và b được kết nối và dừng tìm kiếm nếu có. Cả thêm đường và kiểm tra whether thành phố kết nối mất $O(\log n)$ thời gian, nên thuật toán hoạt động trong $O(m \log n)$ thời gian.
+Hãy đầu tiên xem xét bài toán dễ hơn mà chúng ta chỉ có một truy vấn (a, b). Trong trường hợp này, chúng ta có thể sử dụng cấu trúc union-find để mô phỏng quá trình thêm đường vào mạng. Sau mỗi đường mới, chúng ta kiểm tra liệu thành phố a và b được kết nối và dừng tìm kiếm nếu có. Cả thêm đường và kiểm tra liệu thành phố kết nối mất $O(\log n)$ thời gian, nên thuật toán hoạt động trong $O(m \log n)$ thời gian.
 
-Làm thế nàochúng ta có thể tổng quát hóa giải pháp này cho k truy vấn? Tất nhiênchúng ta có thể xử lý mỗi truy vấn riêng biệt, nhưng thuật toán như vậy sẽ mất $O(km \log n)$ thời gian, sẽ chậm nếu cả k và m lớn. Tiếp theochúng ta sẽ thấy cách chúng ta có thể giải bài toán hiệu quả hơn sử dụng tìm kiếm nhị phân song song.
+Làm thế nào chúng ta có thể tổng quát hóa giải pháp này cho k truy vấn? Tất nhiên chúng ta có thể xử lý mỗi truy vấn riêng biệt, nhưng thuật toán như vậy sẽ mất $O(km \log n)$ thời gian, sẽ chậm nếu cả k và m lớn. Tiếp theochúng ta sẽ thấy cách chúng ta có thể giải bài toán hiệu quả hơn sử dụng tìm kiếm nhị phân song song.
 
-Ý tưởng là gán mỗi truy vấn khoảng [x, y] có nghĩa là thành phố được kết nối lần đầu tiên không sớm hơn x ngày và không muộn hơn y ngày. Ban đầu, mỗi khoảng là [1, m]. Sau đó, chúng ta mô phỏng $\log m$ lần quá trình thêm tất cả đường vào mạng sử dụng cấu trúc union-find. Cho mỗi truy vấn, chúng ta kiểm tra tại thời điểm $u = \lfloor (x + y)/2 \rfloor$ whether thành phố kết nối. Nếu có, khoảng mới trở thành [x, u], và nếu không khoảng trở thành [u + 1, y]. Sau $\log m)$ vòng, mỗi khoảng chỉ chứa một thời điểm duy nhất là câu trả lời cho truy vấn.
+Ý tưởng là gán mỗi truy vấn khoảng [x, y] có nghĩa là thành phố được kết nối lần đầu tiên không sớm hơn x ngày và không muộn hơn y ngày. Ban đầu, mỗi khoảng là [1, m]. Sau đó, chúng ta mô phỏng $\log m$ lần quá trình thêm tất cả đường vào mạng sử dụng cấu trúc union-find. Cho mỗi truy vấn, chúng ta kiểm tra tại thời điểm $u = \lfloor (x + y)/2 \rfloor$ liệu thành phố kết nối. Nếu có, khoảng mới trở thành [x, u], và nếu không khoảng trở thành [u + 1, y]. Sau $\log m)$ vòng, mỗi khoảng chỉ chứa một thời điểm duy nhất là câu trả lời cho truy vấn.
 
-Trong mỗi vòng, chúng ta thêm m đường vào mạng trong $O(m \log n)$ thời gian và kiểm tra whether k cặp thành phố kết nối trong $O(k \log n)$ thời gian. Do đó, vì có $\log m$ vòng, thuật toán kết quả hoạt động trong $O((m + k) \log n \log m)$ thời gian.
+Trong mỗi vòng, chúng ta thêm m đường vào mạng trong $O(m \log n)$ thời gian và kiểm tra xem $k$ cặp thành phố kết nối trong $O(k \log n)$ thời gian. Do đó, vì có $\log m$ vòng, thuật toán kết quả hoạt động trong $O((m + k) \log n \log m)$ thời gian.
 
 #### 15.5.4 Kết nối Động
 
 Giả sử có đồ thị gồm n nút và m cạnh. Sau đó, chúng ta được cho q truy vấn, mỗi truy vấnhoặc là "thêm cạnh giữa nút a và b" hoặc "xóa cạnh giữa nút a và b." Nhiệm vụ của chúng ta là hiệu quả báo cáo số thành phần liên thông trong đồ thị sau mỗi truy vấn.
 
-Hình 15.28 cho thấy ví dụ về quá trình. Ban đầu, đồ thị có ba thành phần. Sau đó, cạnh 2–4 được thêm, nối hai thành phần. Sau đó, cạnh 4–5 được thêm và cạnh 2–5 bị xóa, nhưng số thành phầngiữ nguyên nguyên. Sau đó, cạnh 1–3 được thêm, nối hai thành phần, và cuối cùng, cạnh 2–4 bị xóa, chia thành phần thành hai thành phần.
+Hình 15.28 cho thấy ví dụ về quá trình. Ban đầu, đồ thị có ba thành phần. Sau đó, cạnh 2–4 được thêm, nối hai thành phần. Sau đó, cạnh 4–5 được thêm và cạnh 2–5 bị xóa, nhưng số thành phầngiữ nguyên. Sau đó, cạnh 1–3 được thêm, nối hai thành phần, và cuối cùng, cạnh 2–4 bị xóa, chia thành phần thành hai thành phần.
 
 Nếu cạnh chỉ được thêm vào đồ thị, bài toán sẽ dễ giải sử dụng cấu trúc union-find, nhưng phép xóa làm cho bài toán khó hơn nhiều. Tiếp theochúng ta sẽ thảo luận thuật toán chia để trị để giải phiên bản offline bài toán mà tất cả truy vấn được biết trước, và chúng ta được phép báo cáo kết quả theo bất kỳ thứ tự nào. Thuật toán trình bày ở đây dựa trên công trình của Kopeliovich [21].
 
@@ -7082,7 +7059,6 @@ Nếu cạnh chỉ được thêm vào đồ thị, bài toán sẽ dễ giải 
 
 Để xử lý các khoảng, chúng ta tạo đồ thị có n nút và không cạnh, và sử dụng hàm đệ quy được gọi với khoảng [0, q + 1]. Hàm hoạt động như
 
-**15.5 Linh tinh 267**
 
 ![](images/_page_270_Figure_1.jpeg)
 
@@ -7092,7 +7068,7 @@ Nếu cạnh chỉ được thêm vào đồ thị, bài toán sẽ dễ giải 
 
 như sau cho một phạm vi [a, b]: Đầu tiên, nếu [a, b] hoàn toàn nằm trong khoảng của một cạnh, và cạnh đó không thuộc đồ thị, nó được thêm vào đồ thị. Sau đó, nếu kích thước của [a, b] là 1, chúng ta báo cáo số thành phần liên thông, và nếu không, chúng ta xử lý đệ quy các phạm vi [a, k] và [k, b] với $k = \lfloor (a + b)/2 \rfloor$. Cuối cùng, chúng ta loại bỏ tất cả các cạnh đã được thêm vào khi bắt đầu xử lý phạm vi [a, b].
 
-Khi cạnh được thêm hoặc xóa, chúng ta cũng cập nhật số thành phần. Điều này có thể được thực hiện sử dụng cấu trúc union-find,vì chúng ta luôn xóa cạnh được thêm cuối cùng. Do đó, chỉ cần cài đặt phép hoàn tác cho cấu trúc union-find, có thể thực hiện bằng cách lưu trữ thông tin về phép toán trong ngăn xếp. Vì mỗi cạnh được thêm và xóanhiều nhất $O(\log q)$ lần và mỗi phép toán hoạt động trong $O(\log n)$ thời gian, tổng thời gian chạy của thuật toán là $O((m+q)\log q\log n)$.
+Khi cạnh được thêm hoặc xóa, chúng ta cũng cập nhật số thành phần. Điều này có thể được thực hiện sử dụng cấu trúc union-find, vì chúng ta luôn xóa cạnh được thêm cuối cùng. Do đó, chỉ cần cài đặt phép hoàn tác cho cấu trúc union-find, có thể thực hiện bằng cách lưu trữ thông tin về phép toán trong ngăn xếp. Vì mỗi cạnh được thêm và xóa nhiều nhất $O(\log q)$ lần và mỗi phép toán hoạt động trong $O(\log n)$ thời gian, tổng thời gian chạy của thuật toán là $O((m+q)\log q\log n)$.
 
 Lưu ý rằng ngoài đếm số thành phần, chúng ta có thể duy trì bất kỳ thông tin nào có thể kết hợp với cấu trúc union-find. Ví dụ, chúng ta có thể duy trì số nút trong thành phần lớn nhất hoặc tính hai phần của mỗi thành phần. Kỹ thuật cũng có thể được tổng quát hóa cho các cấu trúc dữ liệu khác hỗ trợ phép chèn và hoàn tác.
 
@@ -7154,17 +7130,17 @@ cho ra công thức.
 
 Trường hợp đặc biệt của tổng cấp số nhân là công thức
 
-$$1+2+4+8+\cdots+2^{n-1}=2^n-1$$.
+$$1+2+4+8+\cdots+2^{n-1}=2^n-1$$
 
 Tổng điều hòa là tổng dạng
 
 $$\sum_{x=1}^{n} \frac{1}{x} = 1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n}.$$
 
-Giới hạn trên cho tổng điều hòa là $\log_2(n) + 1$. Cụ thể,chúng ta có thể sửa đổi mỗi hạng tử 1/k sao cho k trở thành lũy thừa hai gần nhất không vượt quá k. Ví dụ, khi n = 6,chúng ta có thể ước tính tổng như sau:
+Giới hạn trên cho tổng điều hòa là $\log_2(n) + 1$. Cụ thể, chúng ta có thể sửa đổi mỗi hạng tử 1/k sao cho k trở thành lũy thừa hai gần nhất không vượt quá k. Ví dụ, khi n = 6,chúng ta có thể ước tính tổng như sau:
 
 $$1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5} + \frac{1}{6} \le 1 + \frac{1}{2} + \frac{1}{2} + \frac{1}{4} + \frac{1}{4} + \frac{1}{4}.$$
 
-Giới hạn trên này gồm $\log_2(n) + 1$ phần $(1, 2 \cdot 1/2, 4 \cdot 1/4, \text{ v.v.})$, và giá trị mỗi phầnnhiều nhất 1.
+Giới hạn trên này gồm $\log_2(n) + 1$ phần $(1, 2 \cdot 1/2, 4 \cdot 1/4, \text{ v.v.})$, và giá trị mỗi phần nhiều nhất 1.
 
 ### Tập hợp
 
@@ -7183,7 +7159,7 @@ Tập hợp mới có thể được tạo sử dụng phép toán tập hợp:
 
 Nếu mỗi phần tử của A cũng thuộc S, chúng ta nói rằng A là *tập con* của S, ký hiệu $A \subset S$. Tập hợp S luôn có $2^{|S|}$ tập con, bao gồm tập hợp rỗng. Ví dụ, các tập con của tập hợp $\{2, 4, 7\}$ là
 
-$$\emptyset$$, {2}, {4}, {7}, {2, 4}, {2, 7}, {4, 7} và {2, 4, 7}.
+$\emptyset$, $\{2\}$, $\{4\}$, $\{7\}$, $\{2, 4\}$, $\{2, 7\}$, $\{4, 7\}$ và $\{2, 4, 7\}$.
 
 Một số tập hợp thường dùng là $\mathbb{N}$ (số tự nhiên), $\mathbb{Z}$ (số nguyên), $\mathbb{Q}$ (số hữu tỷ), và $\mathbb{R}$ (số thực). Tập hợp $\mathbb{N}$ có thể được định nghĩa theo hai cách, tùy thuộc vào tình huống:hoặc $\mathbb{N} = \{0, 1, 2, ...\}$ hoặc $\mathbb{N} = \{1, 2, 3, ...\}$.
 
@@ -7196,7 +7172,7 @@ Một số tập hợp thường dùng là $\mathbb{N}$ (số tự nhiên), $\ma
 
 **Bảng A.1** Các toán tử logic
 
-Có several ký hiệu để định nghĩa tập hợp. Ví dụ,
+Có một số ký hiệu để định nghĩa tập hợp. Ví dụ,
 
 $$A = \{2n : n \in \mathbb{Z}\}$$
 
@@ -7216,7 +7192,7 @@ $$\forall x (\exists y (y < x))$$
 
 có nghĩa là với mỗi phần tử x trong tập hợp, có phần tử y trong tập hợp sao cho y nhỏ hơn x. Điều này đúng trong tập hợp số nguyên, nhưng sai trong tập hợp số tự nhiên.
 
-Sử dụng ký hiệumô tả trên, chúng ta có thểbiểuđạt nhiều loại mệnh đề logic. Ví dụ,
+Sử dụng ký hiệumô tả trên, chúng ta có thể biểu đạt nhiều loại mệnh đề logic. Ví dụ,
 
 $$\forall x ((x > 1 \land \neg P(x)) \Rightarrow (\exists a (\exists b (a > 1 \land b > 1 \land x = ab))))$$
 
@@ -7226,11 +7202,11 @@ có nghĩa là nếu số x lớn hơn 1 và không phải số nguyên tố, th
 
 Hàm $\lfloor x \rfloor$ làm tròn số x xuống số nguyên, và hàm $\lceil x \rceil$ làm tròn số x lên số nguyên. Ví dụ,
 
-$$\lfloor 3/2 \rfloor = 1$$ và $\lceil 3/2 \rceil = 2$.
+$\lfloor 3/2 \rfloor = 1$ và $\lceil 3/2 \rceil = 2$.
 
 Các hàm $\min(x_1, x_2, ..., x_n)$ và $\max(x_1, x_2, ..., x_n)$ cho giá trị nhỏ nhất và lớn nhất của $x_1, x_2, ..., x_n$. Ví dụ,
 
-$$\min(1, 2, 3) = 1$$ và $\max(1, 2, 3) = 3$.
+$\min(1, 2, 3) = 1$ và $\max(1, 2, 3) = 3$.
 
 Giai thừa n! có thể được định nghĩa bằng
 
@@ -7264,7 +7240,7 @@ $$f(n) = \frac{(1+\sqrt{5})^n - (1-\sqrt{5})^n}{2^n\sqrt{5}}.$$
 
 Logarithm của số x được ký hiệu $\log_b(x)$, trong đó b là cơ số logarithm. Nó được định nghĩa sao cho $\log_b(x) = a$ chính xác khi $b^a = x$. *Logarithm tự nhiên* $\ln(x)$ của số x là logarithm có cơ số $e \approx 2.71828$.
 
-Tính chất hữu ích của logarithm là $\log_b(x)$ bằng số lầnchúng ta phải chia x cho b trước khi đạt số 1. Ví dụ, $\log_2(32) = 5$ vì 5 phép chia cho 2 cần thiết:
+Tính chất hữu ích của logarithm là $\log_b(x)$ bằng số lần chúng ta phải chia x cho b trước khi đạt số 1. Ví dụ, $\log_2(32) = 5$ vì 5 phép chia cho 2 cần thiết:
 
 $$32 \rightarrow 16 \rightarrow 8 \rightarrow 4 \rightarrow 2 \rightarrow 1$$
 
@@ -7296,7 +7272,7 @@ Chúng ta có thể chuyển đổi số cơ số 10 sang cơ số b bằng các
 - 5/3 = 1 (dư 2)
 - 1/3 = 0 (dư 1)
 
-Do đó, số 17 ở cơ số 3 là 122. Sau đó, để chuyển đổi số cơ số b sang cơ số 10, chỉ cần nhân mỗi chữ số với $b^k$, trong đó k là vị trí bắt đầu từ 0 của chữ số tính từ phải, và tổng hợp kết quả. Ví dụ,chúng ta có thể chuyển đổi số cơ số 3 122 về cơ số 10 như sau:
+Do đó, số 17 ở cơ số 3 là 122. Sau đó, để chuyển đổi số cơ số b sang cơ số 10, chỉ cần nhân mỗi chữ số với $b^k$, trong đó k là vị trí bắt đầu từ 0 của chữ số tính từ phải, và tổng hợp kết quả. Ví dụ, chúng ta có thể chuyển đổi số cơ số 3 122 về cơ số 10 như sau:
 
 $$1 \cdot 3^2 + 2 \cdot 3^1 + 2 \cdot 3^0 = 17$$
 

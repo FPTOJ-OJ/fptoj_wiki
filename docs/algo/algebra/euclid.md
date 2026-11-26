@@ -346,8 +346,10 @@ Trường hợp $a, b$ không dương, ta thay đổi dấu của $x, y$ để t
 
 Thay nghiệm $x_0, y_0$ trở lại phương trình, ta được:
 
-$ax_0 + by_0 = c\\
-\Rightarrow a\left(x_0 + k\times\frac{b}{d}\right) + b\left(y_0 - k\times\frac{a}{d}\right) = c \  (k \in \mathbb{Z})$
+$$\begin{aligned}
+ax_0 + by_0 &= c \\
+\Rightarrow a\left(x_0 + k\times\frac{b}{d}\right) + b\left(y_0 - k\times\frac{a}{d}\right) &= c \quad (k \in \mathbb{Z})
+\end{aligned}$$
 
 Từ đẳng thức này ta kết luận các nghiệm của phương trình có dạng:
 
@@ -431,20 +433,21 @@ Chốt lại, để tìm nghiệm của một phương trình Diophantus, ta tì
 *Bài tập áp dụng trực tiếp*: [SGU 106](https://codeforces.com/problemsets/acmsguru/problem/99999/106)
 
 **Tóm tắt đề bài**: Đếm số cặp số nguyên $x, y$ thoả mãn:
-$\begin{cases}
+
+$$\begin{cases}
 	ax + by = c \\
 	x_1 \leq x \leq x_2\\
 	y_1 \leq y \leq y_2
-\end{cases}$
+\end{cases}$$
 
 Các trường hợp có $a = 0$ hoặc $b = 0$ là tầm thường. Ta chỉ xét $a \neq 0$ và $b \neq 0$.
 
 Ở phần trước, ta đã có công thức nghiệm tổng quát của các phương trình Diophantus từ một nghiệm bất kỳ:
 
-$\begin{cases}
+$$\begin{cases}
 	x = x_0 + k \times \frac{b}{d} \\
 	y = y_0 - k \times \frac{a}{d}
-\end{cases} \ (k \in \mathbb{Z})$
+\end{cases} \ (k \in \mathbb{Z})$$
 
 Dễ thấy các nghiệm của bài toán lúc này chỉ phụ thuộc vào $k$. Bài toán trở thành tìm $k$ sao cho $x$ và $y$ thoả mãn các điều kiện đã cho. Lúc này ta chỉ cần thay ngược biểu thức của $x$ và $y$ theo $k$ vào rồi suy ngược $k$ ra là xong.
 
@@ -470,10 +473,12 @@ Không phải số tự nhiên nào cũng có nghịch đảo modulo; chẳng h�
 
 Xét phương trình Diophantus $ax + by = 1$. Khi phương trình có nghiệm $(x_0, y_0)$, ta có:
 
-$ax_0 + by_0 = 1\\
-\Rightarrow ax_0 = 1 - by_0\\
-\Rightarrow ax_0 \equiv 1 \ (\text{mod } b)\\
-\Rightarrow x_0 \equiv a^{-1} \ (\text{mod } b)$
+$$\begin{aligned}
+ax_0 + by_0 &= 1 \\
+\Rightarrow ax_0 &= 1 - by_0 \\
+\Rightarrow ax_0 &\equiv 1 \pmod{b} \\
+\Rightarrow x_0 &\equiv a^{-1} \pmod{b}
+\end{aligned}$$
 
 Ta thấy nghiệm $x$ của phương trình là nghịch đảo modulo $b$ của $a$. Qua đó ta cũng thấy, nghịch đảo modulo chỉ tồn tại khi và chỉ khi $(a, b) = 1$.
 

@@ -259,24 +259,30 @@ Vậy ta chỉ cần tính $\color{red}{AX}$ và $\color{red}{A}\color{blue}{Y}$
 
 Xét trường hợp tổng quát, với $0\le i<\frac{n}{2}$, ta có (chú ý $i$ ở đây là chỉ số, không phải đơn vị ảo):
 
-\begin{align}
+$$
+\begin{aligned}
 A(\omega_n^i)&=\sum_ja_j\omega_n^{ij}=\sum_k a_{2k}\omega_n^{2k i}+\sum_k a_{2k+1}\omega_n^{(2k+1)i}\\&=\sum_k a_{2k}(\omega_n^2)^{ik}+\omega_n^i\sum_k a_{2k+1}(\omega_n^2)^{ik}\\
 &= \sum_k a_{2k}\omega_{n/2}^{ik}+\omega_n^i\sum_k a_{2k+1}\omega_{n/2}^{ik}
-\end{align}
+\end{aligned}
+$$
 
-\begin{align}
+$$
+\begin{aligned}
 A(\omega_n^{i+n/2})&=\sum_ja_j\omega_n^{(i+n/2)j}=\sum_k a_{2k}\omega_n^{2k(i+n/2)}+\sum_k a_{2k+1}\omega_n^{(2k+1)(i+n/2)}\\
 &=\sum_k a_{2k}\omega_n^{2ki}+\sum_k a_{2k+1}\omega_n^{2ki+i+n/2}\\
 &=\sum_k a_{2k}(\omega_n^2)^{ik}-\omega_n^i\sum_k a_{2k+1}(\omega_n^2)^{ik}\\
 &= \sum_k a_{2k}\omega_{n/2}^{ik}-\omega_{n}^i\sum_k a_{2k+1}\omega_{n/2}^{ik}
-\end{align}
+\end{aligned}
+$$
 
 Nếu coi $\text{DFT}(a_0,a_2,\ldots,a_{n/2-2})=A_0$ và $\text{DFT}(a_1,a_3,\ldots,a_{n/2-1})=A_1$ thì hai biểu thức trên có thể viết lại thành:
 
-\begin{align}
+$$
+\begin{aligned}
 A(\omega_n^i)&=A_0(\omega_{n/2}^i)+\omega_n^iA_1(\omega_{n/2}^i)\\
 A(\omega_n^{i+n/2})&=A_0(\omega_{n/2}^i)-\omega_n^iA_1(\omega_{n/2}^i)
-\end{align}
+\end{aligned}
+$$
 
 Vậy ta cần tính $A_0$ và $A_1$ là hai bài toán với kích thước giảm đi một nửa.
 
@@ -550,11 +556,13 @@ Gọi $A,B,C$ lần lượt là các biến đổi $\text{DFT}$ tương ứng. T
 $$\overline{C(\omega^{-j})}=\overline{A(\omega^{-j})}+\overline{B(\omega^{-j})\cdot i}=A(\overline{\omega^{-j}})-i\cdot B(\overline{\omega^{-j}})=A(\omega^j)-B(\omega^j)\cdot i$$
 
 kết hợp với $C(\omega^j)=A(\omega^j)+B(\omega^j)\cdot i$ suy ra:
-\begin{align}
+$$
+\begin{aligned}
 A(\omega^j) &= \frac{C(\omega^j)+\overline{C(\omega^{-j})}}{2}\\
 B(\omega^j) &= \frac{C(\omega^j)-\overline{C(\omega^{-j})}}{2i} \\
 A(\omega^j)B(\omega^j) &=\frac{C^2(\omega^j)-\overline{C^2(\omega^{-j})}}{4i}
-\end{align}
+\end{aligned}
+$$
 
 Sử dụng công thức này ta có thể tính tích chập chỉ dùng hai lần gọi hàm `fft`:
 
@@ -620,20 +628,24 @@ Sử dụng công thức này ta có thể tính tích chập chỉ dùng hai l�
 Xét bài toán nhân đa thức nhưng lần này ta muốn các hệ số của đa thức chia lấy dư cho một số nguyên tố $p$. Nếu ta sử dụng thuật toán FFT thông thường có thể gây ra sai số lớn vì hệ số của đa thức kết quả có thể rất lớn. Thuật toán NTT cho phép ta tính toán chỉ dùng số nguyên, từ đó kết quả luôn đảm bảo chính xác.
 
 Thuật toán FFT dựa trên các tính chất của căn đơn vị. Các tính chất này cũng xuất hiện trên căn đơn vị trong số học modulo. Cụ thể ta gọi căn đơn vị cấp $n$ modulo $p$ là một số nguyên $\omega_n$ thoả mãn:
-\begin{align}
+$$
+\begin{aligned}
 &(\omega_n)^n=1\pmod p\\
 &(\omega_n)^j \ne (\omega_n)^k, \forall\ 0\le j<k<n
-\end{align}
+\end{aligned}
+$$
 
 Điều kiện thứ hai có thể được viết lại thành: $(\omega_n)^k\ne 1$ với mọi $1\le k<n$.
 
 Các căn đơn vị cấp $n$ khác được biểu diễn bằng một luỹ thừa của $\omega_n$.
 
 Để áp dụng thuật toán FFT, ta cần các căn đơn vị cho các luỹ thừa nhỏ hơn của $2$. Ta có thể chứng minh tính chất sau:
-\begin{align}
+$$
+\begin{aligned}
 &(\omega_n^2)^{n/2}=1\pmod p\\
 &(\omega_n^2)^k\ne 1\pmod p,\forall\ 1\le k<\frac{n}{2}
-\end{align}
+\end{aligned}
+$$
 
 Từ đây ta có nếu $\omega_n$ là căn đơn vị cấp $n$, thì $\omega_n^2$ là căn đơn vị cấp $\frac{n}{2}$ và do đó ta tính được căn đơn vị cho các luỹ thừa của $2$ nhỏ hơn.
 

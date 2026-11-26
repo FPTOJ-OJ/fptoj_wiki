@@ -178,7 +178,7 @@ Cũng chính nhờ việc chứng minh này, ta có thể xây dựng một thu�
 
 - Đầu tiên ta tìm số $j > 0$ sao cho $S^j \sqsupset S^i$.
 - Nếu không tìm được, ta kết luận $\pi_i = 0$ (như trường hợp $i=1$).
-- Nếu có $j > 0$ thỏa mãn, vậy khi xóa bỏ kí tự cuối của hậu tố này, ta thu được một hậu tố của $S_{i-1}$ đồng thời là tiền tố của $S$, tức là $S^{j-1} \sqsupset S^{i-1}$. Vậy bước đầu ta đếm mọi hậu tố chuẩn và không-rỗng của $S^{i-1}$ đồng thời là tiền tố của $S$. Nếu ta tìm được một hậu tố độ dài $k$ đồng thời thỏa $S_k = S_i$, vậy $S^{k+1} \sqsupset S^i$, và $k+1$ là một giá trị khả dĩ của $j$. Vậy ta sẽ gán $k = \pi_{i-1}$ và tiếp tục lặp lại trong dãy $\pi_{\pi_i}, \pi_{\pi_{\pi_i}}, ... $ Quá trình sẽ dừng lại nếu gặp phải một phần tử $j$ trong dãy sao cho $S_{j+1} = S_i$, và gán $\pi_i = j+1$; cách này sẽ luôn cho kết quả tối ưu vì dãy $\pi_{i-1}^*$ luôn giảm và nó chứa toàn bộ giá trị $k$ khả dĩ. Nếu đi đến hết dãy, vậy $\pi_i = 0$.
+- Nếu có $j > 0$ thỏa mãn, vậy khi xóa bỏ kí tự cuối của hậu tố này, ta thu được một hậu tố của $S_{i-1}$ đồng thời là tiền tố của $S$, tức là $S^{j-1} \sqsupset S^{i-1}$. Vậy bước đầu ta đếm mọi hậu tố chuẩn và không-rỗng của $S^{i-1}$ đồng thời là tiền tố của $S$. Nếu ta tìm được một hậu tố độ dài $k$ đồng thời thỏa $S_k = S_i$, vậy $S^{k+1} \sqsupset S^i$, và $k+1$ là một giá trị khả dĩ của $j$. Vậy ta sẽ gán $k = \pi_{i-1}$ và tiếp tục lặp lại trong dãy $\pi_{\pi_i}, \pi_{\pi_{\pi_i}}, ...$ Quá trình sẽ dừng lại nếu gặp phải một phần tử $j$ trong dãy sao cho $S_{j+1} = S_i$, và gán $\pi_i = j+1$; cách này sẽ luôn cho kết quả tối ưu vì dãy $\pi_{i-1}^*$ luôn giảm và nó chứa toàn bộ giá trị $k$ khả dĩ. Nếu đi đến hết dãy, vậy $\pi_i = 0$.
 
 Dưới đây là mã giả để tính $\pi$:
 

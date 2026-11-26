@@ -1,4 +1,4 @@
-# Bài 51: Aho-Corasick — Tìm Nhiều Mẫu Cùng Lúc
+# Bài 98: Aho-Corasick — Tìm Nhiều Mẫu Cùng Lúc
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, e-maxx
@@ -207,7 +207,7 @@ Nghĩa là: đi từ $fail[u]$ theo cạnh $c$. Nếu không có cạnh $c$ từ
 
 ### Trace chi tiết
 
-Mẫu $= \{$`"he"`, `"she"`, `"his"`, `"hers"`$\}$.
+Mẫu $= \{\text{"he"}, \text{"she"}, \text{"his"}, \text{"hers"}\}$.
 
 ```mermaid
 graph TD
@@ -407,7 +407,7 @@ Duyệt text $T$ từ trái sang phải. Giữ nút hiện tại $node$ trong au
 
 ### Trace chi tiết
 
-$T = \text{"ushersher"}$, mẫu $= \{$`"he"`, `"she"`, `"his"`, `"hers"`$\}$.
+$T = \text{"ushersher"}$, mẫu $= \{\text{"he"}, \text{"she"}, \text{"his"}, \text{"hers"}\}$.
 
 | $i$ | $T[i]$ | $node$ trước | $go(node, T[i])$ | $node$ sau | Mẫu tìm thấy |
 |-----|--------|--------------|-------------------|------------|---------------|
@@ -522,8 +522,8 @@ Mọi mẫu kết thúc tại $i$ đều ứng với một nút trên failure ch
 | Bước | Độ phức tạp | Giải thích |
 |------|-------------|------------|
 | Xây dựng trie | $O(M)$ | Mỗi ký tự mẫu tạo 1 nút, mỗi nút $O(1)$ |
-| Failure links | $O(M \cdot |\Sigma|)$ | BFS qua $M$ nút, mỗi nút xét $|\Sigma|$ ký tự |
-| Dictionary links | $O(M \cdot |\Sigma|)$ | Tương tự |
+| Failure links | $O(M \cdot \lvert\Sigma\rvert)$ | BFS qua $M$ nút, mỗi nút xét $\lvert\Sigma\rvert$ ký tự |
+| Dictionary links | $O(M \cdot \lvert\Sigma\rvert)$ | Tương tự |
 | Tìm kiếm | $O(N + Z)$ | Duyệt text $O(N)$, dictionary chain tổng $O(Z)$ |
 
 **Tổng:** $O(M \cdot |\Sigma| + N + Z)$.
@@ -542,16 +542,16 @@ Với alphabet cố định $|\Sigma| = 26$, đây là $O(N + M + Z)$.
 | Thành phần | Vai trò | Độ phức tạp xây dựng |
 |------------|---------|----------------------|
 | Trie | Lưu trữ $K$ mẫu, chia sẻ prefix | $O(M)$ |
-| Failure links | Tiền tố đúng dài nhất (π trên trie) | $O(M \cdot |\Sigma|)$ |
-| Dictionary links | Nhảy đến mẫu kết thúc gần nhất | $O(M \cdot |\Sigma|)$ |
-| Hàm $go$ (DFA) | Chuyển trạng thái $O(1)$ | $O(M \cdot |\Sigma|)$ |
+| Failure links | Tiền tố đúng dài nhất (π trên trie) | $O(M \cdot \lvert\Sigma\rvert)$ |
+| Dictionary links | Nhảy đến mẫu kết thúc gần nhất | $O(M \cdot \lvert\Sigma\rvert)$ |
+| Hàm $go$ (DFA) | Chuyển trạng thái $O(1)$ | $O(M \cdot \lvert\Sigma\rvert)$ |
 
 ### So sánh với phương pháp khác
 
 | Phương pháp | Thời gian | Không gian | Khi nào dùng |
 |-------------|-----------|------------|---------------|
 | KMP × $K$ lần | $O(KN + M)$ | $O(M + N)$ | $K$ nhỏ ($\leq 10$) |
-| Aho-Corasick | $O(N + M + Z)$ | $O(M \cdot |\Sigma|)$ | $K$ lớn, alphabet nhỏ |
+| Aho-Corasick | $O(N + M + Z)$ | $O(M \cdot \lvert\Sigma\rvert)$ | $K$ lớn, alphabet nhỏ |
 | Hash + Rolling | $O(N \sqrt{M})$ | $O(N + M)$ | Không cần vị trí chính xác |
 
 ---
@@ -940,7 +940,7 @@ Nếu hai mẫu giống hệt, cần lưu **tất cả** ID vào vector `output`
 
 ### Patterns là suffix của nhau
 
-Với mẫu $\{$`"a"`, `"aa"`, `"aaa"`$\}$, khi match `"aaa"` tại vị trí 2, cần báo cả 3 mẫu. Dictionary links xử lý chính xác trường hợp này.
+Với mẫu $\{\text{"a"}, \text{"aa"}, \text{"aaa"}\}$, khi match `"aaa"` tại vị trí 2, cần báo cả 3 mẫu. Dictionary links xử lý chính xác trường hợp này.
 
 ### Alphabet lớn
 
@@ -995,9 +995,9 @@ graph TD
 | Thành phần | Vai trò | Độ phức tạp |
 |------------|---------|-------------|
 | Trie | Lưu trữ $K$ mẫu, chia sẻ prefix | $O(M)$ |
-| Failure links | Longest valid suffix (π trên trie) | $O(M \cdot |\Sigma|)$ |
-| Dictionary links | Nhảy đến mẫu kết thúc gần nhất | $O(M \cdot |\Sigma|)$ |
-| Hàm $go$ (DFA) | Chuyển trạng thái mỗi ký tự text | $O(M \cdot |\Sigma|)$ |
+| Failure links | Longest valid suffix (π trên trie) | $O(M \cdot \lvert\Sigma\rvert)$ |
+| Dictionary links | Nhảy đến mẫu kết thúc gần nhất | $O(M \cdot \lvert\Sigma\rvert)$ |
+| Hàm $go$ (DFA) | Chuyển trạng thái mỗi ký tự text | $O(M \cdot \lvert\Sigma\rvert)$ |
 | Search | Duyệt text, thu thập kết quả | $O(N + Z)$ |
 
 **Điểm mấu chốt:**
@@ -1006,3 +1006,7 @@ graph TD
 - Failure link giúp automaton **không bao giờ lùi** trên text
 - Dictionary link thu thập **tất cả** mẫu matching tại mỗi vị trí
 - Optimization `trie[u].next[c] = trie[fail[u]].next[c]` biến trie thành **DFA** — mỗi bước duyệt text chỉ tốn $O(1)$
+
+---
+
+**Bài trước:** [← Bài 97: DP on Broken Profile](dp-broken-profile.md) | **Bài tiếp theo:** [Bài 99: Suffix Automaton →](suffix-automaton.md)

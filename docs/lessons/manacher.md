@@ -1,4 +1,4 @@
-# Bài 20: Manacher - Tìm Palindrome Dài Nhất
+# Bài 47: Manacher - Tìm Palindrome Dài Nhất
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Manacher
@@ -53,7 +53,7 @@ Ví dụ với $T$ = `^#a#b#b#a#$`:
 
 | Chỉ số $i$ | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |------------|---|---|---|---|---|---|---|---|---|---|---|
-| $T[i]$ | ^ | # | a | # | b | # | b | # | a | # | $ |
+| $T[i]$ | `^` | `#` | `a` | `#` | `b` | `#` | `b` | `#` | `a` | `#` | `$` |
 | $P[i]$ | 0 | 0 | 1 | 0 | 1 | 4 | 1 | 0 | 1 | 0 | 0 |
 
 $P[5]=4$ nghĩa là palindrome dài nhất có tâm tại index 5 có bán kính 4, tức là `abba` dài 4 ký tự trong xâu gốc.
@@ -287,8 +287,8 @@ t += "#$";
 
 ## Bài viết liên quan
 
-- [Bài 9: KMP & Z-Algorithm](kmp-tim-xau.md)
-- [Bài 14: Hash xâu](hash-xau-z-algorithm.md)
+- [Bài 45: KMP & Z-Algorithm](kmp-tim-xau.md)
+- [Bài 46: Hash xâu](hash-xau-z-algorithm.md)
 
 ## Tài liệu tham khảo
 
@@ -297,4 +297,6 @@ t += "#$";
 - [GeeksforGeeks - Manacher's Algorithm](https://www.geeksforgeeks.org/dsa/manachers-algorithm-linear-time-longest-palindrome-substring-part-1/)
 - [YouTube - Manacher's Algorithm (takeuforward)](https://www.youtube.com/watch?v=nbTSfr1HFKs)
 
-**Bài tiếp theo:** [Greedy](greedy.md)
+---
+
+**Bài trước:** [← Bài 46: Hash Xâu & Z-Algorithm](hash-xau-z-algorithm.md) | **Bài tiếp theo:** [Bài 48: Suffix Array →](suffix-array.md)

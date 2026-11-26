@@ -1,4 +1,4 @@
-# Bài 61: Phương Trình Đường Thẳng & Giao Điểm
+# Bài 68: Phương Trình Đường Thẳng & Giao Điểm
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -773,3 +773,7 @@ double k = -L.A / L.B; // nổ khi B = 0 (đường thẳng đứng)!
         if __name__ == '__main__':
             main()
         ```
+
+---
+
+**Bài trước:** [← Bài 67: Hình Học Cơ Bản](hinh-hoc-co-ban.md) | **Bài tiếp theo:** [Bài 69: Hình Học Đường Tròn →](hinh-hoc-duong-tron.md)

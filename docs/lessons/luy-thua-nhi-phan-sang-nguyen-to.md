@@ -1,4 +1,4 @@
-# Bài 11: Lũy Thừa Nhị Phân & Sàng Nguyên Tố
+# Bài 10: Lũy Thừa Nhị Phân & Sàng Nguyên Tố
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Lũy thừa nhị phân, Sàng nguyên tố
@@ -802,9 +802,9 @@ Chỉ modulo ở kết quả cuối sẽ gây tràn số ngay. Phải modulo sau
 
 ## Bài viết liên quan
 
-- [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md)
-- [Bài 26: Số học nâng cao](so-hoc-nang-cao.md)
-- [Bài 19: Tổ hợp & Xác suất](to-hop-xac-suat.md)
+- [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md)
+- [Bài 52: Số học nâng cao](so-hoc-nang-cao.md)
+- [Bài 51: Tổ hợp & Xác suất](to-hop-xac-suat.md)
 
 ## Tài liệu tham khảo
 
@@ -814,4 +814,6 @@ Chỉ modulo ở kết quả cuối sẽ gây tràn số ngay. Phải modulo sau
 - [CP-Algorithms - Sieve of Eratosthenes](https://cp-algorithms.com/algebra/sieve-of-eratosthenes.html)
 - [HackerEarth - Number Theory](https://www.hackerearth.com/practice/math/number-theory/basic-number-theory-1/tutorial/)
 
-**Bài tiếp theo:** [Quy hoạch động →](quy-hoach-dong.md)
+---
+
+**Bài trước:** [← Bài 9: Mảng, Stack, Prefix Sum và Difference Array](mang-stack-prefix-sum.md) | **Bài tiếp theo:** [Bài 11: Chia Đôi Tập (Meet in the Middle) →](meet-in-the-middle.md)

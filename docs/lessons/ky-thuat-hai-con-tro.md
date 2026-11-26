@@ -1,4 +1,4 @@
-# Bài 4: Kĩ Thuật Hai Con Trỏ - Biến $O(N^2)$ Thành $O(N)$
+# Bài 8: Kĩ Thuật Hai Con Trỏ - Biến $O(N^2)$ Thành $O(N)$
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Kĩ thuật hai con trỏ
@@ -461,9 +461,9 @@ Nếu $a[i]$ có thể lên đến $10^9$ và $N$ lên đến $10^6$, tổng có
 
 ## Bài viết liên quan
 
-- [Bài 3: Tìm kiếm nhị phân](tim-kiem-nhi-phan.md)
-- [Bài 7: Prefix Sum](mang-stack-prefix-sum.md)
-- [Bài 15: Deque & Sliding Window](deque-sliding-window.md)
+- [Bài 4: Tìm kiếm nhị phân](tim-kiem-nhi-phan.md)
+- [Bài 9: Prefix Sum](mang-stack-prefix-sum.md)
+- [Bài 19: Deque & Sliding Window](deque-sliding-window.md)
 
 ## Tài liệu tham khảo
 
@@ -472,4 +472,6 @@ Nếu $a[i]$ có thể lên đến $10^9$ và $N$ lên đến $10^6$, tổng có
 - [GeeksforGeeks - Two Pointer Technique](https://www.geeksforgeeks.org/dsa/two-pointers-technique/)
 - [YouTube - Two Pointers (takeuforward)](https://www.youtube.com/watch?v=On03HWe2tZM)
 
-**Bài tiếp theo:** [Phép toán bit →](phep-toan-bit.md)
+---
+
+**Bài trước:** [← Bài 7: Đệ Quy Và Quay Lui](de-quy-va-quay-lui.md) | **Bài tiếp theo:** [Bài 9: Mảng, Stack, Prefix Sum và Difference Array →](mang-stack-prefix-sum.md)

@@ -1,4 +1,4 @@
-# Chia Đôi Tập (Meet in the Middle) - Biến $O(2^N)$ Thành $O(2^{N/2})$
+# Bài 11: Chia Đôi Tập (Meet in the Middle) - Biến $O(2^N)$ Thành $O(2^{N/2})$
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Meet in the Middle, USACO Guide
@@ -405,7 +405,7 @@ Bài toán: Cho ma trận chi phí $C[N][N]$. Giao mỗi người 1 việc sao c
 
 ---
 
-## 6. Lỗi thường gặp
+## 5. Lỗi thường gặp
 
 ```cpp
 // SAI: 1 << n1 tràn số khi n1 >= 31 (int 32-bit)
@@ -418,6 +418,10 @@ long long szL = 1LL << n1;
 - **Quên sort mảng tổng** ở bài subset-sum: nửa phải phải sort để binary search (`lower_bound`), không sort sẽ ra đáp án sai.
 - **Ghép sai `dpR[full]`**: mỗi đỉnh chỉ thuộc một nửa — phải ghép `dpL[mask] + dpR[full ^ mask]` (phần bù), không phải cộng nguyên `dpR[full]` cho mọi mask.
 - **Trùng tổng / tràn `long long`**: tổng tập con có thể vượt `int` — dùng `long long` cho mọi tổng.
+
+---
+
+## 6. Bài tập luyện tập
 
 ### Cơ bản
 
@@ -433,3 +437,7 @@ long long szL = 1LL << n1;
 |:---|:---|:---:|:---|:---|
 | `mitm-knap` | [Cái túi - Meet in the Middle](https://fptoj.com/problem/mitm-knap) | ⭐⭐⭐ | Knapsack | Chọn đồ tối ưu với N ≤ 40 |
 | `mitm-balanced` | [Chia kẹo](https://fptoj.com/problem/mitm-balanced) | ⭐⭐⭐ | Chia tập | Chia mảng chênh lệch nhỏ nhất |
+
+---
+
+**Bài trước:** [← Bài 10: Lũy Thừa Nhị Phân & Sàng Nguyên Tố](luy-thua-nhi-phan-sang-nguyen-to.md) | **Bài tiếp theo:** [Bài 12: Rời Rạc Hoá (Nén Số) →](discretization.md)

@@ -31,8 +31,7 @@ Bây giờ ta sẽ xây dựng thuật giải:
 Gọi số cách xếp $i$ cái ghế là $f[i]$. Ta xét chiếc ghế thứ $n$. 
 * Nếu nó có màu đen hoặc trắng thì chiếc ghế cạnh nó có thể có một trong ba màu. Do đó ta chỉ cần bố trí $n-1$ chiếc ghế còn lại thỏa mãn yêu cầu. Do có 2 cách chọn màu cho ghế thứ $n$ và $f[n-1]$ cách chọn màu cho các ghế còn lại nên số cách xếp trong trường hợp này là $2 * f[n-1]$.
 
-<p align="center"><img src="/uploads/basic-dynamic-programming-1_img2.png" alt="/uploads/basic-dynamic-programming-1_img2.png" style="max-width: 700px;" /><br><em> Nếu nó có màu đỏ thì chiếc ghế cạnh nó chỉ có thể có màu trắng hoặc đen. Do vậy nên chiếc ghế thứ $n-2$ có thể có một trong ba màu. Khi đó ta cũng chỉ cần bố trí $n-2$ chiếc ghế còn lại thỏa mãn yêu cầu. Số cách xếp trong trường hợp này là $1</em></p>
- 2* f[n-2]$.
+<p align="center"><img src="/uploads/basic-dynamic-programming-1_img2.png" alt="/uploads/basic-dynamic-programming-1_img2.png" style="max-width: 700px;" /><br><em>Nếu nó có màu đỏ thì chiếc ghế cạnh nó chỉ có thể có màu trắng hoặc đen. Do vậy nên chiếc ghế thứ $n-2$ có thể có một trong ba màu. Khi đó ta cũng chỉ cần bố trí $n-2$ chiếc ghế còn lại thỏa mãn yêu cầu. Số cách xếp trong trường hợp này là $2 * f[n-2]$.</em></p>
 
 <img src="/uploads/basic-dynamic-programming-1_img3.png" alt="/uploads/basic-dynamic-programming-1_img3.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -164,7 +163,7 @@ Sau khi đã biết công thức truy hồi và tính được $f[1]$, $f[2]$, t
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
     using namespace std;
 
     long long n, f[100010];
@@ -247,7 +246,7 @@ $11$|$3$|$1 (10)$
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
     using namespace std;
 
     const int N = 1e3 + 10;
@@ -315,7 +314,7 @@ Cuối cùng để tìm được độ dài dãy con không giảm dài nhất t
 ### Code tham khảo
 
 ``` cpp
-## include <iostream>
+#include <iostream>
 using namespace std;
 
 const int N = 1e3 + 10;
@@ -373,8 +372,8 @@ Bài toán giống ví dụ 3, nhưng yêu cầu in ra dãy con đó. Ta có th�
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <vector>
+    #include <iostream>
+    #include <vector>
     using namespace std;
 
     const int N = 1e3 + 10;
@@ -457,9 +456,9 @@ Sắp xếp các cuộc họp tăng dần theo thời điểm bắt đầu $A_i$
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <vector>
-    ## include <algorithm>
+    #include <iostream>
+    #include <vector>
+    #include <algorithm>
     using namespace std;
 
     struct Meeting
@@ -665,7 +664,7 @@ Ta dễ dàng suy ra:
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
     using namespace std;
 
     const int N = 1e3 + 10;
@@ -754,7 +753,7 @@ Với mọi $i,j\ge 2$, để đi từ $(1, 1)$ đến $(i, j)$ An có hai lựa
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
     using namespace std;
 
     const int N = 1e3 + 10;
@@ -910,7 +909,7 @@ Cuối cùng, ta cần tìm số $j$ lớn nhất không vượt quá $\frac{T}{
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
     using namespace std;
 
     const int N = 310;

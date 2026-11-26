@@ -1,4 +1,4 @@
-# Bài 14: Hash Xâu & Z-Algorithm
+# Bài 46: Hash Xâu & Z-Algorithm
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Hash, Z-function
@@ -580,8 +580,8 @@ hash = (hash * BASE + (c - 'a' + 1)) % MOD;
 
 ## Bài viết liên quan
 
-- [Bài 9: KMP & Z-Algorithm](kmp-tim-xau.md)
-- [Bài 16: Hash Table](hash-table.md)
+- [Bài 45: KMP & Z-Algorithm](kmp-tim-xau.md)
+- [Bài 15: Hash Table](hash-table.md)
 
 ## Tài liệu tham khảo
 
@@ -592,4 +592,6 @@ hash = (hash * BASE + (c - 'a' + 1)) % MOD;
 - [GeeksforGeeks - Rabin-Karp Algorithm](https://www.geeksforgeeks.org/dsa/rabin-karp-algorithm-for-pattern-searching/)
 - [YouTube - String Hashing (Errichto)](https://www.youtube.com/watch?v=6GFMKq5vKWM)
 
-**Bài tiếp theo:** [Deque & Sliding Window →](deque-sliding-window.md)
+---
+
+**Bài trước:** [← Bài 45: KMP](kmp-tim-xau.md) | **Bài tiếp theo:** [Bài 47: Manacher →](manacher.md)

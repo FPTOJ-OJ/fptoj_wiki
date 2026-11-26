@@ -1,4 +1,4 @@
-# Bài 7: Mảng, Stack, Prefix Sum và Difference Array
+# Bài 9: Mảng, Stack, Prefix Sum và Difference Array
 
 > **Tác giả:** FPTOJ Team<br>
 >
@@ -719,3 +719,7 @@ Nếu mảng toàn số âm, Kadane's trả về phần tử lớn nhất (vẫn
 | `ps-matrix-diff` | [Ma trận hiệu](https://fptoj.com/problem/ps-matrix-diff) | ⭐⭐⭐ | Difference Array 2D + Query | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
 | `st-max-rect` | [HCN lớn nhất](https://fptoj.com/problem/st-max-rect) | ⭐⭐⭐ | Stack đơn điệu - Histogram | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
 | `ps-median-sliding` | [Trung vị trượt](https://fptoj.com/problem/ps-median-sliding) | ⭐⭐⭐⭐ | Two heaps - Sliding median | [Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md) |
+
+---
+
+**Bài trước:** [← Bài 8: Kĩ Thuật Hai Con Trỏ](ky-thuat-hai-con-tro.md) | **Bài tiếp theo:** [Bài 10: Lũy Thừa Nhị Phân & Sàng Nguyên Tố →](luy-thua-nhi-phan-sang-nguyen-to.md)

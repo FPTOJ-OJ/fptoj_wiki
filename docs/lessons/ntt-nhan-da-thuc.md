@@ -1,4 +1,4 @@
-# Bài 67: NTT & Nhân Đa Thức
+# Bài 65: NTT & Nhân Đa Thức
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -27,9 +27,116 @@ Nhân trực tiếp: $3 + 4x + 6x + 8x^2 = 3 + 10x + 8x^2$. Ý tưởng FFT/NTT:
 
 ### 2.1 Ý tưởng
 
-1. Chuyển đa thức từ **không gian hệ số** sang **không gian giá trị** (tại các điểm đặc biệt) - O(n log n)
-2. Nhân hai đa thức trong không gian giá trị - O(n)
-3. Chuyển ngược lại - O(n log n)
+1. Chuyển đa thức từ **không gian hệ số** sang **không gian giá trị** (tại các căn đơn vị bậc $N$) trong $O(n \log n)$ bằng phép biến đổi thuận (DFT).
+2. Nhân từng cặp giá trị tương ứng $C(\omega_k) = A(\omega_k) \cdot B(\omega_k)$ trong $O(n)$.
+3. Chuyển ngược lại về hệ số trong $O(n \log n)$ bằng phép biến đổi nghịch đảo (IDFT).
+
+Vì sao chọn **căn đơn vị phức** $\omega_n = e^{2\pi i / n}$? Vì chúng tạo thành cấu trúc đối xứng trên đường tròn đơn vị ($\omega_n^{k + n/2} = -\omega_n^k$), giúp gộp các số mũ chẵn và lẻ của đa thức để chia đôi bài toán từ cỡ $n$ xuống $n/2$ (Cooley-Tukey butterfly), giảm độ phức tạp từ $O(n^2)$ xuống $O(n \log n)$.
+
+### 2.2 Cài đặt FFT số phức (nhân đa thức không modulo)
+
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    using cd = complex<double>;
+    const double PI = acos(-1.0);
+
+    void fft(vector<cd>& a, bool invert) {
+        int n = (int)a.size();
+        for (int i = 1, j = 0; i < n; i++) {
+            int bit = n >> 1;
+            for (; j & bit; bit >>= 1) j ^= bit;
+            j ^= bit;
+            if (i < j) swap(a[i], a[j]);
+        }
+        for (int len = 2; len <= n; len <<= 1) {
+            double ang = 2 * PI / len * (invert ? -1 : 1);
+            cd wlen(cos(ang), sin(ang));
+            for (int i = 0; i < n; i += len) {
+                cd w(1);
+                for (int j = 0; j < len / 2; j++) {
+                    cd u = a[i + j], v = a[i + j + len / 2] * w;
+                    a[i + j] = u + v;
+                    a[i + j + len / 2] = u - v;
+                    w *= wlen;
+                }
+            }
+        }
+        if (invert) {
+            for (cd& x : a) x /= n;
+        }
+    }
+
+    vector<long long> multiplyFFT(const vector<int>& a, const vector<int>& b) {
+        vector<cd> fa(a.begin(), a.end()), fb(b.begin(), b.end());
+        int n = 1;
+        while (n < (int)(a.size() + b.size())) n <<= 1;
+        fa.resize(n);
+        fb.resize(n);
+
+        fft(fa, false);
+        fft(fb, false);
+        for (int i = 0; i < n; i++) fa[i] *= fb[i];
+        fft(fa, true);
+
+        vector<long long> res(n);
+        for (int i = 0; i < n; i++) res[i] = llround(fa[i].real());
+        return res;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    import cmath
+
+    def fft(a, invert=False):
+        n = len(a)
+        j = 0
+        for i in range(1, n):
+            bit = n >> 1
+            while j & bit:
+                j ^= bit
+                bit >>= 1
+            j ^= bit
+            if i < j:
+                a[i], a[j] = a[j], a[i]
+
+        length = 2
+        while length <= n:
+            ang = 2 * cmath.pi / length * (-1 if invert else 1)
+            wlen = complex(cmath.cos(ang), cmath.sin(ang))
+            for i in range(0, n, length):
+                w = 1 + 0j
+                half = length // 2
+                for j in range(half):
+                    u = a[i + j]
+                    v = a[i + j + half] * w
+                    a[i + j] = u + v
+                    a[i + j + half] = u - v
+                    w *= wlen
+            length <<= 1
+
+        if invert:
+            for i in range(n):
+                a[i] /= n
+
+    def multiply_fft(a, b):
+        n = 1
+        while n < len(a) + len(b):
+            n <<= 1
+        fa = [complex(x, 0) for x in a] + [0j] * (n - len(a))
+        fb = [complex(x, 0) for x in b] + [0j] * (n - len(b))
+        fft(fa, False)
+        fft(fb, False)
+        for i in range(n):
+            fa[i] *= fb[i]
+        fft(fa, True)
+        return [round(x.real) for x in fa]
+    ```
 
 ```matplotlib
 import numpy as np
@@ -282,15 +389,20 @@ Nhiều bài toán tổ hợp có thể giải bằng convolution (nhân đa th�
 
 ---
 
-## 6. So sánh FFT và NTT
+## 6. Đánh giá độ phức tạp & So sánh FFT và NTT
+
+| Thao tác | Thời gian | Không gian |
+|----------|-----------|------------|
+| FFT / NTT (1 chiều) | $O(N \log N)$ | $O(N)$ |
+| Nhân hai đa thức | $O((n+m) \log(n+m))$ | $O(n+m)$ |
+| Nhân với modulo bất kỳ (3-mod NTT + CRT) | $O(N \log N)$ (gấp ~3x hằng số) | $O(N)$ |
 
 | Tiêu chí | FFT | NTT |
 |-----------|-----|-----|
-| Loại số | Số phức (double) | Số nguyên modulo |
-| Sai số | Có (dấu phẩy động) | Không (chính xác) |
-| Tốc độ | Nhanh hơn | Chậm hơn ~2x |
-| Điều kiện | Không | Cần modulo đặc biệt |
-| Thi đấu | Ít dùng | Dùng nhiều |
+| Loại số | Số phức (`double`) | Số nguyên modulo |
+| Sai số | Có thể sai nếu hệ số > $10^{14}$ | Chính xác 100% |
+| Điều kiện | Không cần modulo đặc biệt | Cần $p = c \cdot 2^k + 1$ (như $998244353$) |
+| Khi dùng mod $10^9+7$ | Chia tách hệ số thành nửa cao/thấp ($2^{15}$) | Chạy NTT với 3 mod NTT rồi ghép bằng [CRT / Garner](crt.md) |
 
 ---
 
@@ -319,3 +431,7 @@ while (n < a.size() + b.size()) n <<= 1;
 | `ntt-self` | [Bình phương đa thức](https://fptoj.com/problem/ntt-self) | ⭐⭐⭐ | NTT tự nhân | [NTT & Nhân Đa Thức](ntt-nhan-da-thuc.md) |
 | `ntt-bigint` | [Nhân số lớn NTT](https://fptoj.com/problem/ntt-bigint) | ⭐⭐⭐⭐ | NTT big integer | [NTT & Nhân Đa Thức](ntt-nhan-da-thuc.md) |
 | `ntt-mul3` | [Nhân ba đa thức](https://fptoj.com/problem/ntt-mul3) | ⭐⭐⭐⭐ | NTT 3 đa thức | [NTT & Nhân Đa Thức](ntt-nhan-da-thuc.md) |
+
+---
+
+**Bài trước:** [← Bài 64: Căn Nguyên Thủy & Dấu Hiệu Bình Phương](can-nguyen-thuy.md) | **Bài tiếp theo:** [Bài 66: Khử Gauss & Đại Số Tuyến Tính →](khu-gauss.md)

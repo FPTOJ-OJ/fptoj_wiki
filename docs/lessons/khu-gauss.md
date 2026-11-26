@@ -1,4 +1,4 @@
-# Bài 68: Khử Gauss & Đại Số Tuyến Tính
+# Bài 66: Khử Gauss & Đại Số Tuyến Tính
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -43,7 +43,7 @@ Biến đổi ma trận augmented $[A | b]$ thành dạng bậc thang (row echel
     }
 
     // Giải hệ phương trình tuyến tính modulo MOD
-    // Trả về nghiệm hoặc rỗng nếu vô nghiệm/vô số nghiệm
+    // Trả về 1 nghiệm (gán các ẩn tự do = 0), hoặc rỗng nếu hệ VÔ NGHIỆM
     vector<long long> gaussianElimination(vector<vector<long long>> a, vector<long long> b) {
         int n = a.size();
         int m = a[0].size();
@@ -201,7 +201,7 @@ Khử ma trận về dạng bậc thang, định thức = tích các phần tử
             }
 
             det = det * a[col][col] % MOD; // nhân chéo chính vào định thức
-            long long inv = modPow(a[col][col], MOD - 2, MOD);
+            long long inv = modPow(a[col][col], MOD - 2);
             // Khử các hàng dưới (không cần chuẩn hóa hàng pivot vì det đã nhân)
             for (int row = col + 1; row < n; row++) {
                 long long factor = a[row][col] * inv % MOD;
@@ -210,8 +210,37 @@ Khử ma trận về dạng bậc thang, định thức = tích các phần tử
                 }
             }
         }
-        return det;
+        return (det % MOD + MOD) % MOD;
     }
+    ```
+
+=== "Python"
+
+    ```python
+    MOD = 10**9 + 7
+
+    def determinant(a):
+        n = len(a)
+        a = [[x % MOD for x in row] for row in a]
+        det = 1
+        for col in range(n):
+            sel = -1
+            for row in range(col, n):
+                if a[row][col] != 0:
+                    sel = row
+                    break
+            if sel == -1:
+                return 0
+            if sel != col:
+                a[sel], a[col] = a[col], a[sel]
+                det = (MOD - det) % MOD
+            det = det * a[col][col] % MOD
+            inv = pow(a[col][col], MOD - 2, MOD)
+            for row in range(col + 1, n):
+                factor = a[row][col] * inv % MOD
+                for j in range(col, n):
+                    a[row][j] = (a[row][j] - factor * a[col][j]) % MOD
+        return det
     ```
 
 ---
@@ -260,7 +289,7 @@ Tạo ma trận $[A | I]$ (với $I$ là ma trận đơn vị), khử về $[I |
 
             swap(aug[sel], aug[col]);
 
-            long long inv = modPow(aug[col][col], MOD - 2, MOD);
+            long long inv = modPow(aug[col][col], MOD - 2);
             // Chuẩn hóa hàng pivot thành 1 ở cột col (để vế trái dần thành I)
             for (int j = 0; j < 2 * n; j++)
                 aug[col][j] = aug[col][j] * inv % MOD;
@@ -283,6 +312,34 @@ Tạo ma trận $[A | I]$ (với $I$ là ma trận đơn vị), khử về $[I |
                 inv[i][j] = aug[i][n + j];
         return inv;
     }
+    ```
+
+=== "Python"
+
+    ```python
+    MOD = 10**9 + 7
+
+    def inverse_matrix(a):
+        n = len(a)
+        aug = [[a[i][j] % MOD for j in range(n)] + [1 if i == j else 0 for j in range(n)] for i in range(n)]
+        for col in range(n):
+            sel = -1
+            for row in range(col, n):
+                if aug[row][col] != 0:
+                    sel = row
+                    break
+            if sel == -1:
+                return None  # Không khả nghịch
+            aug[sel], aug[col] = aug[col], aug[sel]
+            inv = pow(aug[col][col], MOD - 2, MOD)
+            for j in range(2 * n):
+                aug[col][j] = aug[col][j] * inv % MOD
+            for row in range(n):
+                if row != col and aug[row][col] != 0:
+                    factor = aug[row][col]
+                    for j in range(2 * n):
+                        aug[row][j] = (aug[row][j] - factor * aug[col][j]) % MOD
+        return [row[n:] for row in aug]
     ```
 
 ---
@@ -310,7 +367,7 @@ Rank của ma trận = số hàng độc lập tuyến tính sau khi khử Gauss
             if (sel == -1) continue; // cột toàn 0 → không tăng rank
 
             swap(a[sel], a[row]); // đưa pivot lên hàng hiện tại
-            long long inv = modPow(a[row][col], MOD - 2, MOD);
+            long long inv = modPow(a[row][col], MOD - 2);
             // Khử các hàng DƯỚI (trên không cần vì rank chỉ đếm pivot)
             for (int i = row + 1; i < n; i++) {
                 long long factor = a[i][col] * inv % MOD;
@@ -325,21 +382,105 @@ Rank của ma trận = số hàng độc lập tuyến tính sau khi khử Gauss
     }
     ```
 
+=== "Python"
+
+    ```python
+    MOD = 10**9 + 7
+
+    def matrix_rank(a):
+        n, m = len(a), len(a[0])
+        a = [[x % MOD for x in row] for row in a]
+        rank = row = 0
+        for col in range(m):
+            if row >= n:
+                break
+            sel = -1
+            for i in range(row, n):
+                if a[i][col] != 0:
+                    sel = i
+                    break
+            if sel == -1:
+                continue
+            a[sel], a[row] = a[row], a[sel]
+            inv = pow(a[row][col], MOD - 2, MOD)
+            for i in range(row + 1, n):
+                factor = a[i][col] * inv % MOD
+                for j in range(col, m):
+                    a[i][j] = (a[i][j] - factor * a[row][j]) % MOD
+            rank += 1
+            row += 1
+        return rank
+    ```
+
 ---
 
 ## 5. Ứng dụng trong thi đấu
 
-### 5.1 Số cây khung (Kirchhoff's theorem)
+### 5.1 Số cây khung (Định lý Kirchhoff)
 
-Số cây khung của đồ thị = bất kỳ cofactor nào của ma trận Laplacian.
+Với đồ thị vô hướng $n$ đỉnh, dựng ma trận Laplacian $L = D - A$ (trong đó $L_{ii} = \deg(i)$, còn $L_{ij} = -(\text{số cạnh nối } i, j)$ với $i \neq j$). Xóa 1 hàng và 1 cột cùng chỉ số bất kỳ (thường bỏ hàng cuối, cột cuối) thu được ma trận $L'$ cỡ $(n-1) \times (n-1)$:
 
-### 5.2 Bài toán Lights Out
+$$\text{Số cây khung} = \det(L')$$
 
-Ma trận nhị phân, mỗi hàng biểu diễn một công tắc → khử Gauss modulo 2.
+### 5.2 XOR Basis (Khử Gauss trên $\mathbb{F}_2$)
 
-### 5.3 DP trên bitmask với ma trận
+Khi bài toán yêu cầu tìm tổng XOR lớn nhất từ một tập con của dãy $a$, hoặc đếm số giá trị XOR tạo được, mỗi số nguyên là một vector nhị phân trong $\mathbb{F}_2$. Ta duy trì mảng `basis[b]` lưu vector đại diện có bit cao nhất ở vị trí `b`:
 
-Một số bài toán DP trên bitmask có thể tối ưu bằng nhân ma trận.
+=== "C++"
+
+    ```cpp
+    struct XorBasis {
+        int B = 60;
+        vector<long long> basis;
+        int sz = 0;
+        XorBasis(int bits = 60) : B(bits), basis(bits, 0) {}
+
+        void insert(long long x) {
+            for (int b = B - 1; b >= 0; b--) {
+                if (!(x >> b & 1)) continue;
+                if (!basis[b]) { basis[b] = x; sz++; return; }
+                x ^= basis[b];
+            }
+        }
+
+        long long maxXor() {
+            long long res = 0;
+            for (int b = B - 1; b >= 0; b--)
+                res = max(res, res ^ basis[b]);
+            return res;
+        }
+    };
+    ```
+
+=== "Python"
+
+    ```python
+    class XorBasis:
+        def __init__(self, bits=60):
+            self.bits = bits
+            self.basis = [0] * bits
+            self.sz = 0
+
+        def insert(self, x):
+            for b in range(self.bits - 1, -1, -1):
+                if not (x >> b & 1):
+                    continue
+                if self.basis[b] == 0:
+                    self.basis[b] = x
+                    self.sz += 1
+                    return
+                x ^= self.basis[b]
+
+        def max_xor(self):
+            res = 0
+            for b in range(self.bits - 1, -1, -1):
+                res = max(res, res ^ self.basis[b])
+            return res
+    ```
+
+### 5.3 Bài toán Lights Out (Hệ phương trình modulo 2)
+
+Mỗi ô trên bảng là 1 biến $x_i \in \{0, 1\}$ (bấm hay không bấm công tắc). Mỗi phương trình biểu diễn tổng bấm mod 2 của ô đó và các ô kề phải bằng trạng thái cần lật $\Rightarrow$ giải bằng khử Gauss trên $\mathbb{F}_2$ (có thể dùng `bitset<N>` trong C++ để tăng tốc $64$ lần, độ phức tạp $O(N^3 / 64)$).
 
 ---
 
@@ -355,3 +496,7 @@ Một số bài toán DP trên bitmask có thể tối ưu bằng nhân ma trậ
 | `ge-inverse` | [Ma trận nghịch đảo](https://fptoj.com/problem/ge-inverse) | ⭐⭐⭐ | Matrix inverse | [Khử Gauss](khu-gauss.md) |
 | `ge-tridiag` | [Ma trận 3 đường chéo](https://fptoj.com/problem/ge-tridiag) | ⭐⭐⭐ | Thomas algorithm | [Khử Gauss](khu-gauss.md) |
 | `ge-lights` | [Lights Out](https://fptoj.com/problem/ge-lights) | ⭐⭐⭐⭐ | Gauss GF(2) | [Khử Gauss](khu-gauss.md) |
+
+---
+
+**Bài trước:** [← Bài 65: NTT & Nhân Đa Thức](ntt-nhan-da-thuc.md) | **Bài tiếp theo:** [Bài 67: Hình Học Cơ Bản →](hinh-hoc-co-ban.md)

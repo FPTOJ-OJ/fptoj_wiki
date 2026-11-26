@@ -532,17 +532,7 @@ for (int i = 1; i <= 1000000; i++) sum += i;
     ```
 
 ### Bài 4: In tam giác sao
-Đọc số nguyên n. In tam giác sao có n hàng.
-
-**Input:** `5`<br>
-**Output:**
-```
-*
-**
-***
-****
-*****
-```
+Đọc số nguyên n. In tam giác sao có n hàng (`n = 5`: hàng thứ `i` in `i` dấu `*`).
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5" data-expected="*
 **

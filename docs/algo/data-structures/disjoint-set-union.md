@@ -483,9 +483,9 @@ Khi một số được hồi sinh, ta sẽ kiểm tra bên trái số đó, n�
 
 ### Code mẫu
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
-## define int long long
+#define int long long
 
 using namespace std;
 
@@ -628,7 +628,7 @@ Gọi số phần tử nằm trong hai dãy số lớn hơn và bé hơn lần l
 ### Code mẫu
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -785,7 +785,7 @@ Lúc này mảng $cnt$ đã có đủ các màu trong cây con gốc $u$ và ta 
 
 ### Code mẫu
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 

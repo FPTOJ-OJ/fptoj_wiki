@@ -228,7 +228,7 @@ Vì FFT đòi hỏi phải sử dụng số phức và (trong nhiều trường 
 === "C++"
 
     ```cpp
-    ## include <complex>
+    #include <complex>
     ```
 
 === "Python"
@@ -399,7 +399,7 @@ Có nhiều nguyên nhân làm cho FFT đệ quy chạy chậm, như trong **Bư
 Màu đỏ là các nhóm chẵn và màu xanh là các nhóm lẻ. Các bạn hãy dựa vào tính chẵn lẻ và để ý các số nhị phân $0, 1$ trong hình vẽ để tự viết chương trình FFT khử đệ quy hoặc giải thích tính đúng đắn của đoạn mã sau (đây là hàm FFT đã được dùng để giải bài POST2)
 
 ```cpp
-## define PI acos(-1)
+#define PI acos(-1)
 const int NBIT = 18;
 const int N = 1<<18; // chuẩn hóa bậc của đa thức là 18
 base W[N]; // mảng lưu các nghiệm nguyên thủy

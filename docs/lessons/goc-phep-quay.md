@@ -1,4 +1,4 @@
-# Bài 63: Góc & Phép Quay
+# Bài 71: Góc & Phép Quay
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -414,3 +414,7 @@ rotate(P, 90 * M_PI / 180.0);
 
 ??? tip "Lời giải"
     Tính cross product $(B-A) \times (C-A)$. Dương = trái, âm = phải, 0 = thẳng hàng.
+
+---
+
+**Bài trước:** [← Bài 70: Định Lý Pick & Đếm Điểm Nguyên](dinh-ly-pick.md) | **Bài tiếp theo:** [Bài 72: Sắp Xếp Cực & Quét Góc →](sap-xep-cuc.md)

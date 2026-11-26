@@ -527,9 +527,9 @@ Từ hai quan sát trên, thấy được chỉ cần ba giá trị $f(u)$, $f(v
 
 ## Cài đặt
 ```cpp
-## include<iostream>
-## include<vector>
-## include<cmath>
+#include<iostream>
+#include<vector>
+#include<cmath>
 using namespace std;
 
 const int N = 1000 + 3;
@@ -621,9 +621,9 @@ Từ bài toán trên, ta có thể tìm khoảng cách lớn nhất giữa 2 đ
 
 ## Cài đặt
 ```cpp
-## include<iostream>
-## include<vector>
-## include<cmath>
+#include<iostream>
+#include<vector>
+#include<cmath>
 using namespace std;
 
 const int N = 2e5 + 8;
@@ -718,10 +718,10 @@ Giới hạn: $N, M \le 10^5$
 ## Cài đặt
 
 ```cpp
-## include<iostream>
-## include<algorithm>
-## include<vector>
-## include<cmath>
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<cmath>
 using namespace std;
 typedef long long ll;
 

@@ -1,4 +1,4 @@
-# Matroid - Lý Thuyết Tổ Hợp Nâng Cao
+# Bài 39: Matroid - Lý Thuyết Tổ Hợp Nâng Cao
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Matroid
@@ -14,7 +14,7 @@ Bạn đã biết 2 thuật toán tham lam kinh điển:
 - **Kruskal (MST):** xét cạnh theo trọng số tăng dần, thêm cạnh nếu không tạo chu trình.
 - **Lập lịch có deadline:** xét việc theo lợi nhuận giảm dần, thêm việc nếu còn xếp được lịch.
 
-Cả hai đều "tham thì đúng". Tại sao? Vì cả hai cùng là **một** thuật toán duy nhất chạy trên 2 matroid khác nhau (graphic matroid và partition matroid). Matroid là cái khung chung trả lời câu hỏi: *"bài toán tham lam nào thì đúng?"* — nếu mô hình hóa được thành matroid, tham lam chắc chắn tối ưu, khỏi cần chứng minh riêng.
+Cả hai đều "tham thì đúng". Tại sao? Vì cả hai đều là **một** thuật toán tham lam duy nhất chạy trên hai cấu trúc matroid (graphic matroid và transversal matroid / matroid lịch trình đơn vị thời gian). Matroid là cái khung chung trả lời câu hỏi: *"bài toán tham lam nào thì đúng?"* — nếu mô hình hóa được thành matroid, tham lam chắc chắn tối ưu, khỏi cần chứng minh lại từ đầu.
 
 ### Định nghĩa Matroid
 
@@ -96,7 +96,7 @@ Matroid $\mathcal{M} = (E, \mathcal{I})$ gồm:
 
 | Thao tác | Thời gian |
 |----------|-----------|
-| Tham lam trên Matroid | $O(|E| \cdot \log |E| + |E| \cdot T)$ |
+| Tham lam trên Matroid | $O(\lvert E\rvert \cdot \log \lvert E\rvert + \lvert E\rvert \cdot T)$ |
 
 $T$ = thời gian kiểm tra tính độc lập.
 
@@ -150,7 +150,7 @@ Khi cài đặt, hàm kiểm tra `isIndependent(S)` là trái tim của thuật 
 
 | Matroid | Cách kiểm tra |
 |---------|---------------|
-| Uniform | `|S| <= k` |
+| Uniform | $\lvert S\rvert \le k$ |
 | Graphic | DSU kiểm tra chu trình |
 | Linear | Khử Gauss kiểm tra phụ thuộc tuyến tính |
 | Partition | Mỗi nhóm không vượt giới hạn |
@@ -171,22 +171,7 @@ Nếu bạn chứng minh được bài toán có cấu trúc matroid, bạn có 
 
 ---
 
-## Bài tập luyện tập
-
-| Bài | Nền tảng | Độ khó | Chủ đề |
-|-----|----------|--------|--------|
-| [mat-uniform](https://fptoj.com/problem/mat-uniform) | FPTOJ | ⭐⭐ | Uniform Matroid: chọn tối đa K phần tử |
-| [mat-graphic-min](https://fptoj.com/problem/mat-graphic-min) | FPTOJ | ⭐⭐ | Graphic Matroid: cây khung nhỏ nhất |
-| [mat-graphic-max](https://fptoj.com/problem/mat-graphic-max) | FPTOJ | ⭐⭐ | Graphic Matroid: cây khung lớn nhất |
-| [mat-partition-color](https://fptoj.com/problem/mat-partition-color) | FPTOJ | ⭐⭐⭐ | Partition Matroid: chọn theo màu |
-| [mat-uniform-k](https://fptoj.com/problem/mat-uniform-k) | FPTOJ | ⭐⭐⭐ | Uniform Matroid có trọng số |
-| [mat-linear-indep](https://fptoj.com/problem/mat-linear-indep) | FPTOJ | ⭐⭐⭐⭐ | Linear Matroid: độc lập tuyến tính |
-| [mat-greedy-proof](https://fptoj.com/problem/mat-greedy-proof) | FPTOJ | ⭐⭐⭐⭐ | Kiểm tra tham lam tối ưu |
-| [mat-partition-job](https://fptoj.com/problem/mat-partition-job) | FPTOJ | ⭐⭐⭐⭐⭐ | Partition Matroid: lập lịch |
-
----
-
-## Code minh họa
+## 7. Code minh họa
 
 ### Ví dụ 1: Greedy trên Graphic Matroid (Kruskal)
 
@@ -409,9 +394,7 @@ Nếu bạn chứng minh được bài toán có cấu trúc matroid, bạn có 
     # Partition Matroid: mỗi màu được chọn tối đa k_c đồ vật
     n, C = map(int, input().split())
 
-    limit = [0] * (C + 1)  # limit[c] = số đồ vật tối đa của màu c
-    for c in range(1, C + 1):
-        limit[c] = int(input())  # Đọc từng giới hạn (có thể đọc 1 dòng)
+    limit = [0] + list(map(int, input().split()))  # limit[c] = số đồ vật tối đa của màu c
 
     items = []  # (trọng số, màu, chỉ số)
     for i in range(n):
@@ -432,3 +415,80 @@ Nếu bạn chứng minh được bài toán có cấu trúc matroid, bạn có 
 
     print(total)
     ```
+
+### Ví dụ 4: Greedy trên Linear Matroid (XOR Basis $\mathbb{F}_2$)
+
+**Bài toán:** Cho $n$ đồ vật, mỗi đồ vật có mã số nguyên $a_i$ và trọng số $w_i$. Chọn một tập đồ vật sao cho không có tập con khác rỗng nào có XOR bằng $0$ (tức độc lập tuyến tính trên $\mathbb{F}_2$) và tổng $w_i$ lớn nhất.
+
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        int n;
+        cin >> n;
+        vector<pair<long long, long long>> items(n); // (w_i, a_i)
+        for (int i = 0; i < n; i++) cin >> items[i].second >> items[i].first;
+
+        sort(items.rbegin(), items.rend()); // Tham lam theo trọng số giảm dần
+        vector<long long> basis(60, 0);
+        long long total = 0;
+
+        for (auto [w, x] : items) {
+            for (int b = 59; b >= 0; b--) {
+                if (!(x >> b & 1)) continue;
+                if (!basis[b]) { basis[b] = x; total += w; break; }
+                x ^= basis[b];
+            }
+        }
+        cout << total << "\n";
+        return 0;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    n = int(input())
+    items = []
+    for _ in range(n):
+        a, w = map(int, input().split())
+        items.append((w, a))
+
+    items.sort(reverse=True)
+    basis = [0] * 60
+    total = 0
+
+    for w, x in items:
+        for b in range(59, -1, -1):
+            if not (x >> b & 1):
+                continue
+            if basis[b] == 0:
+                basis[b] = x
+                total += w
+                break
+            x ^= basis[b]
+
+    print(total)
+    ```
+
+---
+
+## Bài tập luyện tập
+
+| Bài | Nền tảng | Độ khó | Chủ đề |
+|-----|----------|--------|--------|
+| [mat-uniform](https://fptoj.com/problem/mat-uniform) | FPTOJ | ⭐⭐ | Uniform Matroid: chọn tối đa K phần tử |
+| [mat-graphic-min](https://fptoj.com/problem/mat-graphic-min) | FPTOJ | ⭐⭐ | Graphic Matroid: cây khung nhỏ nhất |
+| [mat-graphic-max](https://fptoj.com/problem/mat-graphic-max) | FPTOJ | ⭐⭐ | Graphic Matroid: cây khung lớn nhất |
+| [mat-partition-color](https://fptoj.com/problem/mat-partition-color) | FPTOJ | ⭐⭐⭐ | Partition Matroid: chọn theo màu |
+| [mat-uniform-k](https://fptoj.com/problem/mat-uniform-k) | FPTOJ | ⭐⭐⭐ | Uniform Matroid có trọng số |
+| [mat-linear-indep](https://fptoj.com/problem/mat-linear-indep) | FPTOJ | ⭐⭐⭐⭐ | Linear Matroid: độc lập tuyến tính |
+| [mat-greedy-proof](https://fptoj.com/problem/mat-greedy-proof) | FPTOJ | ⭐⭐⭐⭐ | Kiểm tra tham lam tối ưu |
+| [mat-partition-job](https://fptoj.com/problem/mat-partition-job) | FPTOJ | ⭐⭐⭐⭐⭐ | Matroid lịch trình (Job Scheduling) |
+
+---
+
+**Bài trước:** [← Bài 38: Greedy (Tham Lam)](greedy.md) | **Bài tiếp theo:** [Bài 40: Quy Hoạch Động (Dynamic Programming) →](quy-hoach-dong.md)

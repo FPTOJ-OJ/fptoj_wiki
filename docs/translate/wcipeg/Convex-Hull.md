@@ -56,7 +56,7 @@ Với mỗi lần tìm $Q$, ta duyệt qua tất cả các điểm $R$ trong t�
 Nhược điểm của cách cài đặt này là sai số của số thực khi tính góc.
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 const double EPS = 1e-9;
 
@@ -227,7 +227,7 @@ Về độ phức tạp thuật toán, ta thấy bước sắp xếp các điể
 
 ### Cài đặt
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Kiểu điểm
@@ -339,7 +339,7 @@ Thuật toán này cũng có độ phức tạp $\mathcal{O}(n\log{n})$. Thuật
 ### Cài đặt
 Link bài tập: [**CSES - Convex Hull**](https://cses.fi/problemset/task/2195/)
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Kiểu điểm
@@ -486,7 +486,7 @@ Mở rộng, các loại cocktail có thể pha chế từ $N$ loại cocktail b
 
 ### Cài đặt
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // Kiểu điểm

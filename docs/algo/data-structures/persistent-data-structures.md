@@ -188,7 +188,7 @@ Code BIT trích từ bài IPSC 2011 - Grid Surveillance:
 
 ```cpp
 
-## define _(x) (x & (-(x)))
+#define _(x) (x & (-(x)))
 
 // Persistent BIT
 vector< pair<int,int> > bit[4100][4100];

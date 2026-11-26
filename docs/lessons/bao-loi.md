@@ -1,4 +1,4 @@
-# Bài 28: Bao Lồi (Convex Hull)
+# Bài 73: Bao Lồi (Convex Hull)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Bao lồi, CP-Algorithms
@@ -197,7 +197,7 @@ Lower hull thu được: $[A,E]$ nếu có thêm điểm thẳng hàng ở giữ
         if len(points) <= 1:
             return points
 
-        // Nửa dưới
+        # Nửa dưới
         lower = []
         for p in points:
             # cross <= 0: loại cả quay phải và thẳng hàng → chỉ giữ 2 đầu mút
@@ -698,7 +698,7 @@ Với bao lồi lồi (đã sắp xếp CCW), kiểm tra điểm $P$ có nằm t
 
 ## Bài viết liên quan
 
-- [Bài 22: Hình học cơ bản](hinh-hoc-co-ban.md) — Tích có hướng, tích vô hướng, kiểm tra giao điểm
+- [Bài 67: Hình học cơ bản](hinh-hoc-co-ban.md) — Tích có hướng, tích vô hướng, kiểm tra giao điểm
 
 ## Tài liệu tham khảo
 
@@ -709,4 +709,6 @@ Với bao lồi lồi (đã sắp xếp CCW), kiểm tra điểm $P$ có nằm t
 - [USACO Guide - Convex Hull](https://usaco.guide/adv/geo)
 - [YouTube - Convex Hull (Errichto)](https://www.youtube.com/watch?v=B2aDgfbj3kE)
 
-**Bài tiếp theo:** [Kỹ năng thi đấu →](ky-nang-thi-dau.md)
+---
+
+**Bài trước:** [← Bài 72: Sắp Xếp Cực & Quét Góc](sap-xep-cuc.md) | **Bài tiếp theo:** [Bài 74: Thuật Toán Đường Quét (Sweep Line) →](sweep-line.md)

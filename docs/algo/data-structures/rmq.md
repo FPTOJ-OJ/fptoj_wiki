@@ -216,7 +216,7 @@ Nhận xét thêm:
 - Ví dụ:
     - $len=6\Rightarrow k=2$, vì $6 < 2^{k+1} = 8$
     - $len=8\Rightarrow k=3$, vì $8 < 2^{k+1}=16$
-- Vậy nên, $k$ còn có một cách tính khác là $$k=\_\_lg(len)$$ (phần nguyên của phép $\log_2(len)$)
+- Vậy nên, $k$ còn có một cách tính khác là $$k=\_\_lg(len)$$(phần nguyên của phép$\log_2(len)$)
 - Từ đây, ta có thể giảm độ phức tạp truy vấn xuống còn $\mathcal{O}(1)!!!!!!!$
 
 === "C++"
@@ -271,13 +271,13 @@ Giới hạn: $N, Q \le 10^5$
 ### Ý tưởng
 Giống như RMQ, ta vẫn sẽ dựng mảng $st[LG+1][N]$.
 
-Nhưng lúc này, ta không thể lấy $$k = \_\_lg(len)$$ rồi $res = sum[l\ldots l+2^k-1] + sum[r-2^k+1\ldots r]$ như RMQ được nữa (vì $2$ đoạn chắc chắn giao nhau).
+Nhưng lúc này, ta không thể lấy $$k = \_\_lg(len)$$rồi$res = sum[l\ldots l+2^k-1] + sum[r-2^k+1\ldots r]$như RMQ được nữa (vì$2$ đoạn chắc chắn giao nhau).
 
 Nhận xét: Ta luôn có thể tách một số nguyên dương thành tổng các lũy thừa phân biệt của 2 (hệ nhị phân). Ví dụ: $25 = 2^4 + 2^3 + 2^0 = 11001_2$.
 
 Từ nhận xét trên, ta có thể tách $[l\ldots r]$ thành $\log_2$ đoạn có độ dài $2^x$ như sau:
 - Đặt $len = r - l + 1$
-- Duyệt $j$ từ $0$ đến $$\_\_lg(len)$$, nếu bit thứ $j$ của $len$ là $1$ thì:
+- Duyệt $j$ từ $0$ đến $$\_\_lg(len)$$, nếu bit thứ$j$của$len$là$1$ thì:
     - Ta tách $[l\ldots r]$ thành $[l\ldots l+2^j-1]$ và $[l+2^j\ldots r]$
     - $l = l + 2^j$ (tiếp tục tách $[l+2^j\ldots r]$ như $[l\ldots r]$)
 
@@ -479,7 +479,7 @@ Giới hạn:
 
 ## Cài đặt
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int N = 1000 + 3, LG = 9;

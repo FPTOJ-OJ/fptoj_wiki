@@ -1,4 +1,4 @@
-# Bài 34: Queue - Hàng Đợi
+# Bài 14: Queue - Hàng Đợi
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** GeeksforGeeks, VNOI Wiki, CP-Algorithms
@@ -516,3 +516,7 @@ Luyện tập trực tiếp trên [FPTOJ](https://fptoj.com) — tất cả bài
 *   [GeeksforGeeks - Queue Data Structure](https://www.geeksforgeeks.org/dsa/queue-data-structure/)
 *   [VNOI Wiki - Breadth-First Search (BFS)](https://wiki.vnoi.info/algo/graph-theory/breadth-first-search)
 *   [CP-Algorithms - 0-1 BFS](https://cp-algorithms.com/graph/01_bfs.html)
+
+---
+
+**Bài trước:** [← Bài 13: Linked List](linked-list.md) | **Bài tiếp theo:** [Bài 15: Hash Table (Bảng Băm) →](hash-table.md)

@@ -147,6 +147,7 @@ nav:
           - Centroid Decomposition: lessons/centroid-decomposition.md
           - Heavy-Light Decomposition: lessons/hld.md
           - Bài toán Lubenica - RMQ trên cây: lessons/lubenica-rmq-tree.md
+          - Small-to-Large (DSU on Tree): lessons/small-to-large.md
       - "⭐⭐⭐⭐ Nhóm 12 — Quy hoạch động nâng cao":
           - DP trên cây: lessons/dp-on-trees.md
           - Digit DP: lessons/digit-dp.md
@@ -155,11 +156,14 @@ nav:
           - Quy hoạch động SOS: lessons/sos-dp.md
           - Kĩ thuật Bao lồi trong QHĐ: lessons/dp-convex-hull.md
           - Tối ưu DP 1 chiều (1D1D): lessons/dp-1d1d.md
+          - DP on Broken Profile: lessons/dp-broken-profile.md
       - "⭐⭐⭐⭐ Nhóm 13 — Xâu nâng cao":
           - Aho-Corasick: lessons/aho-corasick.md
           - Suffix Automaton: lessons/suffix-automaton.md
       - "⭐⭐⭐⭐ Nhóm 14 — Kỹ thuật nâng cao":
           - Chia căn & Mo's Algorithm: lessons/sqrt-mo.md
+          - Treap & PBDS (ordered_set): lessons/treap-pbds.md
+          - Tìm kiếm nhị phân song song: lessons/parallel-binary-search.md
           - Convex Hull Trick & Li Chao Tree: lessons/convex-hull-trick.md
           - Ternary Search: lessons/ternary-search.md
           - Giải thuật cắt tỉa Alpha-Beta: lessons/alpha-beta.md

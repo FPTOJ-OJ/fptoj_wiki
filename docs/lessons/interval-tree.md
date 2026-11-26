@@ -1,4 +1,4 @@
-# Interval Tree Trên Tập Đoạn Thẳng - Truy Vấn Giao Đoạn
+# Bài 30: Interval Tree Trên Tập Đoạn Thẳng - Truy Vấn Giao Đoạn
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Interval Tree
@@ -70,9 +70,9 @@ graph TD
 | Thao tác | Thời gian | Không gian |
 |----------|-----------|------------|
 | Xây cây | $O(N \log N)$ | $O(N \log N)$ |
-| Truy vấn 1 đoạn | $O(N)$ worst-case ($O(\log N + k)$ nếu binary search điểm bắt đầu) | $O(1)$ |
+| Truy vấn 1 đoạn | $O(\log N + k)$ | $O(1)$ |
 
-$k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng quét tuyến tính + dừng sớm trên danh sách đã sắp xếp (đơn giản, đủ nhanh khi mỗi nút ít đoạn); muốn đạt $O(\log N + k)$ hãy thay vòng `for` bằng `upper_bound`/`lower_bound` để tìm vị trí bắt đầu.
+$k$ = số đoạn giao được tìm thấy. Lưu ý rằng ở mỗi nút ta chỉ duyệt các đoạn thực sự giao ($l_i \le b$ hoặc $r_i \ge a$) và dùng binary search (hoặc quét từ đầu mảng đã sắp xếp và dừng ngay khi không thỏa mãn) — tổng số phần tử duyệt qua trên các nút đúng bằng $k$, nên tổng thời gian truy vấn là $O(\log N + k)$ (với đếm số lượng giao điểm không cần liệt kê thì chỉ mất $O(\log N)$ nhờ `upper_bound` / `bisect`).
 
 ---
 
@@ -87,75 +87,82 @@ $k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng qué
     struct IntervalTree {
         struct Node {
             int median;
-            vector<pair<int,int>> S1; // tăng theo l
-            vector<pair<int,int>> S2; // giảm theo r
-            Node *left = nullptr, *right = nullptr;
+            vector<pair<int,int>> S1; // tăng dần theo l
+            vector<pair<int,int>> S2; // giảm dần theo r
+            int left = -1, right = -1;
         };
 
-        Node* root;
+        vector<Node> nodes;
+        int root = -1;
 
-        Node* build(vector<pair<int,int>>& intervals) {
-            if (intervals.empty()) return nullptr;
+        int build(vector<pair<int,int>>& intervals) {
+            if (intervals.empty()) return -1;
 
-            Node* node = new Node();
+            int id = nodes.size();
+            nodes.emplace_back();
 
             // Tìm median của l_i
             vector<int> lvals;
+            lvals.reserve(intervals.size());
             for (auto& [l, r] : intervals) lvals.push_back(l);
-            sort(lvals.begin(), lvals.end());
-            node->median = lvals[lvals.size() / 2];
+            nth_element(lvals.begin(), lvals.begin() + lvals.size() / 2, lvals.end());
+            int med = lvals[lvals.size() / 2];
+            nodes[id].median = med;
 
             vector<pair<int,int>> leftSet, rightSet;
             for (auto& [l, r] : intervals) {
-                if (r < node->median) leftSet.push_back({l, r});
-                else if (l > node->median) rightSet.push_back({l, r});
+                if (r < med) leftSet.push_back({l, r});
+                else if (l > med) rightSet.push_back({l, r});
                 else {
-                    node->S1.push_back({l, r});
-                    node->S2.push_back({l, r});
+                    nodes[id].S1.push_back({l, r});
+                    nodes[id].S2.push_back({l, r});
                 }
             }
 
-            sort(node->S1.begin(), node->S1.end());
-            sort(node->S2.begin(), node->S2.end(), [](auto& a, auto& b) {
+            sort(nodes[id].S1.begin(), nodes[id].S1.end());
+            sort(nodes[id].S2.begin(), nodes[id].S2.end(), [](const auto& a, const auto& b) {
                 return a.second > b.second;
             });
 
-            node->left = build(leftSet);
-            node->right = build(rightSet);
-            return node;
+            int lChild = build(leftSet);
+            int rChild = build(rightSet);
+            nodes[id].left = lChild;
+            nodes[id].right = rChild;
+            return id;
         }
 
         IntervalTree(vector<pair<int,int>>& intervals) {
             root = build(intervals);
         }
 
-        void query(Node* node, int a, int b, vector<pair<int,int>>& result) {
-            if (!node) return;
+        void query(int id, int a, int b, vector<pair<int,int>>& result) const {
+            if (id == -1) return;
+            const Node& node = nodes[id];
 
-            if (b < node->median) {
-                // Tìm trong S1: l_i <= b
-                for (auto& seg : node->S1) {
-                    if (seg.first <= b) result.push_back(seg);
-                    else break;
-                }
-                query(node->left, a, b, result);
-            } else if (a > node->median) {
-                // Tìm trong S2: r_i >= a
-                for (auto& seg : node->S2) {
-                    if (seg.second >= a) result.push_back(seg);
-                    else break;
-                }
-                query(node->right, a, b, result);
+            if (b < node.median) {
+                // Tìm tất cả đoạn trong S1 có l_i <= b bằng upper_bound
+                auto endIt = upper_bound(node.S1.begin(), node.S1.end(), b,
+                    [](int val, const pair<int,int>& seg) { return val < seg.first; });
+                result.insert(result.end(), node.S1.begin(), endIt);
+                query(node.left, a, b, result);
+            } else if (a > node.median) {
+                // Tìm tất cả đoạn trong S2 có r_i >= a (S2 giảm dần theo r)
+                auto endIt = upper_bound(node.S2.begin(), node.S2.end(), a,
+                    [](int val, const pair<int,int>& seg) { return val > seg.second; });
+                result.insert(result.end(), node.S2.begin(), endIt);
+                query(node.right, a, b, result);
             } else {
-                // [a,b] chứa median → tất cả S1, S2 đều giao
-                for (auto& seg : node->S1) result.push_back(seg);
-                query(node->left, a, b, result);
-                query(node->right, a, b, result);
+                // [a, b] chứa median → tất cả đoạn ở nút này đều giao
+                result.insert(result.end(), node.S1.begin(), node.S1.end());
+                query(node.left, a, b, result);
+                query(node.right, a, b, result);
             }
         }
     };
 
     int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
         int n, q;
         cin >> n >> q;
         vector<pair<int,int>> intervals(n);
@@ -180,6 +187,10 @@ $k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng qué
 === "Python"
 
     ```python
+    from bisect import bisect_right
+    import sys
+    input = sys.stdin.readline
+
     class IntervalTree:
         def __init__(self, intervals):
             self.root = self._build(intervals)
@@ -199,10 +210,14 @@ $k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng qué
                 else:
                     mid_set.append((l, r))
 
+            s1 = sorted(mid_set)
+            s2 = sorted(mid_set, key=lambda x: -x[1])
             return {
                 'median': median,
-                'S1': sorted(mid_set),
-                'S2': sorted(mid_set, key=lambda x: -x[1]),
+                'S1': s1,
+                'S1_l': [seg[0] for seg in s1],
+                'S2': s2,
+                'S2_neg_r': [-seg[1] for seg in s2],
                 'left': self._build(left_set),
                 'right': self._build(right_set)
             }
@@ -217,18 +232,12 @@ $k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng qué
                 return
             m = node['median']
             if b < m:
-                for l, r in node['S1']:
-                    if l <= b:
-                        result.append((l, r))
-                    else:
-                        break
+                cnt = bisect_right(node['S1_l'], b)
+                result.extend(node['S1'][:cnt])
                 self._query(node['left'], a, b, result)
             elif a > m:
-                for l, r in node['S2']:
-                    if r >= a:
-                        result.append((l, r))
-                    else:
-                        break
+                cnt = bisect_right(node['S2_neg_r'], -a)
+                result.extend(node['S2'][:cnt])
                 self._query(node['right'], a, b, result)
             else:
                 result.extend(node['S1'])
@@ -249,7 +258,34 @@ $k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng qué
 
 ---
 
-## 5. Bài tập luyện tập
+## 5. Lưu ý & Lỗi thường gặp
+
+### Nhầm lẫn giữa Interval Tree và Segment Tree
+
+| Tiêu chí | Segment Tree | Interval Tree (tập đoạn thẳng) |
+|---|---|---|
+| Đầu vào | Mảng $A[1..N]$ cố định | Tập $N$ đoạn $[l_i, r_i]$ bất kỳ |
+| Truy vấn chính | Tổng / Min / Max trên $[L, R]$ | Liệt kê / Đếm các đoạn giao $[a, b]$ |
+| Bộ nhớ | $O(4N)$ | $O(N \log N)$ |
+
+### Chọn median chỉ theo $l_i$ khi có nhiều đoạn chung đầu mút
+
+```cpp
+// RỦI RO: Nếu mọi đoạn đều bắt đầu tại l = 0, chọn median theo l_i khiến cây bị suy biến.
+// TỐT HƠN: Lấy trung vị trên hợp 2N đầu mút {l_i, r_i} (hoặc rời rạc hóa tọa độ + Segment Tree).
+```
+
+### Đọc nhầm thứ tự tìm kiếm nhị phân trên `S2`
+
+```cpp
+// SAI: S2 sắp xếp r giảm dần nhưng lại dùng lower_bound thông thường
+// ĐÚNG: Dùng comparator custom hoặc lưu -r để tận dụng lower_bound / upper_bound chuẩn
+// (Xem chi tiết cách dùng upper_bound với lambda giảm dần ở mục query C++ phía trên)
+```
+
+---
+
+## 6. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) |
 |---|---|---|---|
@@ -267,3 +303,7 @@ $k$ = số đoạn giao được tìm thấy. Code minh họa dưới dùng qué
 **Bài liên quan:**
 *   [Segment Tree](segment-tree.md)
 *   [Static Wavelet Tree](wavelet-tree.md)
+
+---
+
+**Bài trước:** [← Bài 29: Static Wavelet Tree](wavelet-tree.md) | **Bài tiếp theo:** [Bài 31: BFS & DFS →](bfs-dfs-do-thi.md)

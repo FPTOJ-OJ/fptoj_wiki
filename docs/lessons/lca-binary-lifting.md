@@ -1,4 +1,4 @@
-# Bài 31: LCA & Binary Lifting — Tổ tiên chung gần nhất
+# Bài 37: LCA & Binary Lifting — Tổ tiên chung gần nhất
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -425,4 +425,6 @@ Nếu gốc không phải đỉnh 1, chỉ cần gọi `dfs(root, 0)` thay vì `
 - [VNOI Wiki - LCA Binary Lifting](https://wiki.vnoi.info/algo/data-structures/lca-binlift)
 - [YouTube - LCA (takeuforward)](https://www.youtube.com/watch?v=qPxS_rY0OJw)
 
-**Bài tiếp theo:** [Greedy →](greedy.md)
+---
+
+**Bài trước:** [← Bài 36: Đường Đi](euler-circuit.md) | **Bài tiếp theo:** [Bài 38: Greedy (Tham Lam) →](greedy.md)

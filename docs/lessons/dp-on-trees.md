@@ -1,4 +1,4 @@
-# Bài 47: DP trên cây - Quy hoạch động trên cây
+# Bài 90: DP trên cây - Quy hoạch động trên cây
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, USACO Guide
@@ -1057,3 +1057,7 @@ mindmap
 ```
 
 Khi giải quyết các bài toán trên cây, hãy luôn xác định rõ ý nghĩa của các trạng thái $dp[u]$, cách thức kết hợp thông tin giữa cha và con, đồng thời lưu ý các trường hợp cơ sở tại đỉnh lá. Rerooting và Euler Tour là các công cụ đặc biệt mạnh mẽ để tối ưu hóa hiệu năng từ các lời giải ngây thơ.
+
+---
+
+**Bài trước:** [← Bài 89: Small-to-Large (DSU on Tree / Sack)](small-to-large.md) | **Bài tiếp theo:** [Bài 91: Digit DP →](digit-dp.md)

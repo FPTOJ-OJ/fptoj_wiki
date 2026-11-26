@@ -1,4 +1,4 @@
-# Bài 35: Setup Môi Trường Thi Đấu - Từ Đầu Đến Cuối
+# Bài 1: Setup Môi Trường Thi Đấu - Từ Đầu Đến Cuối
 
 > **Tác giả:** FPTOJ Team<br>
 ## 1. Tại sao phải chuẩn bị "vũ khí" trước khi ra trận?
@@ -391,7 +391,7 @@ sys.setrecursionlimit(10**6)
 
 | Tiêu chí | C++ | Python |
 |----------|-----|--------|
-| Tốc độ | **Nhanh** (~10^8 phép tính/giây) | Chậm hơn (~10^7 phép tính/giây, PyPy ~10^7-10^8) |
+| Tốc độ | **Nhanh** (khoảng $10^8$ phép tính/giây) | Chậm hơn (khoảng $10^7$ phép tính/giây, PyPy khoảng $10^7\text{-}10^8$) |
 | I/O | Cần `fastIO()` | Cần `sys.stdin.readline` |
 | Code ngắn | Trung bình | **Ngắn hơn** |
 | Thư viện | `bits/stdc++.h` | Import từng cái |
@@ -539,7 +539,7 @@ D:\THI_HSG\
     └── bai2.cpp
 ```
 
-(Xem thêm [Bài 39: Tổ chức code](to-chuc-code.md) để biết chi tiết)
+(Xem thêm [Bài 80: Tổ chức code](to-chuc-code.md) để biết chi tiết)
 
 ---
 
@@ -651,4 +651,6 @@ Hãy setup template, viết code và thử submit các bài tập nhập môn sa
 - [Codeforces - Good Contest Templates](https://codeforces.com/blog/entry/75429)
 - [USACO Guide - Contest Strategy](https://usaco.guide/general/contests)
 
-**Bài tiếp theo:** [Độ phức tạp thời gian →](do-phuc-tap-thoi-gian.md)
+---
+
+**Bài tiếp theo:** [Bài 2: Độ Phức Tạp Thời Gian →](do-phuc-tap-thoi-gian.md)

@@ -70,7 +70,7 @@ Như vậy ta có thể tính các giá trị QHĐ như sau:
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -226,7 +226,7 @@ Cách cập nhật các $F(x, y)$ giống như phần trước, độ phức t�
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -509,7 +509,7 @@ Việc cài đặt chỉ đơn giản là dựng mảng 2 chiều $F[][]$, code 
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
 
     using namespace std;
 
@@ -607,7 +607,7 @@ Như vậy, ta có thể tính hàng $F(g)$ theo thứ tự bất kỳ.
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
 
     const int MAXL = 8008;
     const int MAXG = 808;
@@ -792,7 +792,7 @@ Ta vẫn có thể tối ưu hơn nữa bằng cách sử dụng stack để h�
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -861,7 +861,7 @@ Ta vẫn có thể tối ưu hơn nữa bằng cách sử dụng stack để h�
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -1004,7 +1004,7 @@ $F[L[i]-1] = min[ F(j-1) + 1 ]$ với $L[i] \le j \le i$
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
     using namespace std;
 
     const int N = 4e6 + 6;
@@ -1144,7 +1144,7 @@ Trước hết ta gán $A[i] = A[i] - i$ với mọi $i$. Bài toán trở thàn
 
 **Thuật toán QHĐ cơ sở**
 
-Đặt $F(i, j) = $ số phép biến đổi ít nhất để biến đổi dãy $A[1..i]$ thành dãy không giảm sao cho $A[i] \le j$. Ta có:
+Đặt $F(i, j) =$ số phép biến đổi ít nhất để biến đổi dãy $A[1..i]$ thành dãy không giảm sao cho $A[i] \le j$. Ta có:
  - Với $i = 1$: $F(i, j) = \|A[i] - j\|$ 
  - Với $i > 1$: $F(i, j) = min(F(i - 1, k) + \|A[i] - k\|)$ $\forall k \le j$ 
 
@@ -1169,7 +1169,7 @@ Như vậy độ phức tạp của lời giải trên là $O(NlogN)$.
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -1350,7 +1350,7 @@ Ta biểu diễn đồ thị của hàm số bằng danh sách các điểm, sau
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 

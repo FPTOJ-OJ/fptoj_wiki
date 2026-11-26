@@ -1,4 +1,4 @@
-# Bài 3: Tìm Kiếm Nhị Phân - Chia Để Trị Trong 20 Bước!
+# Bài 4: Tìm Kiếm Nhị Phân - Chia Để Trị Trong 20 Bước!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Tìm kiếm nhị phân, Topcoder - Binary Search
@@ -620,4 +620,6 @@ Dừng khi khoảng đủ nhỏ ($\varepsilon = 10^{-9}$) hoặc lặp đúng 10
 - [YouTube - Binary Search (Errichto)](https://www.youtube.com/watch?v=GU7DpgHINWQ)
 - [LeetCode - Binary Search Study Plan](https://leetcode.com/studyplan/binary-search/)
 
-**Bài tiếp theo:** [Kĩ thuật hai con trỏ →](ky-thuat-hai-con-tro.md)
+---
+
+**Bài trước:** [← Bài 3: Thuật Toán Sắp Xếp](thuat-toan-sap-xep.md) | **Bài tiếp theo:** [Bài 5: Phép Toán Bit →](phep-toan-bit.md)

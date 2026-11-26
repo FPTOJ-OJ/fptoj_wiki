@@ -1,4 +1,4 @@
-# Định Lý Wilson & Định Lý Lucas
+# Bài 54: Định Lý Wilson & Định Lý Lucas
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms
@@ -87,6 +87,12 @@ $$= 4 \cdot 1 = 4$$
 
 **Kiểm tra:** $\binom{22}{7} = 170544$, $170544 \mod 5 = 4$ ✓
 
+### Wilson mở rộng cho $p^k$ (Định lý Gauss)
+
+Với $m > 1$, tích các số $\le m$ nguyên tố cùng nhau với $m$:
+
+$$\prod_{\substack{1 \le i \le m \\ \gcd(i, m) = 1}} i \equiv \begin{cases} -1 \pmod m & \text{nếu } m = 4,\ p^k,\ 2p^k \text{ (với } p \text{ nguyên tố lẻ)} \\ 1 \pmod m & \text{các trường hợp còn lại} \end{cases}$$
+
 ---
 
 ## 3. Phân tích tính đúng đắn
@@ -101,11 +107,11 @@ $$(p-1)! = 1 \cdot (p-1) \cdot \prod_{\text{cặp}} (a \cdot a^{-1}) = 1 \cdot (
 
 Viết $n$ và $k$ trong cơ số $p$: $n = (n_m \ldots n_1 n_0)_p$, $k = (k_m \ldots k_1 k_0)_p$.
 
-Theo hệ thức Vandermonde modulo $p$:
+Theo tính chất lũy thừa trong đặc số $p$ (**Freshman's Dream**: $(1+x)^p \equiv 1 + x^p \pmod{p}$):
 
 $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
 
-Đúng vì $(1+x)^n = \prod_{i} (1+x)^{n_i \cdot p^i} \equiv \prod_{i} (1+x^{p^i})^{n_i} \pmod{p}$ (theo Fermat nhỏ), và hệ số $x^k$ trong tích này chính là $\prod \binom{n_i}{k_i}$.
+Đúng vì $(1+x)^n = \prod_{i} (1+x)^{n_i \cdot p^i} \equiv \prod_{i} (1+x^{p^i})^{n_i} \pmod{p}$, và hệ số $x^k$ trong tích này chính là $\prod \binom{n_i}{k_i}$.
 
 ---
 
@@ -113,52 +119,17 @@ $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
 
 | Thuật toán | Thời gian |
 |------------|-----------|
-| Lucas với $p$ nguyên tố | $O(\log_p n \cdot p)$ |
+| Wilson trực tiếp cho $n! \bmod p$ ($n < p$, $p - n$ nhỏ) | $O(p - n + \log p)$ |
+| Lucas (1 truy vấn, không tiền xử lý) | $O(\log_p n \cdot p)$ |
+| Lucas (nhiều truy vấn, tiền xử lý `fact[0..p-1]`) | Tiền xử lý $O(p)$, mỗi truy vấn $O(\log_p n)$ |
 
 ---
 
 ## Code minh họa
 
-### Định lý Wilson
+### Định lý Wilson: Tính $n! \bmod p$ khi $n \ge p$ hoặc $n$ gần $p$
 
-=== "C++"
-
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-
-    long long factorial_mod(long long n, long long p) {
-        long long res = 1;
-        for (long long i = 2; i <= n; i++)
-            res = res * i % p;
-        return res;
-    }
-
-    int main() {
-        long long p;
-        cin >> p;
-        // (p-1)! ≡ -1 (mod p)
-        long long fact = factorial_mod(p - 1, p);
-        cout << "(p-1)! mod p = " << fact << " (nên bằng " << p - 1 << ")" << endl;
-        return 0;
-    }
-    ```
-
-=== "Python"
-
-    ```python
-    def factorial_mod(n, p):
-        res = 1
-        for i in range(2, n + 1):
-            res = res * i % p
-        return res
-
-    p = int(input())
-    fact = factorial_mod(p - 1, p)
-    print(f"(p-1)! mod p = {fact} (nên bằng {p - 1})")
-    ```
-
-### Định lý Lucas
+> Nếu $n \ge p$ thì $n! \equiv 0 \pmod p$. Nếu $n < p$ nhưng $p - n$ nhỏ (ví dụ $n = p - 2, p - 3$), ta tận dụng $(p-1)! \equiv p - 1 \pmod p$ để tính ngược về $n!$ trong $O(p - n + \log p)$ thay vì lặp từ $1$ đến $n$.
 
 === "C++"
 
@@ -177,31 +148,24 @@ $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
         return res;
     }
 
-    long long modInverse(long long a, long long p) {
-        return power(a, p - 2, p);
-    }
-
-    long long nCr_mod_p(long long n, long long r, long long p) {
-        if (r > n) return 0;
-        if (r == 0) return 1;
-        long long num = 1, den = 1;
-        for (long long i = 0; i < r; i++) {
-            num = num * ((n - i) % p) % p;
-            den = den * ((i + 1) % p) % p;
+    // Tính n! mod p nhanh khi n >= p hoặc n gần p
+    long long factorialModWilson(long long n, long long p) {
+        if (n >= p) return 0; // chứa thừa số p
+        if (n <= p - 1 - n) {
+            long long res = 1;
+            for (long long i = 2; i <= n; i++) res = res * i % p;
+            return res;
         }
-        return num * modInverse(den, p) % p;
-    }
-
-    long long lucas(long long n, long long r, long long p) {
-        if (r == 0) return 1;
-        long long ni = n % p, ri = r % p;
-        return lucas(n / p, r / p, p) * nCr_mod_p(ni, ri, p) % p;
+        // Dùng (p-1)! ≡ p - 1 (mod p) ⇒ n! ≡ (p-1)! * ((n+1)...(p-1))^(-1)
+        long long prod = 1;
+        for (long long i = n + 1; i < p; i++) prod = prod * i % p;
+        return (p - 1) * power(prod, p - 2, p) % p;
     }
 
     int main() {
-        long long n, k, p;
-        cin >> n >> k >> p;
-        cout << lucas(n, k, p) << "\n";
+        long long n, p;
+        cin >> n >> p;
+        cout << factorialModWilson(n, p) << "\n";
         return 0;
     }
     ```
@@ -209,35 +173,124 @@ $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
 === "Python"
 
     ```python
-    def power(a, b, p):
-        res = 1
-        a %= p
-        while b > 0:
-            if b & 1:
-                res = res * a % p
-            a = a * a % p
-            b >>= 1
-        return res
+    def factorial_mod_wilson(n, p):
+        if n >= p:
+            return 0  # chứa thừa số p
+        if n <= p - 1 - n:
+            res = 1
+            for i in range(2, n + 1):
+                res = res * i % p
+            return res
+        # (p-1)! ≡ p - 1 (mod p)
+        prod = 1
+        for i in range(n + 1, p):
+            prod = prod * i % p
+        return (p - 1) * pow(prod, p - 2, p) % p
 
-    def nCr_mod_p(n, r, p):
-        if r > n:
-            return 0
-        if r == 0:
-            return 1
-        num = den = 1
-        for i in range(r):
-            num = num * ((n - i) % p) % p
-            den = den * ((i + 1) % p) % p
-        return num * power(den, p - 2, p) % p
+    n, p = map(int, input().split())
+    print(factorial_mod_wilson(n, p))
+    ```
 
-    def lucas(n, r, p):
-        if r == 0:
-            return 1
-        ni, ri = n % p, r % p
-        return lucas(n // p, r // p, p) * nCr_mod_p(ni, ri, p) % p
+### Định lý Lucas (tiền xử lý $O(p)$, trả lời mỗi truy vấn $O(\log_p n)$)
 
-    n, k, p = map(int, input().split())
-    print(lucas(n, k, p))
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    long long power(long long a, long long b, long long p) {
+        long long res = 1;
+        a %= p;
+        while (b > 0) {
+            if (b & 1) res = res * a % p;
+            a = a * a % p;
+            b >>= 1;
+        }
+        return res;
+    }
+
+    struct Lucas {
+        long long p;
+        vector<long long> fact, invFact;
+
+        Lucas(long long p) : p(p), fact(p), invFact(p) {
+            fact[0] = 1;
+            for (long long i = 1; i < p; i++) fact[i] = fact[i - 1] * i % p;
+            invFact[p - 1] = power(fact[p - 1], p - 2, p);
+            for (long long i = p - 2; i >= 0; i--)
+                invFact[i] = invFact[i + 1] * (i + 1) % p;
+        }
+
+        long long nCrSmall(long long n, long long r) const {
+            if (r > n) return 0;
+            return fact[n] * invFact[r] % p * invFact[n - r] % p;
+        }
+
+        long long query(long long n, long long r) const {
+            long long res = 1;
+            while (r > 0) {
+                res = res * nCrSmall(n % p, r % p) % p;
+                n /= p;
+                r /= p;
+            }
+            return res;
+        }
+    };
+
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        int q;
+        long long p;
+        cin >> q >> p;
+        Lucas solver(p);
+        while (q--) {
+            long long n, k;
+            cin >> n >> k;
+            cout << solver.query(n, k) << "\n";
+        }
+        return 0;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    import sys
+    input = sys.stdin.readline
+
+    class Lucas:
+        def __init__(self, p):
+            self.p = p
+            self.fact = [1] * p
+            for i in range(1, p):
+                self.fact[i] = self.fact[i - 1] * i % p
+            self.inv_fact = [1] * p
+            self.inv_fact[p - 1] = pow(self.fact[p - 1], p - 2, p)
+            for i in range(p - 2, -1, -1):
+                self.inv_fact[i] = self.inv_fact[i + 1] * (i + 1) % p
+
+        def nCr_small(self, n, r):
+            if r > n:
+                return 0
+            p = self.p
+            return self.fact[n] * self.inv_fact[r] % p * self.inv_fact[n - r] % p
+
+        def query(self, n, r):
+            res = 1
+            p = self.p
+            while r > 0:
+                res = res * self.nCr_small(n % p, r % p) % p
+                n //= p
+                r //= p
+            return res
+
+    q, p = map(int, input().split())
+    solver = Lucas(p)
+    for _ in range(q):
+        n, k = map(int, input().split())
+        print(solver.query(n, k))
     ```
 
 ---
@@ -264,3 +317,7 @@ $$\binom{n}{k} \equiv \prod_{i=0}^{m} \binom{n_i}{k_i} \pmod{p}$$
 |---|---|---|---|
 | [CSES - Binomial Coefficients](https://cses.fi/problemset/task/1079) | CSES | ⭐⭐ | Tổ hợp modulo |
 | [VNOJ - VOMARBLE](https://oj.vnoi.info/problem/vomarble) | VNOJ | ⭐⭐⭐ | Tổ hợp modulo |
+
+---
+
+**Bài trước:** [← Bài 53: Hàm Phi Euler ($\varphi$)](phi-euler.md) | **Bài tiếp theo:** [Bài 55: Định Lý Thặng Dư Trung Hoa (CRT) →](crt.md)

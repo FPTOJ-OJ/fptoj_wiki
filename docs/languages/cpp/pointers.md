@@ -394,7 +394,7 @@ Sau đây là hai lời khuyên cuối cùng về việc tạo mảng động:
 
 Giả sử bạn có một bài quy hoạch động 4 chiều với hàm qhđ $f(i, j, k, l)$ với $0 \leq i \leq m$, $0 \leq j \leq n$ và $k$ và $l$ chỉ là các giá trị $0$ hoặc $1$. Nếu đề bài ràng buộc $1 \leq m \cdot n \leq 10^5$, ta biết rằng kích thước của ba chiều $i$, $k$, và $l$ không quá $4 \cdot 10^5$. Do đó mình khuyên các bạn nên biểu diễn trạng thái dưới dạng $f(k, l, i, j)$ thay vì $f(i, j, k, l)$ (đảo thứ tự các chiều):
 ```cpp
-## define MAX   100100
+#define MAX   100100
 int *f[2][2][MAX];
 
 int main(void) {
@@ -458,7 +458,7 @@ memset(ll_array, 0, n * sizeof(long long));
 Tương tự, nếu một mảng được truyền vào một hàm, kể cả **nếu mảng đó là mảng tĩnh**, bạn không thể khởi tạo theo cách thông thường.
 
 ```cpp
-## define MAX   100100
+#define MAX   100100
 int arr[MAX];
 
 // INCORRECT
@@ -503,7 +503,7 @@ Ta xét bài toán ví dụ đơn giản: *Cho $n$ xâu ký tự $s_1, s_2, \ldo
 
 Đoạn code mẫu:
 ```cpp
-## define REP(i, n) for (int i = 0, _n = (n); i < _n; i++)
+#define REP(i, n) for (int i = 0, _n = (n); i < _n; i++)
 
 struct Node {
    Node *child[26];

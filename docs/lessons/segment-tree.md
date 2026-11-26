@@ -1,4 +1,4 @@
-# Bài 8c: Segment Tree (Cây Phân Đoạn) - Truy Vấn Đoạn
+# Bài 21: Segment Tree (Cây Phân Đoạn) - Truy Vấn Đoạn
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây Phân Đoạn, CP-Algorithms
@@ -922,6 +922,10 @@ Nhớ cặp đôi: phép gộp `+` đi với `0`; `min` đi với `+∞`; `max` 
 *   [YouTube - Segment Tree Playlist (takeuforward)](https://www.youtube.com/playlist?list=PLtfqa971vD5GTQjH9U0H6kiq9cQlFFa5k)
 
 **Bài liên quan:**
-*   [Bài 8a: Heap (Hàng đợi ưu tiên)](heap.md)
-*   [Bài 8b: DSU (Gộp tập hợp)](dsu.md)
-*   [Bài 8d: Fenwick Tree (Cây chỉ số nhị phân)](fenwick-tree.md)
+*   [Bài 16: Heap (Hàng đợi ưu tiên)](heap.md)
+*   [Bài 17: DSU (Gộp tập hợp)](dsu.md)
+*   [Bài 23: Fenwick Tree (Cây chỉ số nhị phân)](fenwick-tree.md)
+
+---
+
+**Bài trước:** [← Bài 20: Trie](trie.md) | **Bài tiếp theo:** [Bài 22: Cải Tiến Segment Tree →](improved-seg-tree.md)

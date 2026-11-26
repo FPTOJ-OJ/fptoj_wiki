@@ -515,11 +515,69 @@ assert(n < 0);  // CRASH! Chương trình dừng và báo lỗi
 
 ---
 
-## Bài viết liên quan
+## Bài tập thực hành
 
-- [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
-- [C17: Thuật toán STL & Số học →](C17-thuat-toan-stl.md)
+### Bài 1: Đếm số giá trị phân biệt bằng `bitset`
+Đọc số nguyên `n` và `n` số nguyên trong đoạn `[0, 1000]`. Dùng `bitset<1001>` để đếm có bao nhiêu giá trị phân biệt.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="6
+5 2 5 9 2 1" data-expected="4" data-hint="Đánh dấu bs[x] = 1 rồi in bs.count()"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        int n;
+        cin >> n;
+        bitset<1001> bs;
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+            bs.set(x);
+        }
+        cout << bs.count() << "\n";
+        return 0;
+    }
+    ```
+
+### Bài 2: Khởi tạo mảng bằng `memset`
+Cho `n` (`n <= 100`) và `n` cặp `(idx, val)`. Khởi tạo mảng `a` kích thước `100` toàn `-1` bằng `memset`, gán `a[idx] = val`, rồi in tổng các phần tử từ `0` đến `n - 1`.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4
+0 10
+2 20" data-expected="28" data-hint="memset(a, -1, sizeof(a)), sau đó đọc 2 cặp hoặc đến hết input rồi cộng 0..n-1"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        int n;
+        cin >> n;
+        int a[100];
+        memset(a, -1, sizeof(a));
+        int idx, val;
+        while (cin >> idx >> val) {
+            a[idx] = val;
+        }
+        int sum = 0;
+        for (int i = 0; i < n; i++) sum += a[i];
+        cout << sum << "\n";
+        return 0;
+    }
+    ```
 
 ---
 
-**Quay lại:** [Chương 2: C++ cho Thi Đấu](index.md)
+## Bài viết liên quan
+
+- [C20: Lambda & Iterator ←](C20-lambda-iterator.md)
+- [C22: Struct & Operator Overloading →](C22-struct-operator-overloading.md)
+
+---
+
+**Bài trước:** [C20: Lambda & Iterator](C20-lambda-iterator.md)<br>
+**Bài tiếp theo:** [C22: Struct & Operator Overloading →](C22-struct-operator-overloading.md)

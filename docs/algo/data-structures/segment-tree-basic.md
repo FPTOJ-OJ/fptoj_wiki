@@ -29,7 +29,7 @@ Còn nếu bạn muốn tìm hiểu sâu hơn về **Segment Tree** thì bạn c
 <img src="/All_Images_Collected/sum-segment-tree.png" alt="Sum Segment Tree" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Một trong những ứng dụng phổ biến nhất của **Segment Tree** là giải quyết bài toán [$Range \space Minimum \space Query \space \mathit{(RMQ)}$](../../translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor.md). Trong bài toán này, ta được cho một mảng $A$ và $Q$ truy vấn; mỗi truy vấn gồm cặp số $l$ và $r$, yêu cầu tìm phần tử có giá trị nhỏ nhất trong đoạn từ $l$ đến $r$ của mảng $A$. 
-- **Ví dụ:** Ta có mảng $$A = \{9,2,6,3,1,5,7\}$$. Với truy vấn $l = 3$ và $r = 6$, đáp án sẽ là $\min{(6,3,1,5)} = 1$. Sau đó, một truy vấn khác với $l = 1$ và $r = 3$ thì đáp án là $2$; v.v...
+- **Ví dụ:** Ta có mảng $$A = \{9,2,6,3,1,5,7\}$$. Với truy vấn$l = 3$và$r = 6$, đáp án sẽ là$\min{(6,3,1,5)} = 1$. Sau đó, một truy vấn khác với$l = 1$và$r = 3$thì đáp án là$2$; v.v...
 
 Có nhiều giải pháp khác nhau để giải quyết bài toán này nhưng **Segment Tree** thường là lựa chọn thích hợp nhất, đặc biệt là khi có thêm **hoạt động sửa đổi** được xen kẽ với các truy vấn. 
 
@@ -111,7 +111,7 @@ Bây giờ ta muốn sửa đổi một phần tử cụ thể trong mảng, gi�
 Để làm như vậy, trước tiên ta cần sửa đổi nút lá tương ứng. Các nút lá khác không bị ảnh hưởng, vì mỗi nút lá chỉ được liên kết với một phần tử trong mảng. Nút cha của nút đã sửa đổi cũng bị ảnh hưởng, vì đoạn nó quản lý cũng chứa phần tử đã sửa đổi, và các nút tổ tiên của nó cũng vậy, v.v... cho đến nút gốc. 
 
 Nói cách khác, tất cả các nút nằm trên đường đi đơn từ gốc đến nút lá tương ứng đều bị ảnh hưởng. Ngoài ra, **không còn nút nào khác bị ảnh hưởng**. Do đó, với một dãy số gồm $N$ phần tử thì chiều cao của cây phân đoạn tương ứng sẽ là $\mathcal{O}(\log{N})$ nên chỉ có $\mathcal{O}(\log{N})$ nút cần được cập nhật.
-- **Ví dụ:** Cho mảng $$A = \{9,2,6,3,1,5,7\}$$. Phần tử có giá trị $1$ được thay đổi thành giá trị $8$ trong cây phân đoạn lấy giá trị nhỏ nhất.
+- **Ví dụ:** Cho mảng $$A = \{9,2,6,3,1,5,7\}$$. Phần tử có giá trị$1$được thay đổi thành giá trị$8$ trong cây phân đoạn lấy giá trị nhỏ nhất.
 
 <img src="/uploads/segment-tree-basic_gif1.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -128,7 +128,7 @@ Tương tự như thao tác xây dựng cây phân đoạn, cách cập nhật c
 Bây giờ, ta cần phải trả lời các truy vấn lấy giá trị. Ví dụ như: cho hai số nguyên $l$ và $r$, hãy xác định phần tử có giá trị nhỏ nhất trong đoạn $[l, r]$ của mảng $A$ với khoảng thời gian là $\mathcal{O}(\log{n})$.
 
 Do thao tác lấy giá trị này phức tạp hơn thao tác cập nhật cây phân đoạn nên ta sẽ lấy một ví dụ minh họa để dễ hình dung: 
-- Giả sử, cho mảng $$A = \{9,2,6,3,1,5,7\}$$ và ta muốn biết phần tử nhỏ nhất trong đoạn $[1, 6]$ của mảng $A$.
+- Giả sử, cho mảng $$A = \{9,2,6,3,1,5,7\}$$và ta muốn biết phần tử nhỏ nhất trong đoạn$[1, 6]$của mảng$A$.
 
 <img src="/uploads/segment-tree-basic_img4.png" alt="/uploads/segment-tree-basic_img4.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -152,7 +152,7 @@ Thứ khiến ta cần phải cân nhắc ở đây chính là cách lưu trữ 
 
 Thay vào đó, ta sẽ sử dụng một thủ thuật đơn giản để làm cho việc này trở nên hiệu quả hơn rất nhiều. Ta sẽ chỉ lưu trữ các thông tin của từng nút vào trong một mảng. Thông tin của nút gốc lưu ở chỉ số $1$, thông tin của hai nút con của nó lưu ở chỉ số $2$ và $3$, thông tin của các nút con của hai nút đó sẽ lưu ở chỉ số từ $4$ đến $7$, v.v... Dễ dàng nhận thấy, con bên trái của nút có chỉ số $id$ được lưu trữ tại chỉ số $2 \times id$ và con bên phải được lưu trữ tại chỉ số $2 \times id + 1$.
 
-- **Ví dụ minh họa:** Cho mảng $$A = \{9,2,6,3,1,5,7\}$$, ta có $$st[] = \{1, 2, 1, 2, 3, 1, 7, 9, 2, 6, 3, 1, 5\}$$ (với $st[]$ là mảng biểu diễn cho **Segment Tree**, lưu lại thông tin của mỗi nút).
+- **Ví dụ minh họa:** Cho mảng $$A = \{9,2,6,3,1,5,7\}$$, ta có$$st[] = \{1, 2, 1, 2, 3, 1, 7, 9, 2, 6, 3, 1, 5\}$$(với$st[]$ là mảng biểu diễn cho **Segment Tree**, lưu lại thông tin của mỗi nút).
 
     <img src="/uploads/segment-tree-basic_img5.png" alt="/uploads/segment-tree-basic_img5.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -178,7 +178,7 @@ Do đó, ta sẽ cài đặt **Segment Tree** để giải quyết bài toán tr
 - Mảng `st[]` - Lưu thông tin của mỗi nút trên **Segment Tree**.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -399,7 +399,7 @@ Nhận thấy rằng, trên cây phân đoạn, mỗi nút không phải lá s�
 - Mảng `st[]` - Lưu thông tin của mỗi nút trên **Segment Tree**.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -502,7 +502,7 @@ Với mỗi truy vấn, đáp án chính là $\mathrm{maxsum}[x, y]$.
 - Mảng `st[]` - Lưu thông tin của mỗi nút trên **Segment Tree**.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -607,7 +607,7 @@ Với truy vấn loại $2$, ta thực hiện tương tự như thao tác lấy 
 - Mảng `st[]` - Lưu thông tin của mỗi nút trên **Segment Tree**.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
  
 using namespace std;
  
@@ -730,7 +730,7 @@ Nhìn chung, độ phức tạp của thuật toán là $\mathcal{O}(N \times \l
 Giả sử ta cần cập nhật đoạn $[u, v]$. Dễ thấy rằng, việc cập nhật tất cả các nút trên **Segment Tree** sẽ mất độ phức tạp rất lớn là $\mathcal{O}(N \times \log{N})$ (do tổng số phần tử nằm trong đoạn $[u, v]$ có thể lên đến $O(N)$). Do đó, với số lượng truy vấn cập nhật đoạn lớn, thao tác này sẽ không đủ tốt. 
 
 Vậy nên, trong quá trình cập nhật, ta chỉ thay đổi giá trị ở các nút gần gốc nhất sao cho tổng tất cả các phạm vi mà các nút đó quản lí đúng bằng đoạn $[u, v]$. 
-- **Ví dụ:**  Cho mảng $$A = \{9,2,6,3,1,5,7\}$$ và ta cần cập nhật đoạn $[1, 6]$ :
+- **Ví dụ:**  Cho mảng $$A = \{9,2,6,3,1,5,7\}$$và ta cần cập nhật đoạn$[1, 6]$ :
 
     <img src="/uploads/segment-tree-basic_img10.png" alt="/uploads/segment-tree-basic_img10.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -780,7 +780,7 @@ Với truy vấn loại $1$, thao tác cập nhật đoạn $[u, v]$. Giả sử
 - Mảng `lazy[]` - Lưu trữ các giá trị cần cập nhật của mỗi nút trên **Segment Tree**.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -900,7 +900,7 @@ Tuy nhiên thuật toán trên không đủ tốt đối với số lượng tru
 
 Ta sẽ tạo ra $26$ mảng tương ứng với mỗi kí tự. Mảng này lưu lại vị trí xuất hiện của từng kí tự trong chuỗi. Và mỗi mảng sẽ được kiểm soát bởi một cây phân đoạn.
 
-- **Ví dụ:** Cho chuỗi $S = "dabedaba"$. Kí tự $'a'$ sẽ có một cây phân đoạn kiểm soát mảng $$\{0, 1, 0, 0, 0, 1, 0, 1\}$$. Còn kí tự $'b'$ có một cây phân đoạn kiểm soát mảng $$\{0, 0, 1, 0, 0, 0, 1, 0\}$$, v.v...
+- **Ví dụ:** Cho chuỗi $S = "dabedaba"$. Kí tự $'a'$ sẽ có một cây phân đoạn kiểm soát mảng $$\{0, 1, 0, 0, 0, 1, 0, 1\}$$. Còn kí tự$'b'$có một cây phân đoạn kiểm soát mảng$$\{0, 0, 1, 0, 0, 0, 1, 0\}$$, v.v...
     
 Với mỗi truy vấn sắp xếp đoạn $[i, j]$, ta dùng **Segment Tree** để tính số lần xuất hiện của mỗi ký tự trong đoạn, sau đó sắp xếp chúng và cập nhật mỗi cây phân đoạn với các giá trị mới. 
 - **Ví dụ:** Cho chuỗi $S = "dabedaba"$, giả sử ta cần phải sắp xếp các kí tự của chuỗi $S$ theo thứ tự **tăng dần**:
@@ -923,7 +923,7 @@ Vì thao tác cập nhật cây phân đoạn này là gán giá trị ($0$ ho�
 - Mảng `lazy[][]` - Lưu trữ các giá trị cần cập nhật của mỗi nút trên **Segment Tree** tương ứng với mỗi kí tự.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -1054,7 +1054,7 @@ $\circ \space \space 1 \le N, M \le 10^5$ (với $M$ là số lượng truy vấ
 - Mảng `lazy[]` - Lưu trữ các giá trị cần cập nhật của mỗi nút trên **Segment Tree**.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 

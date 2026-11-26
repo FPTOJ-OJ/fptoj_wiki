@@ -1,4 +1,4 @@
-# Bài 19: Tổ Hợp & Xác Suất
+# Bài 51: Tổ Hợp & Xác Suất
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cách tính số tổ hợp, Xác suất
@@ -624,6 +624,45 @@ for (int i = n - 1; i >= 0; i--)
 
 ---
 
+## 7.5 Bổ đề Burnside (Đếm cấu hình đối xứng / Vòng cổ)
+
+Khi bài toán yêu cầu đếm số cách tô màu có **phép biến đổi đối xứng** (ví dụ: hai vòng cổ xoay giống nhau được xem là một), ta không thể dùng hoán vị lặp thông thường mà dùng **Bổ đề Burnside**:
+
+$$\text{Số lớp tương đương} = \frac{1}{|G|} \sum_{g \in G} \text{Fix}(g)$$
+
+Trong đó $G$ là tập các phép biến đổi đối xứng, và $\text{Fix}(g)$ là số cấu hình **giữ nguyên** sau khi áp dụng phép biến đổi $g$.
+
+**Áp dụng đếm vòng cổ $n$ hạt, $m$ màu (chỉ tính phép xoay):**
+- Có $n$ phép xoay theo bước $k = 0, 1, \dots, n-1$.
+- Khi xoay $k$ bước, vòng tròn $n$ hạt chia thành đúng $\gcd(k, n)$ chu trình rời nhau; các hạt trong cùng một chu trình phải có cùng màu $\Rightarrow$ có đúng $m^{\gcd(k, n)}$ vòng cổ bất biến.
+- Suy ra công thức: $\text{Ans} = \frac{1}{n} \sum_{k=0}^{n-1} m^{\gcd(k, n)}$.
+
+=== "C++"
+
+    ```cpp
+    long long countNecklaces(long long n, long long m, long long mod) {
+        long long total = 0;
+        for (long long k = 0; k < n; k++) {
+            total = (total + powerMod(m, __gcd(k, n), mod)) % mod;
+        }
+        return total * powerMod(n, mod - 2, mod) % mod;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    import math
+
+    def count_necklaces(n, m, mod=10**9 + 7):
+        total = 0
+        for k in range(n):
+            total = (total + pow(m, math.gcd(k, n), mod)) % mod
+        return total * pow(n, mod - 2, mod) % mod
+    ```
+
+---
+
 ## 8. Bài tập luyện tập
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
@@ -656,8 +695,8 @@ for (int i = n - 1; i >= 0; i--)
 
 ## Bài viết liên quan
 
-- [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md)
-- [Bài 26: Số học nâng cao](so-hoc-nang-cao.md)
+- [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md)
+- [Bài 52: Số học nâng cao](so-hoc-nang-cao.md)
 
 ## Tài liệu tham khảo
 
@@ -666,4 +705,6 @@ for (int i = n - 1; i >= 0; i--)
 - [HackerEarth - Combinatorics](https://www.hackerearth.com/practice/math/combinatorics/basics-combinatorics/tutorial/)
 - [GeeksforGeeks - nCr using Pascal's Triangle](https://www.geeksforgeeks.org/dsa/program-to-calculate-the-value-of-ncr-using-pascals-triangle/)
 
-**Bài tiếp theo:** [Manacher →](manacher.md)
+---
+
+**Bài trước:** [← Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) | **Bài tiếp theo:** [Bài 52: Số Học Nâng Cao →](so-hoc-nang-cao.md)

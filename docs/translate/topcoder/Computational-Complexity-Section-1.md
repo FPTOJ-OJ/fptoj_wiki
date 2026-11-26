@@ -166,7 +166,7 @@ Việc xác định được cận trên $O(N^2)$ của $f(N)$ cũng đưa ta t�
 
 Vì vậy, chúng ta sẽ sử dụng ký pháp O-lớn để mô tả độ phức tạp *thời gian* (và đôi khi là cả *bộ nhớ*) của các thuật toán. Với thuật toán trong ví dụ 2 ta sẽ nói "Độ phức tạp thời gian của thuật toán này là $O(N^2)$" hoặc ngắn gọn hơn "Thuật toán này là $O(N^2)$".
 
-Theo cách tương tự ta sẽ định nghĩa $ \Omega$ (Omega-lớn) and $ \Theta$ (Theta-lớn).
+Theo cách tương tự ta sẽ định nghĩa $\Omega$ (Omega-lớn) and $\Theta$ (Theta-lớn).
 
 Ta nói rằng $f (N)= \Omega(g(N))$ nếu $g(N) = O(f (N))$, nói cách khác nếu $f$ tăng nhanh hơn hoặc bằng $g$.
 
@@ -180,16 +180,16 @@ Một vài mệnh đề sử dụng các ký pháp trên:
 + $47N log N = O(N^2)$.
 + $N log N + 1 000 047N = \Theta(N log N)$.
 + Tất cả các đa thức bậc $k$ là $O(N^k)$.
-+ Độ phức tạp thời gian của thuật toán trong ví dụ 2 là $ \Theta(N^2)$.
++ Độ phức tạp thời gian của thuật toán trong ví dụ 2 là $\Theta(N^2)$.
 + Nếu một thuật toán thuộc $O(N^2)$, nó cũng thuộc $O(N^5)$.
-+ Các thuật toán sắp xếp dựa trên phép so sánh đều là $ \Omega(N log N)$.
-+ Thuật toán sắp xếp trộn *MergeSort* chạy trên mảng gồm $N$ phần tử thực hiện xấp xỉ $N log N$ phép so sánh. Vì vậy độ phức tạp thời gian của *MergeSort* là $ \Theta(N log N)$. Nếu mệnh đề trước đó là đúng thì MergeSort tiệm cận thuật toán tối ưu nhất trong các thuật toán sắp xếp dựa trên phép so sánh.
-+ Thuật toán trong ví dụ 2 sử dụng $ \Theta(N)$ bytes bộ nhớ.
++ Các thuật toán sắp xếp dựa trên phép so sánh đều là $\Omega(N log N)$.
++ Thuật toán sắp xếp trộn *MergeSort* chạy trên mảng gồm $N$ phần tử thực hiện xấp xỉ $N log N$ phép so sánh. Vì vậy độ phức tạp thời gian của *MergeSort* là $\Theta(N log N)$. Nếu mệnh đề trước đó là đúng thì MergeSort tiệm cận thuật toán tối ưu nhất trong các thuật toán sắp xếp dựa trên phép so sánh.
++ Thuật toán trong ví dụ 2 sử dụng $\Theta(N)$ bytes bộ nhớ.
 + Hàm số cho biết số răng của một người ở một thời điểm xác định là $O(1)$.
 + Một thuật toán quay lui đơn giản giải các bài toán trên bàn cờ vua là $O(1)$ vì cây vị trí mà thuật toán duyệt qua có kích cỡ giới hạn. (Tuy nhiên giá trị hằng số trong $O(1)$ này lại rất lớn)
-+ Mệnh đề "Độ phức tạp thời gian của thuật toán này tối thiểu là $O(N^2)$" là vô nghĩa. (Diễn dịch: "Giá trị tối thiểu của độ phức tạp thời gian của thuật toán này tối đa là xấp xỉ hàm bậc hai"). Phát biểu đúng là: "Độ phức tạp thời gian của thuật toán này là $ \Omega(N2)$."
++ Mệnh đề "Độ phức tạp thời gian của thuật toán này tối thiểu là $O(N^2)$" là vô nghĩa. (Diễn dịch: "Giá trị tối thiểu của độ phức tạp thời gian của thuật toán này tối đa là xấp xỉ hàm bậc hai"). Phát biểu đúng là: "Độ phức tạp thời gian của thuật toán này là $\Omega(N2)$."
 
-Khi nói về độ phức tạp thời gian/bộ nhớ của một thuật toán, thay vì sử dụng ký pháp Theta-lớn $ \Theta(f (N))$ ta có thể đơn giản chỉ ra tên của lớp hàm chứa hàm $f$. Ví dụ với $f (N) =  \Theta(N)$, ta gọi thuật toán đó là *tuyến tính*. Một vài ví dụ khác:
+Khi nói về độ phức tạp thời gian/bộ nhớ của một thuật toán, thay vì sử dụng ký pháp Theta-lớn $\Theta(f (N))$ ta có thể đơn giản chỉ ra tên của lớp hàm chứa hàm $f$. Ví dụ với $f (N) =  \Theta(N)$, ta gọi thuật toán đó là *tuyến tính*. Một vài ví dụ khác:
 
 + $f (N) = \Theta(log N)$: hàm log
 + $f (N) = \Theta(N^2)$: hàm bậc 2
@@ -197,15 +197,15 @@ Khi nói về độ phức tạp thời gian/bộ nhớ của một thuật toá
 + $f (N) = O(N^k)$ : hàm đa thức
 + $f (N) = \Omega(2^N)$: hàm mũ
 
-Với các bài toán trên đồ thị, độ phức tạp $ \Theta$(N + M) được gọi là "tuyến tính theo độ lớn của đồ thị".
+Với các bài toán trên đồ thị, độ phức tạp $\Theta$(N + M) được gọi là "tuyến tính theo độ lớn của đồ thị".
 
 ## Xác định thời gian chạy dựa vào đánh giá cận trên
 
-Với hầu hết các thuật toán thường gặp trong thực tế, giá trị hằng số của $O$ (hoặc $ \Theta$) thường là khá nhỏ. Nếu một thuật toán là $ \Theta(N^2)$, độ phức tạp chính xác là vào khoảng $10N^2$ chứ không phải $10^7N^2$.
+Với hầu hết các thuật toán thường gặp trong thực tế, giá trị hằng số của $O$ (hoặc $\Theta$) thường là khá nhỏ. Nếu một thuật toán là $\Theta(N^2)$, độ phức tạp chính xác là vào khoảng $10N^2$ chứ không phải $10^7N^2$.
 
 Nói cách khác: nếu hằng số là lớn thì thường là các hằng số đó có liên quan tới các đại lượng có sẵn trong đề bài. Trong trường hợp này cách làm thông thường là gán một tên gọi cho hằng số đó và thêm nó vào đánh giá độ phức tạp theo ký pháp, thay vì bỏ qua như ta đã làm với số $1.5$ ở ví dụ 2.
 
-Ví dụ: bài toán yêu cầu đếm số lần xuất hiện của mỗi loại ký tự trong một chuỗi độ dài $N$ ký tự. Thuật toán đơn giản nhất là duyệt cả chuỗi một lần cho mỗi loại ký tự. Kích cỡ bảng chữ cái không thay đổi (ví dụ nhiều nhất là 255 ký tự trong ngôn ngữ C), vì vậy thuật toán là tuyến tính với $N$. Mặc dù vậy, ta nên viết độ phức tạp thời gian là $ \Theta(\|S\| \times N)$, trong đó $S$ là bảng chữ cái được sử dụng (Lưu ý là có một thuật toán tốt hơn giải bài toán này trong $ \Theta(\|S\| + N)$.
+Ví dụ: bài toán yêu cầu đếm số lần xuất hiện của mỗi loại ký tự trong một chuỗi độ dài $N$ ký tự. Thuật toán đơn giản nhất là duyệt cả chuỗi một lần cho mỗi loại ký tự. Kích cỡ bảng chữ cái không thay đổi (ví dụ nhiều nhất là 255 ký tự trong ngôn ngữ C), vì vậy thuật toán là tuyến tính với $N$. Mặc dù vậy, ta nên viết độ phức tạp thời gian là $\Theta(\|S\| \times N)$, trong đó $S$ là bảng chữ cái được sử dụng (Lưu ý là có một thuật toán tốt hơn giải bài toán này trong $\Theta(\|S\| + N)$.
 
 Trong một kỳ thi trên TopCoder, một thuật toán thực thi 1 000 000 000 phép nhân hiếm khi chạy trong giới hạn thời gian cho phép. Thực tế này cộng với quan sát ở trên và một vài kinh nghiệm với các bài toán trên TopCoder giúp ta tổng kết bảng sau:
 
@@ -216,19 +216,19 @@ Trong một kỳ thi trên TopCoder, một thuật toán thực thi 1 000 000 00
 <th>maximum N</th>
 </tr>
 <tr>
-<td>$ \Theta(N)$ </td><td>100 000 000</td>
+<td>$\Theta(N)$ </td><td>100 000 000</td>
 </tr><tr>
-<td>$ \Theta(N log N)$</td><td> 	40 000 000</td>
+<td>$\Theta(N log N)$</td><td> 	40 000 000</td>
 </tr><tr>
-<td>$ \Theta(N^2)$ </td><td>	10 000</td>
+<td>$\Theta(N^2)$ </td><td>	10 000</td>
 </tr><tr>
-<td>$ \Theta(N^3)$ </td><td>	500</td>
+<td>$\Theta(N^3)$ </td><td>	500</td>
 </tr><tr>
-<td>$ \Theta(N^4)$ </td><td>	90</td>
+<td>$\Theta(N^4)$ </td><td>	90</td>
 </tr><tr>
-<td>$ \Theta(2^N)$ </td><td>	20</td>
+<td>$\Theta(2^N)$ </td><td>	20</td>
 </tr><tr>
-<td>$ \Theta(N!)$ </td><td> 11</td>
+<td>$\Theta(N!)$ </td><td> 11</td>
 </tr>
 </tbody>
 </table>

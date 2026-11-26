@@ -42,7 +42,9 @@ Ma trận vuông là ma trận có số hàng và số cột bằng nhau. Ma tr�
 
 - **Ví dụ:** Ma trận vuông cấp $3$ (số hàng và số cột bằng $3$)
 
+    $$
     \begin{bmatrix} 1 & 2 & 0 \\ 3 & 0 & 1 \\ 2 & 3 & 1 \end{bmatrix}
+    $$
  
 ### Ma trận đơn vị (Identity Matrix)
 
@@ -142,7 +144,7 @@ Nhờ **tính chất kết hợp** của phép nhân ma trận nên ta có thể
 **Lưu ý:** Khác với định nghĩa bên trên, trong cách cài đặt sau, các hàng và cột của ma trận được đánh số bắt đầu từ $0$ để thuận tiện cho việc xử lí.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -154,7 +156,7 @@ struct Matrix {
     // Số lượng hàng của ma trận
     int row() const { return data.size(); } 
 
-    // Số lượng hàng của ma trận
+    // Số lượng cột của ma trận
     int col() const { return data[0].size(); }
 
     auto & operator [] (int i) { return data[i]; }
@@ -364,7 +366,7 @@ Vậy bài toán trên được đưa về dạng **nhân ma trận**. $F_N$ đ�
 **Lưu ý:** Khác với định nghĩa bên trên. Trong cách cài đặt sau, các hàng và cột của ma trận được đánh số bắt đầu từ $0$ để thuận tiện cho việc xử lí.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -497,7 +499,7 @@ $\Rightarrow \begin{bmatrix} a_{n - k + 1} \\ a_{n - k + 2} \\ \vdots \\ a_{n-1}
 **Lưu ý:** Khác với định nghĩa bên trên. Trong cách cài đặt sau, các hàng và cột của ma trận được đánh số bắt đầu từ $0$ để thuận tiện cho việc xử lí.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -704,7 +706,7 @@ Ta không phải lưu **số chữ số chẵn đã xuất hiện** vì nếu ch
 Do đó, ta có công thức quy hoạch động theo như code sau:
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -782,7 +784,7 @@ Tối ưu hóa thuật toán bằng cách tách $n$ thành các lũy thừa củ
 **Lưu ý:** Trong cách cài đặt sau, các hàng và cột của ma trận được đánh số bắt đầu từ $0$ để thuận tiện cho việc xử lí.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -953,7 +955,7 @@ Sau khi sử dụng các tính chất trên, bài toán trở thành một hoạ
 **Lưu ý:** Trong cách cài đặt sau, các hàng và cột của ma trận được đánh số bắt đầu từ $0$ để thuận tiện cho việc xử lí.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -1180,7 +1182,7 @@ Bài toán [VMATRIX - VNOI Marathon 2014](https://oj.vnoi.info/problem/vmatrix)
 **Lưu ý:** Trong cách cài đặt sau, các hàng và cột của ma trận được đánh số bắt đầu từ $0$ để thuận tiện cho việc xử lí.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 

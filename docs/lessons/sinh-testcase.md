@@ -1,4 +1,4 @@
-# Bài 37: Sinh Testcase & Stress Test
+# Bài 78: Sinh Testcase & Stress Test
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** Codeforces blogs, USACO Guide
@@ -270,84 +270,45 @@ Lặp lại N lần:
 
 ## 4. Các dạng testcase cần kiểm tra
 
-### 4.1. Edge cases (trường hợp đặc biệt)
+Khi tự sinh bộ test để dò bug, bạn nên tách làm 3 nhóm test thay vì chỉ sinh hoàn toàn ngẫu nhiên (vì test ngẫu nhiên ít khi chạm đúng biên):
 
-```
-- N = 0 (mảng rỗng)
-- N = 1 (mảng 1 phần tử)
-- Tất cả phần tử giống nhau
-- Mảng tăng dần / giảm dần
-- Phần tử âm / dương / 0
-- Số rất lớn (10^9) / rất nhỏ (-10^9)
-```
+### 4.1. Trường hợp biên (Edge cases)
 
-### 4.2. Test "lén" (corner cases)
+- Kích thước nhỏ nhất: $N = 0$ (nếu đề cho phép), $N = 1$ (mảng 1 phần tử).
+- Dữ liệu đơn điệu hoặc trùng lặp: toàn bộ phần tử bằng nhau, dãy tăng nghiêm ngặt hoặc giảm nghiêm ngặt.
+- Biên miền giá trị: số $0$, số âm lớn nhất ($-10^9$), số dương lớn nhất ($10^9$) để kiểm tra tràn số hoặc chia cho $0$.
 
-```
-- Tổng bằng 0
-- Kết quả = 0
-- Không có lời giải
-- Có nhiều lời giải
-- Đồ thị 1 đỉnh, 0 cạnh
-- Cây là đường thẳng (linked list)
-```
+### 4.2. Trường hợp ngóc ngách (Corner cases)
 
-### 4.3. Random test (test ngẫu nhiên)
+- Tổng hoặc kết quả đúng bằng $0$, bài toán vô nghiệm (cần in `-1` hoặc `NO`), hoặc có nhiều nghiệm tối ưu cùng tồn tại.
+- Đồ thị rời rạc / 1 đỉnh / 0 cạnh / chứa khuyên và đa cạnh (nếu đề không cấm).
+- Cây suy biến thành đường thẳng (chain) hoặc hình sao (star graph) để ép các thuật toán trên cây rơi vào chiều sâu / bậc cực đại.
 
-```
-- Sinh nhiều test với N nhỏ (≤ 20)
-- Chạy brute force để verify
-- Nếu sai → debug với test đó
-```
+### 4.3. Test ngẫu nhiên kích thước nhỏ (Random stress test)
+
+- Sinh hàng nghìn test với $N \le 15 \dots 20$ để vét cạn brute force chạy cực nhanh và so sánh với thuật toán tối ưu.
+- Sau khi vượt qua $10^4$ test nhỏ, nhớ chạy thêm **1 test kích thước cực đại ($N = N_{\max}$)** để đo thời gian chạy và lượng bộ nhớ thực tế (tránh TLE/MLE/Stack Overflow).
 
 ---
 
-## 5. Workflow khi gặp WA
+## 5. Quy trình xử lý khi gặp WA
 
-```
-1. Đọc lại đề → hiểu đúng bài toán?
-2. Chạy sample test → đúng?
-3. Viết brute force
-4. Sinh testcase nhỏ → so sánh
-5. Nếu tìm ra test sai:
-   a. In ra input/output expected/actual
-   b. Debug code với test đó
-   c. Fix bug
-   d. Chạy lại stress test
-6. Nếu không tìm ra test sai:
-   a. Tăng số lượng test
-   b. Tăng kích thước test
-   c. Thử edge cases thủ công
-```
+1. **Đọc lại đề bài:** Kiểm tra xem có hiểu nhầm điều kiện biên, thứ tự in, 0-indexed vs 1-indexed hoặc yêu cầu lấy modulo hay không.
+2. **Kiểm tra lại với brute force:** Viết hàm brute force đơn giản ($O(N^2)$ hoặc $O(2^N)$), tuyệt đối không tái sử dụng lại logic nghi ngờ sai từ code chính.
+3. **Chạy stress test:** So sánh đầu ra giữa brute force và code chính trên bộ test nhỏ.
+4. **Thu hẹp testcase lỗi:** Nếu phát hiện sai ở test $N = 18$, thử hạ dần kích thước sinh xuống $N = 4, 5$ để tìm phản ví dụ nhỏ nhất giúp trace tay dễ dàng.
+5. **Kiểm tra tràn số & trường hợp đặc biệt:** Nếu stress test nhỏ đều đúng hết nhưng nộp vẫn WA, nguyên nhân thường nằm ở **tràn kiểu `int` (`long long`)**, sai số dấu phẩy động (`double`), hoặc biên $N_{\max}$ chưa được kiểm tra.
 
 ---
 
-## 6. Lưu ý
+## 6. Lưu ý quan trọng & Đánh giá độ phức tạp
 
-### 6.1. Brute force phải CHẮC CHẮN đúng
-
-```
-Sai lầm: Dùng code chính để verify code chính → vô nghĩa!
-
-Đúng: Brute force phải đơn giản, dễ hiểu, dễ đúng
-     (thường O(N²) hoặc O(2^N))
-```
-
-### 6.2. Sinh testcase đủ đa dạng
-
-```
-Sai lầm: Chỉ sinh testcase nhỏ → không phát hiện bug với N lớn
-
-Đúng: Kết hợp cả testcase nhỏ (debug) và lớn (stress test)
-```
-
-### 6.3. Kiểm tra cả output format
-
-```
-Sai lầm: Chỉ so sánh giá trị → có thể sai format
-
-Đúng: So sánh chính xác output (khoảng trắng, xuống dòng)
-```
+| Tiêu chí | Sai lầm thường gặp | Cách làm đúng |
+| :--- | :--- | :--- |
+| Độ tin cậy bản chuẩn | Dùng lại công thức tối ưu để tự test chính mình | Brute force phải ngây thơ nhất có thể ($O(N^2)$ / $O(2^N)$) |
+| Độ phủ bộ test | Chỉ sinh test $N \le 10$ với toàn số dương | Phối hợp test nhỏ ($N$ nhỏ, có số âm/$0$), test cây suy biến và 1 test $N_{\max}$ |
+| So sánh kết quả | Chỉ so số lượng hoặc bỏ qua khoảng trắng/xuống dòng | So sánh khớp từng dòng (hoặc dùng `diff -w`), cẩn thận với bài nhiều đáp án (cần viết *checker*) |
+| Tốc độ stress test | Chạy vòng lặp $10^4$ test qua disk I/O chậm trên Python | Giữ sinh + brute + solution trong cùng tiến trình khi có thể để test đạt > $1000$ lần/giây |
 
 ---
 
@@ -369,4 +330,6 @@ Hãy thử stress test với các bài sau:
 - [USACO Guide - Debugging](https://usaco.guide/general/debugging)
 - [Errichto - Stress Test Video](https://www.youtube.com/watch?v=f8J4Ji6OjgQ)
 
-**Bài trước:** [Kỹ năng thi đấu ←](ky-nang-thi-dau.md) | **Bài tiếp theo:** [Debug & Mẹo →](debug-meo.md)
+---
+
+**Bài trước:** [← Bài 77: Kỹ Năng Thi Đấu HSG Tin Học Việt Nam](ky-nang-thi-dau.md) | **Bài tiếp theo:** [Bài 79: Debug & Mẹo Thi Đấu →](debug-meo.md)

@@ -1,4 +1,4 @@
-# Bài 1: Độ Phức Tạp Thời Gian
+# Bài 2: Độ Phức Tạp Thời Gian
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Độ phức tạp thời gian, Topcoder - Computational Complexity
@@ -575,16 +575,16 @@ Hãy thử sức với các bài tập phân tích và tối ưu độ phức t�
 
 | Bài | Nền tảng | Độ khó | Mục đích |
 |---|---|---|---|
-| [An và chiếc máy tính](https://fptoj.com/problem/comp-sum) | FPTOJ | ⭐ | Tối ưu độ phức tạp tính tổng dãy số từ ~O(N)~ về ~O(1)~ |
-| [Đếm cặp số của An](https://fptoj.com/problem/comp-pairs) | FPTOJ | ⭐⭐ | Tối ưu từ thuật toán duyệt cặp ~O(N^2)~ về đếm tần suất ~O(N)~ |
-| [Trò chơi lũy thừa](https://fptoj.com/problem/comp-pow) | FPTOJ | ⭐⭐⭐ | Sử dụng Lũy thừa nhị phân để tối ưu phép tính ~A^B \pmod M~ về ~O(\log B)~ |
-| [Dãy con của Việt](https://fptoj.com/problem/comp-subseg) | FPTOJ | ⭐⭐⭐ | Tìm đoạn con liên tiếp có tổng lớn nhất bằng thuật toán Kadane ~O(N)~ thay vì ~O(N^2)~ |
-| [Số lượng ước số](https://fptoj.com/problem/comp-digits) | FPTOJ | ⭐⭐⭐⭐ | Rút gọn thuật toán đếm ước số tự nhiên từ ~O(\sqrt{N})~ về ~O(1)~ bằng tính chất số chính phương |
+| [An và chiếc máy tính](https://fptoj.com/problem/comp-sum) | FPTOJ | ⭐ | Tối ưu độ phức tạp tính tổng dãy số từ $O(N)$ về $O(1)$ |
+| [Đếm cặp số của An](https://fptoj.com/problem/comp-pairs) | FPTOJ | ⭐⭐ | Tối ưu từ thuật toán duyệt cặp $O(N^2)$ về đếm tần suất $O(N)$ |
+| [Trò chơi lũy thừa](https://fptoj.com/problem/comp-pow) | FPTOJ | ⭐⭐⭐ | Sử dụng Lũy thừa nhị phân để tối ưu phép tính $A^B \pmod M$ về $O(\log B)$ |
+| [Dãy con của Việt](https://fptoj.com/problem/comp-subseg) | FPTOJ | ⭐⭐⭐ | Tìm đoạn con liên tiếp có tổng lớn nhất bằng thuật toán Kadane $O(N)$ thay vì $O(N^2)$ |
+| [Số lượng ước số](https://fptoj.com/problem/comp-digits) | FPTOJ | ⭐⭐⭐⭐ | Rút gọn thuật toán đếm ước số tự nhiên từ $O(\sqrt{N})$ về $O(1)$ bằng tính chất số chính phương |
 
 ## Bài viết liên quan
 
-- [Bài 2: Thuật toán sắp xếp](thuat-toan-sap-xep.md)
-- [Bài 3: Tìm kiếm nhị phân](tim-kiem-nhi-phan.md)
+- [Bài 3: Thuật toán sắp xếp](thuat-toan-sap-xep.md)
+- [Bài 4: Tìm kiếm nhị phân](tim-kiem-nhi-phan.md)
 
 ## Tài liệu tham khảo
 
@@ -594,4 +594,6 @@ Hãy thử sức với các bài tập phân tích và tối ưu độ phức t�
 - [GeeksforGeeks - Time Complexity Analysis](https://www.geeksforgeeks.org/dsa/understanding-time-complexity-with-simple-examples/)
 - [YouTube - Big O Notation (freeCodeCamp)](https://www.youtube.com/watch?v=Mo4vesaut8g)
 
-**Bài tiếp theo:** [Thuật toán sắp xếp](thuat-toan-sap-xep.md)
+---
+
+**Bài trước:** [← Bài 1: Setup Môi Trường Thi Đấu](setup-moi-truong.md) | **Bài tiếp theo:** [Bài 3: Thuật Toán Sắp Xếp →](thuat-toan-sap-xep.md)

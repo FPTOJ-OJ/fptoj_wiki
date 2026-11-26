@@ -1,4 +1,4 @@
-# Bài 16: Hash Table (Bảng Băm)
+# Bài 15: Hash Table (Bảng Băm)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Bảng băm
@@ -588,8 +588,8 @@ if (it != mp.end()) cout << it->second; // bước dùng: đọc qua iterator, k
 
 ## Bài viết liên quan
 
-- [Bài 14: Hash xâu & Z-algorithm](hash-xau-z-algorithm.md)
-- [Bài 17: Trie](trie.md)
+- [Bài 46: Hash xâu & Z-algorithm](hash-xau-z-algorithm.md)
+- [Bài 20: Trie](trie.md)
 
 ## Tài liệu tham khảo
 
@@ -598,4 +598,6 @@ if (it != mp.end()) cout << it->second; // bước dùng: đọc qua iterator, k
 - [GeeksforGeeks - Hashing Data Structure](https://www.geeksforgeeks.org/dsa/hashing-data-structure/)
 - [Codeforces - Hash Tables](https://codeforces.com/blog/entry/60445)
 
-**Bài tiếp theo:** [Trie](trie.md)
+---
+
+**Bài trước:** [← Bài 14: Queue](queue.md) | **Bài tiếp theo:** [Bài 16: Heap (Đống) →](heap.md)

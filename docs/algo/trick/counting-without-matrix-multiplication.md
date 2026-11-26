@@ -151,7 +151,7 @@ Chú ý tại trường hợp $n=0$, việc $n=0$ không có nghĩa đó là k�
 
     ```cpp
     map<int, int> G[21][3][21][3][2];
-    ## define C p][Just][p0][Just0][Stop
+    #define C p][Just][p0][Just0][Stop
 
     long g(int n, int p, int Just, int p0, int Just0, bool Stop) {
         if (p>=::p) p=::p;

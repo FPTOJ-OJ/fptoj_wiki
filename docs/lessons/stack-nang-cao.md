@@ -1,4 +1,4 @@
-# Bài 24: Stack Nâng Cao - Expression Parsing & Ứng Dụng
+# Bài 75: Stack Nâng Cao - Expression Parsing & Ứng Dụng
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Stack, CP-Algorithms
@@ -929,8 +929,8 @@ Thuật toán stack không đệ quy xử lý được hàng triệu lớp lồn
 
 ## Bài viết liên quan
 
-- [Bài 7: Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md)
-- [Bài 15: Deque & Sliding Window](deque-sliding-window.md)
+- [Bài 9: Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md)
+- [Bài 19: Deque & Sliding Window](deque-sliding-window.md)
 
 ## Tài liệu tham khảo
 
@@ -938,4 +938,6 @@ Thuật toán stack không đệ quy xử lý được hàng triệu lớp lồn
 - [GeeksforGeeks - Stack Data Structure](https://www.geeksforgeeks.org/dsa/stack-data-structure/)
 - [CP-Algorithms - Nearest Smaller Element](https://cp-algorithms.com/data_structures/stack_queue_modification.html)
 
-**Bài tiếp theo:** [Binary Search Tree →](bst.md)
+---
+
+**Bài trước:** [← Bài 74: Thuật Toán Đường Quét (Sweep Line)](sweep-line.md) | **Bài tiếp theo:** [Bài 76: Binary Search Tree (BST) →](bst.md)

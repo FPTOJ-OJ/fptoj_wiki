@@ -96,7 +96,7 @@ Kỹ thuật MITM được mô tả như sau:
 
 #### Cài đặt (sử dụng tìm kiếm nhị phân)
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 const int N = 40 + 2;
 int n, x;
@@ -250,7 +250,7 @@ Bây giờ, quay lui cho với mỗi tập $X$ và $Y$, ta được $2$ tập $A
 
 ### Cài đặt
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 const int N = 40 + 2, MaxSize = (1 << 20) + 10;
 int n, m;
@@ -438,7 +438,7 @@ Ta có thể giải bài toán này trước bằng cách:
 Sử dụng `std::map` để lưu cặp vị trí của mỗi giá trị tổng.
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 const int N = 1000 + 3;
 int n, x;
@@ -526,7 +526,7 @@ Số đường đi độ dài $4$ trong $B$ có màu phân biệt với $X$ = $|
 
 ### Cài đặt
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int N = 100 + 2;

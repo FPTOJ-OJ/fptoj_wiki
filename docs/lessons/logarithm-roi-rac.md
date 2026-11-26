@@ -1,4 +1,4 @@
-# Bài 65: Logarithm Rời Rạc (Baby-step Giant-step)
+# Bài 63: Logarithm Rời Rạc (Baby-step Giant-step)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -141,7 +141,7 @@ Bắt đầu với $\gamma = b = 22$:
 
         // === GIANT STEPS: tìm nghiệm ===
         long long gamma = b;  // gamma_0 = b * (a^{-m})^0 = b
-        for (int i = 0; i < m; i++) {
+        for (long long i = 0; i < m; i++) {
             // Kiểm tra gamma_i = b * (a^{-m})^i có trong table không
             if (table.find(gamma) != table.end()) {
                 // Nếu có: a^{i*m + j} = b → x = i * m + j
@@ -149,7 +149,7 @@ Bắt đầu với $\gamma = b = 22$:
                 if (x > 0) return x;  // Trả về nghiệm dương nhỏ nhất
             }
             // gamma_{i+1} = gamma_i * a^{-m} mod p
-            gamma = gamma * aInvM % p;
+            gamma = (__int128)gamma * aInvM % p;
         }
 
         return -1;  // Không tìm thấy nghiệm
@@ -308,9 +308,114 @@ $a^x \equiv b \pmod{p}$ → dùng BSGS trực tiếp.
 
 ---
 
-## 5. Mở rộng: $p$ không nguyên tố
+## 5. Mở rộng: $p$ không nguyên tố (Extended BSGS)
 
-Khi $p$ không nguyên tố, dùng Pollard's Rho để phân tích $p$, rồi áp dụng Pohlig-Hellman algorithm. Tuy nhiên, trong thi đấu CP, thường chỉ cần BSGS với $p$ nguyên tố.
+Khi $\gcd(a, p) > 1$, nghịch đảo modular $a^{-1} \bmod p$ không tồn tại nên không thể dùng trực tiếp BSGS thường. Ý tưởng của **Extended BSGS** là tách thừa số chung lặp đi lặp lại:
+
+Mỗi bước đặt $g = \gcd(a, p)$. Nếu $g > 1$:
+- Nếu $b = 1$: trả về $x = 0$ (nếu chấp nhận nghiệm $0$).
+- Nếu $g \nmid b$: phương trình vô nghiệm, trả về `-1`.
+- Ngược lại chia cả hai vế và modulo cho $g$: đặt $p' = p/g$, $b' = b/g$, $k \leftarrow k \cdot (a/g) \bmod p'$, tăng biến đếm bước rút gọn $cnt$. Phương trình trở thành $k \cdot a^{x - cnt} \equiv b' \pmod{p'}$.
+
+Lặp lại tối đa $O(\log p)$ lần cho tới khi $\gcd(a, p') = 1$, sau đó giải $a^y \equiv b' \cdot k^{-1} \pmod{p'}$ bằng BSGS (lúc này tìm nghịch đảo qua Extended Euclid vì $p'$ có thể vẫn là hợp số) và trả về $y + cnt$.
+
+=== "C++"
+
+    ```cpp
+    long long extGcd(long long a, long long b, long long& x, long long& y) {
+        if (b == 0) { x = 1; y = 0; return a; }
+        long long x1, y1, g = extGcd(b, a % b, x1, y1);
+        x = y1; y = x1 - (a / b) * y1;
+        return g;
+    }
+
+    // Extended BSGS: giải a^x ≡ b (mod m) với mọi m >= 1 (không cần nguyên tố)
+    long long extendedBSGS(long long a, long long b, long long m) {
+        a %= m; b %= m;
+        if (m == 1 || b == 1) return 0;
+        if (a == 0) return (b == 0) ? 1 : -1;
+
+        long long cnt = 0, add = 1, g;
+        while ((g = __gcd(a, m)) > 1) {
+            if (b == add) return cnt;
+            if (b % g != 0) return -1;
+            b /= g; m /= g;
+            add = (__int128)add * (a / g) % m;
+            cnt++;
+            if (m == 1) return cnt;
+        }
+
+        // Giải add * a^y ≡ b (mod m) với gcd(a, m) == 1
+        long long invAdd, tmp;
+        extGcd(add, m, invAdd, tmp);
+        invAdd = (invAdd % m + m) % m;
+        long long target = (__int128)b * invAdd % m;
+
+        long long s = (long long)ceil(sqrt((double)m));
+        unordered_map<long long, long long> table;
+        long long cur = 1;
+        for (long long j = 0; j < s; j++) {
+            if (!table.count(cur)) table[cur] = j;
+            cur = (__int128)cur * a % m;
+        }
+        // Nghịch đảo a^s mod m bằng Extended Euclid
+        long long invAs, _y;
+        extGcd(cur, m, invAs, _y);
+        invAs = (invAs % m + m) % m;
+
+        long long gamma = target;
+        for (long long i = 0; i <= s; i++) {
+            if (table.count(gamma)) return i * s + table[gamma] + cnt;
+            gamma = (__int128)gamma * invAs % m;
+        }
+        return -1;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    import math
+
+    def extended_bsgs(a, b, m):
+        """Giải a^x ≡ b (mod m) với m bất kỳ (kể cả hợp số)."""
+        a %= m
+        b %= m
+        if m == 1 or b == 1:
+            return 0
+        if a == 0:
+            return 1 if b == 0 else -1
+
+        cnt, add = 0, 1
+        while (g := math.gcd(a, m)) > 1:
+            if b == add:
+                return cnt
+            if b % g != 0:
+                return -1
+            b //= g
+            m //= g
+            add = add * (a // g) % m
+            cnt += 1
+            if m == 1:
+                return cnt
+
+        target = b * pow(add, -1, m) % m
+        s = math.isqrt(m) + 1
+        table = {}
+        cur = 1
+        for j in range(s):
+            if cur not in table:
+                table[cur] = j
+            cur = cur * a % m
+
+        inv_as = pow(cur, -1, m)
+        gamma = target
+        for i in range(s + 1):
+            if gamma in table:
+                return i * s + table[gamma] + cnt
+            gamma = gamma * inv_as % m
+        return -1
+    ```
 
 ---
 
@@ -379,3 +484,7 @@ long long nxt = (cur - sub % p + p) % p;
 | `dl-bsgs` | [Baby-step Giant-step](https://fptoj.com/problem/dl-bsgs) | ⭐⭐⭐ | BSGS | [Logarithm Rời Rạc](logarithm-roi-rac.md) |
 | `dl-log-fact` | [DL với tích](https://fptoj.com/problem/dl-log-fact) | ⭐⭐⭐ | BSGS nâng cao | [Logarithm Rời Rạc](logarithm-roi-rac.md) |
 | `dl-pohlig` | [Pohlig-Hellman](https://fptoj.com/problem/dl-pohlig) | ⭐⭐⭐⭐ | DL nâng cao | [Logarithm Rời Rạc](logarithm-roi-rac.md) |
+
+---
+
+**Bài trước:** [← Bài 62: Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) | **Bài tiếp theo:** [Bài 64: Căn Nguyên Thủy & Dấu Hiệu Bình Phương →](can-nguyen-thuy.md)

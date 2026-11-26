@@ -1,4 +1,4 @@
-# Skip List - Cấu Trúc Dữ Liệu Probabilistic
+# Bài 27: Skip List - Cấu Trúc Dữ Liệu Probabilistic
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Skip List
@@ -156,7 +156,7 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
         mt19937 rng;
 
         SkipList(int n) {
-            maxLevel = __lg(n) + 1;                     // số tầng tối đa log2(n)
+            maxLevel = __lg(max(1, n)) + 1;             // số tầng tối đa log2(max(1, n))
             head = new Node(INT_MIN, maxLevel);         // node đầu với giá trị -∞
             rng = mt19937(chrono::steady_clock::now().time_since_epoch().count());
         }
@@ -195,6 +195,26 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
                 update[i]->next[i] = newNode;
             }
         }
+
+        void erase(int val) {
+            vector<Node*> update(maxLevel + 1, nullptr);
+            Node* cur = head;
+
+            for (int i = maxLevel; i >= 0; i--) {         // tìm node đứng trước val ở từng tầng
+                while (cur->next[i] && cur->next[i]->val < val)
+                    cur = cur->next[i];
+                update[i] = cur;
+            }
+
+            Node* target = cur->next[0];
+            if (!target || target->val != val) return;    // không tồn tại val
+
+            for (int i = 0; i <= target->level; i++) {    // gỡ con trỏ khỏi từng tầng
+                if (update[i]->next[i] != target) break;
+                update[i]->next[i] = target->next[i];
+            }
+            delete target;
+        }
     };
 
     int main() {
@@ -213,6 +233,8 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
             cin >> type >> val;
             if (type == 1) {
                 sl.insert(val);                           // chèn thêm
+            } else if (type == 2) {
+                sl.erase(val);                            // xóa phần tử
             } else {
                 cout << (sl.search(val) ? "YES" : "NO") << "\n";  // tìm kiếm
             }
@@ -236,7 +258,7 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
 
     class SkipList:
         def __init__(self, n):
-            self.max_level = n.bit_length()                 # số tầng tối đa
+            self.max_level = max(1, n).bit_length()         # số tầng tối đa (tránh 0 khi n=0)
             self.head = Node(float('-inf'), self.max_level) # node đầu giá trị -∞
 
         def random_level(self):
@@ -269,6 +291,22 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
                 new_node.next[i] = update[i].next[i]
                 update[i].next[i] = new_node
 
+        def erase(self, val):
+            update = [None] * (self.max_level + 1)
+            cur = self.head
+            for i in range(self.max_level, -1, -1):
+                while cur.next[i] and cur.next[i].val < val:
+                    cur = cur.next[i]
+                update[i] = cur
+
+            target = cur.next[0]
+            if target is None or target.val != val:
+                return
+            for i in range(len(target.next)):
+                if update[i].next[i] is not target:
+                    break
+                update[i].next[i] = target.next[i]
+
     n, q = map(int, input().split())
     sl = SkipList(n)
 
@@ -279,6 +317,8 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
         parts = list(map(int, input().split()))
         if parts[0] == 1:
             sl.insert(parts[1])
+        elif parts[0] == 2:
+            sl.erase(parts[1])
         else:
             print("YES" if sl.search(parts[1]) else "NO")
     ```
@@ -287,13 +327,13 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
 
 ## 4.5 Lỗi thường gặp
 
-**SAI — Chọn `maxLevel` quá nhỏ / quá lớn:** `maxLevel = __lg(n) + 1` là đủ cho $n$ phần tử. Đặt `maxLevel = 3` cố định với $N = 10^6$ → tháp quá thấp, tìm kiếm suy biến gần $O(N)$. Ngược lại `maxLevel = 1000` → mảng `next` mỗi nút dài 1001 con trỏ, tốn bộ nhớ và vòng lặp `for (i = maxLevel..0)` quét hàng trăm tầng trống mỗi truy vấn. Luôn tính theo $n$: `maxLevel = __lg(n) + 1` (C++) / `n.bit_length()` (Python).
+**SAI — Chọn `maxLevel` quá nhỏ / quá lớn:** `maxLevel = __lg(max(1, n)) + 1` là đủ cho $n$ phần tử (nhớ `max(1, n)` vì `__lg(0)` là Undefined Behavior). Đặt `maxLevel = 3` cố định với $N = 10^6$ → tháp quá thấp, tìm kiếm suy biến gần $O(N)$. Ngược lại `maxLevel = 1000` → mảng `next` mỗi nút dài 1001 con trỏ, tốn bộ nhớ và vòng lặp `for (i = maxLevel..0)` quét hàng trăm tầng trống mỗi truy vấn. Luôn tính theo $n$: `maxLevel = __lg(max(1, n)) + 1` (C++) / `max(1, n).bit_length()` (Python).
 
 **SAI — Chèn trùng key không xử lý:** Code `insert` mẫu nối nút mới mà không kiểm tra đã tồn tại → danh sách chứa 2 nút cùng giá trị, `search` vẫn YES nhưng `erase`/đếm sẽ sai. Sửa: trước khi chèn, `if (search(val)) return;` (set-semantics) hoặc lưu thêm `count` cho multiset.
 
-**SAI — Quên worst case $O(N)$:** Xác suất mọi nút cùng tầng 0 là $(1/2)^{N}$ — praktycznie bằng 0, nhưng với $p$ sai (ví dụ dùng `rand() % 3 == 0` cho $p = 1/3$ mà vẫn tính chiều cao theo $\log_2$) hoặc `rng` bị seed cố định sinh dãy xấu lặp lại, tháp có thể lệch. Trong bài cần đảm bảo chặt (không chấp nhận probabilistic), hãy dùng `std::set` / Treap thay vì Skip List.
+**SAI — Quên worst case $O(N)$:** Xác suất mọi nút cùng tầng 0 là $(1/2)^{N}$ — gần như bằng 0, nhưng với $p$ sai (ví dụ dùng `rand() % 3 == 0` cho $p = 1/3$ mà vẫn tính chiều cao theo $\log_2$) hoặc `rng` bị seed cố định sinh dãy xấu lặp lại, tháp có thể lệch. Trong bài cần đảm bảo chặt (không chấp nhận probabilistic), hãy dùng `std::set` / Treap thay vì Skip List.
 
-**SAI — `rng` không seed / seed giống nhau:** `mt19937 rng;` (seed mặc định 5489) → mỗi lần chạy sinh cùng dãy level, test本地 đúng nhưng chấm lại sai (hoặc ngược lại). Ngược lại `srand(time(0))` trong vòng lặp chèn nhanh → nhiều nút cùng seed giây → cùng level. Cách đúng như code mẫu: seed **một lần** bằng `chrono::steady_clock` rồi tái sử dụng.
+**SAI — `rng` không seed / seed giống nhau:** `mt19937 rng;` (seed mặc định 5489) → mỗi lần chạy sinh cùng dãy level, test trên máy đúng nhưng chấm lại sai (hoặc ngược lại). Ngược lại `srand(time(0))` trong vòng lặp chèn nhanh → nhiều nút cùng seed giây → cùng level. Cách đúng như code mẫu: seed **một lần** bằng `chrono::steady_clock` rồi tái sử dụng.
 
 ---
 
@@ -319,3 +359,7 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
 *   [Linked List chi tiết](linked-list.md)
 *   [Segment Tree](segment-tree.md)
 *   [Fenwick Tree (BIT)](fenwick-tree.md)
+
+---
+
+**Bài trước:** [← Bài 26: Persistent Data Structures](persistent-segment-tree.md) | **Bài tiếp theo:** [Bài 28: Binary Lifting →](binary-lifting-array.md)

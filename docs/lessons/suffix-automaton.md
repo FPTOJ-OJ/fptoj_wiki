@@ -1,4 +1,4 @@
-# Bài 52: Suffix Automaton - Máy trạng thái hậu tố!
+# Bài 99: Suffix Automaton - Máy trạng thái hậu tố!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, e-maxx
@@ -1388,3 +1388,7 @@ Suffix Automaton = DFA tối thiểu nhận tất cả xâu con
     ├── Số lần xuất hiện: DP trên suffix link tree
     └── Xâu con thứ K: DP đếm đường đi + duyệt
 ```
+
+---
+
+**Bài trước:** [← Bài 98: Aho-Corasick](aho-corasick.md) | **Bài tiếp theo:** [Bài 100: Chia căn & Mo's Algorithm →](sqrt-mo.md)

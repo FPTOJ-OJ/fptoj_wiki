@@ -1,4 +1,4 @@
-# Bài 41: Network Flow — Luồng Cực Đại
+# Bài 82: Network Flow — Luồng Cực Đại
 
 ---
 
@@ -89,7 +89,7 @@ Tổng luồng = 15 = dung lượng cắt nhỏ nhất $\{s\}$ vs $\{A, B, t\}$.
 
 Cạnh: $s\!\to\!A(10)$, $s\!\to\!B(10)$, $A\!\to\!t(5)$, $B\!\to\!t(10)$. Ký hiệu dư thuận $= c - f$, dư ngược $= f$.
 
-| Vòng | Đường tăng $P$ (BFS) | Dư thuận trên $P$ | Bottleneck $= \min$ dư | Cập nhật $f$ | $\|f\|$ cộng dồn |
+| Vòng | Đường tăng $P$ (BFS) | Dư thuận trên $P$ | Bottleneck $= \min$ dư | Cập nhật $f$ | $\lvert f\rvert$ cộng dồn |
 |:---:|:---|:---|:---:|:---|:---:|
 | 1 | $s \to A \to t$ | $10,\ 5$ | $\min(10,5) = 5$ | $f(s,A)=5,\ f(A,t)=5$; sinh ngược $A\!\to\!s(5),\ t\!\to\!A(5)$ | 5 |
 | 2 | $s \to B \to t$ | $10,\ 10$ | $\min(10,10) = 10$ | $f(s,B)=10,\ f(B,t)=10$; sinh ngược $B\!\to\!s(10),\ t\!\to\!B(10)$ | 15 |
@@ -1022,3 +1022,7 @@ plt.ylim(-0.5, 6.5)
 plt.axis('off')
 plt.tight_layout()
 ```
+
+---
+
+**Bài trước:** [← Bài 81: SCC & Cầu & Khớp](scc-bridges.md) | **Bài tiếp theo:** [Bài 83: Bipartite Matching →](bipartite-matching.md)

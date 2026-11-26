@@ -1,4 +1,4 @@
-# Bài 17: Trie - Cây Tìm Kiếm Tiền Tố
+# Bài 20: Trie - Cây Tìm Kiếm Tiền Tố
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Trie, CP-Algorithms, USACO Guide
@@ -567,8 +567,8 @@ bool erase(TrieNode* node, const string& w, int pos) {
 
 ## Bài viết liên quan
 
-- [Bài 16: Hash Table](hash-table.md)
-- [Bài 9: KMP](kmp-tim-xau.md)
+- [Bài 15: Hash Table](hash-table.md)
+- [Bài 45: KMP](kmp-tim-xau.md)
 
 ## Tài liệu tham khảo
 
@@ -578,4 +578,6 @@ bool erase(TrieNode* node, const string& w, int pos) {
 - [USACO Guide - Trie](https://usaco.gold/adv/trie)
 - [YouTube - Trie Data Structure (takeuforward)](https://www.youtube.com/watch?v=AXjmTQ8LEoI)
 
-**Bài tiếp theo:** [Segment Tree](segment-tree.md)
+---
+
+**Bài trước:** [← Bài 19: Deque & Sliding Window](deque-sliding-window.md) | **Bài tiếp theo:** [Bài 21: Segment Tree (Cây Phân Đoạn) →](segment-tree.md)

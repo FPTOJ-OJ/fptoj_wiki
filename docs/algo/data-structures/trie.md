@@ -571,7 +571,7 @@ Vậy để giải quyết một truy vấn, ta sẽ tìm giá trị XOR lớn n
 <summary>Code mẫu</summary>
         
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int LG = 18;
@@ -688,7 +688,7 @@ Vậy phần còn lại phải xử lí là kết hợp thuật tìm MEX trên v
 <summary>Code mẫu</summary>
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -792,9 +792,9 @@ Từ đó ta có thể thấy bài toán đã trở thành một cặp xâu có 
 <summary>Code mẫu</summary>
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
-## define ll long long
+#define ll long long
 
 using namespace std;
 
@@ -894,7 +894,7 @@ Với mỗi truy vấn $j$, ta tìm đỉnh trên trie thứ nhất thể hiện
 <summary>Code mẫu</summary>
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
  
 using namespace std;
  
@@ -1092,9 +1092,9 @@ Lúc này, bạn đọc có thể tưởng tượng trie như một [cây phân 
 <summary>Code mẫu</summary>
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
-## define ll long long
+#define ll long long
  
 using namespace std;
 

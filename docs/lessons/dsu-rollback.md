@@ -1,4 +1,4 @@
-# DSU Rollback - Gộp Tập Hợp Có Hoàn Tác
+# Bài 18: DSU Rollback - Gộp Tập Hợp Có Hoàn Tác
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - DSU with Rollback
@@ -214,7 +214,102 @@ Với union by size (không path compression), chiều cao cây tối đa $O(\lo
 
 ---
 
-## 5. Lỗi thường gặp (SAI / ĐÚNG)
+## 5. Ứng dụng: Dynamic Connectivity (Segment Tree trên thời gian)
+
+Để giải các bài thêm cạnh, xóa cạnh và hỏi liên thông offline (`dsur-timeline`, `dsur-online`), mỗi cạnh tồn tại trên đoạn thời gian $[l, r]$ được gắn vào tối đa $O(\log Q)$ nút của Segment Tree trên trục thời gian $[1, Q]$. Sau đó DFS từ gốc đến các lá: khi đi xuống một nút, `unite` toàn bộ cạnh tại nút đó; tại lá $t$, trả lời truy vấn thời điểm $t$; khi quay lui khỏi nút, `rollback` về đúng `snapshot` trước đó.
+
+> **Cách dựng các đoạn $[l, r]$ từ sự kiện:** Lưu `map<pair<int,int>, int> active` ghi nhận thời điểm bắt đầu `t` khi cạnh $(u, v)$ (với $u < v$) được thêm vào. Khi gặp lệnh xóa tại `t2`, đưa `(u, v)` vào đoạn `[t, t2 - 1]` rồi xóa khỏi `active`. Cuối timeline, mọi cạnh còn sót trong `active` vẫn tồn tại tới hết `q`, nên đưa vào đoạn `[t, q]`.
+
+=== "C++"
+
+    ```cpp
+    // Segment Tree trên thời gian kết hợp DSU_Rollback: O((N + Q) log Q log N)
+    struct DynConn {
+        int q;
+        DSU_Rollback dsu;
+        vector<vector<pair<int,int>>> seg;
+        vector<pair<int,int>> queries; // {-1, -1} nếu tại thời điểm t không có query
+        vector<string> ans;
+
+        DynConn(int n, int q) : q(q), dsu(n), seg(4 * q + 4), queries(q + 1, {-1, -1}) {}
+
+        void addEdge(int node, int lo, int hi, int l, int r, pair<int,int> e) {
+            if (r < lo || hi < l) return;
+            if (l <= lo && hi <= r) { seg[node].push_back(e); return; }
+            int mid = (lo + hi) / 2;
+            addEdge(2 * node, lo, mid, l, r, e);
+            addEdge(2 * node + 1, mid + 1, hi, l, r, e);
+        }
+
+        void dfs(int node, int lo, int hi) {
+            int snap = dsu.history.size();
+            for (auto [u, v] : seg[node]) dsu.unite(u, v);
+            if (lo == hi) {
+                auto [u, v] = queries[lo];
+                if (u != -1) ans.push_back(dsu.find(u) == dsu.find(v) ? "YES" : "NO");
+            } else {
+                int mid = (lo + hi) / 2;
+                dfs(2 * node, lo, mid);
+                dfs(2 * node + 1, mid + 1, hi);
+            }
+            while ((int)dsu.history.size() > snap) dsu.rollback();
+        }
+    };
+
+    // Minh họa thu thập sự kiện (type 1: add, type 2: remove, type 3: query):
+    // map<pair<int,int>, int> active;
+    // for (int t = 1; t <= q; t++) {
+    //     int type, u, v; cin >> type >> u >> v;
+    //     if (u > v) swap(u, v);
+    //     if (type == 1) active[{u, v}] = t;
+    //     else if (type == 2) { dc.addEdge(1, 1, q, active[{u, v}], t - 1, {u, v}); active.erase({u, v}); }
+    //     else dc.queries[t] = {u, v};
+    // }
+    // for (auto &[e, start] : active) dc.addEdge(1, 1, q, start, q, e);
+    // dc.dfs(1, 1, q);
+    ```
+
+=== "Python"
+
+    ```python
+    # Segment Tree trên thời gian kết hợp DSURollback: O((N + Q) log Q log N)
+    class DynConn:
+        def __init__(self, n, q):
+            self.q = q
+            self.dsu = DSURollback(n)
+            self.seg = [[] for _ in range(4 * q + 4)]
+            self.queries = [None] * (q + 1)
+            self.ans = []
+
+        def add_edge(self, node, lo, hi, l, r, e):
+            if r < lo or hi < l:
+                return
+            if l <= lo and hi <= r:
+                self.seg[node].append(e)
+                return
+            mid = (lo + hi) // 2
+            self.add_edge(2 * node, lo, mid, l, r, e)
+            self.add_edge(2 * node + 1, mid + 1, hi, l, r, e)
+
+        def dfs(self, node, lo, hi):
+            snap = len(self.dsu.history)
+            for u, v in self.seg[node]:
+                self.dsu.unite(u, v)
+            if lo == hi:
+                if self.queries[lo] is not None:
+                    u, v = self.queries[lo]
+                    self.ans.append("YES" if self.dsu.find(u) == self.dsu.find(v) else "NO")
+            else:
+                mid = (lo + hi) // 2
+                self.dfs(2 * node, lo, mid)
+                self.dfs(2 * node + 1, mid + 1, hi)
+            while len(self.dsu.history) > snap:
+                self.dsu.rollback()
+    ```
+
+---
+
+## 6. Lỗi thường gặp (SAI / ĐÚNG)
 
 ### Lỗi 1: Quên đẩy mốc khi `a == b`
 
@@ -268,11 +363,11 @@ while ((int)dsu.history.size() > snap) dsu.rollback();
 
 ---
 
-## 6. Bài tập luyện tập trên FPTOJ
+## 7. Bài tập luyện tập trên FPTOJ
 
-Dưới đây là các bài tập giúp bạn rèn luyện kỹ thuật DSU Rollback, từ cơ bản đến nâng cao. Các mã bài đều có dạng `dsur-*` và được liệt kê trong [Problem Set](cses.md#-1q-nhóm-dsu-rollback-gộp-tập-hợp-có-hoàn-tác).
+Dưới đây là các bài tập giúp bạn rèn luyện kỹ thuật DSU Rollback, từ cơ bản đến nâng cao. Các mã bài đều có dạng `dsur-*` và được liệt kê trong [Problem Set](cses.md#42-cau-truc-tap-hop-roi-nhau-dsu-dsu-rollback).
 
-### 5.1. Rollback cơ bản (`dsur-basic`)
+### 7.1. Rollback cơ bản (`dsur-basic`)
 
 Trong một buổi thực hành cấu trúc dữ liệu, bạn được yêu cầu mô phỏng hệ thống quản lý nhóm. Ban đầu có **N** phần tử, mỗi phần tử là một nhóm riêng biệt. Có **Q** thao tác:
 
@@ -282,7 +377,7 @@ Trong một buổi thực hành cấu trúc dữ liệu, bạn được yêu c�
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 5.2. Tổng nhóm có rollback (`dsur-sum`)
+### 7.2. Tổng nhóm có rollback (`dsur-sum`)
 
 Trong ngân hàng dữ liệu, mỗi tài khoản có số dư **a[i]**. Hệ thống có thể gộp các tài khoản thành nhóm (tổng số dư cộng dồn) và hoàn tác việc gộp. Có **Q** thao tác:
 
@@ -292,7 +387,7 @@ Trong ngân hàng dữ liệu, mỗi tài khoản có số dư **a[i]**. Hệ th
 
 *Ràng buộc:* N, Q ≤ 10⁵, |a[i]| ≤ 10⁹. Yêu cầu lưu thêm thông tin tổng và khôi phục khi rollback.
 
-### 5.3. Dòng thời gian — Timeline (`dsur-timeline`)
+### 7.3. Dòng thời gian — Timeline (`dsur-timeline`)
 
 Một thí nghiệm theo dõi sự kết nối giữa **N** nút mạng theo thời gian. Có **Q** sự kiện:
 
@@ -304,7 +399,7 @@ Xử lý offline bằng **Chia để trị trên thời gian (Divide and Conquer
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 5.4. Đồ thị động — Dynamic Connectivity (`dsur-online`)
+### 7.4. Đồ thị động — Dynamic Connectivity (`dsur-online`)
 
 Cho đồ thị vô hướng **N** đỉnh, ban đầu rỗng. Có **Q** truy vấn:
 
@@ -316,7 +411,7 @@ Giải bài toán **Dynamic Connectivity** offline bằng Segment Tree trên th�
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 5.5. Lưu trữ trạng thái — Persistent DSU (`dsur-persistence`)
+### 7.5. Lưu trữ trạng thái — Persistent DSU (`dsur-persistence`)
 
 Hệ thống quản lý phiên bản dữ liệu, mỗi thao tác gộp tạo một snapshot mới. Có **Q** thao tác:
 
@@ -328,7 +423,7 @@ Không thể dùng rollback đơn thuần vì có thể quay lại phiên bản 
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 5.6. Số vùng kết nối qua thời gian (`dsur-connect`)
+### 7.6. Số vùng kết nối qua thời gian (`dsur-connect`)
 
 Trong mạng lưới giao thông **N** nút, các tuyến đường được xây và phá theo thời gian. Có **Q** sự kiện:
 
@@ -340,7 +435,7 @@ Dùng DSU Rollback mở rộng để lưu thêm biến `components`, khôi phụ
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 5.7. Đồ thị hai phía động — Dynamic Bipartite (`dsur-bipartite`)
+### 7.7. Đồ thị hai phía động — Dynamic Bipartite (`dsur-bipartite`)
 
 Đồ thị **N** đỉnh, ban đầu rỗng. Có **Q** thao tác:
 
@@ -352,7 +447,7 @@ Sử dụng DSU Rollback mở rộng với **parity DSU**: ngoài parent và siz
 
 *Ràng buộc:* N, Q ≤ 10⁵. Bài tập khó, yêu cầu hiểu sâu về DSU rollback và đồ thị hai phía.
 
-### 5.8. Cây khung động — Dynamic MST (`dsur-mst`)
+### 7.8. Cây khung động — Dynamic MST (`dsur-mst`)
 
 Cho đồ thị **N** đỉnh, ban đầu không cạnh. Có **Q** thao tác:
 
@@ -363,3 +458,7 @@ Cho đồ thị **N** đỉnh, ban đầu không cạnh. Có **Q** thao tác:
 Kết hợp D&C trên thời gian với DSU Rollback. Trong mỗi đoạn thời gian, chỉ giữ các cạnh tồn tại suốt đoạn đó, thực hiện Kruskal với các cạnh còn lại.
 
 *Ràng buộc:* N ≤ 10⁴, Q ≤ 5 × 10⁴. Bài tập khó nhất trong nhóm, yêu cầu thành thạo cả DSU Rollback, Kruskal và D&C trên thời gian.
+
+---
+
+**Bài trước:** [← Bài 17: Disjoint Set Union (DSU)](dsu.md) | **Bài tiếp theo:** [Bài 19: Deque & Sliding Window →](deque-sliding-window.md)

@@ -97,11 +97,11 @@ Trong phần cài đặt này, các khoảng cách được lưu dưới dạng 
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
-    ## define ll long long
+    #define ll long long
 
     struct Point{
         ll x, y;
@@ -288,11 +288,11 @@ Minh họa thuật toán:
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
-    ## define ll long long
+    #define ll long long
 
     const int N = 1e5 + 5;
     const double EPS = 1e-9;
@@ -512,7 +512,7 @@ Chi tiết việc cập nhật hai giá trị tại mỗi bước độc giả c
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -710,7 +710,7 @@ Chúng ta đã nói về cách chia các điểm và về cách quét theo thứ
 Cảm ơn bạn Trần Xuân Bách (HUS High School for Gifted Students) đã đóng góp vào đoạn code này.
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int INF = 1e8;

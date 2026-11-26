@@ -1,4 +1,4 @@
-# Bài 22: Hình Học Cơ Bản
+# Bài 67: Hình Học Cơ Bản
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Hình học tính toán
@@ -650,7 +650,7 @@ Với đa giác lồi, một điểm nằm trong khi và chỉ khi nó nằm bê
 
 ## Bài viết liên quan
 
-- [Bài 28: Bao lồi](bao-loi.md)
+- [Bài 73: Bao lồi](bao-loi.md)
 
 ## Tài liệu tham khảo
 
@@ -660,4 +660,6 @@ Với đa giác lồi, một điểm nằm trong khi và chỉ khi nó nằm bê
 - [USACO Guide - Geometry](https://usaco.guide/adv/geo)
 - [YouTube - Geometry for CP (Errichto)](https://www.youtube.com/watch?v=OMmPGgKdWQc)
 
-**Bài tiếp theo:** [Stack Nâng Cao →](stack-nang-cao.md)
+---
+
+**Bài trước:** [← Bài 66: Khử Gauss & Đại Số Tuyến Tính](khu-gauss.md) | **Bài tiếp theo:** [Bài 68: Phương Trình Đường Thẳng & Giao Điểm →](phuong-trinh-duong-thang.md)

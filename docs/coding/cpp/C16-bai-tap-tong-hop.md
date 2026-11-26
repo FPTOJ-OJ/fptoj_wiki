@@ -539,9 +539,10 @@ gantt
 
 ## Bài viết liên quan
 
-- [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
-- [Chương 2: C++ cho Thi Đấu](index.md)
+- [C15: Mẹo thi đấu C++ ←](C15-meo-thi-dau-cpp.md)
+- [C17: Thuật toán STL & Số học →](C17-thuat-toan-stl.md)
 
 ---
 
-**Quay lại:** [Chương 2: C++ cho Thi Đấu](index.md)
+**Bài trước:** [C15: Mẹo thi đấu C++](C15-meo-thi-dau-cpp.md)<br>
+**Bài tiếp theo:** [C17: Thuật toán STL & Số học →](C17-thuat-toan-stl.md)

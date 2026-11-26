@@ -1,4 +1,4 @@
-# Bài 29: Sparse Table - Truy vấn Min/Max O(1)
+# Bài 25: Sparse Table - Truy vấn Min/Max O(1)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Sparse Table, VNOI Wiki
@@ -562,4 +562,6 @@ k = length.bit_length() - 1
 - [YouTube - Sparse Table (takeuforward)](https://www.youtube.com/watch?v=0jWeUdxJmK4)
 - [VNOI Wiki - Range Minimum Query](https://wiki.vnoi.info/algo/data-structures/rmq)
 
-**Bài trước:** [Cây khoảng](segment-tree.md) | **Bài tiếp theo:** [BST](bst.md)
+---
+
+**Bài trước:** [← Bài 24: BIT 2D (Fenwick Tree 2D)](bit-2d.md) | **Bài tiếp theo:** [Bài 26: Persistent Data Structures →](persistent-segment-tree.md)

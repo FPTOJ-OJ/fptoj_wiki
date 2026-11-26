@@ -1,4 +1,4 @@
-# Bài 26: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
+# Bài 52: Số Học Nâng Cao - Euler Totient, Modular Arithmetic & CRT
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Số học, HackerEarth Number Theory Series, CP-Algorithms
@@ -600,6 +600,19 @@ Pollard's Rho dựa trên **Birthday Paradox**: dãy $\{f(f(\cdots f(x_0)\cdots)
         return (__int128)a * b % mod;
     }
 
+    // Lũy thừa modulo an toàn cho mod lên tới 2^63 - 1 (tránh tràn long long)
+    long long powerModSafe(long long a, long long b, long long mod) {
+        long long res = 1;
+        a %= mod;
+        if (a < 0) a += mod;
+        while (b > 0) {
+            if (b & 1) res = mulMod(res, a, mod);
+            a = mulMod(a, a, mod);
+            b >>= 1;
+        }
+        return res;
+    }
+
     bool millerRabin(long long n) {
         if (n < 2) return false;
         if (n == 2 || n == 3) return true;
@@ -612,7 +625,7 @@ Pollard's Rho dựa trên **Birthday Paradox**: dãy $\{f(f(\cdots f(x_0)\cdots)
         vector<long long> bases = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
         for (long long a : bases) {
             if (a >= n) continue;
-            long long x = powerMod(a, d, n);
+            long long x = powerModSafe(a, d, n);
             if (x == 1 || x == n - 1) continue;
             bool composite = true;
             for (int i = 0; i < r - 1; i++) {
@@ -628,11 +641,13 @@ Pollard's Rho dựa trên **Birthday Paradox**: dãy $\{f(f(\cdots f(x_0)\cdots)
         return millerRabin(n);
     }
 
+    mt19937_64 rng64(chrono::steady_clock::now().time_since_epoch().count());
+
     long long pollardRho(long long n) {
         if (n % 2 == 0) return 2;
-        long long x = rand() % (n - 2) + 2;
+        long long x = uniform_int_distribution<long long>(2, n - 1)(rng64);
         long long y = x;
-        long long c = rand() % (n - 1) + 1;
+        long long c = uniform_int_distribution<long long>(1, n - 1)(rng64);
         long long d = 1;
         while (d == 1) {
             x = (mulMod(x, x, n) + c) % n;
@@ -963,9 +978,9 @@ Fermat là trường hợp đặc biệt của Euler vì $\varphi(p) = p - 1$.
 
 ## Bài viết liên quan
 
-- [Bài 11: Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md)
-- [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md)
-- [Bài 19: Tổ hợp & Xác suất](to-hop-xac-suat.md)
+- [Bài 10: Lũy thừa nhị phân & Sàng nguyên tố](luy-thua-nhi-phan-sang-nguyen-to.md)
+- [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md)
+- [Bài 51: Tổ hợp & Xác suất](to-hop-xac-suat.md)
 
 ## Tài liệu tham khảo
 
@@ -977,3 +992,7 @@ Fermat là trường hợp đặc biệt của Euler vì $\varphi(p) = p - 1$.
 - [CP-Algorithms - Möbius Function](https://cp-algorithms.com/algebra/mobius-function.html)
 - [CP-Algorithms - Pollard's Rho](https://cp-algorithms.com/algebra/factorization.html)
 - [GeeksforGeeks - Euler's Totient Function](https://www.geeksforgeeks.org/dsa/eulers-totient-function/)
+
+---
+
+**Bài trước:** [← Bài 51: Tổ Hợp & Xác Suất](to-hop-xac-suat.md) | **Bài tiếp theo:** [Bài 53: Hàm Phi Euler ($\varphi$) →](phi-euler.md)

@@ -1,4 +1,4 @@
-# Bài 8d: Fenwick Tree (BIT) — Cây Chỉ Số Nhị Phân
+# Bài 23: Fenwick Tree (BIT) — Cây Chỉ Số Nhị Phân
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms, Topcoder
@@ -658,3 +658,6 @@ Vòng lặp phải là `i > 0`, không phải `i >= 0`. Nếu $i = 0$: $i - (i \
 - [VNOI Wiki — Fenwick Tree](https://wiki.vnoi.info/algo/data-structures/fenwick)
 - [USACO Guide — Point Update Range Sum (PURS)](https://usaco.guide/gold/PURS?lang=cpp)
 
+---
+
+**Bài trước:** [← Bài 22: Cải Tiến Segment Tree](improved-seg-tree.md) | **Bài tiếp theo:** [Bài 24: BIT 2D (Fenwick Tree 2D) →](bit-2d.md)

@@ -1,4 +1,4 @@
-# Định Lý Thặng Dư Trung Hoa (CRT) - Ghép Phương Trình Modular
+# Bài 55: Định Lý Thặng Dư Trung Hoa (CRT) - Ghép Phương Trình Modular
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - CRT
@@ -183,10 +183,52 @@ $M_i$ chia hết cho $m_j$ (vì $M_i = M / m_i$ chứa $m_j$). Do đó $M_i \cdo
 
 Nếu $m_i$ và $m_j$ không nguyên tố cùng nhau, hệ có thể vô nghiệm hoặc có nhiều nghiệm modulo $LCM(m_1, \ldots, m_k)$. Cách xử lý:
 
-1. **Ghép từng cặp:** Với hai phương trình $x \equiv a_1 \pmod{m_1}$, $x \equiv a_2 \pmod{m_2}$, tồn tại nghiệm khi $a_1 \equiv a_2 \pmod{gcd(m_1, m_2)}$.
-2. **Nghiệm chung:** $x \equiv x_0 \pmod{LCM(m_1, m_2)}$, tìm $x_0$ bằng Extended Euclid kết hợp CRT.
+1. **Ghép từng cặp:** Với hai phương trình $x \equiv a_1 \pmod{m_1}$, $x \equiv a_2 \pmod{m_2}$, tồn tại nghiệm khi $a_1 \equiv a_2 \pmod{\gcd(m_1, m_2)}$.
+2. **Nghiệm chung:** $x \equiv x_0 \pmod{\text{LCM}(m_1, m_2)}$, tìm $x_0$ bằng Extended Euclid: giải $m_1 k \equiv a_2 - a_1 \pmod{m_2}$ rồi thế vào $x_0 = a_1 + m_1 k$.
 
-**Ví dụ số:** $x \equiv 2 \pmod{4}$, $x \equiv 4 \pmod{6}$. $\gcd(4,6) = 2$; kiểm tra: $2 \equiv 4 \pmod{2}$? $0 \equiv 0$ ✓ → có nghiệm. Liệt kê: $x \in \{2, 6, 10, 14, \dots\}$ gặp $\{4, 10, 16, \dots\}$ tại $x = 10$ (mod $LCM = 12$). Ngược lại $x \equiv 1 \pmod{4}$, $x \equiv 2 \pmod{6}$: $1 \not\equiv 2 \pmod{2}$ → **vô nghiệm** (số lẻ không thể chẵn).
+**Ví dụ số:** $x \equiv 2 \pmod{4}$, $x \equiv 4 \pmod{6}$. $\gcd(4,6) = 2$; kiểm tra: $2 \equiv 4 \pmod{2}$? $0 \equiv 0$ ✓ → có nghiệm. Liệt kê: $x \in \{2, 6, 10, 14, \dots\}$ gặp $\{4, 10, 16, \dots\}$ tại $x = 10$ (mod $\text{LCM} = 12$). Ngược lại $x \equiv 1 \pmod{4}$, $x \equiv 2 \pmod{6}$: $1 \not\equiv 2 \pmod{2}$ → **vô nghiệm** (số lẻ không thể chẵn).
+
+=== "C++"
+
+    ```cpp
+    // CRT tổng quát (modulo KHÔNG cần nguyên tố cùng nhau)
+    // Trả về {x, M} với x ≡ a_i (mod m_i) và M = LCM(m_i); trả về {-1, -1} nếu vô nghiệm
+    pair<long long, long long> generalCRT(const vector<long long>& a, const vector<long long>& m) {
+        long long x = 0, M = 1;
+        for (int i = 0; i < (int)a.size(); i++) {
+            long long ai = (a[i] % m[i] + m[i]) % m[i];
+            long long p, q;
+            long long g = extgcd(M, m[i], p, q);
+            if ((ai - x) % g != 0) return {-1, -1}; // Vô nghiệm
+            long long mod = m[i] / g;
+            long long k = (__int128)((ai - x) / g) % mod * ((p % mod + mod) % mod) % mod;
+            if (k < 0) k += mod;
+            long long nextM = M / g * m[i];
+            x = (x + (__int128)M * k) % nextM;
+            if (x < 0) x += nextM;
+            M = nextM;
+        }
+        return {x, M};
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def general_crt(a, m):
+        x, M = 0, 1
+        for ai, mi in zip(a, m):
+            ai %= mi
+            g, p, _ = extgcd(M, mi)
+            if (ai - x) % g != 0:
+                return None
+            mod = mi // g
+            k = ((ai - x) // g) * (p % mod) % mod
+            M_new = M // g * mi
+            x = (x + M * k) % M_new
+            M = M_new
+        return x, M
+    ```
 
 ### Khi $a_i \ge m_i$
 
@@ -198,7 +240,51 @@ Khi tính $M = \prod m_i$, $M$ có thể rất lớn (vượt quá $10^{18}$). T
 
 ### Thuật toán Garner
 
-Khi cần lưu nghiệm dưới dạng hỗn hợp (mixed-radix) thay vì modulo $M$, dùng **Garner's Algorithm**. Garner biểu diễn nghiệm thành $x = x_0 + x_1 \cdot m_1 + x_2 \cdot (m_1 \cdot m_2) + \ldots$ với $0 \le x_i < m_{i+1}$. Điều này hữu ích khi $M$ quá lớn để lưu trực tiếp, nhưng cần so sánh hoặc in nghiệm.
+Khi cần lưu nghiệm dưới dạng hỗn hợp (mixed-radix) thay vì nhân trực tiếp modulo $M$ quá lớn, dùng **Garner's Algorithm**. Garner biểu diễn nghiệm thành $x = x_0 + x_1 m_1 + x_2 m_1 m_2 + \cdots$ với $0 \le x_i < m_{i+1}$ (với các $m_i$ nguyên tố cùng nhau đôi một), sau đó có thể tính $x \bmod P$ cho một modulo $P$ tùy ý mà không cần `__int128` hay số lớn cho $M$.
+
+=== "C++"
+
+    ```cpp
+    // Garner's Algorithm: tìm x mod outMod từ hệ x ≡ a[i] (mod m[i]) (m[i] đôi một NTCN)
+    long long garnerCRT(const vector<long long>& a, const vector<long long>& m, long long outMod) {
+        int k = a.size();
+        vector<long long> x(k);
+        for (int i = 0; i < k; i++) {
+            x[i] = (a[i] % m[i] + m[i]) % m[i];
+            for (int j = 0; j < i; j++) {
+                long long inv = modInverse(m[j] % m[i], m[i]);
+                x[i] = (__int128)((x[i] - x[j]) % m[i] + m[i]) * inv % m[i];
+            }
+        }
+        long long res = 0, mult = 1;
+        for (int i = 0; i < k; i++) {
+            res = (res + (__int128)x[i] * mult) % outMod;
+            mult = (__int128)mult * (m[i] % outMod) % outMod;
+        }
+        return res;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def garner_crt(a, m, out_mod=None):
+        k = len(a)
+        x = [0] * k
+        for i in range(k):
+            x[i] = a[i] % m[i]
+            for j in range(i):
+                inv = mod_inverse(m[j] % m[i], m[i])
+                x[i] = (x[i] - x[j]) * inv % m[i]
+        res, mult = 0, 1
+        for i in range(k):
+            res += x[i] * mult
+            mult *= m[i]
+            if out_mod is not None:
+                res %= out_mod
+                mult %= out_mod
+        return res
+    ```
 
 ### Lỗi thường gặp
 
@@ -236,3 +322,6 @@ if ((a1 - a2) % g != 0) return NO_SOLUTION;
 |---|---|---|---|
 | [Hackerrank - Number Of Ways](https://www.hackerrank.com/challenges/number-of-ways) | Hackerrank | ⭐⭐⭐⭐ | Ứng dụng CRT giải hệ modular lớn |
 
+---
+
+**Bài trước:** [← Bài 54: Định Lý Wilson & Định Lý Lucas](wilson-lucas.md) | **Bài tiếp theo:** [Bài 56: Hàm Möbius & Hàm Nhân Tính →](mobius-multiplicative.md)

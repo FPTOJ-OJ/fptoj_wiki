@@ -1,4 +1,4 @@
-# Bài 27: Lý Thuyết Trò Chơi — Sprague-Grundy & Nim
+# Bài 58: Lý Thuyết Trò Chơi — Sprague-Grundy & Nim
 
 > **Tác giả:** FPTOJ Team<br>
 > **Tham khảo:** VNOI Wiki, CP-Algorithms, Errichto
@@ -216,7 +216,7 @@ Luật "lấy cuối cùng **thua**" khác hoàn toàn normal play:
 
 | Thao tác | Độ phức tạp |
 |----------|-------------|
-| Tính $G(n)$ | $O(n \cdot |S|)$ — bottom-up DP |
+| Tính $G(n)$ | $O(n \cdot \lvert S\rvert)$ — bottom-up DP |
 
 Lưu ý: Grundy numbers có **chu kỳ** sau một điểm, có thể tối ưu thành $O(|S| \cdot \text{chu kỳ})$.
 
@@ -524,5 +524,9 @@ Phải **sort + loại trùng** trước khi tìm MEX. Sai lầm phổ biến: c
 ## Bài viết liên quan
 
 - [Bài 5: Phép toán bit](phep-toan-bit.md) — XOR là nền tảng cho Nim
-- [Bài 12: Quy hoạch động](quy-hoach-dong.md) — Grundy dùng DP
-- [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) — Modular arithmetic trong subtraction games
+- [Bài 40: Quy hoạch động](quy-hoach-dong.md) — Grundy dùng DP
+- [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) — Modular arithmetic trong subtraction games
+
+---
+
+**Bài trước:** [← Bài 57: Giai Thừa Modulo & Căn Bậc Hai Modulo](factorial-sqrt-mod.md) | **Bài tiếp theo:** [Bài 59: Sàng Nâng Cao & Hàm Ước →](sang-nang-cao-ham-uoc.md)

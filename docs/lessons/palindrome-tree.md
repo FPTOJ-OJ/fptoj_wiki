@@ -1,4 +1,4 @@
-# Palindrome Tree (Eertree) - Cây Xâu Đối Xứng
+# Bài 49: Palindrome Tree (Eertree) - Cây Xâu Đối Xứng
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Palindrome Tree
@@ -85,9 +85,32 @@ Khi thêm ký tự $c$ vào 2 đầu palindrome $P$, ta được palindrome $cPc
 
 Suffix link đảm bảo mỗi palindrome chỉ được tạo đúng 1 lần.
 
-### Tại sao suffix link tạo cây?
+### Tại sao xây dựng toàn bộ cây chỉ mất $O(N)$?
 
-Suffix link của palindrome $P$ luôn ngắn hơn $P$ (trừ node gốc). Do đó, suffix link tạo thành cây có gốc là node $0$ (palindrome rỗng).
+Xét tổng số lần nhảy ngược `cur = tree[cur].link` trong toàn bộ thuật toán (phân tích thế năng / amortized):
+
+- Mỗi bước thêm 1 ký tự `pos`, độ dài palindrome hậu tố dài nhất `tree[last].len` tăng lên **tối đa $+2$** (từ $|P|$ thành $|P|+2$, hay chính xác hơn độ sâu tính từ gốc $-1$ tăng tối đa $+1$ nếu tính chiều dài nửa chuỗi).
+- Mỗi lần đi theo `cur = tree[cur].link`, độ sâu của `cur` trên cây suffix link giảm ít nhất $1$ (và `len` giảm ít nhất $1$), không bao giờ âm dưới $-1$.
+- Do tổng mức tăng cả chuỗi không vượt quá $N$, tổng số lần nhảy link trên cả $N$ ký tự bị chặn bởi $O(N)$ (tương tự KMP hay Aho-Corasick).
+
+### Mở rộng: Đếm tần suất xuất hiện của từng Palindrome
+
+Mỗi nút mới hoặc khớp được ở `extend(pos)` chỉ ghi nhận **palindrome hậu tố dài nhất** tại `pos`, tức ta chỉ cần `occ[last]++` (mất $O(1)$). Các palindrome là hậu tố ngắn hơn của `last` được suy ra bằng cách cộng dồn **từ nút tạo sau về nút tạo trước** (vì `link[v]` luôn được tạo trước `v` nên chỉ số mảng `link[v] < v`):
+
+```cpp
+// Sau khi extend hết cả xâu s: duyệt ngược từ sz - 1 về 2
+for (int i = sz - 1; i >= 2; i--) {
+    occ[tree[i].link] += occ[i];
+}
+// Tổng số palindrome con (kể cả trùng vị trí) = sum(occ[2..sz-1])
+```
+
+```python
+# Sau khi extend hết xâu s: cộng dồn tần suất theo thứ tự ngược chỉ số nút
+for i in range(len(pt.tree) - 1, 1, -1):
+    link = pt.tree[i]['link']
+    occ[link] += occ[i]
+```
 
 ---
 
@@ -95,7 +118,7 @@ Suffix link của palindrome $P$ luôn ngắn hơn $P$ (trừ node gốc). Do đ
 
 | Thao tác | Thời gian | Không gian |
 |----------|-----------|------------|
-| Xây Palindrome Tree | $O(N)$ | $O(N \cdot |\Sigma|)$ |
+| Xây Palindrome Tree | $O(N)$ | $O(N \cdot \lvert\Sigma\rvert)$ |
 | Đếm palindrome phân biệt | $O(N)$ | $O(1)$ |
 | Số palindrome kết thúc tại vị trí $i$ | $O(1)$ mỗi vị trí | $O(1)$ |
 
@@ -292,3 +315,7 @@ if (pos - 1 - curlen >= 0 && s[pos - 1 - curlen] == s[pos]) break;
 
 - [CP-Algorithms - Palindrome Tree](https://cp-algorithms.com/string/palindrome-tree.html)
 - [Codeforces - Palindromic Tree](https://codeforces.com/blog/entry/19193)
+
+---
+
+**Bài trước:** [← Bài 48: Suffix Array](suffix-array.md) | **Bài tiếp theo:** [Bài 50: Euclid & Modular Inverse →](euclid-modular-inverse.md)

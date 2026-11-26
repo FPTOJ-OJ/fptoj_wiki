@@ -186,7 +186,7 @@ Do tính chất này, ta phải xét riêng hai loại phần tử:
 
 Ta xét tất cả các trường hợp chọn các phần tử của nhóm thứ nhất. Có $10^4 = 10,000$ trường hợp khác nhau. Với mỗi trường hợp của nhóm thứ nhất, ta sẽ tìm đáp án tối ưu cho nhóm thứ 2.
 
-- Với mỗi trường hợp, ta có tổng các phần tử của nhóm thứ nhất nằm trong khoảng $[4, 40]$, nên tổng các phần tử của nhóm thứ 2 nằm trong khoảng $[-20, -2] *(chú ý rằng nhóm thứ 2 đối xứng, mỗi phần tử xuất hiện 2 lần trong ma trận S, nên ta phải nhân đôi)*
+- Với mỗi trường hợp, ta có tổng các phần tử của nhóm thứ nhất nằm trong khoảng $[4, 40]$, nên tổng các phần tử của nhóm thứ 2 nằm trong khoảng $[-20, -2]$ *(chú ý rằng nhóm thứ 2 đối xứng, mỗi phần tử xuất hiện 2 lần trong ma trận $S$, nên ta phải nhân đôi)*
 - Vì các phần tử của nhóm 2 có chung tính chất, ta sử dụng Tham lam để tìm kết quả tối ưu cho nhóm thứ 2.
 
 Nhắc lại tư tưởng của Tham lam: tại mỗi bước, ta chọn một lựa chọn tối ưu cục bộ. Trong trường hợp này nghĩa là ta xét lần lượt từng phần tử, với mỗi phần tử, gán cho nó giá trị tối ưu.
@@ -275,7 +275,7 @@ Trong ví dụ, ta có 4 công nhân cần được phân công. Bảng dưới 
 <table>
 <tr> <td></td> <td>Ban đầu</td> <td>Người 1</td> <td>Người 2</td> <td>Người 3</td> <td>Người 4</td> <td>Người 5</td> <td>Người 6</td> </tr>
 <tr> <td>Mỏ 1</td> <td>$-$</td> <td>$57$</td> <td>$30$</td> <td>$0$</td> <td>$-20$</td> <td>$-20$</td> <td>$-20$</td> </tr>
-<tr> <td>Mỏ 1</td> <td>$-$</td> <td>$52$</td> <td>$14$</td> <td>$9$</td> <td>$  0$</td> <td>$-9 $</td> <td>$-20$</td> </tr>
+<tr> <td>Mỏ 1</td> <td>$-$</td> <td>$52$</td> <td>$14$</td> <td>$9$</td> <td>$0$</td> <td>$-9$</td> <td>$-20$</td> </tr>
 </table>
 
 Ta để ý rằng, mỏ 1 sẽ tăng thêm 57 nếu ta thêm vào một công nhân, trong khi mỏ 2 chỉ tăng thêm 52. Thế nên, ta sẽ phân bố người đầu tiên vào mỏ 1.
@@ -283,7 +283,7 @@ Ta để ý rằng, mỏ 1 sẽ tăng thêm 57 nếu ta thêm vào một công n
 <table>
 <tr> <td></td> <td>Ban đầu</td> <td>Người 1</td> <td>Người 2</td> <td>Người 3</td> <td>Người 4</td> <td>Người 5</td> <td>Người 6</td> </tr>
 <tr> <td>Mỏ 1</td> <td>$-$</td> <td><strong>$57$</strong></td> <td>$30$</td> <td>$0$</td> <td>$-20$</td> <td>$-20$</td> <td>-20</td> </tr>
-<tr> <td>Mỏ 1</td> <td>$-$</td> <td>$52$</td> <td>$14$</td> <td>$9$</td> <td>$  0$</td> <td>$-9 $</td> <td>$-20$</td> </tr>
+<tr> <td>Mỏ 1</td> <td>$-$</td> <td>$52$</td> <td>$14$</td> <td>$9$</td> <td>$0$</td> <td>$-9$</td> <td>$-20$</td> </tr>
 </table>
 
 Giờ, nếu ta thêm công nhân vào mỏ 1, ta chỉ tăng lợi nhuận được thêm 30. Bởi vậy nên ta sẽ thêm công nhân vào mỏ 2, lúc này lợi nhuận ta thu được sẽ tăng thêm 52.
@@ -291,7 +291,7 @@ Giờ, nếu ta thêm công nhân vào mỏ 1, ta chỉ tăng lợi nhuận đư
 <table>
 <tr> <td></td> <td>Ban đầu</td> <td>Người 1</td> <td>Người 2</td> <td>Người 3</td> <td>Người 4</td> <td>Người 5</td> <td>Người 6</td> </tr>
 <tr> <td>Mỏ 1</td> <td>$-$</td> <td><strong>$57$</strong></td> <td>$30$</td> <td>$0$</td> <td>$-20$</td> <td>$-20$</td> <td>$-20$</td> </tr>
-<tr> <td>Mỏ 1</td> <td>$-$</td> <td><strong>$52$</strong></td> <td>$14$</td> <td>$9$</td> <td>  $0$</td> <td>$-9 $</td> <td>$-20$</td> </tr>
+<tr> <td>Mỏ 1</td> <td>$-$</td> <td><strong>$52$</strong></td> <td>$14$</td> <td>$9$</td> <td>  $0$</td> <td>$-9$</td> <td>$-20$</td> </tr>
 </table>
 
 Công nhân thứ 3 sẽ có ích hơn khi làm ở mỏ 1 với lợi nhuận thu được là 30.

@@ -1,4 +1,4 @@
-# Bài 13: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
+# Bài 33: MST, Dijkstra, Topo Sort - Đồ Thị Nâng Cao
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Cây khung nhỏ nhất, Đường đi ngắn nhất, Sắp xếp Tô-pô
@@ -411,7 +411,7 @@ Suy ra thuật toán luôn pop đỉnh có khoảng cách ngắn nhất trước
 Với Fibonacci heap, độ phức tạp cải thiện còn $O(n \log n + m)$, nhưng ít dùng trong thi đấu.
 
 !!! warning "Dijkstra chỉ cho trọng số không âm"
-    Nếu đồ thị có cạnh trọng số âm, dùng **Bellman-Ford** ($O(nm)$) hoặc **SPFA** thay thế. Xem [Bài 23: Floyd-Warshall & Bellman-Ford](floyd-warshall-bellman-ford.md).
+    Nếu đồ thị có cạnh trọng số âm, dùng **Bellman-Ford** ($O(nm)$) hoặc **SPFA** thay thế. Xem [Bài 34: Floyd-Warshall & Bellman-Ford](floyd-warshall-bellman-ford.md).
 
 ---
 
@@ -602,11 +602,11 @@ Dưới đây là danh sách 30 bài tập thực hành được đồng bộ tr
 | Mã bài | Tên bài tập | Độ khó | Chuyên đề | Bản chất bài tập | Lời giải chi tiết |
 | :--- | :--- | :---: | :--- | :--- | :--- |
 | `mst-road` | [Tuyến đường liên tỉnh](https://fptoj.com/problem/mst-road) | ⭐⭐ | MST | Kruskal/Prim cơ bản | [Xem hướng dẫn](https://fptoj.com/problem/mst-road/solution) |
-| `mst-cable` | [Lắp đặt cáp mạng](https://fptoj.com/problem/mst-cable) | ⭐⭐ | MST | Prim trên lưới ~2D~ tọa độ thực | [Xem hướng dẫn](https://fptoj.com/problem/mst-cable/solution) |
-| `mst-cliques` | [Xây dựng cầu cảng](https://fptoj.com/problem/mst-cliques) | ⭐⭐ | MST | Khởi tạo cạnh trọng số ~0~ | [Xem hướng dẫn](https://fptoj.com/problem/mst-cliques/solution) |
+| `mst-cable` | [Lắp đặt cáp mạng](https://fptoj.com/problem/mst-cable) | ⭐⭐ | MST | Prim trên lưới $2D$ tọa độ thực | [Xem hướng dẫn](https://fptoj.com/problem/mst-cable/solution) |
+| `mst-cliques` | [Xây dựng cầu cảng](https://fptoj.com/problem/mst-cliques) | ⭐⭐ | MST | Khởi tạo cạnh trọng số $0$ | [Xem hướng dẫn](https://fptoj.com/problem/mst-cliques/solution) |
 | `mst-reduce` | [Tối ưu hóa mạng lưới](https://fptoj.com/problem/mst-reduce) | ⭐⭐ | MST | Xóa cạnh thừa tối ưu | [Xem hướng dẫn](https://fptoj.com/problem/mst-reduce/solution) |
 | `mst-connect` | [Kết nối nguồn điện](https://fptoj.com/problem/mst-connect) | ⭐⭐⭐ | MST | MST với nhiều nguồn phát sẵn | [Xem hướng dẫn](https://fptoj.com/problem/mst-connect/solution) |
-| `mst-forest` | [Phân cụm động vật](https://fptoj.com/problem/mst-forest) | ⭐⭐⭐ | MST | Chia thành ~K~ thành phần liên thông | [Xem hướng dẫn](https://fptoj.com/problem/mst-forest/solution) |
+| `mst-forest` | [Phân cụm động vật](https://fptoj.com/problem/mst-forest) | ⭐⭐⭐ | MST | Chia thành $K$ thành phần liên thông | [Xem hướng dẫn](https://fptoj.com/problem/mst-forest/solution) |
 | `mst-maxedge` | [Hành trình an toàn](https://fptoj.com/problem/mst-maxedge) | ⭐⭐⭐ | MST | Minimax edge trên đường đi | [Xem hướng dẫn](https://fptoj.com/problem/mst-maxedge/solution) |
 | `mst-k-comp` | [Kết nối các khu vực](https://fptoj.com/problem/mst-k-comp) | ⭐⭐⭐ | MST | Gom cạnh có sẵn và chọn thêm cạnh | [Xem hướng dẫn](https://fptoj.com/problem/mst-k-comp/solution) |
 | `topo-schedule` | [Lập lịch công việc](https://fptoj.com/problem/topo-schedule) | ⭐⭐ | Topo Sort | Kahn in-degree cơ bản | [Xem hướng dẫn](https://fptoj.com/problem/topo-schedule/solution) |
@@ -619,24 +619,24 @@ Dưới đây là danh sách 30 bài tập thực hành được đồng bộ tr
 | `topo-alien` | [Mật thư cổ đại](https://fptoj.com/problem/topo-alien) | ⭐⭐⭐⭐ | Topo Sort | Giải mã thứ tự chữ cái trong từ điển | [Xem hướng dẫn](https://fptoj.com/problem/topo-alien/solution) |
 | `dij-shortest` | [Đường đi ngắn nhất](https://fptoj.com/problem/dij-shortest) | ⭐⭐ | Dijkstra | Dijkstra cơ bản với priority queue | [Xem hướng dẫn](https://fptoj.com/problem/dij-shortest/solution) |
 | `dij-multi` | [Giao hàng từ nhiều kho](https://fptoj.com/problem/dij-multi) | ⭐⭐ | Dijkstra | Multi-source Dijkstra | [Xem hướng dẫn](https://fptoj.com/problem/dij-multi/solution) |
-| `dij-grid` | [Mê cung trọng số](https://fptoj.com/problem/dij-grid) | ⭐⭐ | Dijkstra | Dijkstra trên lưới ~2D~ | [Xem hướng dẫn](https://fptoj.com/problem/dij-grid/solution) |
+| `dij-grid` | [Mê cung trọng số](https://fptoj.com/problem/dij-grid) | ⭐⭐ | Dijkstra | Dijkstra trên lưới $2D$ | [Xem hướng dẫn](https://fptoj.com/problem/dij-grid/solution) |
 | `dij-edges` | [Đường đi ưu tiên ít cạnh](https://fptoj.com/problem/dij-edges) | ⭐⭐ | Dijkstra | So sánh tối ưu kép {dist, edges} | [Xem hướng dẫn](https://fptoj.com/problem/dij-edges/solution) |
-| `dij-hwy` | [Xa lộ và quốc lộ](https://fptoj.com/problem/dij-hwy) | ⭐⭐ | Dijkstra | Trọng số thời gian thực ~L / V~ | [Xem hướng dẫn](https://fptoj.com/problem/dij-hwy/solution) |
+| `dij-hwy` | [Xa lộ và quốc lộ](https://fptoj.com/problem/dij-hwy) | ⭐⭐ | Dijkstra | Trọng số thời gian thực $L / V$ | [Xem hướng dẫn](https://fptoj.com/problem/dij-hwy/solution) |
 | `dij-minimax` | [Độ dốc tối thiểu](https://fptoj.com/problem/dij-minimax) | ⭐⭐⭐ | Dijkstra | Tìm minimax path | [Xem hướng dẫn](https://fptoj.com/problem/dij-minimax/solution) |
 | `dij-weight` | [Giới hạn tải trọng](https://fptoj.com/problem/dij-weight) | ⭐⭐⭐ | Dijkstra | Lọc cạnh theo điều kiện tải trọng xe | [Xem hướng dẫn](https://fptoj.com/problem/dij-weight/solution) |
-| `dij-matrix` | [Tìm đường đồ thị đầy](https://fptoj.com/problem/dij-matrix) | ⭐⭐⭐ | Dijkstra | Dijkstra quét mảng ~O(N^2)~ cho đồ thị dày | [Xem hướng dẫn](https://fptoj.com/problem/dij-matrix/solution) |
+| `dij-matrix` | [Tìm đường đồ thị đầy](https://fptoj.com/problem/dij-matrix) | ⭐⭐⭐ | Dijkstra | Dijkstra quét mảng $O(N^2)$ cho đồ thị dày | [Xem hướng dẫn](https://fptoj.com/problem/dij-matrix/solution) |
 | `dij-flight` | [Đặt vé máy bay](https://fptoj.com/problem/dij-flight) | ⭐⭐⭐ | Dijkstra | Đồ thị trạng thái nhân đôi tầng | [Xem hướng dẫn](https://fptoj.com/problem/dij-flight/solution) |
-| `dij-repair` | [Sửa chữa đường bộ](https://fptoj.com/problem/dij-repair) | ⭐⭐⭐ | Dijkstra | Trạng thái ~dist[u][repairs]~ giới hạn hỏng | [Xem hướng dẫn](https://fptoj.com/problem/dij-repair/solution) |
-| `dij-rev` | [Đi ngược chiều tối thiểu](https://fptoj.com/problem/dij-rev) | ⭐⭐⭐ | Dijkstra | Đi ngược chiều tối đa ~K~ cạnh | [Xem hướng dẫn](https://fptoj.com/problem/dij-rev/solution) |
+| `dij-repair` | [Sửa chữa đường bộ](https://fptoj.com/problem/dij-repair) | ⭐⭐⭐ | Dijkstra | Trạng thái $dist[u][repairs]$ giới hạn hỏng | [Xem hướng dẫn](https://fptoj.com/problem/dij-repair/solution) |
+| `dij-rev` | [Đi ngược chiều tối thiểu](https://fptoj.com/problem/dij-rev) | ⭐⭐⭐ | Dijkstra | Đi ngược chiều tối đa $K$ cạnh | [Xem hướng dẫn](https://fptoj.com/problem/dij-rev/solution) |
 | `dij-k-path` | [Hành trình ngắn thứ K](https://fptoj.com/problem/dij-k-path) | ⭐⭐⭐⭐ | Dijkstra | Dijkstra pop-count tìm k-th path | [Xem hướng dẫn](https://fptoj.com/problem/dij-k-path/solution) |
-| `dij-charge` | [Trạm sạc xe điện](https://fptoj.com/problem/dij-charge) | ⭐⭐⭐⭐ | Dijkstra | Dijkstra 2D trạng thái pin giới hạn ~C~ | [Xem hướng dẫn](https://fptoj.com/problem/dij-charge/solution) |
-| `dij-fuel` | [Bình xăng giới hạn](https://fptoj.com/problem/dij-fuel) | ⭐⭐⭐⭐ | Dijkstra | Trạng thái bình xăng ~dist[u][fuel]~ | [Xem hướng dẫn](https://fptoj.com/problem/dij-fuel/solution) |
+| `dij-charge` | [Trạm sạc xe điện](https://fptoj.com/problem/dij-charge) | ⭐⭐⭐⭐ | Dijkstra | Dijkstra 2D trạng thái pin giới hạn $C$ | [Xem hướng dẫn](https://fptoj.com/problem/dij-charge/solution) |
+| `dij-fuel` | [Bình xăng giới hạn](https://fptoj.com/problem/dij-fuel) | ⭐⭐⭐⭐ | Dijkstra | Trạng thái bình xăng $dist[u][fuel]$ | [Xem hướng dẫn](https://fptoj.com/problem/dij-fuel/solution) |
 
 ## Bài viết liên quan
 
-- [Bài 8b: DSU](dsu.md)
-- [Bài 10: BFS & DFS](bfs-dfs-do-thi.md)
-- [Bài 23: Floyd-Warshall & Bellman-Ford](floyd-warshall-bellman-ford.md)
+- [Bài 17: DSU](dsu.md)
+- [Bài 31: BFS & DFS](bfs-dfs-do-thi.md)
+- [Bài 34: Floyd-Warshall & Bellman-Ford](floyd-warshall-bellman-ford.md)
 
 ## Tài liệu tham khảo
 
@@ -647,4 +647,6 @@ Dưới đây là danh sách 30 bài tập thực hành được đồng bộ tr
 - [CP-Algorithms - Kruskal's Algorithm](https://cp-algorithms.com/graph/mst_kruskal.html)
 - [CP-Algorithms - Topological Sort](https://cp-algorithms.com/graph/topological-sort.html)
 
-**Bài tiếp theo:** [Hash xâu & Z-algorithm →](hash-xau-z-algorithm.md)
+---
+
+**Bài trước:** [← Bài 32: BFS 0-1](bfs-01.md) | **Bài tiếp theo:** [Bài 34: Floyd-Warshall & Bellman-Ford →](floyd-warshall-bellman-ford.md)

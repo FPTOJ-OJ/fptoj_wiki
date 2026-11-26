@@ -1,4 +1,4 @@
-# Rời Rạc Hoá (Nén Số) - Thu Nhỏ Miền Giá Trị
+# Bài 12: Rời Rạc Hoá (Nén Số) - Thu Nhỏ Miền Giá Trị
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Rời rạc hoá, CP-Algorithms
@@ -325,3 +325,7 @@ diff[idx(l)] += 1; diff[idx(r + 1)] -= 1; // phủ [l, r] trên miền nén
 |:---|:---|:---:|:---|:---|
 | `disc-range-freq` | [Truy vấn tần số trong đoạn](https://fptoj.com/problem/disc-range-freq) | ⭐⭐ | Nén + prefix | Đếm số lần X trong [l, r] |
 | `disc-sweep` | [Đoạn phủ dày nhất](https://fptoj.com/problem/disc-sweep) | ⭐⭐ | Nén + diff array | Tìm điểm có nhiều đoạn phủ nhất |
+
+---
+
+**Bài trước:** [← Bài 11: Chia Đôi Tập (Meet in the Middle)](meet-in-the-middle.md) | **Bài tiếp theo:** [Bài 13: Linked List →](linked-list.md)

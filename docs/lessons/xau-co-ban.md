@@ -1,4 +1,4 @@
-# Bài 26: Xâu ký tự cơ bản
+# Bài 44: Xâu Ký Tự Cơ Bản
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - String, CP-Algorithms - String basics
@@ -23,19 +23,18 @@ Xâu (chuỗi) là một dãy các ký tự liên tiếp, ví dụ: `"hello"`, `
 - **Chữ số** (`0`-`9`)
 - **Ký tự đặc biệt** (dấu cách, dấu câu)
 
-### Các thao tác cơ bản trong C++
+### Các thao tác cơ bản trong C++ & Python
 
-| Thao tác | Cú pháp | Mô tả |
-|----------|---------|--------|
-| Đọc xâu | `cin >> s` | Đọc một từ (kết thúc khi gặp dấu cách/xuống dòng) |
-| Đọc cả dòng | `getline(cin, s)` | Đọc cả dòng bao gồm dấu cách |
-| Độ dài | `s.size()` hoặc `s.length()` | Trả về số ký tự |
-| Truy cập | `s[i]` | Truy cập ký tự thứ `i` |
-| So sánh | `s1 == s2` | So sánh hai xâu |
-| Nối xâu | `s1 + s2` | Nối hai xâu |
-| Đảo ngược | `reverse(s.begin(), s.end())` | Đảo ngược xâu |
-| Chuyển số | `stoi(s)`, `stoll(s)` | Chuyển xâu thành số |
-| Chuyển HOA/thường | `toupper(c)`, `tolower(c)` | Đổi chữ hoa/thường |
+| Thao tác | C++ (`std::string`) | Python (`str`) | Mô tả |
+|----------|---------------------|----------------|-------|
+| Đọc 1 từ | `cin >> s` | `input().split()` | Đọc tới dấu cách/xuống dòng |
+| Đọc cả dòng | `getline(cin, s)` | `sys.stdin.readline().rstrip('\r\n')` | Đọc trọn 1 dòng có dấu cách |
+| Độ dài | `s.size()` | `len(s)` | Số ký tự |
+| Truy cập | `s[i]` | `s[i]` | Ký tự tại chỉ số `i` (Python bất biến) |
+| Nối xâu | `s1 + s2` | `s1 + s2` / `"".join(...)` | Nối nhiều xâu ở Python nên dùng `join` |
+| Đảo ngược | `reverse(s.begin(), s.end())` | `s[::-1]` | Tạo xâu đảo ngược |
+| Chuyển số | `stoi(s)`, `stoll(s)` | `int(s)` | Chuyển xâu thành số nguyên |
+| Đổi HOA/thường | `toupper(c)`, `tolower(c)` | `s.upper()`, `s.lower()` | Chuẩn hóa kiểu chữ |
 
 ### Tại sao cần học xử lý xâu?
 
@@ -56,13 +55,23 @@ Xâu ký tự có **nhiều thuật toán chuyên biệt** vì cấu trúc xâu 
 
 **Bài toán:** Đếm số lần xuất hiện của 26 chữ cái trong xâu.
 
-**Cách giải quyết đơn giản:** Dùng mảng đếm 26 phần tử.
+**Cách giải quyết đơn giản:** Dùng mảng đếm 26 phần tử (`ord(c) - ord('a')` ánh xạ `'a'` $\to 0$, `'z'` $\to 25$).
 
-```cpp
-vector<int> cnt(26, 0);          // Mảng đếm 26 chữ cái, khởi tạo = 0
-for (char c : s)                 // Duyệt từng ký tự trong xâu
-    cnt[c - 'a']++;              // 'a' -> 0, 'b' -> 1, ..., 'z' -> 25
-```
+=== "C++"
+
+    ```cpp
+    vector<int> cnt(26, 0);          // Mảng đếm 26 chữ cái, khởi tạo = 0
+    for (char c : s)                 // Duyệt từng ký tự trong xâu
+        cnt[c - 'a']++;              // 'a' -> 0, 'b' -> 1, ..., 'z' -> 25
+    ```
+
+=== "Python"
+
+    ```python
+    cnt = [0] * 26
+    for c in s:
+        cnt[ord(c) - ord('a')] += 1
+    ```
 
 ### 2.2. Đếm số từ
 
@@ -70,31 +79,33 @@ for (char c : s)                 // Duyệt từng ký tự trong xâu
 
 **Lưu ý:** Phải xử lý trường hợp **nhiều dấu cách liên tiếp** và **dấu cách đầu/cuối**.
 
-**Hai cách tiếp cận:**
+=== "C++ (Duyệt thủ công & stringstream)"
 
-1. **Duyệt thủ công** với cờ `inWord`:
-```cpp
-int cnt = 0;                        // Biến đếm số từ
-bool inWord = false;                // Cờ: đang ở trong một từ không?
-for (char c : s) {
-    if (c != ' ') {                 // Gặp ký tự không phải dấu cách
-        if (!inWord) {              // Nếu đang KHÔNG trong từ
-            cnt++;                  // Thì đây là bắt đầu của một từ mới
-            inWord = true;          // Đánh dấu đã vào trong từ
+    ```cpp
+    // Cách 1: Duyệt thủ công O(N) với cờ trạng thái inWord
+    int cnt = 0;
+    bool inWord = false;
+    for (char c : s) {
+        if (c != ' ') {
+            if (!inWord) { cnt++; inWord = true; }
+        } else {
+            inWord = false;
         }
-    } else {                        // Gặp dấu cách
-        inWord = false;             // Đã ra khỏi từ
     }
-}
-```
 
-2. **Dùng `stringstream`** (chậm hơn nhưng code gọn):
-```cpp
-stringstream ss(s);                 // Tạo stringstream từ xâu s
-string word;
-int cnt = 0;
-while (ss >> word) cnt++;           // Toán tử >> tự động bỏ qua khoảng trắng
-```
+    // Cách 2: Dùng stringstream (gọn nhẹ)
+    stringstream ss(s);
+    string word;
+    int cntStream = 0;
+    while (ss >> word) cntStream++;
+    ```
+
+=== "Python"
+
+    ```python
+    # s.split() không đối số tự động gộp mọi khoảng trắng liên tiếp và bỏ đầu/cuối
+    cnt = len(s.split())
+    ```
 
 > **Trace tay §2.2 — `s = "  an   com  "` (2 dấu cách đầu, 3 dấu cách giữa, 2 cuối):**
 >
@@ -117,14 +128,25 @@ while (ss >> word) cnt++;           // Toán tử >> tự động bỏ qua kho�
 
 **Cách giải quyết:** Hai con trỏ, một từ đầu và một từ cuối, so sánh và di chuyển vào trong.
 
-```cpp
-int l = 0, r = s.size() - 1;     // Hai con trỏ: l từ đầu, r từ cuối
-while (l < r) {                   // Dừng khi l >= r (đã duyệt hết xâu)
-    if (s[l] != s[r]) return false; // Ký tự không khớp -> không phải palindrome
-    l++; r--;                     // Di chuyển con trỏ vào trong
-}
-return true;                      // Tất cả cặp đều khớp -> là palindrome
-```
+=== "C++"
+
+    ```cpp
+    bool isPalindrome(const string& s) {
+        int l = 0, r = (int)s.size() - 1;
+        while (l < r) {
+            if (s[l] != s[r]) return false;
+            l++; r--;
+        }
+        return true;
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def is_palindrome(s):
+        return s == s[::-1]
+    ```
 
 > **Trace tay §2.3 — `s = "abca"` (không phải palindrome, dừng sớm):**
 >
@@ -144,29 +166,29 @@ return true;                      // Tất cả cặp đều khớp -> là palin
 
 **Cách giải quyết:**
 
-```cpp
-string normalize(string s) {
-    // Bước 1: Xóa dấu cách thừa ở đầu
-    while (!s.empty() && s[0] == ' ') s.erase(0, 1);
-    // Bước 2: Xóa dấu cách thừa ở cuối
-    while (!s.empty() && s.back() == ' ') s.pop_back();
+=== "C++"
 
-    stringstream ss(s);     // Tách từ bằng stringstream
-    string word, result;
-    while (ss >> word) {
-        // Chuyển tất cả ký tự về chữ thường trước
-        for (char& c : word) c = tolower(c);
-        // Viết hoa chữ cái đầu của mỗi từ
-        word[0] = toupper(word[0]);
-        // Thêm từ vào kết quả, cách nhau bởi 1 dấu cách
-        if (!result.empty()) result += ' ';
-        result += word;
+    ```cpp
+    string normalize(string s) {
+        stringstream ss(s);     // Tách từ bằng stringstream (tự bỏ khoảng trắng thừa)
+        string word, result;
+        while (ss >> word) {
+            for (char& c : word) c = tolower((unsigned char)c);
+            word[0] = toupper((unsigned char)word[0]);
+            if (!result.empty()) result += ' ';
+            result += word;
+        }
+        return result;
     }
-    return result;
-}
-// Input:  "  ngUYễn   Văn  AN  "
-// Output: "Nguyễn Văn An"
-```
+    // Input:  "  ngUYen   Van  AN  " -> Output: "Nguyen Van An" (hỗ trợ ASCII)
+    ```
+
+=== "Python"
+
+    ```python
+    def normalize(s):
+        return " ".join(w.capitalize() for w in s.split())
+    ```
 
 ### 2.5. Sắp xếp theo từ điển
 
@@ -186,27 +208,47 @@ sort(words.begin(), words.end()); // Sắp xếp theo từ điển
 
 **Cải biến phổ biến:** Nếu xâu nén **dài hơn** xâu gốc, giữ nguyên xâu gốc.
 
-```cpp
-string rle(string s) {
-    string result = "";
-    int n = s.size();
-    for (int i = 0; i < n; ) {       // Duyệt từng ký tự
-        char c = s[i];
-        int cnt = 1;                  // Đếm số lần xuất hiện liên tiếp
-        while (i + 1 < n && s[i + 1] == c) {
-            cnt++;
+=== "C++"
+
+    ```cpp
+    string rle(string s) {
+        string result = "";
+        int n = s.size();
+        for (int i = 0; i < n; ) {       // Duyệt từng ký tự
+            char c = s[i];
+            int cnt = 1;                  // Đếm số lần xuất hiện liên tiếp
+            while (i + 1 < n && s[i + 1] == c) {
+                cnt++;
+                i++;
+            }
+            result += c;                  // Thêm ký tự
+            result += to_string(cnt);     // Thêm số lần xuất hiện
             i++;
         }
-        result += c;                  // Thêm ký tự
-        result += to_string(cnt);     // Thêm số lần xuất hiện
-        i++;
+        // Nếu xâu nén dài hơn xâu gốc -> trả lại xâu gốc
+        return (result.size() < s.size()) ? result : s;
     }
-    // Nếu xâu nén dài hơn xâu gốc -> trả lại xâu gốc
-    return (result.size() < s.size()) ? result : s;
-}
-// Input:  "aaabbcccc"
-// Output: "a3b2c4"
-```
+    // Input:  "aaabbcccc" -> Output: "a3b2c4"
+    ```
+
+=== "Python"
+
+    ```python
+    def rle(s):
+        n = len(s)
+        parts = []
+        i = 0
+        while i < n:
+            c = s[i]
+            cnt = 1
+            while i + 1 < n and s[i + 1] == c:
+                cnt += 1
+                i += 1
+            parts.append(f"{c}{cnt}")
+            i += 1
+        res = "".join(parts)
+        return res if len(res) < n else s
+    ```
 
 > **Trace tay §2.6 — RLE với `s = "aaabb"` (`n = 5`):**
 >
@@ -223,15 +265,31 @@ string rle(string s) {
 
 **Cách giải quyết:** Đếm tần suất ký tự ở cả hai xâu, so sánh. Hoặc sort cả hai và so sánh.
 
-```cpp
-sort(a.begin(), a.end());
-sort(b.begin(), b.end());
-if (a == b) cout << "YES" << endl;
-```
+=== "C++"
+
+    ```cpp
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+    cout << (a == b ? "YES" : "NO") << "\n";
+    ```
+
+=== "Python"
+
+    ```python
+    from collections import Counter
+    print("YES" if Counter(a) == Counter(b) else "NO")
+    ```
 
 ---
 
-## 3. Các kỹ thuật hữu ích
+## 3. Đánh giá độ phức tạp & Kỹ thuật hữu ích
+
+| Thao tác trên xâu độ dài $N$ | Độ phức tạp (C++ / Python) | Ghi chú |
+| :--- | :--- | :--- |
+| Đếm tần suất / RLE / Palindrome | $O(N)$ | Duyệt một lần hoặc 2 con trỏ |
+| Tách từ / Chuẩn hóa | $O(N)$ | Trong Python dùng `"".join()` tránh nối `+=` lặp lại $O(N^2)$ |
+| Sắp xếp $K$ xâu độ dài trung bình $L$ | $O(K \log K \cdot L)$ | Mỗi phép so sánh 2 xâu tốn tới $O(L)$ |
+| Kiểm tra hoán vị (Sort vs Đếm) | $O(N \log N)$ vs $O(N)$ | Dùng mảng đếm 26 hoặc `Counter` nhanh hơn `sort` |
 
 ### 3.1. Đảo ngược một xâu con
 
@@ -328,8 +386,6 @@ vector<int> cnt(26, 0);  // Tạo 26 phần tử giá trị 0
 
 ---
 
----
-
 ## Kỹ thuật nâng cao bổ sung
 
 ### Đếm số lần xuất hiện của mọi ký tự (dùng `map`)
@@ -378,9 +434,9 @@ string s = to_string(42);       // "42"
 
 ## Bài viết liên quan
 
-- [Bài 9: KMP - Tìm Xâu Mẫu](kmp-tim-xau.md)
-- [Bài 14: Hash xâu & Z-Algorithm](hash-xau-z-algorithm.md)
-- [Bài 16: Hash Table](hash-table.md)
+- [Bài 45: KMP - Tìm Xâu Mẫu](kmp-tim-xau.md)
+- [Bài 46: Hash xâu & Z-Algorithm](hash-xau-z-algorithm.md)
+- [Bài 15: Hash Table](hash-table.md)
 
 ## Tài liệu tham khảo
 
@@ -389,4 +445,6 @@ string s = to_string(42);       // "42"
 - [GeeksforGeeks - String Data Structure](https://www.geeksforgeeks.org/string-data-structure/)
 - [C++ Reference - std::string](https://en.cppreference.com/w/cpp/string/basic_string)
 
-**Bài tiếp theo:** [Bài 27: Hash xâu →](hash-xau-z-algorithm.md)
+---
+
+**Bài trước:** [← Bài 43: Binary Search on Answer](binary-search-on-answer.md) | **Bài tiếp theo:** [Bài 45: KMP →](kmp-tim-xau.md)

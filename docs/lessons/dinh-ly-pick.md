@@ -1,4 +1,4 @@
-# Bài 62: Định Lý Pick & Đếm Điểm Nguyên
+# Bài 70: Định Lý Pick & Đếm Điểm Nguyên
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -19,6 +19,9 @@ $$S = I + \frac{B}{2} - 1$$
 Hoặc đổi ra:
 
 $$I = S - \frac{B}{2} + 1$$
+
+!!! note "Tại sao Định lý Pick luôn đúng? (Trực giác Euler)"
+    Chia đa giác đơn bằng các đường chéo (cũng đi qua các đỉnh nguyên) thành các **tam giác sơ cấp** (primitive triangle — tức chỉ có đúng 3 đỉnh trên biên và $I = 0$ điểm bên trong). Theo công thức Euler $V - E + F = 2$ và tính chất cộng tính khi ghép hai đa giác chung cạnh (trừ 2 lần số điểm nội tại cạnh ghép chia 2, triệt tiêu vừa khít $-1$), mỗi tam giác sơ cấp đều có diện tích đúng $\frac{1}{2} = 0 + \frac{3}{2} - 1$. Cộng tất cả tam giác sơ cấp lại ra đúng $S = I + \frac{B}{2} - 1$.
 
 !!! tip "Đếm $B$ bằng gcd"
     Số điểm nguyên trên đoạn thẳng nối $(x_1, y_1)$–$(x_2, y_2)$ (tính cả 2 đầu mút) là $\gcd(|x_2-x_1|,\, |y_2-y_1|) + 1$. Cộng trên mọi cạnh rồi trừ số đỉnh bị đếm trùng để được $B$.
@@ -104,10 +107,10 @@ với $g = \gcd(dx, dy)$. Có $g + 1$ điểm.
 === "C++"
 
     ```cpp
-    int latticePointsOnSegment(Point A, Point B) {
-        int dx = abs((int)B.x - (int)A.x);
-        int dy = abs((int)B.y - (int)A.y);
-        return __gcd(dx, dy) + 1;
+    long long latticePointsOnSegment(Point A, Point B) {
+        long long dx = llabs(llround(B.x) - llround(A.x));
+        long long dy = llabs(llround(B.y) - llround(A.y));
+        return std::gcd(dx, dy) + 1;
     }
     ```
 
@@ -137,14 +140,14 @@ $$B = \sum_{i=0}^{n-1} \gcd(|x_{i+1} - x_i|, |y_{i+1} - y_i|)$$
 === "C++"
 
     ```cpp
-    int latticePointsOnBoundary(vector<Point>& poly) {
+    long long latticePointsOnBoundary(const vector<Point>& poly) {
         int n = poly.size();
-        int B = 0;
+        long long B = 0;
         for (int i = 0; i < n; i++) {
             int j = (i + 1) % n;
-            int dx = abs((int)poly[j].x - (int)poly[i].x);
-            int dy = abs((int)poly[j].y - (int)poly[i].y);
-            B += __gcd(dx, dy);
+            long long dx = llabs(llround(poly[j].x) - llround(poly[i].x));
+            long long dy = llabs(llround(poly[j].y) - llround(poly[i].y));
+            B += std::gcd(dx, dy);
         }
         return B;
     }
@@ -195,6 +198,25 @@ $$I = \frac{2S - B + 2}{2} \quad \text{(với } 2S = \left|\sum x_i y_{i+1} - x_
     }
     ```
 
+=== "Python"
+
+    ```python
+    from math import gcd
+
+    def lattice_points_inside(poly):
+        n = len(poly)
+        area2 = 0
+        B = 0
+        for i in range(n):
+            j = (i + 1) % n
+            xi, yi = poly[i]
+            xj, yj = poly[j]
+            area2 += xi * yj - xj * yi
+            B += gcd(abs(xj - xi), abs(yj - yi))
+        area2 = abs(area2)
+        return (area2 - B + 2) // 2
+    ```
+
 ### 4.2 Tổng hợp: Diện tích, điểm trong, điểm biên
 
 === "C++"
@@ -202,8 +224,8 @@ $$I = \frac{2S - B + 2}{2} \quad \text{(với } 2S = \left|\sum x_i y_{i+1} - x_
     ```cpp
     struct PickResult {
         double area;
-        int interior;  // điểm nguyên bên trong
-        int boundary;  // điểm nguyên trên cạnh
+        long long interior;  // điểm nguyên bên trong
+        long long boundary;  // điểm nguyên trên cạnh
     };
 
     PickResult pickTheorem(const vector<Point>& poly) {
@@ -220,9 +242,27 @@ $$I = \frac{2S - B + 2}{2} \quad \text{(với } 2S = \left|\sum x_i y_{i+1} - x_
         }
         area2 = llabs(area2);
         res.area = area2 / 2.0; // chỉ đổi sang double khi trình bày
-        res.interior = (int)((area2 - res.boundary + 2) / 2);
+        res.interior = (area2 - res.boundary + 2) / 2;
         return res;
     }
+    ```
+
+=== "Python"
+
+    ```python
+    def pick_theorem(poly):
+        n = len(poly)
+        area2 = 0
+        boundary = 0
+        for i in range(n):
+            j = (i + 1) % n
+            xi, yi = poly[i]
+            xj, yj = poly[j]
+            area2 += xi * yj - xj * yi
+            boundary += gcd(abs(xj - xi), abs(yj - yi))
+        area2 = abs(area2)
+        interior = (area2 - boundary + 2) // 2
+        return area2 / 2.0, interior, boundary
     ```
 
 ---
@@ -258,14 +298,33 @@ Duyệt $x$ từ $-r$ đến $r$, tính $y_{\max} = \lfloor\sqrt{r^2 - x^2}\rflo
 === "C++"
 
     ```cpp
-    int latticePointsInCircle(int r) {
-        int cnt = 0;
-        for (int x = -r; x <= r; x++) {
-            int ymax = (int)sqrt((double)r * r - (double)x * x);
+    long long latticePointsInCircle(long long r) {
+        long long cnt = 0;
+        long long r2 = r * r;
+        for (long long x = -r; x <= r; x++) {
+            long long rem = r2 - x * x;
+            long long ymax = (long long)sqrtl((long double)rem);
+            // Hiệu chỉnh sai số số thực quanh căn chính xác
+            while ((ymax + 1) * (ymax + 1) <= rem) ymax++;
+            while (ymax * ymax > rem) ymax--;
             cnt += 2 * ymax + 1;
         }
         return cnt;
     }
+    ```
+
+=== "Python"
+
+    ```python
+    from math import isqrt
+
+    def lattice_points_in_circle(r):
+        cnt = 0
+        r2 = r * r
+        for x in range(-r, r + 1):
+            ymax = isqrt(r2 - x * x)
+            cnt += 2 * ymax + 1
+        return cnt
     ```
 
 ### 6.2 Đếm điểm nguyên trong hình chữ nhật
@@ -348,6 +407,19 @@ if (dx == 0 && dy == 0) continue; // không đóng góp điểm biên
             cout << I << "\n";
         }
         ```
+
+    === "Python"
+    
+        ```python
+        from math import gcd
+
+        x1, y1, x2, y2, x3, y3 = map(int, input().split())
+        area2 = abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
+        B = (gcd(abs(x2 - x1), abs(y2 - y1))
+             + gcd(abs(x3 - x2), abs(y3 - y2))
+             + gcd(abs(x1 - x3), abs(y1 - y3)))
+        print((area2 - B + 2) // 2)
+        ```
 ---
 
 ### Bài 2: Đếm điểm nguyên trên đoạn
@@ -382,6 +454,19 @@ if (dx == 0 && dy == 0) continue; // không đóng góp điểm biên
                 cout << __gcd(abs(x2 - x1), abs(y2 - y1)) + 1 << "\n";
             }
         }
+        ```
+
+    === "Python"
+    
+        ```python
+        from math import gcd
+        import sys
+        input = sys.stdin.readline
+
+        q = int(input())
+        for _ in range(q):
+            x1, y1, x2, y2 = map(int, input().split())
+            print(gcd(abs(x2 - x1), abs(y2 - y1)) + 1)
         ```
 ---
 
@@ -431,6 +516,28 @@ if (dx == 0 && dy == 0) continue; // không đóng góp điểm biên
             cout << B << " " << I << "\n";
         }
         ```
+
+    === "Python"
+    
+        ```python
+        from math import gcd
+        import sys
+        input = sys.stdin.readline
+
+        n = int(input())
+        pts = [tuple(map(int, input().split())) for _ in range(n)]
+        area2 = 0
+        B = 0
+        for i in range(n):
+            x1, y1 = pts[i]
+            x2, y2 = pts[(i + 1) % n]
+            area2 += x1 * y2 - x2 * y1
+            B += gcd(abs(x2 - x1), abs(y2 - y1))
+        area2 = abs(area2)
+        I = (area2 - B + 2) // 2
+        area_str = f"{area2 // 2}.0" if area2 % 2 == 0 else f"{area2 // 2}.5"
+        print(area_str, B, I)
+        ```
 ---
 
 ### Bài 4: Điểm nguyên trong hình chữ nhật
@@ -450,3 +557,7 @@ if (dx == 0 && dy == 0) continue; // không đóng góp điểm biên
 
 ??? tip "Lời giải"
     $(x_2 - x_1 - 1) \times (y_2 - y_1 - 1)$.
+
+---
+
+**Bài trước:** [← Bài 69: Hình Học Đường Tròn](hinh-hoc-duong-tron.md) | **Bài tiếp theo:** [Bài 71: Góc & Phép Quay →](goc-phep-quay.md)

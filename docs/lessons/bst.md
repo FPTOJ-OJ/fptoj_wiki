@@ -1,4 +1,4 @@
-# Bài 30: Binary Search Tree (BST) - Cây Tìm Kiếm Nhị Phân
+# Bài 76: Binary Search Tree (BST) - Cây Tìm Kiếm Nhị Phân
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, GeeksforGeeks - BST
@@ -344,14 +344,16 @@ Các biến thể giữ $h = O(\log N)$ luôn đúng:
                 node.right = self._erase(node.right, successor.val)
             return node
 
-        def inorder(self, node=None, result=None):
-            if result is None:
-                result = []
+        def _inorder(self, node, result):
             if node is None:
-                return result
-            self.inorder(node.left, result)
+                return
+            self._inorder(node.left, result)
             result.append(node.val)
-            self.inorder(node.right, result)
+            self._inorder(node.right, result)
+
+        def inorder(self):
+            result = []
+            self._inorder(self.root, result)
             return result
 
     tree = BST()
@@ -386,15 +388,31 @@ Inorder sau 5 lần chèn: `1 3 6 8 10` (tăng dần).
 
 Tìm tất cả phần tử trong khoảng $[L, R]$ trên BST, khai thác tính chất thứ tự để bỏ qua nhánh không cần thiết.
 
-```cpp
-void rangeQuery(Node* node, int L, int R) {
-    if (node == nullptr) return;
-    if (L < node->val) rangeQuery(node->left, L, R);
-    if (L <= node->val && node->val <= R)
-        cout << node->val << " ";
-    if (R > node->val) rangeQuery(node->right, L, R);
-}
-```
+=== "C++"
+
+    ```cpp
+    void rangeQuery(Node* node, int L, int R) {
+        if (node == nullptr) return;
+        if (L < node->val) rangeQuery(node->left, L, R);
+        if (L <= node->val && node->val <= R)
+            cout << node->val << " ";
+        if (R > node->val) rangeQuery(node->right, L, R);
+    }
+    ```
+
+=== "Python"
+
+    ```python
+    def range_query(node, l_val, r_val, out):
+        if node is None:
+            return
+        if l_val < node.val:
+            range_query(node.left, l_val, r_val, out)
+        if l_val <= node.val <= r_val:
+            out.append(node.val)
+        if r_val > node.val:
+            range_query(node.right, l_val, r_val, out)
+    ```
 
 Độ phức tạp: $O(k + h)$ với $k$ là số phần tử trong khoảng, $h$ là chiều cao cây.
 
@@ -402,16 +420,30 @@ void rangeQuery(Node* node, int L, int R) {
 
 Dùng kỹ thuật truyền khoảng hợp lệ $[minVal, maxVal]$ khi duyệt đệ quy.
 
-```cpp
-bool isBST(Node* node, long long minVal, long long maxVal) {
-    if (node == nullptr) return true;
-    if (node->val <= minVal || node->val >= maxVal) return false;
-    return isBST(node->left, minVal, node->val) &&
-           isBST(node->right, node->val, maxVal);
-}
+=== "C++"
 
-// Gọi: isBST(root, LLONG_MIN, LLONG_MAX)
-```
+    ```cpp
+    bool isBST(Node* node, long long minVal, long long maxVal) {
+        if (node == nullptr) return true;
+        if (node->val <= minVal || node->val >= maxVal) return false;
+        return isBST(node->left, minVal, node->val) &&
+               isBST(node->right, node->val, maxVal);
+    }
+
+    // Gọi: isBST(root, LLONG_MIN, LLONG_MAX)
+    ```
+
+=== "Python"
+
+    ```python
+    def is_bst(node, min_val=float('-inf'), max_val=float('inf')):
+        if node is None:
+            return True
+        if node.val <= min_val or node.val >= max_val:
+            return False
+        return (is_bst(node.left, min_val, node.val) and
+                is_bst(node.right, node.val, max_val))
+    ```
 
 ---
 
@@ -510,4 +542,6 @@ return isBST(node->left, minVal, node->val) &&
 - [VNOI Wiki - Cấu trúc dữ liệu tổng quan](https://wiki.vnoi.info/algo/data-structures/overview-data-structures)
 - [YouTube - BST (takeuforward)](https://www.youtube.com/watch?v=pYT9F8_LFTM)
 
-**Bài trước:** [Sparse Table ←](sparse-table.md) | **Bài tiếp theo:** [Bao lồi →](bao-loi.md)
+---
+
+**Bài trước:** [← Bài 75: Stack Nâng Cao](stack-nang-cao.md) | **Bài tiếp theo:** [Bài 77: Kỹ Năng Thi Đấu HSG Tin Học Việt Nam →](ky-nang-thi-dau.md)

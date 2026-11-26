@@ -570,8 +570,8 @@ Trong C++, `~mask` đảo **TẤT CẢ** bit, kể cả bit dấu (32 hoặc 64 
 
 ## Bài viết liên quan
 
-- [Bài 6: Đệ quy và quay lui](de-quy-va-quay-lui.md)
-- [Bài 27: Lý thuyết trò chơi](ly-thuyet-tro-choi.md)
+- [Bài 7: Đệ quy và quay lui](de-quy-va-quay-lui.md)
+- [Bài 58: Lý thuyết trò chơi](ly-thuyet-tro-choi.md)
 
 ## Tài liệu tham khảo
 
@@ -580,4 +580,6 @@ Trong C++, `~mask` đảo **TẤT CẢ** bit, kể cả bit dấu (32 hoặc 64 
 - [GeeksforGeeks - Bitwise Operators in C++](https://www.geeksforgeeks.org/cpp/bitwise-operators-in-cpp/)
 - [CP-Algorithms - Bit Manipulation](https://cp-algorithms.com/algebra/bit-manipulation.html)
 
-**Bài tiếp theo:** [Đệ quy và quay lui →](de-quy-va-quay-lui.md)
+---
+
+**Bài trước:** [← Bài 4: Tìm Kiếm Nhị Phân](tim-kiem-nhi-phan.md) | **Bài tiếp theo:** [Bài 6: Fun with Bits →](fun-with-bits.md)

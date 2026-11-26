@@ -43,8 +43,7 @@ Một **luồng** (flow) trên mạng $G(V, E)$ là một phép gán cho mỗi c
 - Luồng trên mỗi cạnh có giá trị không vượt quá khả năng thông qua của cạnh đó:
 $0 \le f(u, v) \le c(u, v), \forall u, v \in V$
 - Với mọi đỉnh $v$ không trùng với đỉnh phát $s$ và đỉnh thu $t$, tổng luồng trên các cạnh đi vào $v$ bằng tổng luồng trên các cạnh đi ra $v$. Tính chất này tương đối giống với định luật I Kirchoff của dòng điện.
-$\sum\limits_{v \in V, \exists (v, u) \in E} f(v, u) = 
-\sum\limits_{w \in V, \exists (u, w) \in E} f(u, w)$
+$$\sum\limits_{v \in V, \exists (v, u) \in E} f(v, u) = \sum\limits_{w \in V, \exists (u, w) \in E} f(u, w)$$
 - Giá trị $f(u, v)$ được gọi là **luồng trên cạnh $(u, v)$**
 - **Giá trị của luồng** là tổng luồng trên các cạnh đi ra khỏi đỉnh phát, cũng chính là tổng luồng trên các cạnh đi vào đỉnh thu.
 
@@ -216,7 +215,7 @@ Nhưng theo định lý về luồng và lát cắt đã trình bày ở trên t
 
 ### Cài đặt
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -362,7 +361,7 @@ Thuật toán Dinic dừng khi nó không thể tìm một đường cản trên
 ### Cài đặt
 Trong bước DFS, để lập trình đơn giản hơn một chút, ta sẽ kết hợp DFS và tăng luồng. Mỗi lần đi tìm đường cản, ta có thể kết hợp lưu lại giá trị $\Delta$ nhỏ nhất trên đường này luôn, và khi đường này đến được $t$, ta thực hiện tăng luồng trên những cạnh đã xét.
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -473,7 +472,7 @@ Tại vòng thứ $i + 1$, trường hợp đường đi từ $s$ đến $u$ kh�
 </p>
 
 <p>
-Trường hợp đường đi này chứa cạnh ngược, giả sử cạnh đầu tiên như vậy là cạnh $(w, v)$. Theo trường hợp đầu, $d_{i + 1}(w) = d_{i}(w)$ (1). Ở vòng thứ $i$, đường này vẫn còn đi được, do đó $d_i(w) = d_i(v) + 1$ (2). Nhưng tại vòng $i + 1$, cạnh này trở thành cạnh ngược, cho nên $d_{i + 1}(v) = d_i(w) + 1%$ (3). Từ (1), (2), (3) suy ra $d_{i + 1}(w) \ge d_i(w) + 2$.
+Trường hợp đường đi này chứa cạnh ngược, giả sử cạnh đầu tiên như vậy là cạnh $(w, v)$. Theo trường hợp đầu, $d_{i + 1}(w) = d_{i}(w)$ (1). Ở vòng thứ $i$, đường này vẫn còn đi được, do đó $d_i(w) = d_i(v) + 1$ (2). Nhưng tại vòng $i + 1$, cạnh này trở thành cạnh ngược, cho nên $d_{i + 1}(v) = d_i(w) + 1$ (3). Từ (1), (2), (3) suy ra $d_{i + 1}(w) \ge d_i(w) + 2$.
 </p>
 
 <p>

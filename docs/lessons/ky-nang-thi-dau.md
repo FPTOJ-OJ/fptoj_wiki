@@ -1,4 +1,4 @@
-# Bài 36: Kỹ Năng Thi Đấu HSG Tin Học Việt Nam
+# Bài 77: Kỹ Năng Thi Đấu HSG Tin Học Việt Nam
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** Kinh nghiệm thi HSG, VOI, VNOI
@@ -132,9 +132,9 @@ Khi bắt đầu làm 1 bài:
 
 ---
 
-### 4. Checklist trước khi nộp (bản đầy đủ ở §9)
+## 4. Checklist trước khi nộp (tóm tắt)
 
-> Để tránh trùng lặp, checklist chi tiết (trước thi / trong thi / trước khi nộp) đã gộp vào **§9. Checklist hoàn chỉnh** ở cuối bài. Tóm tắt 3 điểm bắt buộc: **tên file đúng → compile được → đã xóa debug**.
+> Để tránh trùng lặp, checklist chi tiết (trước thi / trong thi / trước khi nộp) đã gộp vào **Mục 9. Checklist hoàn chỉnh** ở cuối bài. Trước khi nộp bài bất kỳ, luôn kiểm tra 3 điểm bắt buộc: **đúng tên file I/O, biên dịch không lỗi/cảnh báo nghiêm trọng, và đã xóa sạch lệnh in debug**.
 
 ---
 
@@ -142,31 +142,26 @@ Khi bắt đầu làm 1 bài:
 
 ### 5.1. Brute force trước, tối ưu sau
 
-```
-BƯỚC 1: Viết brute force O(N²) hoặc O(2^N)
-  → Chạy sample → đúng?
-  → Nếu có subtask N≤100 → được 30% điểm!
+Trong phòng thi, tư duy an toàn nhất là luôn xây dựng nghiệm đơn giản trước rồi mới nâng cấp thuật toán:
 
-BƯỚC 2: Tối ưu lên O(N log N) hoặc O(N)
-  → Nếu code được → thêm 40-70% điểm!
-
-BƯỚC 3: Nếu không tối ưu được
-  → Ít nhất đã có 30% điểm từ brute force
-  → Chuyển sang bài khác
-```
+1. **Bước 1 (Giữ chắc điểm cơ bản):** Cài lời giải duyệt trâu $O(N^2)$ hoặc quay lui $O(2^N)$, kiểm tra ngay trên sample test. Nếu có subtask $N \le 100$, bạn đã chắc chắn có điểm bộ test nhỏ và có công cụ kiểm chứng cho bước sau.
+2. **Bước 2 (Tối ưu thuật toán):** Khi đã hiểu rõ cấu trúc bài toán từ brute force, tìm cách giảm độ phức tạp xuống $O(N \log N)$ hoặc $O(N)$, đồng thời dùng brute force làm bản chuẩn để stress test.
+3. **Bước 3 (Biết điểm dừng):** Nếu hết thời gian phân bổ cho bài đó mà vẫn chưa ra lời giải tối ưu, giữ lại bản brute force sạch sẽ (không tràn bộ nhớ trên test nhỏ) rồi chuyển sang bài khác để tối đa hóa tổng điểm.
 
 ### 5.2. Đọc constraints → suy ra thuật toán
 
-```
-N ≤ 10:     → O(N!) hoặc O(2^N)     → Backtracking, bitmask
-N ≤ 20:     → O(2^N)                → Bitmask DP
-N ≤ 100:    → O(N³)                 → Floyd-Warshall, DP 3D
-N ≤ 500:    → O(N³)                 → Matrix multiplication
-N ≤ 1000:   → O(N²)                 → DP 2D, brute force
-N ≤ 10^5:   → O(N log N)            → Sort, Binary Search, SegTree
-N ≤ 10^6:   → O(N) hoặc O(N log N)  → Two pointers, Stack, Queue
-N ≤ 10^9:   → O(log N) hoặc O(1)    → Binary Search, Math
-```
+Giới hạn dữ liệu trong đề bài là gợi ý trực tiếp về độ phức tạp mục tiêu cần đạt:
+
+| Giới hạn tiêu biểu | Độ phức tạp mục tiêu | Hướng tiếp cận thường gặp |
+| :--- | :--- | :--- |
+| $N \le 10$ | $O(N!)$ hoặc $O(2^N)$ | Quay lui, hoán vị, vét cạn |
+| $N \le 20$ | $O(2^N)$ hoặc $O(N \cdot 2^N)$ | Bitmask DP, Meet in the Middle (nếu $N \le 40$) |
+| $N \le 100$ | $O(N^3)$ | Floyd-Warshall, DP 3 chiều |
+| $N \le 500$ | $O(N^3)$ | Nhân ma trận, Bellman-Ford, bài toán trên đồ thị nhỏ |
+| $N \le 2000$ | $O(N^2)$ | Quy hoạch động 2 chiều, duyệt cặp phần tử |
+| $N \le 10^5$ | $O(N \log N)$ | Sort, Binary Search, Segment Tree, BIT, Dijkstra |
+| $N \le 10^6$ | $O(N)$ | Hai con trỏ, Stack/Queue đơn điệu, Prefix Sum |
+| $N \le 10^9$ | $O(\log N)$ hoặc $O(1)$ | Tìm kiếm nhị phân trên đáp án, Công thức Toán, Lũy thừa ma trận |
 
 ### 5.3. Nhận diện dạng bài
 
@@ -409,4 +404,6 @@ for(int test = 0; test < 1000; test++) {
 - [VNOI Wiki - Kỹ năng thi](https://wiki.vnoi.info/algo/skill/Ki-nang-thi-cu)
 - [USACO Guide - Contest Strategy](https://usaco.guide/general/contests)
 
-**Bài trước:** [Setup môi trường ←](setup-moi-truong.md) | **Bài tiếp theo:** [Sinh testcase →](sinh-testcase.md)
+---
+
+**Bài trước:** [← Bài 76: Binary Search Tree (BST)](bst.md) | **Bài tiếp theo:** [Bài 78: Sinh Testcase & Stress Test →](sinh-testcase.md)

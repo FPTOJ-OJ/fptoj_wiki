@@ -419,7 +419,7 @@ Nam 8" data-hint="Dùng sort với lambda: so sánh score trước, nếu bằng
     }
     ```
 
-### Bài 2: Bài tập trên CSES
+## Bài tập luyện tập trên CSES
 
 | Bài | Độ khó | Gợi ý |
 |-----|--------|-------|
@@ -433,5 +433,10 @@ Nam 8" data-hint="Dùng sort với lambda: so sánh score trước, nếu bằng
 
 ## Bài viết liên quan
 
-- [C04: Mảng & Vector →](C04-mang-vector.md)
-- [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)
+- [C21: Tham chiếu nhanh ←](C21-tham-chieu-nhanh.md)
+- [Chương 2: C++ cho Thi Đấu](index.md)
+
+---
+
+**Bài trước:** [C21: Tham chiếu nhanh](C21-tham-chieu-nhanh.md)<br>
+**Quay lại:** [Chương 2: C++ cho Thi Đấu](index.md)

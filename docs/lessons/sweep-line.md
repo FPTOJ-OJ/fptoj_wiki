@@ -1,4 +1,4 @@
-# Thuật Toán Đường Quét (Sweep Line)
+# Bài 74: Thuật Toán Đường Quét (Sweep Line)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - Sweep Line
@@ -172,7 +172,95 @@ Công thức diện tích mỗi lát cắt: `area += active_len * (x_mới - x_c
 
 ### Diện tích hợp hình chữ nhật
 
-=== "C++"
+> **Lưu ý về độ phức tạp:** Cách quét mảng `cnt` trực tiếp bên dưới mất $O(N)$ cho mỗi sự kiện nên tổng thời gian là $O(N^2)$ (dễ đọc để hiểu cơ chế). Để đạt **$O(N \log N)$** như mục 4, ta thay vòng `for` cập nhật và tính `active_len` bằng một **Segment Tree** trên các đoạn $[ys[i], ys[i+1]]$ (xem tab tối ưu $O(N \log N)$ ngay sau đây).
+
+=== "C++ (Segment Tree — O(N log N))"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    struct Event {
+        int x, y1, y2, type; // type: +1 (mở HCN), -1 (đóng HCN)
+        bool operator<(const Event& o) const {
+            if (x != o.x) return x < o.x;
+            return type < o.type; // -1 (đóng) trước +1 (mở)
+        }
+    };
+
+    vector<int> ys;
+    vector<int> cnt;
+    vector<long long> len;
+
+    // Segment Tree trên các đoạn cơ sở [ys[l], ys[r+1]]
+    void update(int node, int lo, int hi, int l, int r, int val) {
+        if (r < lo || hi < l) return;
+        if (l <= lo && hi <= r) {
+            cnt[node] += val;
+        } else {
+            int mid = (lo + hi) / 2;
+            update(2 * node, lo, mid, l, r, val);
+            update(2 * node + 1, mid + 1, hi, l, r, val);
+        }
+        if (cnt[node] > 0) {
+            len[node] = ys[hi + 1] - ys[lo];
+        } else if (lo == hi) {
+            len[node] = 0;
+        } else {
+            len[node] = len[2 * node] + len[2 * node + 1];
+        }
+    }
+
+    int main() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+
+        int n;
+        if (!(cin >> n) || n == 0) {
+            cout << 0 << "\n";
+            return 0;
+        }
+
+        vector<Event> events;
+        for (int i = 0; i < n; i++) {
+            int x1, y1, x2, y2;
+            cin >> x1 >> y1 >> x2 >> y2;
+            if (x1 == x2 || y1 == y2) continue;
+            events.push_back({x1, y1, y2, 1});
+            events.push_back({x2, y1, y2, -1});
+            ys.push_back(y1);
+            ys.push_back(y2);
+        }
+        if (events.empty()) {
+            cout << 0 << "\n";
+            return 0;
+        }
+
+        sort(events.begin(), events.end());
+        sort(ys.begin(), ys.end());
+        ys.erase(unique(ys.begin(), ys.end()), ys.end());
+
+        int m = (int)ys.size() - 1; // Có m đoạn cơ sở [ys[i], ys[i+1]]
+        cnt.assign(4 * m, 0);
+        len.assign(4 * m, 0);
+
+        long long area = 0;
+        int prev_x = events[0].x;
+
+        for (const auto& e : events) {
+            area += len[1] * (e.x - prev_x);
+            int lo = lower_bound(ys.begin(), ys.end(), e.y1) - ys.begin();
+            int hi = lower_bound(ys.begin(), ys.end(), e.y2) - ys.begin();
+            if (lo < hi) update(1, 0, m - 1, lo, hi - 1, e.type);
+            prev_x = e.x;
+        }
+
+        cout << area << "\n";
+        return 0;
+    }
+    ```
+
+=== "C++ (Mảng trực tiếp — O(N²))"
 
     ```cpp
     #include <bits/stdc++.h>
@@ -183,13 +271,16 @@ Công thức diện tích mỗi lát cắt: `area += active_len * (x_mới - x_c
         int x, y1, y2, type; // type: +1 (bắt đầu HCN), -1 (kết thúc HCN)
         bool operator<(const Event& o) const {
             if (x != o.x) return x < o.x;       // Sắp xếp theo tọa độ x tăng dần
-            return type < o.type;                // Sự kiện bắt đầu (-1) trước kết thúc (+1)
+            return type < o.type;                // Sự kiện kết thúc (-1) trước bắt đầu (+1)
         }
     };
 
     int main() {
         int n;
-        cin >> n;                                // Số hình chữ nhật
+        if (!(cin >> n) || n == 0) {
+            cout << 0 << "\n";
+            return 0;
+        }
 
         vector<Event> events;
         set<int> ycoords;                        // Lưu các tọa độ y để rời rạc hóa
@@ -240,14 +331,17 @@ Công thức diện tích mỗi lát cắt: `area += active_len * (x_mới - x_c
     }
     ```
 
-=== "Python"
+=== "Python (Mảng trực tiếp — O(N²))"
 
     ```python
     import sys
-    from collections import defaultdict
     input = sys.stdin.readline
 
     n = int(input())                           # Số hình chữ nhật
+    if n == 0:
+        print(0)
+        sys.exit(0)
+
     events = []                                # Danh sách sự kiện (x, type, y1, y2)
     ycoords = set()
 
@@ -258,7 +352,7 @@ Công thức diện tích mỗi lát cắt: `area += active_len * (x_mới - x_c
         ycoords.add(y1)                         # Lưu y để rời rạc hóa
         ycoords.add(y2)
 
-    events.sort()                               # Sắp xếp theo x, rồi theo type
+    events.sort()                               # Sắp xếp theo x, rồi theo type (-1 trước +1)
 
     # Rời rạc hóa tọa độ y
     ys = sorted(ycoords)
@@ -286,19 +380,109 @@ Công thức diện tích mỗi lát cắt: `area += active_len * (x_mới - x_c
     print(area)                                 # Tổng diện tích hợp
     ```
 
+### Kiểm tra tồn tại giao điểm đoạn thẳng ($O(N \log N)$)
+
+=== "C++"
+
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    struct Pt { long long x, y; };
+    struct Seg { Pt p, q; int id; };
+
+    long long cross(Pt a, Pt b, Pt c) {
+        return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+    }
+    bool onSeg(Pt a, Pt b, Pt c) {
+        return min(a.x, b.x) <= c.x && c.x <= max(a.x, b.x)
+            && min(a.y, b.y) <= c.y && c.y <= max(a.y, b.y);
+    }
+    bool intersect(const Seg& s1, const Seg& s2) {
+        long long d1 = cross(s2.p, s2.q, s1.p), d2 = cross(s2.p, s2.q, s1.q);
+        long long d3 = cross(s1.p, s1.q, s2.p), d4 = cross(s1.p, s1.q, s2.q);
+        if (((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) &&
+            ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0))) return true;
+        if (d1 == 0 && onSeg(s2.p, s2.q, s1.p)) return true;
+        if (d2 == 0 && onSeg(s2.p, s2.q, s1.q)) return true;
+        if (d3 == 0 && onSeg(s1.p, s1.q, s2.p)) return true;
+        if (d4 == 0 && onSeg(s1.p, s1.q, s2.q)) return true;
+        return false;
+    }
+
+    double curX;
+    double evalY(const Seg& s) {
+        if (s.p.x == s.q.x) return min(s.p.y, s.q.y);
+        return s.p.y + (double)(s.q.y - s.p.y) * (curX - s.p.x) / (s.q.x - s.p.x);
+    }
+
+    int main() {
+        int n;
+        cin >> n;
+        vector<Seg> segs(n);
+        struct Ev { long long x; int type, id; }; // type: 0 = bắt đầu, 1 = kết thúc
+        vector<Ev> evs;
+        for (int i = 0; i < n; i++) {
+            cin >> segs[i].p.x >> segs[i].p.y >> segs[i].q.x >> segs[i].q.y;
+            if (segs[i].p.x > segs[i].q.x || (segs[i].p.x == segs[i].q.x && segs[i].p.y > segs[i].q.y))
+                swap(segs[i].p, segs[i].q);
+            segs[i].id = i;
+            evs.push_back({segs[i].p.x, 0, i});
+            evs.push_back({segs[i].q.x, 1, i});
+        }
+        sort(evs.begin(), evs.end(), [](const Ev& a, const Ev& b) {
+            if (a.x != b.x) return a.x < b.x;
+            return a.type < b.type; // xử lý thêm (0) trước xóa (1) để bắt giao điểm tại đầu mút
+        });
+
+        auto cmp = [&](int a, int b) {
+            double ya = evalY(segs[a]), yb = evalY(segs[b]);
+            if (abs(ya - yb) > 1e-9) return ya < yb;
+            return a < b;
+        };
+        set<int, decltype(cmp)> active(cmp);
+        vector<set<int, decltype(cmp)>::iterator> where(n);
+
+        for (auto& e : evs) {
+            curX = e.x;
+            if (e.type == 0) {
+                auto nxt = active.lower_bound(e.id);
+                auto prv = (nxt == active.begin()) ? active.end() : prev(nxt);
+                if (nxt != active.end() && intersect(segs[*nxt], segs[e.id])) {
+                    cout << "YES\n"; return 0;
+                }
+                if (prv != active.end() && intersect(segs[*prv], segs[e.id])) {
+                    cout << "YES\n"; return 0;
+                }
+                where[e.id] = active.insert(nxt, e.id);
+            } else {
+                auto it = where[e.id];
+                auto nxt = next(it);
+                auto prv = (it == active.begin()) ? active.end() : prev(it);
+                if (prv != active.end() && nxt != active.end() && intersect(segs[*prv], segs[*nxt])) {
+                    cout << "YES\n"; return 0;
+                }
+                active.erase(it);
+            }
+        }
+        cout << "NO\n";
+        return 0;
+    }
+    ```
+
 ### Lỗi thường gặp (SAI / ĐÚNG)
 
 **Lỗi 1: Thứ tự sự kiện start/end trùng $x$**
 
 ```python
-# SAI: sort mặc định (x, type) với type = +1/-1 → sự kiện kết thúc (-1) chạy TRƯỚC bắt đầu (+1)
-# → tại cùng x, HCN cũ bị xóa trước khi HCN mới được thêm → active_len sai 1 lát cắt
-events.sort()  # với events = (x, type, y1, y2), type ∈ {+1, -1}
+# SAI: với bài kiểm tra giao điểm đoạn thẳng, nếu xử lý xóa (kết thúc) TRƯỚC thêm (bắt đầu)
+# tại cùng tọa độ x thì hai đoạn chạm nhau tại đúng đầu mút sẽ bị bỏ sót!
+events.sort(key=lambda e: (e.x, -e.type))  # xóa trước thêm → bỏ sót giao tại đầu mút
 
-# ĐÚNG: với bài diện tích (đoạn đóng/mở trên lưới liên tục), xử lý theo đúng semantics đề bài.
-# Code C++ trên dùng type: +1 bắt đầu, -1 kết thúc và sort type tăng dần — hãy kiểm tra lại
-# thứ tự mong muốn của đề (thường: đóng HCN cũ trước hay mở HCN mới trước không ảnh hưởng
-# diện tích vì (x - prev_x) = 0 tại cùng x, MIỄN LÀ prev_x cập nhật đúng sau từng sự kiện).
+# ĐÚNG:
+# - Với bài giao điểm đoạn thẳng: luôn xử lý MỞ trước ĐÓNG tại cùng x.
+# - Với bài diện tích hợp HCN: đóng trước mở hay mở trước đóng không ảnh hưởng tổng diện tích
+#   vì (e.x - prev_x) = 0 khi trùng x, miễn là cập nhật area trước khi sửa cnt và gán prev_x = e.x.
 ```
 
 **Lỗi 2: Nhầm đoạn đóng/mở trên trục $y$**
@@ -347,3 +531,7 @@ ys = sorted(ycoords)  # ≤ 2N phần tử
 | `sweep-points-rect` | [Đếm điểm trong hình chữ nhật](https://fptoj.com/problem/sweep-points-rect) | ⭐⭐ | Sweep Line + BIT |
 | `sweep-max-gap` | [Khoảng trống lớn nhất](https://fptoj.com/problem/sweep-max-gap) | ⭐⭐ | Sweep Line 1D |
 | `sweep-camera` | [Đặt camera phủ kín đoạn](https://fptoj.com/problem/sweep-camera) | ⭐⭐⭐ | Sweep Line - phủ đoạn |
+
+---
+
+**Bài trước:** [← Bài 73: Bao Lồi (Convex Hull)](bao-loi.md) | **Bài tiếp theo:** [Bài 75: Stack Nâng Cao →](stack-nang-cao.md)

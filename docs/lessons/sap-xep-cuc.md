@@ -1,4 +1,4 @@
-# Bài 64: Sắp Xếp Cực & Quét Góc
+# Bài 72: Sắp Xếp Cực & Quét Góc
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -472,3 +472,7 @@ return A.x*A.x + A.y*A.y < B.x*B.x + B.y*B.y;
 
 ??? tip "Lời giải"
     $\theta = \min(|\theta_A - \theta_B|, 2\pi - |\theta_A - \theta_B|)$.
+
+---
+
+**Bài trước:** [← Bài 71: Góc & Phép Quay](goc-phep-quay.md) | **Bài tiếp theo:** [Bài 73: Bao Lồi (Convex Hull) →](bao-loi.md)

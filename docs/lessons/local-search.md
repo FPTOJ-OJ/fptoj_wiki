@@ -1,4 +1,4 @@
-# Local Search - Tìm Kiếm Cục Bộ
+# Bài 106: Local Search - Tìm Kiếm Cục Bộ
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms - Local Search
@@ -403,3 +403,7 @@ $$P(\text{accept}) = e^{\frac{-\Delta E}{T}} \quad \text{với } \Delta E = \tex
 | `ls-schedule` | [Xếp lịch](https://fptoj.com/problem/ls-schedule) | ⭐⭐⭐⭐ | Local Search - Xếp lịch | [Local Search](local-search.md) |
 | `ls-coloring` | [Tô màu](https://fptoj.com/problem/ls-coloring) | ⭐⭐⭐⭐ | Local Search - Tô màu đồ thị | [Local Search](local-search.md) |
 | `ls-knapsack` | [Ba lô](https://fptoj.com/problem/ls-knapsack) | ⭐⭐⭐⭐ | Local Search - Knapsack SA | [Local Search](local-search.md) |
+
+---
+
+**Bài trước:** [← Bài 105: Giải Thuật Cắt Tỉa Alpha-Beta](alpha-beta.md) | **Danh mục:** [Tổng hợp bài học →](index.md)

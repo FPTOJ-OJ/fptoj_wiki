@@ -9,7 +9,7 @@ Sau đây ta sẽ xét một dạng đơn giản nhất: chia mảng ra làm $\s
 
 Cho một mảng $A$ gồm $N$ phần tử là các số nguyên không âm. Bạn cần trả lời $Q$ truy vấn, mỗi truy vấn có dạng $(l, r, k)$ yêu cầu tìm đếm số phần tử của A nằm trong đoạn $[l..r]$ có giá trị bằng $k$. Giới hạn: $N, Q, A_i \le 10^5$.
 
-Giả sử ta luôn có $l = 1$ và $r = N$, bài toán trên có thể giải đơn giản bằng cách tạo một mảng $cnt[x] = $ số phần tử của mảng có giá trị **bằng** $x$.
+Giả sử ta luôn có $l = 1$ và $r = N$, bài toán trên có thể giải đơn giản bằng cách tạo một mảng $cnt[x] =$ số phần tử của mảng có giá trị **bằng** $x$.
 
 Ta áp dụng ý tưởng này để giải bài toán tổng quát, bằng cách tạo ra $\sqrt{N}$ mảng *cnt*, mỗi mảng quản lý một đoạn $\sqrt{N}$ phần tử liên tiếp của $A$. Để hiểu rõ hơn, ta có thể xem ví dụ sau.
 
@@ -31,7 +31,7 @@ Cấu trúc trên vẫn có thể giải bài toán này khi có thêm truy vấ
 
 ## Phân tích
 
-Đầu tiên, ta phải trả lời được câu hỏi: tại sao lại chia thành $\sqrt{N}$ đoạn, mà không phải $1, 2, 10, N/2, ... $ ? 
+Đầu tiên, ta phải trả lời được câu hỏi: tại sao lại chia thành $\sqrt{N}$ đoạn, mà không phải $1, 2, 10, N/2, ...$ ? 
 
 Gọi số đoạn ta chia ra là $S$. Vậy mỗi đoạn sẽ có độ dài $N/S$ (ta tạm bỏ qua đoạn cuối).
 

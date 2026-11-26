@@ -250,7 +250,7 @@ Thuật toán ứng dụng $BFS$ để xác định thành phần liên thông:
 - Hàng đợi `q` - Chứa các đỉnh sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -388,7 +388,7 @@ Nghĩa là, số lượng thành phần liên thông của đồ thị chính l�
 - Hàng đợi `q` - Chứa các ô sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -586,7 +586,7 @@ Vậy để tìm được kết quả bài toán, ta sẽ áp dụng thuật to�
 - Hàng đợi `q` - Chứa các ô sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -744,7 +744,7 @@ Vậy để tìm được kết quả bài toán, ta sẽ áp dụng thuật to�
 - Hàng đợi `q` - Chứa các tầng sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -855,7 +855,7 @@ Từ **định lí** trên, ta sẽ sắp xếp lại thứ tự đỉnh kề th
 - Hàng đợi `q` - Chứa các đỉnh sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -1039,7 +1039,7 @@ Trong quá trình $BFS$, ghi nhận khoảng cách từ đỉnh nguồn đến �
 - Hàng đợi `q` - Chứa các đỉnh sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
  
 using namespace std;
  
@@ -1182,7 +1182,7 @@ Cách tiếp cận của **kĩ thuật 0-1 BFS** khá giống với thuật toá
 - Hàng đợi hai đầu `q` - Chứa các đỉnh sẽ được duyệt theo thứ tự.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -1359,7 +1359,7 @@ Cuối cùng, nếu ta có thể tô màu tất cả các đỉnh mà **không**
 - Hàng đợi `q` - Chứa các đỉnh sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 

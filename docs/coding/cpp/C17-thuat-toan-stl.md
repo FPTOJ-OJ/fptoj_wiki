@@ -579,12 +579,60 @@ int main() {
 
 ---
 
-## Bài viết liên quan
+## Bài tập thực hành
 
-- [C14: algorithm nâng cao →](C14-algorithm-nang-cao.md)
-- [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
-- [C16: Bài tập tổng hợp →](C16-bai-tap-tong-hop.md)
+### Bài 1: Tổng tiền tố với `partial_sum`
+Đọc số nguyên `n` và mảng `n` số nguyên. Dùng `partial_sum` để tính và in ra mảng tổng tiền tố (cách nhau bởi dấu cách).
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="5
+1 2 3 4 5" data-expected="1 3 6 10 15" data-hint="Dùng partial_sum(a.begin(), a.end(), pref.begin()) trên vector&lt;long long&gt;"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        int n;
+        cin >> n;
+        vector<long long> a(n), pref(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+
+        partial_sum(a.begin(), a.end(), pref.begin());
+        for (int i = 0; i < n; i++) {
+            if (i) cout << " ";
+            cout << pref[i];
+        }
+        return 0;
+    }
+    ```
+
+### Bài 2: Đếm bit 1 và tính GCD
+Đọc hai số nguyên dương `a`, `b`. In ra trên một dòng hai số: ước chung lớn nhất `gcd(a, b)` và số bit `1` của tổng `a + b` (dùng `__builtin_popcountll`).
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="12 18" data-expected="6 4" data-hint="gcd(12, 18) = 6, 12 + 18 = 30 = 11110_2 có 4 bit 1"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        long long a, b;
+        cin >> a >> b;
+        cout << std::gcd(a, b) << " " << __builtin_popcountll(a + b) << "\n";
+        return 0;
+    }
+    ```
 
 ---
 
+## Bài viết liên quan
+
+- [C16: Bài tập tổng hợp ←](C16-bai-tap-tong-hop.md)
+- [C18: Xử lý xâu nâng cao →](C18-xu-ly-xau-nang-cao.md)
+
+---
+
+**Bài trước:** [C16: Bài tập tổng hợp](C16-bai-tap-tong-hop.md)<br>
 **Bài tiếp theo:** [C18: Xử lý xâu nâng cao →](C18-xu-ly-xau-nang-cao.md)

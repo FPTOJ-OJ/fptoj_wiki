@@ -1,4 +1,4 @@
-# BFS 0-1 - Tìm Đường Đi Ngắn Nhất Với Trọng Số 0/1
+# Bài 32: BFS 0-1 - Tìm Đường Đi Ngắn Nhất Với Trọng Số 0/1
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - 0-1 BFS
@@ -68,7 +68,7 @@ flowchart LR
     B --> C["Deque: [1, 2]"]
     C --> D["Xử lý 1\nThêm 3(w=1) vào CUỐI"]
     D --> E["Deque: [2, 3]"]
-    E --> F["Xử lý 2 (bỏ qua, đã thăm)"]
+    E --> F["Xử lý 2\n(không cải thiện dist[3], không đẩy thêm)"]
     F --> G["Deque: [3]"]
     G --> H["Xử lý 3\nThêm 4(w=0) vào ĐẦU"]
     H --> I["Deque: [4]"]
@@ -293,18 +293,21 @@ Xét lưới $3 \times 4$ với các ô trống (`.`) và tường (`#`). Đi qu
 
 ## 6. Bài tập luyện tập trên FPTOJ
 
-Dưới đây là danh sách các bài tập thực hành về BFS ~0\text{-}1~ trên hệ thống [FPTOJ](https://fptoj.com) được thiết kế đồng bộ với bài học lý thuyết này:
+Dưới đây là danh sách các bài tập thực hành về BFS $0\text{-}1$ trên hệ thống [FPTOJ](https://fptoj.com) được thiết kế đồng bộ với bài học lý thuyết này:
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Lời giải chi tiết (Editorial) |
 | :--- | :--- | :---: | :--- | :--- |
-| `bfs01-switch` | [Công tắc cửa ngầm](https://fptoj.com/problem/bfs01-switch) | ⭐⭐ | BFS ~0\text{-}1~ trên đồ thị có hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-switch/solution) |
-| `bfs01-gridwall` | [Bình vượt mê cung](https://fptoj.com/problem/bfs01-gridwall) | ⭐⭐ | BFS ~0\text{-}1~ trên lưới ~2D~ | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-gridwall/solution) |
-| `bfs01-parity` | [Tuyến đường chẵn lẻ](https://fptoj.com/problem/bfs01-parity) | ⭐⭐ | BFS ~0\text{-}1~ trên đồ thị vô hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-parity/solution) |
-| `bfs01-toll` | [Trạm thu phí xa lộ](https://fptoj.com/problem/bfs01-toll) | ⭐⭐ | BFS ~0\text{-}1~ trên đồ thị vô hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-toll/solution) |
-| `bfs01-revedge` | [Tý đảo hướng đường](https://fptoj.com/problem/bfs01-revedge) | ⭐⭐⭐ | BFS ~0\text{-}1~ đảo chiều cạnh đồ thị | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-revedge/solution) |
-| `bfs01-stepup` | [Leo núi nhân tạo](https://fptoj.com/problem/bfs01-stepup) | ⭐⭐⭐ | BFS ~0\text{-}1~ trên lưới có cao độ | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-stepup/solution) |
-| `bfs01-teleport` | [Mạng lưới dịch chuyển](https://fptoj.com/problem/bfs01-teleport) | ⭐⭐⭐ | BFS ~0\text{-}1~ trên trục lộ ~1D~ và portal | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-teleport/solution) |
-| `bfs01-traffic` | [Ngã tư luồng ưu tiên](https://fptoj.com/problem/bfs01-traffic) | ⭐⭐⭐ | BFS ~0\text{-}1~ lưới với hướng ưu tiên | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-traffic/solution) |
-| `bfs01-turn` | [Lái xe ít rẽ nhất](https://fptoj.com/problem/bfs01-turn) | ⭐⭐⭐⭐ | BFS ~0\text{-}1~ lưới với 4 trạng thái hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-turn/solution) |
-| `bfs01-subway` | [Đổi tàu điện ngầm](https://fptoj.com/problem/bfs01-subway) | ⭐⭐⭐⭐ | BFS ~0\text{-}1~ đồ thị ảo phân cấp | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-subway/solution) |
+| `bfs01-switch` | [Công tắc cửa ngầm](https://fptoj.com/problem/bfs01-switch) | ⭐⭐ | BFS $0\text{-}1$ trên đồ thị có hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-switch/solution) |
+| `bfs01-gridwall` | [Bình vượt mê cung](https://fptoj.com/problem/bfs01-gridwall) | ⭐⭐ | BFS $0\text{-}1$ trên lưới $2D$ | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-gridwall/solution) |
+| `bfs01-parity` | [Tuyến đường chẵn lẻ](https://fptoj.com/problem/bfs01-parity) | ⭐⭐ | BFS $0\text{-}1$ trên đồ thị vô hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-parity/solution) |
+| `bfs01-toll` | [Trạm thu phí xa lộ](https://fptoj.com/problem/bfs01-toll) | ⭐⭐ | BFS $0\text{-}1$ trên đồ thị vô hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-toll/solution) |
+| `bfs01-revedge` | [Tý đảo hướng đường](https://fptoj.com/problem/bfs01-revedge) | ⭐⭐⭐ | BFS $0\text{-}1$ đảo chiều cạnh đồ thị | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-revedge/solution) |
+| `bfs01-stepup` | [Leo núi nhân tạo](https://fptoj.com/problem/bfs01-stepup) | ⭐⭐⭐ | BFS $0\text{-}1$ trên lưới có cao độ | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-stepup/solution) |
+| `bfs01-teleport` | [Mạng lưới dịch chuyển](https://fptoj.com/problem/bfs01-teleport) | ⭐⭐⭐ | BFS $0\text{-}1$ trên trục lộ $1D$ và portal | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-teleport/solution) |
+| `bfs01-traffic` | [Ngã tư luồng ưu tiên](https://fptoj.com/problem/bfs01-traffic) | ⭐⭐⭐ | BFS $0\text{-}1$ lưới với hướng ưu tiên | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-traffic/solution) |
+| `bfs01-turn` | [Lái xe ít rẽ nhất](https://fptoj.com/problem/bfs01-turn) | ⭐⭐⭐⭐ | BFS $0\text{-}1$ lưới với 4 trạng thái hướng | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-turn/solution) |
+| `bfs01-subway` | [Đổi tàu điện ngầm](https://fptoj.com/problem/bfs01-subway) | ⭐⭐⭐⭐ | BFS $0\text{-}1$ đồ thị ảo phân cấp | [Xem hướng dẫn](https://fptoj.com/problem/bfs01-subway/solution) |
 
+---
+
+**Bài trước:** [← Bài 31: BFS & DFS](bfs-dfs-do-thi.md) | **Bài tiếp theo:** [Bài 33: MST, Dijkstra, Topo Sort →](mst-dijkstra-topo-sort.md)

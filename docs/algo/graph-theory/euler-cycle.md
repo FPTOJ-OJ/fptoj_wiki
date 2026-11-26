@@ -400,7 +400,7 @@ Một cách khác để tìm đường đi Euler là ta chỉ cần gọi thủ 
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -569,7 +569,7 @@ Nhận thấy khi này nếu ta dịch chu trình $C$ ban đầu sao cho $u_k$ l
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -763,7 +763,7 @@ Với mỗi bậc $n$, độ phức tạp thời gian sẽ là $O(2^n)$. Như v�
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
@@ -898,7 +898,7 @@ Ta xem mỗi điểm trên mặt phẳng như một cạnh trên đồ thị vô
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 

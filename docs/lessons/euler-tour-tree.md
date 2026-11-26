@@ -1,4 +1,4 @@
-# Bài 44: Euler Tour trên cây - Biến cây thành mảng!
+# Bài 85: Euler Tour trên cây - Biến cây thành mảng!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
@@ -989,3 +989,7 @@ $E$ là mảng Euler Tour DFS (ghi đỉnh mỗi lần thăm, kể cả quay l�
 | `ett-root-sum` | [Đường về nguồn cội](https://fptoj.com/problem/ett-root-sum) | ⭐⭐⭐ | Euler Tour + BIT (Path sum từ gốc) | [Euler Tour trên cây](euler-tour-tree.md) |
 | `ett-lca` | [Tổ tiên chung](https://fptoj.com/problem/ett-lca) | ⭐⭐⭐ | Euler Tour + Sparse Table (LCA O(1)) | [Euler Tour trên cây](euler-tour-tree.md) |
 | `ett-dist` | [Khoảng cách hai làng](https://fptoj.com/problem/ett-dist) | ⭐⭐⭐⭐ | Euler Tour + LCA + Depth (Khoảng cách cây) | [Euler Tour trên cây](euler-tour-tree.md) |
+
+---
+
+**Bài trước:** [← Bài 84: 2-SAT](2sat.md) | **Bài tiếp theo:** [Bài 86: Centroid Decomposition →](centroid-decomposition.md)

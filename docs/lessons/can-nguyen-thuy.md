@@ -1,4 +1,4 @@
-# Bài 66: Căn Nguyên Thủy & Dấu Hiệu Bình Phương
+# Bài 64: Căn Nguyên Thủy & Dấu Hiệu Bình Phương
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -134,7 +134,7 @@ Với $p$ nguyên tố:
         return -1
     ```
 
-**Độ phức tạp:** $O(g \cdot k \cdot \log p)$ với $g$ là căn nguyên thủy đầu tiên (thường rất nhỏ, ~O(log²p)).
+**Độ phức tạp:** $O(g \cdot k \cdot \log p)$ với $g$ là căn nguyên thủy đầu tiên (thường rất nhỏ, khoảng $O(\log^2 p)$).
 
 ---
 
@@ -221,7 +221,7 @@ Vì $x^2 = a^{(p+1)/2} = a \cdot a^{(p-1)/2} = a \cdot 1 = a$ (do $a$ là QR).
 - Tìm $z$ là NQR: thử $z = 2$: $2^6 = 64 \equiv 12 \equiv -1 \pmod{13}$ ✓ (dùng Euler criterion).
 - Khởi tạo: $M = 2$; $c = 2^3 = 8$; $t = 10^3 = 1000 \equiv 12$; $R = 10^2 = 100 \equiv 9$ (vì $(Q+1)/2 = 2$).
 - Vòng 1: $t = 12 \ne 1$. Bình phương $t$: $12^2 = 144 \equiv 1$ → chỉ cần $i = 1$ bước. $b = c^{2^{M-i-1}} = 8^{2^0} = 8$. Cập nhật: $M = 1$; $c = 8^2 = 64 \equiv 12$; $t = 12 \cdot 12 = 144 \equiv 1$; $R = 9 \cdot 8 = 72 \equiv 7$.
-- Vòng 2: $t = 1$ → trả về $R = 7$. Kiểm tra: $7^2 = 49 = 39 + 10 \equiv 10 \pmod{13}$ ✓ (nghiệm còn lại là $13 - 7 = 6\)).
+- Vòng 2: $t = 1$ → trả về $R = 7$. Kiểm tra: $7^2 = 49 = 39 + 10 \equiv 10 \pmod{13}$ ✓ (nghiệm còn lại là $13 - 7 = 6$).
 
 Ý tưởng mỗi vòng lặp: $t$ đo "khoảng cách" tới đáp án ($t = 1$ nghĩa là $R^2 \equiv n$); nhân $R$ với $b$ (căn bậc 2 của đơn vị) để kéo $t$ về 1 mà không phá vỡ bất biến $R^2 \equiv n \cdot t$.
 
@@ -366,3 +366,7 @@ long long r = (__int128)r * a % mod;
 | `pr-qr-check` | [QR check nhiều truy vấn](https://fptoj.com/problem/pr-qr-check) | ⭐⭐ | Euler criterion | [Căn Nguyên Thủy](can-nguyen-thuy.md) |
 | `pr-basic` | [Căn nguyên thủy](https://fptoj.com/problem/pr-basic) | ⭐⭐⭐ | Tìm primitive root | [Căn Nguyên Thủy](can-nguyen-thuy.md) |
 | `pr-sqrt` | [Căn bậc hai modulo](https://fptoj.com/problem/pr-sqrt) | ⭐⭐⭐ | Tonelli-Shanks | [Căn Nguyên Thủy](can-nguyen-thuy.md) |
+
+---
+
+**Bài trước:** [← Bài 63: Logarithm Rời Rạc (Baby-step Giant-step)](logarithm-roi-rac.md) | **Bài tiếp theo:** [Bài 65: NTT & Nhân Đa Thức →](ntt-nhan-da-thuc.md)

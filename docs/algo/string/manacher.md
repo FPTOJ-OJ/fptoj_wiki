@@ -60,7 +60,7 @@ Do $l+i$ và $r-i$ đối xứng qua $mid$ nên có thể tận dụng kết qu�
 === "C++"
 
     ```cpp
-    ## include<bits/stdc++.h>
+    #include<bits/stdc++.h>
     using namespace std;
 
     const int MaxN = 5e3 + 5;
@@ -195,7 +195,7 @@ Dưới đây là code mẫu của thuật toán Manacher cho bài toán đượ
 === "C++"
 
     ```cpp
-    ## include<bits/stdc++.h>
+    #include<bits/stdc++.h>
     using namespace std;
 
     const int MaxN = 5e5 + 5;
@@ -332,7 +332,7 @@ Xác định số ma trận con **đẹp** trong ma trận đã cho.
 === "C++"
 
     ```cpp
-    ## include<bits/stdc++.h>
+    #include<bits/stdc++.h>
     using namespace std;
     const int MaxN = 255;
     int Cnt[MaxN][26];

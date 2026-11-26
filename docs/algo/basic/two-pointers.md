@@ -734,7 +734,7 @@ Dãy số của chúng ta sẽ có dạng
 
 $$x_0 = 1, x_1=f(x_0), x_2=f(x_1),...,x_i=f(x_{i-1}),...$$
 
-Với phép chia lấy dư cho $c$ thì mọi $i > 0$, giá trị của $x_i$ sẽ có giá trị nằm trong khoảng $[0, c-1] $. 
+Với phép chia lấy dư cho $c$ thì mọi $i > 0$, giá trị của $x_i$ sẽ có giá trị nằm trong khoảng $[0, c-1]$. 
 
 Vì thế, dãy số với vô hạn phần tử này sẽ tồn tại $x_m = x_n$ với $m < n$. (theo nguyên lý [Dirichlet](https://vi.wikipedia.org/wiki/Nguy%C3%AAn_l%C3%BD_ng%C4%83n_k%C3%A9o_Dirichlet)) 
 

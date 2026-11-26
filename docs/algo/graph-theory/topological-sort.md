@@ -122,7 +122,7 @@ Cho đồ thị có hướng không chu trình *(Directed Acyclic Graph - DAG)* 
 - Queue `listSource` - Danh sách các đỉnh không có cung vào.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -257,7 +257,7 @@ else:
 - Stack `topo` - Danh sách thứ tự Tô-pô.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -414,7 +414,7 @@ Tìm độ dài lớn nhất của đường đi có hướng trong $G$. Ở đ�
 - Vector `revTopo` - Danh sách nghịch đảo thứ tự Tô-pô.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -575,7 +575,7 @@ Impossible
 - Stack `topo` - Danh sách thứ tự Tô-pô.
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 

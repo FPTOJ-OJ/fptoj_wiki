@@ -1,4 +1,4 @@
-# Bài 23: Floyd-Warshall & Bellman-Ford
+# Bài 34: Floyd-Warshall & Bellman-Ford
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Các thuật toán về tìm đường đi ngắn nhất
@@ -336,6 +336,7 @@ Dùng Floyd-Warshall với toán tử $\lor$ thay vì $\min$, $\land$ thay vì $
             for (int i = 1; i <= n; i++)      // duyệt đỉnh nguồn i
                 for (int j = 1; j <= n; j++)  // duyệt đỉnh đích j
                     reach[i][j] = reach[i][j] || (reach[i][k] && reach[k][j]);  // OR logic thay vì min
+    }
     ```
 
 === "Python"
@@ -591,14 +592,14 @@ Dưới đây là danh sách 25 bài tập thực hành được đồng bộ tr
 | :--- | :--- | :---: | :--- | :--- | :--- |
 | `bf-shortest` | [Hành trình xuyên thung lũng](https://fptoj.com/problem/bf-shortest) | ⭐⭐ | Bellman-Ford | Đường ngắn nhất có cạnh âm | [Xem hướng dẫn](https://fptoj.com/problem/bf-shortest/solution) |
 | `bf-negative` | [Đầu tư năng lượng](https://fptoj.com/problem/bf-negative) | ⭐⭐ | Bellman-Ford | Di chuyển trạm sạc pin | [Xem hướng dẫn](https://fptoj.com/problem/bf-negative/solution) |
-| `bf-cycle` | [Vòng lặp thời gian](https://fptoj.com/problem/bf-cycle) | ⭐⭐⭐ | Bellman-Ford | Phát hiện chu trình âm từ ~S~ | [Xem hướng dẫn](https://fptoj.com/problem/bf-cycle/solution) |
+| `bf-cycle` | [Vòng lặp thời gian](https://fptoj.com/problem/bf-cycle) | ⭐⭐⭐ | Bellman-Ford | Phát hiện chu trình âm từ $S$ | [Xem hướng dẫn](https://fptoj.com/problem/bf-cycle/solution) |
 | `bf-path` | [Đồng bộ năng lượng hệ thống](https://fptoj.com/problem/bf-path) | ⭐⭐⭐ | Bellman-Ford | Khoảng cách ngắn nhất từ nguồn | [Xem hướng dẫn](https://fptoj.com/problem/bf-path/solution) |
 | `bf-arbitrage` | [Tỷ giá chênh lệch](https://fptoj.com/problem/bf-arbitrage) | ⭐⭐⭐ | Bellman-Ford | Arbitrage qua log tỷ giá | [Xem hướng dẫn](https://fptoj.com/problem/bf-arbitrage/solution) |
-| `bf-transit` | [Giới hạn số chặng bay](https://fptoj.com/problem/bf-transit) | ⭐⭐⭐ | Bellman-Ford | Đường ngắn nhất đi tối đa ~K~ cạnh | [Xem hướng dẫn](https://fptoj.com/problem/bf-transit/solution) |
+| `bf-transit` | [Giới hạn số chặng bay](https://fptoj.com/problem/bf-transit) | ⭐⭐⭐ | Bellman-Ford | Đường ngắn nhất đi tối đa $K$ cạnh | [Xem hướng dẫn](https://fptoj.com/problem/bf-transit/solution) |
 | `bf-safety` | [Hệ số an toàn](https://fptoj.com/problem/bf-safety) | ⭐⭐⭐ | Bellman-Ford | Dijkstra trên log xác suất | [Xem hướng dẫn](https://fptoj.com/problem/bf-safety/solution) |
-| `bf-limit` | [Hành trình có điều kiện](https://fptoj.com/problem/bf-limit) | ⭐⭐⭐ | Bellman-Ford | Trạng thái giới hạn cạnh hiểm trở ~C~ | [Xem hướng dẫn](https://fptoj.com/problem/bf-limit/solution) |
+| `bf-limit` | [Hành trình có điều kiện](https://fptoj.com/problem/bf-limit) | ⭐⭐⭐ | Bellman-Ford | Trạng thái giới hạn cạnh hiểm trở $C$ | [Xem hướng dẫn](https://fptoj.com/problem/bf-limit/solution) |
 | `bf-longest` | [Hành trình cổ vật](https://fptoj.com/problem/bf-longest) | ⭐⭐⭐ | Bellman-Ford | Đường đi dài nhất trên DAG | [Xem hướng dẫn](https://fptoj.com/problem/bf-longest/solution) |
-| `bf-maxstep` | [Địa chấn lòng đất](https://fptoj.com/problem/bf-maxstep) | ⭐⭐⭐ | Bellman-Ford | Khoảng cách ngắn nhất đúng ~K~ bước | [Xem hướng dẫn](https://fptoj.com/problem/bf-maxstep/solution) |
+| `bf-maxstep` | [Địa chấn lòng đất](https://fptoj.com/problem/bf-maxstep) | ⭐⭐⭐ | Bellman-Ford | Khoảng cách ngắn nhất đúng $K$ bước | [Xem hướng dẫn](https://fptoj.com/problem/bf-maxstep/solution) |
 | `bf-toll` | [Hành trình tối ưu](https://fptoj.com/problem/bf-toll) | ⭐⭐⭐ | Bellman-Ford | Đường ngắn nhất và truy vết tối ưu kép | [Xem hướng dẫn](https://fptoj.com/problem/bf-toll/solution) |
 | `bf-teleport` | [Nghịch lý thời gian](https://fptoj.com/problem/bf-teleport) | ⭐⭐⭐⭐ | Bellman-Ford | Chu trình âm ảnh hưởng tới đích | [Xem hướng dẫn](https://fptoj.com/problem/bf-teleport/solution) |
 | `bf-island` | [Neo đậu tránh bão](https://fptoj.com/problem/bf-island) | ⭐⭐⭐⭐ | Bellman-Ford | Tìm và truy vết cụ thể chu trình âm | [Xem hướng dẫn](https://fptoj.com/problem/bf-island/solution) |
@@ -611,7 +612,7 @@ Dưới đây là danh sách 25 bài tập thực hành được đồng bộ tr
 | `fw-bypass` | [Đóng cửa sửa đường](https://fptoj.com/problem/fw-bypass) | ⭐⭐⭐ | Floyd-Warshall | Tìm chu trình có độ dài nhỏ nhất | [Xem hướng dẫn](https://fptoj.com/problem/fw-bypass/solution) |
 | `fw-hubs` | [Các trung tâm trung chuyển](https://fptoj.com/problem/fw-hubs) | ⭐⭐⭐ | Floyd-Warshall | Đường ngắn nhất đi qua ít nhất một hub | [Xem hướng dẫn](https://fptoj.com/problem/fw-hubs/solution) |
 | `fw-minimax` | [Hành trình êm ái](https://fptoj.com/problem/fw-minimax) | ⭐⭐⭐ | Floyd-Warshall | Minimax path tối thiểu cạnh lớn nhất | [Xem hướng dẫn](https://fptoj.com/problem/fw-minimax/solution) |
-| `fw-transit` | [Xây dựng trạm trung chuyển](https://fptoj.com/problem/fw-transit) | ⭐⭐⭐ | Floyd-Warshall | Chọn đỉnh ~X~ tối ưu tổng khoảng cách | [Xem hướng dẫn](https://fptoj.com/problem/fw-transit/solution) |
+| `fw-transit` | [Xây dựng trạm trung chuyển](https://fptoj.com/problem/fw-transit) | ⭐⭐⭐ | Floyd-Warshall | Chọn đỉnh $X$ tối ưu tổng khoảng cách | [Xem hướng dẫn](https://fptoj.com/problem/fw-transit/solution) |
 | `fw-multicycle` | [Lan truyền chu trình âm](https://fptoj.com/problem/fw-multicycle) | ⭐⭐⭐ | Floyd-Warshall | Floyd-Warshall lan truyền chu trình âm | [Xem hướng dẫn](https://fptoj.com/problem/fw-multicycle/solution) |
 | `fw-density` | [Mạng lưới dày đặc](https://fptoj.com/problem/fw-density) | ⭐⭐⭐⭐ | Floyd-Warshall | Thêm đỉnh ngược thời gian | [Xem hướng dẫn](https://fptoj.com/problem/fw-density/solution) |
 
@@ -620,8 +621,8 @@ Dưới đây là danh sách 25 bài tập thực hành được đồng bộ tr
 
 ## Bài viết liên quan
 
-- [Bài 10: BFS & DFS](bfs-dfs-do-thi.md)
-- [Bài 13: MST, Dijkstra, Topo Sort](mst-dijkstra-topo-sort.md)
+- [Bài 31: BFS & DFS](bfs-dfs-do-thi.md)
+- [Bài 33: MST, Dijkstra, Topo Sort](mst-dijkstra-topo-sort.md)
 
 ## Tài liệu tham khảo
 
@@ -629,3 +630,7 @@ Dưới đây là danh sách 25 bài tập thực hành được đồng bộ tr
 - [CP-Algorithms - Bellman-Ford](https://cp-algorithms.com/graph/bellman_ford.html)
 - [CP-Algorithms - Floyd-Warshall](https://cp-algorithms.com/graph/all-pair-shortest-path-floyd-warshall.html)
 - [USACO Guide - Shortest Paths](https://usaco.guide/gold/shortest-paths)
+
+---
+
+**Bài trước:** [← Bài 33: MST, Dijkstra, Topo Sort](mst-dijkstra-topo-sort.md) | **Bài tiếp theo:** [Bài 35: SPFA (Shortest Path Faster Algorithm) →](spfa.md)

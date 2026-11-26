@@ -1,4 +1,4 @@
-# Quy Hoạch Động Trên DAG
+# Bài 42: Quy Hoạch Động Trên DAG
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - DP on DAG
@@ -317,3 +317,7 @@ Miễn là DAG, công thức DP luôn hoạt động.
 - [Quy hoạch động cơ bản](quy-hoach-dong.md)
 - [Quy hoạch động Bitmask](bitmask-dp.md)
 - [Quy hoạch động trên cây](dp-on-trees.md)
+
+---
+
+**Bài trước:** [← Bài 41: Quy Hoạch Động Bitmask](bitmask-dp.md) | **Bài tiếp theo:** [Bài 43: Binary Search on Answer →](binary-search-on-answer.md)

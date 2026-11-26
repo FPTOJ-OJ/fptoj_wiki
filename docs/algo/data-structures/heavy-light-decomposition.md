@@ -309,7 +309,7 @@ Dưới đây là code đầy đủ cho bài toán (kết hợp của tất cả
 <summary><b>Code</b></summary>
 
 ```cpp
-## include<bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 const int MaxN = 1e5 + 5;
 

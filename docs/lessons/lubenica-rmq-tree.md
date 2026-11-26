@@ -1,4 +1,4 @@
-# Bài Toán Lubenica - RMQ Trên Cây
+# Bài 88: Lubenica - RMQ Trên Cây
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki
@@ -13,11 +13,13 @@ Cho cây $N$ đỉnh, mỗi cạnh có trọng số. Thực hiện $Q$ truy vấ
 
 ### Các phương pháp
 
-| Phương pháp | Preprocess | Truy vấn | Không gian |
-|-------------|-----------|----------|------------|
-| Binary Lifting | $O(N \log N)$ | $O(\log N)$ | $O(N \log N)$ |
-| **Sparse Table trên Euler Tour** | $O(N \log N)$ | $O(1)$ | $O(N \log N)$ |
-| HLD | $O(N)$ | $O(\log^2 N)$ | $O(N)$ |
+| Phương pháp | Preprocess | Truy vấn | Ghi chú |
+|-------------|-----------|----------|---------|
+| Binary Lifting | $O(N \log N)$ | $O(\log N)$ | Chuẩn mực, dễ viết cho min/max/sum/gcd trên đường đi |
+| Kruskal Tree + Euler Tour RMQ | $O(N \log N)$ | $O(1)$ | Phức tạp hơn; tách cây thành cây nhị phân theo thứ tự cạnh |
+| HLD + Segment Tree | $O(N)$ | $O(\log^2 N)$ | Hỗ trợ **cập nhật trọng số cạnh** linh hoạt |
+
+> **Lưu ý:** Sparse Table trên Euler Tour thuần túy giúp tìm **LCA** trong $O(1)$, còn để lấy **cạnh min/max** trên đường đi $u \to v$ trong $O(1)$ cần kết hợp thêm **Kruskal Reconstruction Tree** (còn gọi là DSU Tree). Vì thế trong thi đấu, nếu không có update cạnh thì **Binary Lifting** luôn là lựa chọn cân bằng nhất.
 
 ---
 
@@ -51,7 +53,7 @@ Chi tiết từng bước nhảy (đúng logic code `query`):
 1. $depth[4]=2$, $depth[3]=1$, $diff=1$ → nhảy $4$ lên $up[4][0]=2$, $min=2$, $max=2$. Giờ $u=2, v=3$ ngang nhau.
 2. Xét $j=1$: $up[2][1]=0$ (vì $up[2][0]=1$, $up[1][0]=0$), $up[3][1]=0$ → **bằng nhau nên KHÔNG nhảy** (nếu nhảy cả hai sẽ rơi xuống đỉnh $0$ vô nghĩa — đây là bẫy hay gặp).
 3. Xét $j=0$: $up[2][0]=1$, $up[3][0]=1$ → bằng nhau nên KHÔNG nhảy (cả hai đã là con trực tiếp của LCA $=1$).
-4. Bước cuối: $u=2, v=3$ là con trực tiếp của LCA → lấy 1 cạnh mỗi bên: $\min(3,5)=3$? Cộng với đoạn trước đó ($4 \to 2$: $min=2$) → $\min(2,3,5)=2$, $\max(2,3,5)=5$. Kết quả $(2,5)$ khớp bảng trên.
+4. Bước cuối: $u=2, v=3$ là con trực tiếp của LCA → lấy 1 cạnh mỗi bên: $\min(3,5)=3$ và $\max(3,5)=5$. Gộp với đoạn đã nhảy trước đó ($4 \to 2$: $\min=2, \max=2$) → $\min(2,3,5)=2$, $\max(2,3,5)=5$. Kết quả $(2,5)$ khớp bảng trên.
 
 **Truy vấn 2:** Max trên đường đi $4 \to 5$ (cùng nhánh).
 
@@ -93,7 +95,7 @@ $diff=2$ → nhảy: $j=1$ (bit 1): $4 \to up[4][1]=1$, minEdge$=2$, maxEdge$=3$
         int n;
         cin >> n;                              // Số đỉnh của cây
 
-        int LOG = __lg(n) + 1;                 // Số bước nhảy tối đa: log2(N) + 1
+        int LOG = max(1, (int)__lg(n) + 1);    // Số bước nhảy tối đa: >= 1 ngay cả khi n = 1
         vector<vector<pair<int,int>>> adj(n + 1); // Danh sách kề duy nhất: (đỉnh kề, trọng số)
 
         for (int i = 0; i < n - 1; i++) {
@@ -185,7 +187,7 @@ $diff=2$ → nhảy: $j=1$ (bit 1): $4 \to up[4][1]=1$, minEdge$=2$, maxEdge$=3$
     input = sys.stdin.readline
 
     n = int(input())                           # Số đỉnh
-    LOG = n.bit_length()                       # log2(N) làm tròn lên
+    LOG = max(1, n.bit_length())               # >= 1 ngay cả khi n = 1
     adj = [[] for _ in range(n + 1)]           # Danh sách kề (đỉnh, trọng số)
 
     for _ in range(n - 1):
@@ -311,3 +313,7 @@ minEdge[1][0] = INT_MAX; maxEdge[1][0] = INT_MIN; // (code khởi tạo vector �
 | `rmqt-or-path` | [OR Trên Đường Đi](https://fptoj.com/problem/rmqt-or-path) | ⭐⭐⭐ | OR trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
 | `rmqt-and-path` | [AND Trên Đường Đi](https://fptoj.com/problem/rmqt-and-path) | ⭐⭐⭐ | AND trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
 | `rmqt-kth-edge` | [Cạnh Lớn Thứ K](https://fptoj.com/problem/rmqt-kth-edge) | ⭐⭐⭐⭐ | Cạnh lớn thứ $K$ trên đường đi | [Lubenica & RMQ trên cây](lubenica-rmq-tree.md) |
+
+---
+
+**Bài trước:** [← Bài 87: Heavy-Light Decomposition](hld.md) | **Bài tiếp theo:** [Bài 89: Small-to-Large (DSU on Tree / Sack) →](small-to-large.md)

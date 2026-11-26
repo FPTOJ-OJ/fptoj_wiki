@@ -1,4 +1,4 @@
-# BIT 2D (Fenwick Tree 2D) - Truy Vấn Tổng Hình Chữ Nhật
+# Bài 24: BIT 2D (Fenwick Tree 2D) - Truy Vấn Tổng Hình Chữ Nhật
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Fenwick Tree, CP-Algorithms
@@ -309,5 +309,6 @@ for (int i = 1; i <= n; i++)
 - [VNOI Wiki — Fenwick Tree](https://wiki.vnoi.info/algo/data-structures/fenwick)
 - [USACO Guide — 2D Range Queries](https://usaco.guide/plat/2DRQ?lang=cpp)
 
+---
 
-
+**Bài trước:** [← Bài 23: Fenwick Tree (BIT)](fenwick-tree.md) | **Bài tiếp theo:** [Bài 25: Sparse Table →](sparse-table.md)

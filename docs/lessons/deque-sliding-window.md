@@ -1,4 +1,4 @@
-# Bài 15: Deque & Sliding Window
+# Bài 19: Deque & Sliding Window
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Deque, Hàng đợi hai đầu
@@ -504,8 +504,8 @@ q.popleft()  # O(1)
 
 ## Bài viết liên quan
 
-- [Bài 7: Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md)
-- [Bài 16: Hash Table](hash-table.md)
+- [Bài 9: Mảng, Stack, Prefix Sum](mang-stack-prefix-sum.md)
+- [Bài 15: Hash Table](hash-table.md)
 
 ## Tài liệu tham khảo
 
@@ -515,4 +515,6 @@ q.popleft()  # O(1)
 - [YouTube - Deque Sliding Window](https://www.youtube.com/watch?v=5VjQD62gOYA)
 - [VNOI Wiki - Deque](https://wiki.vnoi.info/algo/data-structures/deque-min-max)
 
-**Bài tiếp theo:** [Trie](trie.md)
+---
+
+**Bài trước:** [← Bài 18: DSU Rollback](dsu-rollback.md) | **Bài tiếp theo:** [Bài 20: Trie →](trie.md)

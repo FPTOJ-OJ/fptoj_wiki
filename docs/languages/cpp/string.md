@@ -16,7 +16,7 @@ Các chương trình C++ có thể sử dụng chuỗi theo cách thức cũ c�
 Thư viện chuẩn STL (Standard Template Library) cung cấp kiểu `string` (xâu ký tự), giúp các bạn tránh khỏi hoàn toàn các phiền phức nêu trên.Các chỉ thị `#include` cần khai báo để sử dụng string:
 
 ```cpp
-## include <string>
+#include <string>
 using std::string;
 //using namespace std;
 ```
@@ -210,8 +210,8 @@ Ví dụ:
 
 ```cpp
 // comparing apples with apples
-## include <iostream>
-## include <string>
+#include <iostream>
+#include <string>
 using namespace std;
 int main ()
 {
@@ -366,9 +366,9 @@ Sau đây là ví dụ bên trên được viết lại dùng hàm thành viên 
 
 ```cpp
 // strings vs c-strings
-## include <iostream>
-## include <string.h>
-## include <string>
+#include <iostream>
+#include <string.h>
+#include <string>
 using std::string;
 int main ()
 {
@@ -408,9 +408,9 @@ InputIterator last,
 OutputIterator result,
 UnaryOperation unary_op );
 
-## include <cctype> // for toupper
-## include <string>
-## include <algorithm> //for transform
+#include <cctype> // for toupper
+#include <string>
+#include <algorithm> //for transform
 using namespace std;
 char alphabet(char c)
 {

@@ -1,4 +1,4 @@
-# Bài 55: Ternary Search - Tìm kiếm tam phân
+# Bài 104: Ternary Search - Tìm kiếm tam phân
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, e-maxx
@@ -576,3 +576,7 @@ Nếu hàm có nhiều đỉnh, Ternary Search có thể hội tụ vào cực t
 ---
 
 *Bài viết này là một phần của FPTOJ Wiki - Dự án xây dựng kho tài liệu lập trình thi đấu tiếng Việt.*
+
+---
+
+**Bài trước:** [← Bài 103: Convex Hull Trick & Li Chao Tree](convex-hull-trick.md) | **Bài tiếp theo:** [Bài 105: Giải Thuật Cắt Tỉa Alpha-Beta →](alpha-beta.md)

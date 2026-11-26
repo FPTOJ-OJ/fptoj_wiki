@@ -1,4 +1,4 @@
-# Bài 9: KMP - Tìm Xâu Mẫu O(N + M)!
+# Bài 45: KMP - Tìm Xâu Mẫu O(N + M)!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki, USACO Guide
@@ -524,10 +524,10 @@ Với $N = 10^7$, xâu ghép có độ dài $\sim 2 \times 10^7$, mảng $\pi$ c
 
 ## 8. Bài viết liên quan
 
-- [Bài 14: Hash xâu & Z-algorithm](hash-xau-z-algorithm.md)
-- [Bài 20: Manacher (Palindrome)](manacher.md)
-- [Bài 17: Trie](trie.md)
-- [Bài 51: Aho-Corasick](aho-corasick.md)
+- [Bài 46: Hash xâu & Z-algorithm](hash-xau-z-algorithm.md)
+- [Bài 47: Manacher (Palindrome)](manacher.md)
+- [Bài 20: Trie](trie.md)
+- [Bài 98: Aho-Corasick](aho-corasick.md)
 
 ## Tài liệu tham khảo
 
@@ -537,3 +537,7 @@ Với $N = 10^7$, xâu ghép có độ dài $\sim 2 \times 10^7$, mảng $\pi$ c
 - [USACO Guide - String Searching](https://usaco.guide/adv/string-search)
 - [GeeksforGeeks - KMP Algorithm](https://www.geeksforgeeks.org/dsa/kmp-algorithm-for-pattern-searching/)
 - [Codeforces - KMP Resource for Beginners](https://codeforces.com/blog/entry/92981)
+
+---
+
+**Bài trước:** [← Bài 44: Xâu Ký Tự Cơ Bản](xau-co-ban.md) | **Bài tiếp theo:** [Bài 46: Hash Xâu & Z-Algorithm →](hash-xau-z-algorithm.md)

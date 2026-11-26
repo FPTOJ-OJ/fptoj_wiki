@@ -1,4 +1,4 @@
-# Bài 45: Centroid Decomposition - Phân tách trọng tâm!
+# Bài 86: Centroid Decomposition - Phân tách trọng tâm!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
@@ -713,9 +713,9 @@ Với mỗi centroid, lưu **multiset** khoảng cách đến các đỉnh đã 
 
 ## 8. Bài viết liên quan
 
-- [Bài 46: Heavy-Light Decomposition](hld.md) — Phân tách heavy path
-- [Bài 44: Euler Tour trên cây](euler-tour-tree.md) — Duyệt Euler
-- [Bài 43: 2-SAT](2sat.md) — Bài toán 2-SAT
+- [Bài 87: Heavy-Light Decomposition](hld.md) — Phân tách heavy path
+- [Bài 85: Euler Tour trên cây](euler-tour-tree.md) — Duyệt Euler
+- [Bài 84: 2-SAT](2sat.md) — Bài toán 2-SAT
 
 ---
 
@@ -729,4 +729,4 @@ Với mỗi centroid, lưu **multiset** khoảng cách đến các đỉnh đã 
 
 ---
 
-> **Bài tiếp theo:** [Bài 46: Heavy-Light Decomposition](hld.md)
+**Bài trước:** [← Bài 85: Euler Tour trên cây](euler-tour-tree.md) | **Bài tiếp theo:** [Bài 87: Heavy-Light Decomposition →](hld.md)

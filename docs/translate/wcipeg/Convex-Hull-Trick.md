@@ -231,9 +231,9 @@ Các thao tác này có thể được thực hiện hiệu quả trong $O(logN)
 Độ phức tạp cho toàn bộ thuật toán là $O(NlogN)$.
 
 ```cpp
-## include <bits/stdc++.h>
-## define X first
-## define Y second
+#include <bits/stdc++.h>
+#define X first
+#define Y second
 
 const int N = 100005;
 const long long INF = (long long)1e18;

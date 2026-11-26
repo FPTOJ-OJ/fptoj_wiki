@@ -1,4 +1,4 @@
-# Bài 51: Tối ưu Quy Hoạch Động 1 Chiều (1D/1D DP Optimization)
+# Bài 96: Tối ưu Quy Hoạch Động 1 Chiều (1D/1D DP Optimization)
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - 1D1D DP Optimization
@@ -26,7 +26,7 @@ Bài toán chia nhóm ở đầu bài với $a = [1, 2, 3]$, $S = [0, 1, 3, 6]$,
 | 2 | $\{(0,1,1), (1,2,3)\}$ | $j=1$ | $1 + 2^2 = 5$ | $i=2$ tốt hơn $1$ từ vị trí $3$ → $\{(0,1,1), (1,2,2), (2,3,3)\}$ |
 | 3 | $\{(1,2,2), (2,3,3)\}$ (bỏ $(0,1,1)$ hết hạn) | $j=2$ | $5 + 3^2 = 14$ | — |
 
-Đáp án $dp[3] = 14$ (chia $[1]\,[2,3]$: $1 + 25 = 26$? Không — thử $[1,2]\,[3]$: $9+9=18$? $[1]\,[2]\,[3]$: $1+4+9=14$ ✓ — 3 nhóm riêng lẻ tối ưu vì mọi $a_i > 0$). Mỗi $i$ chỉ nhìn đầu deque ($O(1)$) + chèn nhị phân ($O(\log N)$) → tổng $O(N \log N)$ thay vì $O(N^2)$.
+Đáp án $dp[3] = 14$ (chia thành 3 nhóm riêng lẻ $[1]\,[2]\,[3]$ cho $1+4+9=14$, nhỏ hơn $[1,2]\,[3]$ cho $9+9=18$ hay $[1]\,[2,3]$ cho $1+25=26$ vì mọi $a_i > 0$). Mỗi $i$ chỉ nhìn đầu deque ($O(1)$) + chèn nhị phân ($O(\log N)$) → tổng $O(N \log N)$ thay vì $O(N^2)$.
 
 ### 1.1 Công thức tổng quát
 
@@ -183,6 +183,8 @@ graph LR
 === "Python"
 
     ```python
+    from collections import deque
+
     class Decision:
         def __init__(self, j, l, r):
             self.j = j
@@ -198,12 +200,12 @@ graph LR
         dp = [float('inf')] * (n + 1)
         dp[0] = 0
 
-        dq = [Decision(0, 1, n)]
+        dq = deque([Decision(0, 1, n)])
 
         for i in range(1, n + 1):
             # 1. Loại bỏ các phần tử đầu lỗi thời
             while dq and dq[0].r < i:
-                dq.pop(0)
+                dq.popleft()
 
             # 2. Tính dp[i]
             best_j = dq[0].j
@@ -414,3 +416,7 @@ return (long long)((__int128)sum * sum % MOD); // nếu cần mod
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |
 | `d1d-cost-k` | [Chi Phí K](https://fptoj.com/problem/d1d-cost-k) | ⭐⭐⭐⭐⭐ | DP 1D1D - Chi phí đoạn K | [DP 1D1D](dp-1d1d.md) |
+
+---
+
+**Bài trước:** [← Bài 95: Kĩ Thuật Bao Lồi Trong Quy Hoạch Động](dp-convex-hull.md) | **Bài tiếp theo:** [Bài 97: DP on Broken Profile →](dp-broken-profile.md)

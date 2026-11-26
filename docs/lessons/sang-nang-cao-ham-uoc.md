@@ -1,4 +1,4 @@
-# Bài 56: Sàng Nâng Cao & Hàm Ước
+# Bài 59: Sàng Nâng Cao & Hàm Ước
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -488,3 +488,7 @@ $$\sum_{i=1}^{N} d(i) = \sum_{i=1}^{N} \lfloor N/i \rfloor = 2\sum_{i=1}^{\lfloo
 | `snhh-divcnt-range` | [Đếm số có K ước](https://fptoj.com/problem/snhh-divcnt-range) | ⭐⭐ | Sàng số ước | [Sàng Nâng Cao & Hàm Ước](sang-nang-cao-ham-uoc.md) |
 | `snhh-squarefree` | [Đếm số square-free](https://fptoj.com/problem/snhh-squarefree) | ⭐⭐⭐ | Möbius lọc | [Sàng Nâng Cao & Hàm Ước](sang-nang-cao-ham-uoc.md) |
 | `snhh-lcm-range` | [LCM trên đoạn](https://fptoj.com/problem/snhh-lcm-range) | ⭐⭐⭐⭐ | LCM $[l,r]$ | [Sàng Nâng Cao & Hàm Ước](sang-nang-cao-ham-uoc.md) |
+
+---
+
+**Bài trước:** [← Bài 58: Lý Thuyết Trò Chơi](ly-thuyet-tro-choi.md) | **Bài tiếp theo:** [Bài 60: Nguyên Lý Bao Hàm →](nguyen-ly-bao-ham-loai-tru.md)

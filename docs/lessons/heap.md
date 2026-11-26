@@ -1,4 +1,4 @@
-# Bài 8a: Heap (Đống) - Hàng Đợi Ưu Tiên
+# Bài 16: Heap (Đống) - Hàng Đợi Ưu Tiên
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Binary Heap, CP-Algorithms
@@ -563,3 +563,7 @@ if (!pq.empty()) { int t = pq.top(); } // bước kiểm tra
 *   [VNOI Wiki - Binary Heap](https://wiki.vnoi.info/algo/data-structures/binary-heap)
 *   [CP-Algorithms - Heap](https://cp-algorithms.com/data_structures/heap.html)
 *   [GeeksforGeeks - Heap Sort Algorithm](https://www.geeksforgeeks.org/heap-sort/)
+
+---
+
+**Bài trước:** [← Bài 15: Hash Table (Bảng Băm)](hash-table.md) | **Bài tiếp theo:** [Bài 17: Disjoint Set Union (DSU) →](dsu.md)

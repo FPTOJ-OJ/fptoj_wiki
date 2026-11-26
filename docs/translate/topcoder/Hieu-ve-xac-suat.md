@@ -17,7 +17,7 @@ Ta hình dung làm việc với xác suất như tiến hành một cuộc thí 
 Chúng ta cùng xem xét ví dụ dưới đây:
 
 - Tung xúc sắc một lần
-  - Không gian mẫu $S = {1,2,3,4,5,6} $
+  - Không gian mẫu $S = {1,2,3,4,5,6}$
 - Tung hai đồng xu
   - Không gian mẫu $S = { (0, 0), (0, 1), (1, 0), (1, 1) }$ với 0 thể hiện đồng xu sấp và 1 thể hiện đồng xu ngửa.
 
@@ -39,16 +39,16 @@ Nói cách khác, ta có thể tính xác suất để một biến cố xảy r
 
 - Biến cố $A$: *điểm > 3*: ${4,5,6}$
 - Biến cố $B$: *điểm là số lẻ*: ${1,3,5}$
-- Biến cố $C$: *điểm là 7*: $\varnothing $
+- Biến cố $C$: *điểm là 7*: $\varnothing$
 - $A \cup B$: *điểm > 3* hoặc *điểm là số lẻ*: $={1, 3, 4, 5, 6}$
-- $A \cap B$: *điểm > 3* và *là số lẻ*: $ {5}$
+- $A \cap B$: *điểm > 3* và *là số lẻ*: ${5}$
 - $A'$: *biến cố A không xảy ra*: ${1, 2, 3}$
 
 Xác suất:
 
 - $P(A \cup B) = 5/6$
 - $P(A \cap B) = 1/6$
-- $P(A’) = 1 – P(A) = 1 – 1/2 = 1/2 $
+- $P(A’) = 1 – P(A) = 1 – 1/2 = 1/2$
 - $P(C) = 0$
 
 Bước đầu tiên khi giải một bài toán về xác suất là xác định được không gian mẫu. Tiếp theo, bạn sẽ phải xác định số lượng phần tử của biến cố thỏa mãn. Đây là cách tiếp cận cơ bản, nhưng khi áp dụng, nó có thể thay đổi tùy vào từng bài tập.
@@ -130,7 +130,7 @@ Một bài thú vị khác là [PipeCuts (SRM 233, Div 1 – Easy)](http://commu
 
 ## Biến cố độc lập
 
-Xét $n$ biến cố độc lập (*independent events*): $ E_1, E_2, ..., E_n$ . Hai câu hỏi thường gặp là:
+Xét $n$ biến cố độc lập (*independent events*): $E_1, E_2, ..., E_n$ . Hai câu hỏi thường gặp là:
 
 1. Xác suất để tất cả biến cố xảy ra?: $P(all)$
 2. Xác suất để ít nhất một biến cố trong số chúng xảy ra? $P(any)$
@@ -143,11 +143,11 @@ Xét $n$ biến cố độc lập (*independent events*): $ E_1, E_2, ..., E_n$ 
 
 Vì xác suất được định nghĩa là một số thực nằm trong khoảng từ 0 đến 1, ta tổng hợp được xác suất để tất cả các biến cố xảy ra bằng công thức dưới đây:
 
-  $P(all) = P(E_1)  \times  P(E_2)  \times  ...  \times  P(En) $
+  $P(all) = P(E_1)  \times  P(E_2)  \times  ...  \times  P(En)$
 
 Cách tốt nhất để trả lời câu hỏi thứ hai là tìm xác suất để không có biến cố nào diễn ra và lấy phần bù.
 
-  $P(any) = 1 - P(E_1')  \times  P(E_2')  \times  ...  \times  P(E_n') $
+  $P(any) = 1 - P(E_1')  \times  P(E_2')  \times  ...  \times  P(E_n')$
 
 Những công thức trên được ứng dụng rất nhiều, cần nắm chắc để đi đền phần tiếp theo.
 

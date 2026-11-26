@@ -211,7 +211,7 @@ Vấn đề đặt ra là cần phải đếm tất cả các khớp và cầu c
 - Vector `g[]` - Danh sách cạnh kề của mỗi đỉnh 
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
  
 using namespace std;
  
@@ -434,7 +434,7 @@ yes
 - Vector `g[]` - Danh sách cạnh kề của mỗi đỉnh 
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -716,7 +716,7 @@ Vì đồ thị ban đầu liên thông và có $N - 1$ cạnh nên đây là đ
 - Vector `g[]` - Danh sách cạnh kề của mỗi đỉnh 
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
  
 using namespace std;
  
@@ -908,7 +908,7 @@ Cho đồ thị $G(V, E)$ có hướng $N$ $(1 \le N \le 10^4)$ đỉnh, $M$ $(1
 - Ngăn xếp `st` - Lưu lại các đỉnh trong thành phần liên thông mạnh
 
 ```cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -1080,7 +1080,7 @@ Xuất phát từ ô ở góc tây bắc của khu vườn, hãy giúp Robot tr�
 - Vector `h[]` - Lưu đồ thị mới (**đồ thị *DAG***).
 
 ``` cpp
-## include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
  

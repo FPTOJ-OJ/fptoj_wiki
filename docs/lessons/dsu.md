@@ -1,4 +1,4 @@
-# Bài 8b: Disjoint Set Union (DSU) - Cấu Trúc Các Tập Hợp Rời Nhau
+# Bài 17: Disjoint Set Union (DSU) - Cấu Trúc Các Tập Hợp Rời Nhau
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Disjoint Set Union, CP-Algorithms
@@ -609,6 +609,10 @@ Trong Python, giới hạn độ sâu đệ quy mặc định là $1000$. Nếu 
 *   [VNOI Wiki - Disjoint Set Union](https://wiki.vnoi.info/algo/data-structures/disjoint-set-union)
 
 **Bài liên quan:**
-*   [Bài 8a: Heap (Hàng đợi ưu tiên)](heap.md)
-*   [Bài 8c: Segment Tree (Cây phân đoạn)](segment-tree.md)
-*   [Bài 8d: Fenwick Tree (Cây chỉ số nhị phân)](fenwick-tree.md)
+*   [Bài 16: Heap (Hàng đợi ưu tiên)](heap.md)
+*   [Bài 21: Segment Tree (Cây phân đoạn)](segment-tree.md)
+*   [Bài 23: Fenwick Tree (Cây chỉ số nhị phân)](fenwick-tree.md)
+
+---
+
+**Bài trước:** [← Bài 16: Heap (Đống)](heap.md) | **Bài tiếp theo:** [Bài 18: DSU Rollback →](dsu-rollback.md)

@@ -1,4 +1,4 @@
-# Bài 18: Euclid & Modular Inverse
+# Bài 50: Euclid & Modular Inverse
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Thuật toán Euclid, Nghịch đảo modulo
@@ -468,21 +468,21 @@ $$
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |
-| `euclid-gcd` | [Ước chung lớn nhất](https://fptoj.com/problem/euclid-gcd) | ⭐ | GCD - Ước chung lớn nhất | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-lcm` | [Bội chung nhỏ nhất](https://fptoj.com/problem/euclid-lcm) | ⭐ | LCM - Bội chung nhỏ nhất | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-egcd` | [Euclid mở rộng](https://fptoj.com/problem/euclid-egcd) | ⭐⭐ | Extended GCD - Euclid mở rộng | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-pow` | [Lũy thừa modulo](https://fptoj.com/problem/euclid-pow) | ⭐⭐ | Lũy thừa nhị phân | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-inv` | [Nghịch đảo modulo](https://fptoj.com/problem/euclid-inv) | ⭐⭐ | Nghịch đảo modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-div` | [Chia modulo](https://fptoj.com/problem/euclid-div) | ⭐⭐ | Chia modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-nck` | [Tổ hợp modulo](https://fptoj.com/problem/euclid-nck) | ⭐⭐⭐ | Tổ hợp C(n,k) modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-sumpow` | [Tổng lũy thừa](https://fptoj.com/problem/euclid-sumpow) | ⭐⭐⭐ | Cấp số nhân modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-sumdiv` | [Tổng ước số](https://fptoj.com/problem/euclid-sumdiv) | ⭐⭐ | Tổng các ước số | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-coprime` | [Đếm cặp nguyên tố cùng nhau](https://fptoj.com/problem/euclid-coprime) | ⭐⭐⭐⭐ | Möbius + Bao hàm loại trừ | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-lucas` | [Định lý Lucas](https://fptoj.com/problem/euclid-lucas) | ⭐⭐⭐⭐ | Định lý Lucas | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-crt` | [Định lý thặng dư Trung Hoa](https://fptoj.com/problem/euclid-crt) | ⭐⭐⭐⭐ | CRT - Thặng dư Trung Hoa | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-frac` | [Số học phân số](https://fptoj.com/problem/euclid-frac) | ⭐⭐⭐ | Số học phân số modulo | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-invfact` | [Giai thừa và nghịch đảo](https://fptoj.com/problem/euclid-invfact) | ⭐⭐⭐ | Nghịch đảo giai thừa | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
-| `euclid-catalan` | [Số Catalan modulo](https://fptoj.com/problem/euclid-catalan) | ⭐⭐⭐ | Số Catalan | [Bài 18: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-gcd` | [Ước chung lớn nhất](https://fptoj.com/problem/euclid-gcd) | ⭐ | GCD - Ước chung lớn nhất | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-lcm` | [Bội chung nhỏ nhất](https://fptoj.com/problem/euclid-lcm) | ⭐ | LCM - Bội chung nhỏ nhất | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-egcd` | [Euclid mở rộng](https://fptoj.com/problem/euclid-egcd) | ⭐⭐ | Extended GCD - Euclid mở rộng | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-pow` | [Lũy thừa modulo](https://fptoj.com/problem/euclid-pow) | ⭐⭐ | Lũy thừa nhị phân | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-inv` | [Nghịch đảo modulo](https://fptoj.com/problem/euclid-inv) | ⭐⭐ | Nghịch đảo modulo | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-div` | [Chia modulo](https://fptoj.com/problem/euclid-div) | ⭐⭐ | Chia modulo | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-nck` | [Tổ hợp modulo](https://fptoj.com/problem/euclid-nck) | ⭐⭐⭐ | Tổ hợp C(n,k) modulo | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-sumpow` | [Tổng lũy thừa](https://fptoj.com/problem/euclid-sumpow) | ⭐⭐⭐ | Cấp số nhân modulo | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-sumdiv` | [Tổng ước số](https://fptoj.com/problem/euclid-sumdiv) | ⭐⭐ | Tổng các ước số | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-coprime` | [Đếm cặp nguyên tố cùng nhau](https://fptoj.com/problem/euclid-coprime) | ⭐⭐⭐⭐ | Möbius + Bao hàm loại trừ | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-lucas` | [Định lý Lucas](https://fptoj.com/problem/euclid-lucas) | ⭐⭐⭐⭐ | Định lý Lucas | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-crt` | [Định lý thặng dư Trung Hoa](https://fptoj.com/problem/euclid-crt) | ⭐⭐⭐⭐ | CRT - Thặng dư Trung Hoa | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-frac` | [Số học phân số](https://fptoj.com/problem/euclid-frac) | ⭐⭐⭐ | Số học phân số modulo | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-invfact` | [Giai thừa và nghịch đảo](https://fptoj.com/problem/euclid-invfact) | ⭐⭐⭐ | Nghịch đảo giai thừa | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
+| `euclid-catalan` | [Số Catalan modulo](https://fptoj.com/problem/euclid-catalan) | ⭐⭐⭐ | Số Catalan | [Bài 50: Euclid & Modular Inverse](euclid-modular-inverse.md) |
 
 ### Tham khảo thêm
 
@@ -498,9 +498,9 @@ $$
 
 ## Bài Viết Liên Quan
 
-- [Bài 11: Lũy thừa nhị phân](luy-thua-nhi-phan-sang-nguyen-to.md)
-- [Bài 19: Tổ hợp & Xác suất](to-hop-xac-suat.md)
-- [Bài 26: Số học nâng cao](so-hoc-nang-cao.md)
+- [Bài 10: Lũy thừa nhị phân](luy-thua-nhi-phan-sang-nguyen-to.md)
+- [Bài 51: Tổ hợp & Xác suất](to-hop-xac-suat.md)
+- [Bài 52: Số học nâng cao](so-hoc-nang-cao.md)
 
 ## Tài Liệu Tham Khảo
 
@@ -509,4 +509,6 @@ $$
 - [CP-Algorithms - Euclidean Algorithm](https://cp-algorithms.com/algebra/euclid-algorithm.html)
 - [CP-Algorithms - Modular Inverse](https://cp-algorithms.com/algebra/module-inverse.html)
 
-**Bài tiếp theo:** [Tổ hợp & Xác suất](to-hop-xac-suat.md)
+---
+
+**Bài trước:** [← Bài 49: Palindrome Tree (Eertree)](palindrome-tree.md) | **Bài tiếp theo:** [Bài 51: Tổ Hợp & Xác Suất →](to-hop-xac-suat.md)

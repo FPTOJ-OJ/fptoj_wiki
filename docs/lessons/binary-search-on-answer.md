@@ -1,4 +1,4 @@
-# Bài 25: Binary Search on Answer - Tìm Kiếm Trên Đáp Án!
+# Bài 43: Binary Search on Answer - Tìm Kiếm Trên Đáp Án!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki - Tìm kiếm nhị phân
@@ -404,9 +404,9 @@ int maximizeMinimum(int lo, int hi) {
 
 ## Bài viết liên quan
 
-- [Bài 3: Tìm kiếm nhị phân](tim-kiem-nhi-phan.md)
-- [Bài 4: Kĩ thuật hai con trỏ](ky-thuat-hai-con-tro.md)
-- [Bài 12: Quy hoạch động](quy-hoach-dong.md)
+- [Bài 4: Tìm kiếm nhị phân](tim-kiem-nhi-phan.md)
+- [Bài 8: Kĩ thuật hai con trỏ](ky-thuat-hai-con-tro.md)
+- [Bài 40: Quy hoạch động](quy-hoach-dong.md)
 
 ## Tài liệu tham khảo
 
@@ -415,4 +415,6 @@ int maximizeMinimum(int lo, int hi) {
 - [USACO Guide - Binary Search on Answer](https://usaco.guide/silver/binary-search)
 - [YouTube - Binary Search on Answer (takeuforward)](https://www.youtube.com/watch?v=MHf6awe89xw)
 
-**Bài tiếp theo:** [KMP - Tìm xâu →](kmp-tim-xau.md)
+---
+
+**Bài trước:** [← Bài 42: Quy Hoạch Động Trên DAG](dp-on-dag.md) | **Bài tiếp theo:** [Bài 44: Xâu Ký Tự Cơ Bản →](xau-co-ban.md)

@@ -1,4 +1,4 @@
-# Bài 46: Heavy-Light Decomposition - Phân rã cây!
+# Bài 87: Heavy-Light Decomposition - Phân rã cây!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms
@@ -1046,4 +1046,4 @@ Cây sâu có thể gây tràn đệ quy. C++ cần tăng stack size hoặc dùn
 
 ---
 
-*Bài tiếp theo: [Bài 47: DP trên cây](./dp-on-trees.md)*
+**Bài trước:** [← Bài 86: Centroid Decomposition](centroid-decomposition.md) | **Bài tiếp theo:** [Bài 88: Lubenica →](lubenica-rmq-tree.md)

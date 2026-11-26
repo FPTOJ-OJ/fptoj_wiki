@@ -139,7 +139,7 @@ MergeSort(mảng S) {
 }
 ```
 
-Ta thấy là chỉ cần $O(N)$ (hoặc $O(1)$, tùy vào cách cài đặt) để chia một mảng $N$ phần tử thành hai mảng con. Trộn hai mảng con ngắn hơn đã sắp xếp này có thể làm trong $ \Theta(N)$: khởi tạo mảng $S$ rỗng. Tại mỗi bước phần tử nhỏ nhất mà chưa có trong $S$ là phần tử đầu của $S1$ hoặc $S2$. Lấy phần tử này cho vào cuối của $S$ và cứ thế tiếp tục.
+Ta thấy là chỉ cần $O(N)$ (hoặc $O(1)$, tùy vào cách cài đặt) để chia một mảng $N$ phần tử thành hai mảng con. Trộn hai mảng con ngắn hơn đã sắp xếp này có thể làm trong $\Theta(N)$: khởi tạo mảng $S$ rỗng. Tại mỗi bước phần tử nhỏ nhất mà chưa có trong $S$ là phần tử đầu của $S1$ hoặc $S2$. Lấy phần tử này cho vào cuối của $S$ và cứ thế tiếp tục.
 
 Như vậy tổng độ phức tạp cần để $MergeSort$ một mảng với $N$ phần tử là $\Theta(N)$ cộng với thời gian thực hiện hai lệnh gọi đệ quy.
 
@@ -257,7 +257,7 @@ Một cách xử lý phổ biến trong toán tổ hợp là tính tổng các c
 Câu hỏi thứ hai là: cây trên có bao nhiêu mức? Rõ ràng là lớp lá tương ứng với trường hợp cơ bản của thuật toán. Chú ý là kích cỡ mảng cần xử lý giảm một nửa khi đi từ mức trên xuống mức dưới. Vì sau $lgN$ bước ta có bài toán cơ bản với mảng có $1$ phần tử, chiều cao của cây (tổng số mức) sẽ là $\Theta(logN)$.
 
 Từ hai nhận xét trên ta thu được kết quả cuối cùng: tổng độ phức tạp cần thực hiện là
-$ \Theta(cN log N) = \Theta(N log N)$.
+$\Theta(cN log N) = \Theta(N log N)$.
 
 Nếu bạn chưa hoàn toàn tin tưởng vào kết quả vừa thu được thì có thể áp dụng phương pháp Thay Thế ở trên để kiểm tra lại. Trong phần sau ta sẽ thấy là tồn tại những định lý cụ thể để có thể chứng minh chặt chẽ kết quả thu được ở trên.
 
@@ -307,7 +307,7 @@ $$
 S = \frac{cN^3}{1 - \frac{3}{8}} = \frac{8}{5}cN^3 = \Theta(N^3)
 $$
 
-Như vậy tổng độ phức tạp trên cây đệ quy là $O(N^3)$ (tổng tới vô cùng cho ta cận trên). Ta cũng thấy là ngay phần từ đầu tiên của dãy cấp số nhân đã là $ \Theta(N^3)$. Vậy ta kết luận tổng độ phức tạp của cây đệ quy trên là $ \Theta(N^3)$.
+Như vậy tổng độ phức tạp trên cây đệ quy là $O(N^3)$ (tổng tới vô cùng cho ta cận trên). Ta cũng thấy là ngay phần từ đầu tiên của dãy cấp số nhân đã là $\Theta(N^3)$. Vậy ta kết luận tổng độ phức tạp của cây đệ quy trên là $\Theta(N^3)$.
 
 Một nguyên lý tổng quát quan trọng ta có thể rút ra từ ví dụ này là: nếu tổng độ phức tạp của các mức của cây tạo nên một dãy cấp số nhân giảm, thì tổng độ phức tạp trên cả cây sẽ tiệm cận bằng với độ phức tạp ở gốc của cây.
 
@@ -354,7 +354,7 @@ Sử dụng phương trình (3) ta viết lại giá trị này là $cN^{log_35}
 
 Để tính tổng độ phức tạp trên toàn cây ta **đảo ngược** cây, tạo thành một dãy cấp số nhân **giảm** và như vậy ta có thể áp dụng cách tính ở trên. Xử lý tương tự ví dụ trước đó ta thu được tổng độ phức tạp là một giá trị tiệm cận bằng với phần tử lớn nhất trong dãy cấp số nhân.
 
-Ta kết luận rằng tổng độ phức tạp của thuật toán biểu diễn bởi phương trình trên là xấp xỉ $\Theta(N^{log_35}) \approx \Theta(N^{1.465}) $.
+Ta kết luận rằng tổng độ phức tạp của thuật toán biểu diễn bởi phương trình trên là xấp xỉ $\Theta(N^{log_35}) \approx \Theta(N^{1.465})$.
 
 Lưu ý là cơ số 3 trong hàm logarit cho ta kết quả mũ chính xác, vì vậy cơ số này rất quan trọng. Nếu là cơ số khác thì giá trị tiệm cận cũng sẽ thay đổi.
 
@@ -373,9 +373,9 @@ f(N) = af(N/b) + p(N)
 $$
 Ta có kết quả sau:
 
-1. Nếu $p(N) = O(N^{(log_ba) - \varepsilon})$ với một số $ \varepsilon$ > 0 nào đó thì $f(N) = \Theta(N^{log_ba})$
+1. Nếu $p(N) = O(N^{(log_ba) - \varepsilon})$ với một số $\varepsilon$ > 0 nào đó thì $f(N) = \Theta(N^{log_ba})$
 2. Nếu $p(N) = O(N^{(log_ba) - \varepsilon})$  thì $f (N) = \Theta(p(N)log N)$.
-3. Nếu $p(N) = \Omega(N^{(log_ba) - \varepsilon})$ với một số $ \varepsilon$ > 0 nào đó, và nếu $ap(N/b) \leq cp(N)$ với $c < 1$ khi $N$ đủ lớn thì $ f (N) = \Theta(p(N))$.
+3. Nếu $p(N) = \Omega(N^{(log_ba) - \varepsilon})$ với một số $\varepsilon$ > 0 nào đó, và nếu $ap(N/b) \leq cp(N)$ với $c < 1$ khi $N$ đủ lớn thì $f (N) = \Theta(p(N))$.
 
 Trường hợp $1$ tương với **Ví dụ 7**. Hầu hết thời gian thực thi được dành cho việc gọi lệnh đệ quy và số lần gọi đệ quy là đáng kể.
 
@@ -395,7 +395,7 @@ $$
 f(N) = 7f(N/2) + \Theta(N^2)
 $$
 
-Sử dụng định lý Tổng Quát, ta thấy Trường hợp $1$ có thể áp dụng được. Vì vậy độ phức tạp của thuật toán Strassen là $\Theta(N^{log_27}) \approx \Theta({N^{2.807}})$. Lưu ý là thuật toán cổ điển nhân ma trận theo định nghĩa có độ phức tạp $ \Theta(N^3)$.
+Sử dụng định lý Tổng Quát, ta thấy Trường hợp $1$ có thể áp dụng được. Vì vậy độ phức tạp của thuật toán Strassen là $\Theta(N^{log_27}) \approx \Theta({N^{2.807}})$. Lưu ý là thuật toán cổ điển nhân ma trận theo định nghĩa có độ phức tạp $\Theta(N^3)$.
 
 ## Ví dụ 9
 Thỉnh thoảng ta có thể gặp trường hợp mà kích cỡ các bài toán con không bằng nhau. Một ví dụ là thuật toán **Trung vị của 5** để tìm phần tử lớn thứ *k* của một mảng số. Thuật toán trên được chứng minh là có độ phức tạp thỏa mãn công thức

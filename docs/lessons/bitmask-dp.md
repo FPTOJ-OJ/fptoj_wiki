@@ -1,4 +1,4 @@
-# Quy Hoạch Động Bitmask
+# Bài 41: Quy Hoạch Động Bitmask
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** VNOI Wiki, CP-Algorithms - DP with Bitmasks
@@ -102,7 +102,7 @@ Trong bitmask DP, những thao tác bit sau được dùng liên tục. **Học 
 | Mask đầy đủ $N$ bit | `(1 << N) - 1` | $\{0, 1, \ldots, N-1\}$ |
 | Lấy bit thấp nhất | `mask & -mask` | $k = \min(S)$ |
 | Tắt bit thấp nhất | `mask & (mask - 1)` | Xóa $k = \min(S)$ |
-| Đếm số bit 1 | `__builtin_popcount(mask)` (C++) hoặc `bin(mask).count('1')` (Python) | $\|S\|$ |
+| Đếm số bit 1 | `__builtin_popcount(mask)` (C++) hoặc `bin(mask).count('1')` (Python) | $\lvert S\rvert$ |
 | Duyệt tất cả tập con của mask | `for (int sub = mask; sub; sub = (sub-1) & mask)` | $O(3^N)$ tổng thể |
 | Kiểm tra tập con | `(sub & mask) == sub` | $sub \subseteq mask$ |
 
@@ -351,3 +351,7 @@ Sau khi tính $dp[\text{full}][v]$, cần cộng thêm $C[v][0]$ (quay về thà
 - [Quy hoạch động cơ bản](quy-hoach-dong.md)
 - [DP trên DAG](dp-on-dag.md)
 - [Tối ưu hóa quy hoạch động](dp-optimization.md)
+
+---
+
+**Bài trước:** [← Bài 40: Quy Hoạch Động (Dynamic Programming)](quy-hoach-dong.md) | **Bài tiếp theo:** [Bài 42: Quy Hoạch Động Trên DAG →](dp-on-dag.md)

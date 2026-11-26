@@ -215,19 +215,8 @@ struct Data {
 ### Bài 1: Sắp xếp cặp số
 Đọc n cặp số (a, b). Sắp xếp theo a tăng dần, nếu a bằng thì theo b giảm dần.
 
-**Input:**
-```
-3
-1 5
-2 3
-1 2
-```
-**Output:**
-```
-1 5
-1 2
-2 3
-```
+**Input:** `3` và các cặp `(1, 5), (2, 3), (1, 2)`<br>
+**Output:** `1 5`, `1 2`, `2 3` (mỗi cặp một dòng)
 
 <div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3
 1 5
@@ -273,10 +262,10 @@ struct Data {
 
 ## Bài viết liên quan
 
-- [C07: Template & Fast I/O ←](C07-template-fast-io.md)
+- [C08: Reference & Pointer ←](C08-reference-pointer.md)
 - [C10: Vector nâng cao →](C10-vector-nang-cao.md)
 
 ---
 
-**Bài trước:** [C07: Template & Fast I/O](C07-template-fast-io.md)<br>
+**Bài trước:** [C08: Reference & Pointer](C08-reference-pointer.md)<br>
 **Bài tiếp theo:** [C10: Vector nâng cao →](C10-vector-nang-cao.md)

@@ -1,4 +1,4 @@
-# Bài 43: 2-SAT - Logic & Đồ thị!
+# Bài 84: 2-SAT - Logic & Đồ thị!
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, USACO Guide
@@ -534,4 +534,4 @@ Kết hợp 2-SAT với khoảng (intervals). Cần xử lý thêm ràng buộc 
 
 ---
 
-> **Bài tiếp theo:** [Bài 44: Euler Tour trên cây](euler-tour-tree.md)
+**Bài trước:** [← Bài 83: Bipartite Matching](bipartite-matching.md) | **Bài tiếp theo:** [Bài 85: Euler Tour trên cây →](euler-tour-tree.md)

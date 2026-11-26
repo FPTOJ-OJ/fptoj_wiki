@@ -162,7 +162,7 @@ Từ $(1)$ và $(2)$ có thể khẳng định, $T'$ là đồ thị Euler.
 === "C++"
 
     ```cpp
-    ## include<bits/stdc++.h>
+    #include<bits/stdc++.h>
 
     using namespace std;
 
@@ -607,7 +607,7 @@ Giới hạn: $n, q \leq 2 \times 10^5$
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 

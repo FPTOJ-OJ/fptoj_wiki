@@ -1,4 +1,4 @@
-# Bài 57: Nhân Ma Trận & Lũy Thừa Ma Trận
+# Bài 62: Nhân Ma Trận & Lũy Thừa Ma Trận
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, VNOI Wiki
@@ -352,3 +352,7 @@ Với mỗi hàng, trạng thái là bitmask $m$ bit → ma trận chuyển kíc
 | `mm-graph-path` | [Số đường đi đồ thị ma trận](https://fptoj.com/problem/mm-graph-path) | ⭐⭐⭐⭐ | $A^K$ | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
 | `mm-walks` | [Walk trên đồ thị](https://fptoj.com/problem/mm-walks) | ⭐⭐⭐⭐ | $A^K$ vô hướng | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
 | `mm-hopping` | [Hopping ma trận](https://fptoj.com/problem/mm-hopping) | ⭐⭐⭐⭐ | Truy hồi nhiều bước | [Nhân Ma Trận & Lũy Thừa Ma Trận](nhan-ma-tran.md) |
+
+---
+
+**Bài trước:** [← Bài 61: Đếm Đường Đi Trên Lưới](dem-duong-di-luoi.md) | **Bài tiếp theo:** [Bài 63: Logarithm Rời Rạc (Baby-step Giant-step) →](logarithm-roi-rac.md)

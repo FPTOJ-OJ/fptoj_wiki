@@ -204,7 +204,7 @@ Còn với IT đoạn thẳng, ta cũng gặp khó khăn vì query không phải
 
 ## [VNOJ - VOMARIO](https://oj.vnoi.info/problem/vomario/)
 
-Bài "độc quyền" của IT đoạn thẳng. Trong bài này, ta cũng tìm công thức quy hoạch động $O(N^2)%: $f[i] = max(a[j] * x[i] + b[j] + c)$.
+Bài "độc quyền" của IT đoạn thẳng. Trong bài này, ta cũng tìm công thức quy hoạch động $O(N^2)$: $f[i] = \max(a[j] \cdot x[i] + b[j] + c)$.
 
 Tuy nhiên, đáng lưu ý là mỗi cặp $(a[j], b[j])$ chỉ được tính trong một khoảng $x[i]$ nào đó, còn $x[i]$ nằm ngoài khoảng đó thì cặp $(a[j], b[j])$ này không được phép chọn để lấy max. Đây chính là tính chất "đoạn thẳng" thay vì "đường thẳng". Bài này không thể sử dụng bao lồi để giải được.
 

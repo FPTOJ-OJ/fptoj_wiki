@@ -1,4 +1,4 @@
-# Bài 49: Interval DP - Quy hoạch động trên đoạn
+# Bài 92: Interval DP - Quy hoạch động trên đoạn
 
 > **Tác giả:** FPTOJ Team<br>
 > **Nội dung tham khảo từ:** CP-Algorithms, USACO Guide
@@ -739,7 +739,7 @@ Khi hàm chi phí $\text{cost}(l, r)$ thỏa mãn **bất đẳng thức tứ gi
 
 Kỹ thuật này hạ độ phức tạp thời gian từ **$O(N^3)$ xuống $O(N^2)$**, mở rộng giới hạn xử lý của $N$ từ $300$ lên tới $5000$.
 
-*(Chi tiết về chứng minh toán học và cài đặt nâng cao được trình bày cụ thể tại [Bài 50: Tối ưu Quy Hoạch Động](dp-optimization.md)).*
+*(Chi tiết về chứng minh toán học và cài đặt nâng cao được trình bày cụ thể tại [Bài 93: Tối ưu Quy Hoạch Động](dp-optimization.md)).*
 
 ---
 
@@ -794,3 +794,7 @@ Kỹ thuật này hạ độ phức tạp thời gian từ **$O(N^3)$ xuống $O
 - **Công thức cốt lõi:**
   $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + \text{merge\_cost} \}$$
 - **Kỹ năng tối quan trọng:** Quản lý vòng lặp theo độ dài tăng dần của đoạn để đảm bảo nguyên lý phụ thuộc dữ liệu của quy hoạch động.
+
+---
+
+**Bài trước:** [← Bài 91: Digit DP](digit-dp.md) | **Bài tiếp theo:** [Bài 93: Tối ưu Quy Hoạch Động →](dp-optimization.md)

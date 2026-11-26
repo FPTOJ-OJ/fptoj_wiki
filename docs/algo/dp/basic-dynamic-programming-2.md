@@ -90,9 +90,9 @@ Cần lưu ý thứ tự tính. Để tính $L[i][j]$ cần biết $L[i - 1][j -
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <string>
-    ## include <vector>
+    #include <iostream>
+    #include <string>
+    #include <vector>
     using namespace std;
 
     int m, n;
@@ -189,9 +189,9 @@ Nếu đề bài yêu cầu phải in ra xâu con dài nhất thì phải thực
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <string>
-    ## include <vector>
+    #include <iostream>
+    #include <string>
+    #include <vector>
     using namespace std;
 
     // Struct dùng để truy vết 
@@ -392,8 +392,8 @@ Tóm lại, công thức QHĐ là:
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <string>
+    #include <iostream>
+    #include <string>
     using namespace std;
 
     const int N = 5010;
@@ -494,8 +494,8 @@ Tương tự như các ví dụ trước, ta có thể dùng mảng hai chiều 
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <vector>
+    #include <iostream>
+    #include <vector>
     using namespace std;
 
     long long n, w;
@@ -577,8 +577,8 @@ Kết quả của bài toán là $L[n][m]$ hoặc $-1$ nếu $L[n][m ]=\inf$. Đ
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <vector>
+    #include <iostream>
+    #include <vector>
     using namespace std;
 
     // Struct để truy vết
@@ -753,7 +753,7 @@ Nếu tính theo thứ tự, để tính được $L[i][j]$ ta cần các giá t
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
     using namespace std;
 
     const int N = 310;
@@ -816,7 +816,7 @@ Nếu tính theo thứ tự, để tính được $L[i][j]$ ta cần các giá t
 === "C++"
 
     ```cpp
-    ## include <iostream>
+    #include <iostream>
     using namespace std;
 
     const int N = 310;
@@ -887,8 +887,8 @@ $L[1][n]$ là tổng đường chéo của cách chia tối ưu.
 === "C++"
 
     ```cpp
-    ## include <iostream>
-    ## include <cmath>
+    #include <iostream>
+    #include <cmath>
     using namespace std;
 
     struct Point

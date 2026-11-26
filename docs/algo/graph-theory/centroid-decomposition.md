@@ -136,7 +136,7 @@ Vậy tổng số đỉnh của tất cả các cây tạo thành từ thuật t
 === "C++"
 
     ```cpp
-    ## include<bits/stdc++.h>
+    #include<bits/stdc++.h>
 
     using namespace std;
 
@@ -308,9 +308,9 @@ Dưới đây là một code đã ac bài Lampice, bạn đọc có thể tham k
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
-    ## define For(i, a, b) for (int i=a;i<=b;++i)
+    #define For(i, a, b) for (int i=a;i<=b;++i)
 
     using namespace std;
 
@@ -576,7 +576,7 @@ Lưu ý, giá trị $dist(u, p) + s_p$ đề cập ở trên có thể là giá 
 === "C++"
 
     ```cpp
-    ## include <bits/stdc++.h>
+    #include <bits/stdc++.h>
 
     using namespace std;
 
