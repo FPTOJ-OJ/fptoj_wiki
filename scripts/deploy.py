@@ -28,7 +28,7 @@ def load_env():
 
 
 def build():
-    print("[1/2] Preparing content (matplotlib + mermaid)...")
+    print("[1/3] Preparing content (matplotlib + mermaid)...")
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "prepare_zensical.py")],
         cwd=ROOT,
@@ -37,7 +37,7 @@ def build():
         print("[ERROR] prepare_zensical.py failed.")
         sys.exit(1)
 
-    print("[2/2] Building site with Zensical...")
+    print("[2/3] Building site with Zensical...")
     result = subprocess.run(
         [sys.executable, "-m", "zensical", "build", "-f", "zensical.generated.yml"],
         cwd=ROOT,

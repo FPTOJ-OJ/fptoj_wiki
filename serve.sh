@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
-# Zensical dev server for Linux/macOS (production builds with Zensical too)
-# Usage: ./serve.sh [port]
-#   port: optional, default 8000
-#
-# Sửa file trong docs/ → watcher tự chuẩn bị lại nội dung (matplotlib/mermaid)
-# → Zensical rebuild trang bị ảnh hưởng.
-
+# Zensical dev server. Usage: ./serve.sh [port]
+# Sua file trong docs/ -> watcher tu sync sang build/docs -> Zensical rebuild.
 set -euo pipefail
 
 PORT="${1:-8000}"
 LOGFILE="log.txt"
-
-if ! command -v python3 &>/dev/null && ! command -v python &>/dev/null; then
-    echo "[ERROR] Python not found. Install Python 3.8+ first."
-    exit 1
-fi
-
 PYTHON=$(command -v python3 || command -v python)
 
 if ! $PYTHON -c "import zensical" &>/dev/null; then
@@ -23,18 +12,10 @@ if ! $PYTHON -c "import zensical" &>/dev/null; then
     $PYTHON -m pip install -r requirements.txt
 fi
 
-echo "======================================================"
-echo "  Preparing content (matplotlib + mermaid)..."
-echo "======================================================"
+echo "[1/2] Preparing content..."
 $PYTHON scripts/prepare_zensical.py
 
-echo "======================================================"
-echo "  Zensical server on http://localhost:${PORT}"
-echo "  Logs: ${LOGFILE}"
-echo "  Press Ctrl+C to stop"
-echo "======================================================"
-echo ""
-
+echo "[2/2] Serving on http://localhost:${PORT} (Ctrl+C to stop)"
 $PYTHON scripts/prepare_zensical.py --watch &
 WATCH_PID=$!
 trap 'kill "$WATCH_PID" 2>/dev/null || true' EXIT INT TERM

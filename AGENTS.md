@@ -2,7 +2,7 @@
 
 ## What This Is
 
-MkDocs + Material theme wiki for competitive programming education (Vietnamese). Content lives in `docs/`, config in `mkdocs.yml`. Deployed to Cloudflare Pages via GitHub Actions on push to `master`/`main`.
+Zensical + Material theme wiki for competitive programming education (Vietnamese). Content lives in `docs/`, config in `mkdocs.yml`. Deployed to Cloudflare Pages via GitHub Actions on push to `master`/`main`.
 
 - **Site**: https://wiki.fptoj.com
 - **Repo**: https://github.com/FPTOJ-OJ/fptoj_wiki
@@ -18,31 +18,26 @@ MkDocs + Material theme wiki for competitive programming education (Vietnamese).
 # Install dependencies (once)
 conda run pip install -r requirements.txt
 
-# Prepare content (matplotlib → WebP, mermaid → <pre>) and serve
+# Dev server (Windows: serve.bat, Linux/macOS: ./serve.sh [port])
 conda run python scripts/prepare_zensical.py
 conda run zensical serve -f zensical.generated.yml
 ```
 
-Platform-specific helpers (both call the two commands above):
-- **Windows**: `serve.bat` — sets UTF-8 codepage, starts a watcher, logs to `log.txt`
-- **Linux/macOS**: `serve.sh [port]` — auto-installs deps if missing, logs to `log.txt`
-
 Visit `http://localhost:8000`.
 
-> Sửa file trong `docs/` thì watcher (`prepare_zensical.py --watch`) tự cập nhật
-> `build/docs/` để Zensical rebuild. Nếu chạy tay, phải chạy lại `prepare_zensical.py`
-> sau mỗi lần sửa — Zensical đọc bản sao trong `build/docs/`, không đọc `docs/`.
+> Zensical đọc bản sao trong `build/docs/`, không đọc `docs/` trực tiếp.
+> `serve.bat`/`serve.sh` tự chạy watcher (`prepare_zensical.py --watch`) để sync.
+> Chạy tay thì chạy lại `prepare_zensical.py` sau mỗi lần sửa Markdown.
 
-**Zensical** is the production builder (`zensical build -f zensical.generated.yml`).
-MkDocs is kept as a fallback (`mkdocs build`) and still works, but the deploy workflow
-uses Zensical. Zensical does **not** support `hooks:` yet, which is why
-`scripts/prepare_zensical.py` does the hook's work up front:
-- ```matplotlib ``` blocks → WebP light/dark (reusing `overrides/hooks.py`)
-- ```mermaid ``` blocks → `<pre class="mermaid">`
-- writes `zensical.generated.yml` (drops `hooks:`, adds `theme.variant: classic`,
-  points `docs_dir` at `build/docs`)
+**Pipeline**: Zensical đọc `mkdocs.yml` nhưng chưa hỗ trợ `hooks:`, nên
+`scripts/prepare_zensical.py` làm phần việc của hook trước:
+mirror `docs/` → `build/docs/` (`.md` copy, còn lại hardlink),
+```matplotlib ``` → WebP light/dark (dùng lại `overrides/hooks.py`),
+```mermaid ``` → `<pre class="mermaid">`, rồi sinh `zensical.generated.yml`
+(bỏ `hooks:`, thêm `theme.variant: classic`). MkDocs (`mkdocs build`) vẫn chạy
+được — giữ làm fallback, rollback bằng cách đổi 2 step build trong `deploy.yml`.
 
-`build/` and `zensical.generated.yml` are generated and gitignored.
+`build/` và `zensical.generated.yml` là file sinh ra, đã gitignore.
 
 ### Dependencies
 
@@ -52,10 +47,15 @@ mkdocs-material
 pymdown-extensions
 pygments
 pyyaml
-mkdocs-mermaid2-plugin
+zensical
+matplotlib
+seaborn
+numpy
+scipy
+Pillow
 ```
 
-Python 3.8+ required.
+Python 3.8+ required (CI dùng 3.x).
 
 ---
 
