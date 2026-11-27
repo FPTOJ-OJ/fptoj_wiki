@@ -72,13 +72,14 @@ Ta có thể thấy từ $s$ đến $t$ tồn tại một đường đi đơn (�
 
 Từ ví dụ trên ta có thể đi đến thuật toán như sau:
 
-$bước (1)$: Tạo mạng thặng dư $G'$ tương ứng cho mạng $G$ ban đầu
+**Bước (1)**: Tạo mạng thặng dư $G'$ tương ứng cho mạng $G$ ban đầu
 
-$bước (2)$: tìm một đường tăng luồng trên mạng thặng dư $G'$
+**Bước (2)**: tìm một đường tăng luồng trên mạng thặng dư $G'$
 
   - nếu không tồn tại đường tăng luồng $\rightarrow$ kết thúc thuật toán
 
-  - nếu tồn một đường tăng luồng $\rightarrow$ thực hiện tăng luồng trên mạng thặng dư và quay trở lại $bước (2)$
+  - nếu tồn một đường tăng luồng $\rightarrow$ thực hiện tăng luồng trên mạng thặng dư và quay trở lại **bước (2)**
+
 Khi thuật toán kết thúc $f(s,V')$ chính là giá trị luồng cực đại cần tìm.
 
 Đến đây bạn đã có thể dùng thuật toán tìm kiếm trên đồ thị DFS (deep first search) hoặc BFS(breath first search) để tìm đường tăng luồng và cập nhật mạng thặng dư thuật toán này có độ phức tạp bằng *số lần tăng luồng* ($f^{ \times }$) nhân với *độ phức tạp của thật toán tìm kiếm đồ thị-$O(E)$* và bằng $O(\|f^{ \times }\|.E)$. Sau đâu là code của thuật toán trên:

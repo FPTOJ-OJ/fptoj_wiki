@@ -3,6 +3,7 @@ title: Kinh nghiệm thi VOI
 ---
 
 **Tác giả**: 
+
 - Trần Xuân Bách - HUS High School for Gifted Students
 
 Khác với các kì thi khác, bản chất thi offline của VOI khiến thí sinh phải rất cẩn trọng và tỉ mỉ khi code. Bài viết dưới đây sẽ chỉ ra các lỗi sai mà các bạn thường gặp, đồng thời chỉ ra cách khắc phục chúng.
@@ -233,11 +234,14 @@ int mul(int x, int y){
 ### Các dạng tràn số khác
 - Tràn số khi shift bit: `1 << x` sẽ tràn int nếu $x \ge 31$.
   Để kết quả là long long, hãy dùng `1ll << x`.
+
 - Dùng `builtin_popcount`, `builtin_clz` cho long long.
   Đúng ra phải dùng `builtin_popcountll`, `builtin_clzll`.
+
 - Tràn số khi chặt nhị phân.
   Cách tính thông thường `int mid = (l + r) / 2` sẽ tràn số nếu $l + r \ge 2^{31}$.
   Nếu chẳng may gặp tình huống này, sửa dòng trên thành `int mid = l + (r - l) / 2` --- Giá trị của $mid$ vẫn không thay đổi.
+
 - `accumulate(a + 1, a + n + 1, 0)` sẽ tràn số nếu tổng của mảng $a$ tràn số --- Phải thay bằng `accumulate(a + 1, a + n + 1, 0ll)`.
 
 Mình có lời khuyên là đừng dùng `INT_MAX` hay `LLONG_MAX` vì bạn sẽ phải cẩn thận hơn với việc cộng / trừ các giá trị này --- ví dụ như khi DP hay Dijkstra, có bạn để giá trị ban đầu như trên, khi đó việc transition sẽ bị lỗi.
@@ -270,10 +274,13 @@ Ngoài ra, nếu $itr1$ là $b.begin()$, thì dòng `itr2--;` cũng sẽ bị UB
 
 - Để chặt nhị phân trên `set`, các bạn phải dùng hàm riêng `set::lower_bound(value)`.
   Dùng hàm `lower_bound(set::begin(), set::end(), value)` có độ phức tạp **ít nhất** là $\mathcal O(n)$. Tương tự cho các hàm khác như `upper_bound` và cấu trúc dữ liệu khác như `multiset`.
+
 - `multiset::erase(value)` xoá **toàn bộ** các giá trị $value$ trong multiset đó.
   Để xoá một phần tử duy nhất, dùng `multiset::erase(multiset::find(value))`. Lưu ý $value$ phải tồn tại trong multiset đó.
+
 - `multiset::count(value)` có độ phức tạp là số phần tử bằng $value$ trong multiset đó, tức là có thể lên đến $\mathcal O(n)$.
   Để đếm trong $\mathcal O(\log n)$, bạn nên dùng `map`.
+
 - Bạn sẽ bị tràn số nếu bạn dùng `a.size() - 1` khi $a$ rỗng, do `a.size()` trả về một số unsigned.
   Để sửa thì bạn có thể dùng một dòng define chắp vá của mình: `#define isz(a) ((signed)(a).size()`
 

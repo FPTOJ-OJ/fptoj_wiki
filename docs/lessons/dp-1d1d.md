@@ -31,7 +31,9 @@ Bài toán chia nhóm ở đầu bài với $a = [1, 2, 3]$, $S = [0, 1, 3, 6]$,
 ### 1.1 Công thức tổng quát
 
 Hệ thức quy hoạch động được gọi là dạng $1D/1D$ khi nó có dạng:
+
 $$dp[i] = \min_{0 \le j < i} \{ dp[j] + C(j, i) \}$$
+
 Trong đó $C(j, i)$ là hàm chi phí chuyển trạng thái từ $j$ sang $i$. 
 Tên gọi **$1D/1D$** xuất phát từ việc bảng quy hoạch động là mảng $1$ chiều gồm $N$ phần tử, và mỗi phần tử cần duyệt qua tối đa $N$ trạng thái trước đó để chuyển đổi.
 
@@ -41,8 +43,11 @@ Tên gọi **$1D/1D$** xuất phát từ việc bảng quy hoạch động là m
 
 ### 1.2 Điều kiện tối ưu: Bất đẳng thức Tứ giác (Quadrangle Inequality)
 Nếu hàm chi phí $C(j, i)$ thỏa mãn bất đẳng thức tứ giác:
+
 $$C(a, c) + C(b, d) \le C(a, d) + C(b, c), \quad \forall a \le b \le c \le d$$
+
 Thì ta có tính chất **đơn điệu của điểm cắt tối ưu** (monotonicity): Gọi $opt[i]$ là chỉ số $j$ tối ưu nhất cho $dp[i]$, ta luôn có:
+
 $$opt[i] \le opt[i+1]$$
 
 ---
@@ -53,12 +58,16 @@ $$opt[i] \le opt[i+1]$$
 
 1. **Offline 1D/1D DP:**
    Khi ta tính toán trạng thái dòng $i$ dựa hoàn toàn vào một dòng quy hoạch động trước đó đã được tính toán hoàn chỉnh (ví dụ phân chia dãy thành $K$ nhóm liên tiếp).
-   $$dp[k][i] = \min_{j < i} \{ dp[k-1][j] + C(j, i) \}$$
+
+    $$dp[k][i] = \min_{j < i} \{ dp[k-1][j] + C(j, i) \}$$
+
    Lúc này, toàn bộ mảng nguồn $dp[k-1]$ đã biết trước. Ta áp dụng trực tiếp thuật toán **Chia để trị (Divide & Conquer DP)** để đạt độ phức tạp $O(K \cdot N \log N)$.
 
 2. **Online 1D/1D DP:**
    Khi ta chỉ có một mảng $dp$ duy nhất và giá trị $dp[i]$ phụ thuộc trực tiếp vào các giá trị $dp[j]$ ($j < i$) vừa được tính toán ở các bước trước đó trong cùng một vòng lặp:
-   $$dp[i] = \min_{0 \le j < i} \{ dp[j] + C(j, i) \}$$
+
+    $$dp[i] = \min_{0 \le j < i} \{ dp[j] + C(j, i) \}$$
+
    Tại đây, ta **không thể** chia đôi đoạn $[1, N]$ và tính $mid = \lfloor (lo + hi)/2 \rfloor$ ngay lập tức như Offline DP, vì để tính được $dp[mid]$ ta bắt buộc phải tính xong toàn bộ các giá trị từ $dp[0]$ tới $dp[mid-1]$ trước.
 
 Dưới đây là hai phương pháp chính để tối ưu hóa bài toán **Online 1D/1D DP**.
@@ -71,10 +80,13 @@ Dưới đây là hai phương pháp chính để tối ưu hóa bài toán **On
 
 Do tính chất đơn điệu $opt[i] \le opt[i+1]$, tại một thời điểm bất kỳ, mỗi điểm chuyển trạng thái $j$ đã biết sẽ chịu trách nhiệm tối ưu cho một **đoạn liên tục** $[L_j, R_j]$ của các trạng thái tương lai.
 Ta duy trì một hàng đợi hai đầu (Deque) quản lý các bộ ba thông tin:
+
 $$\text{Element} = (j, L, R)$$
+
 Ý nghĩa: Điểm chuyển $j$ là tối ưu nhất cho mọi trạng thái $i \in [L, R]$. 
 
 Các đoạn này phủ kín miền giá trị tương lai:
+
 $$[L_{j_1}, R_{j_1}] \cup [L_{j_2}, R_{j_2}] \cup \dots = [i, N]$$
 
 ```mermaid
@@ -90,11 +102,15 @@ graph LR
 
 1. **Loại bỏ các phần tử lỗi thời ở đầu Deque:**
    Nếu phần tử ở đầu Deque $(j, L, R)$ có $R < i$, điều này có nghĩa đoạn chịu trách nhiệm của $j$ đã nằm hoàn toàn ở quá khứ. Ta pop nó ra khỏi đầu Deque.
+
 2. **Tính toán giá trị $dp[i]$:**
    Lúc này, phần tử ở đầu Deque chắc chắn chứa chỉ số $i$ trong đoạn $[L, R]$ của nó. Điểm chuyển tối ưu cho $i$ chính là $j$ ở đầu Deque. Ta thực hiện tính:
-   $$dp[i] = dp[j] + C(j, i)$$
+
+    $$dp[i] = dp[j] + C(j, i)$$
+
 3. **Thêm điểm chuyển mới $i$ vào cuối Deque làm ứng cử viên cho tương lai:**
    Ta cần cập nhật bao lồi bằng cách chèn điểm chuyển $i$ vào cuối Deque. Vì $opt[x]$ đơn điệu tăng, điểm chuyển $i$ chỉ có thể tối ưu hơn điểm chuyển cũ ở một đoạn hậu tố nào đó của tương lai.
+
    - Ta so sánh điểm chuyển $i$ với điểm chuyển cuối Deque $last = (j_{last}, L_{last}, R_{last})$:
      - Nếu tại điểm bắt đầu $L_{last}$, điểm chuyển $i$ tốt hơn $j_{last}$ (tức là $dp[i] + C(i, L_{last}) < dp[j_{last}] + C(j_{last}, L_{last})$), nghĩa là $j_{last}$ hoàn toàn bị $i$ áp đảo trên cả đoạn chịu trách nhiệm của nó. Ta pop phần tử cuối ra khỏi Deque và tiếp tục so sánh với phần tử kế cuối.
      - Nếu $i$ chỉ tốt hơn ở một phần phía sau của đoạn $[L_{last}, R_{last}]$, ta thực hiện **Tìm kiếm nhị phân** trên đoạn $[L_{last}, R_{last}]$ để tìm vị trí biên $pos$ nhỏ nhất mà tại đó $i$ bắt đầu tốt hơn $j_{last}$. Sau đó:
@@ -247,6 +263,7 @@ graph LR
 ### 3.1 Tư duy cốt lõi
 
 Nếu việc cài đặt Deque phức tạp và dễ gặp lỗi biên, ta có thể sử dụng phương pháp **CDQ Phân trị** (Online-to-Offline). Ý tưởng là chia việc tính toán đoạn $[L, R]$ thành các bước:
+
 1. Đệ quy giải quyết hoàn toàn nửa bên trái $[L, mid]$ để thu được các giá trị $dp$ đúng.
 2. Dùng các giá trị $dp$ đã biết ở nửa trái $[L, mid]$ để cập nhật (bắn thông tin) sang nửa bên phải $[mid+1, R]$. Việc cập nhật này hoàn toàn là một bài toán **Offline**, do đó ta có thể sử dụng hàm chia để trị thông thường.
 3. Đệ quy giải quyết nửa bên phải $[mid+1, R]$ (nơi đã được tích lũy đầy đủ thông tin chuyển trạng thái từ nửa trái).

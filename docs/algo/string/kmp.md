@@ -2,6 +2,7 @@
 **Người viết:** Trịnh Quang Anh - University of Melbourne
 
 **Review bởi:**
+
 - Cao Thanh Hậu - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 - Lê Minh Hoàng - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên - ĐHQG-HCM
@@ -26,6 +27,7 @@ Knuth-Morris-Pratt (KMP) là một thuật toán có độ phức tạp **$O(n+m
 **Hàm tiền tố.** Cho một xâu $s$ có độ dài $n$. *Hàm tiền tố* của $s$ được định nghĩa là một mảng $\pi$ có độ dài $n$, trong đó $\pi[i]$ là độ dài của tiền tố chuẩn dài nhất của xâu con $s[0 \dots i]$ mà cũng là hậu tố của xâu con này. Từ định nghĩa này ta có $\pi[0] = 0$.
 
 Biểu diễn toán học của hàm tiền tố: 
+
 $$\pi[i] = \max_ {k = 0 \dots i} \{k : s[0 \dots k-1] = s[i-(k-1) \dots i] \}$$
 
 Ví dụ, hàm tiền tố của xâu "$abcabcd$" là $[0, 0, 0, 1, 2, 3, 0]$ và hàm tiền tố của xâu "$aabaaab$" là $[0, 1, 0, 1, 2, 2, 3]$.
@@ -259,6 +261,7 @@ Tổng kết lại, thuật toán KMP giải quyết được bài toán so kh�
 **Bài toán**
 Ở đây ta xét hai bài toán tương đối giống nhau: 
 Cho một xâu $s$ độ dài $n$.
+
 1. Với mỗi $0 \leq i \lt n$, đếm số lần tiền tố $s[0 \dots i]$ xuất hiện trong xâu $s$. 
 2. Thay vì đếm trong xâu $s$, đếm số lần $s[0 \dots i]$ xuất hiện trong một xâu $t$ khác có độ dài $m$. 
 
@@ -374,6 +377,7 @@ $$s[0 \dots n-l-1] = s[l \dots n-1]$$
 Hay nói cách khác, $l$ phải thỏa mãn tiền tố độ dài $n-l$ khớp với hậu tố có cùng độ dài của xâu. Kiểm tra điều kiện rút gọn này là đủ vì từ nó ta có thể suy ngược lại ra điều kiện $(*)$. Áp dụng hàm tiền tố: Các tiền tố mà cũng là hậu tố kết thúc tại $n-1$ có độ dài $\pi[n-1], \pi[\pi[n-1]-1], \pi[\pi[\pi[n-1]-1] - 1], \dots$, duyệt qua từng độ dài này và dừng lại khi có một độ dài $l$ thỏa mãn $n$ chia hết cho $n - l$, khi đó đáp án sẽ là $n - l$. Nếu không có độ dài nào thỏa mãn, đáp án khi đó là $n$. Độ phức tạp của thuật chỉ là $O(n)$. 
 
 Thậm chí ta chỉ cần kiểm tra cho tiền tố độ dài $\pi[n-1]$ là đủ: nếu $k = n - \pi[n-1]$ là ước của $n$ thì đó chính là đáp án, nếu không thì đáp án là $n$. Chứng minh: 
+
 - Nếu $n$ chia hết cho $k$, do $\pi[n-1]$ là tiền tố dài nhất cũng là hậu tố của xâu, $k$ là độ dài ngắn nhất thỏa mãn. 
 - Nếu $n$ không chia hết cho $k$, giả sử phản chứng tồn tại $p \lt n$ sao cho nén được xâu $s$ thành tiền tố độ dài $p$ của xâu. Khi đó ta có $\pi[n-1]$ > $n-p$, dẫn đến hậu tố độ dài $\pi[n-1]$ của xâu sẽ chứa một phần của $s[0 \dots p-1]$. 
 
@@ -493,12 +497,14 @@ Nhưng còn có một ứng dụng khác, ít hiển nhiên hơn của automaton
 **Bài toán**
 Cho một số nguyên dương $k \leq 10^5$ và một xâu $s$ có độ dài $\leq 10^5$. Tính số lần $s$ xuất hiện trong xâu Gray thứ $k$, trong đó các xâu Gray $g_i$ được định nghĩa như sau:
 
-$$\begin{align}
+$$
+\begin{align}
 g_1 &= \text{"a"}\\
 g_2 &= \text{"aba"}\\
 g_3 &= \text{"abacaba"}\\
 g_4 &= \text{"abacabadabacaba"}
-\end{align}$$
+\end{align}
+$$
 
 *Lưu ý: chữ cái ở chính giữa $g_i$ không nhất thiết phải là chữ cái thứ $i$ trong bảng chữ cái mà có thể là bất kỳ chữ nào, và chữ cái ở chính giữa của $g_i$, $g_j$ $(i \neq j)$ được phép giống nhau.* 
 
@@ -510,6 +516,7 @@ Dựng hẳn xâu $t$ là không thể trong trường hợp này, vì xâu Gray
 Tuy vậy, bản chất xâu $g$ là lặp lại chính nó, nên cách trạng thái hiện tại thay đổi trong automaton cũng sẽ có thể tính được dựa vào các bước trước. 
 
 Cụ thể hơn, trạng thái của automaton khi duyệt tới cuối $g_i$ có thể được tính nếu chúng ta biết trạng thái của automaton ở đầu $g_i$. 
+
 1. Đặt $G[i][j]$ là trạng thái của automaton sau khi duyệt qua tất cả các chữ cái của $g_i$ từ trái sang phải, biết rằng trạng thái lúc ở đầu $g_i$ là $j$. 
 2. Do cấu trúc $g_i = g_{i-1} + \text{char(i)} + g_{i-1}$, khi duyệt đến hết nửa đầu của $g_i$ (duyệt qua các chữ cái của $g_{i-1}$) thì trạng thái đã chuyển từ $j$ sang $G[i-1][j]$. 
 3. Khi đọc đến $\text{char(i)}$, trạng thái mới dễ dàng tính được bằng ma trận chuyển trạng thái: $G[i-1][j] \rightarrow \text{mid}$, trong đó $\text{mid} = \text{aut}(G[i-1][j], \text{char(i)})$. 
@@ -529,17 +536,20 @@ Chốt lại, nhờ việc sử dụng automaton mà ta giải được bài to�
 Cụ thể là bài toán: Tìm số lần $s$ xuất hiện trong $t_i$, biết $t_i$ được tạo bằng cách nối các xâu $t_k^{\text{cnt}}$ (lặp lại $t_k$ $\text{cnt}$ lần, $k \lt n$) vào nhau. 
 Ví dụ một quy tắc như thế: 
 
-$$\begin{align}
+$$
+\begin{align}
 t_1 &= \text{"abdeca"}\\
 t_2 &= \text{"abc"} + t_1^{30} + \text{"abd"}\\
 t_3 &= t_2^{50} + t_1^{100}\\
 t_4 &= t_2^{10} + t_3^{100}
-\end{align}$$
+\end{align}
+$$
 
 Ta không thể dựng cả xâu vì độ lớn bùng nổ lên tới $100^{100}$ chữ cái (!). Tuy nhiên, cách giải cho bài nay không khác gì bài trước, đó là xây dựng automaton và tìm quy hoạch động để miêu tả cách trạng thái thay đổi. 
 
 ## Bài tập
 Test code KMP: [VNOJ - SUBSTR](https://oj.vnoi.info/problem/substr)
+
 * [Codeforces - Anthem of Berland](http://codeforces.com/contest/808/problem/G)
 * [Codeforces - MUH and Cube Walls](https://codeforces.com/problemset/problem/471/D)
 * [Codeforces - Prefixes and Suffixes](https://codeforces.com/contest/432/problem/D)

@@ -1,8 +1,10 @@
 
 **Người viết:**
+
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 
 **Reviewer:**
+
 - Nguyễn Đức Kiên - Trường Đại học Công nghệ, ĐHQGHN
 - Cao Thanh Hậu - Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
@@ -59,6 +61,7 @@ Dưới đây là hình minh họa cho thuật toán trên. *Nguồn: [CP-Algori
     ```
 Độ phức tạp thời gian là $O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right)$ với $p$ là số nguyên tố $\le  n$. 
 Đến đây, bạn đọc có thể tham khảo [Định lý Merten 2](https://en.wikipedia.org/wiki/Mertens%27_theorems#Proof) để rút gọn độ phức tạp:
+
 $$O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right) = O( n \log (\log n))$$
 
 **Độ phức tạp thời gian: $\boldsymbol{O(n \log \log n)}$**
@@ -109,6 +112,7 @@ Dựa vào *Nhận xét* trên, ta có cải tiến như sau:
 **Độ phức tạp thời gian sau khi cải tiến vẫn là $\boldsymbol{O(n \log \log n)}$.** Tuy nhiên, số phép tính đã giảm đi đáng kể.
 
 **Lưu ý:**
+
 - Trong đoạn code trên, vì $j$ chạy từ $i\times i$ đến $n$, nên $i$ chỉ chạy từ $1$ đến $\sqrt n$. Ngoài ra, ở đây, ta sử dụng điều kiện `i * i <= n` thay vì sử dụng `i <= sqrt(n)` bởi hàm `sqrt()` chạy lâu hơn so với phép nhân số nguyên.
 - Nếu vẫn muốn sử dụng hàm `sqrt()`, ta phải tránh việc phải tính lại `sqrt(n)` mỗi lần lặp:
 
@@ -213,11 +217,15 @@ Tuy nhiên, phương pháp này có **độ phức tạp không gian** $\boldsym
 Xét số nguyên tố $p$ và hàm định giá $p$-adic: $v_p(n)$ là số nguyên lớn nhất thỏa mãn $p^{v_p(n)} | n$. Nói cách khác $v_p(n)$ là số thừa số $p$ nhận được khi phân tích $n$ ra thừa số nguyên tố.
 
 Theo định lý Legendre, ta có:
+
 $$
-v_p\left(n!\right) = \left\lfloor {\dfrac{n}{{{p^1}}}} \right\rfloor + \left\lfloor {\dfrac{n}{{{p^2}}}} \right\rfloor + \left\lfloor {\dfrac{n}{{{p^3}}}} \right\rfloor + \ldots < \dfrac{n}{{{p^1}}} + \dfrac{n}{{{p^2}}} + \dfrac{n}{{{p^3}}} + \ldots = \dfrac{n}{p-1}$$
+v_p\left(n!\right) = \left\lfloor {\dfrac{n}{{{p^1}}}} \right\rfloor + \left\lfloor {\dfrac{n}{{{p^2}}}} \right\rfloor + \left\lfloor {\dfrac{n}{{{p^3}}}} \right\rfloor + \ldots < \dfrac{n}{{{p^1}}} + \dfrac{n}{{{p^2}}} + \dfrac{n}{{{p^3}}} + \ldots = \dfrac{n}{p-1}
+$$
 
 Như vậy, việc phân tích tất cả các số nguyên từ $1$ đến $n$ cũng như việc phân tích $n!$ cho ta tổng cộng tối đa 
+
 $$\sum\limits_{p\text{ nguyên tố}} v_p\left(n!\right) < \sum\limits_{p\text{ nguyên tố}} \dfrac{n}{p-1} \sim n\ln \ln n + n + O(1) \text{ thừa số}$$
+
 </p>
 </details>
 
@@ -370,6 +378,7 @@ Ta đặt $N = R - L + 1$ là độ dài đoạn $[L;R]$ để tiện theo dõi.
 **Độ phức tạp không gian: $\boldsymbol{O \left( N + \sqrt R \right)}$**
 
 Trong đó:
+
 - Tìm các số nguyên tố trong đoạn $\left[ 1;\sqrt R \right]$ mất $O \left( \sqrt R \log \log \sqrt R \right)$.
 - Dùng các số nguyên tố đó để đánh dấu trong đoạn $[L; R]$ mất $O \left( N \log \log R \right)$.
 
@@ -433,22 +442,27 @@ Nguyên nhân là ta dùng tất cả các *số nguyên* trong đoạn $\left[ 
 [VNOI - Phi hàm Euler](https://oj.vnoi.info/problem/etf)
 *Tóm tắt đề:* 
 Cho số nguyên dương $T$ và $T$ số nguyên dương $n_i$. Hãy tính phi hàm $\varphi(n_i)$ của $T$ số nguyên dương đã cho.
+
 $$\varphi(n) = p_1^{\alpha_1 - 1}p_2^{\alpha_2 - 1} \ldots p_k^{\alpha_k - 1} (p_1-1)(p_2 - 1) \ldots (p_k - 1)$$
+
 <details>
 <summary><i>Gợi ý</i></summary>
 <p>
 Giả sử khi phân tích ra thừa số nguyên tố, $n = p_1^{\alpha_1}p_2^{\alpha_2} \ldots p_k^{\alpha_k}$ với $\alpha_i > 0$. Khi đó:
 
 $$\varphi(n) = p_1^{\alpha_1 - 1}p_2^{\alpha_2 - 1} \ldots p_k^{\alpha_k - 1} (p_1-1)(p_2 - 1) \ldots (p_k - 1)$$
+
 </p>
 </details>
 
 <details>
 <summary><i>Lời giải</i></summary>
 <p>
+
 $$
 \varphi(n) = p_1^{\alpha_1 - 1} . p_2^{\alpha_2 - 1} \ldots p_k^{\alpha_k - 1} . (p_1-1)(p_2 - 1) \ldots (p_k - 1)
-= n \dfrac{p_1-1}{p_1} \dfrac{p_2-1}{p_2} \ldots \dfrac{p_k-1}{p_k}$$
+= n \dfrac{p_1-1}{p_1} \dfrac{p_2-1}{p_2} \ldots \dfrac{p_k-1}{p_k}
+$$
 
 Dựa vào công thức trên, đầu tiên ta sẽ gán <code>f[i] = i</code>. Sau đó, ta chỉ cần duyệt tất cả các số nguyên tố. Với mỗi số nguyên tố <code>p</code>, ta sẽ duyệt các bội <code>j</code> của chúng, rồi nhân <code>f[j]</code> với $\dfrac{p-1}{p}$
 </p>
@@ -659,6 +673,7 @@ Trên thực tế, `int/unsigned int` chứa $4$ bytes hay $32$ bits. Nhờ đó
 Xét $\text{min_prime}[i]$ là ước nguyên tố nhỏ nhất của $i$
 Mảng $\text{primes}[]$ sẽ lưu tất cả các số nguyên tố đã tìm được.
 Duyệt các số từ $2$ đến $n$. Ta có $2$ trường hợp:
+
 - $\text{min_prime}[i] = 0 \Rightarrow i$ là số nguyên tố. Vì thế, ta gán $\text{min_prime} [i] = i$ và thêm $i$ vào cuối mảng $\text{primes}[]$.
 - Ngược lại, $\text{min_prime}[i] \neq 0$, ta phải tính được $\text{min_prime} [i]$ trong các vòng lặp trước đó.
 
@@ -716,10 +731,14 @@ Chúng ta có thể làm như sau: Duyệt các số nguyên $i$ từ $2$ đến
 <summary><i>Giải thích về ĐPT của thuật toán</i></summary>
 <p>
 Mỗi số $x$ có <b>duy nhất</b> một cách biểu diễn:
+
 $$x = \text{min_prime}[x] \cdot i$$
+
 trong đó $\text{min_prime}[x]$ là ước nguyên tố nhỏ nhất của $x$.
 Suy ra $i$ không có ước nguyên tố nào nhỏ hơn $\text{min_prime}[x]$, tức là
+
 $$\text{min_prime}[x] \le \text{min_prime}[i]$$
+
 Với mỗi $i$, ta duyệt tất cả các số nguyên tố lên đến $\text{min_prime}[i]$ thì sẽ duyệt được các số có dạng đã cho ở trên.
 
 Vì có duy nhất một cách biểu diễn $x = \text{min_prime}[x] \cdot i$ nên thuật toán sẽ đi qua mỗi số hợp số đúng một lần để gán các giá trị $\text{min_prime}[]$ tại đó. Hay thuật toán có ĐPT thời gian $O(n)$.
@@ -756,6 +775,7 @@ Xét code sàng Erathosenes sau:
     ```
 
 Vì vòng lặp `j` bắt đầu từ `i * i` nên ta không cần phải giữ lại toàn bộ mảng `is_prime[1...n]` trong suốt quá trình sàng. Khi đó: 
+
 - Giữ lại các số nguyên tố $p$ trong đoạn $\left[1;\sqrt n\right]$: `prime[1..sqrt(n)]`
 - Chia $\left[1; n\right]$ thành các đoạn con (block) và sàng riêng từng đoạn (block).
 
@@ -1399,20 +1419,28 @@ So sánh *độ dài code* và *thời gian chạy* với $n = 10^9$ của một
 
 ## Một số sàng nguyên tố khác
 Ngoài Sàng Eratosthenes, còn có một số sàng nguyên tố khác như:
+
 - [Sàng nguyên tố Atkin](https://en.wikipedia.org/wiki/Sieve_of_Atkin) với ĐPT $O(n)$
 - [Sàng nguyên tố Sundaram](https://en.wikipedia.org/wiki/Sieve_of_Sundaram) với ĐPT $O(n\log n)$
 - [Sàng Pritchard](https://en.wikipedia.org/wiki/Sieve_of_Pritchard) với ĐPT $O\left( \dfrac{n}{\log \log n} \right)$
 - ...
+
 Tuy nhiên, khi gặp các bộ dữ liệu $n$ vào khoảng $10^6$ thì các sàng này hầu như chạy chậm hơn so với Sàng Eratosthenes thông thường.
 
 ## Mở rộng
 - Sử dụng cách sàng như sàng nguyên tố chúng ta có thể xây dựng các sàng cho các số có tính chất đặc biệt khác, ví dụ như lưu ước chính phương lớn nhất, thay các số nguyên tố thành các số phân biệt có tính chất nào đó ... Ví dụ như [VNOI - Duyên Hải 2020 - Lớp 10 - Bài 2](https://oj.vnoi.info/problem/dhbb2020_square)
 - **Hàm** $\boldsymbol{\pi(x)}$ là hàm đếm số số nguyên tố không vượt quá số dương $x$.
+
 Và theo định lý số nguyên tố (Prime Number Theorem), ta có một công thức để ước lượng: 
+
 $$\boldsymbol{\pi(x) \sim \dfrac{x}{\ln x}}$$
+
 Công thức này có thể hữu ích trong việc ước chừng các độ phức tạp liên quan đến số nguyên tố.
+
 - Khi tính số lượng các số nguyên tố hay tổng các số nguyên tố không vượt quá $n$, việc sử dụng Sàng nguyên tố là một phương pháp nhanh dễ hiểu. Tuy nhiên, với những bộ dữ liệu lớn, người ta thường sử dụng sử dụng [thuật toán Meissel–Lehmer](https://en.wikipedia.org/wiki/Meissel%E2%80%93Lehmer_algorithm) hay [thuật toán Lucy Hedgehog](https://projecteuler.net/thread=10;page=5#111677), có thể chạy với $n$ lên đến $10^{12}$ trong 1s.
+
 Xem code bằng C++ tại [thuật toán Lehmer - đếm số lượng số nguyên tố](https://replit.com/@truongxuannam/Lehmer?fbclid=IwAR2EAkO4EJ5wv-xVBHSvZauRVwaD7kmTB0Cm-V8P5QT4ugr-QbeboZhhQw0) và [thuật toán Lucy Hedgehog - tính tổng các số nguyên tố](https://replit.com/@truongxuannam/Lucid?fbclid=IwAR00x9OOZh8nLUggt_PFrBvy0sUsXrYp3HbmwkCf5FtAcsFXLFyXpVdWhb0#main.cpp).
+
 - Để phân tích thừa số nguyên tố thì có hai sàng tốt hơn sàng nguyên tố: [Quadratic Sieve](https://en.wikipedia.org/wiki/Quadratic_sieve) và [General number field sieve](https://en.wikipedia.org/wiki/General_number_field_sieve)
 - Ngoài ra có thể tham khảo thêm các code sàng nguyên tố được sưu tầm bởi [*Code cùng RR*](https://www.facebook.com/code.cung.rr) tại [đây.](https://github.com/ngthanhtrung23/CompetitiveProgramming/blob/master/benchmark/sieve.cpp?fbclid=IwAR0pZChhgX4-P0ud5eD_z3lgYGOPYqcdegsUYNlC3Da1wn6F4v1u8hXuf0Q)
 
@@ -1460,6 +1488,7 @@ Xem code bằng C++ tại [thuật toán Lehmer - đếm số lượng số nguy
 
 ## Nguồn tham khảo
 Bài viết được tổng hợp từ các nguồn dưới đây:
+
 * CP - Algorithms: 
     - [Sieve of Eratosthenes](https://cp-algorithms.com/algebra/sieve-of-eratosthenes.html)
     - [Linear Sieve](https://cp-algorithms.com/algebra/prime-sieve-linear.html)

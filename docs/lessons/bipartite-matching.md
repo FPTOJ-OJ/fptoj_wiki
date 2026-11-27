@@ -351,6 +351,7 @@ Kuhn tìm **một** augmenting path mỗi lần → $O(VE)$. Hopcroft-Karp tìm 
 **Tối ưu theo phase:** Sau mỗi phase, tất cả augmenting paths ngắn nhất đều được augment. Điều này đảm bảo độ dài augmenting path tăng dần qua các phase.
 
 **Số phase tối đa:** Có tối đa $2\sqrt{V} + 1$ phases. Bởi vì:
+
 - Sau $\sqrt{V}$ phases, độ dài augmenting path tăng lên ít nhất $\sqrt{V}$.
 - Đường đi ngắn nhất từ đỉnh chưa ghép bên trái sang đỉnh chưa ghép bên phải có độ dài tối đa $2\sqrt{V} + 1$ (vì mỗi augmenting path tăng matching lên 1).
 

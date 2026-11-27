@@ -30,15 +30,20 @@
 Naive: mỗi truy vấn duyệt cả 3 đường ($O(N)$). CHT nhận xét: khi $x$ tăng dần, đường tối ưu "chuyển giao" theo thứ tự cố định ($L_1 \to L_2 \to L_3$) — mỗi đường chỉ cần xét một lần rồi bỏ ($O(1)$ amortized). Tổng quát hóa: với $N$ đường và $Q$ truy vấn, $O((N+Q) \log N)$ hoặc $O(N+Q)$ thay vì $O(NQ)$.
 
 Dạng tổng quát trong DP:
+
 $$dp[i] = \min_{0 \le j < i} \{ dp[j] + b[j] \cdot a[i] \} + c[i]$$
+
 Trong đó $a[i]$ là tham số truy vấn tại bước $i$, $b[j]$ là hệ số góc thu được từ trạng thái $j$, và $dp[j]$ là giá trị tối ưu đã tính.
 
 Nếu duyệt qua mọi trạng thái $j < i$, độ phức tạp thời gian để tính toàn bộ mảng $dp$ là $O(N^2)$. Khi $N \ge 10^5$, thuật toán này sẽ bị quá thời gian (TLE).
 
 ### 1.2 Biểu diễn dưới dạng hình học
 Với mỗi lựa chọn $j$, ta có thể coi cụm giá trị phụ thuộc vào $j$ là một đường thẳng trong hệ tọa độ $Oxy$:
+
 $$f_j(x) = m_j \cdot x + c_j$$
+
 Trong đó:
+
 - Hệ số góc: $m_j = b[j]$
 - Hệ số tự do (tung độ gốc): $c_j = dp[j]$
 
@@ -54,22 +59,29 @@ Khi thêm một đường thẳng mới vào tập hợp, một số đường t
 ### Chứng minh công thức loại bỏ
 Xét ba đường thẳng liên tiếp $L_1, L_2, L_3$ với hệ số góc giảm dần $m_1 > m_2 > m_3$.
 Phương trình của các đường thẳng:
+
 $$L_1: y = m_1 x + c_1$$
 $$L_2: y = m_2 x + c_2$$
 $$L_3: y = m_3 x + c_3$$
 
 Hoành độ giao điểm của $L_1$ và $L_2$ là:
+
 $$x_{12} = \frac{c_2 - c_1}{m_1 - m_2}$$
+
 Hoành độ giao điểm của $L_2$ và $L_3$ là:
+
 $$x_{23} = \frac{c_3 - c_2}{m_2 - m_3}$$
 
 Đường thẳng ở giữa $L_2$ sẽ trở nên **vô dụng** khi và chỉ khi giao điểm của $L_2$ và $L_3$ nằm ở bên trái (hoặc trùng) giao điểm của $L_1$ và $L_2$:
+
 $$x_{23} \le x_{12}$$
 
 Điều này tương đương với:
+
 $$\frac{c_3 - c_2}{m_2 - m_3} \le \frac{c_2 - c_1}{m_1 - m_2}$$
 
 Vì $m_1 > m_2 > m_3$, các hiệu số $m_1 - m_2$ và $m_2 - m_3$ đều lớn hơn $0$. Ta có thể nhân chéo trực tiếp để tránh chia số thực dẫn đến sai số:
+
 $$(c_3 - c_2)(m_1 - m_2) \le (c_2 - c_1)(m_2 - m_3)$$
 
 ```matplotlib
@@ -239,6 +251,7 @@ Khi hệ số góc $m$ được thêm vào theo **thứ tự bất kỳ**, ta kh
 ### Ý tưởng cốt lõi
 Cây quản lý miền giá trị của $x$ là $[X_{min}, X_{max}]$. Mỗi nút của cây quản lý đoạn $[lo, hi]$ và lưu trữ đường thẳng tối ưu nhất tại hoành độ trung tâm $mid = \lfloor (lo + hi)/2 \rfloor$.
 Khi thêm một đường thẳng mới $nw$ vào đoạn $[lo, hi]$ đang giữ đường thẳng $cur$:
+
 1. So sánh $nw(mid)$ và $cur(mid)$. Nếu $nw$ tốt hơn, ta tráo đổi $nw$ và $cur$ để nút luôn lưu đường thẳng tốt nhất tại $mid$.
 2. Ta so sánh giá trị tại biên $lo$ hoặc $hi$ của $nw$ và $cur$ để quyết định đệ quy đẩy đường thẳng kém hơn xuống nút con bên trái hoặc bên phải.
 
@@ -508,10 +521,12 @@ Khi miền giá trị truy vấn $x$ rất lớn (ví dụ $10^9$) nhưng số l
 ### Phân tích quy hoạch động và CHT
 Gọi $T[i] = \sum_{k=1}^i t[k]$ và $F[i] = \sum_{k=1}^i f[k]$.
 Công thức quy hoạch động tính từ cuối lên (hoặc tính xuôi bằng cách cộng dồn tác động thời gian thiết lập):
+
 $$dp[i] = \min_{0 \le j < i} \{ dp[j] + T[i] \cdot (F[N] - F[j]) + S \cdot (F[N] - F[j]) \}$$
 $$dp[i] = \min_{0 \le j < i} \{ dp[j] - (T[i] + S) \cdot F[j] \} + (T[i] + S) \cdot F[N]$$
 
 Đây là cấu trúc CHT:
+
 - Hoành độ truy vấn: $x = T[i] + S$ (tăng dần).
 - Hệ số góc đường thẳng: $m_j = -F[j]$ (giảm dần do $F$ tăng dần).
 - Tung độ gốc: $c_j = dp[j]$.
@@ -635,7 +650,9 @@ Ta áp dụng trực tiếp Static CHT Deque với $O(N)$ thời gian.
 > [!WARNING]
 > ### 1. Tràn số khi nhân chéo giao điểm
 > Khi kiểm tra điều kiện chèn đường thẳng:
+>
 > $$(c_3 - c_2)(m_1 - m_2) \le (c_2 - c_1)(m_2 - m_3)$$
+>
 > Các giá trị có thể đạt tới $10^{18}$, tích của chúng sẽ vượt quá giới hạn kiểu `long long`. Luôn sử dụng số nguyên lớn `__int128` trong C++ hoặc kiểu số thực lớn nếu cần thiết để đảm bảo độ chính xác.
 
 > [!IMPORTANT]

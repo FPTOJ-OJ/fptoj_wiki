@@ -21,6 +21,7 @@ Nghĩa là: $g^0, g^1, g^2, \ldots, g^{n-2}$ cho tất cả giá trị từ $1$ 
 ### 1.2 Ví dụ
 
 $n = 7$, $g = 3$:
+
 - $3^0 = 1$
 - $3^1 = 3$
 - $3^2 = 9 \equiv 2$
@@ -33,6 +34,7 @@ $n = 7$, $g = 3$:
 ### 1.3 Điều kiện tồn tại
 
 Căn nguyên thủy modulo $n$ tồn tại khi và chỉ khi $n$ thuộc một trong các dạng:
+
 - $n = 1, 2, 4$
 - $n = p^k$ với $p$ nguyên tố lẻ
 - $n = 2p^k$ với $p$ nguyên tố lẻ
@@ -51,6 +53,7 @@ Trong thi đấu, thường $n$ là **số nguyên tố** → luôn có căn ngu
 ### 2.1 Thuật toán
 
 Với $p$ nguyên tố:
+
 1. Phân tích $p - 1$ thành thừa số nguyên tố: $p - 1 = q_1^{e_1} \cdot q_2^{e_2} \cdots q_k^{e_k}$
 2. Duyệt $g = 2, 3, 4, \ldots$
 3. Kiểm tra: với mọi $q_i$, $g^{(p-1)/q_i} \not\equiv 1 \pmod{p}$
@@ -151,6 +154,7 @@ Nếu không tồn tại $x$, $a$ là **phi-dấu hiệu bình phương** (NQR).
 ### 3.2 Ví dụ
 
 Modulo 7:
+
 - $1^2 = 1$ → 1 là QR
 - $2^2 = 4$ → 4 là QR
 - $3^2 = 9 \equiv 2$ → 2 là QR

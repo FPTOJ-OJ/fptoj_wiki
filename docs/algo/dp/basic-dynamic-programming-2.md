@@ -4,6 +4,7 @@ Bài viết được sưu tầm và bổ sung từ bài viết *"Một số bài
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
 
 **Reviewer:**
+
 * Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 * Ngô Nhật Quang - Trường THPT chuyên Khoa học Tự Nhiên, ĐHQGHN
 
@@ -357,6 +358,7 @@ Bài toán có thể được phát biểu lại như sau: Cho đồ thị hai p
 Ý tưởng tương tự như các bài trên, ta xét mảng $L[i][j]$ là số lượng cầu nhiều nhất có thể bắc từ các thành phố $a_1,a_2,\ldots,a_i$ đến $b_1,b_2,\ldots,b_j$.
 
 Khi đó công thức QHĐ sẽ là:
+
 * $L[i][0] =0,L[0][j] = 0$
 * $L[i][j] = 1 + L[i-1][j-1]$ nếu $a_i$ và $b_j$ là hai thành phố kết nghĩa
 * $L[i][j] = \max(L[i][j-1], L[i-1][j])$ nếu $a_i$ và $b_j$ không là hai thành phố kết nghĩa
@@ -377,10 +379,12 @@ Khi đó công thức QHĐ sẽ là:
 Công thức QHĐ của bài này như sau:
 
 Gọi $L[i][j]$ là số kí tự ít nhất cần thêm vào xâu con $S[i..j]$ của $S$ để xâu đó trở thành đối xứng. Nhận xét đầu tiên là xâu thu được sau khi thêm một số kí tự vào $S[i..j]$ phải có kí tự đầu tiên và cuối cùng là $S[i]$ hoặc $S[j]$.
+
 * Nếu $S[i] = S[j]$ thì xâu đối xứng thu được từ $S[i][j]$ cũng có kí tự đầu tiên là $S[i]$ và kí tự cuối cùng là $S[j]$. Do đó, chỉ cần tìm số kí tự ít nhất để thêm vào $S[i+1][j-1]$ để tạo thành xâu đối xứng.
 * Nếu $S[i]\ne S[j]$ thì trước tiên ta cần thêm kí tự $S[j]$ vào đầu hoặc $S[i]$ vào cuối xâu $S[i..j]$. Do đó, chỉ cần tìm số kí tự ít nhất cần thêm vào để $S[i][j-1]$ hoặc $S[i+1][j]$ trở thành xâu đối xứng.
 
 Tóm lại, công thức QHĐ là:
+
 * $L[i][j]=0$ nếu $i\ge j$
 * $L[i][j]=L[i+1][j-1]$ nếu $i < j$ và $S_i=S_j$
 * $L[i][j]=1 + \min(L[i+1][j], L[i][j-1])$ nếu $i < j$ và $S_i \ne S_j$
@@ -478,6 +482,7 @@ Chú ý:** Bài toán này khác với bài toán **Xếp Vali** ở phần trư
 Trạng thái của bài toán phụ thuộc vào hai yếu tố: số vật đang được chọn và tổng khối lượng của chúng. Ta có thể gọi $L[i][ j]$ là giá trị lớn nhất có thể có khi ta chọn các vật từ $1$ đến $i$ sao cho khối lượng của chúng không vượt quá $j$. Khi đó, đáp số bài toán sẽ là $L[n][W]$.
 
 Ta đi tìm công thức truy hồi của $L[i][j]$:
+
 * $L[i][ 0] = 0$
 * $L[0][ j] = 0$
 * $L[i][j] = L[i -1, j]$ nếu $A_i > j$
@@ -565,6 +570,7 @@ Lưu ý rằng đoạn chương trình trên mới chỉ cài đặt y nguyên c
 Nếu xem "khối lượng" là mệnh giá và "giá trị" bằng $1$, bài toán này sẽ được phát biểu lại thành: xếp các vật có tổng khối lượng **đúng bằng** $m$ vào vali sao cho tổng giá trị của chúng là **nhỏ nhất**. Lưu ý trong mô hình bài toán gốc thì tổng giá trị phải là lớn nhất, và tổng khối lượng có thể bé hơn $m$.
 
 Ta xây dựng mảng $L[i][j]$ là số đồng xu (giá trị) nhỏ nhất có thể khi đổi $j$ đồng (khối lượng) ra tiền xu bằng $i$ loại tiền $A_1,A_2,\ldots,A_i$. Công thức truy hồi của mảng $L$ như sau:
+
 * $L[0][j] = \inf$
 * $L[i][0] = 0$
 * $L[i][j] = L[i - 1][j]$ nếu $A_i > j$
@@ -734,6 +740,7 @@ Kết quả của bài toán là $L[n][m]$ hoặc $-1$ nếu $L[n][m ]=\inf$. Đ
 Gọi $L[i][j]$ là số phép nhân nhỏ nhất cần dùng để tính tích các ma trận từ $A_i$ đến $A_j$ $(A_i \times A_{i+1} \times \ldots \times A_j)$.
 
 Xét tích $(A_i \times A_{i+1} \times \ldots \times A_j)$ với $i<j.$ Khi tính tích trên, phép nhân ma trận cuối cùng sẽ có dạng $B\times C$, sao cho tồn tại một số nguyên $i\le k\le j$ thỏa mãn:
+
 * $B=A_i\times A_{i+1}\times\ldots\times A_k$
 * $C=A_{k+1}\times A_{k+1}\times\ldots\times A_j$
 
@@ -873,6 +880,7 @@ Với hai cách cài đặt trên, độ phức tạp bộ nhớ là $\mathcal{O
 Để đơn giản ta coi mọi đoạn thẳng nối hai đỉnh bất kì đều là “đường chéo” (nếu nối hai đỉnh trùng nhau hoặc hai đỉnh liên tiếp thì có độ dài bằng $0$).
 
 Gọi $L[i][j], (i\le j)$ là tổng độ dài bé nhất có thể của các đường chéo dùng để chia đa giác gồm các đỉnh từ $i$ đến $j$ thành các tam giác. 
+
 * Nếu $j<i+3$ thì đa giác đó có ít hơn 4 đỉnh, không cần phải chia nên $L[i][j]=0$. 
 * Ngược lại ta xét cách chia đa giác đó bằng cách chọn một đỉnh $k$ nằm giữa $i$, $j$ và nối $i$, $j$ với $k$. Khi đó $L[i][j]=L[i][k]+L[k][j]+d(i,k)+d(k,j)$ với $d(x,y)$ là độ dài đường chéo nối đỉnh $x$ với đỉnh $y$.
 
@@ -960,6 +968,7 @@ $L[1][n]$ là tổng đường chéo của cách chia tối ưu.
 **Lời giải:**
 Giả sử biểu thức ban đầu là $A_1\cdot A_2\cdot\ldots\cdot A_n$, trong đó $\cdot$ là `+` hoặc `*` theo đề bài.
 Gọi $L[i,j]$ là giá trị lớn nhất có thể có của biểu thức $A_i \cdot A_{i+1} \cdot ... \cdot A_j$. 
+
 * Nếu $i=j$ thì $L[i][j]=A_i$
 * Nếu $j>i$ thì có thể tính biểu thức $A_i \cdot A_{i+1} \cdot ... \cdot A_j$ bằng cách chia thành 2 nhóm: $(A_i \cdot A_{i+1} \cdot ... \cdot A_k) \cdot (A_{k+1} \cdot ... \cdot A_j)(i\le k <j)$ (lập luận tương tự như bài toán nhân ma trận). Do $A_i\ge 0$ nên để $L[i,j]$ lớn nhất thì cách đặt ngoặc của hai biểu thức con cũng tối ưu. Khi đó $L[i][j]=L[i][k] \cdot L[k+1][j]$, trong đó $i\le k <j$ và $\cdot$ là phép toán giữa $A_k$ và $A_{k+1}$.
 
@@ -988,6 +997,7 @@ Trạng thái của bài toán phụ thuộc vào hai yếu tố: số bông hoa
   * Không cắm hoa $j$ vào lọ $i$ (cắm vào lọ trước $i$), giá trị thẫm mỹ của cách cắm là $L[i][j] = L[i - 1][j]$
 
 Tóm lại, công thức truy hồi của bài toán là:
+
 * $L[0][j]=L[i][0]=0$
 * $L[i][i] = \sum_{k=1}^iv_{k,k}$
 * $L[i][j] = \max(L[i - 1][j - 1] + v_{i,j},L[i - 1][j])$ nếu $i>j$
@@ -995,6 +1005,7 @@ Tóm lại, công thức truy hồi của bài toán là:
 Đáp án của bài toán là $L[n][k]$.
 
 **Nhận xét:** 
+
 * Ta chỉ cần điều kiện $1$ và $3$ vì điều kiện $2$ có thể được suy ra trực tiếp từ hai điều kiện trên.
 * Công thức QHĐ của bài này không có gì đặc biệt một khi ta tìm ra trạng thái của bài toán.
 
@@ -1061,19 +1072,28 @@ Ta đặt: $f(P)=|A_1-P_1|+|A_2-P_2|+\ldots+|A_n-P_n|$.
 Giả sử trong hoán vị P tồn tại một nghịch thế $u,v$, tức là $u<v$ và $P_u\ge P_v.$ Đặt $P'=P_1,P_2,\ldots,P_{u-1},P_v,P_{u+1},\ldots,P_{v-1},P_u,P_{v+1},\ldots,P_n$.
 
 Xét hiệu:
+
 $$f(P)-f(P') = |A_u-P_u|+|A_v-P_v|-|A_u-P_v|-|A_v-P_u|$$
+
 **Trường hợp 1:** $P_u\ge A_v\ge A_u$, ta có:
-$$\begin{align}
+
+$$
+\begin{align}
 f(P)-f(P') &= P_u-A_u+|A_v-P_v|-|A_u-P_v|-P_u+A_v\\
 &= |A_v-A_u|+|A_v-P_v|-|A_u-P_v|\\
 &\ge 0
-\end{align}$$
+\end{align}
+$$
+
 **Trường hợp 2:** $A_v> P_u\ge P_v$, ta có:
-$$\begin{align}
+
+$$
+\begin{align}
 f(P)-f(P') &= |A_u-P_u|+A_v-P_v-|A_u-P_v|-A_v+P_u\\
 &= |A_v-P_u|+|P_u-P_v|-|A_u-P_v|\\
 &\ge 0
-\end{align}$$
+\end{align}
+$$
 
 Do đó ta luôn có $f(P')\le f(P)$. Từ đó suy ra với một hoán vị $P$ khác $B_1,B_2,\ldots,B_n$, ta luôn có thể đổi chỗ hai số hạng trong một cặp nghịch thế của $P$ để được một hoán vị $P'$ có giá trị $f(P')\le f(P)$. Suy ra $f(P)$ đạt $\min$ khi $P$ là $B_1,B_2,\ldots,B_n.$ Đến đây ta chứng minh được mệnh đề trên.
 

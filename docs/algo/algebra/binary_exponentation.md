@@ -1,8 +1,10 @@
 
 **Tác giả:**
+
 * Cao Thanh Hậu - Trường Đại học Khoa học Tự Nhiên, ĐHQG-HCM
 
 **Reviewer:**
+
 * Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 * Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 
@@ -15,6 +17,7 @@ Phép tính lũy thừa là một trong những phép tính cơ bản nhất, xu
 Để gợi ý cho bạn đọc, hãy cùng giải câu đố sau: hãy tính $3^{10}$ bằng các phép nhân sao cho số phép nhân cần dùng là ít nhất. Trong mỗi phép nhân, bạn chỉ được sử dụng thừa số là $3$ hoặc là kết quả của một phép nhân trước đó.
 
 Nếu tìm được số phép nhân ít nhất là $4$ thì xin chúc mừng bạn, đó là câu trả lời tối ưu. Cách thực hiện như sau:
+
 * Lấy $3 \times 3$ để được $3^2$.
 * Lấy $3^2 \times 3^2$ để được $3^4$.
 * Lấy $3^4 \times 3$ để được $3^5$.
@@ -26,12 +29,14 @@ Vậy chỉ cần $4$ phép nhân để tính $3^{10}$, nhỏ hơn nhiều so v�
 
 Với mọi số tự nhiên $b$, công thức tổng quát như sau:
 
-$$a^b = 
+$$
+a^b =
 \begin{cases}
     1                 ,& \text{nếu } b =0\\
     (a^{\frac{b - 1}{2}})^2 \times a,& \text{nếu } b \text{ lẻ}\\
     (a^{\frac{b}{2}})^2,       & \text{nếu } b \text{ chẵn}
-\end{cases}$$
+\end{cases}
+$$
 
 Dựa vào công thức trên, ta có hàm tính $a^b$ như sau:
 
@@ -135,6 +140,7 @@ Biết rằng phép nhân không làm ảnh hưởng đến phép chia lấy dư
 Với các giá trị $a < 0$, có thể thay $a$ bởi $a + M$ trước.
 
 Một tính chất khác trong phép lũy thừa:
+
 * Nếu $m$ là số nguyên tố thì $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$.
 *  Nếu $m$ là hợp số, $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$
 
@@ -153,12 +159,14 @@ Tuy nhiên trong một số trường hợp giá trị $m$ khá lớn (ví dụ,
 
 Vì vậy ta cần "nhân nhị phân" (một số tài liệu gọi là "nhân Ấn Độ"), với ý tưởng tương tự như lũy thừa nhị phân. Công thức như sau:
 
-$$a \times b = 
+$$
+a \times b =
 \begin{cases}
     0                 ,& \text{nếu } b =0\\
     2 \times a \times \frac{b}{2},& \text{nếu } b \text{ chẵn và lớn hơn 0}\\
     2 \times a \times \frac{b - 1}{2} + a,       & \text{nếu } b \text{ lẻ và lớn hơn 0}
-\end{cases}$$
+\end{cases}
+$$
 
 Cài đặt:
 
@@ -198,12 +206,14 @@ Cài đặt:
 
 Dãy số Fibonacci được định nghĩa như sau:
 
-$$f_i = 
+$$
+f_i =
 \begin{cases}
     0                 ,& \text{nếu } i = 0\\
     1                 ,& \text{nếu } i = 1\\
     f_{i - 2} + f_{i - 1},       & \text{nếu } i \geq 2
-\end{cases}$$
+\end{cases}
+$$
 
 Bài toán đặt ra là tìm $f_n$ với độ phức tạp $\log(n)$.
 
@@ -211,7 +221,8 @@ Một trong những cách thực hiện điều này là áp dụng kiến thứ
 
 Từ ma trận $A$ gồm $2$ giá trị $f_i$ và $f_{i + 1}$ , xây dựng ma trận kích thước $2 \times 2$ sao cho ma trận này nhân với $A$ được ma trận mới gồm $2$ giá trị $f_{i + 1}$ và $f_{i + 2}$.
 
-$$\begin{pmatrix} F_{i} \cr F_{i - 1} \cr\end{pmatrix} 
+$$
+\begin{pmatrix} F_{i} \cr F_{i - 1} \cr\end{pmatrix}
 = \begin{pmatrix} 1 & 1 \cr 1 & 0 \cr\end{pmatrix}
 \begin{pmatrix} F_{i - 1} \cr F_{i - 2}\cr\end{pmatrix}
 $$

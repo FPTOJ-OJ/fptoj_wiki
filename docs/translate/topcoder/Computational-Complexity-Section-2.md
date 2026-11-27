@@ -155,7 +155,7 @@ Công thức trên được gọi là công thức truy hồi. Nếu bạn khôn
 
 Để định nghĩa hoàn chỉnh một công thức truy hồi, ta cần chỉ ra giá trị của một vài trường hợp khởi tạo cơ bản - trong trường hợp này là $f(1)$. Các giá trị này (và hàm $p$) sẽ cho phép ta tính toán chính xác giá trị của hàm $f$.
 
-Tuy nhiên, như ta đã thấy ở phần 1, giá trị chính xác của hàm $f$ không phải là mục tiêu cần tính. Mặc dù về mặt lý thuyết ta có thể tính cụ thể biểu thức của hàm $f(N)$ theo dạng đóng, biểu thức đó có thể rất phức tạp và không thật sự cần thiết. Trong thực tế, ta chỉ quan tâm tới đánh giá $\Theta$ (hoặc cận trên $O-lớn$) của độ tăng của hàm $f$. Thông thường các đánh giá này có thể tính được một cách khá thuận lợi nếu ta nắm được các phương pháp tính thông dụng.
+Tuy nhiên, như ta đã thấy ở phần 1, giá trị chính xác của hàm $f$ không phải là mục tiêu cần tính. Mặc dù về mặt lý thuyết ta có thể tính cụ thể biểu thức của hàm $f(N)$ theo dạng đóng, biểu thức đó có thể rất phức tạp và không thật sự cần thiết. Trong thực tế, ta chỉ quan tâm tới đánh giá $\Theta$ (hoặc cận trên $O$-lớn) của độ tăng của hàm $f$. Thông thường các đánh giá này có thể tính được một cách khá thuận lợi nếu ta nắm được các phương pháp tính thông dụng.
 
 Vì lý do trên, ta sẽ không cần tới dạng chính xác của hàm $p$ mà chỉ cần biết rằng $p(N) =  \Theta(N)$. Thêm vào đó, ta không cần giá trị khởi tạo của $p$. Ta chỉ cần biết rằng với $N$ nhỏ thì giá trị của $p$ sẽ dễ dàng tính được với độ phức tạp là hằng số.
 
@@ -187,7 +187,7 @@ $$
 
 Lưu ý là với hai cơ số $a, b > 1$ thì tỷ lệ này là hằng số $log_ba$.
 
-Nhằm mục đích viết rõ ràng và dễ đọc, ta luôn sử dụng ký hiệu chung $logN$ bên trong hàm $O-lớn$, kể cả khi các hàm logarit khác nhau được sử dụng khi tính cận của độ phức tạp.
+Nhằm mục đích viết rõ ràng và dễ đọc, ta luôn sử dụng ký hiệu chung $logN$ bên trong hàm $O$-lớn, kể cả khi các hàm logarit khác nhau được sử dụng khi tính cận của độ phức tạp.
 
 Bên cạnh đó, ý nghĩa của cách viết $logN$ khác nhau giữa các quốc gia khác nhau. Để tránh nhầm lẫn ta quy ước như sau: $logN$ để chỉ cơ số $10$, $lnN$ để chỉ cơ số tự nhiên, $lgN$ cho cơ số $2$ và $log_bN$ cho các trường hợp chung khác.
 
@@ -200,6 +200,7 @@ log_ab = \frac{log_bb}{log_ba} = \frac{1}{log_ba}
 $$
 
 Sử dụng tính chất trên để biến đổi $a^{log_bN}$ ta được:
+
 $$
 a^{log_bN} = a^{log_aN/log_ab} = (a^{log_aN})^{1/log_ab} = N^{log_ba} \space\space\space(3)
 $$
@@ -270,6 +271,7 @@ Trả lời: Không và Có. Không, vì một lý do đơn giản mà ta sẽ x
 ## Ví dụ 6
 
 Ta thử áp dụng phương pháp Cây Đệ Quy để giải cho phương trình sau:
+
 $$
 f(N) = 3f(N/2) + \Theta(N^3)
 $$
@@ -315,9 +317,11 @@ Từ kết quả trên ta có một nhận xét quan trọng về thuật toán 
 
 ## Ví dụ 7
 Giờ chúng ta cùng thử áp dụng phương pháp Cây Đệ Quy để giải phương trình sau:
+
 $$
 f(N) = 5f(N/3) + \Theta(N)
 $$
+
 Cây đệ quy sẽ có dạng sau
 <img src="/uploads/topcoder_translate_tree4.png" alt="/uploads/topcoder_translate_tree4.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -371,6 +375,7 @@ Cho $a \geq 1$ và $b > 1$ là hai hằng số nguyên dương. Gọi $p$ là m�
 $$
 f(N) = af(N/b) + p(N)
 $$
+
 Ta có kết quả sau:
 
 1. Nếu $p(N) = O(N^{(log_ba) - \varepsilon})$ với một số $\varepsilon$ > 0 nào đó thì $f(N) = \Theta(N^{log_ba})$

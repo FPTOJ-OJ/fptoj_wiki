@@ -315,6 +315,7 @@ Khi làm việc với đồ thị hàm số (mỗi đỉnh có đúng một cạ
 ---
 
 **Bài liên quan:**
+
 *   [Segment Tree](segment-tree.md)
 *   [Fenwick Tree (BIT)](fenwick-tree.md)
 *   [Lowest Common Ancestor (LCA) trên cây](lca-binary-lifting.md)

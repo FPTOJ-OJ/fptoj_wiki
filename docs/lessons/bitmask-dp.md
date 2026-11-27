@@ -154,6 +154,7 @@ Bitmask DP yêu cầu duyệt mask **tăng dần**. Nếu duyệt ngược, tr�
 ### Bẫy 3: Overflow khi $N > 20$
 
 Với $N > 20$, $2^N \cdot N^2$ có thể vượt giới hạn. Mẹo tối ưu:
+
 - Nếu đồ thị đối xứng: giảm $N$ bằng cách cố định đỉnh xuất phát
 - Dùng `unsigned` thay vì `int` để tiết kiệm bộ nhớ (nếu giá trị nhỏ)
 - Cân nhắc chuyển sang Branch & Bound + heuristic

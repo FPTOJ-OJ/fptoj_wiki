@@ -233,6 +233,7 @@ print(round(2.5))            # 2 (banker's rounding!)
 
 !!! warning "Banker's rounding"
     Python dùng **banker's rounding** (làm tròn đến số chẵn gần nhất):
+
     - `round(2.5)` → 2 (không phải 3!)
     - `round(3.5)` → 4
 

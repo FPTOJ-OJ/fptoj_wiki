@@ -385,6 +385,7 @@ Return Groups
 Thời gian thực thi giờ không còn là vấn đề nữa, mà vấn đề giờ đây chính là tính đúng đắn của thuật toán! Khi ta thử ví dụ 0 trong bài, thuật toán của chúng ta trả về kết quả là 4 chứ không phải là 5. Nhưng kết quả trả về trong ví dụ 1, 2 và 3 thì đúng. Trong với ví dụ cuối cùng, thay vì tạo ra 3983180234 nhóm, ta chỉ tạo được 3983180207 nhóm mà thôi. Bằng việc chỉ kết quả có sai lệch không đáng kể, ta có thể thấy rằng giải thuật của mình **khá tốt**. Thế nên giờ ta chỉ cần cải tiến nó theo hướng này.
 
 Cho đến hiện tại, ta đã có trong tay hai thuật toán:
+
 * Thuật toán tham lam đầu tiên chính xác, nhưng không đủ nhanh.
 * Thuật toán tham lam thứ hai nhanh, nhưng lại không chính xác.
 

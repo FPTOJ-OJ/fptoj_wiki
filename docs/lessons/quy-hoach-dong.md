@@ -34,6 +34,7 @@ Một bài toán chỉ có thể giải quyết bằng Quy hoạch động nếu
 
 1.  **Bài toán con trùng nhau (Overlapping Subproblems):**
     Quá trình giải quyết bài toán lớn đòi hỏi phải giải đi giải lại cùng một bài toán con nhiều lần. Điều này phân biệt Quy hoạch động với phương pháp *Chia để trị (Divide and Conquer)* (nơi các bài toán con hoàn toàn độc lập, ví dụ như thuật toán sắp xếp nhanh Quick Sort hay sắp xếp trộn Merge Sort).
+
 2.  **Cấu trúc con tối ưu (Optimal Substructure):**
     Lời giải tối ưu của bài toán lớn được xây dựng từ các lời giải tối ưu của các bài toán con nhỏ hơn của nó.
 
@@ -103,22 +104,29 @@ Cho $N$ đồ vật, vật thứ $i$ có trọng lượng $w_{i-1}$ và giá tr�
 
 *   **Định nghĩa trạng thái:** Gọi $dp[i][j]$ là tổng giá trị lớn nhất khi chọn một tập hợp con từ $i$ vật đầu tiên ($0 \leq i \leq N$) với tổng trọng lượng không vượt quá $j$ ($0 \leq j \leq W$).
 *   **Công thức truy hồi:**
-    $$dp[i][j] = \begin{cases} 
+
+    $$
+    dp[i][j] = \begin{cases}
       dp[i-1][j] & \text{nếu } j < w_{i-1} \\ 
       \max\left(dp[i-1][j], \; dp[i-1][j - w_{i-1}] + v_{i-1}\right) & \text{nếu } j \geq w_{i-1} 
-    \end{cases}$$
+    \end{cases}
+    $$
 
 #### Chứng minh tính đúng đắn của công thức Cái túi 0/1:
 Ta chứng minh tính đúng đắn của hệ thức truy hồi bằng cách chia trường hợp cho đồ vật thứ $i$:
 
 1.  **Trường hợp 1: Không chọn đồ vật thứ $i$:**
     Nếu đồ vật thứ $i$ không được đưa vào túi (hoặc do trọng lượng $w_{i-1} > j$ không thể chứa được), thì tổng giá trị lớn nhất thu được từ $i$ đồ vật đầu tiên với tải trọng $j$ chính là tổng giá trị lớn nhất thu được từ $i-1$ đồ vật đầu tiên với cùng tải trọng $j$. Do đó:
+
     $$dp[i][j] = dp[i-1][j]$$
+
 2.  **Trường hợp 2: Chọn đồ vật thứ $i$:**
     Điều kiện cần là tải trọng còn lại của túi phải đủ chứa vật thứ $i$ ($j \geq w_{i-1}$).
     Nếu ta chọn đồ vật thứ $i$, túi sẽ nhận thêm giá trị $v_{i-1}$ và tiêu tốn trọng lượng $w_{i-1}$. Khoảng tải trọng còn lại dành cho $i-1$ vật trước đó là $j - w_{i-1}$. Để tổng giá trị lớn nhất, ta buộc phải chọn tối ưu $i-1$ vật đầu tiên trên khoảng tải trọng $j - w_{i-1}$. Giá trị tối ưu này là $dp[i-1][j - w_{i-1}]$.
     Tổng giá trị thu được trong trường hợp này là:
+
     $$dp[i-1][j - w_{i-1}] + v_{i-1}$$
+
 3.  **Kết luận:**
     Theo nguyên lý tối ưu, giá trị $dp[i][j]$ là giá trị lớn nhất giữa hai lựa chọn trên. Phép toán này chứng minh tính đúng đắn của hệ thức truy hồi.
 
@@ -455,15 +463,19 @@ for (int j = W; j >= w[i]; j--) {
 
 ### 5.2. Tràn số khi tính toán giá trị lớn
 Trong các bài toán Quy hoạch động đếm số cách thỏa mãn điều kiện, giá trị có thể tăng cực kỳ nhanh và vượt quá giới hạn kiểu `int` ($2 \cdot 10^9$).
+
 *   **Giải pháp:** Luôn sử dụng kiểu dữ liệu `long long` trong C++ và áp dụng phép chia dư (modulo) tại từng bước cộng dồn trạng thái.
 *   **Công thức modulo phép trừ:**
+
     $$dp[i] = (dp[i-1] - dp[i-2] + MOD) \bmod MOD$$
+
     *(Cộng thêm số chia dư $MOD$ trước khi lấy dư để tránh kết quả ra số âm).*
 
 ---
 
 ### 5.3. Xác định không chính xác thứ tự duyệt trạng thái Bitmask
 Trong Bitmask DP, trạng thái $next\_mask$ luôn được tính toán dựa trên trạng thái $mask$ có số bit $1$ ít hơn.
+
 *   **Giải pháp:** Luôn duyệt chỉ số $mask$ theo chiều xuôi từ $0$ đến $2^N - 1$. Thứ tự duyệt này đảm bảo rằng các trạng thái con $mask$ nhỏ hơn luôn được tính toán hoàn chỉnh trước khi dùng để tính $next\_mask$ lớn hơn.
 
 ---

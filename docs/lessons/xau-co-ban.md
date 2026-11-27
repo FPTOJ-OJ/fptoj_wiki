@@ -39,6 +39,7 @@ Xâu (chuỗi) là một dãy các ký tự liên tiếp, ví dụ: `"hello"`, `
 ### Tại sao cần học xử lý xâu?
 
 Trong thi đấu, có rất nhiều bài toán liên quan đến xâu:
+
 - Đếm tần số ký tự, tần số từ
 - Kiểm tra xâu đối xứng (palindrome)
 - Sắp xếp từ điển
@@ -160,6 +161,7 @@ Xâu ký tự có **nhiều thuật toán chuyên biệt** vì cấu trúc xâu 
 ### 2.4. Chuẩn hóa xâu
 
 **Quy tắc chuẩn hóa:**
+
 - Xóa khoảng trắng thừa ở đầu/cuối
 - Giữa các từ chỉ 1 dấu cách
 - Viết hoa chữ cái đầu, còn lại viết thường

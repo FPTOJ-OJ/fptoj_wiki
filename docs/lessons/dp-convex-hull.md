@@ -112,6 +112,7 @@ graph LR
 ### CHT tìm MAX thay vì MIN
 
 Nếu cần $\max$ thay vì $\min$:
+
 - Đường thẳng phải tạo thành **bao lồi trên** (upper convex hull)
 - Dấu bất đẳng thức trong hàm `bad` bị đảo ngược
 - Hệ số góc $m$ phải giảm dần (thay vì tăng dần)
@@ -119,18 +120,21 @@ Nếu cần $\max$ thay vì $\min$:
 ### Khi hệ số góc không đơn điệu
 
 Nếu $m$ không tăng/giảm đều → không thể pop từ deque:
+
 - **Cách 1:** Dùng Li Chao Tree ($O(\log X)$ mỗi truy vấn)
 - **Cách 2:** Dùng Dynamic CHT với tìm kiếm nhị phân trên deque
 
 ### Khi $x$ truy vấn không đơn điệu
 
 Nếu $S[i]$ không tăng dần → không thể pop_front:
+
 - **Cách:** Dùng tìm kiếm nhị phân trên deque thay vì pop_front (CHT `query` $O(\log N)$)
 - Hoặc dùng Li Chao Tree
 
 ### Lỗi tràn số
 
 Trong CHT, phép nhân chéo (`(b.b - a.b) * (a.m - c.m)`) có thể vượt quá `long long`:
+
 - Dùng `__int128` trong C++ hoặc `Decimal` trong Python
 - Trong Python, số nguyên không giới hạn nên ít gặp vấn đề hơn
 

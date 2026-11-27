@@ -1,8 +1,10 @@
 
 **Nguời viết:** 
+
 - Ngô Nhật Quang - HUS High School for Gifted Students
 
 **Reviewer:**
+
 - Hồ Ngọc Vĩnh Phát - VNUHCM-University of Science
 - Lê Minh Hoàng - VNUHCM-University of Science
 - Cao Thanh Hậu - VNUHCM-University of Science
@@ -12,6 +14,7 @@
 **Trie**, hay một số tài liệu còn gọi là **cây tiền tố**, là một cấu trúc dữ liệu dạng **cây** hữu dụng được dùng để quản lí một tập hợp các xâu. Mặc dù dễ hiểu và dễ cài đặt, trie lại có rất nhiều ứng dụng. Do vậy, trie thường xuyên xuất hiện trong các cuộc thi lập trình ở Việt Nam nói riêng và quốc tế nói chung.
 
 Một trie cơ bản có thể thực hiện ba thao tác sau với độ phức tạp thời gian tuyến tính:
+
 - Thêm một xâu vào tập hợp
 - Xóa một xâu khỏi tập hợp
 - Kiểm tra một xâu có nằm trong tập hợp đó hay không
@@ -36,6 +39,7 @@ Cấu trúc của trie rất dễ hiểu và cài đặt. Gọi `child(u, c)` l�
 Với cấu trúc dữ liệu trie, có hai cách cài đặt chính chính là sử dụng mảng và sử dụng con trỏ.
 
 Nếu định nghĩa cấu trúc như phần trước, ta chỉ có thể thực hiện truy vấn thêm xâu vào tập hợp. Để thực hiện hai truy vấn còn lại, với mỗi đỉnh $u$ trong trie, ta lưu thêm hai biến:
+
 - `exist`: có bao nhiêu xâu là xâu được thể hiện bởi đỉnh $u$
 - `cnt`: có bao nhiêu xâu có tiền tố là xâu được thể hiện bởi đỉnh $u$.
 
@@ -261,11 +265,13 @@ struct Trie{
 ## Ưu và nhược điểm của cài đặt bằng con trỏ
 
 Ưu điểm:
+
 - Không cần phải tính toán trước độ dài mảng cần dùng. Tuy có thể cài đặt trie bằng vector nhưng sẽ tốn thời gian truy cập hơn và đôi khi tốn nhiều bộ nhớ hơn.
 - Có thể tạo nhiều trie mà không lo tới bộ nhớ, phù hợp với các bài multitest.
 - Có thể xóa thực sự các đỉnh dư thừa.
 
 Nhược điểm:
+
 - Dễ code sai nếu không thực sự hiểu con trỏ là gì.
 - Tùy thuộc vào compiler mà con trỏ có thể còn tốn nhiều bộ nhớ hơn dùng mảng.
 
@@ -552,10 +558,12 @@ Dưới đây sẽ là một số bài toán hay (theo góc nhìn của người
 ### Đề bài
 
 Cho mảng số $a$ ban đầu rỗng. Xử lí $q$ truy vấn thuộc hai loại sau:
+
 - $1\,u_i$: Thêm số $u_i$ vào mảng $a$.
 - $2\,x_i\,k_i\,s_i$: Tìm số $v$ thuộc mảng $a$ sao cho $GCD(x_i, v)$ chia hết cho $k_i$, $x_i + v \le s_i$, và $x_i \oplus v$ là lớn nhất có thể với $GCD(a, b)$ là ước chung lớn nhất của $a$ và $b$. In ra $-1$ nếu không có số $v$ nào trong mảng $a$ thỏa mãn.
 
 Giới hạn:
+
 - $2 \le q \le 10^5$
 - $1 \le u_i, x_i, k_i, s_i \le 10^5$
 
@@ -664,10 +672,12 @@ signed main() {
 ### Đề bài
 
 Cho dãy số nguyên không âm $a_1, a_2, \ldots, a_n$ và $m$ truy vấn thuộc hai loại:
+
 - Cho $x$, XOR tất cả các số trong dãy với $x$.
 - In ra MEX (số nguyên không âm nhỏ nhất mà không xuất hiện) của dãy.
 
 Giới hạn:
+
 - $1 \le n, m \le 3 \times 10^5$
 - $0 \le a_i, x \le 3 \times 10^5$
 
@@ -776,6 +786,7 @@ signed main() {
 Cho $N$ xâu $W_1, W_2, \ldots, W_N$. Một cặp xâu có độ dài tiền tố chung dài nhất là $l_p$, độ dài hậu tố chung dài nhất là $l_s$, thì vẻ đẹp của cặp xâu đó là là $\min(l_p, l_s)^2$. Hãy ghép cặp các xâu, mỗi xâu nằm trong tối đa một cặp sao cho tổng vẻ đẹp các cặp xâu là lớn nhất.
 
 Giới hạn:
+
 - $1 \le N \le 10^5$
 - $1 \le \lvert W_i \rvert \le 10^5$
 - $1 \le \sum^N_{i = 1} \lvert W_i \rvert \le 10^5$
@@ -874,6 +885,7 @@ signed main() {
 Cho danh sách $N$ xâu $S_1, S_2, \ldots, S_N$ và $M$ truy vấn. Truy vấn thứ $j$ gồm hai xâu $P_j$ và $Q_j$, hãy tìm số lượng xâu trong danh sách ban đầu có tiền tố là $P_j$ và hậu tố là $Q_j$.
 
 Giới hạn:
+
 - $1 \le N, M, \lvert S_i \rvert, \lvert P_j \rvert, \lvert Q_j \rvert \le 10^5$
 - $1 \le \sum^{N}_{i = 1} \lvert S_i \rvert \le 2 \times 10^6$.
 - $1 \le \sum^{N}_{i = 1} \lvert P_j \rvert \le 2 \times 10^6$.
@@ -1071,6 +1083,7 @@ signed main() {
 Cho dãy số nguyên $a_1, a_2, \ldots, a_N$ và số nguyên $x$. Đếm số dãy con $1 \le b_1 < b_2 < \ldots < b_k \le n$ mà $a_{b_i} \oplus a_{b_j} \ge x$ với mọi cặp $(i, j)$ thỏa mãn $1 \le i < j \le k$.
 
 Giới hạn:
+
 - $1 \le N \le 3 \times 10^5$
 - $0 \le a_i, x < 2^{60}$
 
@@ -1081,6 +1094,7 @@ Với một dãy số ${x_1, x_2, \ldots, x_k}$ thỏa mãn điều kiện đề
 Vì vậy, ta có thể sắp xếp lại mảng $a$ tăng dần, và đếm số dãy $b$ thỏa mãn. Một công thức quy hoạch động với độ phức tạp $\mathcal{O}(n^2)$ khá dễ để thấy. Gọi $dp[i]$ là số dãy $b$ thỏa mãn với $b_k = i$, thì $dp[i] = \sum^{i - 1}_{j = 1,\,a_i \oplus a_j \ge x} dp[j]$.
 
 Công thức quy hoạch động này có thể được tối ưu sử dụng một trie nhị phân. Giả dụ xét bit thứ $i$, với $i - 1$ bit đầu tiên của $a_i \oplus a_j$ bằng $i - 1$ bit đầu tiên của $x$, ta chia hai trường hợp:
+
 - Bit thứ $i$ của $x$ là $1$: Bit thứ $i$ của $a_i \oplus a_j$ cũng phải bằng $1$. Ta đi xuống cây con tương ứng bit $1$ để xét bit thứ $i + 1$.
 - Bit thứ $i$ của $x$ là $0$: Bit thứ $i$ của $a_i \oplus a_j$ có thể là $0$ hoặc $1$. Nếu là $1$ thì các bit còn lại ta điền gì cũng vẫn thỏa mãn $a_i \oplus a_j \ge x$, tức có thể lấy tổng tất cả giá trị $dp$ trong cây con tương ứng bit $1$. Rồi ta đi xuống cây con tương ứng bit $0$ để xét bit thứ $i + 1$.
 

@@ -2,6 +2,7 @@
 **Người viết**: Nguyễn Nhật Minh Khôi - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 
 **Reviewer**:
+
 - Trần Quang Lộc - ITMO University
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 - Nguyễn Phú Bình - THPT chuyên Hùng Vương, Bình Dương
@@ -45,10 +46,13 @@ vector<int> z_function(string s) {
 
 ## Thuật toán tối ưu
 Để tối ưu thuật toán, ta có một nhận xét: nếu ta đã tính được $z[k]$ (ở đây chỉ xét $z[k] > 0$), ta có thông tin rằng đoạn $S[k \ldots k + z[k] - 1]$ khớp với đoạn $S[0 \ldots z[k] - 1]$. Tận dụng thông tin này, ta có thể rút ngắn quá trình tính các $z[i]$ ở sau ($i > k$). Để ngắn gọn, tạm thời đặt $l = k, r = k + z[k] - 1$. Cụ thể có hai trường hợp:
+
 - $i \leq r$: vì đoạn $s[l \ldots r]$ giống với đoạn $s[0 \ldots r - l]$, do đó ta không cần duyệt lại đoạn $s[i\ldots r]$ mà chỉ cần lấy lại $z[i - l]$ đã tính trước đó, tuy nhiên $z[i - l]$ có thể lớn hơn $r - i + 1$, tức vượt biên $r$ đã duyệt, do đó ta chỉ lấy khởi tạo của $z[i]$ là:
+
 $$
 z[i] = \texttt{min}(r - i + 1, z[i - l])
 $$
+
 <img src="/uploads/z-algo-visualize.png" alt="/uploads/z-algo-visualize.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 - $i > r$: khi đó $i$ nằm ngoài vùng ta đã kiểm tra, khi đó ta không thể tận dụng gì nên chỉ khởi tạo $z[i] = 0$ và làm theo thuật toán ngây thơ.
 
@@ -77,6 +81,7 @@ vector<int> z_function(string s) {
 Lưu ý rằng ở đây ta khởi tạo $l = r = 0$ để đảm bảo đây là một đoạn không chứa bất kỳ $i > 0$ nào.
 
 Để chứng minh thuật toán tối ưu ta sẽ xem xét số phép tính trong vòng lặp `while`. Dễ thấy rằng, mỗi vị trí $i$ sẽ chỉ có hai trường hợp sau:
+
 - $i > r$: khi này nếu $z[i] = 0$ thì vòng lặp while sẽ chỉ lặp một lần, $r$ sẽ được **giữ nguyên**. Ngược lại, nếu $z[i] > 0$ thì sau khi chạy, do $i > r$ nên chắc chắn $i + z[i] - 1 > r$, khi đó ta sẽ **tăng** $r$ lên thành $i + z[i] - 1$.
 - $i \leq r$: ta có hai trường hợp nhỏ nữa:
     - $z[i - l] < r - i + 1$: do ta đã kiểm soát được $s[l \ldots r]$ nên rõ ràng $z[i]$ sẽ không thể tăng lên nữa, do đó vòng lặp while sẽ dừng sau lần kiểm tra điều kiện đầu tiên, $r$ sẽ được **giữ nguyên**.

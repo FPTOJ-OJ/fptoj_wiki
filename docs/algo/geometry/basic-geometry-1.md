@@ -1,8 +1,10 @@
 ﻿
 **Tác giả:** 
+
 - Lê Minh Hoàng - Phổ thông Năng khiếu, ĐHQG-HCM
 
 **Reviewer:**
+
 - Trần Quang Lộc - ITMO University
 - Hoàng Xuân Nhật - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
@@ -24,10 +26,12 @@ Một vector thường được biểu diễn bằng một tia (một đoạn th
 
 Trong hình học phẳng, vector $\overrightarrow{\rm AB}$ có thể được biểu diễn bởi một cặp số $(x, y)$ cho biết tọa độ của vector, được xác định bằng hiệu các tọa độ tương ứng của điểm cuối $B$ với điểm đầu $A$:
 
-$$\begin{cases}
+$$
+\begin{cases}
 x = x_B - x_A \\
 y = y_B - y_A
-\end{cases}$$
+\end{cases}
+$$
 
 **Ví dụ:** một vector từ $A(3, 1)$ đến $B(2, 3)$ có thể được biểu diễn bởi $\overrightarrow{\rm u} = (-1, 2)$.
 
@@ -91,23 +95,30 @@ Tính tích vô hướng của 2 vector $\overrightarrow{\rm u}(5,12)$ và $\ove
 
 <img src="/uploads/Qm8P625.png" alt="image" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-$$\begin{align}
+$$
+\begin{align}
 \overrightarrow{\rm u} \cdot \overrightarrow{\rm v} &= x_1x_2+y_1y_2 \\
 &= (-6).5+8.12 \\
 &= 66
-\end{align}$$
+\end{align}
+$$
 
-$$\begin{align}
+$$
+\begin{align}
 \overrightarrow{\rm u} \cdot \overrightarrow{\rm v} &= | \overrightarrow{\rm u} | \cdot | \overrightarrow{\rm v} | \cdot \cos(\theta) \\
 &= 13.10.cos(59,49°) \\
 &= 65.9995359254\ldots \approx 66
-\end{align}$$
+\end{align}
+$$
 
 ---
 
 Từ $2$ định nghĩa, ta có thể tính góc $\theta$ giữa $\overrightarrow{\rm u}(x_1,y_1)$ và $\overrightarrow{\rm v}(x_2,y_2)$ như sau:
-$$\cos(\theta) = \dfrac{\overrightarrow{\rm u} \cdot \overrightarrow{\rm v}}{|\overrightarrow{\rm u}| \cdot |\overrightarrow{\rm v}|}
-\Longrightarrow \theta = \arccos\left(\dfrac{\overrightarrow{\rm u} \cdot \overrightarrow{\rm v}}{|\overrightarrow{\rm u}| \cdot |\overrightarrow{\rm v}|}\right) = \arccos\left(\dfrac{x_1x_2+y_1y_2}{\sqrt{x_1^2+y_1^2} \cdot \sqrt{x_2^2+y_2^2}}\right)$$
+
+$$
+\cos(\theta) = \dfrac{\overrightarrow{\rm u} \cdot \overrightarrow{\rm v}}{|\overrightarrow{\rm u}| \cdot |\overrightarrow{\rm v}|}
+\Longrightarrow \theta = \arccos\left(\dfrac{\overrightarrow{\rm u} \cdot \overrightarrow{\rm v}}{|\overrightarrow{\rm u}| \cdot |\overrightarrow{\rm v}|}\right) = \arccos\left(\dfrac{x_1x_2+y_1y_2}{\sqrt{x_1^2+y_1^2} \cdot \sqrt{x_2^2+y_2^2}}\right)
+$$
 
 **Lưu ý:** tích vô hướng không chỉ giới hạn trong hình học phẳng, nghĩa là ta có thể sử dụng tích vô hướng cho các vector có số chiều tuỳ ý, và đẳng thức trên vẫn đúng.
 
@@ -116,6 +127,7 @@ $$\cos(\theta) = \dfrac{\overrightarrow{\rm u} \cdot \overrightarrow{\rm v}}{|\o
 Tích có hướng là một phép nhân vector trong không gian ba chiều. Nó khác tích vô hướng ở chỗ kết quả thu được là một vector thay cho một vô hướng. Vector này **vuông góc** với mặt phẳng chứa 2 vector đầu vào của phép nhân.
 
 Tích có hướng được định nghĩa bằng công thức: $\overrightarrow{\rm a} \times \overrightarrow{\rm b} = \overrightarrow{n} \cdot |\overrightarrow{\rm a}| \cdot |\overrightarrow{\rm b}| \cdot \sin(\theta)$ với:
+
 - $\theta$ là góc giữa $\overrightarrow{\rm a}$ và $\overrightarrow{\rm b}$ $(0° \le \theta \le 180°)$
 - $\overrightarrow{n}$ là vectơ đơn vị vuông góc với $\overrightarrow{\rm a}$ và $\overrightarrow{\rm b}$. Thực tế có 2 vector thỏa điều kiện vuông góc là $\overrightarrow{n}$ và $-\overrightarrow{n}$, do đó hướng của vector đơn vị $\overrightarrow{n}$ phụ thuộc vào quy tắc bàn tay phải.
 
@@ -127,11 +139,13 @@ Tích có hướng được định nghĩa bằng công thức: $\overrightarrow
 Nếu xét trong hình học phẳng thì vector kết quả lúc này vuông góc và có hướng đi vào/ra mặt phẳng đang xét, do đó ta có thể bỏ qua đặc điểm về hướng, và sử dụng tích có hướng như là một đại lượng vô hướng.
 
 Tương tự tích vô hướng, tích có hướng trong không gian 2 chiều cũng có thể được định nghĩa bằng 2 cách:
+
 - Theo đại số, tích có hướng giữa 2 vector $\overrightarrow{\rm u}(x_1,y_1)$ và $\overrightarrow{\rm v}(x_2,y_2)$ được định nghĩa bằng công thức:
 
 $$\overrightarrow{\rm u} \times \overrightarrow{\rm v} = \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix} = x_1y_2-x_2y_1$$
 
 - Theo hình học, tích có hướng giữa 2 vector $\overrightarrow{\rm u}$ và $\overrightarrow{\rm v}$ được định nghĩa bằng công thức: $\overrightarrow{\rm u} \times \overrightarrow{\rm v} = |\overrightarrow{\rm u}| \cdot |\overrightarrow{\rm v}| \cdot \sin(\theta)$ với $\theta$ là góc hợp bởi 2 vector tính từ $\overrightarrow{\rm u}$ đến $\overrightarrow{\rm v}$ và **ngược chiều kim đồng hồ**.
+
 Với góc $\alpha$ thỏa mãn $0° < \alpha < 180°$ thì $\sin(\alpha) > 0$ nên nếu $\theta < 180°$ thì tích có hướng **dương**, ngược lại tích có hướng **âm**.
 
 <img src="/uploads/idZv0Xz.png" alt="image" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -143,17 +157,21 @@ Tính tích có hướng của 2 vector $\overrightarrow{\rm u}(5,12)$ và $\ove
 
 <img src="/uploads/Qm8P625.png" alt="image" style="max-width: 700px; display: block; margin: 0 auto;" />
 
-$$\begin{align}
+$$
+\begin{align}
 \overrightarrow{\rm u} \times \overrightarrow{\rm v} &= \begin{vmatrix} x_1 & y_1 \\ x_2 & y_2 \end{vmatrix} = x_1y_2-x_2y_1 \\
 &= 5.8-(-6).12 \\
 &= 112
-\end{align}$$
+\end{align}
+$$
 
-$$\begin{align}
+$$
+\begin{align}
 \overrightarrow{\rm u} \times \overrightarrow{\rm v} &= |\overrightarrow{\rm u}| \cdot |\overrightarrow{\rm v}| \cdot \sin(\theta) \\
 &= 13.10.sin(59,49°) \\
 &= 112.000273471\ldots \approx	112
-\end{align}$$
+\end{align}
+$$
 
 ---
 
@@ -178,14 +196,16 @@ Ví dụ bạn có 3 điểm $A, B, C$ và bạn muốn tìm khoảng cách từ
 
 - Xét $\Delta{ABC}$, đặt $h$ là đường cao kẻ từ $C$ (khoảng cách từ $C$ đến $AB$) và đáy tương ứng là $AB$, ta có công thức:
 
-$$\begin{cases}
+$$
+\begin{cases}
 S_{\Delta{ABC}} = \dfrac{h.AB}{2} \iff 2S_{\Delta{ABC}} = h.AB \\
 2S_{\Delta{ABC}} = |\overrightarrow{\rm AB}\times\overrightarrow{\rm AC}|
 \end{cases} \\
 \begin{array}{}
 \implies h.AB = |\overrightarrow{\rm AB}\times\overrightarrow{\rm AC}| \\
 \iff h = \dfrac{|\overrightarrow{\rm AB}\times\overrightarrow{\rm AC}|}{AB}
-\end{array}$$
+\end{array}
+$$
 
 Mọi thứ trở nên phức tạp hơn một chút khi ta muốn tìm khoảng cách từ một đoạn thẳng đến một điểm. Trong trường hợp này, điểm gần nhất có thể là một trong hai đầu mút của đoạn thẳng thay vì là một điểm nào đó trên đường thẳng. Trong hình trên, điểm gần $C$ nhất trên đường thẳng $AB$ không nằm giữa $A$ và $B$ mà là tại $B$.
 

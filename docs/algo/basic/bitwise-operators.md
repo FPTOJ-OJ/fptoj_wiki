@@ -407,6 +407,7 @@ def loop_subset_of_all_masks(n):
 Cách cài đặt trên có độ phức tạp thời gian tối ưu do tất cả các lần lặp đều tạo ra một bộ $(S, T)$ thỏa mãn, và đôi một phân biệt. Ta sẽ chứng minh tổng độ phức tạp thời gian của hai vòng lặp này là $O(3^n)$, thay vì $O(4^n)$.
 
 Dễ dàng nhận thấy, số bước lặp của hai vòng lặp trên có thể viết là:
+
 $$
 \begin{align}
 \sum_{S \subseteq 2^n} \sum_{T \subseteq S} 1 &= \sum_{S \subseteq 2^n} 2^{|S|} \\

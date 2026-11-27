@@ -23,12 +23,19 @@
 
 ### 1.1 Phương trình đường tròn
 Trong hệ tọa độ Descartes $Oxy$, một đường tròn có tâm $I(a, b)$ và bán kính $r$ được biểu diễn bằng hai dạng chính:
+
 - **Dạng chính tắc:**
-  $$(x - a)^2 + (y - b)^2 = r^2$$
+
+    $$(x - a)^2 + (y - b)^2 = r^2$$
+
 - **Dạng tổng quát (khai triển):**
-  $$x^2 + y^2 + Dx + Ey + F = 0$$
+
+    $$x^2 + y^2 + Dx + Ey + F = 0$$
+
   Với các mối hệ thức:
-  $$D = -2a, \quad E = -2b, \quad F = a^2 + b^2 - r^2$$
+
+    $$D = -2a, \quad E = -2b, \quad F = a^2 + b^2 - r^2$$
+
   Từ đó, nếu biết $D, E, F$, ta tìm lại được tâm $I\left(-\frac{D}{2}, -\frac{E}{2}\right)$ và bán kính $r = \sqrt{a^2 + b^2 - F}$ (với điều kiện $a^2 + b^2 - F > 0$).
 
 **Ví dụ số:** Đường tròn tâm $I(2, -1)$, bán kính $r = 3$: $(x-2)^2 + (y+1)^2 = 9$ → khai triển $x^2 - 4x + 4 + y^2 + 2y + 1 - 9 = 0$ → $D = -4$, $E = 2$, $F = -5$. Ngược lại từ $D,E,F$: tâm $(2, -1)$ ✓, $r = \sqrt{4 + 1 + 5} = \sqrt{10}$? Đợi đã — $a^2+b^2-F = 4+1-(-5) = 10 \ne 9$! Sai ở đâu? Kiểm tra: $F = a^2+b^2-r^2 = 4+1-9 = -4$ (không phải $-5$). Bài học: khi code, **luôn test round-trip** (tâm→hệ số→tâm) với ví dụ số cụ thể như trên để bắt lỗi dấu.
@@ -41,10 +48,12 @@ Cho 3 điểm không thẳng hàng $A, B, C$. Đường tròn đi qua $3$ điể
 
 #### Phân tích toán học:
 Tâm $I(x, y)$ của đường tròn ngoại tiếp là giao điểm của các đường trung trực của tam giác $ABC$. Ta có hệ phương trình khoảng cách:
+
 $$IA^2 = IB^2 = IC^2$$
 $$(x - x_A)^2 + (y - y_A)^2 = (x - x_B)^2 + (y - y_B)^2 = (x - x_C)^2 + (y - y_C)^2$$
 
 Khai triển và rút gọn, ta thu được hệ phương trình tuyến tính đối với $x$ và $y$:
+
 $$2(x_B - x_A)x + 2(y_B - y_A)y = (x_B^2 + y_B^2) - (x_A^2 + y_A^2)$$
 $$2(x_C - x_A)x + 2(y_C - y_A)y = (x_C^2 + y_C^2) - (x_A^2 + y_A^2)$$
 
@@ -193,6 +202,7 @@ plt.tight_layout()
 
 ### 2.1 Mối quan hệ khoảng cách
 Cho điểm $P$ và đường tròn $C$ có tâm $O(x_c, y_c)$, bán kính $r$. Gọi $d = \text{dist}(P, O)$ là khoảng cách từ $P$ tới tâm $O$:
+
 - **$P$ nằm trong đường tròn:** $d < r \iff d^2 < r^2$
 - **$P$ nằm trên đường tròn (biên):** $d = r \iff d^2 = r^2$
 - **$P$ nằm ngoài đường tròn:** $d > r \iff d^2 > r^2$
@@ -235,11 +245,14 @@ graph TD
 1. Khoảng cách giữa điểm $P$ và tâm $O$ là $d = \text{dist}(P, O)$.
 2. Chiều dài đoạn tiếp tuyến là $l = \sqrt{d^2 - r^2}$.
 3. Góc ở tâm $\alpha = \angle T_1OP = \angle T_2OP$ được tính qua công thức:
-   $$\cos(\alpha) = \frac{r}{d} \implies \alpha = \arccos\left(\frac{r}{d}\right)$$
+
+    $$\cos(\alpha) = \frac{r}{d} \implies \alpha = \arccos\left(\frac{r}{d}\right)$$
+
 4. Góc của vectơ pháp tuyến $\vec{OP}$ đối với trục hoành là $\beta = \text{atan2}(y_P - y_O, x_P - x_O)$.
 5. Tọa độ hai tiếp điểm lần lượt là:
-   $$T_1 = (x_O + r \cdot \cos(\beta + \alpha), \, y_O + r \cdot \sin(\beta + \alpha))$$
-   $$T_2 = (x_O + r \cdot \cos(\beta - \alpha), \, y_O + r \cdot \sin(\beta - \alpha))$$
+
+    $$T_1 = (x_O + r \cdot \cos(\beta + \alpha), \, y_O + r \cdot \sin(\beta + \alpha))$$
+    $$T_2 = (x_O + r \cdot \cos(\beta - \alpha), \, y_O + r \cdot \sin(\beta - \alpha))$$
 
 === "C++"
 
@@ -301,14 +314,20 @@ Cho hai đường tròn $C_1(O_1, r_1)$ và $C_2(O_2, r_2)$. Gọi $d = \text{di
 
 ### 4.2 Thuật toán tìm tọa độ giao điểm
 Giả sử hai đường tròn cắt nhau tại $2$ điểm. Đường nối hai giao điểm vuông góc với đường nối hai tâm $O_1O_2$.
+
 1. Gọi $M$ là giao điểm của đường nối hai giao điểm với đoạn thẳng $O_1O_2$.
 2. Gọi $a = \text{dist}(O_1, M)$. Áp dụng định lý Pythagoras cho các tam giác vuông tạo thành, ta tìm được:
-   $$a = \frac{r_1^2 - r_2^2 + d^2}{2d}$$
+
+    $$a = \frac{r_1^2 - r_2^2 + d^2}{2d}$$
+
 3. Chiều cao từ giao điểm xuống đoạn nối tâm là $h = \sqrt{r_1^2 - a^2}$.
 4. Tọa độ điểm trung gian $M(x_M, y_M)$ là:
-   $$x_M = x_1 + a \cdot \frac{x_2 - x_1}{d}, \quad y_M = y_1 + a \cdot \frac{y_2 - y_1}{d}$$
+
+    $$x_M = x_1 + a \cdot \frac{x_2 - x_1}{d}, \quad y_M = y_1 + a \cdot \frac{y_2 - y_1}{d}$$
+
 5. Vectơ chỉ phương của dây cung giao điểm vuông góc với $O_1O_2$. Từ đó ta tính tọa độ hai giao điểm:
-   $$x = x_M \pm h \cdot \frac{y_1 - y_2}{d}, \quad y = y_M \mp h \cdot \frac{x_1 - x_2}{d}$$
+
+    $$x = x_M \pm h \cdot \frac{y_1 - y_2}{d}, \quad y = y_M \mp h \cdot \frac{x_1 - x_2}{d}$$
 
 === "C++"
 
@@ -367,10 +386,12 @@ Giả sử hai đường tròn cắt nhau tại $2$ điểm. Đường nối hai
 
 ### 5.1 Đường tròn ngoại tiếp (Circumcircle)
 Bán kính đường tròn ngoại tiếp $R$ liên hệ với độ dài ba cạnh $a, b, c$ và diện tích tam giác $S$ qua công thức:
+
 $$R = \frac{a \cdot b \cdot c}{4S}$$
 
 ### 5.2 Đường tròn nội tiếp (Incircle)
 Bán kính đường tròn nội tiếp $r$ liên hệ với diện tích $S$ và nửa chu vi $s = \frac{a + b + c}{2}$ qua công thức:
+
 $$r = \frac{S}{s}$$
 
 === "C++"
@@ -411,10 +432,14 @@ $$r = \frac{S}{s}$$
 
 ### Công thức Toán học
 Gọi hai đường tròn có bán kính $r_1, r_2$, khoảng cách tâm là $d$. Phần giao nhau được tạo bởi hai hình quạt tròn trừ đi diện tích hai tam giác cân tương ứng:
+
 $$S_{\text{intersection}} = r_1^2 \alpha + r_2^2 \beta - d \cdot h$$
+
 Trong đó các góc ở tâm $\alpha, \beta$ (tính bằng radian) được xác định bằng định lý hàm số cosin:
+
 $$\alpha = \arccos\left(\frac{d^2 + r_1^2 - r_2^2}{2 \cdot d \cdot r_1}\right)$$
 $$\beta = \arccos\left(\frac{d^2 + r_2^2 - r_1^2}{2 \cdot d \cdot r_2}\right)$$
+
 Và chiều cao $h$ là khoảng cách từ giao điểm tới đoạn nối tâm.
 
 === "C++"

@@ -335,6 +335,7 @@ vector<long long> G(size, -INF);
 | Không giao ($S \cap mask = \emptyset$) | $S \mathbin{\&} mask = 0$ |
 
 Với bài toán đếm cặp $i \mathbin{\&} j = 0$:
+
 $$\text{số cặp} = \sum_{mask} F[mask] \cdot G[(2^N - 1) \oplus mask]$$
 
 Trong đó $G$ là SOS DP trên tập con (subset sum), và $(2^N-1) \oplus mask$ là phần bù của mask.

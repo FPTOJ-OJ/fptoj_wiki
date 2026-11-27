@@ -1,8 +1,10 @@
 
 **Tác giả:** 
+
 - Phạm Công Minh - THPT chuyên Khoa học Tự Nhiên, ĐHQGHN 
 
 **Reviewer:**
+
 - Lê Minh Hoàng - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Phạm Hoàng Hiệp - University of Georgia
 - Ngô Nhật Quang - The University of Texas at Dallas 
@@ -256,6 +258,7 @@ Hàm để truy vấn:
     ```
 
     Để tính tổng các phần tử trong một hình chữ nhật nhất định, ta có thể sử dụng tổng tiền tố 2 chiều, có công thức như sau:
+
     $$
     \begin{align}
     \sum A[a:u][b:v] &= \sum A[1:u][1:v] - \sum A[1:a-1][1:v]\\
@@ -279,6 +282,7 @@ Hàm để truy vấn:
     Tương tự với BIT 1 chiều, ta sẽ sử dụng mảng hiệu để cập nhật.
 
     Ta có:
+
     $$
     \begin{aligned}
     \sum A[1:i][1:j] &= \sum A[1:i-1][1:j] + \sum A[1:i][1:j-1] \\

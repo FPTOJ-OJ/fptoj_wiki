@@ -8,6 +8,7 @@
 ## 1. Python là gì?
 
 Python là ngôn ngữ lập trình **dễ học, dễ đọc, dễ viết**. Được sử dụng rộng rãi trong:
+
 - Thi đấu lập trình (competitive programming)
 - Khoa học dữ liệu, AI
 - Web development

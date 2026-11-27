@@ -24,8 +24,10 @@ Câu hỏi chung
 **Nguyên**: Tất nhiên với phần đông số nước, đặc biệt là các nước châu  u, thì họ không hề quan tâm đến kết quả của cuộc thi. Nhiều người chỉ coi đây là một dịp đi chơi, gặp mặt bạn bè quốc tế,... Còn lại những nước như Mỹ, Nhật, Trung Quốc thì nghiêm túc kết quả hơn. Dù vậy mình thấy team Nhật năm nay dù lúc nào cũng như đi chơi mà kết quả vẫn cao ngất ngưởng :))
 
 **Quang**: Mình thấy thí sinh nước ngoài có thể chia ra thành hai nhóm:
+
 + Nhóm 1: Rất coi trọng kết quả, huy chương (điển hình là Trung Quốc, Mỹ). Hiển nhiên là áp lực tâm lý của họ sẽ lớn.
 + Nhóm 2: Đến cuộc thi với mục đích giao lưu, vui là chính, không quan tâm nhiều đến huy chương, không có áp lực tâm lý.
+
 Nhưng dù thuộc nhóm nào thì mình đều thấy họ rất cởi mở và trò chuyện với họ rất thoải mái.
 
 **Lâm**: một số đội có vẻ như cực kỳ xem trọng kết quả (Trung Quốc, Hàn Quốc...), còn những đội khác thì mình thấy họ khá thoải mái và không quan trọng medal cho lắm.
@@ -135,6 +137,7 @@ Mình thấy việc làm online so với offline sẽ có khác biệt:
 + Làm online sẽ có lợi thế là biết được lời giải mình đúng hay sai (không phải lo sợ là sol mình sẽ tạch vì bug vớ vẩn như lúc thi offline), hơn nữa có thể test sol với độ phức tạp lớn (xem thử ý tưởng đúng hay sai), sau đó mới cải tiến thuật toán.
 
 + Làm online thì thường sẽ có “lăn cầu tuyết” (snowball) theo hai chiều hướng:
+
 AC được một bài, lên tinh thần nghĩ ra luôn sol cho một số bài khác, AC tiếp, và cứ như thế (thi TST ngày 1 thì nửa tiếng đầu không nghĩ ra sol bài 4, nhưng sau khi mình AC bài 3 xong cái nghĩ ra luôn sol bài 4).
 Cứ 0 điểm mãi một bài, sửa kiểu gì cũng không lên điểm, cảm thấy tuyệt vọng và ức chế tâm lý, thấy mình vô dụng và hành ngập mồm cả contest (lúc thi IOI ngày 2 thì mình bị snowball theo chiều hướng này và “hạt bụi nào hóa kiếp thân tôi” luôn)
 

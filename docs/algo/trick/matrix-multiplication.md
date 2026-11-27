@@ -114,6 +114,7 @@ Hay viết $C_{ij} = \begin{bmatrix} a_{i1} & a_{i2} & ... & a_{in} \end{bmatrix
     - **Ví dụ:**
     
         $\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} = \begin{bmatrix} 0 & 1 \\ 0 & 3 \end{bmatrix}$, trong khi $\begin{bmatrix} 0 & 1 \\ 0 & 0 \end{bmatrix} \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} = \begin{bmatrix} 3 & 4 \\ 0 & 0 \end{bmatrix}$.
+
  - Khi thực hiện nhân một ma trận bất kì với **ma trận đơn vị** thì vẫn thu được kết quả của chính ma trận đó, tức là: $AI_n = I_mA = A$ (với ma trận $A$ kích thước $(m \times n)$ bất kỳ). 
      Cũng chính vì tính chất này mà $I$ có tên gọi là **ma trận đơn vị**.
 

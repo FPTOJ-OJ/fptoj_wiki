@@ -676,32 +676,38 @@ Ban đầu, giá trị của x là $2^{31} - 1$. Đây là giá trị lớn nh�
 
 **Phép AND** Phép toán *and* `x & y` tạo ra một số có các bit 1 ở các vị trí mà cả x và y đều có bit 1. Ví dụ, 22 & 26 = 18, vì
 
-$$\begin{array}{c}
+$$
+\begin{array}{c}
 10110 \ (22) \\
 \& \ 11010 \ (26) \\
 \hline
 = 10010 \ (18)
-\end{array}$$
+\end{array}
+$$
 
 Sử dụng phép and, chúng ta có thể kiểm tra xem một số x có chẵn hay không vì `x & 1 = 0` nếu x chẵn, và `x & 1 = 1` nếu x lẻ. Tổng quát hơn, x chia hết cho $2^k$ chính xác khi $x \& (2^k - 1) = 0$.
 
 **Phép OR** Phép toán *or* `x | y` tạo ra một số có các bit 1 ở các vị trí mà ít nhất một trong x và y có bit 1. Ví dụ, $22 | 26 = 30$, vì
 
-$$\begin{array}{r}
+$$
+\begin{array}{r}
 10110 \ (22) \\
 |\ 11010 \ (26) \\
 \hline
 = 11110 \ (30)
-\end{array}$$
+\end{array}
+$$
 
 **Phép XOR** Phép toán *xor* `x ^ y` tạo ra một số có các bit 1 ở các vị trí mà chính xác một trong x và y có bit 1. Ví dụ, $22 \oplus 26 = 12$, vì
 
-$$\begin{array}{c}
+$$
+\begin{array}{c}
 10110 \ (22) \\
 \oplus\ 11010 \ (26) \\
 \hline
 = 01100 \ (12)
-\end{array}$$
+\end{array}
+$$
 
 **Phép NOT** Phép toán *not* `~x` tạo ra một số mà tất cả các bit của x đã bị đảo ngược. Công thức $\tilde{x} = -x - 1$ đúng, ví dụ, $\tilde{29} = -30$. Kết quả của phép not ở cấp bit phụ thuộc vào độ dài của biểu diễn bit, vì phép toán đảo ngược tất cả các bit. Ví dụ, nếu các số là số `int` 32-bit, kết quả như sau:
 
@@ -2827,13 +2833,15 @@ Trên vòng thứ hai, nút 2 là nút trung gian mới. Điều này tạo ra �
 
 Thuật toán tiếp tục như thế này, cho đến khi tất cả nút đã được chỉ định làm nút trung gian. Sau khi thuật toán hoàn thành, ma trận chứa khoảng cách ngắn nhất giữa bất kỳ hai nút nào:
 
-$$\begin{bmatrix}
+$$
+\begin{bmatrix}
 0 & 5 & 7 & 3 & 1 \\
 5 & 0 & 2 & 8 & 6 \\
 7 & 2 & 0 & 7 & 8 \\
 3 & 8 & 7 & 0 & 2 \\
 1 & 6 & 8 & 2 & 0
-\end{bmatrix}$$
+\end{bmatrix}
+$$
 
 Ví dụ, ma trận cho chúng ta biết rằng khoảng cách ngắn nhất giữa nút 2 và 4 là 8. Điều này tương ứng với đường đi trong Hình 7.23.
 
@@ -3443,6 +3451,7 @@ Trung vị luôn tối ưu, vì nếu x nhỏ hơn trung vị, tổng trở nên
 Sau đó, xem xét bài toántối thiểu hóa hàm
 
 $$(a_1 - x)^2 + (a_2 - x)^2 + \dots + (a_n - x)^2$$
+
 .
 
 Ví dụ, nếu các số là [1, 2, 9, 2, 6], giải pháp tốt nhất là chọn x = 4, tạo ra tổng
@@ -3563,6 +3572,7 @@ các đoạn con [3, 3], [1, 4], và [1, 8] (Hình 9.9). Vì mỗi phần tử m
 **Cài đặt** Các phép toán của cây chỉ số nhị phân có thể được cài đặt hiệu quả sử dụng thao tác bit. Thực tế chính cần là chúng ta có thể dễ dàng tính bất kỳ giá trị nào của p(k) sử dụng công thức bit
 
 $$p(k) = k \& - k$$
+
 ,
 
 cô lập bit 1 có nghĩa nhất của k.
@@ -5001,6 +5011,7 @@ $$P(A \cap B) = P(A)P(B|A) = 1/2 \cdot 1/3 = 1/6.$$
 Các sự kiện A và B là độc lập nếu
 
 $$P(A|B) = P(A)$$
+
 và $P(B|A) = P(B)$,
 
 có nghĩa là thực tế B xảy ra không thay đổi xác suất của A, và ngược lại. Trong trường hợp này, xác suất giao là
@@ -5238,13 +5249,15 @@ Tổng nim của trạng thái là như sau:
 
 Trong trường hợp này, đống với 10 gậy làduy nhất đống có bit 1 tại vị trí bit 1 ngoài cùng bên trái của tổng nim:
 
-$$\begin{array}{c|cccc}
+$$
+\begin{array}{c|cccc}
 10 & 10 & \underline{1} & 0 \\
 12 & 11 & 0 & 0 \\
 5 & 01 & 0 & 1 \\
 \hline
 3 & 00 & \underline{1} & 1
-\end{array}$$
+\end{array}
+$$
 
 Kích thước mới của đống phải là $10 \oplus 3 = 9$, nên chúng ta sẽ loại bỏ chỉ một gậy. Sau đó, trạng thái sẽ là [9, 12, 5], là trạng thái thua:
 
@@ -5952,6 +5965,7 @@ $$6 + 7/2 - 1 = 17/2$$
 Hàm khoảng cách định nghĩa khoảng cách giữa hai điểm. Hàm khoảng cách thông thường là khoảng cách Euclid mà khoảng cách giữa điểm $(x_1, y_1)$ và $(x_2, y_2)$ là
 
 $$\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$$
+
 .
 
 Hàm khoảng cách thay thế là *khoảng cách Manhattan* mà khoảng cách giữa điểm $(x_1, y_1)$ và $(x_2, y_2)$ là

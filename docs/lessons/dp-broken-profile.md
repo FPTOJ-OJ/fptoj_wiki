@@ -21,6 +21,7 @@ Cho lưới kích thước $N \times M$ với một chiều nhỏ (thường $N 
 Hãy hình dung ranh giới (profile) là một đường gấp khúc cắt ngang qua lưới, tách phần đã điền (bên trái) và phần chưa điền (bên phải).
 
 Xét **cách cài đặt đơn giản theo từng cột + sinh chuyển trạng thái (chỉ duyệt các chuyển tiếp hợp lệ):**
+
 - Giả sử `mask` (độ dài $N$ bit) biểu thị các ô trên cột hiện tại **đã bị gạch ngang từ cột trước nhô sang** (bit $i$ bằng `1` nghĩa là ô ở hàng $i$ của cột hiện tại đã kín chỗ).
 - Để lấp đầy toàn bộ cột hiện tại và sinh `next_mask` nhô sang cột kế tiếp, tại từng hàng $i = 0 \dots N-1$:
   - **Nếu bit $i$ của `mask` đã là `1`:** Ô $(i, j)$ đã có gạch rồi $\Rightarrow$ chỉ việc đi tiếp xuống hàng $i + 1$ (không nhô gì sang cột mới tại hàng $i$).
@@ -33,6 +34,7 @@ Khi xử lý hết cột cuối ($j = M$), đáp án chính là `dp[M][0]` (khô
 ### Biến thể ô-từng-ô ($O(N \cdot M \cdot 2^N)$ thực sự)
 
 Nếu $N$ lên tới $15$ hoặc $16$ và ta không muốn sinh đệ quy từng cột, có thể lưu trạng thái `dp[mask]` và chuyển từng ô $i = 0 \dots N-1$ qua $N$ bước con ngay trong cột:
+
 - Lúc đang đứng ở ô hàng $i$, `mask` lưu tình trạng của đúng đường gấp khúc độ dài $N$.
 - Mỗi ô chỉ tạo ra tối đa $2$ trạng thái kế tiếp nên tổng số chuyển đổi trên toàn cột luôn $\le 2 \cdot N \cdot 2^N$.
 

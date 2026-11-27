@@ -633,6 +633,7 @@ $$\text{Số lớp tương đương} = \frac{1}{|G|} \sum_{g \in G} \text{Fix}(g
 Trong đó $G$ là tập các phép biến đổi đối xứng, và $\text{Fix}(g)$ là số cấu hình **giữ nguyên** sau khi áp dụng phép biến đổi $g$.
 
 **Áp dụng đếm vòng cổ $n$ hạt, $m$ màu (chỉ tính phép xoay):**
+
 - Có $n$ phép xoay theo bước $k = 0, 1, \dots, n-1$.
 - Khi xoay $k$ bước, vòng tròn $n$ hạt chia thành đúng $\gcd(k, n)$ chu trình rời nhau; các hạt trong cùng một chu trình phải có cùng màu $\Rightarrow$ có đúng $m^{\gcd(k, n)}$ vòng cổ bất biến.
 - Suy ra công thức: $\text{Ans} = \frac{1}{n} \sum_{k=0}^{n-1} m^{\gcd(k, n)}$.

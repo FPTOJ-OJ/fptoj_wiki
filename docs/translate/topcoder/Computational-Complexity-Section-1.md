@@ -235,7 +235,7 @@ Trong một kỳ thi trên TopCoder, một thuật toán thực thi 1 000 000 00
 Bảng 3: Giá trị $N$ lớn nhất để các thuật toán có độ phức tạp khác nhau chạy trong tối đa 8 giây
 
 ## Lưu ý khi phân tích độ phức tạp thuật toán
-Thông thường khi trình bày một thuật toán, cách tốt nhất để đánh giá độ phức tạp của nó là ký pháp Theta $\Theta$. Tuy nhiên, trong thực tế thường ta chỉ trình bày cận $O-lớn$ vì ký pháp này dễ viết hơn và phổ biến hơn. Nhắc lại rằng $O-lớn$ chỉ mang ý nghĩa cận trên. Thông thường ta tìm cận trên $O-lớn$ nhỏ nhất có thể.
+Thông thường khi trình bày một thuật toán, cách tốt nhất để đánh giá độ phức tạp của nó là ký pháp Theta $\Theta$. Tuy nhiên, trong thực tế thường ta chỉ trình bày cận $O$-lớn vì ký pháp này dễ viết hơn và phổ biến hơn. Nhắc lại rằng $O$-lớn chỉ mang ý nghĩa cận trên. Thông thường ta tìm cận trên $O$-lớn nhỏ nhất có thể.
 
 ## Ví dụ 3
 Cho một mảng A đã được sắp xếp. Xác định xem liệu có tồn tại 02 phần tử trong mảng mà cách nhau D đơn vị hay không. Xét lời giải sau

@@ -28,6 +28,7 @@ Giả sử ta có $N$ phần tử được đánh số từ $1$ đến $N$, ban 
 ## 2. Tư duy cốt lõi: Biểu diễn tập hợp dưới dạng cây
 
 Ý tưởng của DSU là biểu diễn mỗi tập hợp dưới dạng một cây:
+
 *   Mỗi nút trên cây tương ứng với một phần tử của tập hợp.
 *   Mỗi nút $v$ lưu một con trỏ trỏ đến cha của nó, ký hiệu là $parent[v]$.
 *   Nút gốc của cây (nơi $parent[root] = root$) đóng vai trò là **phần tử đại diện** duy nhất cho toàn bộ tập hợp đó.
@@ -35,6 +36,7 @@ Giả sử ta có $N$ phần tử được đánh số từ $1$ đến $N$, ban 
 ### Trạng thái ban đầu và sau các phép gộp
 
 Ban đầu, mỗi phần tử tự quản lý chính mình:
+
 $$parent[i] = i \quad \forall i \in [1, N]$$
 
 | Chỉ số $i$ | $1$ | $2$ | $3$ | $4$ | $5$ |
@@ -42,6 +44,7 @@ $$parent[i] = i \quad \forall i \in [1, N]$$
 | Cha $parent[i]$ | $1$ | $2$ | $3$ | $4$ | $5$ |
 
 Khi thực hiện lần lượt các phép gộp:
+
 1.  `union(1, 2)`: Gán cha của $2$ là $1$ ($parent[2] = 1$). Tập hợp mới là $\{1, 2\}$, đại diện là $1$.
 2.  `union(3, 4)`: Gán cha của $4$ là $3$ ($parent[4] = 3$). Tập hợp mới là $\{3, 4\}$, đại diện là $3$.
 3.  `union(1, 3)`: Tìm gốc của $1$ (là $1$) và gốc của $3$ (là $3$). Gán cha của $3$ là $1$ ($parent[3] = 1$). Tập hợp mới là $\{1, 2, 3, 4\}$, đại diện chung là $1$.
@@ -73,6 +76,7 @@ graph TD
 ```
 
 Để kiểm tra hai phần tử $u$ và $v$ có cùng thuộc một tập hợp hay không, ta chỉ cần gọi `find(u)` và `find(v)` rồi so sánh kết quả:
+
 *   `find(2)`: Đi từ nút $2 \to 1$ (gốc). Trả về $1$.
 *   `find(4)`: Đi từ nút $4 \to 3 \to 1$ (gốc). Trả về $1$.
 *   Vì `find(2) == find(4) == 1`, ta kết luận $2$ và $4$ cùng một nhóm.
@@ -133,7 +137,9 @@ graph TD
 ### Hàm nghịch đảo Ackermann $\alpha(N)$ là gì?
 Nhờ nén đường đi, độ phức tạp trung bình của mỗi thao tác DSU giảm xuống chỉ còn $O(\alpha(N))$, trong đó $\alpha$ là hàm nghịch đảo của hàm Ackermann.
 Hàm Ackermann tăng trưởng cực kỳ nhanh, do đó hàm nghịch đảo $\alpha(N)$ tăng trưởng vô cùng chậm. Với mọi giá trị thực tế của $N$ trong vũ trụ ($N \leq 2^{2^{2^{65536}}}$), ta luôn có:
+
 $$\alpha(N) \leq 4$$
+
 Vì thế, thao tác tìm kiếm có nén đường đi có thể coi là chạy trong thời gian **hằng số $O(1)$**.
 
 ---
@@ -142,6 +148,7 @@ Vì thế, thao tác tìm kiếm có nén đường đi có thể coi là chạy
 
 ### Khái niệm
 Để giữ chiều cao của cây luôn thấp trong quá trình gộp:
+
 *   **Gộp theo kích thước (Union by Size):** Ta lưu số lượng phần tử thuộc tập hợp quản lý bởi gốc $i$ trong một mảng $sz[i]$. Khi gộp hai cây, ta luôn chọn gốc của cây có kích thước **nhỏ hơn** trỏ đến gốc của cây có kích thước **lớn hơn**.
 *   **Gộp theo bậc (Union by Rank):** Ta lưu bậc (rank - chiều cao xấp xỉ của cây) tại mỗi nút gốc trong mảng $rank[i]$. Khi gộp, cây có bậc **nhỏ hơn** sẽ trỏ đến cây có bậc **lớn hơn**. Nếu bậc bằng nhau, ta tùy ý chọn một cây làm cha và tăng bậc của cây cha lên $1$.
 
@@ -155,8 +162,11 @@ Dưới đây là chứng minh chiều cao tối đa của cây DSU sử dụng 
     *   Để tạo ra một cây có chiều cao $H$: Ta chỉ có thể gộp hai cây có cùng chiều cao $H-1$ lại với nhau (nếu gộp cây thấp hơn vào cây cao hơn, chiều cao cây mới vẫn là cây cao hơn và không thay đổi).
     *   Khi gộp hai cây cùng chiều cao $H-1$: Theo giả thiết quy nạp, mỗi cây chứa ít nhất $2^{H-1}$ nút.
     *   Tổng số nút của cây mới là:
+
         $$Size_{\text{mới}} \geq 2^{H-1} + 2^{H-1} = 2 \cdot 2^{H-1} = 2^H \quad (\text{đpcm})$$
+
 *   Vì tổng số phần tử trên toàn bộ hệ thống là $N$, ta có:
+
     $$2^H \leq N \implies H \leq \log_2 N$$
 
 Do đó, chiều cao tối đa của cây luôn bị chặn bởi $O(\log N)$. Khi kết hợp cùng tối ưu hóa **Nén đường đi**, chiều cao của cây sẽ giảm đi đáng kể và độ phức tạp đạt mức hằng số $O(\alpha(N))$.
@@ -482,11 +492,13 @@ Thao tác nén đường đi thay đổi trực tiếp cấu trúc của cây m�
 ### 7.1. Đếm số thành phần liên thông của đồ thị vô hướng
 Ban đầu, khi chưa có cạnh nào được thêm vào đồ thị, ta có $N$ đỉnh ứng với $N$ thành phần liên thông riêng biệt. 
 Mỗi lần thêm một cạnh vô hướng giữa hai đỉnh $u$ và $v$:
+
 *   Ta thực hiện gộp nhóm chứa $u$ và $v$ bằng hàm `union(u, v)`.
 *   Nếu trước đó $u$ và $v$ thuộc hai thành phần liên thông khác nhau (`find(u) != find(v)`), việc gộp thành công sẽ làm giảm số lượng thành phần liên thông đi $1$.
 
 ### 7.2. Phát hiện chu trình trên đồ thị vô hướng
 Khi xét duyệt thêm một cạnh mới nối giữa hai đỉnh $u$ và $v$:
+
 *   Ta kiểm tra xem $u$ và $v$ đã có chung một đỉnh đại diện hay chưa (`find(u) == find(v)`).
 *   Nếu đã cùng nhóm từ trước, điều này có nghĩa là đã tồn tại một đường đi giữa $u$ và $v$. Việc thêm cạnh $(u, v)$ sẽ lập tức tạo ra một **chu trình đóng** trên đồ thị.
 
@@ -582,6 +594,7 @@ int find_set(int v) {
 
 ### 10.2. Tràn đệ quy (Recursion Limit) trong Python
 Trong Python, giới hạn độ sâu đệ quy mặc định là $1000$. Nếu ta sử dụng cây nhị phân chưa nén đường đi ở các phần tử lớn, chương trình sẽ gặp lỗi `RecursionError`.
+
 *   **Khắc phục:** Nên viết hàm `find` theo cấu trúc lặp (two-pass loop) như hướng dẫn trong mã nguồn Python ở Mục 5 để tối ưu hóa thời gian chạy và an toàn tuyệt đối trước giới hạn đệ quy.
 
 ---
@@ -609,6 +622,7 @@ Trong Python, giới hạn độ sâu đệ quy mặc định là $1000$. Nếu 
 *   [VNOI Wiki - Disjoint Set Union](https://wiki.vnoi.info/algo/data-structures/disjoint-set-union)
 
 **Bài liên quan:**
+
 *   [Bài 16: Heap (Hàng đợi ưu tiên)](heap.md)
 *   [Bài 21: Segment Tree (Cây phân đoạn)](segment-tree.md)
 *   [Bài 23: Fenwick Tree (Cây chỉ số nhị phân)](fenwick-tree.md)

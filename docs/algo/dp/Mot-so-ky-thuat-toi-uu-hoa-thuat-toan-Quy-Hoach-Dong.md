@@ -744,10 +744,12 @@ Xét các chia dãy số $a$ thành $K$ nhóm sao cho mỗi nhóm chứa một �
 Tìm cách chia dãy số thành $K$ nhóm sao cho trọng số của cách chia là nhỏ nhất.
 
 **Input**
+
  - Dòng 1 chứa hai số nguyên dương $N$ và $K$ ($K \le N$)
  - Dòng 2 gồm $N$ số nguyên dương $a[1], a[2], …, a[N]$
 
 **Output**
+
  - Gồm một số nguyên duy nhất là trọng số tìm được
 
 **Ví dụ**
@@ -766,6 +768,7 @@ Output
 ```
 
 **Giới hạn**
+
  - $1 \le N \le 100000$
  - $1 \le K \le 100$
  - $a[i] \le 1000000$
@@ -933,6 +936,7 @@ Ta vẫn có thể tối ưu hơn nữa bằng cách sử dụng stack để h�
 ### [Đốn cây](https://oj.vnoi.info/problem/vodoncay/) (Đề thi HSG quốc gia năm 2016)
 #### Đề bài
 Hùng đang làm việc trong Công ty cao su X. Công ty có rừng cao su rất rộng, với những hàng cây cao su trồng cách đều thẳng tắp. Theo định kỳ, người ta thường phải chặt hạ cả hàng cây cao su đã hết hạn khai thác để trồng thay thế bằng hàng cây mới. Hùng phát hiện ra một bài toán tin học liên quan đến vấn đề này: Một nhóm công nhân được giao nhiệm vụ chặt hạ hàng cây gồm $N$ cây được trồng dọc theo một đường thẳng với khoảng cách cố định giữa hai cây liên tiếp. Nếu các công nhân cưa đổ một cây, họ có thể cho nó đổ về phía bên trái hoặc bên phải dọc theo hàng cây. Một cây khi đổ có thể lật đổ cây khác bị nó rơi vào và có thể làm đổ nhiều cây khác, theo hiệu ứng lan truyền domino. Sau khi khảo sát kỹ, Hùng đã mô tả được hiệu ứng lan truyền domino như sau: Giả sử các cây trên hàng cây được đánh số từ $1$ đến $N$, từ trái qua phải và chiều cao của cây $i$ là $h_i$ ($1 \le i \le N$)
+
  - Nếu cây $i$ đổ về bên trái thì tất cả các cây $j$ với $i - h_i < j < i$ cũng sẽ đổ;
  - Nếu cây $i$ đổ về bên phải thì tất cả các cây $j$ với $i < j < i + h_i$ cũng sẽ đổ;
  - Mỗi cây chỉ đổ một lần về bên trái hoặc bên phải.
@@ -942,10 +946,12 @@ Do đó bài toán đặt ra đối với Hùng là: Xác định số lượng 
 **Yêu cầu**: Giúp Hùng giải quyết bài toán đặt ra.
 
 **Dữ liệu**
+
  - Dòng đầu tiên ghi số nguyên dương $N$;
  - Dòng thứ hai chứa $N$ số nguyên dương $h_1, h_2, …, h_n$ được ghi cách nhau bởi dấu cách, mỗi số không vượt quá $10^6$.
 
 **Kết quả**
+
  - Dòng đầu tiên ghi số nguyên dương $k$ là số lượng cây mà các công nhân cần cưa đổ;
  - Dòng thứ hai ghi dãy số nguyên $c_1, c_2, …, c_k$ trong đó $\|c_j\|$ ($1 \le j \le k$) là dãy chỉ số của các cây theo thứ tự các công nhân phải lần lượt cưa đổ, $c_j$ là số dương nếu cây cần cho đổ về bên phải và là số âm nếu cây cần cho đổ về bên trái.
 
@@ -966,6 +972,7 @@ OUTPUT
 **Chú ý**: Còn một cách đốn cây khác: Cưa hai cây $1$ và $2$ và đều cho đổ về bên phải.
 
 **Ràng buộc**
+
  - Có 40% số test ứng với 40% số điểm của bài có $1 \le N \le 10000$.
  - Có 40% số test khác ứng với 40% số điểm của bài có $1 \le N \le 100000$.
  - Có 20% số test còn lại ứng với 20% số điểm của bài có $1 \le N \le 4000000$.
@@ -976,7 +983,7 @@ OUTPUT
 
 Ta sẽ xây dựng hai mảng $L[]$ và $R[]$, trong đó $L[i]$ là vị trí $j$ nhỏ nhất mà bị cây $i$ làm đổ nếu đẩy về bên trái, tương tự với $R$.
 
-$L[i] = min[ i, min(L[j]) với i-h[i] < j < i ]$
+$L[i] = \min[i, \min(L[j])] \text{ với } i-h[i] < j < i$
 
 Để tính $L[]$ ta duy trì một $stack$ chứa các chỉ số tăng dần. Trước khi thêm một cây $i$ mới vào, các cây bị nó trực tiếp làm đổ sẽ bị $pop$ ra, đồng thời ta cập nhật $L[i]$.
 
@@ -985,9 +992,13 @@ $L[i] = min[ i, min(L[j]) với i-h[i] < j < i ]$
 Gọi $F(i)$ là số cây cần phải đổ nhỏ nhất để các cây có chỉ số $1..i$ đều đổ.
 
 Để tính $F(i)$ cần xét 2 trường hợp:
+
  - Nếu ta đẩy cây $i$ qua trái:
+
 $F(i) = min[ F(j-1) + 1 ]$ với $L[i] \le j \le i$              $(1)$
+
  - Nếu cây $i$ bị đẩy qua phải bởi cây $j$
+
 $F(i) = min[ F(j-1) + 1 ]$ với $1 \le j \le i$ và $R[j] \ge i$    $(2)$
 
 Có thể dễ dàng tính các $F[]$ trong $O(N^2)$. Có thể dùng các cấu trúc dữ liệu quản lí đoạn để giảm xuống $O(NlogN)$.
@@ -1129,12 +1140,15 @@ Link: [Codeforces](https://codeforces.com/contest/713/problem/C)
 Cho dãy số $N$ phần tử. Mỗi phép biến đổi có thể tăng/giảm một phần tử bất kỳ của dãy 1 đơn vị. Hãy tìm số phép biến đổi ít nhất để dãy trở thành dãy tăng.
 
 **Input**
+
  - Dòng đầu tiên là số tự nhiên $N$. Dòng tiếp theo là $N$ số nguyên $A[1..N]$
 
 **Output**
+
  - Một dòng duy nhất chứa số phép biến đổi ít nhất.
 
 **Giới hạn**
+
  - $N \le 100 000$
  - $1 \le A[i] \le 1 000 000 000$
 
@@ -1145,6 +1159,7 @@ Trước hết ta gán $A[i] = A[i] - i$ với mọi $i$. Bài toán trở thàn
 **Thuật toán QHĐ cơ sở**
 
 Đặt $F(i, j) =$ số phép biến đổi ít nhất để biến đổi dãy $A[1..i]$ thành dãy không giảm sao cho $A[i] \le j$. Ta có:
+
  - Với $i = 1$: $F(i, j) = \|A[i] - j\|$ 
  - Với $i > 1$: $F(i, j) = min(F(i - 1, k) + \|A[i] - k\|)$ $\forall k \le j$ 
 
@@ -1159,6 +1174,7 @@ Gọi $Opt(i)$ là vị trí $x$ nhỏ nhất mà tại đó $F_i(x)$ đạt gi�
 Hãy cố gắng phác họa hàm $F$ trên giấy để có thể dễ dàng hình dung phần còn lại của lời giải.
 
 Để cập nhật lại tập hợp $S_i$ thành $S_{i+1}$ ta quan tâm tới 2 trường hợp sau:
+
  - $Opt(i-1) \le a[i]$: Trường hợp này, dễ thấy dộ dốc của hàm số của tất cả những điểm nhỏ hơn $a[i]$ sẽ giảm đi $1$ (bởi vì phần này của hàm số được cộng thêm bởi một hàm bậc nhất có độ dốc là $-1$). Đồng thời $Opt(i) = a[i]$.
  - $Opt(i-1) > a[i]$: Trường hợp này ta cần đẩy $a[i]$ vào tập hợp $S$ hai lần. Bởi phần hàm số bên trái $a[i]$ sẽ có độ dốc giảm đi $1$, trong khi phần từ $a[i]$ đến $Opt(i-1)$ có độ dốc tăng thêm $1$. Để ý là $Opt(i-1)$ không còn là điểm đầu tiên mà từ đó hàm $F$ đạt cực tiểu nữa, ta xóa $Opt(i-1)$ khỏi tập hợp $S$.
 
@@ -1237,12 +1253,14 @@ Cuối cùng bạn có 2 mảng số nguyên $event_{di}$ và $event_{dj}$. Số
 Hãy xác định tổng lợi nhuận cực đại bạn có thể kiếm được nếu lựa chọn tối ưu làm việc tại ô nào trong mỗi ngày.
 
 **Input**
+
  - Dòng đầu tiên chứa hai số nguyên $N$ và $M$.
  - Dòng thứ 2 chứa số ngày mà bạn có thể làm việc $K$.
  - Dòng thứ 3 chứa $K$ số nguyên mô tả mảng $event_i$.
  - Dòng thứ 4 chứa $K$ số nguyên mô tả mảng $event_j$.
 
 Nếu $K>1$
+
  - Dòng thứ 5 chứa $K-1$ số nguyên mô tả mảng $event_{di}$.
  - Dòng cuối cùng chứa $K-1$ số nguyên mô tả mảng $event_{dj}$.
 
@@ -1251,6 +1269,7 @@ Nếu $K>1$
 Một số nguyên duy nhất chứa số tiền lớn nhất mà bạn có thể kiếm được.
 
 **Giới hạn**
+
  - $1 \le N, M \le 1 000 000$
  - $1 \le K \le 1 000$
 

@@ -1,5 +1,6 @@
 
 **Tác giả:** 
+
 - **Bùi Minh Hoạt** - Hung Vuong High School for the Gifted, Phu Tho Province
 - **Nguyễn Châu Khanh** - Hung Vuong High School for the Gifted, Phu Tho Province
 
@@ -26,10 +27,12 @@ Cho một dãy $A$ gồm $N$ phần tử được đánh số từ 1 đến $N$.
 $minRange[i] =$ giá trị nhỏ nhất trong đoạn $[i - k + 1 … i]$
 
 **Input:**
-- $Dòng$ $1$: chứa hai số nguyên dương $N \le 10^5 , 𝑘 \le N$ cách nhau bởi dấu cách 
-- $Dòng$ $2$: chứa $N$ số nguyên dương $A_1, A_2, … , A_N$ $(∀𝑖: A_𝑖 ≤ 10^9)$ cách nhau bởi dấu cách 
+
+- Dòng $1$: chứa hai số nguyên dương $N \le 10^5 , k \le N$ cách nhau bởi dấu cách 
+- Dòng $2$: chứa $N$ số nguyên dương $A_1, A_2, … , A_N$ $(∀𝑖: A_𝑖 ≤ 10^9)$ cách nhau bởi dấu cách 
 
 **Output:** In ra $N − 𝑘 + 1$ dòng: 
+
 - Dòng thứ $i$ in ra giá trị nhỏ nhất $minRange[i]$ của các phần tử trong đoạn từ $i - k + 1$ đến $i$.
 
 **Ví dụ:** 
@@ -113,7 +116,7 @@ Tiếp đến khi ta chuẩn bị đẩy phần tử thứ $5$ vào hàng đợi
 
 **Liệu rằng phần tử cuối cùng trong hàng đợi kia còn ý nghĩa gì trong việc tính giá trị nhỏ nhất nữa không?**
 
-Câu trả lời là $không$. Vì nó đã không phải là giá trị nhỏ nhất trong đoạn $[i - k+ 1 ... i]$ rồi thì càng không thể là giá trị nhỏ nhất trong đoạn $[(i + 1) - k + 1 … i + 1]$.
+Câu trả lời là không. Vì nó đã không phải là giá trị nhỏ nhất trong đoạn $[i - k+ 1 ... i]$ rồi thì càng không thể là giá trị nhỏ nhất trong đoạn $[(i + 1) - k + 1 … i + 1]$.
 
 Vì vậy ta sẽ loại bỏ tất cả các phần tử cuối cùng trong deque nếu nó có giá trị lớn hơn hoặc bằng giá trị $A[i]$ đang xét.
 
@@ -127,12 +130,14 @@ Sau đó ta tiếp tục đẩy phần tử thứ $7$ vào deque
 Khi ta chuẩn bị đẩy phần tử thứ $8$ vào deque, ta nhận thấy rằng giá trị của nó nhỏ hơn giá trị của phần tử cuối trong hàng đợi. Do đó ta sẽ loại bỏ phần tử cuối cùng trong deque cho đến khi giá trị của phần tử cuối cùng nhỏ hơn giá trị ta chuẩn bị đẩy vào. 
 <img src="/uploads/puUB3j7.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 Ta có thể rút ra được các nhận xét quan trọng như sau:
+
 - Ở mọi thời điểm, giá trị $A[i]$ trong deque luôn tăng nghiêm ngặt. Khi ta đẩy phần tử thứ $i$ vào deque thì nó luôn là phần tử có giá trị lớn nhất.
 - Vì đây là dãy tăng nghiêm ngặt thế nên phần tử đầu tiên luôn là phần tử nhỏ nhất. **(Đây chính là min trong đoạn $[i - k + 1 … i]$)**
 - Tại mỗi bước tính $minRange[i]$ ta chỉ loại bỏ tối đa $1$ phần tử đầu deque khi nó không thuộc khoảng đang xét.
 - Mỗi phần tử chỉ được đẩy vào deque tối đa $1$ lần duy nhất.
 
 Từ các nhận xét như kia, ta có thể dễ dàng hình thành thuật toán. Ta duyệt qua từng phần tử:
+
 - **Bước 1:** Trong khi hàng đợi khác rỗng và giá trị của phần tử cuối cùng trong deque lớn hơn hoặc bằng giá trị đang xét hiện tại thì ta sẽ đẩy hết ra khỏi hàng đợi.
 - **Bước 2:** Đẩy vị trí $i$ của phần tử đang xét hiện tại vào cuối deque. (Ta không nên đẩy giá trị $A[i]$ vào bên trong hàng đợi. Vì làm như thế thì ta sẽ rất khó trong việc quản lý đoạn cần lấy kết quả)
 - **Bước 3:** Nếu vị trị của phần tử đầu tiên trong hàng đợi không nằm trong khoảng đoạn xét thì ta loại bỏ nó.
@@ -143,6 +148,7 @@ Từ các nhận xét như kia, ta có thể dễ dàng hình thành thuật to�
 **Tìm min trong đoạn tịnh tiến**
 
 **Ta cần phải sử dụng những cấu trúc sau:**
+
 - Cấu trúc dữ liệu hàng đợi hai đầu: $deque$ - Lưu lại vị trí của phần tử có giá trị nhỏ nhất
 - Mảng $A$, lưu các phần tử nhập vào, tốn $O(N)$ bộ nhớ
 - Mảng $minRange$, lưu đáp án của bài toán, tốn $O(N)$ bộ nhớ
@@ -216,6 +222,7 @@ Ta sẽ tạo $1$ deque nhằm mục đích lưu vị trí của phần tử có
 
 Ta chỉ có thể giải quyết bài toán này bằng cấu trúc dữ liệu $Segment$ $Tree$. 
 Để xây dựng được cây $Segment$ $Tree$ thì chúng ta sẽ phải chuẩn bị:
+
 - Bộ nhớ: $O(N)$
 - Khởi tạo: $O(log_{2}N)$
 - Ta phải trả lời $N - K + 1$ vị trí. Do đó tổng độ phức tạp sẽ là $O(log_{2}N + (N - K + 1) \cdot log_{2}N)$
@@ -225,6 +232,7 @@ Ta chỉ có thể giải quyết bài toán này bằng cấu trúc dữ liệu
 Với phương pháp dùng deque để tìm $max-min$ trong đoạn tịnh tiến thì bạn sẽ không thể giải quyết được bài toán sau:
 
 **Cho một dãy số $A[i]$ $(1≤ A[i] ≤10^9)$ có $N (1 ≤ N ≤10^5)$ phần tử. Cho $M (1 ≤ M ≤ 200,000)$ truy vấn có dạng:**
+
 - $0$ $pos$ $val$: Thay đổi giá trị phần tử thứ $pos$ thành $val$
 - $1$ $k$ $i$: Tính giá trị nhỏ nhất trong đoạn $[i - k + 1 … i]$ $(i - k + 1 ≥ 1)$
 - $2$ $k$ $i$: Tính giá trị lớn nhất trong đoạn $[i … i + k - 1]$ $(i + k - 1 ≤ N)$
@@ -243,6 +251,7 @@ Khi lấy giá trị trong deque ra thì bạn chưa kiểm tra hàng đợi c�
 Trong một round đấu, rồng thần của Hoạt có thể khạc tối đa đạt $N$ phát chí mạng vào team địch. Sát thương chí mạng của lần khạc thứ $i$ gây ra là $A_i$. Tuy nhiên rồng thần cần có một khoảng thời gian để hồi lại mana. Vậy nên rồng thần không thể khạc $K$ lần chí mạng liên tiếp. 
 Bạn hãy chỉ cho Hoạt cách điều khiển sức mạnh của rồng thần sao cho tổng sát thương chí mạng gây ra của rồng thần là lớn nhất.
 **Input:**
+
 - Dòng thứ nhất: chứa hai số nguyên $1 ≤ N ≤ 10^5; 2 ≤ K ≤ 10^5$
 - Dòng thứ hai chứa N số nguyên $A_1, A_2, …, A_N$ $(1 ≤ A_i ≤ 10^4)$ – sát thương chí mạng lần khạc thứ $i$ của rồng thần.
 
@@ -264,6 +273,7 @@ Phân loại bài: data structures, dp
 
 Gọi $dp[i]$ là tổng sát thương nhỏ nhất mà rồng thần đã bỏ qua khi xét đến vị trí $i$ và sẽ tiếp tục bỏ qua phát khạc thứ $i$
 **Khởi tạo:** 
+
 - $dp[0] = 0$
 - $dp[i] = INF;$ với $\forall i: 1 ≤ i ≤ N + 1$
 
@@ -300,6 +310,7 @@ Ta cập nhật giá trị $dp[i]$ bởi đoạn các giá trị $dp[j]$ liên t
 Tuy nhiên ta nhận thấy rằng, đây chính là **bài toán tìm min trong đoạn tịnh tiến**. Ta sẽ làm tương tự như bài toán $1$ với độ phức tạp: $O(N)$
 ## **Cài đặt**
 **Ta cần phải sử dụng những cấu trúc sau:**
+
 - Cấu trúc dữ liệu hàng đợi hai đầu: $deque$ - Lưu lại vị trí của phần tử có giá trị nhỏ nhất
 - Mảng $A$, lưu các phần tử nhập vào, tốn $O(N)$ bộ nhớ
 - Mảng $dp$, lưu đáp án của bài toán, tốn $O(N)$ bộ nhớ
@@ -343,12 +354,14 @@ Tuy nhiên ta nhận thấy rằng, đây chính là **bài toán tìm min trong
 ## **Đề bài**
 **Tòa nhà chọc trời**
 	Có $N$ tòa nhà chọc trời được đánh số từ $1$ đến $N$. Tòa nhà thứ $i$ có độ cao là $H[i]$. Từ tòa nhà thứ $i$ ta có thể nhảy đến tòa nhà thứ $j$ $(i < j)$ nếu như thỏa mãn một trong các điều kiện sau:
+
 - $i + 1 = j$
 - $max(H[i + 1], …, H[j - 1]) < min(H[i], H[j])$
 - $max(H[i], H[j]) < min(H[i + 1], …, H[j - 1])$
 
 Hiện tại Gnar đang đứng trên tòa nhà $1$. Mục tiêu của anh ấy là nhảy đến tòa nhà thứ $N$ với số lần nhảy là ít nhất. Hãy giúp Gnar nhé!!! 
 **Đầu vào:**
+
 - Dòng đầu tiên chứa một số nguyên duy nhất $N$  $(2 ≤ N ≤ 3 \cdot 10^5)$ – tổng số lượng nhà chọc trời.
 - Dòng thứ hai chứa N số nguyên $H_1, H_2, …, H_N$ $(1 ≤ H_i ≤ 10^9)$ – chiều cao của các tòa nhà chọc trời.
 

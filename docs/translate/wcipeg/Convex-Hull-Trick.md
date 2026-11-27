@@ -117,8 +117,10 @@ Rõ ràng các đường thẳng đã được sắp xếp giảm dần về đ�
 ## Bài toán
 
 Bạn được cho:
+
 - Một dãy có **$N$ số nguyên dương** ($1\le N \le 10^6$)
 - Một hàm số bậc 2 với hệ số nguyên duong $f(x)= ax^2 + bx +c$, $a\lt0$.
+
 Mục tiêu cũng của bài toán là phân dãy này ra thành các đoạn liên tiếp sao tổng các hàm $f$ trên các dãy là lớn nhất ( giá trị của hàm $f$ lên dãy là $f(x)$ với $x$ là tổng dãy đó) .
 Tương tự như bài trên công thức quy hoạch động có thể dễ thấy công thức $\mathcal{O}(N^2)$.
 
@@ -172,11 +174,13 @@ Thông điệp luôn được truyền trên con đường ngắn nhất đến 
 Hãy xác định thời gian ít nhất cần chuyển tin từ các thị trấn về thủ đô.
 
 **Input**
+
  - Dòng đầu ghi số N.
  - $N-1$ dòng tiếp theo, mỗi dòng ghi ba số $u$, $v$, và $d$ thể hiện một con đường nối từ $u$ đến $v$ với độ dài bằng $d$.
  - $N-1$ dòng tiếp theo, dòng thứ $i$ gồm hai số $S_i$ và $V_i$ thể hiện thời gian cần để khởi động và số lượng phút để đi được $1$ km của người truyền tin ở thị trấn $i+1$.
 
 **Output**
+
  - Ghi $N-1$ số trên một dòng. Số thứ $i$ thể hiện thời gian ít nhất cần truyền tin từ thành phố $i+1$ về thủ đô.
 
 **Ví dụ**
@@ -197,6 +201,7 @@ Output
 ```
 
 **Giới hạn**
+
  - $3 \le N \le 100 000$
  - $0 \le S_i, V_i \le 10^9$
  - Độ dài mỗi con đường không vượt quá $10000$

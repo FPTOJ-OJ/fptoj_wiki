@@ -29,7 +29,8 @@ Còn nếu bạn muốn tìm hiểu sâu hơn về **Segment Tree** thì bạn c
 <img src="/All_Images_Collected/sum-segment-tree.png" alt="Sum Segment Tree" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Một trong những ứng dụng phổ biến nhất của **Segment Tree** là giải quyết bài toán [$Range \space Minimum \space Query \space \mathit{(RMQ)}$](../../translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor.md). Trong bài toán này, ta được cho một mảng $A$ và $Q$ truy vấn; mỗi truy vấn gồm cặp số $l$ và $r$, yêu cầu tìm phần tử có giá trị nhỏ nhất trong đoạn từ $l$ đến $r$ của mảng $A$. 
-- **Ví dụ:** Ta có mảng $$A = \{9,2,6,3,1,5,7\}$$. Với truy vấn$l = 3$và$r = 6$, đáp án sẽ là$\min{(6,3,1,5)} = 1$. Sau đó, một truy vấn khác với$l = 1$và$r = 3$thì đáp án là$2$; v.v...
+
+- **Ví dụ:** Ta có mảng $A = \{9,2,6,3,1,5,7\}$. Với truy vấn $l = 3$ và $r = 6$, đáp án sẽ là $\min{(6,3,1,5)} = 1$. Sau đó, một truy vấn khác với $l = 1$ và $r = 3$ thì đáp án là $2$; v.v...
 
 Có nhiều giải pháp khác nhau để giải quyết bài toán này nhưng **Segment Tree** thường là lựa chọn thích hợp nhất, đặc biệt là khi có thêm **hoạt động sửa đổi** được xen kẽ với các truy vấn. 
 
@@ -38,7 +39,7 @@ Có nhiều giải pháp khác nhau để giải quyết bài toán này nhưng 
 - Ta có giải pháp [chia để trị](https://vi.wikipedia.org/wiki/Thu%E1%BA%ADt_to%C3%A1n_chia_%C4%91%E1%BB%83_tr%E1%BB%8B) sau:
     - Nếu dãy đang xét chứa một phần tử, thì bản thân phần tử đó là giá trị nhỏ nhất trong dãy đó.
     - Nếu không, ta chia dãy đó thành hai dãy con liên tiếp nhỏ hơn, mỗi dãy con gần bằng một nửa kích thước của dãy ban đầu, và tìm giá trị nhỏ nhất tương ứng của chúng. Giá trị nhỏ nhất của dãy ban đầu chính là giá trị nhỏ hơn giữa hai giá trị nhỏ nhất của các dãy con.
-        - Ví dụ mô tả thuật toán chia để trị với mảng $$A = \{9,2,6,3,1,5,7\}$$:
+        - Ví dụ mô tả thuật toán chia để trị với mảng $A = \{9,2,6,3,1,5,7\}$:
         
         <img src="/uploads/segment-tree-basic_img1.png" alt="/uploads/segment-tree-basic_img1.png" style="max-width: 700px; display: block; margin: 0 auto;" />
         
@@ -50,10 +51,14 @@ Có nhiều giải pháp khác nhau để giải quyết bài toán này nhưng 
 **Tổng quát**
 
 - Gọi $a_i$ là giá trị của phần tử thứ $i$ trong mảng, việc tìm giá trị nhỏ nhất có thể được viết dưới dạng hàm [đệ quy](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%87_quy_(tin_h%E1%BB%8Dc)) như sau:
-    $$f(l, r) = \begin{cases} 
+
+    $$
+    f(l, r) = \begin{cases}
                     a_l & \quad \text{if } l = r \\ 
                     \min{\Big( f \big(l, \big\lfloor \frac{l + r}{2} \big\rfloor \big), f \big( \big\lfloor \frac{l + r}{2} \big\rfloor + 1, r \big) \Big)}  & \quad \text{if } l < r 
-                \end{cases}$$
+                \end{cases}
+                $$
+
     - Với $f(l, r)$ là phần tử có giá trị nhỏ nhất trong đoạn từ $l$ đến $r$ của mảng $A$.
     
 - Do đó, khi ta sửa đổi giá trị của phần tử thứ $i$ trong mảng thì ta chỉ cần tính lại kết quả của các hàm $f(l, r)$ với $l \le i \le r$.
@@ -62,7 +67,7 @@ Giả sử rằng ta sử dụng hàm được định nghĩa ở trên để x�
 
 Nếu ta biểu diễn các hàm gọi đệ quy này bằng cấu trúc [cây](../../translate/wcipeg/tree.md), thì hàm $f(1, N)$ sẽ là gốc, nó sẽ có hai con, mỗi con sẽ có thêm hai con nữa, v.v...; các trường hợp cơ sở sẽ là lá của cây. Khi đó, cấu trúc cây gọi đệ quy của hàm $f(1, N)$ chính là cấu trúc của **cây phân đoạn**. Và việc sửa đổi giá trị phần tử trong mảng cũng chính là bản chất của **thao tác cập nhật** trên cây phân đoạn *(sẽ được mô tả rõ hơn ở phần sau)*.
 
-- **Ví dụ:** Ta có mảng $$A = \{9,2,6,3,1,5,7\}$$ được kiểm soát bởi cây phân đoạn sau:
+- **Ví dụ:** Ta có mảng $A = \{9,2,6,3,1,5,7\}$ được kiểm soát bởi cây phân đoạn sau:
 
 <img src="/uploads/segment-tree-basic_img3.png" alt="/uploads/segment-tree-basic_img3.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -87,12 +92,14 @@ Có $3$ thao tác cơ bản trên cây phân đoạn:
 Để có thể có thể lấy giá trị và sửa đổi dãy số, trước tiên ta cần phải xây dựng một cây phân đoạn hợp lệ. 
 
 Trước khi xây dựng cây phân đoạn, ta cần quyết định:
+
 1. Thông tin được lưu trữ tại mỗi nút của cây phân đoạn. **Ví dụ:** Trong cây phân đoạn lấy giá trị nhỏ nhất, một nút sẽ lưu trữ giá trị nhỏ nhất của các phần tử trong đoạn $[l, r]$ mà nó quản lý.
 2. Phép toán hợp nhất hai nút con trong một cây phân đoạn. **Ví dụ:** Trong cây phân đoạn lấy giá trị nhỏ nhất, hai nút con tương ứng với đoạn $[l1, r1]$ và đoạn $[l2, r2]$ sẽ được hợp nhất thành một nút tương ứng với đoạn $[l1, r2]$ bằng cách lấy *min* các giá trị của hai nút con.
 
 $\circ$ Lưu ý rằng một đỉnh là "đỉnh lá", nếu đoạn tương ứng của nó chỉ bao gồm một giá trị trong mảng ban đầu. Nó là đỉnh thấp nhất của cây phân đoạn. Giá trị của nó sẽ bằng phần tử $a_i$ tương ứng.
 
 Có $2$ cách để xây dựng một cây phân đoạn:
+
 - **Cách 1:** Xây dựng *"từ dưới lên trên"*
     - Để xây dựng cây phân đoạn, ta sẽ bắt đầu ở các nút có độ sâu thấp nhất *(các nút lá)* và gán cho chúng các giá trị tương ứng. Rồi từ đó, ta có thể tính toán lên các nút cha bằng cách "hợp nhất" lần lượt $2$ nút con và lặp lại quy trình cho đến khi đạt đến đỉnh gốc.
 
@@ -111,11 +118,13 @@ Bây giờ ta muốn sửa đổi một phần tử cụ thể trong mảng, gi�
 Để làm như vậy, trước tiên ta cần sửa đổi nút lá tương ứng. Các nút lá khác không bị ảnh hưởng, vì mỗi nút lá chỉ được liên kết với một phần tử trong mảng. Nút cha của nút đã sửa đổi cũng bị ảnh hưởng, vì đoạn nó quản lý cũng chứa phần tử đã sửa đổi, và các nút tổ tiên của nó cũng vậy, v.v... cho đến nút gốc. 
 
 Nói cách khác, tất cả các nút nằm trên đường đi đơn từ gốc đến nút lá tương ứng đều bị ảnh hưởng. Ngoài ra, **không còn nút nào khác bị ảnh hưởng**. Do đó, với một dãy số gồm $N$ phần tử thì chiều cao của cây phân đoạn tương ứng sẽ là $\mathcal{O}(\log{N})$ nên chỉ có $\mathcal{O}(\log{N})$ nút cần được cập nhật.
-- **Ví dụ:** Cho mảng $$A = \{9,2,6,3,1,5,7\}$$. Phần tử có giá trị$1$được thay đổi thành giá trị$8$ trong cây phân đoạn lấy giá trị nhỏ nhất.
+
+- **Ví dụ:** Cho mảng $A = \{9,2,6,3,1,5,7\}$. Phần tử có giá trị $1$ được thay đổi thành giá trị $8$ trong cây phân đoạn lấy giá trị nhỏ nhất.
 
 <img src="/uploads/segment-tree-basic_gif1.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Thao tác cập nhật cây phân đoạn có thể được thực hiện bằng cách sử dụng một hàm đệ quy:
+
 - Để thực hiện cập nhật từ trên xuống, ta bắt đầu từ nút gốc; điều này dẫn đến lệnh gọi đệ quy tới một nút con quản lí đoạn chứa phần tử cần sửa đổi (nút con còn lại và cây con của nó không bị ảnh hưởng); v.v... Cho đến trường hợp cơ sở là nút lá được liên kết với phần tử cần cập nhật, ta sửa lại giá trị của nút lá đó. 
 - Sau khi hoàn tất lệnh gọi đệ quy cho các nút con *(trừ trường hợp cơ sở)*, giá trị của nút đang xét sẽ được cập nhật lại theo giá trị hai nút con của nó. 
 
@@ -128,7 +137,8 @@ Tương tự như thao tác xây dựng cây phân đoạn, cách cập nhật c
 Bây giờ, ta cần phải trả lời các truy vấn lấy giá trị. Ví dụ như: cho hai số nguyên $l$ và $r$, hãy xác định phần tử có giá trị nhỏ nhất trong đoạn $[l, r]$ của mảng $A$ với khoảng thời gian là $\mathcal{O}(\log{n})$.
 
 Do thao tác lấy giá trị này phức tạp hơn thao tác cập nhật cây phân đoạn nên ta sẽ lấy một ví dụ minh họa để dễ hình dung: 
-- Giả sử, cho mảng $$A = \{9,2,6,3,1,5,7\}$$và ta muốn biết phần tử nhỏ nhất trong đoạn$[1, 6]$của mảng$A$.
+
+- Giả sử, cho mảng $A = \{9,2,6,3,1,5,7\}$ và ta muốn biết phần tử nhỏ nhất trong đoạn $[1, 6]$ của mảng $A$.
 
 <img src="/uploads/segment-tree-basic_img4.png" alt="/uploads/segment-tree-basic_img4.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -152,7 +162,7 @@ Thứ khiến ta cần phải cân nhắc ở đây chính là cách lưu trữ 
 
 Thay vào đó, ta sẽ sử dụng một thủ thuật đơn giản để làm cho việc này trở nên hiệu quả hơn rất nhiều. Ta sẽ chỉ lưu trữ các thông tin của từng nút vào trong một mảng. Thông tin của nút gốc lưu ở chỉ số $1$, thông tin của hai nút con của nó lưu ở chỉ số $2$ và $3$, thông tin của các nút con của hai nút đó sẽ lưu ở chỉ số từ $4$ đến $7$, v.v... Dễ dàng nhận thấy, con bên trái của nút có chỉ số $id$ được lưu trữ tại chỉ số $2 \times id$ và con bên phải được lưu trữ tại chỉ số $2 \times id + 1$.
 
-- **Ví dụ minh họa:** Cho mảng $$A = \{9,2,6,3,1,5,7\}$$, ta có$$st[] = \{1, 2, 1, 2, 3, 1, 7, 9, 2, 6, 3, 1, 5\}$$(với$st[]$ là mảng biểu diễn cho **Segment Tree**, lưu lại thông tin của mỗi nút).
+- **Ví dụ minh họa:** Cho mảng $A = \{9,2,6,3,1,5,7\}$, ta có $st[] = \{1, 2, 1, 2, 3, 1, 7, 9, 2, 6, 3, 1, 5\}$ (với $st[]$ là mảng biểu diễn cho **Segment Tree**, lưu lại thông tin của mỗi nút).
 
     <img src="/uploads/segment-tree-basic_img5.png" alt="/uploads/segment-tree-basic_img5.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -332,6 +342,7 @@ Ta xét $2$ trường hợp:
     - Tầng $k-1$ : có $2^{k-1}$ nút
     - ...
     $\Rightarrow$ Tổng số nút không quá $2^{k+1}$ (vì **tổng số nút** $= 2^k + 2^{k-1} +  \ldots + 2^0 = 2^{k+1} - 1$ theo công thức cấp số nhân).
+
 - **TH2:** Với $N > 2^k$ và $N < 2^{k+1}$ : Số nút của cây phân đoạn không quá số nút của cây phân đoạn với $N = 2^{k+1}$.
 
 Do đó, số nút của cây cho dãy $N$ phần tử (với $N \le 2^k$) là không quá $2^{k+1}$, giá trị này xấp xỉ $4 \times N$. Bằng thực nghiệm, ta thấy dùng $4 \times N$ là đủ.
@@ -351,6 +362,7 @@ Ta có thể nhận thấy rằng thao tác xây dựng nhanh hơn so với vi�
 Với thao tác cập nhật, một số lượng các hoạt động không đổi được thực hiện cho mỗi nút trên đường đi đơn từ gốc đến nút lá tương ứng với phần tử cần sửa đổi. Đồng nghĩa với việc ở mỗi độ sâu của cây, ta chỉ gọi đệ quy tới không quá $1$ nút con. 
 
 Phân tích đoạn *code* trên, ta xét các trường hợp:
+
 - Phần tử cần xét không nằm trong đoạn $[l, r]$ do nút $id$ quản lý. Trường hợp này ta dừng lại, không xét tiếp.
 - Phần tử cần xét nằm trong đoạn $[l, r]$ do nút $id$ quản lý. Ta xét các con của nút $id$. Tuy nhiên chỉ có $1$ con của nút $id$ chứa phần tử cần xét và ta sẽ phải xét tiếp các con của nút này. Với nút con còn lại, ta sẽ dừng ngay mà không xét các con của nó nữa.
 
@@ -361,6 +373,7 @@ Vì số lượng các nút trên đường đi đơn từ gốc đến nút lá
 Trước tiên, ta hãy xem xét từng độ sâu của của cây. Từ đó có thể thấy rằng đối với mỗi độ sâu, ta chỉ truy cập không quá $4$ nút. Và vì chiều cao của cây là $\mathcal{O}(\log{N})$ nên độ phức tạp của thao tác lấy giá trị là $\mathcal{O}(\log{N})$.
 
 Ta có thể chứng minh rằng mệnh đề này *(truy cập nhiều nhất bốn nút trong mỗi độ sâu)* là đúng bằng **phương pháp quy nạp**:
+
 - Ở độ sâu đầu tiên, ta chỉ truy cập duy nhất một nút là nút gốc, vì vậy ở đây ta truy cập ít hơn $4$ nút. 
 - Bây giờ, ta hãy xem xét một độ sâu bất kì. Theo giả thuyết quy nạp là ta thăm nhiều nhất $4$ nút. Nếu ta chỉ thăm nhiều nhất $2$ nút, thì ở độ sâu tiếp theo, số lượng nút được thăm nhiều nhất sẽ là $4$ nút. Điều đó thật hiển nhiên, bởi vì mỗi nút có thể tạo ra nhiều nhất $2$ lệnh gọi đệ quy. 
 - Vì vậy, giả sử rằng ta truy cập $3$ hoặc $4$ nút trong độ sâu hiện tại. Từ các nút đó, ta sẽ phân tích kỹ hơn các nút nằm ở giữa (nghĩa là nút thứ hai từ trái sang với số lượng nút đang được truy cập là $3$ và nút thứ $2, \space 3$ với số nút đang được truy cập là $4$) . Vì truy vấn yêu cầu lấy giá trị của một đoạn con liên tục, ta biết rằng các phân đoạn tương ứng với các nút đã thăm ở giữa sẽ được bao phủ hoàn toàn bởi phân đoạn của truy vấn. Do đó các nút này sẽ không thực hiện bất kỳ lệnh gọi đệ quy nào tới các nút con nữa. Vì vậy, chỉ nút bên trái nhất và nút bên phải nhất mới có khả năng tiếp tục gọi đệ quy. Và hai nút đó sẽ chỉ tạo ra nhiều nhất $4$ lệnh gọi đệ quy, vì vậy độ sâu tiếp theo cũng sẽ đáp ứng đúng mệnh đề. 
@@ -378,6 +391,7 @@ Do đó, ta sẽ chỉ truy cập nhiều nhất $4 \times \log{N}$ nút trên c
 
 ## Bài toán
 Bạn được cho một mảng gồm $n$ số nguyên. Ban đầu tất cả các số của mảng đều là $0$. Nhiệm vụ của bạn là xử lí $2$ loại truy vấn:
+
 - Loại $1$ có dạng $1 \space x \space y$ : Gán phần tử ở vị trí thứ $x$ trong dãy thành số $y$ $(1 \le x \le n, \|y\| \le 10^9)$.
 - Loại $2$ có dạng $2 \space l \space r$ : In ra tổng các phần tử trong đoạn từ $l$ đến $r$ $(1 \le l \le r \le n)$.
 
@@ -465,12 +479,14 @@ Cho $m$ $(m \le 50000)$ câu hỏi dạng $x, y$ $(1 \le x \le y \le n)$, hãy t
 ## Phân tích
 
 Ở bài toán này, mỗi nút của cây phân đoạn lưu lại các thông tin sau:
+
 - `pre` : Tiền tố có tổng giá trị lớn nhất trên đoạn.
 - `suf` : Hậu tố có tổng giá trị lớn nhất trên đoạn.
 - `sum` : Tổng giá trị các phần tử trên đoạn.
 - `maxsum` : Tổng giá trị lớn nhất của đoạn con nằm trong đoạn mà nút đó quản lí.
 
 Bây giờ, ta cần phải xác định các phép toán để "hợp nhất" hai nút con:
+
 - `pre` : Dễ thấy rằng tiền tố lớn nhất của nút cha sẽ bằng *max* tiền tố của nút con bên trái và tổng giá trị của nút con bên trái cộng với tiền tố của nút con bên phải.
     - **Minh họa:** $\mathrm{pre}[l, r] = \max{(\mathrm{pre}[l, mid], \space \mathrm{sum}[l, mid] + \mathrm{pre}[mid + 1, r])}$ với $mid = \big\lfloor \frac{l + r}{2} \big\rfloor$.
     
@@ -583,6 +599,7 @@ Nhìn chung, độ phức tạp của thuật toán là $\mathcal{O}(4 \times n 
 ## Bài toán
 
 Cho một dãy số có $N$ số. Bạn cần xử lí $2$ loại truy vấn:
+
 - Truy vấn loại $1$ có dạng $1 \space i \space v$, ta đổi số ở vị trí $i$ thành $v$.
 - Truy vấn loại $2$ có dạng $2 \space L \space R \space k$, ta cần in ra số nhỏ nhất mà lớn hơn bằng $k$ trong khoảng $[L..R]$.
 
@@ -684,6 +701,7 @@ int main() {
 ## Đánh giá
 
 Ngoài ra còn có cách cài đặt khác đơn giản hơn, ta có thể cài đặt hàm `update` theo cách cập nhật *"từ dưới lên trên"* (không sử dụng đệ quy) như sau:
+
  - Ta sẽ bắt đầu xuất phát từ nút lá tương ứng với phần tử cần sửa đổi và đi dần lên nút gốc. 
 
 ``` cpp
@@ -706,6 +724,7 @@ void update(int i, int val){
 **Độ phức tạp**
 
 Với thao tác xây dựng cây phân đoạn, ta thấy rằng, ở mỗi độ sâu của cây, ta sẽ phải duyệt hết toàn bộ phần tử trong dãy để *insert* vào *multiset* của các nút cha. 
+
 - **Ví dụ:** Xét trường hợp tổng quát, với $N = 8$ là lũy thừa của $2$, ta có cây phân đoạn đầy đủ sau:
 
     <img src="/uploads/segment-tree-basic_img9.png" alt="/uploads/segment-tree-basic_img9.png" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -730,7 +749,8 @@ Nhìn chung, độ phức tạp của thuật toán là $\mathcal{O}(N \times \l
 Giả sử ta cần cập nhật đoạn $[u, v]$. Dễ thấy rằng, việc cập nhật tất cả các nút trên **Segment Tree** sẽ mất độ phức tạp rất lớn là $\mathcal{O}(N \times \log{N})$ (do tổng số phần tử nằm trong đoạn $[u, v]$ có thể lên đến $O(N)$). Do đó, với số lượng truy vấn cập nhật đoạn lớn, thao tác này sẽ không đủ tốt. 
 
 Vậy nên, trong quá trình cập nhật, ta chỉ thay đổi giá trị ở các nút gần gốc nhất sao cho tổng tất cả các phạm vi mà các nút đó quản lí đúng bằng đoạn $[u, v]$. 
-- **Ví dụ:**  Cho mảng $$A = \{9,2,6,3,1,5,7\}$$và ta cần cập nhật đoạn$[1, 6]$ :
+
+- **Ví dụ:**  Cho mảng $A = \{9,2,6,3,1,5,7\}$ và ta cần cập nhật đoạn $[1, 6]$ :
 
     <img src="/uploads/segment-tree-basic_img10.png" alt="/uploads/segment-tree-basic_img10.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
@@ -743,6 +763,7 @@ Cụ thể, ta xem xét bài toán sau:
 [VNOI - ITLAZY](https://oj.vnoi.info/problem/segtree_itlazy) 
  
 Bạn được cho một mảng gồm $n$ số nguyên $a_1, a_2, ..., a_n$ $(|a_i| \le 10^9,$ với $1 \le i \le n)$. Nhiệm vụ của bạn là xử lí $2$ loại truy vấn:
+
 - Loại $1$ có dạng $1 \space x \space y \space val$ : Tăng giá trị của các phần tử từ vị trí thứ $x$ đến vị trí thứ $y$ trong dãy lên $val$ đơn vị $(1 \le x \le y \le n, 1 \le val \le 10^9)$.
 - Loại $2$ có dạng $2 \space l \space r$ : In ra phần tử lớn nhất của dãy từ phần tử thứ $l$ đến phần tử thứ $r$ $(1 \le l \le r \le n)$.
 
@@ -759,6 +780,7 @@ Truy vấn loại $2$ là thao tác lấy giá trị cơ bản trên **Segment T
 Với truy vấn loại $1$, thao tác cập nhật đoạn $[u, v]$. Giả sử ta gọi $f[id]$ là giá trị lớn nhất trong đoạn mà nút $id$ quản lý. Trong lúc cập nhật, muốn hàm này thực hiện với độ phức tạp không quá $O(\log{N})$, thì khi xét đến $1$ nút $id$ quản lý đoạn $[l, r]$ mà đoạn $[l, r]$ nằm hoàn toàn trong đoạn $[u, v]$, thì ta không được đệ quy vào các nút con của nó nữa (nếu không độ phức tạp sẽ là $O(N)$ do ta đi vào tất cả các nút nằm trong đoạn $[u, v]$). 
 
 Để giải quyết, ta dùng kĩ thuật **Lazy Propagation** như sau:
+
 - Mỗi nút của **Segment Tree** sẽ lưu thêm một giá trị $lazy[id]$ với ý nghĩa là tất cả các phần tử trong đoạn $[l, r]$ mà nút $id$ quản lý đều được tăng thêm $lazy[id]$. Nói cách khác, nó sẽ lưu trữ các giá trị cần cập nhật của mỗi nút.
 - Ban đầu, ta khởi tạo tất cả các phần tử của mảng $lazy[]$ bằng $0$. Nếu $lazy[id] = 0$ có nghĩa là không có cập nhật nào đang chờ được xử lý trên nút $id$ trong cây phân đoạn. Ngược lại, nếu $lazy[id] \neq 0$ nghĩa là ta cần cập nhật giá trị của nút $id$ theo $lazy[id]$ trước khi thực hiện bất kỳ thao tác nào với nút đó *(việc cập nhật này tùy vào mục đích của cây; ví dụ như trong bài toán trên, giá trị của nút $id$ sẽ được tăng thêm $lazy[id]$ )*.
 - Nếu nút $id$ đang xét còn có giá trị được thêm vào chưa xét đến (từ các truy vấn cập nhật xảy ra trước đó, mà chưa được cập nhật hết), ta buộc phải cập nhật nó trước khi lấy giá trị hoặc tiếp tục đệ quy sâu hơn. Sau khi cập nhật xong nút $id$, ta phải đẩy giá trị $lazy$ ở nút $id$ xuống các con của nó để tiếp tục cập nhật và đặt lại $lazy$ của nút $id$ về $0$.
@@ -900,9 +922,10 @@ Tuy nhiên thuật toán trên không đủ tốt đối với số lượng tru
 
 Ta sẽ tạo ra $26$ mảng tương ứng với mỗi kí tự. Mảng này lưu lại vị trí xuất hiện của từng kí tự trong chuỗi. Và mỗi mảng sẽ được kiểm soát bởi một cây phân đoạn.
 
-- **Ví dụ:** Cho chuỗi $S = "dabedaba"$. Kí tự $'a'$ sẽ có một cây phân đoạn kiểm soát mảng $$\{0, 1, 0, 0, 0, 1, 0, 1\}$$. Còn kí tự$'b'$có một cây phân đoạn kiểm soát mảng$$\{0, 0, 1, 0, 0, 0, 1, 0\}$$, v.v...
+- **Ví dụ:** Cho chuỗi $S = "dabedaba"$. Kí tự $'a'$ sẽ có một cây phân đoạn kiểm soát mảng $\{0, 1, 0, 0, 0, 1, 0, 1\}$. Còn kí tự $'b'$ có một cây phân đoạn kiểm soát mảng $\{0, 0, 1, 0, 0, 0, 1, 0\}$, v.v...
     
 Với mỗi truy vấn sắp xếp đoạn $[i, j]$, ta dùng **Segment Tree** để tính số lần xuất hiện của mỗi ký tự trong đoạn, sau đó sắp xếp chúng và cập nhật mỗi cây phân đoạn với các giá trị mới. 
+
 - **Ví dụ:** Cho chuỗi $S = "dabedaba"$, giả sử ta cần phải sắp xếp các kí tự của chuỗi $S$ theo thứ tự **tăng dần**:
     - Gọi $cnt[i]$ là số lần xuất hiện của kí tự $i$ trong chuỗi $S$. Ta có thể dễ dàng tính toán mảng $cnt$ bằng cách lấy giá trị từ các cây phân đoạn tương ứng với mỗi kí tự. 
     - Sau khi lấy giá trị xong, trên cây phân đoạn, ta sẽ cập nhật lại tất cả phần tử của mảng tương ứng với từng kí tự bằng giá trị $0$.
@@ -1034,6 +1057,7 @@ int main() {
 ## Bài toán
 
 Cho một dãy số có $N$ số, ban đầu tất cả bằng $0$. Bạn cần xử lí $2$ loại truy vấn:
+
 - Truy vấn loại $1$ có dạng $1 \space L \space R \space A \space B$, ta cộng thêm vào phần tử thứ $i$ thêm $(i − L)A + B$ đơn vị với mọi $L \le i \le R$.
 - Truy vấn loại $2$ có dạng $2 \space L \space R$, ta cần in ra tổng của các phần tử trong khoảng $[L..R]$, lấy dư cho $10^9 + 7$.
 
@@ -1043,6 +1067,7 @@ $\circ \space \space 1 \le N, M \le 10^5$ (với $M$ là số lượng truy vấ
 
 - Với truy vấn loại $1$: Ta để ý đến giá trị được cộng vào. Với mọi $L \le i \le R$, ta cộng thêm vào phần tử thứ $i$ thêm $(i − L)A + B = iA + B - LA$ đơn vị. Trong đó $B – LA$ là không đổi với mọi phần tử trong truy vấn đề cập đến nên ta có thể dễ dàng sử dụng kĩ thuật **Lazy Propagation** để cập nhật. Còn lại là $iA$ đơn vị, giá trị này thay đổi nên phải dùng mảng $lazy$ thứ $2$ để lưu lại những giá trị dạng này. Nhận thấy rằng, khi mỗi phần tử trong đoạn $[l, r]$ tăng thêm $iA$ đơn vị thì tổng giá trị của cả đoạn $[l, r]$ sẽ tăng thêm $A \times (r + l) \times (r - l + 1) \space / \space 2$.
     Từ đó, bài toán chuyển về **Segment Tree** bình thường với $2$ mảng $lazy$.
+
 - Với truy vấn loại $2$ : Ta thực hiện thao tác lấy giá trị trên cây phân đoạn. 
 
 ## Cài đặt

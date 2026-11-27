@@ -206,6 +206,7 @@ Cho $n$ điểm, tìm bán kính nhỏ nhất của đường tròn chứa ít n
 ### 3.2 Giải pháp
 
 Với mỗi điểm $i$ làm tâm đường tròn:
+
 - Tính khoảng cách từ $i$ đến tất cả điểm khác
 - Sắp xếp khoảng cách
 - Lấy bán kính = khoảng cách thứ $k-1$
@@ -332,6 +333,7 @@ return A.x*A.x + A.y*A.y < B.x*B.x + B.y*B.y;
 **Đề bài:** Cho $n$ điểm trên mặt phẳng. Sắp xếp chúng theo góc từ gốc tọa độ (từ trục $x$ dương, ngược chiều kim đồng hồ). Nếu cùng góc, sắp theo khoảng cách tăng dần.
 
 **Input:**
+
 - Dòng 1: số nguyên $n$ $(1 \leq n \leq 10^5)$
 - $n$ dòng: 2 số nguyên $x_i, y_i$ $(|x_i|, |y_i| \leq 10^4)$, không có điểm nào là gốc tọa độ
 
@@ -372,6 +374,7 @@ return A.x*A.x + A.y*A.y < B.x*B.x + B.y*B.y;
 **Đề bài:** Cho $n$ điểm trên mặt phẳng. Tìm số điểm tối đa nằm trong một **nửa mặt phẳng** (bởi một đường thẳng đi qua gốc tọa độ).
 
 **Input:**
+
 - Dòng 1: số nguyên $n$ $(1 \leq n \leq 10^5)$
 - $n$ dòng: 2 số nguyên $x_i, y_i$ $(|x_i|, |y_i| \leq 10^4)$
 
@@ -419,6 +422,7 @@ return A.x*A.x + A.y*A.y < B.x*B.x + B.y*B.y;
 **Đề bài:** Cho $n$ điểm và điểm quan sát $O(a,b)$. Đếm số điểm "nhìn thấy" từ $O$ (không bị che bởi điểm khác trên cùng một tia).
 
 **Input:**
+
 - Dòng 1: 3 số nguyên $n, a, b$ $(1 \leq n \leq 10^5)$
 - $n$ dòng: 2 số nguyên $x_i, y_i$
 

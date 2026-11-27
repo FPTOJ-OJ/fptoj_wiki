@@ -2,6 +2,7 @@
 **Người viết:** Phạm Hoàng Hiệp - University of Georgia
 
 **Review bởi:**
+
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 - Ngô Nhật Quang - The University of Texas at Dallas
@@ -171,6 +172,7 @@ $$
         \ldots \ldots \ldots \ldots \ldots
     }_\text{Kiểm tra tiếp}
 $$
+
 - Nếu xâu đối xứng dài nhất ở vị trí $l+r-i$ không kéo dài đến $l$, thì xâu đối xứng dài nhất tương ứng qua $mid$ ở vị trí $i$ cũng không kéo dài đến $r$. 
 - Từ đó ta có thể khẳng định, nếu tiếp tục mở rộng ra thì phạm vi của hai xâu này vẫn nằm trong xâu đối xứng to kéo từ $l$ đến $r$. 
 - Do vậy, khi tiếp tục mở rộng về hai phía thì xâu con được mở rộng ở vị trí $i$ vẫn sẽ giống với $(l+(r-i))$ và không còn đối xứng nữa.

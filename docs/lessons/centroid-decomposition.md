@@ -35,6 +35,7 @@ graph TD
 ```
 
 Cây 7 đỉnh. Đỉnh **1** là centroid vì khi loại bỏ nó:
+
 - Thành phần bên trái (gốc 2): 3 đỉnh $\leq \lfloor 7/2 \rfloor = 3$ ✓
 - Thành phần bên phải (gốc 3): 3 đỉnh $\leq 3$ ✓
 
@@ -341,6 +342,7 @@ Cho cây $N$ đỉnh và số $K$. Đếm số cặp $(u,v)$ sao cho $\text{dist
 ### Ý tưởng
 
 Tại mỗi centroid $C$:
+
 - Đếm đường đi **qua $C$** giữa các subtree khác nhau.
 - Đệ quy đếm đường đi **trong cùng subtree**.
 

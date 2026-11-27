@@ -1,8 +1,10 @@
 
 **Nguời viết:** 
+
 - Ngô Nhật Quang - HUS High School for Gifted Students
 
 **Reviewer:**
+
 - Trần Quang Lộc - ITMO University
 - Hoàng Xuân Nhật - VNUHCM-University of Science
 - Hồ Ngọc Vĩnh Phát - VNUHCM-University of Science
@@ -14,6 +16,7 @@
 ## Bài toán
 
 Cho một đồ thị có $n$ đỉnh, ban đầu không có cạnh nào. Chúng ta phải xử lí các truy vấn như sau:
+
 - Thêm một cạnh giữa đỉnh $x$ và đỉnh $y$ trong đồ thị.
 - In ra `YES` nếu như đỉnh $x$ và đỉnh $y$ nằm trong cùng một thành phần liên thông. In ra `NO` nếu ngược lại.
 
@@ -24,6 +27,7 @@ Một thành phần liên thông trong đồ thị là một đồ thị con tro
 Nếu ta coi mỗi đỉnh trong đồ thị là một phần tử và mỗi thành phần liên thông trong đồ thị là một tập hợp, truy vấn thứ nhất sẽ trở thành gộp hai tập hợp lần lượt chứa phần tử $x$ và $y$ thành một tập hợp mới và truy vấn thứ hai trở thành hỏi hai phần tử $x$ và $y$ có nằm trong cùng một tập hợp hay không.
 
 Để giải bài toán này, ta sẽ xây dựng một cấu trúc dữ liệu có ba thao tác như sau:
+
 - `make_set(v)` - tạo ra một tập hợp mới chỉ chứa phần tử `v`.
 - `union_sets(a, b)` - gộp tập hợp chứa phần tử `a` và tập hợp chứa phần tử `b` thành một.
 - `find_set(v)` - cho biết **đại diện** của tập hợp có chứa phần tử `v`. Đại diện này sẽ là một phần tử của tập hợp đó và có thể thay đổi sau mỗi lần gọi thao tác `union_sets`. Ta có thể sử dụng đại diện đó để kiểm tra hai phần tử có nằm trong cùng một tập hợp hay không. `a` và `b` nằm trong cùng một tập hợp nếu như đại diện của hai tập chứa chúng là giống nhau và không nằm trong cùng một tập hợp nếu ngược lại.
@@ -392,6 +396,7 @@ Có thể thấy rằng, tương tự như thông tin về độ lớn của câ
 ### Bài toán
 
 Cho $n$ người đang xếp hàng ở các vị trí từ $1$ đến $n$. Viết chương trình xử lí các truy vấn:
+
 - Người đứng ở vị trí thứ $i$ rời khỏi hàng.
 - Tìm người gần nhất về bên phải vị trí $p$ mà chưa rời khỏi hàng.
 
@@ -614,6 +619,7 @@ Giả sử ta cần lưu trực tiếp các phần tử của một tập hợp 
 Cho một đồ thị vô hướng có $n$ đỉnh, đỉnh thứ $i$ có màu $a_i$. Ban đầu đồ thị chưa có cạnh nào.
 
 Cho $q$ truy vấn, mỗi truy vấn thuộc một trong hai dạng sau:
+
 - $1\,u\,v$: Thêm một cạnh nối giữa $u$ và $v$.
 - $2\,u\,c$: Tính số đỉnh có màu $c$ trong thành phần liên thông chứa $u$.
 

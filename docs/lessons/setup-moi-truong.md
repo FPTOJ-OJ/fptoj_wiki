@@ -60,6 +60,7 @@ Windows không có sẵn `g++` (trình biên dịch C++). Bạn cần cài MinGW
 ```bash
 pacman -S mingw-w64-ucrt-x86_64-gcc
 ```
+
 4. Thêm `C:\msys64\ucrt64\bin` vào PATH
 
 ### 3.3. Kiểm tra

@@ -367,6 +367,7 @@ tree.push_back(tree[old]); // copy rồi mới sửa tree[id]
 *   [Codeforces - Persistent Segment Tree Tutorial](https://codeforces.com/blog/entry/15890)
 
 **Bài liên quan:**
+
 *   [Segment Tree](segment-tree.md)
 *   [Cải tiến Segment Tree](improved-seg-tree.md)
 *   [Fenwick Tree (BIT)](fenwick-tree.md)

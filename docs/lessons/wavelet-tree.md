@@ -365,6 +365,7 @@ wt.kth(l + 1, r + 1, k);
 ---
 
 **Bài liên quan:**
+
 *   [Segment Tree](segment-tree.md)
 *   [Persistent Segment Tree](persistent-segment-tree.md)
 

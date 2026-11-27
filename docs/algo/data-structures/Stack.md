@@ -78,6 +78,7 @@ Thư viện chuẩn của C++ cho phép ta sử dụng Stack qua kiểu dữ li�
 * `pop`: loại bỏ phần tử ở cuối danh sách
 
 Ngoài ra, `stack` cũng hỗ trợ các thao tác:
+
 * `size`: trả về số phần tử hiện có trong stack
 * `empty`: trả về trạng thái của stack ($true$ nếu stack rỗng, $false$ nếu stack có ít nhất 1 phần tử)
 
@@ -279,6 +280,7 @@ Cho xâu $S$ chỉ gồm ký tự $($ và $)$. Bạn cần kiểm tra xem $S$ c�
 Nếu $S$ là dãy ngoặc đúng, với mỗi vị trí trong $S$ bạn cần in ra vị trí của **dấu ngoặc tương ứng**. 
 
 Định nghĩa:
+
 * Xâu rỗng là dãy ngoặc đúng
 * Nếu xâu $A$ là dãy ngoặc đúng thì $(A)$ cũng là dãy ngoặc đúng. Khi đó, cặp dấu ngoặc quanh xâu $A$ này là cặp **dấu ngoặc tương ứng**.
 * Nếu xâu $A$ và $B$ đều là dãy ngoặc đúng thì xâu $A + B$ cũng là dãy ngoặc đúng
@@ -338,12 +340,14 @@ Dãy ngoặc không đúng sẽ có số dấu ngoặc mở lớn hơn số ngo�
 #### Cách giải
 
 Cho một Stack chứa các phần tử kiểu `char`, đang ở trạng thái rỗng. Xét quá trình sau:
+
 * Duyệt xâu $S$ từ trái qua phải
 * Nếu ký tự đang xét là dấu $($, thêm nó vào Stack
 * Nếu ký tự đang xét là dấu $)$, xét phần tử đang ở đỉnh Stack. Nếu đó là dấu $($, ta tìm được một cặp dấu ngoặc tương ứng, và loại bỏ dấu ngoặc mở khỏi Stack. Nếu ngược lại, hoặc Stack rỗng, xâu $S$ không phải dãy ngoặc đúng.
 * Sau khi thực hiện quá trình, nếu Stack không rỗng thì $S$ không phải dãy ngoặc đúng.
 
 Trước hết, quá trình này sẽ luôn xác định xem xâu $S$ có phải là dãy ngoặc đúng hay không. Nhắc lại, quá trình sẽ kết luận xâu $S$ không phải dãy ngoặc đúng khi:
+
 * Ký tự đang xét là dấu đóng ngoặc và Stack đang rỗng.
 * Sau khi xử lý, Stack không rỗng.
 
@@ -489,6 +493,7 @@ Do $n \leq 10^6$ nên cách giải hồn nhiên: với mỗi $i$ ta lại xét $
 #### Mô hình lại bài toán
 
 Xét mô hình sau:
+
 * Phần tử thứ $i$ của mảng $A$ tượng trưng cho một người có chiều cao $a_i$.
 * Lần lượt người từ $1$ đến $n$ xếp thành một hàng. Người thứ $i$ sẽ *nhìn được* người thứ $j$ nếu $j$ đứng trước $i$ trong hàng.
 * Hàng luôn nhìn từ cuối về đầu.
@@ -501,6 +506,7 @@ Hình ảnh minh họa, số ở hàng trên là chiều cao mỗi người, ở
 
 Ta có thể cải tiến mô hình bằng việc chỉnh sửa cách thức xếp hàng.
 Khi người thứ $i$ xếp hàng, họ sẽ thực hiện các thao tác sau:
+
 1. Xếp vào cuối hàng
 2. Nếu họ đứng đầu hàng thì ghi lại số $-1$. Mặt khác, nếu người đứng trước họ có chiều cao thấp hơn hoặc bằng với $a_i$, đuổi người đó ra khỏi hàng. Lặp lại quá trình đuổi người đứng trước thấp hơn cho tới khi người $i$ đứng đầu hàng, hoặc người đứng trước có chiều cao lớn hơn. Ghi lại chỉ số của người đứng trước, hoặc $-1$ nếu họ đứng đầu hàng.
 
@@ -519,6 +525,7 @@ Dễ thấy chiều cao của người trong hàng luôn tạo thành một dãy
 #### Cài đặt
 
 Ta có thể biểu diễn mô hình nêu trên dưới dạng một Stack đơn điệu như sau:
+
 * Người xếp vào hàng là phép $push$
 * Đuổi người đứng trước là phép $pop$
 

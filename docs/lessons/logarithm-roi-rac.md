@@ -227,6 +227,7 @@ $a^x \equiv 1 \pmod{p}$ → $x$ là bội của bậc của $a$ modulo $p$. Luô
 ### 3.2 $a = 0$
 
 $0^x \equiv b \pmod{p}$:
+
 - $x = 0$: $0^0 = 1$
 - $x > 0$: $0^x = 0$
 
@@ -313,6 +314,7 @@ $a^x \equiv b \pmod{p}$ → dùng BSGS trực tiếp.
 Khi $\gcd(a, p) > 1$, nghịch đảo modular $a^{-1} \bmod p$ không tồn tại nên không thể dùng trực tiếp BSGS thường. Ý tưởng của **Extended BSGS** là tách thừa số chung lặp đi lặp lại:
 
 Mỗi bước đặt $g = \gcd(a, p)$. Nếu $g > 1$:
+
 - Nếu $b = 1$: trả về $x = 0$ (nếu chấp nhận nghiệm $0$).
 - Nếu $g \nmid b$: phương trình vô nghiệm, trả về `-1`.
 - Ngược lại chia cả hai vế và modulo cho $g$: đặt $p' = p/g$, $b' = b/g$, $k \leftarrow k \cdot (a/g) \bmod p'$, tăng biến đếm bước rút gọn $cnt$. Phương trình trở thành $k \cdot a^{x - cnt} \equiv b' \pmod{p'}$.

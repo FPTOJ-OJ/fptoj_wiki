@@ -2,6 +2,7 @@
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
 
 **Reviewer:**
+
 * Ngô Nhật Quang - The University of Texas at Dallas
 * Phạm Hoàng Hiệp - University of Georgia
 
@@ -167,6 +168,7 @@ Do đó thuật toán này có thể không đủ nhanh để giải quyết gi�
 ## 2.1. Ý tưởng
 
 Theo định lí Fermat nhỏ, nếu $p$ là một số nguyên tố thì với mọi số nguyên $a$ thỏa mãn $\gcd\left(a,p\right)=1$, ta có: 
+
 $$
 a^{p-1}\equiv 1\mod{p} 
 $$
@@ -345,6 +347,7 @@ $T(c)$ |$34\%$|$56\%$|$71\%$|$81\%$|$88\%$|$\ldots$
 Tức là kể cả ta có thử đến $5$ lần thì xác suất phép thử kết luận đúng vẫn không thể quá $90\%$.
 
 Một điều khá thú vị là các số Carmichael phân bố rất ít trong tập các số tự nhiên. Theo [OEIS-A055553](https://oeis.org/A055553):
+
 * Số các số Carmichael nhỏ hơn $10^6$ là $43$
 * Số các số Carmichael nhỏ hơn $10^9$ là $646$
 * Số các số Carmichael nhỏ hơn $10^{18}$ là $1401644$

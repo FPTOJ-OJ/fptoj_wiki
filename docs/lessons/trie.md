@@ -69,6 +69,7 @@ Trong sơ đồ trên, `*` đánh dấu node kết thúc của một từ hoàn 
 ### Cấu trúc node
 
 Mỗi node chứa:
+
 - Mảng `$children[|\Sigma|]$`: con trỏ đến các node con (mỗi phần tử tương ứng một ký tự trong bảng chữ cái $\Sigma$).
 - `$isEnd$`: đánh dấu node này có phải kết thúc của một từ hợp lệ không.
 - `$count$`: đếm số từ đi qua node này (hữu ích cho bài toán đếm prefix).

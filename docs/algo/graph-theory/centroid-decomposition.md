@@ -1,8 +1,10 @@
 
 **Tác giả:**
+
 * Cao Thanh Hậu - Trường đại học Khoa học Tự Nhiên - ĐHQG-HCM
 
 **Reviewer:**
+
 * Lê Minh Hoàng - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 * Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 * Ngô Nhật Quang - Trường THPT chuyên Khoa học Tự Nhiên - ĐHQGHN
@@ -257,6 +259,7 @@ Sau khi xóa tất cả đỉnh trong cây $T$, ta đã xây dựng được câ
 </center>
 
 Cây trọng tâm có một số tính chất đặc biệt như:
+
 * Cây có số lượng đỉnh bằng với cây ban đầu.
 * Độ cao của cây không vượt quá $\log(n)$.
 * $LCA(u, v)$ trên cây trọng tâm cũng thuộc đường đi từ $u$ đến $v$ trên cây ban đầu.
@@ -552,6 +555,7 @@ Dưới đây là một code đã ac bài Lampice, bạn đọc có thể tham k
 ### Tóm tắt đề bài
 Cho một cây có $n$ đỉnh, ban đầu mỗi đỉnh đều có màu đen.
 Thực hiện $q$ truy vấn, mỗi truy vấn thuộc một trong hai loại sau đây:
+
 * $0$ $u$: đổi màu đỉnh $u$ (nếu $u$ đang có màu đen thì đổi thành trắng, nếu $u$ có màu trắng thì đổi thành đen).
 * $1$ $u$: tìm khoảng cách từ đỉnh $u$ đến đỉnh màu trắng gần nhất. Nếu không có đỉnh nào màu trắng, in $-1$.
 

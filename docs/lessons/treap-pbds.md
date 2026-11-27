@@ -8,10 +8,12 @@
 ## 1. Bản chất vấn đề
 
 `std::set` và `std::map` trong C++ rất tiện nhưng **không hỗ trợ trực tiếp**:
+
 1. Tìm phần tử đứng thứ $k$ (`find_by_order`) hoặc đếm số phần tử nhỏ hơn $x$ (`order_of_key`) trong $O(\log N)$.
 2. Chia cắt hoặc ghép nối mảng động, đảo ngược một đoạn $[l, r]$ của dãy trong $O(\log N)$ (như cắt/dán đoạn văn bản).
 
 Để giải quyết, trong lập trình thi đấu có hai công cụ chủ lực:
+
 - **GNU PBDS (`tree` / `gp_hash_table`):** Có sẵn trong trình biên dịch `g++` (GCC), chỉ cần ~5 dòng khai báo là có ngay Order Statistic Tree và Hash Table siêu nhanh.
 - **Treap (Tree + Heap) & Implicit Treap:** Tự cài ~50 dòng không dùng phép quay phức tạp (như AVL/Red-Black), hỗ trợ tách mảng (`split`), ghép mảng (`merge`), đảo đoạn (`reverse`) và lazy propagation.
 
@@ -32,16 +34,19 @@ Thư viện `<ext/pb_ds/assoc_container.hpp>` của GCC cung cấp cấu trúc c
 ### Phần B: Treap (Cây + Heap ngẫu nhiên)
 
 Mỗi nút trong Treap mang **hai giá trị**:
+
 - **`key`** (hoặc vị trí ngầm định trong *Implicit Treap*): tuân theo tính chất **Binary Search Tree (BST)** ($\text{trái} < \text{nút} < \text{phải}$).
 - **`prio`** (độ ưu tiên sinh ngẫu nhiên): tuân theo tính chất **Max-Heap** ($\text{prio}[\text{cha}] \ge \text{prio}[\text{con}]$).
 
 Nhờ `prio` ngẫu nhiên, chiều cao kỳ vọng của cây luôn là **$O(\log N)$**. Toàn bộ thao tác trên Treap chỉ dựa vào **2 hàm cơ bản**:
+
 1. **`split(t, key, l, r)`:** Tách cây `t` thành cây `l` (chứa phần tử $\le key$, hoặc $k$ phần tử đầu tiên trong Implicit Treap) và cây `r` (phần còn lại).
 2. **`merge(t, l, r)`:** Ghép hai cây `l` và `r` (với mọi khóa ở `l` nhỏ hơn ở `r`) thành một cây `t` duy nhất, nút nào có `prio` lớn hơn sẽ làm gốc.
 
 ### Minh họa cắt & đảo đoạn trên Implicit Treap
 
 Giả sử dãy có độ dài $N$, muốn đảo ngược đoạn $[l, r]$:
+
 1. Tách $l-1$ phần tử đầu $\to$ cây `A`, phần còn lại $\to$ cây `BC`.
 2. Tách $r - l + 1$ phần tử đầu của `BC` $\to$ cây `B` (chính là đoạn $[l, r]$), phần còn lại $\to$ cây `C`.
 3. Gắn cờ lazy `rev ^= 1` lên gốc cây `B`.

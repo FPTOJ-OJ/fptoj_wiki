@@ -1,8 +1,10 @@
 
 **Người viết:**
+
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 
 **Reviewer:**
+
 - Phạm Công Minh - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 - Nguyễn Đức Kiên - Trường Đại học Công nghệ, ĐHQGHN
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
@@ -16,6 +18,7 @@ $$C_n^k  = \dbinom{n}{k} = \dfrac{n!}{k! (n - k)!} = \dfrac{n(n-1)\ldots(n - k +
 
 Để bạn đọc tiện theo dõi, trong bài viết này, chúng ta thống nhất sử dụng ký hiệu $C_n^k$.
 Ta quy ước:
+
 - $C_n^0  = 1$ với mọi $n \ge 0$
 - Nếu $k > n$ thì $C_n^k  = 0$
 
@@ -26,11 +29,14 @@ Ta quy ước:
     
 
 - $C_n^k$ còn được gọi là hệ số nhị thức (binomial coefficients) do $C_n^k$ là hệ số trong khai triển:
+
 $$(x + y)^n= \sum\limits_{k = 0}^{n} C_n^k \cdot x^k \cdot y ^ {n - k}$$
 
 ## Tính số tổ hợp
 ### Sử dụng định nghĩa
+
 $$C_n^k = \dfrac{n!}{k! (n - k)!}$$
+
 - Với công thức này, ta nghĩ ngay đến một thuật toán "ngây thơ": Tính $n!$, $k!$ và  $(n - k)!$. Từ đó tính được $C_n^k$.
 
 === "C++"
@@ -80,13 +86,15 @@ Vì $C_n^k$ là số nguyên, nên bạn yên tâm rằng $C_{n-1}^{k-1} \cdot (
 
 ### Sử dụng công thức truy hồi
 
-$$\begin{align*}
+$$
+\begin{align*}
 C_n^k=\begin{cases}
 1 &\text{nếu } k = 0 \text{ và } n \ge 0\\
 0 &\text{nếu } k > n\\
 C_{n - 1}^{k - 1} + C_{n - 1}^{k} &\text{trong các trường hợp còn lại}
 \end{cases}
-\end{align*}$$
+\end{align*}
+$$
 
 Với công thức truy hồi này, ta sẽ sử dụng một mảng hai chiều `C[n][k]` để tính $C_n^k$
 
@@ -113,6 +121,7 @@ Với công thức truy hồi này, ta sẽ sử dụng một mảng hai chiều
 
 Độ phức tạp không gian: $O(n^2)$
 Độ phức tạp thời gian:
+
 - Tiền xử lý: $O(n^2)$
 - Truy vấn: $O(1)$
 
@@ -139,6 +148,7 @@ Ngoài ra còn có hai cách tính dựa trên cách tính giai thừa modulo $M
 ---
 ### Sử dụng công thức truy hồi
 Ở đây, ta sẽ sử dụng công thức truy hồi ở trên và thay đổi một chút:
+
 $$C_n^k = (C_{n - 1}^{k - 1} + C_{n - 1}^{k}) \mod M$$
 
 **Code C++ minh họa**
@@ -164,6 +174,7 @@ $$C_n^k = (C_{n - 1}^{k - 1} + C_{n - 1}^{k}) \mod M$$
 
 Độ phức tạp không gian: $O(n^2)$
 Độ phức tạp thời gian:
+
 - Tiền xử lý: $O(n^2)$
 - Truy vấn: $O(1)$
 
@@ -179,14 +190,21 @@ Rào cản lớn nhất cho việc sử dụng định nghĩa $C_n^k = \dfrac{n!
     - *Định lý Fermat nhỏ*
     :::spoiler 
     Cho $p$ là một số nguyên tố và số nguyên $a$ không chia hết cho $p$. Khi đó, ta có:
+
     $$a^{p - 1} \equiv 1 \pmod p$$
+
     Từ đó, ta rút ra:
+
     $$a^{-1} \equiv a^{p-2} \pmod p$$
+
     :::
+
     - *Lũy thừa nhanh*
 - **Ý tưởng:**
     - Ta viết lại: 
+
 $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \mod M$$
+
     - Ta sử dụng hai mảng: mảng $\text{fact}[i]$ để lưu $i! \bmod M$ và mảng $\text{ifact}[i]$ để lưu $(i!)^{-1} \bmod M$. Sau đó dùng công thức (sử dụng định lý Fermat nhỏ):
 
         $$\text{ifact}[i] = (\text{fact}[i]) ^ {-1} \bmod M = (\text{fact}[i])^{M-2} \bmod M$$
@@ -195,22 +213,26 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
         
     - Ta sẽ tính mảng $\text{fact}[i]$ như sau:
     
-    $$\begin{align}
+    $$
+    \begin{align}
         \begin{cases}
         \text{fact}[0] &= 1\\
         \text{fact}[i] &= (\text{fact}[i - 1] \times i ) \bmod M &\text{ nếu } 1 \le i \le n
         \end{cases}
-    \end{align}$$
+    \end{align}
+    $$
     
     - Tiếp theo ta sử dụng thuật toán lũy thừa nhanh để tính $\text{ifact}[n] = \left( \text{fact}[n] \right)^{M-2} \mod M$ với độ phức tạp $O(\log M)$.
     - Còn mảng $\text{ifact}[i]$ thì tính như sau:
     
-    $$\begin{align}
+    $$
+    \begin{align}
         \begin{cases}
         \text{ifact}[n] &= \left( \text{fact}[n] \right)^{M-2} &\mod M\\
         \text{ifact}[i - 1] &= \text{ifact}[i] \times i  &\mod M  &\text{nếu } 1 \le i \le n
         \end{cases}
-    \end{align}$$
+    \end{align}
+    $$
     
     - Cuối cùng, $C_n^k = \text{fact}[n] \times \text{ifact}[k] \times \text{ifact}[n - k] \mod M$.
 
@@ -307,11 +329,13 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
 
 Độ phức tạp không gian: $O(n)$
 Độ phức tạp thời gian:
+
 - Tiền xử lý: $O(n + \log M)$
 - Truy vấn: $O(1)$
 
 ### Sử dụng định lý Lucas
 Đây là cải tiến của cách sử dụng định nghĩa để có thể sử dụng cho $n > M$
+
 - **Điều kiện sử dụng:** $M$ nguyên tố
 - **Ý tưởng:** Các bạn có thể tham khảo tại bài viết [Định lý Lucas của VNOI](https://vnoi.info/wiki/translate/he/Lucas-theorem.md)
 
@@ -462,6 +486,7 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
 
 Độ phức tạp không gian: $O(M)$
 Độ phức tạp thời gian:
+
 - Tiền xử lý: $O(M)$
 - Truy vấn: $O\big(\log_M(n)\big)$
 
@@ -474,16 +499,20 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
 
         Trong đó, $\varphi(m)$ là hàm phi Euler: $\varphi(m) = m \cdot \prod\limits_{p \text{ nguyên tố}, p \mid m} \dfrac{p - 1}{p}$.
         Từ đó, ta rút ra:
+
         $$a^{-1} \equiv a^{\varphi(m)-1} \pmod p$$
+
     - *Mở rộng định lý Lucas cho modulo là lũy thừa số nguyên tố*:
         Andrew Granville đã chứng minh được công thức sau: (Xem bài báo tại [đây](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) hoặc tại [đây](http://www.cecm.sfu.ca/organics/papers/granville/paper/binomial/html/node2.html))
     
         $$\dfrac{t^{e_q}}{p^{e_1}} C_n^k \equiv \dfrac{(n_0!)_p}{(k_0!)_p(r_0!)_p} \cdot \dfrac{(n_1!)_p}{(k_1!)_p(r_1!)_p} \ldots \dfrac{(n_d!)_p}{(k_d!)_p(r_d!)_p} \,(\bmod p^q)$$
 
         Trong đó:
+
         - $t = \begin{cases} 1 & \text{nếu } p = 2 \text{ và } q \ge 3 \\ -1 & \text{còn lại} \end{cases}$
         - $e_j = \sum\limits_{i \ge j} \left( \left\lfloor \dfrac{n}{p^i} \right\rfloor - \left\lfloor \dfrac{k}{p^i} \right\rfloor - \left\lfloor \dfrac{r}{p^i} \right\rfloor \right)$
         Bạn đọc có thể thấy, $e_1$ là số mũ của $p$ khi phân tích $C_n^k$ ra thừa số nguyên tố.
+
         - $\left( n! \right)_p$ là tích tất cả các số từ $1$ đến $n$ và không bao gồm các số chia hết cho $p$ (với $p$ là số nguyên tố).
         - $r = n-k$
         - $n_i = \left\lfloor \dfrac{n}{p^i} \right\rfloor \bmod p ^ q$
@@ -507,6 +536,7 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
     fact = [0] * MOD
     ifact = [0] * MOD
     ```
+
 - Chú ý rằng ở bước chuẩn bị, $\text{fact}[i]$ sử dụng để lưu $\left( i! \right)_p$ (*Xem phần mô tả mở rộng định lý Lucas*) thay vì $i!$ và ta cần sử dụng định lý Euler thay cho định lý Fermat nhỏ.
 === "C++"
 
@@ -548,6 +578,7 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
             else:
                 ifact[i - 1] = ifact[i]
     ```
+
 - Tiếp theo ta sử dụng công thức bên trên
 === "C++"
 
@@ -614,26 +645,31 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
 
 Độ phức tạp không gian: $O(M)$
 Độ phức tạp thời gian:
+
 - Tiền xử lý: $O(M)$
 - Truy vấn: $O\big(\log_p(n)\big)$
 
 ### Sử dụng định lý thặng dư Trung Hoa
 Định lý thặng dư Trung Hoa là cầu nối giúp ta tính toán được khi $M$ không phải là số nguyên tố.
+
 - **Kiến thức sử dụng:**
     - *Định lý Thặng dư trung hoa - Chinese remainder theorem (CRT)*
     
         Xét hệ:
         
-        $$\left\{\begin{array}{rcl}
+        $$
+        \left\{\begin{array}{rcl}
             a & \equiv & a_1 \pmod{m_1} \\
             a & \equiv & a_2 \pmod{m_2} \\
               & \vdots & \\
             a & \equiv & a_k \pmod{m_k}
-        \end{array}\right.$$
+        \end{array}\right.
+        $$
         
         với $m_1, m_2, \ldots m_k$ đôi một nguyên tố cùng nhau.
     
         Ký hiệu: 
+
         - $M = m_1 \cdot m_2 \ldots m_k$
         
         - $M_i = \dfrac{M}{m_i}$
@@ -642,12 +678,15 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
     
         Từ đó nhận thấy:
         
-        $$\left\{\begin{array}{rcl}
+        $$
+        \left\{\begin{array}{rcl}
             a_i M_i N_i & \equiv & a_i \pmod{m_i} \\
             a_j M_j N_j & \equiv & 0 \pmod{m_i} \,\,\forall j \neq i
-        \end{array}\right.$$
+        \end{array}\right.
+        $$
     
         Khi này chỉ cần cộng tất cả số hạng $a_i M_i N_i$ ta được một nghiệm thỏa mãn hệ:
+
         $$a = a_1 M_1 N_1 + a_2 M_2 N_2 + \ldots + a_k M_k N_k$$
    
 
@@ -656,6 +695,7 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
 **Tóm tắt:** Tính $C_n^k \bmod 142857$ với $0 \le k \le n \le 10^{9}$
 
 **Lời giải:**
+
 - Giả sử bằng những cách trên, bạn đã tính được $C_n^k$ modulo là số nguyên tố ([ĐL Lucas](#su-dung-inh-ly-lucas)) hoặc lũy thừa của chúng ([ĐL Lucas mở rộng](#su-dung-inh-ly-lucas-mo-rong)). Tiếp theo ta sẽ sử dụng CRT xử lý các phần còn lại.
 - Đầu tiên, ta sẽ phân tích modulo $142857 = 3^3 \cdot 11 \cdot 13 \cdot 17$
     ```cpp
@@ -697,6 +737,7 @@ $$C_n^k = n! \times \left( k! \right)^{-1} \times \left( (n - k)! \right)^{-1} \
             # M_i * M_i^(-1)
             rem[i] = tmp * binpow(tmp, phi - 1, primes_pw[i]) % MOD
     ```
+
 - Cuối cùng tính ra kết quả cuối cùng sử dụng CRT
     ```cpp
     long long CRT(long long N, long long K) {

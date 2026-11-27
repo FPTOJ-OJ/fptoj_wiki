@@ -1,8 +1,10 @@
 ﻿
 **Người viết:**
+
 * Cao Thanh Hậu - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 
 **Reviewer:**
+
 * Lê Minh Hoàng - Đại học Khoa học Tự nhiên - ĐHQG-HCM
 * Trịnh Quang Anh - University of Melbourne
 * Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
@@ -21,6 +23,7 @@ Trước khi tìm hiểu sâu hơn về đường đi Euler trên cây, mời b�
 Cho một cây có $n$ đỉnh đánh số từ $1$ đến $n$, đỉnh $1$ là đỉnh gốc của cây. Ban đầu, mỗi đỉnh của cây có giá trị $0$.
 
 Thực hiện các truy vấn thuộc một trong hai loại sau:
+
 * $1$ $u$ $x$: Thay đổi giá trị đỉnh $u$ thành $x$.
 * $2$ $u$: Tính tổng giá trị các đỉnh thuộc cây con gốc $u$ (*).
 
@@ -91,6 +94,7 @@ Hình $1$
     ```
 
 Độ phức tạp của thuật toán:
+
 * Với các truy vấn loại $1$, ta chỉ thay đổi giá trị của đỉnh nên độ phức tạp cho truy vấn này là $O(1)$.
 * Với các truy vấn loại $2$, ta cần duyệt qua tất cả các đỉnh thuộc cây con gốc $u$, trong trường hợp tệ nhất, độ phức tạp cho mỗi truy vấn như thế lên đến $O(n)$.
 
@@ -428,11 +432,13 @@ Trong đoạn code dưới đây, hàm $change(u, x)$ cho phép tăng giá trị
 Trong một bài toán cần các thao tác thay đổi giá trị các đỉnh trên đường đi và tính giá trị của đỉnh, ta cũng có thể áp dụng ứng dụng trên để giải quyết.
 
 Gọi:
+
 + $par[u]$ là cha trực tiếp của đỉnh $u$.
 + $LCA(u, v)$ là tổ tiên chung gần nhất của $u$ và $v$.
 + $b[u]$ là một giá trị khác của đỉnh $u$. Ban đầu, $b[u] = 0$ với mọi $u$.
 
 Giả sử cần tăng giá trị mỗi đỉnh thuộc đường đi từ $u$ đến $v$ thêm $x$ đơn vị, thực hiện các bước như sau:
+
 1. **Tăng** $b[u]$ thêm $x$ đơn vị.
 2. **Tăng** $b[v]$ thêm $x$ đơn vị
 3. **Giảm** $b[LCA(u, v)]$ đi $x$ đơn vị.
@@ -549,6 +555,7 @@ Xét đỉnh $p$ xuất hiện trong đoạn $st[u]..st[v]$ của dãy $d$:
 Ý tưởng của thuật toán này là tạo mảng $f$ với $f[st[u]]$ là giá trị của đỉnh $u$, và $f[en[u]] = -f[st[u]]$. Vì vậy khi tính tổng giá trị đoạn $st[u]..st[v]$ của mảng $f$, các đỉnh $p$ xuất hiện $2$ lần sẽ tự "triệt tiêu" do $f[st[p]] + f[en[p]] = 0$, chỉ còn lại tổng các đỉnh xuất hiện một lần - các đỉnh thuộc đường đi từ $u$ đến $v$.
 
 Ta có thuật toán như sau:
+
 + Khi tăng giá trị đỉnh $u$ thêm $x$ đơn vị, ta tăng giá trị tại vị trí $st[u]$ thêm $x$ đơn vị, giảm giá trị tại vị trí $en[u]$ đi $x$ đơn vị.
 + Để tính tổng giá trị các đỉnh trên đường đi từ $u$ đến $v$, ta tính tổng các giá trị thuộc đoạn $st[u]..st[v]$ (giả sử $u$ là tổ tiên của $v$).
 
@@ -571,6 +578,7 @@ Thuật toán này dựa trên sự tự triệt tiêu của các đỉnh xuất
 ### Cơ sở
 
 Gọi:
+
 + $tour$ là dãy đỉnh biểu diễn đường đi Euler.
 + $st[u]$ là vị trí đầu tiên của đỉnh $u$ trong dãy $tour$.
 
@@ -583,6 +591,7 @@ Ta có tính chất sau:
 Gọi $p$ là cha chung gần nhất của $u$ và $v$.
 
 Xét các đỉnh xuất hiện trên đoạn $st[u]..st[v]$ của dãy $tour$:
+
 + Theo định nghĩa, đoạn này thể hiện một đoạn của đường đi Euler, bắt đầu từ đỉnh $u$ và đi đến đỉnh $v$, vì vậy chắc chắn có chứa đỉnh $p$.
 + Vì $v$ là con của $p$ nên đoạn này không thể chứa bất cứ đỉnh nào là tổ tiên của $p$.
 

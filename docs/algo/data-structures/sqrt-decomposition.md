@@ -46,6 +46,7 @@ Mỗi truy vấn ta mất thời gian là $O(S + N/S)$. Ta cần tìm giá trị
 ## Cài đặt
 
 Ta cần phải lưu những cấu trúc sau: 
+
 * $\sqrt{N}$ mảng $cnt$, mỗi mảng có độ dài $max(A_i)$, tốn $O(\sqrt{N} * max(A_i)$) bộ nhớ.
 * Mảng $A$, tốn $O(N)$ bộ nhớ.
 
@@ -181,11 +182,13 @@ Vậy là chúng ta đã giải xong bài toán với độ phức tạp $O(Q*10
 
 ### Giải bài toán gốc 
 Ta sẽ áp dụng ý tưởng trên vào để giải bài toán gốc. Ta cũng chia mảng thành $\sqrt{N}$ đoạn. Xét một truy vấn $(l,r,oval,nval)$ ta có:
+
 * $blockL$ là block đầu tiên ở bên phải $l$
 * $blockR$ là block chứa $r$
 * Với mỗi block, ta sẽ có mảng $lazy$ với định nghĩa như trên. Ví dụ block $3$, các số đang có giá trị là $oval$ sẽ được đổi thành giá trị $nval$ $\Leftrightarrow$ $lazy[3][oval]=nval$
 
 Vậy truy vấn của chúng ta sẽ được chia làm 3 phần (có thể rỗng) như sau:
+
 * Phần dư bên trái: $[ l ... blockL * BLOCK\\_SIZE - 1 ]$ 
 * Phần dư bên phải: $[ blockR * BLOCK\\_SIZE ... r ]$
 * Phần đầy đủ các block: $[ blockL * BLOCK\\_SIZE ... blockR * BLOCK\\_SIZE - 1 ]$

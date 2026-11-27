@@ -436,6 +436,7 @@ if n or not n:  # Luôn True với MỌI giá trị của n (tautology)
 
 ### Bài 3: Xếp loại điểm
 Đọc điểm số (0-100). In ra xếp loại:
+
 - >= 90: A
 - >= 80: B
 - >= 70: C

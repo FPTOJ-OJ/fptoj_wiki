@@ -35,6 +35,7 @@ Cho $N$ đỉnh, thực hiện $Q$ truy vấn theo thời gian:
 DSU Rollback **không dùng path compression** (vì khó hoàn tác). Thay vào đó, chỉ dùng **union by size/rank**.
 
 Khi gộp 2 tập, lưu lại:
+
 - Đỉnh nào bị thay đổi (root cũ).
 - Kích thước nào bị thay đổi.
 

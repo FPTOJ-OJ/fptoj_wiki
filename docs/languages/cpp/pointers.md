@@ -12,6 +12,7 @@ Bởi thế, bạn có thể yên tâm rằng bài viết dưới đây không k
 Chúng ta đã quá quen thuộc với các biến (*variables*) trong C++. Một biến có thể mang một giá trị, ví dụ như biến dạng `bool`, `int` hay `double`. Mỗi biến thuộc các kiểu này dùng để lưu một **giá trị** nào đó. Các biến còn có thể là một đối tượng phức tạp hơn, ví dụ như các cấu trúc dữ liệu `vector<int>`, `queue<string>` hay `map<int, string>`. Các biến thuộc loại này có thể chứa một tập hợp nhiều giá trị nào đó. Dù đơn giản hay phức tạp, các biến thuộc một trong các dạng kể trên luôn giúp chúng ta lưu trữ dữ liệu. Tác giả tạm gọi những kiểu biến này là biến "thông thường".
 
 Như vậy, các biến "thông thường" là các biến **có thể lưu trữ dữ liệu**. Chúng có hai tính chất cơ bản sau: 
+
 - Dữ liệu của các biến này **hoàn toàn độc lập** với nhau: Giá trị của biến `a` không phụ thuộc vào giá trị của biến `b` và **ngược lại**. 
 - Mỗi khi ta khai báo một biến "thông thường" `int x; string s; vector<double> v;...` ta có thêm một biến mới, và biến đó cho ta **thêm không gian lưu trữ dữ liệu**.
 
@@ -52,6 +53,7 @@ Chắc các bạn lờ mờ đoán ra đoạn code trên mô phỏng công thứ
 Giờ ta để ý dòng code thứ 3 trong đoạn ví dụ trên: `int &result = cacheDPResults[i][j]`. Dù dòng code này dùng để khai báo biến `result`, nhưng do có ký tự `&` ở trước, kết quả của biến `result` này được "đồng bộ" với biến `cacheDPResult[i][j]`. Biến `result` và `cacheDPResult[i][j]` **luôn mang cùng giá trị**, và khi giá trị một biến thay đổi, **biến kia cũng thay đổi theo**.
 
 Như vậy, biến `result` này (và biến `b` ở ví dụ trước) có hai điểm khác với các biến "thông thường" được đề cập ở phần 1a:
+
 - Giá trị của biến `result` **không độc lập** với giá trị của biến `cacheDPResult[i][j]`: Hai giá trị này luôn bằng nhau.
 - Khi khai báo biến `result`, ta **không có thêm không gian lưu trữ dữ liệu**.
 
@@ -156,6 +158,7 @@ printf("%d\n", *another_pointer); // 400
 ```
 
 Trong ví dụ trên:
+
 - Đầu tiên con trỏ `pointer` trỏ vào biến "thông thường" `normal_1`. Do đó, `normal_1` và `*pointer` lúc này **cùng là một biến**: Khi một lệnh làm thay đổi giá trị `normal_1`, giá trị của `*pointer` cũng thay đổi theo và ngược lại. 
 - Sau lệnh gán `pointer = &normal_2`, `pointer` lúc này trỏ vào `normal_2` và **không còn trỏ vào** `normal_1` nữa. Vì vậy, lện gán `*pointer_2 = 300` **làm thay đổi** `normal_2` nhưng **không làm thay đổi** `normal_1`. 
 - Cuối cùng, con trỏ `another_pointer` được cho trỏ vào *nơi `pointer` đang trỏ vào*, tức là biến "thông thường" `normal_2`. Do đó lệnh gán `normal_2` làm thay đổi `*another_pointer`.
@@ -275,6 +278,7 @@ Trong đoạn code trên, lệnh `c = 30` gặp lỗi vì hằng tham biến kh�
 Nếu ta thử truyền một biểu thức (ví dụ, `1 + 1` như ở trên), tham số thứ nhất và thứ ba của hàm `update` (tham trị và hằng tham biến) cho phép làm điều này, còn tham số thứ hai (tham biến) chỉ chấp nhận truyền vào một biến.
 
 **Với con trỏ**, bạn có thể truyền vào ba loại tham số tương tự. Tuy nhiên, do kích thước của một biến con trỏ là rất nhỏ (4 bytes (bằng một biến `int`) với các máy tính dùng HĐH 32-bit, hoặc 8 bytes (bằng một biến `long long`) với các máy tính dùng HĐH 64-bit); mình thấy việc dùng hằng tham biến với con trỏ là **không cần thiết** (Hằng tham biến chỉ được sử dụng khi bạn truyền các tham số có kích thước lớn như vector, map, set...). Với con trỏ được truyền theo kiểu tham trị hoặc tham biến, có các điểm cần chú ý sau đây:
+
 - Chi phí truyền vào **luôn rất nhỏ**, bất kể là tham trị hay tham biến, bất kể đối tượng được trỏ vào là `int` hay `vector`.
 - Giá trị của con trỏ (biến "thông thường" được con trỏ trỏ vào) **không đổi** với tham trị, và **có thể thay đổi** với tham biến.
 - Giá trị của biến được đối tượng trỏ vào **luôn bị thay đổi** nếu có các lệnh gán hoặc gọi hàm làm thay đổi giá trị của chúng.
@@ -297,6 +301,7 @@ int main(void) {
 
 ```
 Trong ví dụ trên:
+
 - Khi hàm `update` được gọi, tham số `pointer` đang trỏ vào biến `normal_1`. Do đó, lệnh `*pointer = 10` mang ý nghĩa `normal_1 = 10`;
 - Sau hai lệnh `pointer = &normal_2` và `*pointer = 20`, biến `pointer` này trỏ vào biến `normal_2` và gán biến này thành `20`.
 - Kết quả in ra cho thấy `*pointer = 10`, tức là `pointer` trỏ vào `normal_1`. Tức là đối tượng bị `pointer` trỏ vào **không đổi** sau khi gọi hàm update.
@@ -389,6 +394,7 @@ for (int i = 0; i < m; i++) {
 Một vector cần 24 bytes để lưu, còn một con trỏ chỉ cần 8 bytes. Ở mỗi cách, ta cần lưu $m + m \cdot n + m \cdot n \cdot 2 = 30.1 \cdot 10^6$ vector/con trỏ và $4 \cdot 10^7$ biến `int`. Do đó dùng vector sẽ tốn $882.4 \cdot 10^6$ bytes ~ $841.5$MB, nhưng dùng con trỏ chỉ tốn ~400MB. 
 
 Sau đây là hai lời khuyên cuối cùng về việc tạo mảng động:
+
 - Bất kể sử dụng vector hay con trỏ để khai báo mảng động, bạn cố gắng **chỉ tạo một chiều động**, còn các chiều còn lại tĩnh.
 - Trường hợp bắt buộc phải dùng mảng động nhiều chiều, dùng con trỏ sẽ tốt hơn vector.
 
@@ -414,11 +420,13 @@ Lệnh `delete` này rất thiết thực trong lập trình thực tế, do b�
 ## c. Các lỗi thường gặp về con trỏ
 ### Sai cú pháp
 Lỗi này bao gồm việc gõ thiếu hoặc thừa các dấu `*` hoặc các dấu `&`. Trong một phép gán hoặc phép tính, nếu bạn chỉ gõ sai ở một trong hai vế, bạn sẽ có một phép gán **không hợp lệ** và trình biên dịch sẽ **báo lỗi**. Khi đó bạn biết mình mắc lỗi và phải sửa, nhưng việc sửa là không dễ dàng do các thông điệp báo lỗi của C++ trong trường hợp này thường khó hiểu. Lời khuyên khi gặp phải trường hợp này đó là bạn hãy nhìn kỹ lại hai vế xem kiểu dữ liệu ở hai vế có tương ứng nhau hay không:
+
 - Nếu `a` là một biến "thông thường" kiểu `int`, `&a` là một con trỏ kiểu `int*` và `*a` là một biểu thức vô nghĩa.
 - Nếu `a` là một con trỏ kiểu `int*`, `*a` là một biến "thông thường" kiểu `int` và `&a` là một con trỏ kiểu `int**`.
 - Một phép gán chỉ hợp lệ khi kiểu dữ liệu của hai vế **giống nhau** (đều là `int` hay đều là `int*`).
 
 Tuy nhiên, có những trường hợp khó phát hiện hơn do lỗi sai **không gây lỗi biên dịch** (giống như các bệnh nhân nhiễm virus Corona nhưng không triệu chứng), vì vậy bạn phải thật cẩn thận. Giả sử ta có hai con trỏ `int *p` và `int *q`:
+
 - Lệnh `printf("%d\n", p)` dù không gây lỗi biên dịch nhưng **tạo ra cảnh báo**. Để nhận được cảnh báo này, bạn cần **bật chế độ -O2, -Wall và -Wextra** trong Codeblocks/Dev-Cpp.
 - `cout << p` thay vì `cout << *p`: Lệnh không gây ra lỗi biên dịch hay cảnh báo.
 - `p < q` thay vì `*p < *q`: Lệnh không gây ra lỗi biên dịch hay cảnh báo.
@@ -433,6 +441,7 @@ Bởi thế, khi cần khai báo nhiều con trỏ cùng một lúc, bạn phả
 Lỗi này có triệu chứng là việc bạn bị *run-time-error*, do bạn truy cập vào vùng nhớ (biến "thông thường" được trỏ tới) của một con trỏ trỏ vào nơi "lung tung", không xác định.
 
 Đây là lỗi hay gặp nhất, có ba lý do chính dẫn đến lỗi này:
+
 - Chưa xét trường hợp con trỏ hiện tại là con trỏ NULL. Lỗi này đã được nói đến ở phần trên. Để khác phục, bạn cần xét cẩn thận từng trường hợp, khi gọi vào `*p` hay `p->`, bạn cần nghĩ xem liệu `p` có thể là `NULL` không. Nếu có, bạn cần thêm các lệnh `if` (ví dụ, `if (p != NULL) p->push_back(1)`) hay phép toán điều kiện (ví dụ, `cout << (p == NULL ? 0 : *p)`).
 - Chưa khởi tạo con trỏ trước khi truy cập. Chú ý, các con trỏ nếu được khai báo là **biến cục bộ** (khai báo trong hàm), nó **không tự động khởi tạo là NULL**. Do đó, nếu bạn kiểm tra điều kiện `p == NULL`, nó sai, nhưng khi truy cập vào `*p`, bạn vẫn bị chạy sinh lỗi như khi truy cập vào con trỏ NULL. Lời khuyên đưa ra: Giống như bất kỳ biến cục bộ nào khác, bạn phải khởi tạo trước khi sử dụng.
 - Truy cập sau khi `delete`: Khi bạn xóa vùng nhớ của một con trỏ bằng `delete p` hoặc `delete[] arr`, các vùng nhớ tương ứng với các con trỏ bị xóa, nhưng con trỏ **không được gán lại thành NULL**. Khi đó, nếu bạn vô tình truy cập vào `*p` bạn vẫn bị chạy sinh lỗi, và kiểm tra `p == NULL` không giúp bạn tránh được lỗi này.
@@ -498,6 +507,7 @@ Giả sử ta chỉ làm việc trên các xâu ký tự gồm các chữ cái l
 Ta xét bài toán ví dụ đơn giản: *Cho $n$ xâu ký tự $s_1, s_2, \ldots, s_n$, tính tổng độ dài các tiền tố phân biệt của $n$ xâu kí tự này.
 
 Để làm được bài này, đầu tiên ta sẽ dựng cây tiền tố. Sau đó, với mỗi nút ta sẽ tính hai giá trị:
+
 - Độ cao của nút này
 - Tổng độ cao của các nút nằm trong cây con có gốc là nút này.
 
@@ -548,11 +558,13 @@ int main(void) {
 ```
 
 Đoạn code trên có ba phần chính:
+
 - Phần mô tả `struct Node`: Ở đây, ta thấy trong Node lưu lại một mảng `Node *child[26]` là mảng con trỏ trỏ vào các con như đã nói ở trên. Ngoài ra, ta còn dùng thêm biến `high` để lưu lại độ cao của cây và `totHigh` để lưu lại tổng độ cao của tất cả các nút trong cây con. Đoạn code trong `Node() { ... }` được gọi là *constructor*, giúp ta khởi tạo mảng child bằng NULL.
 - Hàm `addString(string s)`: Dùng để thêm một xâu ký tự vào cây trie. Trong hàm này ta có một con trỏ `Node *p`. Ban đầu con trỏ trỏ vào gốc cây. Ta lần lượt duyệt qua các kí tự của xâu $s$, mỗi kí tự duyệt qua ta "đi" xuống một bước trên cây, duy trì sao cho con trỏ `p` luôn trỏ vào nút ứng với tiền tố kết thúc bởi kí tự đang xét. Lệnh `if (p->child[...] == NULL) p->child[...] = new Node()` có nghĩa là *nếu nút cần đi tới chưa tồn tại trên cây, ta phải tạo ra nút đó*. Lệnh `p = p->child[...]` chính là ta đã "nhảy" một bước xuống lớp xâu hơn của cây.
 - Hàm `dfs` làm quá trình DFS và tính các giá trị. Hàm này có logic giống hệt DFS trên cây bình thường. Chỉ khác rằng, mọi khi bạn đánh số các nút từ $1$ tới $n$, do đó ta có hàm `void dfs(int u)`. Còn ở đây ta không đánh số mà dùng con trỏ, do đó ta dùng `void dfs(Node *p)`.
 
 Các lỗi hay mắc khi cài đặt trie:
+
 - Thiếu constructor trong `struct Node`: Nếu không có constructor khởi tạo mảng `Node *child[26]` bằng NULL, các con trỏ **không mang giá trị NULL** và do đó bạn **sẽ bị run-time error**.
 - Quên khởi tạo gốc cây `root = new Node()` (dòng thứ 2 ở hàm `main`). Nếu thiếu dòng này, bạn **chắc chắn bị run-time error** do cây của bạn chưa có gốc thì chưa thể thêm các nút khác được.
 - Viết sai hàm `addString`. Sẽ có nhiều bạn khi mới code sẽ bị sai nhu dưới đây. Các bạn thử đoán xem lỗi sai là gì:
@@ -570,6 +582,7 @@ void addString(const string &s) {
 ```
 
 Một số bài tập dùng trie cho các bạn luyện tập:
+
 - [Trie Sharding, Google Code Jam 2014 round 2, problem D](https://code.google.com/codejam/contest/3014486/dashboard#s=p3). Xem code tại [đây](https://ideone.com/EwHSOF)
 - [Short Code, CF 476 div.2, problem E](https://codeforces.com/contest/965/problem/E). Xem code tại [đây](https://codeforces.com/contest/965/submission/37609430)
 - [Lexicographical Disorder, AtCoder - CODE FESTIVAL 2016 round B, problem E](https://atcoder.jp/contests/code-festival-2016-qualb/tasks/codefestival_2016_qualB_e). Xem code tại [đây](https://ideone.com/46ONEE)
@@ -579,6 +592,7 @@ Một số bài tập dùng trie cho các bạn luyện tập:
 Sử dụng con trỏ để cài đặt Persistent Segment Tree khá phổ biến, do đây là một loại cây nhị phân mà bạn cần cài đặt nhiều "phiên bản" khác nhau. Do việc cài đặt rất phức tạp, mình chỉ cho các bạn xem code chứ không thể phân tích chi tiết được. Khi đọc code của mình, bạn chỉ cần đọc phần `class PersistentSegmentTree`. Các phần còn lại không liên quan trực tiếp đến CTDL, chỉ là để giải bài toán.
 
 Bài tập liên quan:
+
 - [Persistent Bookcase, CF 368 Div.2, problem D](https://codeforces.com/contest/707/problem/D). Xem code tại [đây](https://codeforces.com/contest/707/submission/19992150)
 - [Lazy Learner, The 2018 ICPC Hanoi Regional Contest, problem L](https://hanoi18.kattis.com/problems/lazylearner).
 

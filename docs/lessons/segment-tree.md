@@ -72,6 +72,7 @@ plt.tight_layout()
 Ý tưởng chủ đạo của Segment Tree là **tính toán trước và lưu trữ kết quả của các đoạn con** trong mảng gốc, sau đó kết hợp các kết quả này lại khi có yêu cầu truy vấn.
 
 Với mảng gốc $a$ có kích thước $N$:
+
 *   Nút gốc của cây quản lý toàn bộ mảng, tương ứng với đoạn $[0, N-1]$.
 *   Tại mỗi nút quản lý đoạn $[start, end]$ (với $start < end$), ta chia đôi đoạn này thành hai nửa:
     *   Con trái quản lý nửa đầu: $[start, mid]$
@@ -116,6 +117,7 @@ Một câu hỏi phổ biến là tại sao chúng ta cần cấp phát mảng c
 
 1.  **Trường hợp lý tưởng ($N$ là lũy thừa của $2$):**
     Nếu $N = 2^h$ với $h \in \mathbb{N}$, Segment Tree sẽ là một cây nhị phân đầy đủ hoàn hảo (perfect binary tree) có chiều cao $h$.
+
     *   Số nút lá ở tầng cuối cùng là $N = 2^h$.
     *   Số nút trong là $N - 1 = 2^h - 1$.
     *   Tổng số nút trên cây là $2N - 1 = 2^{h+1} - 1$.
@@ -123,14 +125,22 @@ Một câu hỏi phổ biến là tại sao chúng ta cần cấp phát mảng c
 
 2.  **Trường hợp tổng quát ($N$ không phải là lũy thừa của $2$):**
     Gọi $h$ là chiều cao nhỏ nhất của cây sao cho $2^h \geq N$. Theo định nghĩa, ta có:
+
     $$2^{h-1} < N \leq 2^h$$
+
     Khi đó, ta dựng một cây nhị phân đầy đủ hoàn hảo có chiều cao $h$ để bao phủ toàn bộ $N$ phần tử. Cây này sẽ có số lá là $2^h$.
     Các phần tử thực tế của mảng sẽ được điền vào các lá bên trái, còn các lá dư thừa ở bên phải sẽ được gán giá trị mặc định ($0$ đối với phép tính tổng).
+
     *   Chỉ số lớn nhất của nút lá trên cây nhị phân đầy đủ hoàn hảo này nằm ở tầng $h$, tương ứng với chỉ số lớn nhất là:
+
         $$2^{h+1} - 1$$
+
     *   Từ bất đẳng thức $N > 2^{h-1}$, nhân cả hai vế với $4$, ta được:
+
         $$4N > 4 \cdot 2^{h-1} = 2 \cdot 2^h = 2^{h+1}$$
+
     *   Do đó:
+
         $$\text{Chỉ số lớn nhất} = 2^{h+1} - 1 < 2^{h+1} < 4N$$
 
 Như vậy, chỉ số lớn nhất của bất kỳ nút nào trên cây Segment Tree luôn nhỏ hơn $4N$. Việc cấp phát mảng kích thước $4N$ đảm bảo an toàn tuyệt đối và tránh lỗi vượt quá chỉ số mảng (out of bounds) trong mọi trường hợp.
@@ -142,11 +152,17 @@ Như vậy, chỉ số lớn nhất của bất kỳ nút nào trên cây Segmen
 Để tính tổng các phần tử trong khoảng $[L, R]$, ta thực hiện duyệt đệ quy từ nút gốc đi xuống. Tại mỗi nút quản lý đoạn $[start, end]$, có $3$ trường hợp xảy ra:
 
 1.  **Đoạn quản lý nằm ngoài hoàn toàn đoạn truy vấn:**
+
     $$end < L \quad \text{hoặc} \quad R < start$$
+
     Trường hợp này, nút hiện tại không đóng góp gì vào tổng cần tìm. Ta lập tức trả về giá trị trung hòa (đối với phép cộng là $0$, đối với phép tìm cực tiểu là $+\infty$).
+
 2.  **Đoạn quản lý nằm trong hoàn toàn đoạn truy vấn:**
+
     $$L \leq start \quad \text{và} \quad end \leq R$$
+
     Trường hợp này, toàn bộ các phần tử thuộc đoạn $[start, end]$ đều thuộc đoạn truy vấn. Ta trả về ngay giá trị $tree[node]$ mà không cần đi sâu xuống các con.
+
 3.  **Đoạn quản lý giao một phần với đoạn truy vấn:**
     Ta chia đôi đoạn quản lý hiện tại bằng cách tính $mid = \lfloor \frac{start + end}{2} \rfloor$, sau đó gọi đệ quy tìm kiếm trên con trái (đoạn $[start, mid]$) và con phải (đoạn $[mid+1, end]$). Kết quả trả về là tổng của cả hai lượt đệ quy này.
 
@@ -154,6 +170,7 @@ Như vậy, chỉ số lớn nhất của bất kỳ nút nào trên cây Segmen
 Khi thực hiện truy vấn tổng đoạn trong khoảng $[L, R]$, thuật toán duyệt cây từ gốc xuống theo đệ quy. Chúng ta cần chứng minh rằng tại mỗi tầng (level) của cây, số lượng nút được duyệt qua không vượt quá $4$.
 
 Độ phức tạp thời gian phụ thuộc vào số lượng **nút giao một phần**, vì chỉ các nút này mới sinh ra các lượt gọi đệ quy xuống tầng tiếp theo.
+
 1.  Xét một tầng bất kỳ của cây Segment Tree. Các đoạn quản lý của các nút cùng một tầng là các đoạn rời nhau (disjoint) và phủ liên tiếp nhau.
 2.  Vì đoạn truy vấn $[L, R]$ là một đoạn liên tục, nó chỉ có tối đa hai điểm biên là điểm đầu $L$ và điểm cuối $R$.
 3.  Một nút quản lý $[start, end]$ giao một phần với $[L, R]$ khi và chỉ khi đoạn đó chứa điểm biên $L$ hoặc điểm biên $R$ (nhưng không bao phủ hoàn toàn $[L, R]$).
@@ -161,7 +178,9 @@ Khi thực hiện truy vấn tổng đoạn trong khoảng $[L, R]$, thuật to�
 5.  Như vậy, ở mỗi tầng, số lượng nút giao một phần tối đa là $2$.
 6.  Từ mỗi nút giao một phần ở tầng $d$, chúng ta gọi đệ quy xuống tối đa $2$ con ở tầng $d+1$. Do đó, số lượng nút được ghé thăm ở tầng $d+1$ tối đa là $2 \times 2 = 4$.
 7.  Vì chiều cao của cây Segment Tree là $h = \lceil \log_2 N \rceil$, tổng số nút được ghé thăm trên toàn bộ cây là:
+
     $$\text{Số nút ghé thăm} \leq 4h = O(\log N)$$
+
 Do đó, độ phức tạp thời gian của hàm truy vấn luôn là $O(\log N)$.
 
 ### Minh họa Truy vấn đoạn $[2, 5]$ trên mảng $[2, 5, 3, 7, 1, 4, 6, 3]$
@@ -420,7 +439,9 @@ Dưới đây là mã nguồn cài đặt đầy đủ của Segment Tree hỗ t
 Segment Tree cực kỳ linh hoạt nhờ khả năng thay đổi phép toán gộp. Nếu bài toán yêu cầu tìm giá trị nhỏ nhất (hoặc lớn nhất) trong đoạn thay vì tính tổng:
 
 *   **Phép gộp:** Thay phép tính cộng `+` thành phép lấy cực trị `min()` hoặc `max()`.
+
     $$tree[node] = \min(tree[2 \cdot node], tree[2 \cdot node + 1])$$
+
 *   **Giá trị trung hòa:** Thay giá trị trung hòa $0$ của tổng bằng $+\infty$ đối với phép tìm min, hoặc $-\infty$ đối với phép tìm max.
     ```cpp
     if (r < start || end < l) return INT_MAX; // Cho truy vấn tìm Min
@@ -437,15 +458,21 @@ Nếu cập nhật điểm thông thường, ta phải thực hiện cập nhậ
 
 ### Ý tưởng cốt lõi: "Sự lười biếng thông minh"
 Khi thực hiện cập nhật cộng thêm $val$ trên đoạn $[L, R]$:
+
 *   Nếu đoạn quản lý của nút $[start, end]$ nằm hoàn toàn trong $[L, R]$, ta **cập nhật ngay giá trị của nút này** và ghi lại một **nhãn lười (lazy tag)** tại nút đó với nội dung: *"Các nút con của nút này sẽ cần cộng thêm $val$ khi được duyệt tới"*. Ta không lập tức cập nhật các nút con.
 *   Khi có bất kỳ thao tác truy vấn hay cập nhật nào khác đi qua nút hiện tại, ta thực hiện thao tác **đẩy xuống (pushDown)**: lan truyền giá trị nhãn lười từ cha xuống hai con, cập nhật giá trị của hai con rồi xóa nhãn lười tại nút cha.
 
 ### Phân tích toán học về tính đúng đắn của phép đẩy trễ
 Với một nút quản lý đoạn $[start, end]$ có độ dài đoạn là $length = end - start + 1$:
+
 *   Nếu tất cả các phần tử trong đoạn được cộng thêm một lượng $V$, thì giá trị tổng lưu tại nút đó sẽ tăng thêm một lượng là:
+
     $$\Delta = V \times (end - start + 1)$$
+
 *   Phép toán này đảm bảo tính phân phối của phép nhân đối với phép cộng:
+
     $$\sum_{i=start}^{end} (a[i] + V) = \left( \sum_{i=start}^{end} a[i] \right) + V \times (end - start + 1)$$
+
 *   Khi đẩy nhãn lười $V$ xuống các con, con trái quản lý đoạn $[start, mid]$ và con phải quản lý đoạn $[mid+1, end]$ sẽ lần lượt nhận giá trị nhãn lười cộng dồn $lazy[2i] \leftarrow lazy[2i] + V$ và $lazy[2i+1] \leftarrow lazy[2i+1] + V$.
 
 ### Minh họa Lan truyền trễ khi cộng $5$ vào đoạn $[2, 5]$
@@ -828,6 +855,7 @@ graph TD
 
 ### Bài toán thực tế
 Cho một ma trận kích thước $N \times M$. Ta cần thực hiện:
+
 *   Truy vấn tổng các phần tử trong hình chữ nhật con giới hạn bởi góc trái trên $(x_1, y_1)$ và góc phải dưới $(x_2, y_2)$.
 *   Cập nhật phần tử tại một điểm $(x, y) = val$.
 
@@ -922,6 +950,7 @@ Nhớ cặp đôi: phép gộp `+` đi với `0`; `min` đi với `+∞`; `max` 
 *   [YouTube - Segment Tree Playlist (takeuforward)](https://www.youtube.com/playlist?list=PLtfqa971vD5GTQjH9U0H6kiq9cQlFFa5k)
 
 **Bài liên quan:**
+
 *   [Bài 16: Heap (Hàng đợi ưu tiên)](heap.md)
 *   [Bài 17: DSU (Gộp tập hợp)](dsu.md)
 *   [Bài 23: Fenwick Tree (Cây chỉ số nhị phân)](fenwick-tree.md)

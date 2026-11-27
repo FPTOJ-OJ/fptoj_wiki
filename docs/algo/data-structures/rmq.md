@@ -1,8 +1,10 @@
 
 **Tác giả:** 
+
 - Lê Minh Hoàng - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 
 **Reviewer:**
+
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Hoàng Xuân Nhật - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
@@ -11,10 +13,13 @@
 
 ## Giới thiệu
 Bài toán $RMQ$ được phát biểu như sau:
+
 - Cho mảng $A$ gồm $N$ phần tử và $Q$ truy vấn có dạng $(l, r)$. Với mỗi truy vấn, in ra giá trị nhỏ nhất trong mảng $A$ từ $l$ đến $r$.
+
 Ví dụ: $A = [4, 6, 1, 5, 7, 3]\rightarrow min[2\ldots5] = min(6,1,5,7)=1$
 
 Bài toán $RMQ$ có nhiều cách giải, nhưng $2$ cách phổ biến nhất là:
+
 - **Sparse Table**: $\mathcal{O}(N\log{N})$ tiền xử lý, $\mathcal{O}(1)$ mỗi truy vấn.
 - [Segment Tree](segment-tree-basic.md): $\mathcal{O}(N)$ tiền xử lý, $\mathcal{O}(\log{N})$ mỗi truy vấn.
 
@@ -72,10 +77,11 @@ Ta duyệt qua tất cả phần tử.
 - Có $Q$ truy vấn, vì thế tổng độ phức tạp là $\mathcal{O}(Q \cdot N)$
 
 Câu hỏi đặt ra là ta còn có thể tối ưu thời gian truy vấn được hay không?
+
 - Nhận xét: Thay vì duyệt qua từng phần tử, ta có thể duyệt qua từng nhóm $2$ phần tử. Từ đó, ta có thể giảm thời gian truy vấn xuống còn $\mathcal{O}(\frac{N}2)$
 
 ### Thuật toán tối ưu 1.1
-- Ta xây dựng mảng $a2$ với công thức $$a2_i = min(a_i, a_{i+1})$$.
+- Ta xây dựng mảng $a2$ với công thức $a2_i = min(a_i, a_{i+1})$.
 <img src="/uploads/ORCwi7l.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 - Khi truy vấn, nếu độ dài đoạn cần truy vấn $len = 1$ thì ta in ra $a[l]$, nếu $len > 1$ thì ra dùng mảng $a2$:
 <img src="/uploads/WE6aVdx.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -117,6 +123,7 @@ Tương tự 1.1, ta có nhận xét: Thay vì duyệt qua từng nhóm $2$ ph�
 
 Từ đó, ta có thể giảm thời gian truy vấn xuống còn $\mathcal{O}(\frac{N}4)$
 Khi truy vấn:
+
 - Nếu độ dài đoạn cần truy vấn $len = 1$ thì ta in ra $a[l]$
 - Nếu độ dài đoạn cần truy vấn $len$ thoả mãn $1 < len < 4$ thì ta in ra $min(a2[l], a2[r - 1])$
 - nếu $len >= 4$ thì ra dùng mảng $a4$:
@@ -195,6 +202,7 @@ int queryMin(int l, int r) {
 
 ### Thuật toán tối ưu 1.n
 Nếu ta làm tiếp như thuật toán tối ưu $1.3$ (tiếp tục tạo các mảng $a16, a32, \dots, a65536$) ta sẽ có $\log_2(N)$ mảng $a$, độ phức tạp bài toán lúc này như sau:
+
 - Độ phức tạp tiền xử lý: $\mathcal{O}(N \log N)$ ($\log_2$ mảng $a$)
 - Độ phức tạp truy vấn: $\mathcal{O}\left(\dfrac{N}{2^{\log N}} + \log N\right) = \mathcal{O}(\log N)$ ($1$ vòng for và $log_2$ lệnh if cho biến $len$)
 - Có $Q$ truy vấn, vì thế tổng độ phức tạp thời gian là $\mathcal{O}(N\log N + Q\log N)$
@@ -202,21 +210,26 @@ Nếu ta làm tiếp như thuật toán tối ưu $1.3$ (tiếp tục tạo các
 
 ### Thuật toán tối ưu 2
 Nhưng nếu dùng $\log_2$ mảng $a$ sẽ mang đến cho ta nhiều bất tiện (code dài, dễ sai, ...). Do đó, ta có thể đặt:
+
 - $st[j][i]$ là giá trị nhỏ nhất của $2^j$ phần tử tính từ $i$ (min của $a[i\ldots i + 2^j - 1]$), tương ứng với $a(2^j)[i]$) ($st$ ở đây là viết tắt của $S$(parse)$T$(able)).
 - Ta có công thức truy hồi sau:
-$$st[j][i] = 
+
+$$
+st[j][i] =
 \begin{cases}
 a[i] & \text{ với } j = 0 \\ 
 min(st[j-1][i], st[j-1][i + 2^{j-1}]) & \text{ với } j > 0
-\end{cases}$$
+\end{cases}
+$$
 
 Nhận xét thêm:
+
 - $\log$ lệnh if trong $queryMin$ lúc này thật ra chỉ thực hiện nhiệm vụ: tìm $k$ nhỏ nhất thoả mãn $len < 2^{k+1} = 2^k + 2^k$ (hay nói cách khác là để chắc chắn $2$ đoạn $[l\ldots l+2^k-1]$ và $[r-2^k+1,r]$ giao nhau nhưng vẫn nằm trong đoạn $[l,r]$).
 <img src="/uploads/Wh92peP.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 - Ví dụ:
     - $len=6\Rightarrow k=2$, vì $6 < 2^{k+1} = 8$
     - $len=8\Rightarrow k=3$, vì $8 < 2^{k+1}=16$
-- Vậy nên, $k$ còn có một cách tính khác là $$k=\_\_lg(len)$$(phần nguyên của phép$\log_2(len)$)
+- Vậy nên, $k$ còn có một cách tính khác là $k=\_\_lg(len)$ (phần nguyên của phép $\log_2(len)$)
 - Từ đây, ta có thể giảm độ phức tạp truy vấn xuống còn $\mathcal{O}(1)!!!!!!!$
 
 === "C++"
@@ -271,13 +284,14 @@ Giới hạn: $N, Q \le 10^5$
 ### Ý tưởng
 Giống như RMQ, ta vẫn sẽ dựng mảng $st[LG+1][N]$.
 
-Nhưng lúc này, ta không thể lấy $$k = \_\_lg(len)$$rồi$res = sum[l\ldots l+2^k-1] + sum[r-2^k+1\ldots r]$như RMQ được nữa (vì$2$ đoạn chắc chắn giao nhau).
+Nhưng lúc này, ta không thể lấy $k = \_\_lg(len)$ rồi $res = sum[l\ldots l+2^k-1] + sum[r-2^k+1\ldots r]$ như RMQ được nữa (vì $2$ đoạn chắc chắn giao nhau).
 
 Nhận xét: Ta luôn có thể tách một số nguyên dương thành tổng các lũy thừa phân biệt của 2 (hệ nhị phân). Ví dụ: $25 = 2^4 + 2^3 + 2^0 = 11001_2$.
 
 Từ nhận xét trên, ta có thể tách $[l\ldots r]$ thành $\log_2$ đoạn có độ dài $2^x$ như sau:
+
 - Đặt $len = r - l + 1$
-- Duyệt $j$ từ $0$ đến $$\_\_lg(len)$$, nếu bit thứ$j$của$len$là$1$ thì:
+- Duyệt $j$ từ $0$ đến $\_\_lg(len)$, nếu bit thứ $j$ của $len$ là $1$ thì:
     - Ta tách $[l\ldots r]$ thành $[l\ldots l+2^j-1]$ và $[l+2^j\ldots r]$
     - $l = l + 2^j$ (tiếp tục tách $[l+2^j\ldots r]$ như $[l\ldots r]$)
 
@@ -341,6 +355,7 @@ Từ nhận xét trên, ta có thể tách $[l\ldots r]$ thành $\log_2$ đoạn
 Mình biết rằng bài này có cách dễ hơn là dùng [Mảng Cộng Dồn](prefix-sum-and-difference-array.md), nhưng lý do mảng cộng dồn sử dụng được là vì phép cộng có "phép đảo ngược" là phép trừ.
 
 Nếu xét phép toán nhân $2$ ma trận **không** vuông:
+
 - Phép [nhân ma trận](../trick/matrix-multiplication.md) không thoả tính chất Idempotence
 - Ma trận **không** vuông không có ma trận nghịch đảo nên không có "phép đảo ngược"
 
@@ -357,12 +372,14 @@ Vậy bài toán lúc này không thể dùng mảng cộng dồn, cũng không 
 
 ## Sparse Table 2D
 Ta có bài toán như sau:
+
 - Cho một ma trận $2$ chiều độ lớn $M\times N$ và $Q$ truy vấn $(x_1, y_1, x_2, y_2)$. Với mỗi truy vấn, in ra giá trị nhỏ nhất trong ma trận con có góc trái dưới là $(x_1, y_1)$ và góc phải trên là $(x_2, y_2)$.
 - Giới hạn:
     - $M, N \le 10^3$
     - $Q \le 10^6$
 
 Hiện tại, ta đang có $2$ thuật toán:
+
 - **Thuật toán ngây thơ:** Duyệt qua tất cả phần tử trong ma trận con.
     - Độ phức tạp tiền xử lý: $\mathcal{O}(1)$
     - Độ phức tạp truy vấn: $\mathcal{O}((x_2 - x_1 + 1)\times (y_2 - y_1 + 1)) = \mathcal{O}(M\times N)$
@@ -377,6 +394,7 @@ Hiện tại, ta đang có $2$ thuật toán:
 Với giới hạn như trên, rõ ràng cả $2$ thuật toán đều không đủ nhanh, và vấn đề nằm ở thời gian truy vấn còn chậm.
 
 Để truy vấn nhanh hơn, ta có thể ứng dụng ý tưởng của Sparse Table 1D vào **thuật toán thông minh**:
+
 - Xem mỗi Sparse Table 1D của mỗi hàng như $1$ "nhóm" phần tử.
 - Để gộp $2$ "nhóm" phần tử, ta thực hiện gộp từng "phần tử" trong "nhóm".
 
@@ -386,18 +404,25 @@ Với giới hạn như trên, rõ ràng cả $2$ thuật toán đều không đ
 | Gộp $2$ "nhóm" Sparse Table                   |
 
 Từ ý tưởng trên, ta xây dựng công thức như sau:
+
 - Đặt $st(k, i)(l, j)$ là giá trị nhỏ nhất của hình chữ nhật $[i\ldots i+2^k-1][j\ldots j+2^l-1]$
 - Khi $k = 0$, ta dựng Sparse Table 1D của hàng $i$ (vì $2^k=1$), là $st(0,i)$:
-$$st(0,i)(l,j)=\left\{
+
+$$
+st(0,i)(l,j)=\left\{
 \begin{matrix}
 A[i][j] & \text{ với } l = 0 \\ 
 min\left\{st(0,i)(l-1,j), st(0,i)(l-1,j+2^{l-1})\right\} & \text{ với } l > 0
 \end{matrix}
-\right.$$
+\right.
+$$
+
 - Khi $k > 0$, ta dựng $st(k,i)$ bằng cách gộp $st(k-1,i)$ và $st(k-1,i + 2^{k-1})$.
 
 Tóm lại, ta có công thức truy hồi như sau:
-$$st(k,i)(l,j)=\left\{
+
+$$
+st(k,i)(l,j)=\left\{
 \begin{matrix}
 A[i][j]
 & \text{ với } k = 0 \text{ và } l = 0 \\
@@ -406,7 +431,8 @@ min\left\{st(k,i)(l - 1,j), st(k,i)(l - 1,j+2^{l-1})\right\}
 min\left\{st(k - 1,i)(l,j), st(k - 1,i+2^{k-1})(l,j)\right\}
 & \text{ với } k > 0 \\
 \end{matrix}
-\right.$$
+\right.
+$$
 
 ```cpp
 int a[M][N], st[LGM + 1][M][LGN + 1][N];
@@ -433,14 +459,17 @@ void preprocess() {
 }
 ```
 Để truy vấn $min([x\ldots a][y\ldots b])$ trong $\mathcal{O}(1)$ bằng Sparse Table 2D, ta làm tương tự như [Bài Toán RMQ](#range-minimum-query-rmq), nhưng tách cả $2$ chiều $M$ và $N$, nghĩa là:
-$$\begin{cases}
+
+$$
+\begin{cases}
 k = \log_2(a - x + 1) \\
 l = \log_2(b - y + 1) \\
 min([x\ldots a][y\ldots b]) = min(& min([x\ldots x+2^k][y\ldots y+2^l]), \\
 & min([x\ldots x+2^k][b-2^l+1\ldots b]), \\
 & min([a-2^k+1\ldots a][y\ldots y+2^l]), \\
 & min([a-2^k+1\ldots a][b-2^l+1\ldots b])
-\end{cases}$$
+\end{cases}
+$$
 
 ```cpp
 int getMin(int x, int y, int a, int b) {
@@ -463,6 +492,7 @@ Một ma trận $2$ chiều được gọi là "đẹp" nếu tồn tại một 
 Có $Q$ truy vấn, mỗi truy vấn gồm hai số $a$ và $b$, ta cần in ra số thao tác tối thiểu để ma trận $A$ được gọi là "đẹp".
 
 Giới hạn:
+
 - $1 \le M, N, A_{ij} \le 1000$
 - $1 \le Q \le 50$
 - $1 \le a \le M$

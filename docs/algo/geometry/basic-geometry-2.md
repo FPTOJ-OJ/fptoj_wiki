@@ -1,8 +1,10 @@
 ﻿
 **Tác giả:** 
+
 - Lê Minh Hoàng - Phổ thông Năng khiếu, ĐHQG-HCM
 
 **Reviewer:**
+
 - Trần Quang Lộc - ITMO University
 - Hoàng Xuân Nhật - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
@@ -18,22 +20,26 @@ Một trong những bài toán con phổ biến nhất trong các bài toán hì
 
 Đầu tiên, ta có câu hỏi nhỏ là: đường thẳng được cho dưới dạng nào? và chúng ta muốn sử dụng ở dạng nào? Ở trường hợp lý tưởng thì đường thẳng sẽ ở dạng $Ax + By = C$, với $A, B, C$ là các hệ số xác định đường thẳng. Tuy nhiên, ta hiếm khi được cho đường thẳng ở dạng này, nhưng ta có thể dễ dàng có được từ hai điểm cho trước. Ví dụ có hai điểm **phân biệt** $(x_1,y_1)$ và $(x_2,y_2)$, và để tìm $A, B, C$ cho phương trình trên, ta đặt:
 
-$$\begin{cases}
+$$
+\begin{cases}
 A = y_2 - y_1\\
 B = x_1 - x_2\\
 C = Ax_1 + By_1 &= (y_2 - y_1)x_1 + (x_1 - x_2)y_1 \\
  &= x_1y_2 - x_1y_1 + x_1y_1 - x_2y_1 \\
  &= x_1y_2 - x_2y_1
-\end{cases}$$
+\end{cases}
+$$
 
 Bất kể đường thẳng được cho dưới dạng nào, ta luôn có thể chọn được hai điểm phân biệt thuộc đường thẳng, sau đó tính $A, B, C$.
 
 Tiếp theo, giả sử ta có hai đường thẳng, được cho bởi hai phương trình:
 
-$$\begin{cases}
+$$
+\begin{cases}
 A_1x + B_1y = C_1\\
 A_2x + B_2y = C_2
-\end{cases}$$
+\end{cases}
+$$
 
 Để tìm giao điểm của hai đường thẳng, ta chỉ cần giải hệ hai phương trình với hai ẩn $x,y$:
 
@@ -68,28 +74,36 @@ else:
 
 Để biết được công thức ở đoạn code trên từ đâu ra, ta nhân phương trình thứ nhất với $B_2$, và nhân phương trình thứ hai với $B_1$:
 
-$$\begin{cases}
+$$
+\begin{cases}
 A_1B_2x + B_1B_2y = B_2C_1\\
 A_2B_1x + B_1B_2y = B_1C_2
-\end{cases}$$
+\end{cases}
+$$
 
 Kế tiếp, lấy phương trình thứ nhất trừ phương trình thứ hai:
 
-$$\begin{array}{}
+$$
+\begin{array}{}
 A_1B_2x - A_2B_1x = B_2C_1 - B_1C_2
-\end{array}$$
+\end{array}
+$$
 
 Cuối cùng, chia cả hai vế cho $A_1B_2 - A_2B_1$, ta sẽ có phương trình giải $x$:
 
-$$\begin{array}{}
+$$
+\begin{array}{}
 x = \dfrac{B_2C_1 - B_1C_2}{A_1B_2 - A_2B_1}
-\end{array}$$
+\end{array}
+$$
 
 Phương trình giải $y$ thu được bằng biến đổi tương tự:
 
-$$\begin{array}{}
+$$
+\begin{array}{}
 y = \dfrac{A_1C_2 - A_2C_1}{A_1B_2 - A_2B_1}
-\end{array}$$
+\end{array}
+$$
 
 Như vậy ta sẽ có được toạ độ giao điểm của hai đường thẳng, nhưng sẽ thế nào nếu đây là hai đoạn thẳng? Trong trường hợp này, ta cần kiểm tra xem giao điểm tìm được có nằm trên hai đoạn thẳng hay không.
 Nếu đoạn thẳng nối hai điểm $(x_1, y_1)$ và $(x_2, y_2)$, để kiểm tra xem $(x, y)$ có thuộc đoạn thẳng hay không, ta chỉ cần kiểm tra $min(x_1, x_2) \le x \le max(x_1, x_2)$ và làm tương tự cho $y$.
@@ -104,6 +118,7 @@ Ngoài ra, ta còn có thể sử dụng tích có hướng để kiểm tra hai
 **Nhắc lại phần 1**: Với góc $\alpha$ thỏa mãn $0° < \alpha < 180°$ thì $\sin(\alpha) > 0$ nên nếu góc ngược chiều kim đồng hồ $\theta < 180°$ thì tích có hướng **dương**, ngược lại tích có hướng **âm**.
 
 Để biết thứ tự của bộ 3 điểm $A,B,C$, ta tính tích có hướng $\overrightarrow{\rm AB} \times \overrightarrow{\rm AC}$:
+
 - Nếu $\overrightarrow{\rm AB} \times \overrightarrow{\rm AC} > 0$ thì $A,B,C$ ngược chiều kim đồng hồ (CCW).
 - Nếu $\overrightarrow{\rm AB} \times \overrightarrow{\rm AC} < 0$ thì $A,B,C$ cùng chiều kim đồng hồ (CW).
 - Nếu $\overrightarrow{\rm AB} \times \overrightarrow{\rm AC} = 0$ thì $A,B,C$ thẳng hàng.
@@ -114,6 +129,7 @@ Ngoài ra, ta còn có thể sử dụng tích có hướng để kiểm tra hai
 ### **Kiểm tra giao điểm của 2 đoạn thẳng**
 #### Tồn tại 3 điểm thẳng hàng
 Nếu tồn tại 3 trong 4 điểm đầu mút thẳng hàng, ta kiểm tra xem có tồn tại đầu mút của đoạn thẳng này thuộc đoạn thẳng kia hay không:
+
 - Nếu có thì rõ ràng là 2 đoạn thẳng giao nhau tại ít nhất 1 điểm (tại đầu mút vừa xét).
 
 |<img src="/uploads/ikP58hq.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -126,10 +142,12 @@ Nếu tồn tại 3 trong 4 điểm đầu mút thẳng hàng, ta kiểm tra xem
 
 #### Không tồn tại 3 điểm thẳng hàng
 Nếu không tồn tại 3 trong 4 điểm đầu mút thẳng hàng thì 2 đoạn thẳng $AB$ và $CD$ giao nhau khi:
+
 - $C$ và $D$ nằm khác phía đối với đường thẳng $AB$ và
 - $A$ và $B$ nằm khác phía đối với đường thẳng $CD$.
 
 Để $C$ và $D$ nằm khác phía đối với đường thẳng $AB$ thì:
+
 - $A,B,C$ ngược chiều kim đồng hồ và $A,B,D$ cùng chiều kim đồng hồ *hoặc*
 - $A,B,C$ cùng chiều kim đồng hồ và $A,B,D$ ngược chiều kim đồng hồ.
 
@@ -137,10 +155,12 @@ $\Longrightarrow (\overrightarrow{\rm AB} \times \overrightarrow{\rm AC}) \cdot 
 
 Từ đó, ta có hệ sau:
 
-$$\begin{cases}
+$$
+\begin{cases}
 (\overrightarrow{\rm AB} \times \overrightarrow{\rm AC}) \cdot (\overrightarrow{\rm AB} \times \overrightarrow{\rm AD}) < 0 \\
 (\overrightarrow{\rm CD} \times \overrightarrow{\rm CA}) \cdot (\overrightarrow{\rm CD} \times \overrightarrow{\rm CB}) < 0
-\end{cases}$$
+\end{cases}
+$$
 
 |<img src="/uploads/c5v5L4d.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 |
@@ -189,6 +209,7 @@ Nhấn vào [**đây**][circle] để tương tác với hình trên Desmos.
 Trong hình học phẳng, đường trung trực của một đoạn thẳng là đường **vuông góc** với đoạn thẳng **tại trung điểm** của đoạn thẳng đó.
 
 Các bước để tìm đường trung trực của đoạn $XY$:
+
 - **Bước 1:** tìm phương trình đường thẳng $XY$, giả sử có dạng $Ax + By = C$.
 - **Bước 2:** tìm trung điểm $M$ của đoạn $XY$ bằng cách lấy trung bình cộng của $2$ hoành độ và trung bình cộng của $2$ tung độ.
 - **Bước 3:** viết phương trình đường thẳng của đường thẳng vuông góc với đường thẳng $XY$ có dạng là $-Bx + Ay = D$.
@@ -201,30 +222,37 @@ Nhấn vào [**đây**][pendicular] để tương tác với hình trên Desmos.
 
 ## Ví dụ
 Cho $2$ điểm $X(2,-3)$ và $Y(1,0)$, để tìm đường trung trực của đoạn $XY$, ta thực hiện như sau:
+
 - **Bước 1:** Tìm phương trình đường thẳng $XY$, ta đặt:
 
-$$\begin{cases}
+$$
+\begin{cases}
 A = Y_y - X_y = 0 - (-3) = 3 \\
 B = X_x - Y_x = 2 - 1 = 1 \\
 C = AX_x + BX_y = 3 \cdot 2 + 1 \cdot (-3) = 3
-\end{cases}$$
+\end{cases}
+$$
 
 $\Longrightarrow$ phương trình đường thẳng $XY$ có dạng: $3x + y = 3$
 
 - **Bước 2:** Đặt $M$ là trung điểm của đoạn $XY$, ta có:
 
-$$\begin{cases}
+$$
+\begin{cases}
 M_x = \dfrac{X_x + Y_x}{2} = \dfrac{2 + 1}{2} = 1,5 \\
 M_y = \dfrac{X_y + Y_y}{2} = \dfrac{-3 + 0}{2} = -1,5
-\end{cases}$$
+\end{cases}
+$$
 
 - **Bước 3:** Phương trình đường thẳng của đường thẳng vuông góc với đường thẳng $XY$ có dạng: $-x + 3y = D$
 
 - **Bước 4:** Thay tọa độ của trung điểm $M$ vào phương trình $-x + 3y = D$:
 
-$$\begin{array}{}
+$$
+\begin{array}{}
 -(1,5) + 3 \cdot (-1,5) = D \Rightarrow D = -6
-\end{array}$$
+\end{array}
+$$
 
 Vậy phương trình đường trung trực của đoạn $XY$ là: $-x + 3y = -6$
 
@@ -275,22 +303,27 @@ $$3 \cdot 1 + 4 \cdot (-3) = D \iff D = -9 \Rightarrow (d'):3x + 4y = -9$$
 
 - **Bước 3**: xác định giao điểm $Y$ của hai đường $(d)$ và $(d')$:
 
-$$\begin{cases}
+$$
+\begin{cases}
 Y_x = \dfrac{B_2C_1 - B_1C_2}{A_1B_2 - A_2B_1} =
 \dfrac{4 \cdot (-5) - (-3) \cdot (-9)}{4 \cdot 4 - 3 \cdot (-3)} =
 \dfrac{-47}{25} = -1.88 \\
 Y_y = \dfrac{A_1C_2 - A_2C_1}{A_1B_2 - A_2B_1} = 
 \dfrac{4 \cdot (-9) - 3 \cdot (-5)}{4 \cdot 4 - 3 \cdot (-3)} =
 \dfrac{-21}{25} = -0.84
-\end{cases}$$
+\end{cases}
+$$
 
 - **Bước 4**: xác định $X'$ đối xứng với $X$ qua $Y$ bằng công thức:
+
 $X' = 2Y - X$ ($Y$ là trung điểm $X$ và $X’$ nên $X + X' = 2Y$).
 
-$$\begin{cases}
+$$
+\begin{cases}
 X'_x = 2Y_x - X_x = 2 \cdot (-1.88) - 1 = -4.76 \\
 X'_y = 2Y_y - X_y = 2 \cdot (-0.84) - (-3) = 1.32
-\end{cases}$$
+\end{cases}
+$$
 
 |<img src="/uploads/wDQu2gx.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 |
@@ -322,19 +355,23 @@ Point Symmetry(Point X, Line d) {
 ## Phép quay
 Cho điểm $A(x,y)$, để quay điểm $A$ **ngược chiều kim đồng hồ** một góc $\theta$ quanh **gốc tọa độ**, ta đơn giản sử dụng công thức:
 
-$$\begin{cases}
+$$
+\begin{cases}
 x' = x\cos\theta - y\sin\theta \\
 y' = x\sin\theta + y\cos\theta
-\end{cases}$$
+\end{cases}
+$$
 
 **Lưu ý**: vì các ngôn ngữ lập trình sử dụng radian(rad) làm đơn vị chuẩn khi làm việc với các hàm số lượng giác nên ở trong desmos, mình sử dụng đơn vị của số đo góc là radian thay vì độ(°).
 
 Công thức chuyển đổi giữa radian và độ:
 
-$$\pi rad=180°\Longrightarrow \begin{cases}
+$$
+\pi rad=180°\Longrightarrow \begin{cases}
 radian = \dfrac{độ \cdot \pi}{180} \\
 độ = \dfrac{radian \cdot 180}{\pi}
-\end{cases}$$
+\end{cases}
+$$
 
 Bảng chuyển đổi một số giá trị thường dùng:
 
@@ -350,20 +387,24 @@ Nhấn vào [**đây**][rotation1] để tương tác với hình trên Desmos.
 
 ## Ví dụ
 Cho $2$ điểm $A(1,4)$ và $C(2,2)$, để quay $A$ ngược chiều kim đồng hồ 1 góc $45°$ quanh $C$, ta thực hiện như sau:
+
 - **Bước 1:** tịnh tiến hệ tọa độ sao cho $C$ trùng với gốc tọa độ. Lúc này, điểm $A$ có tọa độ mới là $A'=(1-2,4-2)=(-1,2)$.
 
 - **Bước 2:** quay $A'$ ngược chiều kim đồng hồ 1 góc $45°$ quanh gốc tọa độ được điểm $B'$:
 
-$$\begin{cases}
+$$
+\begin{cases}
 x_{B'} = -1 \cdot \cos45° - 2 \cdot \sin45° = -\dfrac{3\sqrt{2}}{2} \\
 y_{B'} = -1 \cdot \sin45° + 2 \cdot \cos45° = \dfrac{\sqrt{2}}{2}
-\end{cases}$$
+\end{cases}
+$$
 
 - **Bước 3:** tịnh tiến hệ tọa độ về vị trí ban đầu. Điểm $B'$ có tọa độ mới là:
 
 $$B=\left( -\dfrac{3\sqrt{2}}{2}+2, \dfrac{\sqrt{2}}{2}+2 \right)$$
 
 Vậy quay $A(1,4)$ ngược chiều kim đồng hồ 1 góc $45°$ quanh $C(2,2)$, ta được điểm
+
 $$B\left( -\dfrac{3\sqrt{2}}{2}+2, \dfrac{\sqrt{2}}{2}+2 \right)$$
 
 |<img src="/uploads/t66DtWV.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />

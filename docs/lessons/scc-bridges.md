@@ -44,6 +44,7 @@ graph LR
 ```
 
 Trong đồ thị trên:
+
 - **SCC 1:** {1, 2, 3} — đi được từ bất kỳ đỉnh nào đến bất kỳ đỉnh nào trong tập
 - **SCC 2:** {4, 5} — 4 → 5 → 4
 - **SCC 3:** {6} — đỉnh cô lập (không có chu trình đi qua)
@@ -552,6 +553,7 @@ graph LR
 ```
 
 Trong đồ thị trên:
+
 - Cạnh (B, D) = **cầu** — xóa nó thì {1,2,3} tách rời {4,5,6}
 - Các cạnh trong {1,2,3} và {4,5,6} **không phải cầu** vì vẫn có đường đi khác
 

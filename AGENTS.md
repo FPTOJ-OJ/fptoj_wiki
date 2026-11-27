@@ -129,6 +129,22 @@ requirements.txt                # Python dependencies
 | Code highlighting | ` ```python ` | Pygments, supports all major languages |
 | Collapsible | `??? tip "Title"` | Used for exercise solutions |
 
+#### Markdown Gotchas (renderer is strict — blank lines are mandatory)
+
+Violations render as literal `*`/`1.` markers and broken `$` signs site-wide
+(verified Nov 2026: 1200+ spots fixed). When writing content, always:
+
+1. **Blank line before every list.** A `*`/`-`/`1.` line directly after a
+   paragraph glues into the paragraph and shows literal markers.
+2. **Display math `$$` on its own line(s), blank lines around the block.**
+   `$$x$$` mid-paragraph leaves stray `$` that KaTeX pairs across Vietnamese
+   prose (glued italic text). Never put Vietnamese inside `$...$` without
+   `\text{...}`.
+3. **Math inside list items: indent fences + content by 4 spaces**
+   (not 2). 2-space math splits the list and breaks the formula.
+4. **Math inside blockquotes: separate with `>`-only lines**, e.g.
+   `>` text, `>`, `> $$x$$`, `>`, `> more text`.
+
 ### Interactive Code Playground
 
 Coding exercises use the `cp-pg` custom widget:

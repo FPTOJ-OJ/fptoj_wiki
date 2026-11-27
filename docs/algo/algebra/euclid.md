@@ -1,8 +1,10 @@
 
 **Tác giả:** 
+
 - Nguyễn Đức Kiên, Trường Đại học Công nghệ, ĐHQGHN.
 
 **Reviewer:** 
+
 - Nguyễn Minh Hiển - Trường Đại học Công nghệ, ĐHQGHN
 - Phạm Hoàng Hiệp - University of Georgia
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
@@ -99,6 +101,7 @@ Thuật toán chạy chậm nhất khi $a = F_n$, $b = F_{n - 1}$, với $F_i$ l
 So với các phép toán khác, phép lấy phần dư (`%`) chậm hơn một chút dù vẫn có độ phức tạp là $O(1)$. Chúng ta có thể xây dựng một cách cài đặt khác không sử dụng phép toán này.
 
 Ta có một số tính chất sau: 
+
 - $\gcd(2k, 2h) = 2\gcd(k, h)$
 - $\gcd(2k, 2h + 1) = \gcd(k, 2h + 1)$
 
@@ -152,6 +155,7 @@ Kết hợp với $\gcd(a, b) = \gcd(b, a - b)$ ta cài đặt như sau (Code th
         return a << shift
     ```
 Đoạn code trên thực hiện những công việc sau:
+
 - Chia cả hai số $a$ và $b$ cho $shift$ là luỹ thừa của $2$, để hai số đều lẻ (Hàm `__builtin_ctz(k)` đếm số bit $0$ tận cùng của $k$).
 - Lúc này, ít nhất một trong hai số là lẻ. Liên tục chia số chẵn cho $2$ để nó trở thành số lẻ, sau đó áp dụng $(a, b) = (b, a - b)$. Lặp lại bước trên tới khi một trong hai số là $0$.
 - Nhân kết quả (tạm gọi là $ans$) với $shift$, vì ta đã chia cả hai số này cho $shift$, vì rõ ràng $(shift, ans) = 1$.
@@ -190,12 +194,15 @@ Xét trường hợp $a = b = 0$. Với quy ước $(0, 0) = 0$ đã nói tới 
 
 Rõ ràng, luôn tồn tại các giá trị $x, y$ để $ax + by > 0$. Gọi $d'$ là số nguyên dương nhỏ nhất thoả mãn $d' = ax' + by'$ (với $x', y'$ là các số nguyên). Ta chứng minh rằng $d'$ là ƯCLN của $a$ và $b$.
 gcd(a, b) 
-$$\begin{align}
+
+$$
+\begin{align}
 &a = d'q + r \ (0 \leq r < d')\\
 &\Rightarrow r = a - qd'\\
 &\Rightarrow r = a - q(ax' + by')\\
 &\Rightarrow r = a(1 - qx') + b(-qy')
-\end{align}$$
+\end{align}
+$$
 
 Do đó $r$ cũng có dạng $ax + by$. Tuy nhiên, số dương nhỏ nhất có dạng như vậy là $d'$, thế nhưng $0 \leq r < d'$ nên $r = 0$, đồng nghĩa với $d' \mid a$.
 
@@ -203,11 +210,13 @@ Chứng minh tương tự ta cũng được $d' \mid b$. Từ đó suy ra $d$ l�
 
 Xét $c$ là một ước chung bất kỳ khác $d'$ của $a$ và $b$. Đặt $a = cu, b = cv$ với $u, v$ là số nguyên. Ta có:
 
-$$\begin{align}
+$$
+\begin{align}
 &d' = ax' + bt'\\
 &\Rightarrow d' = cux' + cvy'\\
 &\Rightarrow d' = c(ux' + vy')
-\end{align}$$
+\end{align}
+$$
 
 Suy ra $c \mid d'$. Vì $d'$ dương và khác $c$ nên $c < d'$. 
 
@@ -230,11 +239,13 @@ Lại giả sử trước bước đó sau khi áp dụng thuật toán Euclid m
 
 Ta cần tìm các hệ số $x_0, y_0$ để: $a_0x_0 + b_0y_0 = d$.
 
-$$\begin{align}
+$$
+\begin{align}
 &d = b_0x_1 + ry_1 \\
 &\Rightarrow d = b_0x_1 + (a_0 - b_0q)y_1 \\
 &\Rightarrow d = a_0y_1 + b_0(x_1 - qy_1) \\
-\end{align}$$
+\end{align}
+$$
 
 Liên tục cập nhật các hệ số $x, y$ theo công thức trên tới khi thu được $a = A, b = B$ như ban đầu, ta sẽ thu được kết quả.
 
@@ -315,10 +326,13 @@ $$x \equiv \frac{c}{d} \times \left(\dfrac{a}{d}\right) ^{-1} \ \left(\text{mod 
 
 Do đó họ các nghiệm của phương trình là:
 
-$$\begin{cases}
+$$
+\begin{cases}
 	x = \frac{b}{d} \times k + \frac{c}{d} \times \gamma &\left(k, \gamma \in \mathbb{Z}, \frac{a}{d} \times \gamma \equiv 1 \ \left(\text{mod } \dfrac{b}{d}\right)\right) \\
 	y = \frac{c - ax}{b}
-\end{cases}$$
+\end{cases}
+$$
+
 </p>
 </details>
 
@@ -337,26 +351,32 @@ $$a\left(x' \times \frac{c}{d}\right) + b\left(y' \times \frac{c}{d}\right) = c$
 
 Suy ra phương trình có nghiệm: 
 
-$$\begin{cases}
+$$
+\begin{cases}
 	x_0 = x' \times \frac{c}{d}  \\
 	y_0 = y' \times \frac{c}{d}
-\end{cases}$$
+\end{cases}
+$$
 
 Trường hợp $a, b$ không dương, ta thay đổi dấu của $x, y$ để thoả mãn đẳng thức.
 
 Thay nghiệm $x_0, y_0$ trở lại phương trình, ta được:
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 ax_0 + by_0 &= c \\
 \Rightarrow a\left(x_0 + k\times\frac{b}{d}\right) + b\left(y_0 - k\times\frac{a}{d}\right) &= c \quad (k \in \mathbb{Z})
-\end{aligned}$$
+\end{aligned}
+$$
 
 Từ đẳng thức này ta kết luận các nghiệm của phương trình có dạng:
 
-$$\begin{cases}
+$$
+\begin{cases}
 	x = x_0 + k \times \frac{b}{d} \\
 	y = y_0 - k \times \frac{a}{d}
-\end{cases} \ (k \in \mathbb{Z})$$
+\end{cases} \ (k \in \mathbb{Z})
+$$
 
 Chốt lại, để tìm nghiệm của một phương trình Diophantus, ta tìm các hệ số $x', y'$ từ thuật toán Euclid mở rộng, rồi từ các hệ số này áp dụng vào các công thức trên để tính ra kết quả.
 
@@ -434,20 +454,24 @@ Chốt lại, để tìm nghiệm của một phương trình Diophantus, ta tì
 
 **Tóm tắt đề bài**: Đếm số cặp số nguyên $x, y$ thoả mãn:
 
-$$\begin{cases}
+$$
+\begin{cases}
 	ax + by = c \\
 	x_1 \leq x \leq x_2\\
 	y_1 \leq y \leq y_2
-\end{cases}$$
+\end{cases}
+$$
 
 Các trường hợp có $a = 0$ hoặc $b = 0$ là tầm thường. Ta chỉ xét $a \neq 0$ và $b \neq 0$.
 
 Ở phần trước, ta đã có công thức nghiệm tổng quát của các phương trình Diophantus từ một nghiệm bất kỳ:
 
-$$\begin{cases}
+$$
+\begin{cases}
 	x = x_0 + k \times \frac{b}{d} \\
 	y = y_0 - k \times \frac{a}{d}
-\end{cases} \ (k \in \mathbb{Z})$$
+\end{cases} \ (k \in \mathbb{Z})
+$$
 
 Dễ thấy các nghiệm của bài toán lúc này chỉ phụ thuộc vào $k$. Bài toán trở thành tìm $k$ sao cho $x$ và $y$ thoả mãn các điều kiện đã cho. Lúc này ta chỉ cần thay ngược biểu thức của $x$ và $y$ theo $k$ vào rồi suy ngược $k$ ra là xong.
 
@@ -473,12 +497,14 @@ Không phải số tự nhiên nào cũng có nghịch đảo modulo; chẳng h�
 
 Xét phương trình Diophantus $ax + by = 1$. Khi phương trình có nghiệm $(x_0, y_0)$, ta có:
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 ax_0 + by_0 &= 1 \\
 \Rightarrow ax_0 &= 1 - by_0 \\
 \Rightarrow ax_0 &\equiv 1 \pmod{b} \\
 \Rightarrow x_0 &\equiv a^{-1} \pmod{b}
-\end{aligned}$$
+\end{aligned}
+$$
 
 Ta thấy nghiệm $x$ của phương trình là nghịch đảo modulo $b$ của $a$. Qua đó ta cũng thấy, nghịch đảo modulo chỉ tồn tại khi và chỉ khi $(a, b) = 1$.
 

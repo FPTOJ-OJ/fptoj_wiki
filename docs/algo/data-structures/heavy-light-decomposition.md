@@ -1,8 +1,10 @@
 ﻿
 **Tác giả:** 
+
 - Phạm Hoàng Hiệp – University of Georgia
 
 **Reviewer:**
+
 - Nguyễn Minh Hiển - Trường Đại học Công Nghệ, ĐHQGHN
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 - Đặng Đoàn Đức Trung - UT Austin
@@ -31,6 +33,7 @@ Tuy nghe tên có vẻ kinh khủng nhưng trên thực tế, đây là một k�
 Trước hết, chúng ta sẽ đến với phiên bản dễ hơn của bài toán như sau. 
 
 Cho một mảng số nguyên dương gồm tối đa $10^5$ phần tử. Chúng ta cần xử lý tối đa $10^5$ truy vấn thuộc một trong hai loại sau:
+
 - Cập nhật giá trị của phần tử thứ $i$ thành $x$
 - Tính tổng XOR của tất cả các phần tử trong đoạn từ $l$ đến $r$
 
@@ -41,6 +44,7 @@ Bài toán trên là một bài toán quen thuộc và có thể được xử l
 Bạn đọc có thể đọc đề bài cụ thể và nộp code tại [đây](http://www.usaco.org/current/index.php?page=viewproblem2&cpid=921)
 
 Cho một cây (một đồ thị có $n$ đỉnh và $n-1$ cạnh và giữa hai đỉnh bất kỳ có đúng một đường đi giữa chúng). Mỗi đỉnh được gán một giá trị. Chúng ta cần xử lý hai loại truy vấn
+
 - Cập nhật giá trị của đỉnh $i$ thành $x$
 - Tính tổng XOR của tất cả các giá trị trên đường đi từ đỉnh $u$ đến đỉnh $v$
 

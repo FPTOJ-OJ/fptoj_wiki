@@ -40,11 +40,13 @@ $$\left|\overline{A_1} \cap \overline{A_2} \cap \cdots \cap \overline{A_n}\right
 ### 2.1 Đếm số không chia hết cho 2, 3, hoặc 5 trong [1, 100]
 
 Gọi:
+
 - $A$: số chia hết cho 2 → $|A| = \lfloor 100/2 \rfloor = 50$
 - $B$: số chia hết cho 3 → $|B| = \lfloor 100/3 \rfloor = 33$
 - $C$: số chia hết cho 5 → $|C| = \lfloor 100/5 \rfloor = 20$
 
 Giao:
+
 - $|A \cap B| = \lfloor 100/6 \rfloor = 16$
 - $|A \cap C| = \lfloor 100/10 \rfloor = 10$
 - $|B \cap C| = \lfloor 100/15 \rfloor = 6$

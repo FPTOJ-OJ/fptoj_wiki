@@ -301,6 +301,7 @@ $k$ = số đoạn giao được tìm thấy. Lưu ý rằng ở mỗi nút ta c
 ---
 
 **Bài liên quan:**
+
 *   [Segment Tree](segment-tree.md)
 *   [Static Wavelet Tree](wavelet-tree.md)
 

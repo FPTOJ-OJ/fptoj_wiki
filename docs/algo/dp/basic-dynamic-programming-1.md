@@ -4,6 +4,7 @@ Bài viết có tham khảo và bổ sung, chỉnh sửa từ [TopCoder](https:/
 **Người viết:** Nguyễn Anh Bảo - Đại học Bách Khoa Hà Nội
 
 **Reviewer:**
+
 * Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 * Ngô Nhật Quang - Trường THPT chuyên Khoa học Tự Nhiên, ĐHQGHN
 
@@ -29,6 +30,7 @@ Bây giờ ta sẽ xây dựng thuật giải:
 ### Thuật toán đệ quy
 
 Gọi số cách xếp $i$ cái ghế là $f[i]$. Ta xét chiếc ghế thứ $n$. 
+
 * Nếu nó có màu đen hoặc trắng thì chiếc ghế cạnh nó có thể có một trong ba màu. Do đó ta chỉ cần bố trí $n-1$ chiếc ghế còn lại thỏa mãn yêu cầu. Do có 2 cách chọn màu cho ghế thứ $n$ và $f[n-1]$ cách chọn màu cho các ghế còn lại nên số cách xếp trong trường hợp này là $2 * f[n-1]$.
 
 <p align="center"><img src="/uploads/basic-dynamic-programming-1_img2.png" alt="/uploads/basic-dynamic-programming-1_img2.png" style="max-width: 700px;" /><br><em>Nếu nó có màu đỏ thì chiếc ghế cạnh nó chỉ có thể có màu trắng hoặc đen. Do vậy nên chiếc ghế thứ $n-2$ có thể có một trong ba màu. Khi đó ta cũng chỉ cần bố trí $n-2$ chiếc ghế còn lại thỏa mãn yêu cầu. Số cách xếp trong trường hợp này là $2 * f[n-2]$.</em></p>
@@ -80,6 +82,7 @@ Ta có thể biểu diễn các hàm được gọi bằng một sơ đồ như 
 <img src="/uploads/basic-dynamic-programming-1_img4.png" alt="/uploads/basic-dynamic-programming-1_img4.png" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Từ sơ đồ trên ta thấy có nhiều hàm bị gọi rất nhiều lần một cách không cần thiết:
+
 * `solve(998)` được gọi $2$ lần
 * `solve(997)` được gọi $3$ lần
 * `solve(996)` được gọi $5$ lần
@@ -148,10 +151,12 @@ Ví dụ, trạng thái trong bài này là số cách sắp xếp $n$ chiếc g
 
 Gọi $f[i]$ là cách sắp xếp $i$ chiếc ghế thành một hàng dọc. Khi đó ta có:
 
-$$\begin{cases}
+$$
+\begin{cases}
 f[1] = 3; f[2] = 8 \\
 f[i] = 2f[i - 1] + 2f[i - 2], \forall i=3;4;\ldots;n(*)
-\end{cases}$$
+\end{cases}
+$$
 
 Công thức $(*)$ được gọi là **công thức truy hồi**.
 
@@ -194,6 +199,7 @@ Sau khi đã biết công thức truy hồi và tính được $f[1]$, $f[2]$, t
 Độ phức tạp của thuật toán trên là $O(n)$, nhưng cách thực hiện đơn giản hơn đệ quy có nhớ.
 
 **Phân tích:** Từ ví dụ trên, ta thấy phương pháp QHĐ được triển khai theo các bước sau:
+
 * Xác định trạng thái của bài toán
 * Tìm mối liên hệ giữa các trạng thái (tìm **công thức truy hồi**)
 * Khởi tạo các giá trị ban đầu và cài đặt công thức truy hồi
@@ -658,6 +664,7 @@ Dãy con đổi dấu $a_{i_1},a_{i_2},\ldots, a_{i_k}$ phải thoả mãn các 
 Gọi $Q[i]$ là số phần tử của dãy con đổi dấu có phần tử cuối cùng là $a_i$ và phần tử cuối cùng lớn hơn phần tử đứng trước. Tương tự, $P[i]$ là số phần tử của dãy con đổi dấu có phần tử cuối cùng là $a_i$ và phần tử cuối cùng nhỏ hơn phần tử đứng trước.
 
 Ta dễ dàng suy ra:
+
 - $Q[i] = \max  (1, P[j] + 1)$, với mọi $j$ thỏa mãn: $j \le i-L$ và $A_i - U \le A_j < A_i$.
 - $P[i] = \max  (1, Q[j] + 1)$, với mọi $j$ thỏa mãn: $j \le i-L$ và $A_i < A_j \le A_i + U$.
 
@@ -902,6 +909,7 @@ Gọi $T$ là tổng số kẹo của $n$ gói. Chúng ta cần tìm số $S$ l�
 - Có một dãy con của dãy $a$ có tổng bằng $S$.
 
 Khi đó sẽ có cách chia với chênh lệch 2 phần là $T-2S$ là nhỏ nhất và dãy con có tổng bằng $S$ ở trên gồm các phần tử là các gói kẹo thuộc phần thứ nhất. Phần thứ hai là các gói kẹo còn lại. Ta quy hoạch động mảng $L[i,j]$ $(j\le \frac{T}{2})$ như sau: $L[i,j]=true$ nếu tồn tại một số phần tử của dãy $a$ từ $1$ đến $i$ có tổng bằng $j$. Khi đó:
+
 * Nếu $L[i-1,j]=true$ thì $L[i,j] = true$.
 * Nếu $L[i-1,j-a[i]]=true$ thì $L[i,j] = true$.
 
@@ -987,6 +995,7 @@ Ta có thể dùng phương pháp đánh dấu của bài chia kẹo ở trên r
 **Hướng dẫn**:
 
 Đặt $L[i,t]=1$ nếu có thể điền dấu vào $i$ số đầu tiên và cho kết quả bằng $t$. Ta có công thức sau để tính $L$:
+
 - `L[1, a[1]] = 1`
 - `L[i, t] = 1` nếu `L[i - 1, t + a[i]] = 1` hoặc `L[i - 1, t - a[i]] = 1`.
 

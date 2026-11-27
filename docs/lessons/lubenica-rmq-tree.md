@@ -50,6 +50,7 @@ Cây 5 đỉnh: $(1,2,w=3)$, $(1,3,w=5)$, $(2,4,w=2)$, $(2,5,w=7)$
 | 1 | 4 | 3 | 1 | $\min(2,3)=2$ | $\max(2,3)=3$ | $\min(5)=5$ | $\max(5)=5$ | $(2,5)$ |
 
 Chi tiết từng bước nhảy (đúng logic code `query`):
+
 1. $depth[4]=2$, $depth[3]=1$, $diff=1$ → nhảy $4$ lên $up[4][0]=2$, $min=2$, $max=2$. Giờ $u=2, v=3$ ngang nhau.
 2. Xét $j=1$: $up[2][1]=0$ (vì $up[2][0]=1$, $up[1][0]=0$), $up[3][1]=0$ → **bằng nhau nên KHÔNG nhảy** (nếu nhảy cả hai sẽ rơi xuống đỉnh $0$ vô nghĩa — đây là bẫy hay gặp).
 3. Xét $j=0$: $up[2][0]=1$, $up[3][0]=1$ → bằng nhau nên KHÔNG nhảy (cả hai đã là con trực tiếp của LCA $=1$).

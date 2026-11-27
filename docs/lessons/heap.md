@@ -42,6 +42,7 @@ Nhờ tính chất là một cây nhị phân đầy đủ, ta có thể lưu tr
 
 ### Định vị cha - con trên mảng
 Xét mảng $a[0 \ldots N-1]$ lưu trữ cây Heap, với phần tử gốc nằm tại vị trí chỉ số $0$. Với một nút nằm tại vị trí chỉ số $i$, chỉ số các nút liên quan được xác định bằng công thức:
+
 *   Con trái: $2i + 1$
 *   Con phải: $2i + 2$
 *   Cha trực tiếp: $\lfloor \frac{i - 1}{2} \rfloor$
@@ -52,7 +53,9 @@ Xét mảng $a[0 \ldots N-1]$ lưu trữ cây Heap, với phần tử gốc nằ
 
 - **Cơ sở ($i = 0$):** con trái $2\cdot 0+1 = 1$, con phải $2\cdot 0+2 = 2$ ✓ (khớp tầng 1).
 - **Bước quy nạp:** nút thứ $k$ ở tầng $d$ có chỉ số $i = (2^d - 1) + k$. Hai con của nó là nút thứ $2k, 2k+1$ ở tầng $d+1$ (bắt đầu tại $2^{d+1}-1$), nên:
-  $$L = (2^{d+1}-1) + 2k = 2(2^d-1+k)+1 = 2i+1, \quad R = L+1 = 2i+2.$$
+
+    $$L = (2^{d+1}-1) + 2k = 2(2^d-1+k)+1 = 2i+1, \quad R = L+1 = 2i+2.$$
+
 - **Công thức cha:** từ $L = 2i+1$ và $R = 2i+2$ suy ra $i = \lfloor (L-1)/2 \rfloor = \lfloor (R-1)/2 \rfloor$. Vậy cha của nút $i$ bất kỳ là $\lfloor (i-1)/2 \rfloor$ (chia nguyên tự lấy sàn).
 
 ### Ví dụ minh họa Max-Heap
@@ -81,6 +84,7 @@ graph TD
 
 ### 4.1. Thao tác đẩy lên (Sift-Up) — Khi thêm phần tử
 Khi chèn một phần tử có giá trị $val$ vào Heap:
+
 1.  Ta thêm phần tử đó vào cuối mảng (vị trí lá trống ngoài cùng bên trái) để giữ nguyên tính chất cây nhị phân đầy đủ.
 2.  So sánh phần tử vừa chèn với cha của nó: nếu giá trị của nó lớn hơn cha (ở Max-Heap), ta đổi chỗ hai phần tử này.
 3.  Lặp lại quá trình so sánh và đổi chỗ hướng lên trên cho đến khi gặp nút gốc hoặc khi phần tử mới nhỏ hơn hoặc bằng cha.
@@ -116,6 +120,7 @@ Mảng kết quả: `[90, 80, 85, 50, 60, 65, 70]`
 
 ### 4.2. Thao tác đẩy xuống (Sift-Down / Heapify) — Khi lấy cực trị ra
 Để xóa phần tử lớn nhất ra khỏi Max-Heap:
+
 1.  Ta lấy giá trị tại gốc (chỉ số $0$) ra để trả về.
 2.  Đưa phần tử ở cuối mảng lên thay thế vị trí nút gốc để đảm bảo cây nhị phân đầy đủ, sau đó xóa phần tử cuối đi.
 3.  Tại nút gốc mới, ta so sánh nó với hai con trực tiếp của nó. Đổi chỗ nút này với con có giá trị **lớn hơn** (đối với Max-Heap).
@@ -288,24 +293,41 @@ Heap Sort là thuật toán sắp xếp tại chỗ (in-place) có độ phức 
 Tại sao việc xây dựng Heap từ một mảng bằng cách duyệt từ lá lên gốc chỉ mất thời gian $O(N)$ thay vì $O(N \log N)$? Dưới đây là chứng minh toán học chi tiết:
 
 1.  Xét một cây nhị phân đầy đủ có chiều cao $H$ chứa $N$ nút. Ta có:
+
     $$N \approx 2^{H+1} - 1 \implies H \approx \log_2 N$$
+
 2.  Ở một tầng $d$ bất kỳ (với gốc là tầng $0$, các lá là tầng $H$), số lượng nút tối đa ở tầng đó là $2^d$.
 3.  Khi gọi hàm `sift_down` tại một nút ở tầng $d$, nút đó di chuyển xuống tối đa đến tầng lá $H$. Do đó, số bước di chuyển tối đa là $H - d$.
 4.  Tổng chi phí xây dựng Heap là tổng chi phí gọi `sift_down` cho tất cả các nút:
+
     $$S = \sum_{d=0}^{H} 2^d \times (H - d)$$
+
 5.  Đặt $k = H - d$. Khi $d$ chạy từ $0$ đến $H$, thì $k$ chạy từ $H$ về $0$. Ta có:
+
     $$2^d = 2^{H-k} = \frac{2^H}{2^k}$$
+
     Thay vào biểu thức của $S$:
+
     $$S = \sum_{k=0}^{H} \frac{2^H}{2^k} \times k = 2^H \sum_{k=0}^{H} \frac{k}{2^k}$$
+
 6.  Xét chuỗi số vô hạn:
+
     $$C = \sum_{k=0}^{\infty} \frac{k}{2^k} = \frac{1}{2} + \frac{2}{4} + \frac{3}{8} + \frac{4}{16} + \cdots$$
+
     Ta tính tổng chuỗi này bằng phương pháp sai phân:
+
     $$\frac{1}{2} C = \sum_{k=0}^{\infty} \frac{k}{2^{k+1}} = \sum_{k=1}^{\infty} \frac{k-1}{2^k}$$
+
     Trừ hai phương trình:
+
     $$C - \frac{1}{2} C = \sum_{k=1}^{\infty} \frac{k - (k - 1)}{2^k} = \sum_{k=1}^{\infty} \frac{1}{2^k} = 1 \implies C = 2$$
+
 7.  Do đó:
+
     $$S < 2^H \sum_{k=0}^{\infty} \frac{k}{2^k} = 2^H \times 2 = 2^{H+1}$$
+
 8.  Vì $N \approx 2^{H+1} - 1$, ta có:
+
     $$S < 2N = O(N)$$
 
 Như vậy, độ phức tạp thời gian để xây dựng Heap bằng thuật toán Bottom-up chỉ là $O(N)$.
@@ -314,6 +336,7 @@ Như vậy, độ phức tạp thời gian để xây dựng Heap bằng thuật
 
 *   **Bước 1 (Xây Max-Heap):** Thực hiện heapify tại chỉ số $1$, rồi chỉ số $0$.
     Mảng ban đầu $\to$ Max-Heap: `[10, 5, 3, 4, 1]`
+
 *   **Bước 2 (Trích xuất cực trị về cuối):**
 
 | Vòng lặp | Trạng thái đổi chỗ gốc và cuối | Mảng sau Heapify | Phần tử đã được sắp xếp cố định |

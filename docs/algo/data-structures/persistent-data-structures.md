@@ -41,7 +41,9 @@ Từ đó, ta rút ra được một tư tưởng cài đặt thuật toán:
 - Với mỗi thao tác Update, ta tạo thêm một số nút mới trên IT. Để không phải sinh thêm các nút không bị thay đổi, một nút ở version mới có thể có con là một nút ở vesion cũ.
 
     Chú ý: Mỗi thao tác Update luôn thay đổi một đường đi từ gốc đến một nút lá, nên không có trường hợp một nút ở version cũ có con là một nút ở version mới hơn. (Nếu thao tác Update là Update 1 đoạn, các nút bị thay đổi không còn là một đường đi nữa, nhưng nhận xét này vẫn đúng).
+
 - Khi thực hiện thao tác Query trên version t, ta chỉ cần thực hiện Query trên nút gốc ở version t.
+
 Tư tưởng này còn được gọi là **Path Copy** trong các tài liệu tiếng Anh.
 
 ## Cài đặt:

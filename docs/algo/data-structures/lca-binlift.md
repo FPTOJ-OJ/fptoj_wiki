@@ -1,8 +1,10 @@
 
 **Tác giả:** 
+
 - Lê Minh Hoàng - Phổ thông Năng khiếu, ĐHQG-HCM
 
 **Reviewer:**
+
 - Trần Quang Lộc - ITMO University
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Nguyễn Phú Bình - THPT Chuyên Hùng Vương, Bình Dương
@@ -15,6 +17,7 @@
 Bài toán tìm tổ tiên chung gần nhất (Lowest Common Ancestor - LCA) là một dạng bài quen thuộc thường gặp trong các cuộc thi lập trình thi đấu.
 
 Bài toán tìm LCA có nhiều cách giải:
+
 - **Binary Lifting (Sparse Table)**: $\mathcal{O}(N\log{N})$ tiền xử lý, $\mathcal{O}(\log{N})$ mỗi truy vấn.
 - **Euler Tour + RMQ (Segment tree)**: $\mathcal{O}(N)$ tiền xử lý, $\mathcal{O}(\log{N})$ mỗi truy vấn.
 - **Euler Tour + RMQ (Sparse Table)**: $\mathcal{O}(N\log{N})$ tiền xử lý, $\mathcal{O}(1)$ mỗi truy vấn.
@@ -64,6 +67,7 @@ Giới hạn: $N, Q \leq 2 \cdot 10^5$
 <img src="/uploads/05jxDTf.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Ví dụ:
+
 - Ta cần tìm LCA của $u$ và $v$. Ban đầu $h(u) > h(v)$.
 - Ta lặp lại thao tác cho $u$ nhảy lên cha của $u$ đến khi $h(u) = h(v)$:
     - $u = par[u] = u4$
@@ -176,6 +180,7 @@ Ta lặp lại câu lệnh `u = par[u]` trong k lần.
     - Có $Q$ truy vấn, vì thế tổng độ phức tạp là $\mathcal{O}(N + Q \cdot N)$
 
     Câu hỏi đặt ra là ta còn có thể tối ưu thời gian truy vấn được hay không?
+
     - Nhận xét: Thay vì nhảy từng bước nhỏ độ dài $1$, ta có thể nhảy các bước lớn độ dài $2$. Từ đó, ta có thể giảm thời gian truy vấn xuống còn $\mathcal{O}(\frac{K}2)$
 
     ### Thuật toán tối ưu 1.1
@@ -210,6 +215,7 @@ Ta lặp lại câu lệnh `u = par[u]` trong k lần.
 
     ### Thuật toán tối ưu 1.2
     Ta còn có thể tối ưu thời gian truy vấn được hay không?
+
     - Nhận xét: Thay vì nhảy từng bước nhỏ độ dài $2$, ta có thể nhảy các bước lớn độ dài $4$. Từ đó, ta có thể giảm thời gian truy vấn xuống còn $\mathcal{O}(\frac{K}4)$.
 
     ```cpp
@@ -261,29 +267,35 @@ Ta lặp lại câu lệnh `u = par[u]` trong k lần.
 
     ### Thuật toán tối ưu 2
     Nếu ta làm tiếp như thuật toán tối ưu $1.3$ (tiếp tục tạo các mảng $up16, up32, \dots, up65536$) ta sẽ có $\log_2(N)$ mảng up, độ phức tạp bài toán lúc này như sau:
+
     - Độ phức tạp tiền xử lý: $\mathcal{O}(N \cdot (1 + \log_2(N)) = \mathcal{O}(N \cdot \log_2(N))$ (mảng $par$ và $\log_2$ mảng $up$)
     - Độ phức tạp truy vấn: $\mathcal{O}(\frac{K}{2^{\log_2(N)}} + \log_2(N)) = \mathcal{O}(\log_2(N))$ (1 vòng while và $log_2$ lệnh if)
     - Có $Q$ truy vấn, vì thế tổng độ phức tạp thời gian là $\mathcal{O}(N \cdot \log_2(N) + Q \cdot \log_2(N))$
     - Độ phức tạp bộ nhớ: $\mathcal{O}(N \cdot \log_2(N))$ (mảng $par$ và $\log_2$ mảng $up$)
 
     Nhưng nếu dùng $\log_2$ mảng $up$ sẽ mang đến cho ta nhiều bất tiện (code dài, dễ sai,...). Do đó, ta có thể đặt:
+
     - $up[u][j]$ là tổ tiên thứ $2^j$ của $u$ (tương ứng $up2^j[u]$).
         - Cha của $u$ là tổ tiên thứ $1$ (đầu tiên) của $u$.
             - $up[u][0] = par[u]$
         - Đặt $x$ là tổ tiên thứ $2^{j-1}$ của $u$, ta có, tổ tiên thứ $2^{j-1}$ của $x$ là tổ tiên thứ $2^j$ của $u$ (vì $2^{j-1} + 2^{j-1} = 2^j$)
 
-    $$\begin{cases}
+    $$
+    \begin{cases}
     x &= up[u][j - 1] \\
     up[u][j] &= up[x][j - 1]
-    \end{cases}$$
+    \end{cases}
+    $$
 
     - Ta có công thức truy hồi sau:
 
-    $$\begin{cases}
+    $$
+    \begin{cases}
     up[u][j] = par[u] & \text{ với } j = 0 \\ 
     up[u][j] = up[up[u][j-1]][j-1] & \text{ với } j > 0 \text{ và } 2^j \leq h[u] \\
     up[u][j] = 0 \text{ (NULL)} & \text{ với } j > 0 \text{ và } 2^j > h[u]
-    \end{cases}$$
+    \end{cases}
+    $$
 
     ```cpp
     int par[N], up[N][17];
@@ -387,6 +399,7 @@ Từ nhận xét trên, ta có một cách khác để nhảy lên tổ tiên th
 
     ### Thuật toán 2
     Ta có nhận xét:
+
     - Ta đã tính trước các khoảng cách có độ lớn $2^j$ (mảng $dist$)
     - Từ đó, ta có thể nhảy theo từng bước $2^j$ để tính khoảng cách trong $\mathcal{O}(1)$
 
@@ -520,6 +533,7 @@ Với mỗi đỉnh của cây, ta tính $f(u)$ là khoảng cách của mỗi �
 <img src="/uploads/71qRbBP.png" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Với hai đỉnh $u$ và $v$ bất kì, xét đường đi từ gốc của cây đến hai đỉnh này. Ta nhận thấy:
+
 - Phần giao của hai đường đi chính là đường đi từ gốc của cây đến tổ tiên chung gần nhất của $u$ và $v$ - gọi đỉnh này là $p$.
 - Hiệu giữa phần giao và mỗi đường đi ban đầu là đường đi từ $u$ đến $p$ và đường đi từ $p$ đến $v$. 
 
@@ -615,6 +629,7 @@ Output gồm $K$ dòng, dòng thứ $i$ chứa $1$ số nguyên dương là kho�
 
 ## Thuật toán
 Từ bài toán trên, ta có thể tìm khoảng cách lớn nhất giữa 2 đỉnh thuộc mỗi nhóm như sau:
+
 - **Bước 1:** Chọn 1 đỉnh bất kì thuộc nhóm, đặt là $A$.
 - **Bước 2:** Tìm $1$ đỉnh bất kì thuộc nhóm xa đỉnh $A$ nhất, đặt là $B$.
 - **Bước 3:** Tìm khoảng cách lớn nhất từ đỉnh $B$ đến các đỉnh thuộc nhóm còn lại.
@@ -706,6 +721,7 @@ int main() {
 [**VNOJ - HBTLCA**](https://oj.vnoi.info/problem/hbtlca)
 ## Tóm tắt
 Cho $1$ cây $N$ đỉnh có gốc là đỉnh $1$ và $M$ truy vấn thuộc $1$ trong $2$ loại:
+
 - $!$ $root$ : Chọn $root$ làm gốc của cây.
 - $?$ $u$ $v$ : Tìm tổ tiên chung gần nhất của $2$ đỉnh $u$ và $v$.
 

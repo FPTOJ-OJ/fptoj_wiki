@@ -356,6 +356,7 @@ Worst case $O(N)$ xảy ra khi tất cả phần tử cùng tầng (rất hiếm
 *   [Wikipedia - Skip List](https://en.wikipedia.org/wiki/Skip_list)
 
 **Bài liên quan:**
+
 *   [Linked List chi tiết](linked-list.md)
 *   [Segment Tree](segment-tree.md)
 *   [Fenwick Tree (BIT)](fenwick-tree.md)

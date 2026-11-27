@@ -1,11 +1,13 @@
 
 
 **Tác giả:**
+
 - **Nguyễn Châu Khanh** - THPT Chuyên Hùng Vương - Phú Thọ
 - **Bùi Minh Hoạt** - THPT Chuyên Hùng Vương - Phú Thọ
 - **Trần Thế Hưng** - THPT Chuyên Biên Hòa - Hà Nam
 
 **Reviewer:**
+
 - **Đỗ Đình Đắc** - Đại học Bách Khoa Hà Nội 
 
 ## Mở đầu
@@ -203,6 +205,7 @@ Vấn đề đặt ra là cần phải đếm tất cả các khớp và cầu c
 ### **Cài đặt**
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 10010` 
 - Biến `timeDfs` - Thứ tự $DFS$
 - Biến `bridge` - Số lượng cạnh cầu
@@ -325,6 +328,7 @@ Cảnh sát muốn bắt các tội phạm di chuyển từ thành phố này đ
 - $2$. Đối với $3$ thành phố $A$, $B$, $C$; hỏi tội phạm có thể di chuyển từ $A$ đến $B$ nếu như toàn bộ thành phố $C$ bị kiểm soát (nghĩa là tên tội phạm không thể đi vào thành phố này) không?
 
 **Input**
+
 - Dòng đầu tiên chứa $2$ số nguyên $N$ và $M$ $(2 \le N \le 100000, 1 \le M \le 500000)$, số thành phố và số đường nối.
 - Mỗi dòng trong số $M$ dòng tiếp theo chứa $2$ số nguyên phân biệt thuộc phạm vi $[1, N]$ - cho biết nhãn của hai thành phố nối với nhau bởi một con đường. Giữa hai thành phố có nhiều nhất một đường nối.
 - Dòng tiếp theo chứa số nguyên $Q$ $(1 \le Q \le 300000)$, số truy vấn được thử nghiệm trên hệ thống.
@@ -335,6 +339,7 @@ Cảnh sát muốn bắt các tội phạm di chuyển từ thành phố này đ
 Dữ liệu được cho sao cho ban đầu luôn có cách di chuyển giữa hai thành phố bất kỳ.
 
 **Output**
+
 - Gồm $Q$ dòng, mỗi dòng chứa câu trả lời cho một truy vấn. Nếu câu trả lời là khẳng định, in ra "yes". Nếu câu trả lời là phủ định, in ra "no".
 
 **Example**
@@ -410,7 +415,9 @@ yes
 - Ngược lại, với $v$ là các con trực tiếp của $C$ trong cây $DFS$ và $low[v] \ge num[C]$, nếu cả $2$ đỉnh $A$ và $B$ cùng nằm trong $1$ cây con gốc $v$ hoặc cả $2$ đỉnh $A$ và $B$ đều không nằm trong bất cứ $1$ cây con gốc $v$ nào cả (đồng nghĩa với việc cả $2$ đỉnh $A,$ $B$ sẽ cùng nằm trong thành phần liên thông còn lại) thì $2$ thành phố $A$ và $B$ đều thuộc cùng một thành phần liên thông sau khi loại bỏ đỉnh $C$ và các cạnh liên thuộc với đỉnh $C$ đi.
 - **Tuy nhiên theo thuật toán trên thì với mỗi truy vấn ta sẽ phải duyệt hết tất cả các con trực tiếp của đỉnh *C* nên khi xử lí các truy vấn sẽ mất độ phức tạp là *O(Q⋅ bậc của C)*. Trong trường hợp tệ nhất thì đỉnh *C* có thể lên đến *N - 1* con trực tiếp *(100000 - 1)* với số lượng truy vấn *Q = 300000*, khiến cho thuật toán trên sẽ bị quá thời gian. Bây giờ ta cần phải cải tiến thuật toán :**
 - Thay vì duyệt hết tất cả các con trực tiếp của $C$ để xác định được tổ tiên của $A$, tổ tiên của $B$. Ta có thể sử dụng $Sparse Table$ để tìm ra tổ tiên của đỉnh $A$ (hoặc $B$) là con trực tiếp của đỉnh $C$ nếu $A$ (hoặc $B$) nằm trong cây con $DFS$ gốc $C$.
+
 **Bạn có thể tìm hiểu thêm về *Sparse Table* và ứng dụng của nó tại [đây](../../translate/topcoder/Range-Minimum-Query-and-Lowest-Common-Ancestor.md)**.
+
 - Gọi đỉnh $pa$ là tổ tiên của đỉnh $A$ và là con trực tiếp của đỉnh $C$.
 - Gọi đỉnh $pb$ là tổ tiên của đỉnh $B$ và là con trực tiếp của đỉnh $C$.
 - $A$ và $B$ thuộc cùng một thành phần liên thông sau khi loại bỏ đỉnh $C$ và các cạnh liên thuộc với đỉnh $C$ đi khi thỏa mãn một trong số các điều kiện sau:
@@ -425,6 +432,7 @@ yes
 ### **Cài đặt**
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 100010` 
 - Biến `timeDfs` - Thứ tự $DFS$
 - Mảng `low[], num[], tail[]`
@@ -664,6 +672,7 @@ for _ in range(q):
 Cho $N$ hòn đảo và $N - 1$ cây cầu, mỗi cây cầu nối hai hòn đảo lại với nhau. Đảm bảo rằng từ một đảo bất kì luôn có thể đến được hết mọi đảo còn lại. Pirate đưa ra một lịch trình như sau: vào mỗi ngày sẽ đi kiểm tra mọi cây cầu trên đường đi từ đảo $a$ đến đảo $b$. Hỏi sau khi Pirate thực hiện xong lịch trình đó, thì còn có bao nhiêu cây cầu chưa được kiểm tra?
 
 **Input**
+
 - Dòng thứ nhất: số nguyên $N$ - số lượng hòn đảo.
 - $N - 1$ dòng tiếp theo: mỗi dòng chứa $2$ số nguyên $a$ và $b$ - có một cây cầu nối đảo $a$ và $b$.
 - Dòng thứ $N + 1$: Số nguyên $M$ - số ngày kiểm tra.
@@ -672,6 +681,7 @@ Cho $N$ hòn đảo và $N - 1$ cây cầu, mỗi cây cầu nối hai hòn đ�
 $1 \le N, M \le 200000$
 
 **Output**
+
 - Một số nguyên duy nhất thể hiện số cây cầu chưa được kiểm tra.
 
 **Input**
@@ -695,6 +705,7 @@ $1 \le N, M \le 200000$
 ```
 
 **Note**
+
 - Ngày thứ nhất, Pirate kiểm tra các cây cầu $(2, 3), (2, 4)$ và $(4, 6)$. Ngày thứ hai, anh kiểm tra các cây cầu $(5, 4)$ và $(4, 6)$. Cây cầu duy nhất chưa được kiểm tra là $(1, 2)$.
 
 ### **Phân tích**
@@ -702,6 +713,7 @@ $1 \le N, M \le 200000$
 Vì đồ thị ban đầu liên thông và có $N - 1$ cạnh nên đây là đồ thị dạng [cây](https://vi.wikipedia.org/wiki/C%C3%A2y_(l%C3%BD_thuy%E1%BA%BFt_%C4%91%E1%BB%93_th%E1%BB%8B)).
 
 Để đánh dấu các cạnh thuộc đường đi từ đỉnh $u$ đến đỉnh $v$ trên cây, thì ta có thể thêm một cạnh $(u,v)$ vào đồ thị. Khi đó, các cạnh thuộc đường đi từ $u \rightarrow v$ trên cây sẽ nằm trong $1$ chu trình. Từ đó, bài toán sẽ quy về thành bài toán đếm số lượng cạnh cầu của đồ thị.
+
 - **Ví dụ minh họa:** Để dánh dấu đường đi từ đỉnh $3 \rightarrow 6$ và đường đi từ đỉnh $5 \rightarrow 6$, ta thêm cạnh $(3, 6)$, $(5, 6)$ vào đồ thị. Khi đó, đồ thị có một cạnh cầu là cạnh $(1, 2)$.
 
     <img src="/uploads/Depth-First-Search-Tree_img13.png" alt="/uploads/Depth-First-Search-Tree_img13.png" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -709,6 +721,7 @@ Vì đồ thị ban đầu liên thông và có $N - 1$ cạnh nên đây là đ
 ### **Cài đặt**
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 200010` 
 - Biến `timeDfs` - Thứ tự $DFS$
 - Biến `bridge` - Số lượng cạnh cầu
@@ -818,9 +831,11 @@ print(bridge)
 ## Một số định lý quan trọng
 
 - **Định lý 1:** Nếu $a$, $b$ là hai đỉnh thuộc thành phần liên thông mạnh $C$ thì với mọi đường đi từ $a$ tới $b$ cũng như từ $b$ tới $a$. Tất cả đỉnh trung gian trên đường đi đó đều phải thuộc $C$.
+
 **Chứng minh:** Nếu $a$ và $b$ là hai đỉnh thuộc $C$ thì tức là có một đường đi từ $a$ đến $b$ và một đường khác đi từ $b$ về $a$. Suy ra với một đỉnh $v$ nằm trên đường đi từ $a$ tới $b$ thì $a$ tới được $v$, $v$ tới được $b$, mà $b$ có đường tới $a$ nên $v$ cũng tới được $a$. Vậy $v$ nằm trong thành phần liên thông mạnh chứa $a$ tức là $v$ thuộc $C$. Tương tự với một đỉnh nằm trên đường đi từ $b$ tới $a$.
 
 - **Định lý 2:** Với một thành phần liên thông mạnh $C$ bất kỳ, tồn tại một đỉnh $r$ thuộc $C$ sao cho mọi đỉnh của $C$ đều thuộc cây con gốc $r$ trong cây $DFS$.
+
 **Chứng minh:** Trước hết, nhắc lại một thành phần liên thông mạnh là một đồ thị con liên thông mạnh của đồ thị ban đầu thoả mãn tính chất **tối đại** tức là việc thêm vào thành phần đó một tập hợp đỉnh khác sẽ làm mắt đi tính liên thông mạnh.
 
 	Trong số các đỉnh của $C$, chọn $r$ là đỉnh được thăm đầu tiên theo thuật toán tìm kiếm theo chiều sâu. Ta sẽ chứng minh $C$ nằm trong nhánh $DFS$ gốc $r$. Thật vậy, với một đỉnh $v$ bất kỳ của $C$, do $C$ liên thông mạnh nên phải tồn tại một đường đi từ $r$ tới $v$: $(r = x_0, x_1,..., x_k = v)$
@@ -830,7 +845,9 @@ print(bridge)
 	Đỉnh $r$ trong chứng minh định lý - đỉnh thăm trước tất cả các đỉnh khác trong $C$ - gọi là chốt của thành phần $C$. Mỗi thành phần liên thông mạnh có duy nhất một chốt. Xét về vị trí trong cây tìm kiếm $DFS$, chốt của một thành phân liên thông là đỉnh nằm cao nhất so với các đỉnh khác thuộc thành phần đó, hay nói cách khác: là tiền bối của tất cả các đỉnh thuộc thành phần đó.
     
 - **Định lý 3:** Luôn tìm được đỉnh chốt $a$ thỏa mãn: Quá trình tìm kiếm theo chiều sâu bắt đầu từ $a$ không thăm được bất kỳ một chốt nào khác. (Tức là nhánh $DFS$ gốc $a$ không chứa một chốt nào ngoài $a$) chẳng hạn ta chọn $a$ là chốt được thăm sau cùng trong một dây chuyền đệ quy hoặc chọn $a$ là chốt thăm sau tất cả các chốt khác. Với chốt $a$ như vậy thì các đỉnh thuộc nhánh $DFS$ gốc $a$ chính là thành phần liên thông mạnh chứa $a$.
+
 **Chứng minh**: Với mọi đỉnh $v$ nằm trong nhánh $DFS$ gốc $a$, xét $b$ là chốt của thành phần liên thông mạnh chứa $v$. Ta sẽ chứng minh $a = b$. Thật vậy, theo định lý $2$, $v$ phải nằm trong nhánh $DFS$ gốc $b$. Vậy $v$ nằm trong cả nhánh $DFS$ gốc $a$ và nhánh $DFS$ gốc $b$. Giả sử phản chứng rằng $a$ khác $b$ thì sẽ có hai trường hợp xảy ra:
+
     - **Trường hợp 1:** Nhánh $DFS$ gốc $a$ chứa nhánh $DFS$ gốc $b$, có nghĩa là thủ tục $DFS(b)$ sẽ do thủ tục $DFS(a)$ gọi tới, điều này mâu thuẫn với giả thiết rằng $a$ là chốt mà quá trình tìm kiếm theo chiều sâu bắt đầu từ $a$ không thăm một chốt nào khác.
     - **Trường hợp 2:** Nhánh $DFS$ gốc $a$ nằm trong nhánh $DFS$ gốc $b$, có nghĩa là $a$ nằm trên một đường đi từ $b$ tới $v$. Do $b$ và $v$ thuộc cùng một thành phần liên thông mạnh nên theo định lý $1$, $a$ cũng phải thuộc thành phần liên thông mạnh đó. Vậy thì thành phần liên thông mạnh này có hai chốt $a$ và $b$. Điều này vô lý.
 
@@ -844,10 +861,12 @@ print(bridge)
 Cho đồ thị $G(V, E)$ có hướng $N$ $(1 \le N \le 10^4)$ đỉnh, $M$ $(1 \le M \le 10^5)$ cung. Hãy đếm số thành phần liên thông mạnh của $G$.
 
 **Input**
+
 - Dòng đầu tiên là $N, M$.
 - $M$ dòng tiếp theo mô tả một cung của $G$.
 
 **Output**
+
 - Gồm một dòng duy nhất là số TPLT mạnh.
 
 **Examples**
@@ -899,6 +918,7 @@ Cho đồ thị $G(V, E)$ có hướng $N$ $(1 \le N \le 10^4)$ đỉnh, $M$ $(1
 ### **Cài đặt**
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 100010` 
 - Biến `timeDfs` - Thứ tự $DFS$
 - Biến `scc` - Số lượng thành phần liên thông mạnh
@@ -1015,6 +1035,7 @@ print(scc)
 ### **Đề bài**
 Khu vườn của Pirate có hình chữ nhật, và được chia thành $M \cdot N$ ô vuông bằng nhau. Trong mỗi ô vuông có một cây thuộc một loại quả khác nhau, đánh số từ $0$ đến $9$. Những con số này thể hiện giá trị kinh tế của các loại cây.
 Tuy nhiên, nhìn mặt con Robot trái cây này có vẻ ngu ngu nên trong lần đầu tiên thử việc, Pirate muốn test AI của nó. Cụ thể là Robot phải tuân theo các quy định sau:
+
 1. Tại mỗi ô, Robot chỉ có thể đi sang hướng đông hoặc hướng nam sang ô kề cạnh.
 2. Có một số ô đặc biệt mà tại đó Robot có thể đi được thêm hướng tây hoặc hướng bắc sang ô kề cạnh (chỉ một trong hai).
 3. Robot không được đi vào những ô có cây dừa.
@@ -1050,20 +1071,25 @@ Xuất phát từ ô ở góc tây bắc của khu vườn, hãy giúp Robot tr�
 ```
 
 **Note**
+
 - Robot sẽ đi theo hành trình như sau $(1, 1) \rightarrow (1, 2) \rightarrow (1, 3) \rightarrow (2, 3) \rightarrow (2, 2) \rightarrow (2, 1)$ 
+
 (ô $(i, j)$ là ô ở dòng $i$ và cột $j$). Tổng lợi nhuận sẽ là $2 + 6 + 4 + 3 = 15$.
 
 ### **Phân tích**
 - **Tại sao ta không thể Quy hoạch động ngay được?**
     Theo đề bài, ở tại mỗi ô Robot có thể đi sang hướng đông (đi sang phải) hoặc hướng nam (đi xuống dưới) sang ô kề cạnh. Tuy nhiên ở những ô đặc biệt thì Robot có thể đi thêm hướng tây (đi sang trái) hoặc hướng bắc (đi lên trên). Và một ô có thể được Robot đi qua nhiều lần. Chính vì lí do này thế nên cách đi của Robot sẽ tạo thành chu trình. Khi đường đi tạo thành chu trình thì khi ta QHĐ sẽ bị vô hạn.
+
 - **Làm sao để đường đi không tạo thành chu trình?**
     Một đồ thị có hướng là **liên thông mạnh** nếu như có đường từ bất kì đỉnh này tới bất kì đỉnh nào khác. **Một thành phần liên thông mạnh** của một đồ thị có hướng là một đồ thị con tối đại liên thông mạnh. Nếu mỗi **thành phần liên thông mạnh** được **co lại** thành một đỉnh, thì đồ thị sẽ trở thành một **đồ thị có hướng không có chu trình**. Khi dựng đồ thị mới ta sẽ có cung $(u,v)$ nếu tồn tại một đỉnh $x$ bất kì nằm trong thành phần liên thông mạnh mang nhãn $u$ có cung tới một đỉnh $y$ bất kì nằm trong thành phần liên thông mạnh mang nhãn $v$.
+
 - **Mấu chốt của bài toán này là:** Tìm ra được các thành phần liên thông mạnh, co từng thành phần liên thông mạnh thành $1$ đỉnh. Lúc này đồ thị mới sẽ là **đồ thị DAG (Directed Acyclic Graph)**. Đây là đồ thị **"một đi không trở lại"**, vậy nên ta dễ dàng **QHĐ trên đồ thị DAG**.
 - **Công thức QHĐ trên đồ thị DAG:** $f[u] = max(f[v]) + C[u]$ với mọi $u$ có cung trực tiếp đi tới $v$; trong đó $C[u]$ là tổng giá trị kinh tế của đỉnh $u$ , $f[u]$ là tổng giá trị kinh tế lớn nhất khi ta xuất phát tại $u$ và kết thúc tại $1$ đỉnh bất kì vì ta có thể đi từ $u$ sang $v$ rồi đi theo đường đi tối ưu xuất phát tại $v$ ($u,v$ ở đây là các đỉnh trên đồ thị $DAG$ được tạo ra). 
 
 ### **Cài đặt**
 
 **Cấu trúc dữ liệu:**
+
 - Để có thể dễ dàng cài đặt thì ta sẽ sử dụng kĩ thuật **"Biến mảng 2 chiều thành mảng 1 chiều"** nhằm mục đích lưu giá trị ô $(i, j)$ vào ô $(i - 1) \cdot N + j$.
 - Hằng số `maxN = 100010` 
 - Hằng số `INF = 1000000007` 

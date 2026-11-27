@@ -495,6 +495,7 @@ Kết quả: $[1, 2, 3, 5, 7, 8, 9]$
 #### Phân tích tính đúng đắn
 
 **Bất biến (Invariant):** Sau khi phân hoạch:
+
 - Tất cả phần tử bên trái pivot đều $\leq$ pivot
 - Tất cả phần tử bên phải pivot đều $\geq$ pivot
 - Pivot nằm đúng vị trí cuối cùng trong mảng đã sắp xếp

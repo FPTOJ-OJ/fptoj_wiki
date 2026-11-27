@@ -176,6 +176,7 @@ $b = [2, 6, 7, \underset{\overset{\uparrow}{\color{blue}j}}{\color{blue}12}, 14,
 $c = [1, 2, 3, 6, 6, 7, 8, 10]$
 
 * Vì tất cả các phần tử trong dãy $a$ đều đã được đưa vào dãy $c$ nên từ đưa lần lượt các phần tử chưa được chọn trong dãy $b$ vào trong dãy $c$ 
+
 $c = [1, 2, 3, 6, 6, 7, 8, 10, 12, 14,15]$
 
 <p align="center"><img src="/uploads/ZVXyx2n.gif" alt="img" style="max-width: 700px; display: block; margin: 0 auto;" /></p>

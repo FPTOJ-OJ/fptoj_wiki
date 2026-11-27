@@ -72,6 +72,7 @@ for line in sys.stdin:
 
 !!! warning "Cẩn thận khi dùng `input = sys.stdin.readline` với xâu ký tự"
     Khác với `input()` mặc định, `sys.stdin.readline()` **giữ nguyên ký tự xuống dòng `'\n'`** ở cuối dòng. Vì vậy:
+
     - Với số (`int(input())`, `map(int, input().split())`): tự bỏ khoảng trắng và `\n` nên an toàn.
     - Với xâu (`s = input()`): **luôn phải viết `s = input().strip()`** (hoặc `.rstrip('\n')`), nếu không `len(s)` sẽ dư 1 ký tự `\n` và mọi phép so sánh `s == "YES"` đều sai!
 

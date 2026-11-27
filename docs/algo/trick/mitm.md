@@ -9,6 +9,7 @@ MITM là một kỹ thuật tìm kiếm được sử dụng khi đầu vào nh�
 Cho mảng $t$ có $N$ phần tử. Hỏi có bao nhiêu cách chọn tập con sao cho tổng bằng $x$.
 
 Giới hạn:
+
 - $1\le N\le40$
 - $1\le x\le10^9$
 - $1\le t_i\le10^9$
@@ -60,6 +61,7 @@ Thuật toán trên có độ phức tạp thời gian là $\mathcal{O}(2^N)$, k
 
 ### Thuật toán tối ưu: kỹ thuật MITM
 Kỹ thuật MITM được mô tả như sau:
+
 - Đặt $K=N/2$
 - Chia $N$ phần tử thành $2$ tập:
 	- Tập $X$ bao gồm $K$ phần tử đầu tiên.
@@ -67,10 +69,15 @@ Kỹ thuật MITM được mô tả như sau:
 - Quay lui ở tập $X$ và lưu tổng của tất cả tập con vào mảng $A$. Tương tự, quay lui ở tập $Y$ và lưu tổng của tất cả tập con vào mảng $B$. Do đó, kích thước tối đa của mỗi mảng $A$ và $B$ là $2^K$.
 - Bây giờ, ta cần kết hợp $2$ mảng $A$ và $B$:
 	- Cách đơn giản nhất là lặp qua từng phần tử của $A$, với mỗi phần tử, ta duyệt qua tất cả phần tử của $B$.
+
 Độ phức tạp là $\mathcal{O}(2^K\times2^K)=\mathcal{O}(2^{N})$ (không đủ nhanh)
+
 	- Để tối ưu, ta sắp xếp mảng $B$ trước. Sau đó, lặp qua từng phần tử của $A$, với mỗi phần tử, ta sử dụng [tìm kiếm nhị phân](https://vnoi.info/wiki/algo/basic/binary-search.md) trong mảng $B$.
+
 Độ phức tạp là $\mathcal{O}(2^K\times\log_2{2^K})=\mathcal{O}(2^KK)$
+
 	- Một cách tối ưu khác là ta sắp xếp cả $2$ mảng $A$ và $B$ trước, sau đó sử dụng [kỹ thuật hai con trỏ](https://vnoi.info/wiki/algo/basic/two-pointers.md).
+
 Độ phức tạp là $\mathcal{O}(\text{sort algorithm})+\mathcal{O}(2^K)$
 
 #### Cài đặt (sử dụng tìm kiếm nhị phân)
@@ -209,6 +216,7 @@ Kỹ thuật MITM được mô tả như sau:
 Có $N$ cục vàng, mỗi cục vàng có trọng lượng $W_i$ và giá trị $V_i$. Bạn có một cái túi có tải trọng tối đa là $M$. Hỏi tổng giá trị vàng lớn nhất có thể thu được mà không làm rách túi.
 
 Giới hạn:
+
 - $1\le N\le40$
 - $1\le M\le10^9$
 - $1\le W_i, V_i\le10^8$
@@ -288,6 +296,7 @@ int main() {
 Cho mảng $a$ gồm $n$ số nguyên, đếm số lượng dãy con tăng có độ dài $3$.
 
 Giới hạn:
+
 - $1\le n\le2000$
 - $1\le a_i\le10^9$
 
@@ -318,6 +327,7 @@ for (int j = 0; j < n; ++j) {
 Cho mảng $a$ gồm $n$ số nguyên và số nguyên $x$. Ta cần tìm $4$ vị trí **phân biệt** sao cho tổng giá trị ở $4$ vị trí đó bằng $x$.
 
 Giới hạn:
+
 - $1\le n\le1000$
 - $1\le x,a_i\le10^9$
 
@@ -335,6 +345,7 @@ for (int i = 1; i <= n; ++i)
 Ta có nhận xét: trong vòng lặp thứ $2$ (biến $j$), ta đang giải bài toán: tìm $2$ vị trí phân biệt **lớn hơn** $j$ sao cho tổng giá trị của $2$ vị trí đó bằng $x-a_i-a_j$.
 
 Ta có thể giải bài toán này trước bằng cách:
+
 - Duyệt qua tất cả cặp $2$ vị trí (đặt $2$ vị trí này là $k$ và $l$, $k < l$), với mỗi cặp vị trí, ta có một tổng $a_k+a_l$.
 - Với mỗi giá trị tổng, có thể có nhiều cặp vị trí khác nhau thoả mãn, ta chỉ cần lưu lại cặp có $k$ lớn nhất (vì $k$ càng lớn thì càng có nhiều $j$ thoả mãn).
 
@@ -390,6 +401,7 @@ Giới hạn thời gian là rất lớn (12 giây).
 
 ### Ý tưởng
 Tương tự [Bài toán 2](#bai-toan-2), ta có thể ứng dụng "middle" như sau:
+
 - Đặt đỉnh thứ $5$ trong đường đi là $u$.
 - Với mỗi $u$:
 	- Ta có tập $A$ gồm các đường đi độ dài $4$ ứng với $4$ đỉnh $1,2,3,4$ thoả mãn các màu là phân biệt và khác màu của $u$ (bằng DFS hoặc 4 vòng for từ $u$ **trong đồ thị ngược**)
@@ -398,7 +410,9 @@ Tương tự [Bài toán 2](#bai-toan-2), ta có thể ứng dụng "middle" nh�
 - Bây giờ, để kết hợp $2$ tập, ta cần giải bài toán:
 	- Với mỗi đường đi độ dài $4$ trong $A$, đặt là $X$, ta kiểm tra xem có tồn tại đường đi độ dài $4$ trong $B$ sao cho màu của $8$ đỉnh là phân biệt.
 	- Ta có thể giải bài toán này bằng [Bao hàm - loại trừ](https://vnoi.info/wiki/translate/he/Number-Theory-7.md):
+
 Số đường đi độ dài $4$ trong $B$ có màu phân biệt với $X$ = $|B|$ - (số đường đi trùng ít nhất $1$ màu) + (số đường đi trùng ít nhất $2$ màu) - (số đường đi trùng ít nhất $3$ màu) + (số đường đi trùng cả $4$ màu)
+
 	- Độ phức tạp thời gian: $\mathcal{O}(2^4\times40^4)$
 - Độ phức tạp thời gian của thuật toán là $\mathcal{O}(N\times2^4\times40^4)$
 

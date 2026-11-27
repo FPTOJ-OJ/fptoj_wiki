@@ -37,6 +37,7 @@ Bài toán: Liệu có cách sắp xếp sao cho tất cả ràng buộc đều 
 Cho `n` biến boolean `x₁, x₂, ..., xₙ`, mỗi biến nhận giá trị `true` hoặc `false`.
 
 Mỗi mệnh đề có dạng:
+
 - `(a ∨ b)` — ít nhất một trong hai literal `a`, `b` phải đúng
 - Trong đó `a`, `b` có thể là `xᵢ` hoặc `¬xᵢ`
 
@@ -65,10 +66,12 @@ Nghĩa là mệnh đề OR tương đương với hai chiều hàm ý!
 ### Xây dựng đồ thị
 
 Với `n` biến, tạo đồ thị có `2n` đỉnh:
+
 - Đỉnh `2i` biểu diễn `xᵢ = false` (tức là `¬xᵢ`)
 - Đỉnh `2i + 1` biểu diễn `xᵢ = true`
 
 Với mỗi mệnh đề `(a ∨ b)`, thêm hai cạnh:
+
 - `¬a → b`
 - `¬b → a`
 
@@ -147,12 +150,14 @@ Với `(x₁ ∨ x₂) ∧ (¬x₁ ∨ x₃) ∧ (¬x₂ ∨ ¬x₃)`:
 **Bước 2:** Tìm SCC bằng Tarjan
 
 Tarjan duyệt DFS từ ¬x₁, cho ra các SCC:
+
 - SCC 0 = {¬x₁, x₂, ¬x₃} (duyệt đầu tiên)
 - SCC 1 = {x₁, x₃, ¬x₂} (duyệt sau)
 
 **Bước 3:** Kiểm tra mâu thuẫn — Không có biến nào cùng SCC với phần bù ✓
 
 **Bước 4:** Gán giá trị:
+
 - `x₁`: comp[x₁] = 1, comp[¬x₁] = 0 → 1 > 0 → `x₁ = true`
 - `x₂`: comp[x₂] = 0, comp[¬x₂] = 1 → 0 < 1 → `x₂ = false`
 - `x₃`: comp[x₃] = 1, comp[¬x₃] = 0 → 1 > 0 → `x₃ = true`
@@ -405,6 +410,7 @@ modulo một số nguyên tố hoặc chỉ cần một nghiệm bất kỳ.
 ### Bài toán nhóm người
 
 **Đề bài:** Có `N` người, mỗi người thuộc nhóm A hoặc nhóm B. Cho `M` ràng buộc:
+
 - "Nếu người `i` thuộc nhóm A thì người `j` thuộc nhóm B"
 
 Hỏi có cách chia nhóm thỏa mãn tất cả ràng buộc không?
@@ -412,6 +418,7 @@ Hỏi có cách chia nhóm thỏa mãn tất cả ràng buộc không?
 **Giải:** Biến `xᵢ = true` nghĩa là người `i` thuộc nhóm A.
 
 Ràng buộc "nếu `i` ∈ A thì `j` ∈ B" tương đương:
+
 $$
 x_i \rightarrow \neg x_j \equiv (\neg x_i \lor \neg x_j)
 $$
@@ -442,6 +449,7 @@ Nếu mỗi khoảng có 2 điểm ứng viên, mỗi điểm thuộc về nhi�
 ### Bài toán liên quan đến đồ thị
 
 2-SAT thường xuất hiện trong các bài toán:
+
 - Tô màu đồ thị 2 màu với ràng buộc bổ sung
 - Lập lịch với xung đột
 - Lựa chọn với điều kiện "nếu chọn A thì không được chọn B"
@@ -465,11 +473,13 @@ Mệnh đề `(a ∨ b)` tạo **hai** cạnh hàm ý, không phải một. Nế
 ### 3. Chỉ số đỉnh trong code
 
 Phổ biến nhất là cách đánh số:
+
 - Đỉnh `2i` = `¬xᵢ` (xᵢ = false)
 - Đỉnh `2i + 1` = `xᵢ` (xᵢ = true)
 - Phép XOR `^ 1` để chuyển giữa `xᵢ` và `¬xᵢ`
 
 Một số code dùng cách khác:
+
 - Đỉnh `i` = `xᵢ`
 - Đỉnh `i + n` = `¬xᵢ`
 
@@ -486,6 +496,7 @@ Cần điều chỉnh quy tắc gán giá trị cho phù hợp với thuật to�
 ### 5. Stack overflow trong Python
 
 Đệ quy DFS trong Python có thể bị tràn stack với input lớn. Nên:
+
 - Tăng `sys.setrecursionlimit()`
 - Hoặc cài đặt DFS bằng stack duyệt (iterative)
 

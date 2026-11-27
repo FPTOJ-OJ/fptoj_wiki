@@ -22,7 +22,9 @@ Trên thực tế, đa phần các thuật toán sẽ được đánh giá theo 
 Một số khác vẫn được đánh theo *trường hợp trung bình (average case)*. Ví dụ như khi:
 
 - *Trường hợp xấu nhất* ít xảy ra. Ví dụ với thuật toán Quick Sort. 
+
 Trong *trường hợp xấu nhất* là khi ta luôn chọn phải phần tử chốt là phần tử lớn nhất hay nhỏ nhất của dãy, và ĐPT sẽ là $O(n^2)$, nhưng xác suất trường hợp này xảy ra rất nhỏ. Còn trong phần lớn các trường hợp khác, ĐPT là $O(n \log n)$.
+
 - Thuật toán có yếu tố ngẫu nhiên. Ví dụ như việc sử dụng sinh số ngẫu nhiên.
 
 Trong từng trường hợp khác nhau của dữ liệu vào, việc tính toán chính xác hàm $f(n)$ (với $x$ tổng quát) thường rất khó. Và ở đây, chúng ta sử dụng *độ phức tạp BigO hay O-lớn* thay thế.
@@ -47,8 +49,11 @@ Ví dụ:
 ## Các quy tắc cơ bản
 - Các phép sau được tính là lệnh đơn: phép đọc, viết, gán và các toán tử cơ bản *(toán tử số học, quan hệ, logic, bit, gán, hỗn hợp)*
  Các phép này có ĐPT $O(1)$
+
 - Xét các lệnh `S1, S2, ..., Sm` và ĐPT tương ứng của chúng là $O(f_1), O(f_2), \ldots, O(f_m)$ với $f_i$ là các hàm của dữ liệu đầu vào.
+
 $E$ là một biểu thức logic.
+
     - Chuỗi các lệnh liên tiếp: `S1; S2; ...; Sm;` có ĐPT $O(f_1+f_2+ \ldots+f_m)$
     - Khối lệnh rẽ nhánh `if E then S1 else S2` có ĐPT $O\left(\max(f_1,f_2)\right)$
     - Các khối lặp:
@@ -62,9 +67,13 @@ $E$ là một biểu thức logic.
 >Ký hiệu $\log n$ là logarit của $n$ theo cơ số $X$ *(với $X$ được định nghĩa bằng $2, e, 10$ tùy sách)*. Tuy nhiên với phép chuyển cơ số $\log_ab = \dfrac{\log b}{\log a}$ và $\log b$ là một hằng số nhỏ nên ta sẽ không cần quá quan tâm $X$ là cơ số bao nhiêu nữa).
 - Coi $\log n \sim n^\alpha$ với $0 < \alpha < 1$
 - Dựa vào định nghĩa *BigO*, khi gặp một thuật toán có ĐPT là $O(n)$, thì nói "thuật toán đó có ĐPT $O(n^2)$" không hề sai. Hay tổng quát hơn là một thuật toán có ĐPT là $O(n^k)$ mà ta bảo "nó có ĐPT $O(n^{k + \alpha})$" cũng không hề sai $(\alpha > 0$ tùy ý$)$.
+
 Tuy nhiên, khi tính toán ĐPT, ta nên chọn $k$ nhỏ nhất sao cho thuật toán có ĐPT $O(n^k)$. Điều này sẽ giúp ta có cái nhìn chính xác hơn để đánh giá thuật toán.
+
 - Khi gặp các hàm nhiều biến, ta vẫn tính toán như thường.
+
 Ví dụ: $n\log^2 n + n^2 + m\log n + 1 +q^2 = O(n^2+m\log n +q^2)$
+
 - Một số độ phức tạp thường gặp trong lập trình thi đấu và các dữ liệu phù hợp để thuật toán chạy trong khoảng $1s$ (khoảng $10^8$ lệnh):
 
 | ĐPT      | Tên gọi  | n        |
@@ -301,8 +310,10 @@ backtrack(1)
 Bạn đọc có thể thấy rõ với thuật toán sắp xếp *Merge Sort (Sắp xếp trộn)* sau đây:
 
     MergeSort(mảng S) {
+
         1. if (số phần tử của S <= 1)
             return S;
+
         2. chia đôi S thành hai mảng con S1 và S2 với số phần tử gần bằng nhau;
         3. MergeSort(S1);
         4. MergeSort(S2);
@@ -346,7 +357,9 @@ Bằng quy nạp, ta có:
 - Với $n = 1$, rõ ràng luôn tồn tại $c''>1$ để $f(1)<c'' \times 1$  
 - Giả sử điều này đúng đến $n = k - 1$ $(k \ge 2)$, ta cần chứng minh đúng với $n = k$:
 - Thật vậy,
-$$\begin{align}
+
+$$
+\begin{align}
 f(k) &= f\left(\left\lfloor\frac{k}{2}\right\rfloor\right)+f\left(\left\lceil\frac{k}{2}\right\rceil\right) + \alpha k\\
 \Rightarrow f(k) &\le 2f\left(\left\lceil\frac{k}{2}\right\rceil\right) + \alpha k\\
 &\le \left( 2 \left\lceil\frac{k}{2}\right\rceil \times \log_2\left(\left\lceil\frac{k}{2}\right\rceil\right) + c' k \right) + \alpha k\\
@@ -384,18 +397,25 @@ Vì thế độ phức tạp sẽ là $O\left( n \times \left(\dfrac{1}{1} + \df
 Và đến đây rút gọn thế nào nhỉ?
 
 * $x > \log(1 + x)$ với mọi $x > 0$ nên
+
 $$\dfrac{1}{1} + \dfrac{1}{2} +\ldots+\dfrac{1}{n} \ge \log\dfrac{2}{1} + \log\dfrac{3}{2} +\ldots+ \log\dfrac{n+1}{n} = \log(n+1)$$
 
 * Lại có:
-$$\underbrace{\dfrac{1}{1}}_{=1} + \underbrace{\dfrac{1}{2} + \dfrac{1}{3}}_{< 2 \times \frac{1}{2} = 1} + 
+
+$$
+\underbrace{\dfrac{1}{1}}_{=1} + \underbrace{\dfrac{1}{2} + \dfrac{1}{3}}_{< 2 \times \frac{1}{2} = 1} +
 \underbrace{\dfrac{1}{4} + \ldots + \dfrac{1}{7}}_{< 4 \times \frac{1}{4} = 1} + \ldots +
 \underbrace{\dfrac{1}{2^{\lfloor \log_2n \rfloor}} + \ldots + \dfrac{1}{n}}_{<1} 
-< \lfloor\log_2n\rfloor + 1$$
+< \lfloor\log_2n\rfloor + 1
+$$
+
 * Chặn được thế này thì ta được kết quả là $O\left(n \cdot \sum\limits_{i = 1}^{n} \dfrac{1}{i}\right) = \boldsymbol{O( n\log n)}$
 
 **Nhận xét:**
 Rõ ràng, $\left\lfloor \dfrac{n}{i} \right\rfloor$ là số số $\le n$ và chia hết cho $i$. Vì thế với $\tau(n)$ là số ước dương của $n$ thì bản chất độ phức tạp của bài toán trên là:
+
 $$f(n) = \tau(1) + \tau(2) + \ldots + \tau(n) = \sum\limits_{i = 1}^{n} \left\lfloor \dfrac{n}{i} \right\rfloor \sim n\log n$$
+
 $f(n)$ cũng chính là số cặp số nguyên dương $(i, j)$ thỏa mãn: $i \cdot j \le n$.
 
 ---
@@ -424,6 +444,7 @@ for i in range(2, n + 1):
 Tương tự bài trên, nhưng chỉ khi biến $i$ là số nguyên tố thì biến $j$ sẽ chạy $n/i$ lần, ngược lại biến $j$ không phải chạy 1 vòng nào.
 Vì thế độ phức tạp thời gian là $O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right)$ với $p \style{font-family:Cambria Math}{\large\text{ là số nguyên tố}}\le  n$. 
 Đến đây việc tính toán độ phức tạp sẽ phải dùng đến kiến thức *Lý thuyết số giải tích*. Bạn đọc có thể tham khảo thêm [Định lý Merten 2](https://en.wikipedia.org/wiki/Mertens%27_theorems#Proof).
+
 $$O\left( n \times \left(\dfrac{1}{2} + \dfrac{1}{3} +\ldots+\dfrac{1}{p} \right) \right) = O\left(n \cdot \underset{{p \le n}}{\sum\limits_{p \style{font-family:Cambria Math}{\large\text{ nguyên tố}}}}\dfrac{1}{p}\right) = \boldsymbol{O( n \log (\log n))}$$
 
 ## Mở rộng
@@ -432,11 +453,14 @@ $O(n)$ thuộc một họ [hàm Bachmann–Landau](https://en.wikipedia.org/wiki
 <!--    - Nếu như $O(n)$ đánh giá cận trên,
     - Thì $\Omega(n)$ sẽ đánh giá cận dưới: $f(n) = \Omega(g(n))$ thì $\lim_{n \rightarrow \infty} \inf \frac{f(n)}{g(n)} > 0$
     - Và $\Theta(n)$ sẽ là kết hợp cả 2: $f(n) = \Theta(g(n)) \Leftrightarrow \begin{align} f(n) = O(g(n))\\ f(n) = \Omega(g(n))\end{align}$ -->
+
 Tuy $\Theta(n)$ đánh giá cận chính xác $($không phải cận trên như $O(n))$, nhưng ta vẫn sử dụng $O(n)$ vì sự phổ biến và dễ viết của nó.
 
 ## Hằng số ĐPT
 - Với hầu hết các thuật toán thường gặp trong thực tế, **giá trị hằng số của $O$ (hoặc $Θ$) thường là khá nhỏ. Nếu một thuật toán là $O(n^2)$, ĐPT chính xác là vào khoảng $10n^2$ chứ không phải $10^3n^2$**.
+
 Nói cách khác: nếu hằng số quá lớn thì thường là các hằng số đó có liên quan tới các đại lượng có sẵn trong đề bài. Khi đó, ta cần gán một tên gọi cho hằng số đó và thêm nó vào đánh giá ĐPT, thay vì bỏ qua.
+
     - *Ví dụ:* thay vì để $O(1000 \times n)$ rồi suy ra ĐPT là $O(n)$ thì nên viết thành $O(q\times n)$ với $q = 1000$
     - Trong toán học, $O(10^9)$ vẫn là $O(1)$. Tuy nhiên điều này chỉ đúng khi $n$ cực lớn $(\infty)$.
     - Còn trong lập trình thi đấu, ta hay gặp bộ dữ liệu $n \le 10^8$, nên rõ ràng $O(10^9)$ sẽ chạy lâu hơn $O(n)$. Vì thế trong *Ví dụ*, việc đặt $q = 1000$ là hoàn toàn phù hợp.
@@ -449,6 +473,7 @@ Nói cách khác: nếu hằng số quá lớn thì thường là các hằng s�
     - **Thuật toán có ĐPT bậc cao hơn không có nghĩa là chúng chạy chậm hơn trong mọi bộ dữ liệu.**
         - Ví dụ điển hình là hàm `std::sort` của C++. Thuật toán chủ yếu vẫn là `Quick-sort` - $O(n\log n)$. Và để tối ưu, thì với bộ dữ liệu nhỏ, hàm sẽ sử dụng `Insert-Sort` - $O(n^2)$. Còn khi chọn phần tử chốt của `Quick-sort` không đẹp, thì sẽ sử dụng `Heap-Sort` - $O(n\log n)$ thay thế.
 - Vì thế, trong từng trường hợp, ta nên chú ý chọn thuật toán cho phù hợp nhất để tối ưu thời gian chạy chương trình.
+
 Và đặc biệt khi sử dụng các hàm trong thư viện sẵn có hay các code sẵn có thì nên hiểu cơ bản cách hoạt động và tốc độ của nó.
     
 ## Lời kết

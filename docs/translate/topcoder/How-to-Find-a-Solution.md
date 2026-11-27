@@ -219,6 +219,7 @@ Dạng bài này thường cho 2 tập và các quy tắc, bạn phải sử d�
 #### Quy hoạch tuyến tính (Linear Programming) & Thuật toán Simplex 
 
 Dấu hiệu nhận biết:
+
 - Cho một tập các vật với khối lượng hoặc số lượng cần đạt được của mỗi vật.
 - Cho một danh sách các tập hợp. Mỗi tập bao gồm một số vật với một số lượng nhất định. Mỗi tập có một chi phí.
 - Mục đích của bài toán là tìm một tập tối ưu từ các tập trên sao cho tổng số lượng của mỗi vật bằng số lượng cần đạt được.

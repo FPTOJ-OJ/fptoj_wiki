@@ -28,8 +28,11 @@ Cho đồ thị có hướng không chu trình (DAG) $N$ đỉnh, $M$ cạnh. C�
 
 *   **Trạng thái:** Gọi $dp[v]$ là số lượng đường đi khác nhau từ đỉnh xuất phát $S$ tới đỉnh $v$.
 *   **Hệ thức truy hồi:**
+
     $$dp[v] = \sum_{(u, v) \in E} dp[u]$$
+
     *(Tổng tất cả $dp[u]$ với $u$ là các đỉnh có cạnh nối trực tiếp đi vào $v$).*
+
 *   **Khởi tạo:** $dp[S] = 1$ (có đúng 1 cách đứng tại chỗ từ $S$), tất cả các $dp[v]$ khác khởi tạo bằng $0$.
 *   **Kết quả:** $dp[T]$ (số đường đi đến đích $T$).
 
@@ -73,7 +76,9 @@ Bài toán này dùng để lập lịch dự án (Phương pháp Đường găn
 ### Công thức quy hoạch động
 *   **Trạng thái:** Gọi $dp[v]$ là độ dài đường đi dài nhất từ đỉnh nguồn $S$ tới đỉnh $v$.
 *   **Hệ thức truy hồi:**
+
     $$dp[v] = \max_{(u, v) \in E} \left( dp[u] + \text{weight}(u, v) \right)$$
+
 *   **Khởi tạo:** $dp[S] = 0$, tất cả các đỉnh khác khởi tạo bằng $-\infty$ (chưa thể đến được).
 *   **Kết quả:** $\max_{v} dp[v]$ hoặc $dp[T]$ tùy theo yêu cầu đề bài.
 
@@ -292,6 +297,7 @@ Nếu $M$ quá lớn không thể khai báo mảng (VD: $N, M \le 10^5$, modulo 
 ### Mở rộng: DP trên DAG với trọng số cạnh nhỏ nhất
 
 Thay vì tổng/cực đại, ta có thể tính:
+
 - **Đường đi có ít cạnh nhất:** $dp[v] = \min(dp[v], dp[u] + 1)$
 - **Đường đi có tích trọng số:** $dp[v] = dp[v] + dp[u] \times w(u,v)$
 

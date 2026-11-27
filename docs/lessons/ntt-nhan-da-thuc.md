@@ -224,6 +224,7 @@ Cần modulo $p$ sao cho tồn tại căn nguyên thủy bậc $2^k$ (với $2^k
     Khi đó, $\omega = g^{(p-1)/2^k}$ đóng vai trò tương tự "căn đơn vị" trong FFT — nó chia vòng tròn đơn vị thành $2^k$ phần bằng nhau trong trường số nguyên modulo. Cụ thể: $\omega^{2^k} \equiv 1 \pmod{p}$ nhưng $\omega^j \not\equiv 1$ cho $0 < j < 2^k$.
 
 Các modulo thường dùng:
+
 - $p = 998244353 = 119 \times 2^{23} + 1$ → căn nguyên thủy $g = 3$, tối đa $2^{23}$ phần tử
 - $p = 985661441 = 235 \times 2^{22} + 1$ → $g = 3$
 - $p = 754974721 = 45 \times 2^{24} + 1$ → $g = 11$

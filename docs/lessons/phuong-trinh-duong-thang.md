@@ -24,18 +24,26 @@
 Trong mặt phẳng tọa độ $Oxy$, một đường thẳng có thể được biểu diễn dưới nhiều dạng toán học khác nhau:
 
 ### 1.1 Dạng tổng quát
+
 $$Ax + By + C = 0$$
+
 Trong đó:
+
 - Vectơ pháp tuyến (vuông góc với đường thẳng): $\vec{n} = (A, B)$ (với $A^2 + B^2 > 0$).
 - Vectơ chỉ phương (song song với đường thẳng): $\vec{u} = (-B, A)$.
 
 ### 1.2 Dạng hệ số góc
+
 $$y = kx + b$$
+
 Trong đó $k$ là hệ số góc (độ dốc), $b$ là tung độ gốc (giao điểm với trục $Oy$). Dạng này không biểu diễn được đường thẳng thẳng đứng song song với trục $Oy$ (khi $B = 0$ ở dạng tổng quát).
+
 - Chuyển sang dạng tổng quát: $kx - y + b = 0 \implies A = k, B = -1, C = b$.
 
 ### 1.3 Dạng tham số
+
 $$\begin{cases} x = x_0 + t \cdot u_x \\ y = y_0 + t \cdot u_y \end{cases}$$
+
 Trong đó $P_0(x_0, y_0)$ là một điểm thuộc đường thẳng, $\vec{u} = (u_x, u_y)$ là vectơ chỉ phương, và $t \in \mathbb{R}$ là tham số tự do.
 
 ---
@@ -45,6 +53,7 @@ Trong đó $P_0(x_0, y_0)$ là một điểm thuộc đường thẳng, $\vec{u}
 #### Đường thẳng đi qua 2 điểm $P(x_1, y_1)$ và $Q(x_2, y_2)$
 Vectơ chỉ phương là $\vec{PQ} = (x_2 - x_1, y_2 - y_1)$. Do đó, vectơ pháp tuyến là $\vec{n} = (y_1 - y_2, x_2 - x_1)$.
 Thay điểm $P$ vào phương trình tổng quát, ta thu được hệ số tự do $C$:
+
 $$A = y_1 - y_2, \quad B = x_2 - x_1, \quad C = x_1 y_2 - x_2 y_1$$
 
 **Ví dụ số:** $P(1, 2)$, $Q(4, 6)$: $A = 2-6 = -4$, $B = 4-1 = 3$, $C = 1\cdot 6 - 4\cdot 2 = -2$. Đường thẳng: $-4x + 3y - 2 = 0$. Kiểm tra: tại $P$: $-4+6-2 = 0$ ✓; tại $Q$: $-16+18-2 = 0$ ✓. Pháp tuyến $\vec{n} = (-4, 3)$: độ dốc $-(-4)/3 = 4/3 = (6-2)/(4-1)$ ✓ khớp.
@@ -108,16 +117,21 @@ $$A = y_1 - y_2, \quad B = x_2 - x_1, \quad C = x_1 y_2 - x_2 y_1$$
 
 ### 2.1 Khoảng cách từ điểm đến đường thẳng
 Cho điểm $P(x_0, y_0)$ và đường thẳng $L: Ax + By + C = 0$. Khoảng cách hình học ngắn nhất từ $P$ đến $L$ được tính bằng công thức:
+
 $$d = \frac{|A x_0 + B y_0 + C|}{\sqrt{A^2 + B^2}}$$
 
 ### 2.2 Điểm đối xứng qua đường thẳng
 Để tìm điểm đối xứng $P'$ của điểm $P(x_0, y_0)$ qua đường thẳng $L: Ax + By + C = 0$:
+
 1. Hình chiếu vuông góc $H(x_H, y_H)$ của $P$ lên $L$ lệch một lượng tỉ lệ với vectơ pháp tuyến $\vec{n} = (A, B)$:
-   $$H = P - t \cdot \vec{n}, \quad \text{với } t = \frac{A x_0 + B y_0 + C}{A^2 + B^2}$$
+
+    $$H = P - t \cdot \vec{n}, \quad \text{với } t = \frac{A x_0 + B y_0 + C}{A^2 + B^2}$$
+
 2. Điểm đối xứng $P'$ thỏa mãn $H$ là trung điểm của $PP'$:
-   $$P' = 2H - P = P - 2 \cdot t \cdot \vec{n}$$
-   $$x_{P'} = x_0 - \frac{2A(A x_0 + B y_0 + C)}{A^2 + B^2}$$
-   $$y_{P'} = y_0 - \frac{2B(A x_0 + B y_0 + C)}{A^2 + B^2}$$
+
+    $$P' = 2H - P = P - 2 \cdot t \cdot \vec{n}$$
+    $$x_{P'} = x_0 - \frac{2A(A x_0 + B y_0 + C)}{A^2 + B^2}$$
+    $$y_{P'} = y_0 - \frac{2B(A x_0 + B y_0 + C)}{A^2 + B^2}$$
 
 === "C++"
 
@@ -155,12 +169,17 @@ Cho hai đường thẳng $L_1: A_1 x + B_1 y + C_1 = 0$ và $L_2: A_2 x + B_2 y
 
 ### 3.1 Phân tích điều kiện giao nhau (Định thức Cramer)
 Hệ phương trình xác định giao điểm:
+
 $$\begin{cases} A_1 x + B_1 y = -C_1 \\ A_2 x + B_2 y = -C_2 \end{cases}$$
+
 Ta tính các định thức:
+
 $$D = A_1 B_2 - A_2 B_1, \quad D_x = B_1 C_2 - B_2 C_1, \quad D_y = C_1 A_2 - C_2 A_1$$
 
 - **$D \neq 0$:** Hai đường thẳng cắt nhau tại $1$ điểm duy nhất:
-  $$x = \frac{D_x}{D}, \quad y = \frac{D_y}{D}$$
+
+    $$x = \frac{D_x}{D}, \quad y = \frac{D_y}{D}$$
+
 - **$D = 0$:**
   - Nếu $D_x = 0$ (hoặc $D_y = 0$): Hai đường thẳng **trùng nhau** (vô số giao điểm).
   - Nếu $D_x \neq 0$ (hoặc $D_y \neq 0$): Hai đường thẳng **song song** (không có giao điểm).
@@ -263,14 +282,18 @@ plt.tight_layout()
 
 ### 4.1 Thuật toán sử dụng Tích có hướng (Cross Product)
 Ta định nghĩa phép tính tích có hướng của hai vectơ $\vec{u}$ và $\vec{v}$:
+
 $$\vec{u} \times \vec{v} = u_x v_y - u_y v_x$$
+
 Về mặt hình học, tích có hướng cho biết hướng quay của vectơ.
 
 Hai đoạn thẳng $AB$ và $CD$ giao nhau khi và chỉ khi:
+
 1. Hai điểm $C$ và $D$ nằm về hai phía khác nhau đối với đường thẳng chứa đoạn $AB$.
 2. Hai điểm $A$ và $B$ nằm về hai phía khác nhau đối với đường thẳng chứa đoạn $CD$.
 
 Điều này tương đương với:
+
 $$((\vec{AB} \times \vec{AC}) \cdot (\vec{AB} \times \vec{AD}) \le 0) \quad \land \quad ((\vec{CD} \times \vec{CA}) \cdot (\vec{CD} \times \vec{CB}) \le 0)$$
 
 *Lưu ý trường hợp đặc biệt:* Khi tích có hướng bằng $0$, tức là điểm nằm thẳng hàng với đoạn thẳng, ta cần dùng hàm `on_segment` để kiểm tra điểm đó có thực sự nằm đè lên đoạn thẳng kia hay không.
@@ -348,6 +371,7 @@ $$((\vec{AB} \times \vec{AC}) \cdot (\vec{AB} \times \vec{AD}) \le 0) \quad \lan
 
 ### 5.1 Khoảng cách từ điểm $P$ đến đoạn thẳng $AB$
 Để tính khoảng cách ngắn nhất từ $P$ đến đoạn thẳng $AB$:
+
 1. Tìm hình chiếu vuông góc $H$ của $P$ trên đường thẳng $AB$.
 2. Nếu hình chiếu $H$ nằm trong đoạn $AB$ (tương đương góc $\angle PAB$ và $\angle PBA$ đều nhọn), khoảng cách cần tìm là đoạn vuông góc $PH$.
 3. Nếu $H$ nằm ngoài đoạn $AB$, khoảng cách ngắn nhất là khoảng cách từ $P$ tới đầu mút gần hơn (tức là $\min(PA, PB)$).
@@ -393,7 +417,9 @@ $$((\vec{AB} \times \vec{AC}) \cdot (\vec{AB} \times \vec{AD}) \le 0) \quad \lan
 **Bài toán:** Cho một đa giác gồm $n$ đỉnh được liệt kê theo thứ tự ngược chiều kim đồng hồ (hoặc cùng chiều): $(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)$. Hãy tính diện tích bề mặt của đa giác đó.
 
 ### Công thức tổng quát
+
 $$S = \frac{1}{2} \left| \sum_{i=1}^{n} (x_i y_{i+1} - x_{i+1} y_i) \right|$$
+
 Với quy ước đỉnh thứ $n+1$ trùng với đỉnh thứ $1$: $(x_{n+1}, y_{n+1}) = (x_1, y_1)$.
 
 === "C++"
@@ -566,6 +592,7 @@ double k = -L.A / L.B; // nổ khi B = 0 (đường thẳng đứng)!
 
 ??? tip "Lời giải"
     Kiểm tra xem hai đoạn thẳng có cắt nhau không. 
+
     - Nếu cắt nhau, khoảng cách bằng $0.0$.
     - Nếu không cắt nhau, khoảng cách ngắn nhất chính là giá trị nhỏ nhất của các khoảng cách từ đầu mút của đoạn này tới đoạn thẳng kia: $\min(\text{dist}(A, CD), \text{dist}(B, CD), \text{dist}(C, AB), \text{dist}(D, AB))$.
 

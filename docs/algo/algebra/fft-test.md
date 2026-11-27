@@ -1,8 +1,10 @@
 ﻿
 **Người viết:**
+
 - Nguyễn Hoàng Vũ - Trường Đại học Công nghệ, ĐHQGHN
 
 **Reviewer:**
+
 - Trần Xuân Bách - Đại học Chicago
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 
@@ -17,6 +19,7 @@ Các bài toán tổ hợp ngày càng xuất hiện nhiều trong các cuộc t
 Số phức là các số có dạng $z=a+bi$ trong đó $a,b\in \mathbb{R}$ và $i^2=-1$. Số $i$ được gọi là đơn vị ảo. Tập hợp tất cả các số phức được kí hiệu là $\mathbb{C}$.
 
 Ta có thể biểu diễn số phức $z$ trên mặt phẳng toạ độ bằng vectơ $(a,b)$.
+
 - Phần thực (Real) và phần ảo (Imaginary): $Re(z)=a,Im(z)=b$.
 - Số phức liên hợp (Conjugate): $\overline{z}=a-bi$.
 - Môđun (Modulus): $|z|=r=\sqrt{a^2+b^2}$.
@@ -83,19 +86,23 @@ Dãy $c$ được định nghĩa như trên được gọi là tích chập (con
 
 Biểu thức của dãy $c$ phía trên gợi lại cho chúng ta về phép nhân đa thức. Cụ thể, định nghĩa:
 
-$$\begin{align*}
+$$
+\begin{align*}
 A(z)&=a_0 z^0 + a_1 z^1 + \ldots + a_{n-1} z^{n-1}\\
 B(z)&=b_0 z^0 + b_1 z^1 + \ldots + b_{n-1} z^{n-1}
-\end{align*}$$
+\end{align*}
+$$
 
 thì $c$ chính là dãy hệ số của đa thức $C(z)=A(z)\cdot B(z)$.
 
 Có thể thấy rằng việc tính đa thức $C$ theo định nghĩa sẽ có độ phức tạp thời gian $\mathcal{O}(n^2)$, không đủ nhanh khi độ dài $n$ khá lớn, ta cần một hướng tiếp cận khác. Giả sử ta tính được giá trị của $A$ và $B$ tại $m$ điểm khác nhau:
 
-$$\begin{align*}
+$$
+\begin{align*}
 A(z_0),A(z_1),\ldots,A({z_{m-1})}\\
 B(z_0),B(z_1),\ldots,B({z_{m-1})}
-\end{align*}$$
+\end{align*}
+$$
 
 thì giá trị của $C$ tại các điểm tương ứng là: $C(z_j)=A(z_j)\cdot B(z_j)$.
 
@@ -119,13 +126,15 @@ Ta có một đa thức $A(z)=a_0z^0 + a_1z^1+\ldots+a_{n-1}z^{n-1}$. Không m�
 Tập số mà FFT chọn để tính là tập các căn đơn vị cấp $n$, tức $\{\omega_n^0,\omega_n^1,\ldots,\omega_n^{n-1}\}$ (nhắc lại $\omega_n=\exp(\frac{2\pi i}{n})$).
 
 **Định nghĩa.** Cho một dãy $a_0,a_1,\ldots,a_{n-1}$, **Biến đổi Fourier nhanh - Fast Fourier Transform - FFT** là bất kì thuật toán nào tính dãy $A(\omega_n^0),A(\omega_n^1),\ldots,A(\omega_n^{n-1})$ trong thời gian $O(n\log n)$. Phép biến đổi này bản thân nó được gọi là **Biến đổi Fourier rời rạc - Discrete Fourier Transform - DFT**.
+
 $$\text{DFT}(a_0,a_1,\ldots,a_{n-1})=(A(\omega_n^0),A(\omega_n^1),\ldots,A(\omega_n^{n-1}))$$
 
 Bài viết này sẽ giới thiệu về một thuật toán FFT thông dụng là thuật toán *Cooley-Tukey*.
 
 Ta sẽ biểu diễn bài toán dưới dạng ma trận:
 
-$$\left[
+$$
+\left[
 \begin{array}{@{}c@{}}
 A(\omega^0)\\A(\omega^1)\\ \vdots \\ A(\omega^{n-1})
 \end{array}
@@ -143,7 +152,8 @@ a_1\\
 a_2\\
 \vdots\\
 a_{n-1}
-\end{array}\right ]$$
+\end{array}\right ]
+$$
 
 Trước khi đi vào trường hợp tổng quát, ta sẽ xem xét một ví dụ với $n=8$:
 
@@ -412,6 +422,7 @@ Dưới đây là cài đặt để tính tích chập của hai dãy số:
     ```
 
 Ta xét các tầng đệ quy với $n=8$:
+
 - Tầng $3$: $(a_0,a_1,a_2,a_3,a_4,a_5,a_6,a_7)$
 - Tầng $2$: $(a_0,a_2,a_4,a_6), (a_1,a_3,a_5,a_7)$
 - Tầng $1$: $(a_0,a_4),(a_2,a_6),(a_1,a_5),(a_3,a_7)$
@@ -419,6 +430,7 @@ Ta xét các tầng đệ quy với $n=8$:
 Vậy nếu ta sắp xếp dãy $a$ lại thành $(a_0,a_4,a_2,a_6,a_1,a_5,a_3,a_7)$ thì mỗi lần gọi đệ quy ở tầng thứ $i$ sẽ thực hiện trên một đoạn dài $2^i$.
 
 Viết lại dãy chỉ số dưới dạng nhị phân:
+
 $$(000,100,010,110,001,101,011,111)$$
 
 Có thể thấy rằng nếu ta đảo ngược thứ tự bit thì, ví dụ $100\rightarrow 001$ thì ta nhận được dãy tăng dần từ $0$ đến $n-1$.
@@ -553,9 +565,11 @@ Thử nghiệm với $n=2^{20}$, sai số chỉ rơi vào khoảng $5.5511\cdot 
 Ta có thể tính $\text{DFT}$ của hai dãy $a$ và $b$ cùng một lúc bằng cách tính $\text{DFT}$ của dãy $c$ với $c_j=a_j+b_j\cdot i$.
 
 Gọi $A,B,C$ lần lượt là các biến đổi $\text{DFT}$ tương ứng. Ta có:
+
 $$\overline{C(\omega^{-j})}=\overline{A(\omega^{-j})}+\overline{B(\omega^{-j})\cdot i}=A(\overline{\omega^{-j}})-i\cdot B(\overline{\omega^{-j}})=A(\omega^j)-B(\omega^j)\cdot i$$
 
 kết hợp với $C(\omega^j)=A(\omega^j)+B(\omega^j)\cdot i$ suy ra:
+
 $$
 \begin{aligned}
 A(\omega^j) &= \frac{C(\omega^j)+\overline{C(\omega^{-j})}}{2}\\
@@ -628,6 +642,7 @@ Sử dụng công thức này ta có thể tính tích chập chỉ dùng hai l�
 Xét bài toán nhân đa thức nhưng lần này ta muốn các hệ số của đa thức chia lấy dư cho một số nguyên tố $p$. Nếu ta sử dụng thuật toán FFT thông thường có thể gây ra sai số lớn vì hệ số của đa thức kết quả có thể rất lớn. Thuật toán NTT cho phép ta tính toán chỉ dùng số nguyên, từ đó kết quả luôn đảm bảo chính xác.
 
 Thuật toán FFT dựa trên các tính chất của căn đơn vị. Các tính chất này cũng xuất hiện trên căn đơn vị trong số học modulo. Cụ thể ta gọi căn đơn vị cấp $n$ modulo $p$ là một số nguyên $\omega_n$ thoả mãn:
+
 $$
 \begin{aligned}
 &(\omega_n)^n=1\pmod p\\
@@ -640,6 +655,7 @@ $$
 Các căn đơn vị cấp $n$ khác được biểu diễn bằng một luỹ thừa của $\omega_n$.
 
 Để áp dụng thuật toán FFT, ta cần các căn đơn vị cho các luỹ thừa nhỏ hơn của $2$. Ta có thể chứng minh tính chất sau:
+
 $$
 \begin{aligned}
 &(\omega_n^2)^{n/2}=1\pmod p\\
@@ -747,10 +763,12 @@ Có thể thấy rằng thuật toán NTT chỉ hoạt động với nếu căn 
 Nếu kết quả của phép nhân đa thức có hệ số nhỏ hơn $M_1\cdot M_2$, với $M_1,M_2$ là hai số nguyên tố có dạng $c2^k+1$, ta có thể thực hiện NTT trên hai modulo này và dùng [định lý thặng dư Trung Hoa](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Bnh_l%C3%BD_s%E1%BB%91_d%C6%B0_Trung_Qu%E1%BB%91c) để khôi phục kết quả.
 
 Ta cần tính $A(x)\cdot B(x)$ với hệ số modulo $M$, thực hiện tách hai đa thức như sau:
+
 $$
 A(x) = A_0(x) + A_1(x) \cdot C \\
 B(x) = B_0(x) + B_1(x) \cdot C \\
 $$
+
 với $C \approx \sqrt{M}$.
 
 Khi đó tích của hai đa thức được biểu diễn thành:

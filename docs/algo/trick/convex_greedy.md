@@ -1,8 +1,10 @@
 ﻿
 **Người viết:**
+
 - Đặng Đoàn Đức Trung - UT Austin
 
 **Reviewer:**
+
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
 
 ## Giới thiệu
@@ -26,6 +28,7 @@ Ta xét bài toán tổng quát sau.
 ### Đề bài
 
 Cho $n$ hàm lồi $f_1, f_2, \dots, f_n$ được định nghĩa trên tập số nguyên không âm và một giá trị $k$ cho trước. Tìm $n$ số nguyên không âm $x_1, x_2, \dots, x_n$ sao cho:
+
 - $x_1 + x_2 + \dots + x_n = k$.
 - $f(x_1) + f(x_2) + \dots + f(x_n)$ là nhỏ nhất có thể.
 
@@ -40,11 +43,13 @@ Giới hạn: $1 \le n, k \le 2 \cdot 10^5$.
 <!-- nhét plot vào đây -->
 
 Xét thao tác sau: khởi tạo $x_1 = 0$ và $x_2 = 0$, ta lặp bước sau $k$ lần:
+
 - Nếu $f(x_1 + 1) - f(x_1) \le f(x_2 + 1) - f(x_2)$, tăng $x_1$ lên $1$; nếu không thì tăng $x_2$ lên $1$.
 
 Ý tưởng cơ bản của cách làm trên là ở mỗi bước, ta tăng tổng $x_1 + x_2$ lên $1$; ta chọn cách làm mà tăng tổng $f(x_1) + f(x_2)$ lên ít nhất.
 
 Để chứng minh cách làm trên là đúng, giả sử đáp án của bài toán là $O$. Ta xét ba dãy sau:
+
 - $A_1$ là một dãy dài vô tận mà mỗi phần tử của dãy có ý nghĩa là "chi phí phải trả vào $f(x_1)$ để tăng $x_1$ từ $t$ lên $t + 1$". Nói cách khác, mỗi phần tử của dãy $A_1$ có giá trị là $f_1(t + 1) - f_1(t)$ với mọi $t$.
 - Tương tự, $A_2$ bao gồm các phần tử có ý nghĩa là "chi phí phải trả vào $f(x_1)$ để tăng $x_2$ từ $t$ lên $t + 1$".
 - $A$ bao gồm các phần tử có ý nghĩa là "chi phí phải trả vào tổng $f(x_1) + f(x_2)$ để tăng $x_i$ từ $t$ lên $t + 1$" với $i = 1$ hoặc $i = 2$. Dễ dàng nhận thấy là $A$ là dãy ghép từ $A_1$ và $A_2$ ($A = A_1 \cup A_2$).
@@ -56,6 +61,7 @@ Ngoài ra, ta cũng có thể chứng minh được là thao tác trên sẽ thu
 <!-- nhét GIF minh họa vào đây. f_1 = x^2 và f_2 = 2x^2 -->
 
 Với $n$ lớn hơn, ta có thuật toán tương tự: khởi tạo mọi $x_i = 0$, lặp bước sau $k$ lần:
+
 - Tìm $i$ sao cho $f_i(x_i + 1) - f_i(x_i)$ là nhỏ nhất rồi tăng $x_i$ lên $1$.
 
 Ta có thể sử dụng heap để cài đặt thuật toán trên với độ phức tạp là $O((n + k) \log n)$.
@@ -111,6 +117,7 @@ Link bài: [CF - 1428E](https://codeforces.com/contest/1428/problem/E).
 Có $n$ củ cà rốt có độ dài $a_1, a_2, \dots, a_n$. Người chủ muốn cắt các củ cà rốt này các phần *có độ dài nguyên dương* cho $k$ chú thỏ. Một phần cà rốt có độ dài $x$ sẽ mất $x^2$ giây để ăn. Người chủ này muốn cắt cà rốt thành $k$ phần sao cho tổng thời gian ăn hết $k$ phần này là nhỏ nhất có thể.
 
 Giới hạn:
+
 - $1 \le n, k \le 10^5$.
 - $1 \le a_i \le 10^6$.
 
@@ -180,6 +187,7 @@ Link bài: [CF - 1344D](https://codeforces.com/problemset/problem/1344/D).
 ### Đề bài
 
 Cho mảng $a$ gồm $n$ số nguyên dương và một số $k$, bạn cần tìm mảng $b$ gồm $n$ số nguyên thỏa mãn:
+
 - $0 \le b_i \le a_i$ với mọi $i$.
 - $\sum_{i = 1}^n b_i = k$.
 - $\sum_{i = 1}^n b_i(a_i - b_i^2)$ là lớn nhất có thể.
@@ -187,13 +195,16 @@ Cho mảng $a$ gồm $n$ số nguyên dương và một số $k$, bạn cần t�
 In ra mảng $b$ thỏa mãn 3 điều kiện này.
 
 Giới hạn:
+
 - $1 \le n \le 10^5$.
 - $1 \le a_i \le 10^9$.
 - $1 \le k \le \sum_{i=1}^n a_i$.
 
 ### Phân tích
 Nếu ta đặt $f_i(x) = x(a_i - x^2)$, thì ta nhận thấy là $f_i(x)$ là *hàm lõm* (hay nói cách khác, $-f_i(x)$ là hàm lồi). Để chứng minh điều này, với mọi $x$ ta có
+
 $$f_i(x + 1) - f_i(x) = -3x^2 - 3x - 1 + a_i$$
+
 và vế phải giảm dần khi $x$ tăng dần. Vì thế, ta có thể dùng ý tưởng tổng quát như trên. Tuy nhiên, với $k \sim 10^{14}$ ở bài toán này, ta không thể trực tiếp sử dụng thuật toán trên. Để tối ưu, ta có thể chặt nhị phân chi phí tăng lớn thứ $k$. Khi đang xét chặt nhị phân với giá trị $m$, ta cần tìm với mọi $i$ giá trị $b_i$ lớn nhất sao cho $f_i(b_i + 1) - f_i(b_i) \ge m$; thao tác này có thể được thực hiện với độ phức tạp $O(1)$ nếu sử dụng công thức phương trình bậc hai, hoặc với độ phức tạp $O(\log a_i)$ nếu sử dụng thêm 1 vòng chặt nhị phân. Vì thế, ta có thể giải bài trên với độ phức tạp là $O(n \log^2 A)$ hoặc $O(n \log A)$ với $A = \sum_{i=1}^n a_i$.
 
 ### Cài đặt
@@ -278,6 +289,7 @@ Jerry muốn giúp chú chuột này thoát khỏi mê cung (tức là đi tới
 In ra một cách đặt phô mai để Jerry tối đa hóa xác suất chú chuột kia có thể tẩu thoát.
 
 Giới hạn:
+
 - $1 \le n \le 2 \cdot 10^5$.
 - $1 \le x, c_i \le 10^9$.
 
@@ -286,6 +298,7 @@ Giới hạn:
 Đầu tiên ta nhận thấy là ta chỉ nên đặt phô mai ở những đỉnh trên đường đi từ $1$ tới $n$ không bao gồm $1$. Ngoài ra, với mỗi đỉnh $u$ trên đường đi từ $1$ tới $n$, ta có thể tính được $b_u$ là tổng số lượng phô mai ở những đỉnh là con của cha của $u$ --- nói cách khác, $\frac{c_u}{b_u}$ là xác suất đi tới đỉnh $u$ từ đỉnh cha của $u$ trước khi thao tác. Sau khi thêm $x_u$ miếng phô mai vào đỉnh $u$, xác suất này trở thành $\frac{c_u + x_u}{b_u + x_u}$. Vì thế, xác suất đi tới $n$ sẽ là là $\prod_{u \in \{1 \to n\}} \frac{c_u + x_u}{b_u + x_u}$. Để thuận tiện hơn, ta xét logarit của hàm này: $\sum_{u \in \{1 \to n\}} \log(c_u + x_u) - \log(b_u + x_u)$.
 
 Nhận xét rằng nếu ta đặt $f_u(t) = \log(c_u + t) - \log(b_u + t)$, thì $f_u$ là hàm lõm. Vì thế, ta có thể đưa về bài toán quen thuộc sau: chọn $x_u$ sao cho:
+
 - $x_u$ là số nguyên không âm với mọi $u \in \{1 \to n\}$.
 - $\sum_{u \in \{1 \to n\}} x_u = x$.
 - $\sum_{u \in \{1 \to n\}} f_u(x_u)$ là lớn nhất có thể.
@@ -293,6 +306,7 @@ Nhận xét rằng nếu ta đặt $f_u(t) = \log(c_u + t) - \log(b_u + t)$, th�
 Ta có thể áp dụng kĩ thuật ở trên: chặt nhị phân chi phí tăng cuối cùng $t$, rồi ở mỗi đỉnh $u$ ta chặt nhị phân $x_u$ nhỏ nhất sao cho $f_u(x_u + 1) - f_u(x_u) < t$. Tuy nhiên, độ phức tạp của cách làm này là $O(n \log x \log \epsilon^{-1})$ với $\epsilon$ là độ chính xác cần đạt được; với bài toán này, cách làm này sẽ bị vượt quá thời gian cho phép ($\epsilon$ có thể xuống tới $10^{-19}$).
 
 Một ý tưởng cho bài toán này là *bỏ giới hạn rằng $x_u$ là số nguyên*, rồi từ nghiệm thực $\hat{x}_u$ nhận được, ta chuyển về $x_u$ bằng cách nào đó (kĩ thuật này được gọi là integer program relaxation). Nói cách khác, xét bài toán sau: cho $f_u(t) = \log(c_u + t) - \log(b_u + t)$, chọn $\hat{x}_u$ sao cho
+
 - $x_u$ là *số thực không âm* với mọi $u \in \{1 \to n\}$.
 - $\sum_{u \in \{1 \to n\}} \hat{x}_u = x$.
 - $\sum_{u \in \{1 \to n\}} f_u(\hat{x}_u)$ là lớn nhất có thể.
@@ -300,10 +314,12 @@ Một ý tưởng cho bài toán này là *bỏ giới hạn rằng $x_u$ là s�
 Ở đây, hàm $g$ trên tập số thực là hàm lõm nếu $g'(t) \le 0$ với mọi $t$. Tương tự, hàm $g$ trên tập số thực là hàm lồi nếu $g'(t) \ge 0$ với mọi $t$. Nhận thấy là hàm $f_u$ được định nghĩa ở trên cũng là một hàm lõm trên tập số thực.
 
 Để giải bài toán trên với nghiệm thực, ta xét ý tưởng tham chi phí tăng nhưng với bước tiến nhỏ. Nói cách khác, ta chọn một hằng số nhỏ $dx$ nào đó, rồi thực hiện thao tác sau $\frac{x}{dx}$ lần:
+
 - Chọn $u$ sao cho $f_u(\hat{x}_u + dx) - f_u(\hat{x})$ lớn nhất có thể. Một cách diễn đạt tương đương là ta chọn $u$ sao cho $\frac{f_u(\hat{x}_u + dx) - f_u(\hat{x})}{dx}$ là lớn nhất có thể.
 - Tăng $\hat{x}_u$ lên $dx$.
 
 Ta nhận thấy là với nghiệm nguyên, ta lặp thao tác trên với $dx = 1$. Với nghiệm thực, ta lặp thao tác trên nhiều lần với $dx$ tiến tới $0$. Nhận thấy rằng khi $dx \to 0$, $\frac{f_u(\hat{x}_u + dx) - f_u(\hat{x})}{dx} = f'_u(\hat{x}_u)$. Từ nhận xét trên và bởi vì $f'_u$ là hàm liên tục, ta có thể kết luật rằng nghiệm $\hat{x}$ thỏa mãn điều kiện sau với mọi $u$:
+
 - Với mọi $u$ sao cho $\hat{x}_u > 0$, đạo hàm của $f_u$ tại các điểm này là bằng nhau. Nói cách khác, tồn tại số $t$ sao cho với mọi $u$ mà $\hat{x}_u > 0$, ta có $f'_u(\hat{x}_u) = t$.
 - Với mọi $u$ sao cho $\hat{x}_u = 0$, ta có $f'_u(\hat{x}_u) \le t$.
 

@@ -893,6 +893,7 @@ Dùng Euler Tour + RMQ khi cần truy vấn LCA rất nhiều lần ($\geq 10^5$
 **Chứng minh:** Trong DFS, khi thăm $u$, ta ghi $tin[u]$. Sau đó đệ quy thăm tất cả con $v_1, v_2, \dots, v_k$. Mỗi con $v_i$ và toàn bộ subtree của $v_i$ được thăm xong trước khi chuyển sang con tiếp theo. Cuối cùng ghi $tout[u]$.
 
 Do đó:
+
 - Mọi đỉnh $w$ trong subtree $u$: $tin[u] \leq tin[w] \leq tout[w] \leq tout[u]$
 - Mọi đỉnh $w$ ngoài subtree $u$: hoặc $tin[w] < tin[u]$ hoặc $tin[w] > tout[u]$
 
@@ -903,10 +904,12 @@ Suy ra subtree $u$ ứng chính xác với đoạn $[tin[u], tout[u]]$.
 Khi dùng Euler Tour Type 2 (entry + exit), mỗi đỉnh $u$ có $tin[u]$ (lần vào) và $tout[u]$ (lần ra). Dãy Euler Tour có $2N$ phần tử.
 
 Khi cập nhật subtree $u$ với giá trị $val$:
+
 - Cộng $val$ tại vị trí $tin[u]$
 - Trừ $val$ tại vị trí $tout[u] + 1$
 
 Tổng tiền tố tại vị trí $p$ sẽ nhận được $val$ khi và chỉ khi $tin[u] \leq p \leq tout[u]$. Điều này đúng vì:
+
 - Nếu $p < tin[u]$: chưa gặp $+val$ nên tổng tiền tố không đổi
 - Nếu $tin[u] \leq p \leq tout[u]$: đã gặp $+val$ nhưng chưa gặp $-val$, nên tổng tiền tố cộng thêm $val$
 - Nếu $p > tout[u]$: đã gặp cả $+val$ và $-val$, hiệu triệt tiêu nhau

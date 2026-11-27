@@ -40,6 +40,7 @@ Có kế hoạch cho việc phải làm gì cho những trường hợp (có th�
 Nên có một checklist cho những gì phải làm trước khi nộp bài:
 
     Ngừng code 5 phút trước khi hết giờ?
+
     *   Tắt assert.
     *   Tắt debugging output.
 

@@ -80,6 +80,7 @@ graph TB
 
 ### 2.2. Cài đặt bằng Danh sách liên kết đơn (Linked List)
 Ta duy trì hai con trỏ:
+
 *   `head`: Trỏ vào nút đầu tiên của danh sách (vị trí lấy phần tử).
 *   `tail`: Trỏ vào nút cuối cùng của danh sách (vị trí thêm phần tử mới).
 
@@ -353,22 +354,34 @@ Trong cài đặt hàng đợi bằng mảng vòng với kích thước $MAXN$, 
 
 1.  **Giới hạn chỉ số (Index Boundedness):**
     Tại mọi thời điểm, chỉ số $front\_idx$ và $rear\_idx$ luôn nằm trong khoảng hợp lệ $[0, MAXN - 1]$.
+
     *   *Chứng minh:* Phép toán dịch chuyển chỉ số chỉ sử dụng công thức tăng modulo:
+
         $$idx_{\text{mới}} = (idx_{\text{cũ}} + 1) \bmod MAXN$$
+
         Theo tính chất của phép chia lấy dư đối với số nguyên dương $MAXN$, giá trị của $(a \bmod MAXN)$ luôn thuộc tập hợp $\{0, 1, \ldots, MAXN-1\}$. Do đó chỉ số không bao giờ vượt biên mảng.
+
 2.  **Không ghi đè dữ liệu chưa xử lý (No Data Overwriting):**
     Một phần tử mới chỉ được thêm vào khi hàng đợi chưa đầy ($cnt < MAXN$).
+
     *   *Chứng minh:* Khoảng dữ liệu hợp lệ trên mảng vòng chiếm các ô chỉ số thuộc tập hợp:
+
         $$I = \{ (front\_idx + k) \bmod MAXN \mid 0 \leq k < cnt \}$$
+
         Khi $cnt < MAXN$, phần tử mới sẽ được chèn vào vị trí $rear\_idx = (front\_idx + cnt) \bmod MAXN$. Do $cnt < MAXN$, ta có $rear\_idx \notin I$. Như vậy vị trí chèn mới luôn là ô trống, không đè lên bất kỳ phần tử hợp lệ nào có sẵn.
+
 3.  **Bất biến FIFO (FIFO Invariant):**
     Phần tử được đưa vào đầu tiên ($k=0$ trong tập hợp $I$) sẽ là phần tử được lấy ra khi thực hiện `pop()`.
+
     *   *Chứng minh:* Thao tác `pop()` lấy giá trị tại chỉ số $front\_idx$ (ứng với $k=0$), sau đó dịch chuyển $front\_idx \leftarrow (front\_idx + 1) \bmod MAXN$. Phần tử kế tiếp ($k=1$) trở thành đầu hàng mới ($k=0$ mới). Bất biến FIFO được bảo toàn.
 
 ### 4.2. Tại sao BFS sử dụng Queue đảm bảo đường đi ngắn nhất?
 Khi duyệt đồ thị không trọng số bằng thuật toán duyệt theo chiều rộng (BFS):
+
 *   **Bất biến của hàng đợi BFS:** Khoảng cách từ đỉnh nguồn $S$ đến các đỉnh trong Queue luôn có tính đơn điệu tăng dần. Cụ thể, nếu Queue chứa các đỉnh $[v_1, v_2, \ldots, v_m]$ thì:
+
     $$dist[v_1] \leq dist[v_2] \leq \ldots \leq dist[v_m] \leq dist[v_1] + 1$$
+
 *   **Hệ quả:** Khi đỉnh $u$ được ghé thăm lần đầu tiên thông qua cung $(v, u)$, ta có $dist[u] = dist[v] + 1$. Vì các đỉnh được lấy ra theo thứ tự tăng dần của khoảng cách, ta đảm bảo $dist[v]$ là đường đi ngắn nhất từ $S$ đến $v$, dẫn tới $dist[u]$ cũng là đường đi ngắn nhất từ $S$ đến $u$.
 
 ---

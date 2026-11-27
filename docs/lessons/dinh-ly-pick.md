@@ -8,6 +8,7 @@
 ### 1.1 Phát biểu
 
 Cho đa giác **đơn** (không tự cắt, đỉnh tại các điểm nguyên — không nhất thiết lồi). Gọi:
+
 - $I$ = số điểm nguyên **nằm trong** đa giác
 - $B$ = số điểm nguyên **trên cạnh** đa giác
 - $S$ = diện tích đa giác
@@ -29,6 +30,7 @@ $$I = S - \frac{B}{2} + 1$$
 ### 1.2 Ví dụ
 
 Tam giác $(0,0), (4,0), (0,3)$:
+
 - Diện tích: $S = \frac{1}{2} \cdot 4 \cdot 3 = 6$
 - Cạnh $(0,0)-(4,0)$: $\gcd(4, 0) + 1 = 5$ điểm
 - Cạnh $(4,0)-(0,3)$: $\gcd(4, 3) + 1 = 2$ điểm
@@ -427,6 +429,7 @@ if (dx == 0 && dy == 0) continue; // không đóng góp điểm biên
 **Đề bài:** Cho $q$ truy vấn. Mỗi truy vấn cho 2 điểm nguyên $A(x_1,y_1)$ và $B(x_2,y_2)$. Đếm số điểm nguyên nằm trên đoạn $AB$ (bao gồm cả 2 đầu).
 
 **Input:**
+
 - Dòng 1: số nguyên $q$ $(1 \leq q \leq 10^5)$
 - $q$ dòng: 4 số nguyên $x_1, y_1, x_2, y_2$ $(|x_i|, |y_i| \leq 10^9)$
 
@@ -475,6 +478,7 @@ if (dx == 0 && dy == 0) continue; // không đóng góp điểm biên
 **Đề bài:** Cho đa giác lồi $n$ đỉnh (tọa độ nguyên). Tính: (1) diện tích, (2) số điểm nguyên trên cạnh, (3) số điểm nguyên bên trong.
 
 **Input:**
+
 - Dòng 1: số nguyên $n$ $(3 \leq n \leq 10^5)$
 - $n$ dòng: 2 số nguyên $x_i, y_i$ $(|x_i|, |y_i| \leq 10^6)$
 

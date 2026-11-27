@@ -37,8 +37,10 @@ Và $S$ = 11.
 Xét đến tổng 1. Có duy nhất đồng xu 1 nhỏ hơn hoặc bằng tổng 1, nên ta có $f[1] = f[1-V_0] + 1 = f[0] + 1 = 1$.
 Xét đến tổng 2. Cũng giống như tổng trước, chỉ có 1 đổng xu $\le$ 2, có $f[2] = f[2-V_0] + 1 = f[1]+1 = 2$
 Đến tổng 3. Lần này có 2 đồng xu $\le$ 3 là 1 và 3.
+
 	- Nếu ta chọn đồng 1, ta có $f[3] = f[3-V_0] + 1 = f[2] + 1 = 3$
 	- Nếu ta chọn đồng 3, ta có $f[3] = f[3-V_1] + 1 = f[0] + 1 = 1$
+
 Rõ ràng là 1 $\le$ 3 nên ta chọn đồng 3 và $f[3] = 1$
 Xét tiếp đến tổng 4, rồi đến 11 bằng cách như trên.
 
@@ -307,23 +309,33 @@ Khi gặp một bài toán, hãy để ý xem nó có được giải trong th�
 
  - TCCC ’03 Semifinals 3 Div I Easy –
    [ZigZag](http://community.topcoder.com/tc?module=ProblemDetail&rd=4493&pm=1259)
+
  - TCCC ’04 Round 4 Div I Easy –
    [BadNeighbors](http://community.topcoder.com/tc?module=ProblemDetail&rd=5009&pm=2402)
+
  - TCCC ’04 Round 1 Div I Med –
    [FlowerGarden](http://community.topcoder.com/tc?module=ProblemDetail&rd=5006&pm=1918)
+
  - TCO ’03 Semifinals 4 Div I Easy –
    [AvoidRoads](http://community.topcoder.com/tc?module=ProblemDetail&rd=4709&pm=1889)
+
  - TCCC ’03 Round 4 Div I Easy –
    [ChessMetric](http://community.topcoder.com/tc?module=ProblemDetail&rd=4482&pm=1592)
+
  - TCO ’03 Round 4 Div I Med –
    [Jewelry](http://community.topcoder.com/tc?module=ProblemDetail&rd=4705&pm=1166)
+
  - SRM 150 Div I Med –
    [StripePainter](http://community.topcoder.com/tc?module=ProblemDetail&rd=4555&pm=1215)
+
  - SRM 197 Div II Hard –
    [QuickSums](http://community.topcoder.com/tc?module=ProblemDetail&rd=5072&pm=2829)
+
  - SRM 165 Div II Hard –
    [ShortPalindromes](http://community.topcoder.com/tc?module=ProblemDetail&rd=4630&pm=1861)
+
  - SRM 208 Div I Hard –
    [StarAdventure](http://community.topcoder.com/tc?module=ProblemDetail&rd=5854&pm=2940)
+
  - SRM 178 Div I Hard –
    [MiniPaint](http://community.topcoder.com/tc?module=ProblemDetail&rd=4710&pm=1996)

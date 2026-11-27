@@ -39,6 +39,7 @@ Ví dụ: Truy vấn min $[2, 7]$ (độ dài 6)
 Với đoạn $[l, r]$ có độ dài $\text{len} = r - l + 1$, ta tìm $k = \lfloor \log_2(\text{len}) \rfloor$.
 
 Hai đoạn:
+
 - $[l, l + 2^k - 1]$ bắt đầu từ $l$, dài $2^k$
 - $[r - 2^k + 1, r]$ kết thúc tại $r$, dài $2^k$
 
@@ -131,6 +132,7 @@ plt.tight_layout()
 Tạo bảng $st[i][k]$ = giá trị min/max của đoạn bắt đầu từ $i$, độ dài $2^k$.
 
 Công thức:
+
 - $st[i][0] = a[i]$ (đoạn dài $1 = 2^0$)
 - $st[i][1] = \min(a[i], a[i+1])$ (đoạn dài $2 = 2^1$)
 - $st[i][2] = \min(a[i..i+3])$ (đoạn dài $4 = 2^2$)
@@ -152,6 +154,7 @@ Mảng $a = [3, 1, 4, 1, 5, 9, 2, 6]$, $N = 8$
 ### Truy vấn
 
 Với truy vấn $\min[l, r]$:
+
 1. Tính $\text{len} = r - l + 1$
 2. Tính $k = \lfloor \log_2(\text{len}) \rfloor$
 3. Kết quả $= \min(st[l][k], st[r - 2^k + 1][k])$
@@ -544,11 +547,13 @@ k = length.bit_length() - 1
 | Yêu cầu phép toán | Idempotent (min, max, GCD, AND, OR) |
 
 **Khi nào dùng Sparse Table?**
+
 - Mảng tĩnh (không cập nhật)
 - Cần truy vấn min/max/GCD nhanh $O(1)$
 - Có đủ bộ nhớ ($O(N \log N)$)
 
 **Khi nào KHÔNG dùng?**
+
 - Cần cập nhật: dùng Segment Tree
 - Phép toán không idempotent (sum, XOR): dùng Prefix Sum/BIT
 - Thiếu bộ nhớ: dùng Segment Tree ($O(4N)$)

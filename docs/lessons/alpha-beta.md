@@ -127,6 +127,7 @@ Nếu tại nút MIN, giá trị hiện tại $v \le \alpha$ (giá trị tốt n
 Khi nước đi tốt nhất luôn ở đầu: tại một nửa số tầng (ví dụ nút MIN đang phản bác nước đi của MAX), thuật toán chỉ cần tìm ra **1** nước phản đòn đủ mạnh để hạ giá trị xuống $\le \alpha$ là cắt ngay $b-1$ nhánh còn lại; các nút ở tầng đối diện mới phải duyệt đủ $b$ con. Do đó độ phân nhánh hiệu dụng trung bình giảm xuống còn $\sqrt{b}$, tổng nút duyệt là $(\sqrt{b})^d = O(b^{d/2})$ — tức với cùng thời gian, Alpha-Beta nhìn sâu được gấp đôi Minimax.
 
 **Kỹ thuật tăng tốc thực chiến:**
+
 - **Move Ordering (Sắp xếp nước đi):** Thử trước nước bắt quân (MVV-LVA), nước chiếu, hoặc **Killer Heuristic** (nước từng gây cắt tỉa ở độ sâu tương đương).
 - **Transposition Table:** Dùng Hash (Zobrist Hashing) lưu các trạng thái bàn cờ đã tính để tránh tính lại qua nhiều nhánh trùng nhau.
 

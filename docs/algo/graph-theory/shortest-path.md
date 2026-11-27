@@ -1,8 +1,10 @@
 
 **Tác giả:** 
+
 - Trần Hoài An - THPT Hoàng Lê Kha, Tây Ninh
 
 **Reviewer:**
+
 - Nguyễn Xuân Tùng - Đại học Quốc Tế, Đại học Quốc gia Thành phố Hồ Chí Minh
 
 ## Giới thiệu
@@ -10,6 +12,7 @@
 Bài toán tìm đường đi ngắn nhất trên đồ thị là một trong những bài toán đa dạng, có nhiều ứng dụng thực tế (như trong Google Maps, hay các bài toán networking, ...). Các dạng bài về tìm đường đi ngắn nhất cũng thường xuyên có mặt trong các kì thi lập trình. 
 
 Bài viết này sẽ giới thiệu ba thuật toán cơ bản của dạng bài tìm đường đi ngắn nhất:
+
 * Thuật toán Bellman - Ford.
 * Thuật toán Dijkstra.
 * Thuật toán Floyd-Warshall (còn gọi là thuật toán Floyd).
@@ -293,6 +296,7 @@ Cụ thể hơn, thuật toán sẽ duy trì đường đi ngắn nhất đến 
 
 ## Minh họa thuật toán
 Ta sẽ minh họa thuật toán bằng một đồ thị như hình. Định nghĩa:
+
 - $D_u$ là đường đi ngắn nhất từ đỉnh nguồn đên đỉnh $u$ đã tìm được.
 - $P_u$ nhận hai giá trị $true$, $false$ cho biết đỉnh $P_u$ đã được chọn để tối ưu chưa.
 
@@ -332,12 +336,14 @@ Sau bước này, $D = [0, 4, 1, 3]$, $P = [true, false, true, true]$
 - $P[u]$ là mảng đánh dấu các đỉnh $u$ đã được xử lí chưa. Ban đầu tất cả các giá trị đều là **false**.
 
 Ta sẽ lặp $N$ lần quá trình sau:
+
 - Tìm đỉnh $u$ có $D[u]$ nhỏ nhất và $P[u] = false$.
 - Sau khi tìm được đỉnh $u$, ta xét các đỉnh $v$ kề với đỉnh $u$ và tiến hành tối ưu hóa $D[v]$: nếu $D[v] > D[u] + W[u,v]$ thì $D[v] = D[u] + W[u,v]$. 
     * Nếu việc tối ưu hóa diễn ra, ta sẽ cập nhật $trace[v] = u$.
 - Đánh dấu $P[u] = true$, nghĩa là đỉnh $u$ đã được xử lí xong
 
 **Độ phức tạp thuật toán**: Ta có $N$ lần lặp:
+
 - Bước đầu tiên có độ phức tạp $O(N)$ **mỗi lần lặp**.
 - Bước thứ hai có **tổng độ phức tạp $O(M)$ qua tất cả các lần lặp**
 
@@ -417,6 +423,7 @@ Như vậy độ phức tạp của cách cài đặt cơ bản sẽ là $O(N^2 
 * Mỗi lần tối ưu $D_v$, ta phải push vào Heap một lần. Với mỗi lần push vào trong Heap, ta đều phải pop ra lại một lần. Do có tối đa $O(M)$ lần tối ưu, độ phức tạp của thuật toán là $O(MlogN)$.
 
 Độ phức tạp sau khi cải tiến: $O(MlogN)$. **Lưu ý rằng với $M$ lớn thì độ phức tạp này không tốt hơn cài đặt cơ bản.** Chứng minh như sau:
+
 - Ta có độ phức tạp của hai cách cài đặt:
     - Cách cài đặt cơ bản: $O(N^2 + M)$.
     - Cách cài đặt cải tiến: $O(MlogN)$.
@@ -573,6 +580,7 @@ Giới hạn bài toán: $1 \leq N \leq 100$
 * Ví dụ như có một đường đi ngắn nhất từ $0 \rightarrow 4$ như sau: $0\rightarrow 1\rightarrow 2\rightarrow 3 \rightarrow 4$. Vậy việc tính đường đi ngắn nhất từ $0\rightarrow 4$ hoàn toàn có thể được chia thành tính đường đi ngắn nhất từ $0\rightarrow 2$ sau đó cộng với đường đi ngắn nhất từ $2\rightarrow 4$. Tương tự thế đường đi ngắn nhất từ $0\rightarrow 2$ và $2\rightarrow 4$ lại tiếp tực được phân hoạch thành những đường đi ngắn nhất khác đơn giản hơn và tối ưu hơn.
 
 Ta nhận thấy có một cấu trúc đệ quy, chia nhỏ bài toán ở đây. Ý tưởng này cho phép chúng ta thực hiện một thuật toán mang hương vị quy hoạch động như sau:
+
 - Gọi $D(u, v, k)$ là đường đi ngắn nhất, trong đó ta chỉ được đi qua $k$ đỉnh đầu tiên (có số thứ tự từ $0$ đến $k-1$), ngoại trừ chính $u$ và $v$. Ta có công thức truy hồi:
     - $D(u, v, 0) = W_{u, v}$ (không được dùng đỉnh nào ngoài chính $u, v$).
     - $D(u, u, k) = 0$

@@ -24,6 +24,7 @@ q(x) = b_0 + b_1 x + b_2 x^2 + ... + b_e x^e
 $$
 
 Ta cần tìm tích $c(x)$ của hai đa thức trên, có dạng:
+
 $$
 c(x) = p(x)q(x) = c_0 + c_1 x + c_x x^2 + ... + c_{d+e} x^{d+e}
 $$
@@ -66,6 +67,7 @@ Ma trận vuông $V$ kích cỡ $n*n$ của $z_{0:{n-1}}$ ở trên được g�
 Ta có các định lý sau:
 
 **Định lý 1:** Định thức của ma trận Vandermonde là
+
 $$det(V) = \prod_{0 \leq i < j \leq n-1}(z_j - z_i)$$
 
 **Chứng minh (sơ lược):**
@@ -128,6 +130,7 @@ $$
 Ta sẽ chứng minh tích $P = B * V = V * B = n * I$, trong đó $I$ là ma trận đơn vị.
 
 Xét phép nhân hàng $i$ của ma trận $V$ và cột $k$ của ma trận $B$, ta có:
+
 $$
 P[i, k] = \sum_{j=0}^{n-1}w_n^{ij}w_n^{-jk} = \sum_{j=0}^{n-1}w_n^{j(i-k)}
 $$
@@ -537,7 +540,9 @@ Một số cách cài đặt khác sử dụng con trỏ cũng làm tăng tốc 
 - [2] Alejandro Dominguez. Highlights in the History of the Fourier Transform. IEEE Pulse, 2016. [Link](http://pulse.embs.org/january-2016/highlights-in-the-history-of-the-fourier-transform/)
 - [3] Stefan Woerner. Fast Fourier Transform. *Numerical Analysis Seminar*, Swiss Federal Institute of Technology Zurich, 2008. [Link](http://www2.math.ethz.ch/education/bachelor/seminars/fs2008/nas/woerner.pdf)
 - [4] Fortnow and Homer. A Short History of Computational Complexity. *Bulletin of the European
+
 Association for Theoretical Computer Science 80*, June 2003. [Link](http://people.cs.uchicago.edu/~fortnow/beatcs/column80.pdf)
+
 - [Bài toán nhân đa thức, phép biến đổi Fourier nhanh trên csstudyfun.wordpress.com (có chứng minh các tính chất được đề cập trong bài](https://csstudyfun.wordpress.com/2009/01/12/bai-toan-nhan-da-thuc-phep-bien-doi-fourier-nhanh-fast-fourier-transform-fft/)
 - [Bài giảng của trường DH Aalto, Phần Lan](https://drive.google.com/open?id=0BxCwa-q7x3eWT3ZfakNHMWVveTg)
 - [Code cài đặt của e-maxx](http://e-maxx.ru/algo/fft_multiply)

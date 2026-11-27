@@ -2,9 +2,11 @@
 **Nguồn:** [Eulerian path - Wikipedia](https://en.wikipedia.org/wiki/Eulerian_path) và một số nguồn khác
 
 **Biên soạn:**
+
 - Bùi Nguyễn Ngọc Thắng - Carnegie Mellon University in Qatar
 
 **Reviewer:** 
+
 - Trần Quang Lộc - ITMO University
 - Hoàng Xuân Nhật - VNUHCM-University of Science
 - Nguyễn Nhật Minh Khôi - VNUHCM-University of Science
@@ -12,6 +14,7 @@
 - Hồ Ngọc Vĩnh Phát - VNUHCM-University of Science
 
 **Chuẩn bị bài tập và bộ test**
+
 - Nguyễn Hoàng Vũ - THPT chuyên Phan Bội Châu - Nghệ An
 
 Bài viết sẽ giới thiệu cho độc giả về đường đi và chu trình Euler, một khái niệm cơ bản có ứng dụng rộng rãi trong lý thuyết đồ thị và lập trình thi đấu. Phạm vi bài viết bao gồm các định lý liên quan đến sự tồn tại của đường đi và chu trình Euler trong đồ thị và chứng minh, thuật toán tìm chu trình Euler và ứng dụng trong một số bài tập.
@@ -46,6 +49,7 @@ Những kí hiệu sau sẽ được dùng xuyên suốt bài viết:
 ## Định lý 1
 
 Một đồ thị có hướng là đồ thị Euler nếu và chỉ nếu:
+
 - Với mọi đỉnh $u$ thuộc đồ thị, $deg^+(u) = deg^-(u)$
 - Tất cả đỉnh có bậc lớn hơn $0$ thuộc cùng một thành phần liên thông
 
@@ -135,6 +139,7 @@ Theo giả sử thì với mọi $G_i$ ta tìm được một chu trình Euler $
 ## Định lý 2
 
 Đồ thị có hướng là đồ thị nửa Euler nếu và chỉ nếu đồ thị thoả **một trong hai** điều kiện sau:
+
 1. Tồn tại chu trình Euler
 2. Thoả tất cả các điều kiện sau:
     1. Tồn tại trong đồ thị đúng $2$ đỉnh $s$ và $t$ sao cho $deg^-(s) = deg^+(s) + 1$ và $deg^-(t) = deg^+(t) - 1$
@@ -172,6 +177,7 @@ Do đó, ta kết luận tồn tại đường đi Euler trên đồ thị 3. Th
 ### Chiều thuận
 
 Giả sử tồn tại đường đi Euler bắt đầu từ $s$ và kết thúc tại $t$ trên đồ thị có hướng.
+
 - Nếu $s = t$, đồ thị có chu trình Euler. Dựa vào định lý 1, ta chứng minh được định lý đúng trong trường hợp này.
 - Nếu $s \neq t$, do đường đi Euler đi qua tất cả các cạnh nên nhận thấy:
     - $deg^-(s) = deg^+(s) + 1$ do đường đi xuất phát nhưng không kết thúc tại $s$ nên $deg^-(s)$ phải ít hơn $deg^+(s)$ $1$ cạnh
@@ -184,9 +190,13 @@ Giả sử tồn tại đường đi Euler bắt đầu từ $s$ và kết thúc
 Trong trường hợp đồ thị có hướng tồn tại chu trình Euler, hiển nhiên đồ thị tồn tại đường đi Euler.
 
 Giả sử đồ thị có hướng thoả các điều kiện trong định lý 2. Thêm một cạnh $e$ nối từ $t$ đến $s$ vào đồ thị ($s$ và $t$ là $2$ đỉnh duy nhất trong đồ thị không thoả điều kiện bán bậc vào bằng bán bậc ra). Khi này mọi đỉnh trong đồ thị đều có bán bậc vào bằng bán bậc ra nên đồ thị tồn tại chu trình Euler đi qua $t$ và $s$:
+
 $$u_1\ u_2\ u_3\ \cdots\ t\ s\ \cdots\ u_{n - 1}\ u_n$$
+
 Ta nhận thấy trên đồ thị lúc sau tồn tại một đường đi qua tất cả các cạnh khác $e$ bắt đầu từ $s$ và kết thúc ở $t$.
+
 $$s\ \cdots\ u_{n - 1}\ u_n\ u_1\ u_2\ u_3\ \cdots\ t$$
+
 Do đó đồ thị ban đầu tồn tại một đường đi Euler.
 
 ## Chu trình Euler trên đồ thị vô hướng
@@ -194,6 +204,7 @@ Do đó đồ thị ban đầu tồn tại một đường đi Euler.
 ## Định lý 3
 
 Đồ thị vô hướng là đồ thị Euler nếu và chỉ nếu:
+
 - Bậc của mọi đỉnh là chẵn
 - Tất cả các đỉnh có bậc lớn hơn $0$ thuộc cùng một thành phần liên thông
 
@@ -215,6 +226,7 @@ Ta cũng sử dụng phương pháp quy nạp để chứng minh.
 Dễ thấy định lý đúng khi đồ thị có một đỉnh.
 
 Xét một đồ thị vô hướng $G$ có $n$ đỉnh thoả $\forall u \in G$, $2 \mathrel{|} deg(u)$. Tương tự như trên đồ thị có hướng, ta chứng minh được:
+
 - Chọn một đỉnh $u \in G$ bất kì thì luôn tìm được một chu trình $C$ chứa $u$.
 - Xoá các cạnh trên $G$ thuộc $C$:
     - Nếu sau khi xoá $G$ không còn cạnh thì $C$ chính là một chu trình Euler.
@@ -240,6 +252,7 @@ Xét một đồ thị vô hướng $G$ có $n$ đỉnh thoả $\forall u \in G$
 ## Định lý 4
 
 Tồn tại đường đi Euler trên một đồ thị vô hướng nếu và chỉ nếu:
+
 - Đồ thị có **đúng** $0$ hoặc $2$ đỉnh bậc lẻ
 - Tất cả các đỉnh có bậc lớn hơn $0$ thuộc cũng một thành phần liên thông
 
@@ -248,6 +261,7 @@ Tồn tại đường đi Euler trên một đồ thị vô hướng nếu và c
 ### Chiều thuận
 
 Giả sử đồ thị vô hướng tồn tại đường đi Euler xuất phát tại $s$ và kết thúc tại $t$.
+
 - Nếu $s = t$, dựa vào định lý 3, đồ thị có chu trình Euler nên tất cả đỉnh trong đồ thị có bậc chẵn và mọi đỉnh có bậc lớn hơn $0$ thuộc cùng một thành phần liên thông.
 - Nếu $s \neq t$, do đường đi Euler đi qua tất cả các cạnh nên dễ thấy đồ thị có đúng 2 đỉnh bậc lẻ là $s$ và $t$ và các đỉnh có bậc lớn hơn $0$ thuộc cùng một thành phần liên thông.
 
@@ -546,7 +560,9 @@ Nếu đồ thị không liên thông, có đỉnh bậc lẻ, hay tổng trọn
 Tìm một chu trình Euler bất kì trên đồ thị $C = u_0 u_1 \ldots u_{m}$. Lưu ý do $C$ là một chu trình nên đỉnh liền sau $u_m$ là $u_0$.
 
 Gọi $S$ là mảng tổng tiền tố của trọng số các cạnh trên $C$. Như vậy,
+
 $$S_i = \sum_{j = 0}^{i} W_{u_j, u_{j + 1}}$$
+
 Lưu ý $u_{j + 1}$ chỉ đỉnh liền sau $u_j$ trong $C$.
 
 Ta biết rằng $S_m \geq 0$ do như đã đề cập, nếu tổng trọng số các cạnh âm thì không tìm được chu trình thoả yêu cầu.
@@ -728,6 +744,7 @@ Nhận thấy khi này nếu ta dịch chu trình $C$ ban đầu sao cho $u_k$ l
 ### Tóm tắt đề
 
 Số Ouroboros "bậc" $n$ là số nhị phân được định nghĩa như sau:
+
 - Đặt $2^n$ bit nhị phân thành một vòng tròn. Nếu ta có thể thu được $2^n$ dãy nhị phân độ dài $n$ khác nhau thì số đó là số Ouroboros.
 
 Hãy trả lời các truy vấn với hai tham số $n$ và $k$. Với mỗi truy vấn, cho biết bit thứ $k$ (đánh số bắt đầu từ $0$) trong số Ouroboros độ dài $n$ nhỏ nhất theo thứ tự từ điển ($0 < n < 22$, $0 \leq k < 2^n$).
@@ -753,6 +770,7 @@ Trong bài toán này, với mỗi giá trị $0 < n < 22$, ta có thể tìm tr
 Như vậy ban đầu mỗi đỉnh trong đồ thị có $2$ cạnh ra - $1$ cạnh có trọng số là $0$ và $1$ cạnh có trọng số là $1$ - và $2$ cạnh vào cũng có trọng số là $0$ và $1$. Do mỗi đỉnh trong đồ thị có bán bậc ra bằng bán bậc vào nên đồ thị vừa dựng là một đồ thị Euler. Khi này bài toán quy về tìm chu trình Euler có thứ tự từ điển nhỏ nhất trên đồ thị.
 
 Ta dùng phương pháp tham lam để giải quyết yêu cầu tìm thứ tự từ điển nhỏ nhất:
+
 - Khi tìm chu trình xuất phát từ một đỉnh, ta sẽ ưu tiên đi qua cạnh có trọng số là $0$ trước.
 - Sau khi có một chu trình bắt đầu từ một đỉnh, các cạnh còn lại trong đồ thị tạo thành các thành phần liên thông. Theo thuật toán, khi này ta tìm một đỉnh trên chu trình hiện tại có cạnh chưa thăm và gọi đệ quy tiếp tục tìm chu trình bắt đầu từ đỉnh đó. Do mỗi đỉnh chỉ có $2$ cạnh nên khi này nếu đỉnh còn cạnh chưa thăm, cạnh đó chắc chắn có trọng số $1$. Do ta cần thứ tự từ điển nhỏ nhất nên ta muốn đặt các cạnh trọng số $1$ càng về cuối chu trình càng tốt. Vì thế ta sẽ duyệt chu trình hiện tại từ cuối về đầu, và gọi đệ quy thủ tục nếu có đỉnh có cạnh chưa thăm.
 

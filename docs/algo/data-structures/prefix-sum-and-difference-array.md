@@ -1,8 +1,10 @@
 
 **Tác giả:** 
+
 - Bùi Nguyễn Đức Tân - VNU-HCM, High School for the Gifted
 
 **Reviewer:**
+
 - Trần Quang Lộc - ITMO University
 - Hoàng Xuân Nhật - VNU-HCM, University of Science
 - Nguyễn Phú Bình - Hung Vuong High School for the Gifted, Binh Duong Province
@@ -327,7 +329,9 @@ Ta có thể mở rộng mảng cộng dồn và mảng hiệu để thao tác t
 
 ### Mảng cộng dồn hai chiều
 
-Cho mảng hai chiều $A$ có kích thước $m \times n$ (chỉ số hàng và cột đầu tiên đều là 1), mảng cộng dồn $S(A)$ được dựng theo công thức sau: $$S_{i,j}=\displaystyle \sum_{t_i\,=\,1}^{i} \sum_{t_j\,=\,1}^{j} A_{t_i,t_j}$$
+Cho mảng hai chiều $A$ có kích thước $m \times n$ (chỉ số hàng và cột đầu tiên đều là 1), mảng cộng dồn $S(A)$ được dựng theo công thức sau:
+
+$$S_{i,j}=\displaystyle \sum_{t_i\,=\,1}^{i} \sum_{t_j\,=\,1}^{j} A_{t_i,t_j}$$
 
 Các phần tử trong mảng cộng dồn lưu tổng của toàn bộ phần tử chứa trong hình chữ nhật $[1, i] \times [1, j]$.
 Điểm khác biệt so với mảng cộng dồn 1 chiều ở đây là sự lược bỏ của hằng số $C$, ta ngầm quy ước: $S_{0,x} = S_{y,0} = 0$ với $x, y$ nguyên không âm khi dựng mảng cộng dồn.
@@ -401,7 +405,9 @@ Phần chứng minh công thức trên xin được nhường lại cho bạn đ
 
 ### Mảng cộng dồn ba chiều
 
-Giả sử ta có mảng $A$ trong không gian 3 chiều với kích thước $m \times n \times p$, ta dựng mảng $S(A)$ theo quy tắc sau: $$S_{i, j, k}=\displaystyle \sum_{t_i\,=\,1}^{i} \sum_{t_j\,=\,1}^{j} \sum_{t_k\,=\,1}^{k} A_{t_i,t_j,t_k}$$
+Giả sử ta có mảng $A$ trong không gian 3 chiều với kích thước $m \times n \times p$, ta dựng mảng $S(A)$ theo quy tắc sau:
+
+$$S_{i, j, k}=\displaystyle \sum_{t_i\,=\,1}^{i} \sum_{t_j\,=\,1}^{j} \sum_{t_k\,=\,1}^{k} A_{t_i,t_j,t_k}$$
 
 Công thức sau được sử dụng để dựng mảng cộng dồn 3 chiều:
 
@@ -432,17 +438,17 @@ Ta cũng có thể áp dụng phương pháp này để mở rộng cho các m�
 
 Trước khi bắt đầu xây dựng mảng hiệu 2 chiều, ta cần định nghĩa thêm 2 khái niệm sau cho một mảng $A$ hai chiều có kích thước $m \times n$:
 
-- $D_{hàng}(A)$ gồm $m$ hàng, hàng thứ $i$ biểu thị mảng hiệu của mảng gồm toàn bộ phần tử nằm trên hàng đó.
-- $D_{cột}(A)$ gồm $n$ cột, cột thứ $i$ biểu thị mảng hiệu của mảng gồm toàn bộ phần tử nằm trên cột đó.
+- $D_{\text{hàng}}(A)$ gồm $m$ hàng, hàng thứ $i$ biểu thị mảng hiệu của mảng gồm toàn bộ phần tử nằm trên hàng đó.
+- $D_{\text{cột}}(A)$ gồm $n$ cột, cột thứ $i$ biểu thị mảng hiệu của mảng gồm toàn bộ phần tử nằm trên cột đó.
 
 Trong không gian 1 chiều, ta thấy được $S(D(A)) = A$. Để tính chất này được áp dụng cho mảng 2 chiều, ta tạo mảng $A'$ thỏa: $A_{i, j}^{'}= A_{i, j}$ với $i, j$ dương và $A_{i, j} = 0$ với $i = 0$ hoặc $j = 0$. Mảng $A'$ này đánh số theo dạng 0-indexed và có kích thước là $(m + 1) \times (n + 1)$. Khi này, mảng hiệu của $A$ sẽ là mảng $D$ thỏa $S(D) = A'$.
 
-Đặt $D = D_{cột}(D_{hàng}(A))$, khi này, ta có:
+Đặt $D = D_{\text{cột}}(D_{\text{hàng}}(A))$, khi này, ta có:
 
 $$
 \begin{align*}
-D_{i, j} &= [D_{cột}(D_{hàng}(A))]_{i, j} \\
-&= [D_{hàng}(A_i)]_j - [D_{hàng}(A_{i - 1})]_j \\
+D_{i, j} &= [D_{\text{cột}}(D_{\text{hàng}}(A))]_{i, j} \\
+&= [D_{\text{hàng}}(A_i)]_j - [D_{\text{hàng}}(A_{i - 1})]_j \\
 &= (A_{i, j} - A_{i, j - 1}) - (A_{i - 1, j} - A_{i - 1, j - 1}) \\
 &= A_{i, j} - A_{i, j - 1} - A_{i - 1, j} + A_{i - 1, j - 1}
 \end{align*}
@@ -470,7 +476,8 @@ Từ các quan sát trên, ta có thể dựng mảng hiệu của $A$ bằng ha
 
 - Sử dụng trực tiếp công thức:
   $D_{i, j} = A_{i, j} - A_{i, j - 1} - A_{i - 1, j} + A_{i - 1, j - 1}$
-- Tính $D_{hàng}$ cho từng hàng của $A$ và gán kết quả vào $A'$, sau đó tính $D_{cột}$ cho từng cột của $A'$.
+
+- Tính $D_{\text{hàng}}$ cho từng hàng của $A$ và gán kết quả vào $A'$, sau đó tính $D_{\text{cột}}$ cho từng cột của $A'$.
 
 Code dưới đây dựng mảng hiệu 2 chiều $D$ theo $A$ theo cách thứ nhất:
 
@@ -512,7 +519,7 @@ Code dưới đây dựng mảng hiệu 2 chiều $D$ theo $A$ theo cách thứ 
         return difference_array
     ```
 
-Quay lại bài toán cũ trong không gian 1 chiều: làm thế nào để ta tăng thêm một lượng $k$ lên toàn bộ phần tử trong lưới $[r_1, r_2] \times [c_1, c_2]$ một cách hiệu quả? Khi ta tính $D_{hàng}$ cho từng hàng của $A$, ta nhận thấy chỉ giá trị của phần tử ở biên trái (tại $c_1$) và biên phải (tại $c_2 + 1$). Tiếp tục tính $D_{cột}$ cho từng cột của mảng $D_{hàng}(A)$, quan sát tương tự cho thấy chỉ phần tử tại $r_1$ và $r_2 + 1$ sẽ bị tác động bởi thao tác cập nhật này.
+Quay lại bài toán cũ trong không gian 1 chiều: làm thế nào để ta tăng thêm một lượng $k$ lên toàn bộ phần tử trong lưới $[r_1, r_2] \times [c_1, c_2]$ một cách hiệu quả? Khi ta tính $D_{\text{hàng}}$ cho từng hàng của $A$, ta nhận thấy chỉ giá trị của phần tử ở biên trái (tại $c_1$) và biên phải (tại $c_2 + 1$). Tiếp tục tính $D_{\text{cột}}$ cho từng cột của mảng $D_{\text{hàng}}(A)$, quan sát tương tự cho thấy chỉ phần tử tại $r_1$ và $r_2 + 1$ sẽ bị tác động bởi thao tác cập nhật này.
 
 Từ nhận xét trên, ta thấy chỉ có 4 phần tử của $D(A)$ sẽ bị tác động bởi thao tác này là tọa độ $(r_1, c_1)$, $(r_1, c_2 + 1)$, $(r_2 + 1, c_1)$ và $(r_2 + 1, c_2 + 1)$ - trong đó, phần tử tại $(r_1, c_1)$ và $(r_2 + 1, c_2 + 1)$ tăng thêm lượng $k$, phần tử tại $(r_1, c_2 + 1)$ và $(r_2 + 1, c_1)$ trừ đi lượng $k$. Ta dễ dàng cập nhật đoạn trên mảng hai chiều với độ phức tạp $\mathcal{O}(1)$.
 

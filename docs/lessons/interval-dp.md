@@ -22,11 +22,13 @@ Bạn có $N$ đống đá xếp thành một hàng ngang. Đống thứ $i$ có
 
 Xét ví dụ: Dãy trọng lượng đá ban đầu là $a = [4, 1, 3, 2]$.
 Ta có nhiều cách để gộp các đống đá này:
+
 - **Cách 1:** 
   1. Gộp $4$ và $1$ (chi phí $5$), dãy trở thành $[5, 3, 2]$.
   2. Gộp $5$ và $3$ (chi phí $8$), dãy trở thành $[8, 2]$.
   3. Gộp $8$ và $2$ (chi phí $10$), thu được đống cuối cùng.
   Tổng chi phí = $5 + 8 + 10 = 23$.
+
 - **Cách 2:**
   1. Gộp $1$ và $3$ (chi phí $4$), dãy trở thành $[4, 4, 2]$.
   2. Gộp $4$ và $2$ (chi phí $6$), dãy trở thành $[4, 6]$.
@@ -41,16 +43,19 @@ Ta có nhiều cách để gộp các đống đá này:
 Để ý rằng dù đống đá cuối cùng được hình thành bằng cách nào, ở bước cuối cùng ta vẫn phải gộp đúng **hai đống đá lớn** lại với nhau. Hai đống đá lớn này tương ứng với hai đoạn con liên tiếp: một đoạn từ đầu đến vị trí thứ $k$, và một đoạn từ $k+1$ đến cuối. 
 
 Điều này gợi ý ta thiết lập trạng thái quy hoạch động trên các đoạn con của dãy:
+
 - Định nghĩa trạng thái $dp[l][r]$: Chi phí nhỏ nhất để gộp tất cả các đống đá từ vị trí $l$ đến vị trí $r$ thành một đống duy nhất.
 - Để tính toán $dp[l][r]$, ta thử duyệt qua mọi vị trí chia cắt khả dĩ $k$ ($l \le k < r$):
   - Gộp đoạn bên trái $[l, k]$ thành một đống: tốn chi phí $dp[l][k]$.
   - Gộp đoạn bên phải $[k+1, r]$ thành một đống: tốn chi phí $dp[k+1][r]$.
   - Gộp hai đống lớn lại với nhau: tốn chi phí bằng tổng trọng lượng của cả đoạn từ $l$ tới $r$, ký hiệu là $sum(l, r)$.
 - Ta có công thức chuyển trạng thái:
-  $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + sum(l, r) \}$$
+
+    $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + sum(l, r) \}$$
 
 #### Tại sao quy hoạch động trên đoạn hoạt động?
 Quy hoạch động trên đoạn đáp ứng đầy đủ hai tính chất nền tảng của quy hoạch động:
+
 1. **Cấu trúc con tối ưu (Optimal Substructure):** Kết quả tối ưu của đoạn lớn $[l, r]$ có thể tính được từ kết quả tối ưu của các đoạn con nhỏ hơn của nó là $[l, k]$ và $[k+1, r]$.
 2. **Các bài toán con trùng lặp (Overlapping Subproblems):** Kết quả của một đoạn con $[l, r]$ sẽ được tái sử dụng nhiều lần để tính toán cho nhiều đoạn lớn hơn bao phủ nó.
 
@@ -154,11 +159,16 @@ Duyệt độ dài len từ 2 tới N:
 ### Phân tích và Công thức DP
 - Trạng thái: Định nghĩa $dp[l][r]$ là số phép nhân tối thiểu để nhân các ma trận từ chỉ số $l$ tới chỉ số $r$ (lưu ý chỉ số chạy từ $0$ tới $N-1$).
 - Khi thực hiện bước nhân cuối cùng tại điểm phân chia $k$:
-  $$(A_l \times \dots \times A_k) \times (A_{k+1} \times \dots \times A_r)$$
+
+    $$(A_l \times \dots \times A_k) \times (A_{k+1} \times \dots \times A_r)$$
+
 - Ma trận tích bên trái có kích thước $d[l] \times d[k+1]$, ma trận tích bên phải có kích thước $d[k+1] \times d[r+1]$. Chi phí thực hiện phép nhân hai ma trận tích này là:
-  $$\text{merge\_cost} = d[l] \cdot d[k+1] \cdot d[r+1]$$
+
+    $$\text{merge\_cost} = d[l] \cdot d[k+1] \cdot d[r+1]$$
+
 - Ta thu được công thức quy hoạch động:
-  $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + d[l] \cdot d[k+1] \cdot d[r+1] \}$$
+
+    $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + d[l] \cdot d[k+1] \cdot d[r+1] \}$$
 
 #### Trace chi tiết cho ví dụ $4$ ma trận có kích thước:
 $A_0(10 \times 30), A_1(30 \times 5), A_2(5 \times 60), A_3(60 \times 10)$.  
@@ -316,9 +326,11 @@ Ta tối ưu hóa việc tính tổng này bằng kỹ thuật Mảng cộng d�
 
 ### Phân tích thuật toán
 Gọi $pref[i]$ là tổng của các phần tử $a[0 \dots i-1]$. Tổng trọng lượng của đoạn $[l, r]$ là:
+
 $$sum(l, r) = pref[r+1] - pref[l]$$
 
 Ta áp dụng trực tiếp công thức:
+
 $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + sum(l, r) \}$$
 
 === "C++"
@@ -413,14 +425,17 @@ $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + sum(l, r) \}$$
 
 ### Thiết lập Quy hoạch động nhiều chiều
 Với mỗi đoạn $[l, r]$, ta không thể chỉ quan tâm đến số cách để đoạn đó đạt giá trị True, vì việc một toán tử logic hoạt động phụ thuộc vào kết quả của cả hai nhánh. Do đó, ta đồng thời tính:
+
 - $dp[l][r][1]$: Số cách đặt ngoặc đoạn $[l, r]$ để biểu thức con có giá trị True.
 - $dp[l][r][0]$: Số cách đặt ngoặc đoạn $[l, r]$ để biểu thức con có giá trị False.
 
 Khi ta chia biểu thức tại toán tử k nằm giữa $l$ và $r$:
+
 - Đoạn trái có số cách đạt các giá trị là $lt = dp[l][k-1][1]$ và $lf = dp[l][k-1][0]$.
 - Đoạn phải có số cách đạt các giá trị là $rt = dp[k+1][r][1]$ và $rf = dp[k+1][r][0]$.
 
 Công thức gộp tương ứng với từng toán tử:
+
 - **Toán tử `&` (AND):**
   - $dp[l][r][1] += lt \cdot rt$
   - $dp[l][r][0] += lt \cdot rf + lf \cdot rt + lf \cdot rf$
@@ -532,10 +547,15 @@ Công thức gộp tương ứng với từng toán tử:
 
 ### Kỹ thuật kết hợp Quy hoạch động 1D và 2D
 Mặc dù ta có thể giải trực tiếp bằng quy hoạch động đoạn, phương pháp hiệu quả hơn là kết hợp:
+
 1. **Bước 1 (Quy hoạch động đoạn 2D):** Xác định nhanh xem mọi đoạn con $s[l \dots r]$ có phải là palindrome hay không. Lưu trữ kết quả trong bảng $isPalin[l][r]$:
-   $$isPalin[l][r] = (s[l] == s[r]) \land isPalin[l+1][r-1]$$
+
+    $$isPalin[l][r] = (s[l] == s[r]) \land isPalin[l+1][r-1]$$
+
 2. **Bước 2 (Quy hoạch động tuyến tính 1D):** Định nghĩa $dp[i]$ là số lần cắt tối thiểu cho tiền tố $s[0 \dots i]$.
-   $$dp[i] = \min_{0 \le j \le i, \, s[j \dots i] \text{ là Palindrome}} \{ dp[j-1] + 1 \}$$
+
+    $$dp[i] = \min_{0 \le j \le i, \, s[j \dots i] \text{ là Palindrome}} \{ dp[j-1] + 1 \}$$
+
    (với quy ước $dp[-1] = -1$).
 
 Sự kết hợp này giảm độ phức tạp thời gian từ $O(N^3)$ xuống $O(N^2)$.
@@ -631,6 +651,7 @@ Sự kết hợp này giảm độ phức tạp thời gian từ $O(N^3)$ xuốn
 ## 7. Ví dụ 5: Optimal Binary Search Tree (Cây tìm kiếm nhị phân tối ưu)
 
 **Bài toán:** Cho một dãy gồm $N$ khóa đã sắp xếp và tần suất truy cập tương ứng là $freq[0 \dots N-1]$. Ta cần xây dựng một cây tìm kiếm nhị phân (BST) từ các khóa này sao cho tổng chi phí tìm kiếm trung bình là tối thiểu. Chi phí tìm khóa thứ $i$ bằng:
+
 $$\text{Cost}(i) = freq[i] \cdot (\text{depth}(i) + 1)$$
 
 ### Công thức quy hoạch động
@@ -640,7 +661,8 @@ $$\text{Cost}(i) = freq[i] \cdot (\text{depth}(i) + 1)$$
   - Các khóa từ $k+1$ tới $r$ sẽ tạo thành cây con bên phải.
 - Do cây con trái và phải bị đẩy sâu xuống $1$ mức khi được ghép dưới gốc $k$, tần suất truy cập của tất cả các phần tử trong cây con đều phải cộng thêm một lượng tương ứng với tần suất của chúng. 
 - Mối liên hệ chuyển trạng thái:
-  $$dp[l][r] = \min_{l \le k \le r} \{ dp[l][k-1] + dp[k+1][r] + \sum_{i=l}^{r} freq[i] \}$$
+
+    $$dp[l][r] = \min_{l \le k \le r} \{ dp[l][k-1] + dp[k+1][r] + \sum_{i=l}^{r} freq[i] \}$$
 
 === "C++"
 
@@ -792,7 +814,9 @@ Kỹ thuật này hạ độ phức tạp thời gian từ **$O(N^3)$ xuống $O
 - **Định nghĩa trạng thái:** $dp[l][r]$ lưu trữ nghiệm tối ưu của đoạn con từ vị trí $l$ tới vị trí $r$.
 - **Lớp bài toán:** Thường áp dụng cho các bài toán có thể phân hoạch thành hai đoạn con độc lập, sau đó gộp kết quả tại ranh giới phân chia.
 - **Công thức cốt lõi:**
-  $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + \text{merge\_cost} \}$$
+
+    $$dp[l][r] = \min_{l \le k < r} \{ dp[l][k] + dp[k+1][r] + \text{merge\_cost} \}$$
+
 - **Kỹ năng tối quan trọng:** Quản lý vòng lặp theo độ dài tăng dần của đoạn để đảm bảo nguyên lý phụ thuộc dữ liệu của quy hoạch động.
 
 ---

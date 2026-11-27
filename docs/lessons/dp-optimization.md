@@ -62,22 +62,29 @@ graph TD
 ### 2.1 Tư duy cốt lõi
 
 Knuth's Optimization được áp dụng cho các bài toán quy hoạch động trên đoạn (Interval DP) có công thức:
+
 $$dp[l][r] = \min_{l < k < r} \{ dp[l][k] + dp[k][r] + \text{cost}(l, r) \}$$
 
 Gọi $opt[l][r]$ là chỉ số $k$ nhỏ nhất đạt được giá trị tối ưu cho trạng thái $dp[l][r]$.
 
 #### Định lý Knuth:
 Nếu hàm $\text{cost}(l, r)$ thỏa mãn hai điều kiện sau với mọi $a \le b \le c \le d$:
+
 1. **Bất đẳng thức tứ giác (Quadrangle Inequality):**
-   $$\text{cost}(a, c) + \text{cost}(b, d) \le \text{cost}(a, d) + \text{cost}(b, c)$$
+
+    $$\text{cost}(a, c) + \text{cost}(b, d) \le \text{cost}(a, d) + \text{cost}(b, c)$$
+
 2. **Tính đơn điệu (Monotonicity):**
-   $$\text{cost}(b, c) \le \text{cost}(a, d)$$
+
+    $$\text{cost}(b, c) \le \text{cost}(a, d)$$
 
 Thì ta có tính chất đơn điệu của điểm chia tối ưu:
+
 $$opt[l][r-1] \le opt[l][r] \le opt[l+1][r]$$
 
 #### Ý nghĩa thực tế:
 Thay vì phải duyệt biến $k$ trong toàn bộ khoảng từ $l+1$ tới $r-1$ (tốn $O(N)$ bước), ta chỉ cần tìm kiếm $k$ trong khoảng giới hạn hẹp:
+
 $$k \in [opt[l][r-1], opt[l+1][r]]$$
 
 Tổng số bước lặp trên toàn bộ bảng DP khi áp dụng giới hạn này sẽ giảm từ $O(N^3)$ xuống $O(N^2)$.
@@ -87,6 +94,7 @@ Tổng số bước lặp trên toàn bộ bảng DP khi áp dụng giới hạn
 ### 2.2 Chứng minh trực giác
 - Khi ta cố định điểm đầu $l$ và mở rộng điểm cuối từ $r-1$ sang $r$, điểm chia tối ưu $opt[l][r]$ sẽ không dịch chuyển sang bên trái.
 - Khi ta cố định điểm cuối $r$ và dịch chuyển điểm đầu từ $l$ sang $l+1$, điểm chia tối ưu $opt[l][r]$ sẽ không dịch chuyển sang bên trái.
+
 Do đó, $opt[l][r]$ bị kẹp chặt giữa hai giá trị đã được tính toán ở các trạng thái trước đó có độ dài đoạn nhỏ hơn.
 
 === "C++"
@@ -171,13 +179,18 @@ Do đó, $opt[l][r]$ bị kẹp chặt giữa hai giá trị đã được tính
 ### 3.1 Tư duy cốt lõi
 
 Chia để trị áp dụng cho bài toán phân hoạch một dãy phần tử thành $K$ nhóm liên tiếp sao cho tổng chi phí nhỏ nhất:
+
 $$dp[i][j] = \min_{k < j} \{ dp[i-1][k] + C[k][j] \}$$
+
 Trong đó $dp[i][j]$ là chi phí tối ưu khi phân chia $j$ phần tử đầu tiên thành $i$ nhóm.
 
 #### Ràng buộc áp dụng:
 Nếu hàm chi phí đoạn $C[k][j]$ thỏa mãn bất đẳng thức tứ giác (Quadrangle Inequality):
+
 $$C[a, c] + C[b, d] \le C[a, d] + C[b, c], \quad \forall a \le b \le c \le d$$
+
 Thì ta có tính chất đơn điệu của điểm tối ưu:
+
 $$opt[i][j-1] \le opt[i][j] \le opt[i][j+1]$$
 
 Nói cách khác, điểm cắt tối ưu $opt[i][j]$ là một hàm không giảm theo $j$ khi cố định dòng $i$.
@@ -186,6 +199,7 @@ Nói cách khác, điểm cắt tối ưu $opt[i][j]$ là một hàm không gi�
 Khi tính toán dòng $i$ của bảng quy hoạch động, thay vì tính tuần tự từ $1$ tới $N$, ta tính giá trị tại vị trí trung lộ $mid = \lfloor (lo + hi)/2 \rfloor$ trước. 
 
 Giả sử ta biết điểm chia tối ưu của $dp[i][mid]$ chỉ có thể nằm trong đoạn $[optL, optR]$. Sau khi tìm được điểm tối ưu $k^*$ của $mid$ bằng cách quét tuyến tính trong $[optL, optR]$:
+
 1. Đối với các trạng thái ở nửa bên trái ($j < mid$): điểm tối ưu của chúng chắc chắn thuộc đoạn $[optL, k^*]$.
 2. Đối với các trạng thái ở nửa bên phải ($j > mid$): điểm tối ưu của chúng chắc chắn thuộc đoạn $[k^*, optR]$.
 
@@ -323,6 +337,7 @@ graph TD
 ### 4.1 Ý tưởng toán học
 
 Khi công thức quy hoạch động có dạng:
+
 $$dp[i] = \min_{j < i} \{ dp[j] + m[j] \cdot x[i] + b[j] \} + c[i]$$
 
 Ta có thể coi mỗi lựa chọn $j$ tương ứng với một đường thẳng $y = m[j] \cdot x + b[j]$ với biến số $x$. 
@@ -339,16 +354,19 @@ graph LR
 
 ### 4.2 Trường hợp 1: Hệ số góc $m$ và truy vấn $x$ đơn điệu ($O(N)$)
 Nếu:
+
 1. Hệ số góc $m[j]$ được thêm vào theo thứ tự đơn điệu giảm dần.
 2. Hoành độ truy vấn $x[i]$ tăng dần.
 
 Ta có thể duy trì bao lồi bằng một hàng đợi hai đầu (`std::deque`). 
+
 - Khi thêm đường thẳng mới: Ta loại bỏ các đường thẳng ở cuối deque không còn đóng góp vào bao lồi.
 - Khi truy vấn: Ta tịnh tiến đầu hàng đợi bằng cách loại bỏ các đường thẳng không còn tối ưu tại hoành độ $x$ hiện tại (do $x$ tăng đơn điệu).
 
 #### Điều kiện loại bỏ đường thẳng:
 Xét ba đường thẳng liên tiếp $A$, $B$, $C$. Giao điểm của $A$ và $C$ nằm bên trái giao điểm của $A$ và $B$ chứng tỏ đường thẳng $B$ hoàn toàn vô dụng.
 Hoành độ giao điểm của hai đường thẳng $L_1(m_1, b_1)$ và $L_2(m_2, b_2)$ là:
+
 $$x_{\text{intersect}} = \frac{b_2 - b_1}{m_1 - m_2}$$
 
 === "C++"
@@ -507,6 +525,7 @@ Cây quản lý một miền giá trị hoành độ nguyên $[L, R]$. Mỗi nú
 
 #### Thuật toán thêm đường thẳng mới $nw$:
 Tại nút đang quản lý đoạn $[lo, hi]$ với trung tâm là $mid$:
+
 1. So sánh giá trị của đường thẳng mới $nw$ và đường thẳng hiện tại của nút $tree[node]$ tại hoành độ $mid$.
 2. Nếu $nw$ tối ưu hơn tại $mid$, ta hoán đổi đường thẳng của nút và $nw$ (để nút luôn giữ đường thẳng tốt nhất tại điểm trung tâm).
 3. Tại điểm biên $lo$ hoặc $hi$, ta so sánh xem đường thẳng nào tối ưu hơn để quyết định đẩy đường thẳng yếu hơn xuống đệ quy ở nút con bên trái hay con bên phải.
@@ -647,10 +666,12 @@ Một cách trực quan, sự chênh lệch chi phí khi tăng số lượng th�
 #### Ý tưởng kỹ thuật:
 Ta gỡ bỏ ràng buộc "chọn đúng $K$ thành phần" bằng cách thêm một hình phạt (penalty) có giá trị $\lambda$ cho mỗi thành phần được chọn. 
 Khi đó, ta giải bài toán quy hoạch động không ràng buộc mới:
+
 $$dp_{\lambda}[i] = \min_{j < i} \{ dp_{\lambda}[j] + \text{cost}(j+1, i) + \lambda \}$$
 
 - Nếu hình phạt $\lambda$ rất lớn, ta sẽ chọn rất ít thành phần để giảm thiểu chi phí phạt.
 - Nếu hình phạt $\lambda$ rất nhỏ (thậm chí âm), ta sẽ chọn rất nhiều thành phần để thu được lợi ích.
+
 Vì hàm $f(k)$ lồi, số lượng thành phần tối ưu được chọn là một hàm đơn điệu giảm theo $\lambda$. Ta có thể **tìm kiếm nhị phân giá trị $\lambda$** phù hợp sao cho quy hoạch động không ràng buộc chọn đúng $K$ thành phần.
 
 === "C++"
@@ -755,15 +776,18 @@ Vì hàm $f(k)$ lồi, số lượng thành phần tối ưu được chọn là
 ### 7.1 Ý tưởng toán học
 Slope Trick được áp dụng khi hàm trạng thái quy hoạch động $f(x)$ là một **hàm lồi liên tục phân đoạn tuyến tính** (Piecewise Linear Convex Function). 
 Một hàm như vậy được đặc trưng hoàn toàn bởi:
+
 1. Giá trị nhỏ nhất của hàm số: $\text{min\_val}$.
 2. Tập hợp các **điểm gãy** (breakpoints) tại đó hệ số góc thay đổi.
 
 Hệ số góc của hàm số chỉ nhận các giá trị nguyên, tăng dần từ trái sang phải. Ta thường lưu các điểm gãy bằng Priority Queue:
+
 - `left_heap` (Max-Heap): lưu các điểm gãy bên trái điểm tối ưu (nơi hệ số góc $< 0$).
 - `right_heap` (Min-Heap): lưu các điểm gãy bên phải điểm tối ưu (nơi hệ số góc $> 0$, dùng khi bài toán có nhánh tăng bên phải).
 
 ### 7.2 Ví dụ bài toán: Biến đổi dãy không giảm (Chi phí $\min \sum |x_i - a_i|$)
 Xét bài toán kinh điển: Cho dãy $a_1, \dots, a_n$. Ta muốn chọn dãy $x_1 \le x_2 \le \dots \le x_n$ sao cho tổng $\sum_{i=1}^n |x_i - a_i|$ nhỏ nhất. Công thức quy hoạch động:
+
 $$dp_i(x) = \min_{y \le x} \{ dp_{i-1}(y) \} + |x - a_i|$$
 
 - **Phép lấy $\min_{y \le x}$ (Prefix Min):** San phẳng toàn bộ nhánh phải có hệ số góc $> 0$ về $0$ (chỉ cần duy trì một Max-Heap `left_heap` cho phần hệ số góc $\le 0$).
@@ -844,14 +868,18 @@ $$dp_i(x) = \min_{y \le x} \{ dp_{i-1}(y) \} + |x - a_i|$$
 > [!WARNING]
 > ### 1. Kiểm tra tính đúng đắn của Bất đẳng thức Tứ giác
 > Bất đẳng thức tứ giác:
+>
 > $$\text{cost}(a, c) + \text{cost}(b, d) \le \text{cost}(a, d) + \text{cost}(b, c), \quad \forall a \le b \le c \le d$$
+>
 > Nếu hàm $\text{cost}$ của bạn không thỏa mãn tính chất này, việc sử dụng Knuth hoặc Divide & Conquer sẽ cho ra **kết quả sai** chứ không chỉ chạy chậm.  
 > *Mẹo nhỏ:* Hãy lập trình một đoạn mã kiểm tra nhỏ (brute force) chạy qua mọi bộ $a, b, c, d$ trên tập mẫu nhỏ để kiểm nghiệm bất đẳng thức trước khi viết thuật chính.
 
 > [!IMPORTANT]
 > ### 2. Tràn số khi tính Giao điểm (CHT Intersection Overflow)
 > Khi so sánh giao điểm của hai đường thẳng:
+>
 > $$(C.b - A.b) \cdot (A.m - B.m) \le (B.b - A.b) \cdot (A.m - C.m)$$
+>
 > Tích của hiệu hệ số tự do và hiệu hệ số góc có thể vượt quá giới hạn của số nguyên $64\text{-bit}$ (`long long` trong C++).  
 > **Giải pháp:** Sử dụng kiểu số nguyên lớn `__int128` trong C++ để tính toán tích trung gian này một cách an toàn.
 

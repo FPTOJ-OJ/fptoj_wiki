@@ -2,9 +2,11 @@
 **Nguồn:** [CP-Algorithms](https://cp-algorithms.com/graph/breadth-first-search.html), Giải thuật và lập trình - Lê Minh Hoàng
 
 **Biên soạn:**
+
 - Nguyễn Châu Khanh - VNU University of Engineering and Technology (VNU-UET)
 
 **Reviewer:** 
+
 - Trần Quang Lộc - ITMO University
 - Hoàng Xuân Nhật - VNUHCM-University of Science
 - Trần Xuân Bách - HUS High School for Gifted Students
@@ -42,10 +44,12 @@ Thuật toán tìm kiếm theo chiều rộng sử dụng một danh sách để
 Thuật toán sử dụng một cấu trúc dữ liệu hàng đợi *(queue)* để chứa các đỉnh sẽ được duyệt theo thứ tự ưu tiên chiều rộng.
 
 **Bước 1:** Khởi tạo
+
 - Các đỉnh đều ở trạng thái chưa được đánh dấu. Ngoại trừ đỉnh nguồn $s$ đã được đánh dấu.
 - Một hàng đợi ban đầu chỉ chứa $1$ phần tử là $s$.
     
 **Bước 2:** Lặp lại các bước sau cho đến khi hàng đợi rỗng:
+
 - Lấy đỉnh $u$ ra khỏi hàng đợi.
 - Xét tất cả những đỉnh $v$ kề với $u$ mà chưa được đánh dấu, với mỗi đỉnh $v$ đó:
     * Đánh dấu $v$ đã thăm.
@@ -170,6 +174,7 @@ Trong thuật toán $BFS$, nếu đỉnh $u$ xa đỉnh nguồn hơn đỉnh $v$
 
 - **Mô tả:** Cho đồ thị $G=(V,E)$ gồm $\|V\|$ đỉnh và $\|E\|$ cạnh. Khi đó, tổng tất cả các bậc của đỉnh trong $G$ bằng $2 \times \|E\|$ .
     Với $deg(v)$ là số bậc của đỉnh $v$, ta có: $\displaystyle\sum_{v \in V}deg(v) = 2 \times \|E\|$
+
     - **Ví dụ:** Cho đồ thị sau với $\|V\| = 8$ và $\|E\| = 7$
     
         <img src="/uploads/breadth-first-search_img5.png" alt="/uploads/breadth-first-search_img5.png" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -179,6 +184,7 @@ Trong thuật toán $BFS$, nếu đỉnh $u$ xa đỉnh nguồn hơn đỉnh $v$
 - **Chứng minh:** Vì mỗi một cạnh nối với đúng hai đỉnh của đồ thị, nên một cạnh sẽ đóng góp $2$ đơn vị vào tổng số bậc của tất cả các đỉnh.
         
 **Hệ quả:** Trong đồ thị, số lượng **đỉnh bậc lẻ** luôn là một số chẵn.
+
 - **Chứng minh:** Gọi $L$ và $C$ lần lượt là tập các đỉnh bậc lẻ và bậc chẵn của đồ thị $G=(V, E)$. Ta có: 
     $2 \times \|E\| = \displaystyle\sum_{v \in V}deg(v) = \displaystyle\sum_{v \in L}deg(v) + \displaystyle\sum_{v \in C}deg(v)$ 
     
@@ -188,6 +194,7 @@ Trong thuật toán $BFS$, nếu đỉnh $u$ xa đỉnh nguồn hơn đỉnh $v$
     $\Rightarrow$ $\displaystyle\sum_{v \in L}deg(v)$ chẵn
 
 **Nhận xét:** 
+
 - Trong quá trình duyệt đồ thị được biểu diễn bằng **danh sách kề**, mỗi cạnh sẽ được duyệt chính xác hai lần đối với **đồ thị vô hướng** (vì mỗi cạnh sẽ được lưu trong $2$ danh sách kề của $2$ đỉnh). Còn đối với **đồ thị có hướng**, mọi cạnh của đồ thị chỉ được duyệt chính xác một lần.
 
 **Tham khảo:** [Handshaking_lemma](https://en.wikipedia.org/wiki/Handshaking_lemma)
@@ -199,6 +206,7 @@ Trong thuật toán $BFS$, nếu đỉnh $u$ xa đỉnh nguồn hơn đỉnh $v$
 Gọi $\|V\|$ là số lượng đỉnh và $\|E\|$ là số lượng cạnh của đồ thị.
 
 Trong quá trình $BFS$, cách biểu diễn đồ thị có ảnh hưởng lớn tới chi phí về thời gian thực hiện giải thuật :
+
 - Nếu đồ thị biểu diễn bằng **danh sách kề** (vector `g[]`) :
     - Ta có thể thực hiện thuật toán này một cách **tối ưu nhất** về mặt thời gian nhờ khả năng duyệt qua các đỉnh kề của mỗi đỉnh một cách **hiệu quả**.
     - Vì ta sử dụng mảng `visit[]` để ngăn việc đẩy một đỉnh vào hàng đợi nhiều lần nên mỗi đỉnh sẽ được thăm **chính xác một lần** duy nhất. Do đó, ta mất độ phức tạp thời gian $O(\|V\|)$ dành cho việc thăm các đỉnh. 
@@ -229,6 +237,7 @@ Một đồ thị có thể liên thông hoặc không liên thông. Nếu đồ
 ### **Thuật toán**
 
 Thuật toán ứng dụng $BFS$ để xác định thành phần liên thông:
+
 - **Bước 0:** Khởi tạo số lượng thành phần liên thông bằng $0$.
 - **Bước 1:** Xuất phát từ một đỉnh chưa được đánh dấu của đồ thị. Ta đánh dấu đỉnh xuất phát, tăng số thành phần liên thông thêm $1$.
 - **Bước 2:** Từ một đỉnh $i$ đã đánh dấu, ta đánh dấu tất cả các đỉnh $j$ kề với $i$ mà $j$ chưa được đánh dấu.
@@ -354,6 +363,7 @@ Họ đã thuê bạn để giúp họ xử lí hình ảnh. Công việc của 
 ### **Ý tưởng**
 
 Ta xây dựng một **mô hình đồ thị** của bài toán như sau:
+
 - Gọi mỗi đỉnh của đồ thị tương ứng với mỗi ô $1$ *(ô bị nhiễm dầu)* của ma trận.
 - Tồn tại một cạnh nối giữa cặp đỉnh $(u, v)$ khi và chỉ khi ô tương ứng với đỉnh $u$ kề cạnh với ô tương ứng với đỉnh $v$ và cả hai ô đều là ô $1$.
 
@@ -364,6 +374,7 @@ Nghĩa là, số lượng thành phần liên thông của đồ thị chính l�
 ### **Thuật toán**
 
 Áp dụng **thuật toán loang trên ma trận** để xác định thành phần liên thông:
+
 - Khởi tạo số lượng vết dầu bằng $0$.
 - Duyệt dần từng ô của ma trận, nếu ô đang xét là một ô bị nhiễm dầu (ô $1$) và chưa được đánh dấu:
     * Đánh dấu lại ô đó.
@@ -527,6 +538,7 @@ Ta sử dụng $2$ mảng `moveX[]` và `moveY[]` để có thể dễ dàng duy
 **Độ phức tạp**
 
 Với mỗi bộ test:
+
 - Vì mỗi ô của ma trận được duyệt đúng duy nhất $1$ lần nên ta sẽ mất độ phức tạp $O(N \times M)$.
 - Ta sẽ mất thêm $O(4 \times N \times M)$ vì ta phải duyệt qua $4$ ô kề cạnh với mỗi ô của ma trận.
 
@@ -569,6 +581,7 @@ Cho một bảng hình chữ nhật chia thành lưới ô vuông kích thước
 ### **Phân tích**
 
 Theo mối quan hệ được xây dựng trong đề bài, Bessie có thể di chuyển từ $1$ ô vuông sang $4$ ô vuông khác kề cạnh. Từ đó, ta có thể xây dựng một **mô hình đồ thị** của bài toán:
+
 - Gọi mỗi đỉnh của đồ thị tương ứng với mỗi ô trong lưới ô vuông.
 - Tồn tại một cạnh nối giữa cặp đỉnh $(u, v)$ khi và chỉ khi từ ô tương ứng với đỉnh $u$ có thể di chuyển đến ô tương ứng với đỉnh $v$ (đồng nghĩa, ô tương ứng với đỉnh $u$ kề cạnh với ô tương ứng với đỉnh $v$ và cả $2$ ô đều **không phải** là ô `*` ).
 
@@ -711,6 +724,7 @@ Mặc dù trong quá trình $BFS$, khi gặp được ô `B` thì thủ tục $B
 ### **Đề bài**
 
 Trong một tòa nhà có $f$ tầng, các tầng được đánh số từ $1$ đến $f$, hiện tại bạn đang đứng tại tầng $s$ và cần đi đến tầng $g$. Tại mỗi tầng, thang máy chỉ có $2$ nút là "UP u" và "DOWN d" :
+
 - Nút "UP u" có thể đưa bạn lên đúng $u$ tầng nếu như có đủ số tầng phía trên.
 - Nút "DOWN d" có thể đưa bạn xuống đúng $d$ tầng nếu như có đủ số tầng phía dưới. 
 
@@ -727,6 +741,7 @@ Với bài toán này ta **không thể** sử dụng thuật toán vét cạn, 
 Thay vào đó, ta sẽ sử dụng thuật toán $BFS$. Tư tưởng ở đây là ta sẽ đi tính số lần bấm nút nhỏ nhất để đến được mỗi tầng.
 
 Từ mối quan hệ được xây dựng trong bài toán, ta có thể xây dựng một **mô hình đồ thị** như sau:
+
 - Gọi mỗi đỉnh của đồ thị tương ứng với mỗi tầng của tòa nhà.
 - Nếu từ tầng $x$ ta có thể đến được tầng $y$ bằng một lần bấm nút thì tồn tại cạnh nối $1$ chiều từ đỉnh $x$ đến đỉnh $y$. Tương đương với việc tồn tại cạnh $x \rightarrow (x + u)$ (nếu $(x + u) \le f$ ) và cạnh $x \rightarrow (x - d)$ (nếu $(x - d) \ge 1$ ).
 
@@ -951,6 +966,7 @@ print(' '.join(map(str, path)))
 ### **Đánh giá**
 
 **Độ phức tạp**
+
 - Độ phức tạp của thuật toán là $O(N + M)$.
 
 ## **Bài tập áp dụng**
@@ -1157,13 +1173,16 @@ Gọi đồ thị ban đầu là $G$.
 Ta sẽ thêm các **cạnh ngược** của mỗi cạnh ban đầu trong đồ thị $G$ (nghĩa là, với mỗi cạnh $u \to v$ của đồ thị, ta sẽ thêm cạnh $v \to u$ vào). Cho các **cạnh ngược** có trọng số bằng $1$ và tất cả các cạnh ban đầu có trọng số bằng $0$. Khi đó, ta sẽ có được đồ thị mới là đồ thị $G '$.
 
 Độ dài của đường đi ngắn nhất từ đỉnh $1$ cho đến đỉnh $N$ trong đồ thị $G'$ chính là đáp án của bài toán.
+
  - **Chứng minh:** Trong đồ thị $G '$, xét từng cạnh trên một đường đi từ $1$ đến $N$. Nếu cạnh đó có trọng số là $0$ thì đã tồn tại cạnh đó trên đồ thị $G$ ban đầu, còn nếu trọng số là $1$ thì cạnh ngược lại của nó tồn tại trong đồ thị $G$. Khi đó ta sẽ phải đảo chiều cạnh đó. Nhận thấy sau khi xét toàn bộ các cạnh, ta sẽ thu được một đường đi từ $1$ đến $N$, và số cạnh ta phải đảo chiều chính là số cạnh $1$ trong đường đi đó.
 
 Ta sử dụng **kĩ thuật 0-1 BFS** :
+
 - Nó có tên gọi như vậy vì **kĩ thuật 0-1 BFS** thường được sử dụng để tìm đường đi ngắn nhất trong đồ thị có trọng số $0$ hoặc $1$.
 - Khi trọng số của các cạnh bằng $0$ hoặc $1$, thuật toán $BFS$ thông thường sẽ trả ra kết quả **sai**, vì thuật toán $BFS$ thông thường chỉ **đúng** trong đồ thị có trọng số của các cạnh **bằng nhau**.
 
 Ta có thể chỉnh sửa một chút từ thuật toán $BFS$ để có được **kĩ thuật 0-1 BFS** :
+
 - Trong kĩ thuật này, thay vì sử dụng mảng *bool* để đánh dấu lại các đỉnh đã duyệt, ta sẽ kiểm tra điều kiện **khoảng cách ngắn nhất**. Nghĩa là, trong quá trình $BFS$, với mỗi đỉnh $v$ kề với $u$, đỉnh $v$ chỉ được đẩy vào hàng đợi khi và chỉ khi đường đi đi ngắn nhất từ đỉnh nguồn đến $v$ lớn hơn đường đi ngắn nhất từ đỉnh nguồn đến $u$ cộng với trọng số cạnh $u \to v$ (khoảng cách được giảm bớt khi sử dụng cạnh này) .
 - Ta sẽ sử dụng một hàng đợi hai đầu *(deque)* thay cho hàng đợi *(queue)* để lưu trữ các đỉnh.  Trong quá trình $BFS$, nếu ta gặp một cạnh có trọng số bằng $0$ thì đỉnh sẽ được đẩy vào **phía trước** của hàng đợi hai đầu. Ngược lại, nếu ta gặp một cạnh có trọng số bằng $1$ thì đỉnh sẽ được đẩy vào **phía sau** của hàng đợi hai đầu.
     - **Giải thích:** Ta *push* đỉnh kết nối bởi cạnh có trọng số $0$ vào đầu *deque* để giữ cho hàng đợi luôn được sắp xếp theo khoảng cách từ đỉnh nguồn tại mọi thời điểm. Bởi vì, các đỉnh ở gần đầu *queue/deque* hơn thì nó phải có khoảng cách từ gốc gần hơn, mà đỉnh ta *push* vào đầu có khoảng cách bằng chính khoảng cách đỉnh vừa *pop* ra, nên *deque* lúc này thỏa mãn tính chất của *queue* trong $BFS$. 
@@ -1297,6 +1316,7 @@ Trong khi sử dụng $BFS$, độ phức tạp sẽ là $O(N + M)$. Nó tuyến
 Trong *Lý thuyết đồ thị*, **đồ thị hai phía** (**đồ thị lưỡng phân** hay **đồ thị hai phần** - *Bipartite graph*) là một đồ thị đặc biệt, trong đó tập hợp các đỉnh của đồ thị có thể được chia làm hai tập hợp **không** giao nhau thỏa mãn điều kiện **không** có cạnh nối hai đỉnh bất kỳ thuộc cùng một tập. 
 
 Có rất nhiều tình huống thực tế có thể mô phỏng bằng đồ thị hai phía:
+
 - **Ví dụ:** Muốn biểu diễn mối quan hệ giữa một nhóm học sinh và một nhóm các trường học, ta có thể xây dựng một đồ thị với mỗi một học sinh và mỗi trường học là một đỉnh. Giữa một người $A$ và một trường $X$ sẽ có một cạnh nếu như $A$ đã hoặc đang đi học ở trường $X$. Kiểu đồ thị này sẽ là một **đồ thị hai phần**, với một nhóm đỉnh là người và nhóm kia là trường; sẽ không có cạnh nối giữa hai người hoặc giữa hai trường.
 
 Một tính chất thú vị của đồ thị hai phía là ta có thể tô màu các đỉnh đồ thị với hai màu sao cho không có hai đỉnh nào cùng màu kề nhau.
@@ -1336,6 +1356,7 @@ Thuật toán này đúng với đồ thị liên thông. Với đồ thị gồ
 ### **Thuật toán**
 
 Để tô màu đồ thị, ta sẽ sử dụng $1$ mảng để lưu trạng thái của mỗi đỉnh. Có $3$ trạng thái:
+
 - **Trạng thái -1:** Đỉnh vẫn chưa được tô màu *(đỉnh chưa được duyệt)*.
 - **Trạng thái 0:** Đỉnh được tô màu đen.
 - **Trạng thái 1:** Đỉnh được tô màu xanh.
@@ -1343,6 +1364,7 @@ Thuật toán này đúng với đồ thị liên thông. Với đồ thị gồ
 Ban đầu, tất cả các đỉnh của đồ thị đều ở **trạng thái -1**.
 
 Ta sử dụng $BFS$ để tô màu đồ thị:
+
 - Bắt đầu từ một đỉnh bất kỳ và tô màu đen cho đỉnh đó.
 - Với mỗi đỉnh $v$ kề với đỉnh đang xét $u$, nếu đỉnh $v$ chưa được duyệt, ta sẽ tô màu $v$ ngược với màu của $u$ (nếu $u$ là màu xanh, ta sẽ tô $v$ màu đen và ngược lại).
 - Nếu $u$ đã được thăm trước đó và có cùng màu với $v$, ta sẽ dừng thuật toán và kết luận đồ thị **không phải** đồ thị hai phía.

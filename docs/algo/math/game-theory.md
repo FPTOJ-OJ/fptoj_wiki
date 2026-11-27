@@ -17,6 +17,7 @@ Ta sẽ tiếp cận bài toán bằng cách giải những trường hợp đơ
 Với $n = 1, 2$ hoặc $3$, An luôn chiến thắng bằng cách lấy hết sỏi trong lượt bốc đầu tiên.
 
 Với $n = 4$, An không thể lấy hết sỏi trong lần bốc đầu tiên vì số sỏi được lấy tối đa mỗi lần chỉ là $3$. Nếu Bình là một người thông minh và luôn biết được những nước đi tối ưu, An sẽ *luôn thua* do:
+
 - Nếu An chọn lấy $1$ viên, số sỏi còn lại là $n' = 3$, lúc đó Bình có thể dùng chiến thuật của An ở trên, đó là lấy hết sỏi để chiến thắng.
 - Tương tự, nếu An chọn lấy $2$ hoặc $3$ viên thì bạn cũng sẽ thua.
 
@@ -27,6 +28,7 @@ Từ nhận xét trên, ta thấy nếu $n = 5,6,7$, An luôn có thể thắng 
 Ta rút ra được một quy luật của trò chơi: nếu ở lượt của ai mà số sỏi là $4, 8, 12,\ldots$ hay nói cách khác $n$ chia hết cho $4$ thì người đó sẽ ở vị trí bất lợi.
 
 Vậy chiến thuật tối ưu của An dựa trên số sỏi hiện tại $m$ sẽ là:$(x, x - c)$
+
 - Nếu $m \bmod 4 \neq 0$ thì An sẽ bốc $m \bmod 4$ viên sỏi để ép Bình vào trường hợp bất lợi $m' \bmod 4 = 0$.
 -  Nếu $m \bmod 4 = 0$ thì An sẽ bốc $1$ viên sỏi để kéo dài trò chơi và chờ sai lầm của Bình.
 
@@ -59,6 +61,7 @@ Mục tiêu của chúng ta khi giải các bài toán với trò chơi tổ h�
 Rõ ràng khi phân tích trò chơi bốc sỏi, ta thấy rằng nếu cả An và Bình đều chơi tối ưu thì chỉ cần biết được trạng thái ban đầu của trò chơi, ta có thể xác định được người đi trước (An) sẽ thắng hay thua. Nếu số sỏi ban đầu là $n$ chia hết cho $4$, Bình chắc chắn sẽ thắng do bạn sẽ luôn ép An đi tới trạng thái có $n$ chia hết cho $4$ và cuối cùng là $n = 0$ (cũng chia hết cho $4$). Lập luận tương tự, nếu $n$ không chia hết cho $4$ thì chắc chắn An sẽ thắng.
 
 Vậy từ đây, ta thấy với một trò chơi tổ hợp cân bằng, chỉ cần biết trạng thái ban đầu, ta có thể suy ra được ai sẽ là người chiến thắng. Để phục vụ cho việc đưa ra chiến thuật thắng, người ta phân loại các trạng thái cùa trò chơi thành 2 tập $N$ và $P$:
+
 - $N$: tập các trạng thái $x \in S$ sao cho nếu trạng thái ban đầu của trò chơi là $x$ thì **người chơi trước** luôn chiến thắng.
 - $P$: tập các trạng thái $x \in S$ sao cho nếu trạng thái ban đầu của trò chơi là $x$ thì **người chơi sau** luôn chiến thắng.
 > Trong trò chơi ví dụ, nếu số sỏi ban đầu là $n = 8$ thì<br>
@@ -66,6 +69,7 @@ Vậy từ đây, ta thấy với một trò chơi tổ hợp cân bằng, chỉ
 > - $P = \{0, 4, 8\}$
 
 Từ định nghĩa trên, $N$ và $P$ sẽ thỏa ba tính chất sau:
+
 1. Tập $P$ phải chứa toàn bộ trạng thái kết thúc.
 2. Với mỗi trạng thái $s$ thuộc tập $N$, **tồn tại** ít nhất một trạng thái $s'$ đến được từ $s$ mà thuộc tập $P$.
 3. Với mỗi trạng thái $s$ thuộc tập $P$, **tất cả** các trạng thái $s'$ đến được từ $s$ phải thuộc tập $N$. 
@@ -75,6 +79,7 @@ Tới đây, có thể bạn sẽ đặt ra câu hỏi: Liệu mọi trạng th�
 Ràng buộc đầu tiên xác định trường hợp cơ bản nhất. Hai ràng buộc sau sẽ giúp chúng ta liên tục đệ quy từ trường hợp cơ bản để xây dựng được tập $P$ và $N$ hoàn chỉnh. Ta sẽ thấy rõ điều này ở phần **Thuật toán xác định tập $P$ và $N$**.
 
 Khi xây dựng được tập $P$ và $N$ theo các ràng buộc trên, ta có thể dễ dàng xây dựng chiến thuật thắng cho người chơi $A$ như sau (do đây là trò chơi tổ hợp cân bằng nên chiến thuật thắng của $B$ cũng sẽ tương tự):
+
 1. Nếu $A$ **bắt đầu ở trạng thái thuộc $N$**, **luôn đi tới trạng thái thuộc $P$** để ép $B$ đi vào trạng thái thuộc $N$. Do người thắng là người đi vào trạng thái kết thúc, mà trạng thái kết thúc lại thuộc $P$ nên chắc chắn $A$ sẽ thắng.
 2. Nếu $A$ bắt đầu ở trạng thái thuộc $P$, $A$ chỉ có thể kéo dài ván đấu và đợi sơ hở của $B$ ($B$ đi vào vị trí thuộc $N$) và dùng chiến thuật thắng ở trường hợp đầu. Tuy nhiên nếu $B$ cũng chơi tối ưu thì chắc chắn $A$ sẽ thua.
 
@@ -97,6 +102,7 @@ bool isInP(State u) {
 }
 ```
 Ý tưởng ở đây chính là đệ quy:
+
 1. Nếu trạng thái $u$ đang xét là trạng thái kết thúc thì thêm $u$ vào tập $P$. Đây chính là trường hợp cơ bản của quá trình đệ quy.
 2. Nếu $u$ không là trạng thái kết thúc thì đệ quy đến những trạng thái $v$ mà từ $u$ có thể di chuyển trực tiếp đến. Nếu có bất kỳ $v$ nào thuộc tập $P$ thì $u$ thuộc tập $N$, ngược lại (tất cả $v$ đều thuộc $N$) thì $u$ thuộc $P$.
 
@@ -140,6 +146,7 @@ bool isInP(int u) {
 ```
 
 Ở đây quy ước giá trị của mảng $dp$ như sau:
+
 - $dp[u] = 0$ nghĩa là trạng thái $u$ đã xét và $u$ không thuộc $P$, hay nói cách khác $u$ thuộc $N$.
 - $dp[u] = 1$ nghĩa là trạng thái $u$ đã xét và $u$ thuộc $P$.
 - $dp[u] = -1$ nghĩa là trạng thái $u$ chưa xét.
@@ -147,6 +154,7 @@ bool isInP(int u) {
 Sở dĩ ta quy ước như vậy vì c++ có cơ chế [implicit casting](https://www.cplusplus.com/doc/oldtutorial/typecasting/). Nói đơn giản, khi trả về $dp[u]$ trong hàm `isInP(u)`, $dp[u]$ sẽ được tự động ép kiểu về `bool` với quy tắc: $0$ là $\texttt{false}$, các giá trị khác là $\texttt{true}$.
 
 Cài đặt này tối ưu thời gian đệ quy bằng hai ý sau: 
+
 1. Khi tính xong, trước khi trả về giá trị thì ta lưu giá trị lại vào một mảng $dp$ và ở đầu hàm $isInP(u)$
 2. Ta trả về $dp[u]$ nếu $dp[u] \neq -1$ (tức $u$ đã được tính trước đó).
 
@@ -183,10 +191,12 @@ Mục tiêu lớn nhất của chúng ta vẫn là xác định xem ai là ngư�
 Tuy nhiên, khi bắt tay vào làm, bạn sẽ gặp ngay một rào cản, đó là trạng thái của trò chơi đang được biểu diễn dưới dạng **một bộ các số nguyên** chứ không phải một số nguyên, điều đó gây khó khăn cho chúng ta khi tổng quát hóa lời giải và lập trình, một khó khăn rất dễ thấy đó là nếu chúng ta xài mảng $dp$ nhiều chiều để lưu trạng thái đã tính thì có khả năng khi $n$ thay đổi đoạn code cũ sẽ không dùng được nữa do số chiều của mảng đã thay đổi. Theo suy nghĩ tự nhiên, chúng ta sẽ cố gắng tìm cách kết hợp thông tin của bộ trạng thái $n$ số lại thành một số nguyên duy nhất. Một cách khả thi để làm điều này chính là *giá trị Nim*, ký hiệu là $g$.
 
 Đầu tiên, hãy giải quyết trường hợp đơn giản nhất - chỉ có một đống sỏi duy nhất với $p$ viên sỏi.
+
 - Theo trực giác, vì thông tin duy nhất ta có là số lượng sỏi trong đống, ta có thể giả sử rằng giá trị Nim của trường hợp này là một số nguyên $p$ cho biết số sỏi còn lại.
 - Chúng ta thấy rằng nếu $p > 0$ thì trạng thái trò chơi hiện tại thuộc $N$, ngược lại nếu $p = 0$ thì trạng thái trò chơi hiện tại thuộc $P$. Điều này có thể giải thích bằng việc nếu số sỏi là số dương, người đi trước luôn có thể lấy hết sỏi nên người đi sau luôn thua. Từ trường hợp đơn giản này, ta mường tượng được điều mà giá trị Nim $g$ phản ánh: *trạng thái trò chơi hiện tại thuộc $N$ khi giá trị Nim dương và thuộc $P$ khi giá trị Nim bằng $0$*.
 
 Tiếp theo, chúng ta sẽ tìm cách ghép các đống sỏi đơn lại thành một trò chơi hoàn chỉnh gồm $n$ đống sỏi. Cụ thể hơn, ta sẽ tìm ra một phép toán $A \oplus B$ để biết được giá trị Nim của trò chơi mới khi kết hợp hai trò chơi có giá trị Nim lần lượt là $A$ và $B$ lại. Ta sẽ liệt kê một số tính chất cần có của phép toán này để có thể gộp các giá trị của cột lại:
+
 - $(A \oplus B) \oplus C = A \oplus (B \oplus C)$, và $A \oplus B = B \oplus A$, nghĩa là $\oplus$ có tính chất kết hợp và giao hoán. Tính chất này có thể giải thích bằng lập luận rằng thứ tự các cọc không thực sự quan trọng nên khi đổi thứ tự kết hợp thì giá trị Nim không thay đổi.
 - $A \oplus 0 = A$, nghĩa là, phần tử trung hòa của toán tử này là $0$. Điều này rất hiển nhiên vì nếu bạn **thêm một đống sỏi trống** vào trò chơi, thì trò chơi vẫn không thay đổi, do đó giá trị Nim vẫn như cũ.
 - $A \oplus A = 0$, nghĩa là phần tử đối của mỗi trạng thái trò chơi là chính nó. Tại sao điều này lại đúng?  Giả sử chúng ta có hai đống sỏi giống nhau, mỗi đống có $p$ viên sỏi. Lúc đó, người đi sau luôn có một chiến lược chiến thắng, đó là chỉ sao chép bước đi của người đi trước! Điều tương tự xảy ra với trường hợp tổng quát. Do đó, người đi trước sẽ luôn là người thua, tức trạng thái trò chơi thuộc $P$, như ta đã lập luận ở ví dụ trước, trạng thái thuộc $P$ tương ứng với $g = 0$, do đó $A \oplus A = 0$.
@@ -194,6 +204,7 @@ Tiếp theo, chúng ta sẽ tìm cách ghép các đống sỏi đơn lại thà
 Ba thuộc tính này, đặc biệt nhất là tính chất $A \oplus A = 0$ giúp chúng ta tìm ra một ứng cử viên tìm năng, đó là **phép [bitwise XOR](https://vi.wikipedia.org/wiki/Ph%C3%A9p_to%C3%A1n_thao_t%C3%A1c_bit#XOR)**. Và quả thật phép toán này cũng chính là đáp án chúng ta cần tìm, định lý Bouton được trình bày ở phía dưới sẽ chứng minh tính đúng đắn của việc này.
 
 Thực chất, phép bitwise XOR chỉ là phép cộng modulo $2$ trên từng bit, do đó chúng ta hay gọi giá trị Nim là *tổng Nim*. Tổng Nim của một trò chơi có trạng thái $(p_1, p_2, \ldots, p_n)$ thu được bằng cách thực hiện phép XOR các $p_i$ lại với nhau.
+
 $$g = p_1 \oplus p_2 \oplus \ldots \oplus p_n$$
 
 Ví dụ: với trò chơi Nim có ba đống sỏi với số sỏi lần lượt là $5$, $7$, $3$ thì tổng Nim là $0101 \oplus 0111 \oplus 0011 = 0001$.
@@ -211,12 +222,14 @@ Gọi $\hat{P}$ là tập gồm các trạng thái có tổng Nim bằng $0$ và
 
 Thứ hai, với một trạng thái thuộc $\hat{N}$ ($g > 0$), ta luôn có thể đi tới một trạng thái thuộc $\hat{P}$ ($g = 0$). Để chứng minh, chọn một đống sỏi thứ $i$ có $p_i$ sỏi và biến nó thành $p'_i$ sao cho $p'_i = g \oplus p_i < p_i$, ta có được tổng Nim mới $g'$ như sau:
 
-$$\begin{align*}
+$$
+\begin{align*}
     g' &= p_1 \oplus p_2 \oplus \ldots \oplus p'_i \oplus \ldots \oplus p_n \\
         &=  p_1 \oplus p_2 \oplus \ldots \oplus [p_i \oplus g] \oplus \ldots \oplus p_n \\
         &=  (p_1 \oplus p_2 \oplus \ldots \oplus p_i \oplus \ldots \oplus p_n) \oplus g \\
         &= g \oplus g = 0
-\end{align*}$$
+\end{align*}
+$$
         
 Lưu ý rằng phép XOR không giống phép cộng thông thường. Ở phép cộng hai số nguyên dương, kết quả luôn lớn hơn các toán hạng ban đầu. Tuy nhiên, trong phép XOR điều này không xảy ra, kết quả có thể lớn hơn hoặc nhỏ hơn các toán hạng ban đầu. Do đó việc ta có thể đảm bảo luôn tồn tại đống sỏi $i$ thỏa mãn yêu cầu $p'_i = g \oplus p_i < p_i$ không phải là điều hiển nhiên và **cần được chứng minh**.
 
@@ -228,13 +241,15 @@ Vì $g > 0$ nên  biểu diễn nhị phân của $g$ luôn tồn tại bit trá
 
 Cuối cùng, với một trạng thái thuộc $\hat{P}$ (tức $g = 0$), mọi cách đi đều dẫn tới trạng thái thuộc $\hat{N}$ (tức $g > 0$). Ta có thể chứng minh dễ dàng bằng phương pháp phản chứng. Giả sử trạng thái trò chơi hiện tại là $(p_1, \ldots, p_n)$ có tổng Nim $g = 0$ và tồn tại một đống sỏi $i$ sao cho khi lấy bớt sỏi từ $i$ ra trạng thái trò chơi mới có tổng Nim $g' = 0$. Khi đó
 
-$$\begin{align*}
+$$
+\begin{align*}
     g' &= 0 = g
     \\ \Leftrightarrow
     p_1 \oplus p_2 \oplus \ldots \oplus p'_i \oplus \ldots \oplus p_n &=  p_1 \oplus p_2 \oplus \ldots \oplus p_i \oplus \ldots \oplus p_n
     \\ \Leftrightarrow
     p'_i &= p_i
-\end{align*}$$
+\end{align*}
+$$
 
 Điều này có nghĩa là ta không bốc viên sỏi nào từ đống $p_i$ ra cả, mà theo giả thuyết ta phải bốc ít nhất một viên ($p'_i < p_i$), vì vậy không thể tồn tại đống sỏi $i$ nào thỏa mãn yêu cầu.
 > Ví dụ, nếu trò chơi Nim hiện tại có $3$ đống có số sỏi lần lượt là $5$, $6$, $3$, thì tổng Nim $g = 0$. Xét bit đầu tiên từ phải qua, ta thấy được số lượng bit được bật tại vị trí này là số chẵn ($2$, tương ứng với bit đầu tiên của $5$ và $3$). Tương tự, số lượng các bit được bật tại các vị trị khác đều có tính chất này. Điều này không phải là trùng hợp mà do tính chất của phép XOR, nếu muốn bit thứ $i$ trong kết quả bằng $0$ thì số lượng bit thứ $i$ được bật trong các toán hạng phải là số chẵn. Từ đây ta nhận thấy, việc bỏ sỏi ở một đống sỏi chỉ có thể làm thay đổi số lượng bit được bật tại mỗi vị trí $i$ lên hoặc xuống 1 đơn vị, do đó dù cho lấy sỏi ở cột nào đi nữa thì vẫn sẽ xuất hiện một vị trí có số bit được bật là lẻ.
@@ -260,6 +275,7 @@ bool isInP(vector<int> v) {
 Ngoài trò chơi Nim chuẩn, có rất nhiều biến thể của trò chơi Nim. Một trong số đó là misère Nim, cách chơi giống như trò chơi Nim bình thường, tuy nhiên thay vì người lấy viên sỏi cuối cùng sẽ thắng, trong Misère Nim thì người lấy viên sỏi cuối cùng sẽ thua. 
 
 Khi đó, dựa vào trạng thái bắt đầu, ta có thể xác định việc thắng thua như sau: 
+
 - Nếu tất cả đống sỏi đều có số sỏi nhỏ hơn hơn $2$ (tức chỉ gồm các đống sỏi có $0$ và $1$ viên): nếu số lượng đống sỏi còn sỏi là lẻ (tức giá trị Nim $g=1$) thì người chơi đầu tiên sẽ thua, ngược lại (tức $g=0$) thì người chơi đầu tiên sẽ thắng.
 - Các trường hợp còn lại: Người chơi đầu tiên sẽ thắng nếu giá trị Nim hiện tại $g > 0$ , ngược lại sẽ thua. Chiến thuật để giành chiến thắng là chơi theo chiến lược Nim thông thường, trừ khi bước di chuyển tiếp theo làm các đống sỏi đều có nhỏ hơn $2$ viên, lúc đó người chơi thực hiện nước đi hiện tại sẽ đặt số lượng đống có $1$ viên sỏi là số lẻ để ép người kia phải bốc viên cuối cùng. Ta có thể chứng minh được nếu một người đang ở trạng thái có giá trị Nim $g > 0$, anh ta luôn có thể quyết định số lượng đống sỏi là chẵn hay lẻ và do đó luôn là người chiến thắng.
 
@@ -278,9 +294,10 @@ Cũng cần chú ý rằng các trò chơi được xem xét trong phần địn
 Để có thể kết hợp nhiều trò chơi đơn lẻ với nhau, ta đặt ra khái niệm trò chơi tổng.
 
 **Trò chơi tổng**: Cho trò chơi $G_1(S_1,Q_1, T_1)$ và $G_2(S_2,Q_2,T_2)$ với $S_i,Q_i, T_i$ là tập trạng thái, tập các bước di chuyển hợp lệ và tập trạng thái kết thúc ứng với trò chơi $1$ và $2$, trò chơi tổng $G = G_1 + G_2$ là trò chơi có:
+
 - Tập trạng thái $S = S_1 \times S_2$, tức trạng thái của trò chơi tổng là các cặp trạng thái $(x_1, x_2)$ với $x_1$ là trạng thái thuộc $S_1$ và $x_2$ là trạng thái thuộc $S_2$.
 - Tập các bước di chuyển hợp lệ $Q = (Q_1\times \{x_2\}) \cup (\{x_1\} \times Q_2)$, nghĩa là một bước di chuyển hợp lệ trong trò chơi tổng sẽ tương ứng với việc thực hiện một bước di chuyển hợp lệ trong trò chơi con $G_1$ hoặc $G_2$ và giữ nguyên trạng thái trò chơi còn lại.
-- Tập các trạng thái kết thúc $$T = \{ (x_1, x_2) : x_1 \in T_1 \wedge x_2 \in T_2 \}$$, nghĩa là trạng thái kết thúc của trò chơi tổng là trạng thái mà cả hai trò chơi$G_1$và$G_2$ đều kết thúc.
+- Tập các trạng thái kết thúc $T = \{ (x_1, x_2) : x_1 \in T_1 \wedge x_2 \in T_2 \}$, nghĩa là trạng thái kết thúc của trò chơi tổng là trạng thái mà cả hai trò chơi $G_1$ và $G_2$ đều kết thúc.
 
 > Ví dụ: trò chơi Nim có $3$ đống sỏi có thể xem như trò chơi tổng của ba trò chơi $G_1$, $G_2$ và $G_3$, với $G_1$ là trò chơi chỉ bốc ở đống sỏi thứ $1$, $G_2$ là trò chơi chỉ bốc ở đống sỏi thứ $2$, $G_3$ là trò chơi chỉ bốc ở đống sỏi thứ $3$.
 
@@ -300,6 +317,7 @@ Rõ ràng đỉnh $0$ là đỉnh kết thúc, do đó nó là đỉnh thuộc $
 <img src="/uploads/game_theory_custom_nim_PN.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Tuy nhiên, cách làm ở trên chỉ cho ta trạng thái định tính của từng trạng thái, để phục vụ cho việc ghép các trò chơi lại, ta cần một hàm định lượng. Hàm mà chúng ta sẽ dùng có tên là hàm Sprague-Grundy, với một trạng thái $x \in S$ thì giá trị Sprague-Grundy được định nghĩa như sau:
+
 $$
 g(x) = \text{mex}(\{g(y): (x,y) \in Q\})
 $$
@@ -318,9 +336,11 @@ Quan sát ví dụ ở trên, ta có nhận xét rằng các trạng thái $u$ t
 Vậy với hàm Sprague-Grundy, ta đã giải quyết được trò chơi đơn giản nhất, vấn đề tiếp theo là giải trò chơi tổng. Ta cũng sẽ tìm một phép toán $\oplus$ để tìm ra giá trị Sprague-Grundy của trò chơi tổng từ hai trò chơi thành phần. Cũng như trò chơi Nim, ta sẽ thấy phép toán này có các tính chất kết hợp, giao hoán, phần tử trung hòa là $0$ và phần tử đối của một trò chơi là chính nó. Do đó, ta sẽ lại thấy phép bitwise XOR là phép toán mà chúng ta cần tìm. Tính đúng đắn của phép toán bitwise XOR được khẳng định bằng định lý sau
 
 **Định lý 2**: với trò chơi tổng $G = G_1 + \ldots + G_n$ và $x_1, \ldots, x_n$ lần lượt là các trạng thái của trò chơi thành phần $G_1, \ldots, G_n$, khi đó:
+
 $$
 g(x_1, \ldots, x_n) = g_1(x_1) \oplus \ldots \oplus g_n(x_n)
 $$
+
 Với $g, g_1, \ldots, g_n$ lần lượt là hàm Sprague-Grundy của trò chơi $G, G_1, \ldots, G_n$.
 
 > Ví dụ: với trò chơi Nim biến thể với luật bốc các số chính phương như trên, nhưng bây giờ ta có $3$ đống sỏi lần lượt có $5, 4, 1$ viên sỏi. Khi đó ta có thể coi mỗi đống sỏi là một trò chơi thành phần, vì vậy giá trị Sprague-Grundy của trò chơi tổng là $g(5) \oplus g(4) \oplus g(1) = 0 \oplus 2 \oplus 1 = 3$, vậy đây là trạng thái mà người chơi đi đầu tiên sẽ giành chiến thắng.
@@ -424,6 +444,7 @@ Phần này sẽ chứng minh cơ sở toán học cho hai định lý $1$ và $
 **Chứng minh**:
 
 Tương tự phần trước, ta sẽ gọi $\hat{P}$ là tập các trạng thái có $g(u)=0$ và $\hat{N}$ là tập các trạng thái có $g(u)>0$ và cố gắng chứng minh điều sau:
+
 $$
 \hat{P}=P, \: \hat{N}=N
 $$
@@ -437,28 +458,34 @@ Thứ ba, với mọi trạng thái $u$ thuộc $\hat{P}$ mà $u$ không phải 
 Từ ba tính chất vừa chứng minh, ta thấy rõ ràng tập $\hat{P}$ và $\hat{N}$ tương đương với tập $P$ và $N$ theo định nghĩa của hai tập này. $\square$
 
 **Định lý 2**: với trò chơi tổng $G = G_1 + \ldots + G_n$ và $x_1, \ldots, x_n$ lần lượt là các trạng thái của trò chơi thành phần $G_1, \ldots, G_n$, khi đó:
+
 $$
 g(x_1, \ldots, x_n) = g_1(x_1) \oplus \ldots \oplus g_n(x_n)
 $$
+
 Với $g, g_1, \ldots, g_n$ lần lượt là hàm Sprague-Grundy của trò chơi $G, G_1, \ldots, G_n$.
 
 **Chứng minh**:
 
 Do $G$ là một trò chơi tổ hợp cân bằng, do đó theo định lý 1 thì 
+
 $$g(x_1, \ldots, x_n) = mex(\{g(y_1, \ldots, y_n) | (x_1, \ldots, x_n) \rightarrow (y_1, \ldots, y_n) \in Q\})$$
 
 Từ đó, nếu gọi $U = \{g(y_1, \ldots, y_n) | (x_1, \ldots, x_n) \rightarrow (y_1, \ldots, y_n) \in Q\}$, ta thấy nếu muốn chứng minh $g(x_1, \ldots, x_n) = g_1(x_1) \oplus \ldots \oplus g_n(x_n) = s$ thì ta cần chứng minh
+
 $$
 \text{mex(U)} = s
 $$
 
 Chi tiết hơn, ta cần chứng minh hai điều sau:
+
 1. Với mọi $0 \leq t < s$ thì $t \in U$.
 2. $s \notin U$
 
 Để chứng minh ý 1, với một $0 \leq t < s$ bất kỳ, ta xét $s \oplus t$, vì $s > 0$ nên biểu diễn nhị phân của $s \oplus t$ luôn tồn tại bit trái nhất bằng $1$ (tạm gọi là $d$).Khi đó, bit thứ $d$ của một trong hai số $s$ và $t$ phải bằng $1$ và bit thứ $d$ của số còn lại bằng bằng $0$. Tuy nhiên, do $s > t$ nên bit thứ $d$ của $s$ bằng $1$ và bit thứ $d$ của $t$ bằng $0$, trường hợp kia không thể xảy ra. Lập luận tiếp rằng $s = g_1(x_1) \oplus \ldots \oplus g_n(x_n)$, tương tự như khi chứng minh định lý Bouton, nếu bit thứ $d$ của $s$ là $1$ thì ta có số lượng $g_i(x_i)$ có giá trị Sprague-Grundy có bit thứ $d$ bằng $1$ phải lẻ (theo tính chất của phép XOR), do đó luôn tồn tại một trò chơi có bit thứ $d$ bằng $1$. Chọn trò chơi mà giá trị Sprague-Grundy có bit thứ $d$ bằng $1$ để thực hiện bốc sỏi, ta thấy $(s \oplus t) \oplus g_i(x_i) < g_i(x_i)$ nên theo định nghĩa hàm Sprague-Grundy chắc chắn tồn tại $x'_i$ có $g_i(x'_i) = (s \oplus t) \oplus g_i(x_i)$ và từ $x_i$ có thể di chuyển đến $x'_i$. Theo định nghĩa trò chơi tổng, khi đó bước di chuyển từ $(x_1,\ldots, x_i, \ldots, x_n)$ tới $(x_1,\ldots, x'_i, \ldots, x_n)$ là hợp lệ và:
 
-$$\begin{align*}
+$$
+\begin{align*}
 g_1(x_1) &\oplus \ldots \oplus g_i(x'_i) \oplus \ldots \oplus g_n(x_n) 
 \\
 &= g_1(x_1) \oplus \ldots \oplus [(s \oplus t) \oplus g_i(x_i)] \oplus \ldots \oplus g_n(x_n)
@@ -466,17 +493,20 @@ g_1(x_1) &\oplus \ldots \oplus g_i(x'_i) \oplus \ldots \oplus g_n(x_n)
 &= (s \oplus t) \oplus [g_1(x_1) \oplus \ldots \oplus \oplus g_i(x_i) \oplus \ldots \oplus g_n(x_n)]
 \\
 &= s \oplus t \oplus s = t
-\end{align*}$$
+\end{align*}
+$$
 
 Vậy $t \in U$.
 
 Để chứng minh ý 2 ta dùng phản chứng, giả sử trạng thái hiện tại là $(x_1, \ldots, x_n)$, khi đó giả sử tồn tại một trạng thái $(y_1, \ldots, y_n)$ có $g(y_1, \ldots, y_n) = s$. Theo định nghĩa mỗi bước di chuyển trong trò chơi tổng sẽ tương ứng với việc chọn một trò chơi thành phần ra và di chuyển, các trò chơi còn lại giữ nguyên, do đó ta có thể viết $(y_1, \ldots, y_n) = (x_1, \ldots, x'_i, \ldots, x_n)$ với $i$ là trò chơi ta chọn để di chuyển trạng thái. Khi đó
 
-$$\begin{align*}
+$$
+\begin{align*}
 s = g_1(x_1) \oplus \ldots \oplus g_i(x_i) \oplus \ldots \oplus g_n(x_n) &= g_1(x_1) \oplus \ldots \oplus g_i(x'_i) \oplus \ldots \oplus g_n(x_n)
 \\ \Leftrightarrow
 g(x'_i) &= g(x_i)
-\end{align*}$$
+\end{align*}
+$$
 
 Điều này là mâu thuẫn với giả thuyết ban đầu là ta chọn trò chơi thành phần $i$ để di chuyển trạng thái (khi đó $x'_i \neq x_i$).
 

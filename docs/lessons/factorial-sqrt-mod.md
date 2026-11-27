@@ -109,6 +109,7 @@ Tìm $x$ sao cho $x^2 \equiv 5 \pmod{41}$ ($p = 41$).
 **Bước 1:** Phân tích $p - 1 = 40 = 5 \cdot 2^3$. Vậy $Q = 5$, $S = 3$.
 
 **Bước 2:** Tìm $z$ là non-residue nhỏ nhất:
+
 - Thử $z = 2$: $2^{20} \equiv 1 \pmod{41}$ (vì $17^2 = 289 \equiv 2$), nên $2$ là residue, bỏ qua.
 - Thử $z = 3$: $3^4 = 81 \equiv -1 \pmod{41} \Rightarrow 3^{20} = (3^4)^5 \equiv (-1)^5 = -1 \pmod{41}$. Chọn $z = 3$.
 

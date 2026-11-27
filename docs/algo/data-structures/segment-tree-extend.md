@@ -146,6 +146,7 @@ Ta xét 2 trường hợp:
     - Tầng $k-1$: có $2^{k-1}$ nút
     - ...
     Tổng số nút không quá $2^{k+1}$.
+
 - Với $N > 2^k$ và $N < 2^{k+1}$. Số nút của cây ST không quá số nút của cây ST với $N = 2^{k+1}$.
 
 Do đó, số nút của cây cho dãy $N$ phần tử, với $N \le 2^k$ là không quá $2^{k+1}$, giá trị này xấp xỉ $4  \times  N$. Bằng thực nghiệm, ta thấy dùng $4  \times  N$ là đủ.
@@ -822,6 +823,7 @@ Hàm xây cây có thể được như sau:
     ## Bài toán 1
 
     Cho một mảng các số nguyên $a$ có $n$ phần tử. Có $q$ truy vấn có dạng: 
+
     - $k$ : tìm $i$ nhỏ nhất sao cho $a[i] \le k$.
 
     ### Cách giải
@@ -839,6 +841,7 @@ Hàm xây cây có thể được như sau:
     Vậy bài toán có thể phát biểu lại như sau: 
 
     Cho một mảng các số nguyên $f$ đã "sắp xếp" giảm dần, có $q$ truy vấn có dạng:
+
     - $k$ : tìm $i$ nhỏ nhất sao cho $f[i] \le k$.
 
     Rõ ràng bài toán này chỉ là bài toán chặt nhị phân cơ bản, vì mảng $f$ đã được "sắp xếp". Tới đây ta có thể trả lời các truy vấn trong độ phức tạp $O(\log{n})$. Code thì nó sẽ giống giống thế này: 
@@ -860,10 +863,12 @@ Hàm xây cây có thể được như sau:
     ## Bài toán 2
 
     Cho một mảng các số nguyên $a$ có $n$ phần tử. Có $q$ truy vấn có dạng: 
+
     - $i$ $x$ : gán $a[i] = x$.
     - $k$ : tìm $i$ nhỏ nhất sao cho $a[i] \le k$
 
     Bài toán này giống **bài toán 1**, nhưng có thêm truy vấn cập nhật phần tử, điều này làm cho mảng $f$ bị thay đổi. Ta có thể sửa lại yêu cầu bài toán một chút, là có $3$ loại truy vấn:
+
     - $i$ $x$ : gán $a[i] = x$.
     - $k$ : tìm $i$ nhỏ nhất sao cho $a[i] \le k$
     - $i$ : tính $min(a[1], a[2], ..., a[i])$. 
@@ -937,6 +942,7 @@ Lưu ý là, với các bài toán mà truy vấn cập nhật là một đoạn
 
 ## Bài toán 3: 
 Cho một mảng các số nguyên $a$ có $n$ phần tử. Có $q$ truy vấn có dạng: 
+
 - $i$ $x$ : gán $a[i] = x$.
 - $L$ $k$ : tìm $i$ nhỏ nhất sao cho $L \le i$ và $a[i] \le k$
 

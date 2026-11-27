@@ -2,9 +2,11 @@
 Nguồn: [wcipeg](http://wcipeg.com/wiki/Convex_hull)
 
 **Tác giả:** 
+
 - Lê Minh Hoàng - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 
 **Reviewer:**
+
 - Hồ Ngọc Vĩnh Phát - Đại học Khoa học Tự nhiên, ĐHQG-HCM
 - Ngô Nhật Quang - HUS High School for Gifted Students
 
@@ -34,6 +36,7 @@ Bài toán tìm bao lồi của một tập điểm trên mặt phẳng là mộ
 |source: [wikipedia - Gift wrapping algorithm](https://en.wikipedia.org/wiki/Gift_wrapping_algorithm)|
 
 Thuật toán này được mô tả như sau:
+
 - Bước đầu:
     - Chọn $P$ là điểm trái nhất trong tập các điểm (để đảm bảo $P$ nằm trong tập bao lồi).
     - Chọn hướng ta đang nhìn $\vec{v}$ là từ hướng dưới lên trên.
@@ -209,6 +212,7 @@ def convexHull(p, n):
 
 ## Thuật toán Graham (Graham scan)
 Thuật toán Graham có độ phức tạp trong trường hợp xấu nhất nhỏ hơn thuật toán bọc gói, song thuật toán Graham lại phức tạp hơn.
+
 - Đầu tiên, ta xác định một điểm mà chắc chắn thuộc bao lồi. Thông thường, khi cài đặt người ta chọn điểm có tung độ nhỏ nhất (nếu có nhiều điểm như vậy thì chọn điểm trái nhất). Gọi điểm này là điểm $O$.
 - Chọn hệ trục tọa độ có gốc là điểm $O$ vừa chọn, sắp xếp các điểm còn lại theo thứ tự tăng dần của góc tạo bởi trục hoành theo chiều dương và $\overrightarrow{OI}$ với $I$ là một trong các điểm còn lại.
 - Gọi tập bao lồi hiện tại là $H$ và điểm cuối của tập bao lồi $H$ là $H_h$ (ban đầu $h = 1$, tức tập $H$ chỉ chứa $O$).
@@ -320,6 +324,7 @@ Thuật toán chuỗi đơn điệu vừa dễ cài đặt, vừa là thuật to
 |source: [wikibooks - Monotone chain](https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain)|
 
 Ta thấy điểm ở xa về phía bên trái nhất (từ đây gọi là điểm trái nhất) và điểm ở xa về phía bên phải nhất (từ đây gọi là điểm phải nhất) luôn thuộc bao lồi. Phần bao lồi theo chiều kim đồng hồ tính từ điểm trái nhất đến điểm phải nhất gọi là bao trên trên, phần còn lại của bao lồi gọi là bao dưới. Ta sẽ tìm bao trên và bao dưới độc lập với nhau.
+
 - Bước đầu tiên, ta sắp xếp các điểm được cho theo thứ tự tăng dần theo hoành độ. Nếu hai điểm có cùng hoành độ, điểm có tung độ nhỏ hơn sẽ đứng trước. Sau bước này thì điểm trái nhất sẽ ở đầu và điểm phải nhất sẽ ở cuối tập điểm.
 - Ta xét việc xây dựng bao trên. Gọi $H$ là bao trên hiện tại và độ lớn của bao là $h$. Điểm đầu của bao là $H_1$ và điểm cuối của bao là $H_h$. Xét từng điểm $P$ theo thứ tự đã sắp xếp:
     - Thêm $P$ vào cuối bao trên $H$.
@@ -436,6 +441,7 @@ for pt in hull:
 
 ## Xử lí trường hợp suy biến
 Các thuật toán trên hoạt động tốt trong trường hợp lí tưởng, tức là không có hai điểm nào trùng nhau và không có ba điểm nào thẳng hàng. Tuy nhiên, trong hầu hết các bài toán, ta sẽ phải xử lí các điểm trùng nhau và các bộ ba điểm thẳng hàng. Biện luận tất cả các trường hợp sẽ là một công việc khó nhằn và nhàm chán. Vì vậy, hãy ghi nhớ những điều sau:
+
 - Đọc kĩ đề bài để biết được dữ liệu vào có bị suy biến hay không, nếu có thì rơi vào trường hợp nào (lưu ý rằng không phải đề bài nào cũng nói rõ rằng dữ liệu bị suy biến).
 - Nếu tồn tại các điểm trùng nhau:
   - Thuật toán bọc gói
@@ -453,6 +459,7 @@ Các thuật toán trên hoạt động tốt trong trường hợp lí tưởng
 <img src="/uploads/algo_geometry_convex_hull_3d.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
 
 Tìm bao lồi trong 3D thực sự là một bài toán khó. Bài toán này chắc chắn sẽ không bao giờ được ra trong IOI, và học sinh trung học không cần phải đi sâu vào vấn đề này. Tuy nhiên, có một thuật toán $\mathcal{O}(n^2)$  khá là đơn giản:
+
 - Đầu tiên, ta tìm hình chiếu của các điểm trên mặt phẳng $Oxy$, và tìm một cạnh chắc chắn thuộc bao bằng cách lấy một điểm có tung độ lớn nhất rồi tìm điểm kia bằng cách chạy vòng lặp của thuật toán bọc gói một lần. Đây là phần đầu tiên của bao lồi.
 - Sau đó, xét cạnh vừa tìm được, tìm một điểm thứ ba để tạo thành một mặt tam giác của bao lồi. Ta chọn điểm thứ ba bằng cách tìm điểm để tất cả các điểm khác nằm ở phía bên phải của mặt tam giác đó (giống như thuật toán bọc gói, ta tìm cạnh để tất cả các điểm khác đều nằm về phía bên phải cạnh đó).
 - Bây giờ ta đã có ba cạnh trong bao lồi, ta chọn ngẫu nhiên một trong ba cạnh đó, rồi tìm tiếp một tam giác với cạnh này, rồi tiếp tục cho đến khi không còn cạnh nào nữa (khi ta tìm thêm một mặt tam giác, ta phải thêm hai cạnh vào bao, tuy vậy hai cạnh này phải chưa có trong bao, nếu không ta phải đi tìm hai cạnh khác).
@@ -474,6 +481,7 @@ Nếu xem mỗi loại cocktail là một điểm toạ độ $(x, y)$ trên m�
 Mở rộng, các loại cocktail có thể pha chế từ $N$ loại cocktail ban đầu sẽ nằm trong bao lồi của $N$ điểm $(x, y)$.
 
 Để kiểm tra nhanh một điểm có nằm trong bao lồi hay không trong $\mathcal{O}(\log{n})$, ta thực hiện như sau:
+
 - Gọi tập bao lồi là $H$, giả sử tập $H$ được liệt kê theo chiều kim đồng hồ.
 - Đầu tiên, ta kiểm tra $(H_0, H_1, P)$ có ngược chiều kim đồng hồ hay không ($P$ thoả thuộc vùng màu xanh).
     <img src="/uploads/algo_geometry_convex_hull_kmix1.png" alt="/uploads/algo_geometry_convex_hull_kmix1.png" style="max-width: 700px; display: block; margin: 0 auto;" />

@@ -123,6 +123,7 @@ graph TD
 ### Phép dịch bit (Bitshift)
 
 **1. Dịch trái `<<`:** Đẩy các bit sang trái $n$ vị trí, thêm $0$ vào bên phải. (Tương đương nhân với $2^n$).
+
 * **Ví dụ:** `5 << 2`
 ```mermaid
 graph LR
@@ -133,6 +134,7 @@ graph LR
 ```
 
 **2. Dịch phải `>>`:** Đẩy các bit sang phải $n$ vị trí, bỏ các bit bị tràn ra ngoài bên phải. (Tương đương chia nguyên cho $2^n$).
+
 * **Ví dụ:** `20 >> 2`
 ```mermaid
 graph LR

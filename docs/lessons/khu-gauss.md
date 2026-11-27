@@ -20,6 +20,7 @@ $$\begin{cases} a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1 \\ a_{21}x_1 + 
 ### 1.2 Ý tưởng
 
 Biến đổi ma trận augmented $[A | b]$ thành dạng bậc thang (row echelon form) bằng các phép biến đổi hàng:
+
 - Hoán đổi 2 hàng
 - Nhân hàng với hằng số khác 0
 - Cộng bội của hàng này vào hàng khác

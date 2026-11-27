@@ -68,6 +68,7 @@ print(17 // -5)  # -4 (không phải -3!)
 
 !!! warning "Chia lấy nguyên với số âm"
     Python làm tròn **xuống** (floor), không phải về 0 như C++.
+
     - `-17 // 5 = -4` (vì -3.4 làm tròn xuống → -4)
     - C++: `-17 / 5 = -3` (làm tròn về 0)
 
@@ -98,6 +99,7 @@ print(17 % -5)   # -2 (không phải 2!)
 
 !!! warning "Modulo với số âm"
     Python: `a % b` luôn có **cùng dấu với b**.
+
     - `-17 % 5 = 3` (vì -17 = (-4) × 5 + 3)
     - C++: `-17 % 5 = -2`
 

@@ -1,8 +1,10 @@
 
 **Tác giả:** 
+
 - Nguyễn Đức Kiên, Trường Đại học Công nghệ, ĐHQGHN.
 
 **Reviewer:** 
+
 - Phạm Công Minh - THPT chuyên Khoa học Tự Nhiên, ĐHQGHN
 - Đặng Đoàn Đức Trung - UT Austin
 - Nguyễn Minh Nhật - Trường THPT chuyên Khoa học Tự nhiên, ĐHQGHN
@@ -33,6 +35,7 @@ Bài viết sẽ không nêu lại các khái niệm cơ bản về đồ thị.
 Có rất nhiều hình ảnh thực tế để miêu tả một mạng và luồng trên mạng đó, như một mạng điện, một mạng kết nối dữ liệu giữa các máy, hay phổ biến hơn là một hệ thông ống nước.
 
 Một đồ thị $G(V, E)$ được gọi là **mạng** (network) nếu nó là đồ thị **có hướng**, trong đó:
+
 - Tồn tại một đỉnh $s$ không có cạnh đi vào, gọi là **đỉnh phát/nguồn** (source)
 - Tồn tại một đỉnh $t$ không có cạnh đi ra, gọi là **đỉnh thu/đích** (sink)
 - Mỗi cạnh $(u, v)$ được gán một trọng số $c(u, v)$, gọi là **khả năng thông qua/dung lượng** (capacity) của cạnh.
@@ -40,10 +43,15 @@ Một đồ thị $G(V, E)$ được gọi là **mạng** (network) nếu nó l�
 <p align="center"><img src="/uploads/rkBl97iL3.png" alt="img" style="max-width: 700px;" /><br><em>Một mạng hợp lệ. Đỉnh phát và đỉnh thu được đánh dấu bằng hai màu khác.</em></p>
 
 Một **luồng** (flow) trên mạng $G(V, E)$ là một phép gán cho mỗi cạnh $(u, v)$ một số thực $f(u, v)$ thoả mãn:
+
 - Luồng trên mỗi cạnh có giá trị không vượt quá khả năng thông qua của cạnh đó:
+
 $0 \le f(u, v) \le c(u, v), \forall u, v \in V$
+
 - Với mọi đỉnh $v$ không trùng với đỉnh phát $s$ và đỉnh thu $t$, tổng luồng trên các cạnh đi vào $v$ bằng tổng luồng trên các cạnh đi ra $v$. Tính chất này tương đối giống với định luật I Kirchoff của dòng điện.
+
 $$\sum\limits_{v \in V, \exists (v, u) \in E} f(v, u) = \sum\limits_{w \in V, \exists (u, w) \in E} f(u, w)$$
+
 - Giá trị $f(u, v)$ được gọi là **luồng trên cạnh $(u, v)$**
 - **Giá trị của luồng** là tổng luồng trên các cạnh đi ra khỏi đỉnh phát, cũng chính là tổng luồng trên các cạnh đi vào đỉnh thu.
 
@@ -65,7 +73,8 @@ Tổng các giá trị khả năng thông qua trên các cạnh nối giữa m�
 <p>
 Xét luồng có giá trị $f$ và lát cắt $(A, B)$ trên một mạng bất kỳ. Ta có: 
 
-$$f = 
+$$
+f =
 \sum\limits_{u \in A, v \in B} f(u, v) - 
 \sum\limits_{u \in B, v \in A} f(u, v) \\
 \le
@@ -85,6 +94,7 @@ $$
 </details>
 
 Nếu ta hiểu mạng như một hệ thống ống nước, nó sẽ như sau:
+
 - Nước chảy qua một hệ thống các ống, từ nguồn nước (đỉnh phát) đến bồn chứa (đỉnh thu).
 - Mỗi ống có một giới hạn nhất định. Lượng nước chảy qua ống này không thể vượt quá giới hạn này.
 - Hiển nhiên, tại mỗi điểm nút (trừ điểm đầu và điểm cuối), có bao nhiêu nước đến thì sẽ có bấy nhiêu nước chảy đi. Nước không tự sinh ra và mất đi, chúng chỉ chảy từ điểm này sang điểm khác.
@@ -134,6 +144,7 @@ $r(v, u) = 0 - f(v, u) = f(u, v)$.
 Ta có thể hiểu rằng giá trị luồng thặng dư cho biết còn có thể thêm vào luồng này một lượng bao nhiêu.
 
 Với các giá trị $r(u, v)$ này, ta có thể xây dựng một **đồ thị thặng dư/đồ thị tăng luồng** (residual network). Ứng với mỗi cạnh $(u, v)$ trên mạng ban đầu, trên đồ thị thặng dư sẽ có hai cạnh:
+
 - Cạnh $(u, v)$, với trọng số là $r(u, v)$. Mỗi cạnh loại này cho ta biết có thể tăng luồng trên mạng ban đầu bao nhiêu.
 - Cạnh $(v, u)$, với trọng số là $f(u, v)$. Mỗi cạnh loại này cho ta biết có thể giảm luồng trên mạng ban đầu bao nhiêu.
 
@@ -210,6 +221,7 @@ Nhưng theo định lý về luồng và lát cắt đã trình bày ở trên t
 </details>
 
 **Hệ quả**: 
+
 - Khả năng thông qua của lát cắt hẹp nhất trên một mạng bằng giá trị của luồng cực đại trên mạng đó. **Lát cắt hẹp nhất** (mincut) là lát cắt có khả năng thông qua nhỏ nhất trong số mọi lát cắt thuộc mạng.
 - Nếu mọi giá trị $c$ trên luồng đều là số nguyên thì giá trị luồng cực đại cũng là số nguyên.
 
@@ -338,6 +350,7 @@ Ta dựng đồ thị phân cấp của đồ thị thặng dư. Trên đồ th�
 Để tìm luồng cản, ta sử dụng DFS để tìm từng đường cản một. Mỗi đường cản là một đường đi có trọng số dương từ $s$ tới $t$ trên đồ thị phân cấp. Đây là lý do thuật Dinic được gọi là "dùng cả BFS và DFS để tìm luồng".
 
 Để tối ưu việc cài đặt, ta có thể:
+
 - Không dựng đồ thị thặng dư và đồ thị phân cấp. Cũng như thuật toán Edmonds-Karp, ta hoàn toàn có thể sử dụng thêm các "cạnh" ngược với giá trị luồng âm để biểu diễn các cạnh ngược trong đồ thị thặng dư. Việc sử dụng đồ thị phân cấp thì chỉ là đánh các nhãn $d(u)$ cho các đỉnh $u$ của đồ thị, rồi kiểm tra $c(u, v) - f(u, v) > 0$ và $d(u) + 1 = d(v)$ để biết cạnh $(u, v)$ (kể cả ngược) có thuộc đồ thị phân cấp không.
 - Tại mỗi đỉnh, chỉ DFS từ cạnh cuối cùng được xét trong lần tìm đường cản trước đó với cùng một bộ $d$ (hay cùng một đồ thị phân cấp) (xem code để hiểu phần này hơn). Việc tiếp tục sử dụng một cạnh nào đó của các đường trước đó để tăng luồng là vô nghĩa, vì trong những lần tìm trước đó, ta đã khẳng định là chúng không thể tạo ra đường cản mới rồi. Khi không tìm được bất kỳ đường cản nào nữa, luồng cản hiện tại coi như đã xong. Ta tăng luồng và đánh lại $d$ cho các đỉnh.
 
@@ -504,6 +517,7 @@ Tổng kết hai phần lại, chúng ta có độ phức tạp thuật toán Di
 *Đề bài VNOI*: [FLOW1](https://oj.vnoi.info/problem/flow1)
 
 **Tóm tắt đề bài**: Có $2n$ học sinh đến từ hai trường SP, TH và $m$ bài toán. Mỗi học sinh có thể giải tốt một số bài toán cho trước. Cần chọn $n$ bài toán sao cho: 
+
 - Với mỗi bài toán, mỗi trường có đúng một học sinh giải được bài đó
 - Không có học sinh nào làm hai bài toán
 - Không có hai học sinh nào cùng trường làm cùng một bài toán.

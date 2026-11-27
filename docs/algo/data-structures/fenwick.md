@@ -1,9 +1,11 @@
 
 **Tác giả:** 
+
 - Bùi Nguyễn Đức Tân - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
 - Lê Minh Hoàng - Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh
 
 **Reviewer:**
+
 - Nguyễn Xuân Tùng - Đại học Quốc Tế, Đại học Quốc gia Thành phố Hồ Chí Minh
 
 ---
@@ -16,6 +18,7 @@ Cây chỉ số nhị phân (tên tiếng Anh là Binary Indexed Tree) hay cây 
 
 ## Bài toán
 Cho mảng $A$ gồm $N$ phần tử (đánh số từ $1$). Có $Q$ truy vấn thuộc 2 loại:
+
 - $1$ $u$ $v$: cộng $v$ vào $A[u]$.
 - $2$ $p$: tính tổng các phần tử từ $A[1]$, $A[2]$, $A[3]$, ..., $A[p]$.
 
@@ -209,6 +212,7 @@ Quay lại bài toán đầu, nếu chúng ta thay đổi yêu cầu thành tìm
 
 ## Cập nhật đoạn
 Ta thay đổi nội dung bài toán ban đầu như sau:
+
 - $1$ $v$ $l$ $r$: cộng $v$ vào tất cả phần tử $A[l]$, $A[l + 1]$, $A[l + 2]$, ..., $A[r]$.
 - $2$ $u$: tìm giá trị hiện tại của $A[u]$.
 - $3$ $l$ $r$: tính tổng các phần tử từ $A[l]$, $A[l + 1]$, $A[l + 2]$, ..., $A[r]$.
@@ -219,6 +223,7 @@ Ta có thể cài đặt "ngây thơ" bằng cách áp dụng hàm `update()` tr
 Mảng hiệu (difference array) là một loại mảng lưu hiệu giữa các phần tử liền kề với nhau.
 
 Mảng hiệu được xây dựng bằng cách sau: 
+
 - Với $i = 1$ thì $diff[i] = A[i]$.
 - Với $2 \le i \le N$ thì $diff[i] = A[i] - A[i - 1]$.
 
@@ -246,6 +251,7 @@ for i in range(2, n + 1):
 <!-- t có thêm comment -->
 
 Khi cộng tất cả phần tử $diff$ từ $1$ đến $i$, ta có:
+
 $$
 \begin{align}
 \displaystyle \sum_{j = 1}^{i} diff[j] &= diff[1] + diff[2] + \ldots + diff[i] \\
@@ -311,6 +317,7 @@ def get(u):
 Hình trên sẽ giúp ta minh họa trực quan hơn mối quan hệ về tổng các phần tử với mảng $A$ và mảng hiệu $diff$.
 
 Nhắc lại: $A[i] = \sum_{j=1}^{i} diff[i]$. Dựa vào hình, ta có thể tính lần lượt tổng các phần tử từ $A_1$ đến $A_i$ như sau:
+
 - $sum[1] = diff[1]$
 - $sum[2] = 2 \cdot diff[1] + diff[2]$
 - $sum[3] = 3 \cdot diff[1] + 2 \cdot diff[2] + diff[3]$
@@ -318,6 +325,7 @@ Nhắc lại: $A[i] = \sum_{j=1}^{i} diff[i]$. Dựa vào hình, ta có thể t�
 - $sum[i] = i \cdot diff[1] + (i - 1) \cdot diff[2] + \ldots + (i - j + 1) \cdot diff[j] + \ldots + 2 \cdot diff[i - 1] + diff[i]$
 
 Tuy nhiên, do sự biến động của hệ số khi nhân nên cách này không thuận tiện khi ta phải truy vấn liên tục. Để dễ dàng hơn, ta sẽ cố định mỗi $diff[i]$ nhân với hệ số $n - i + 1$, khi này:
+
 - $sum[1] = n \cdot diff[1] - (n - 1) \cdot diff[1]$
 - $sum[2] = n \cdot diff[1] + (n - 1) \cdot diff[2] - (n - 2) \cdot (diff[1] + diff[2])$
 - $sum[3] = n \cdot diff[1] + (n - 1) \cdot diff[2] + (n - 2) \cdot diff[3] - (n - 3) \cdot (diff[1] + diff[2] + diff[3])$
@@ -325,9 +333,11 @@ Tuy nhiên, do sự biến động của hệ số khi nhân nên cách này kh�
 - $sum[i] = n \cdot diff[1] + (n - 1) \cdot diff[2] + \ldots + (n - j + 1) \cdot diff[j] + \ldots + (n - i + 1) \cdot diff[i] - (n - i) \cdot (diff[1] + diff[2] + \ldots + diff[i])$
  
 Tóm lại, ta thu được:
+
 $$
 sum[i] = \displaystyle \sum_{j = 1}^{i} (n - j + 1) \cdot diff[j] - (n - i) \cdot \sum_{j = 1}^{i} diff[j]
 $$
+
 Cả hai giá trị $diff[j]$ và $(n - j + 1) \cdot diff[j]$ đã được đơn giản hóa, lúc này ta chỉ cần lưu toàn bộ giá trị $(n - j + 1) \cdot diff[j]$ vào mảng $S_1$ và $diff[j]$ vào mảng $S_2$ và dựng mảng cộng dồn trên hai mảng đó.
 
 Thao tác cập nhật trên mảng $S_2$ giống với thao tác cập nhật đã đề cập ở trên, còn ở mảng $S_1$ thì khác biệt duy nhất là việc xử lý nhân hệ số $(n - j + 1)$. Tuy vậy, hệ số trên không đổi trong quá trình tính toán với từng phần tử nên ta chỉ cần nhân hệ số này với giá trị cần cập nhật và áp dụng phương thức tương tự như ở cập nhật trên $S_2$.

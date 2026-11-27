@@ -88,10 +88,15 @@ Kỹ thuật MITM được mô tả như sau:
 - Quay lui ở tập $X$ và lưu tổng của tất cả tập con vào mảng $A$. Tương tự, quay lui ở tập $Y$ và lưu tổng của tất cả tập con vào mảng $B$. Do đó, kích thước tối đa của mỗi mảng $A$ và $B$ là $2^K$.
 - Bây giờ, ta cần kết hợp $2$ mảng $A$ và $B$:
 	- Cách đơn giản nhất là lặp qua từng phần tử của $A$, với mỗi phần tử, ta duyệt qua tất cả phần tử của $B$.
+
 Độ phức tạp là $\mathcal{O}(2^K\times2^K)=\mathcal{O}(2^{N})$ (không đủ nhanh)
+
 	- Để tối ưu, ta sắp xếp mảng $B$ trước. Sau đó, lặp qua từng phần tử của $A$, với mỗi phần tử, ta sử dụng [tìm kiếm nhị phân](https://vnoi.info/wiki/algo/basic/binary-search.md) trong mảng $B$.
+
 Độ phức tạp là $\mathcal{O}(2^K\times\log_2{2^K})=\mathcal{O}(2^KK)$
+
 	- Một cách tối ưu khác là ta sắp xếp cả $2$ mảng $A$ và $B$ trước, sau đó sử dụng [kỹ thuật hai con trỏ](https://vnoi.info/wiki/algo/basic/two-pointers.md).
+
 Độ phức tạp là $\mathcal{O}(\text{sort algorithm})+\mathcal{O}(2^K)$
 
 #### Cài đặt (sử dụng tìm kiếm nhị phân)
@@ -520,7 +525,9 @@ Tương tự [Bài toán 2](#bai-toan-2), ta có thể ứng dụng "middle" nh�
 - Bây giờ, để kết hợp $2$ tập, ta cần giải bài toán:
 	- Với mỗi đường đi độ dài $4$ trong $A$, đặt là $X$, ta kiểm tra xem có tồn tại đường đi độ dài $4$ trong $B$ sao cho màu của $8$ đỉnh là phân biệt.
 	- Ta có thể giải bài toán này bằng [Bao hàm - loại trừ](https://vnoi.info/wiki/translate/he/Number-Theory-7.md):
+
 Số đường đi độ dài $4$ trong $B$ có màu phân biệt với $X$ = $|B|$ - (số đường đi trùng ít nhất $1$ màu) + (số đường đi trùng ít nhất $2$ màu) - (số đường đi trùng ít nhất $3$ màu) + (số đường đi trùng cả $4$ màu)
+
 	- Độ phức tạp thời gian: $\mathcal{O}(2^4\times40^4)$
 - Độ phức tạp thời gian của thuật toán là $\mathcal{O}(N\times2^4\times40^4)$
 

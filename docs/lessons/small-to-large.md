@@ -51,6 +51,7 @@ flowchart TD
 ### Trace minh họa
 
 Cây $5$ đỉnh gốc $1$: `1 -> {2, 3}`, `2 -> {4, 5}`. Kích thước: `sz[4]=1, sz[5]=1, sz[2]=3, sz[3]=1, sz[1]=5`.
+
 - Con nặng của $1$ là $2$ (`sz[2]=3 > sz[3]=1`).
 - Khi chạy `dfs(1, keep=true)`:
   1. Chạy `dfs(3, keep=false)` $\to$ tính `ans[3]` rồi xóa $3$ khỏi `cnt[]`.

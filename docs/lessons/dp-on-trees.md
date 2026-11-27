@@ -50,6 +50,7 @@ graph TD
 
 **Thứ tự DFS duyệt và hoàn thành các đỉnh:**
 Thông tin được gộp từ các lá (màu cam) lên các đỉnh trung gian (màu xanh dương) rồi về gốc (màu xanh lá):
+
 - Cây con gốc $2$: nhận thông tin từ các lá $5$ và $6$.
 - Cây con gốc $3$: nhận thông tin từ lá $7$.
 - Cây con gốc $4$: nhận thông tin từ các lá $8$ và $9$.
@@ -64,7 +65,9 @@ Thông tin được gộp từ các lá (màu cam) lên các đỉnh trung gian 
 Cho cây $T$ gồm $N$ đỉnh. Với mỗi đỉnh $u$, ta cần tính một đại lượng $dp[u]$ đại diện cho trạng thái tối ưu của cây con gốc $u$ (ký hiệu là $T_u$).
 
 Công thức chuyển trạng thái tổng quát có dạng:
+
 $$dp[u] = \bigoplus_{v \in \text{children}(u)} dp[v]$$
+
 Trong đó $\bigoplus$ là toán tử gộp thông tin (ví dụ: tổng, giá trị lớn nhất, giá trị nhỏ nhất, hoặc một hàm kết hợp phức tạp hơn).
 
 ---
@@ -75,14 +78,18 @@ Trong đó $\bigoplus$ là toán tử gộp thông tin (ví dụ: tổng, giá t
 
 #### Phân tích và Thiết kế Trạng thái DP
 Với mỗi đỉnh $u$, quyết định chọn hay không chọn $u$ sẽ ảnh hưởng trực tiếp đến việc chọn các đỉnh con của nó. Do đó, ta định nghĩa hai trạng thái quy hoạch động tại đỉnh $u$:
+
 - $dp[u][0]$: Số lượng đỉnh lớn nhất chọn được trong cây con gốc $u$ sao cho **không chọn** đỉnh $u$.
 - $dp[u][1]$: Số lượng đỉnh lớn nhất chọn được trong cây con gốc $u$ sao cho **có chọn** đỉnh $u$.
 
 #### Công thức chuyển trạng thái
 - **Trường hợp không chọn $u$ ($dp[u][0]$):** Vì đỉnh $u$ không được chọn, ta không gặp ràng buộc kề cạnh với các đỉnh con $v$ của nó. Do đó, với mỗi đỉnh con $v$, ta có thể chọn hoặc không chọn $v$. Ta lấy giá trị lớn nhất của hai lựa chọn này:
-  $$dp[u][0] = \sum_{v \in \text{children}(u)} \max(dp[v][0], dp[v][1])$$
+
+    $$dp[u][0] = \sum_{v \in \text{children}(u)} \max(dp[v][0], dp[v][1])$$
+
 - **Trường hợp có chọn $u$ ($dp[u][1]$):** Vì đỉnh $u$ được chọn, tất cả các đỉnh con trực tiếp $v$ của $u$ **bắt buộc không được chọn** để đảm bảo tính độc lập. Do đó, ta phải lấy giá trị $dp[v][0]$ của tất cả các con $v$, đồng thời cộng thêm $1$ (đại diện cho việc chọn đỉnh $u$):
-  $$dp[u][1] = 1 + \sum_{v \in \text{children}(u)} dp[v][0]$$
+
+    $$dp[u][1] = 1 + \sum_{v \in \text{children}(u)} dp[v][0]$$
 
 #### Chứng minh tính đúng đắn
 - **Trường hợp cơ sở (Đỉnh lá $u$):** Đỉnh lá không có con. Theo công thức:
@@ -235,6 +242,7 @@ plt.tight_layout()
     ```
 
 **Độ phức tạp:**
+
 - **Thời gian:** $O(N)$ vì mỗi đỉnh và mỗi cạnh được duyệt qua đúng một lần trong DFS.
 - **Không gian:** $O(N)$ để lưu trữ danh sách kề và mảng quy hoạch động $dp$.
 
@@ -246,23 +254,31 @@ plt.tight_layout()
 
 ### Phân tích quy hoạch động
 Xét một đỉnh $u$ bất kỳ làm gốc tạm thời của cây con $T_u$. Đường đi dài nhất nằm hoàn toàn trong $T_u$ sẽ rơi vào một trong hai trường hợp:
+
 1. Đường đi dài nhất đi qua đỉnh $u$. Đường đi này sẽ nối từ một lá trong cây con của con thứ nhất của $u$, qua đỉnh $u$, tới một lá trong cây con của con thứ hai của $u$.
 2. Đường đi dài nhất không đi qua $u$ mà nằm trọn vẹn trong một cây con $T_v$ của một đỉnh con $v$ nào đó của $u$.
 
 Ta định nghĩa:
+
 - $dp[u]$: Độ dài đường đi dài nhất bắt đầu từ $u$ và đi xuống các lá thuộc cây con $T_u$.
 
 ### Công thức quy hoạch động
 - Với đỉnh lá $u$, ta có $dp[u] = 0$.
 - Với đỉnh nội bộ $u$:
-  $$dp[u] = 1 + \max_{v \in \text{children}(u)} dp[v]$$
+
+    $$dp[u] = 1 + \max_{v \in \text{children}(u)} dp[v]$$
+
 - Để tìm đường kính đi qua $u$, ta lấy tổng của hai giá trị $dp[v] + 1$ lớn nhất từ các đỉnh con của $u$. Gọi hai giá trị lớn nhất này là $best_1$ và $best_2$ (nếu $u$ chỉ có một con, ta coi $best_2 = 0$). Đường kính cục bộ đi qua $u$ là:
-  $$\text{local\_diameter}(u) = best_1 + best_2$$
+
+    $$\text{local\_diameter}(u) = best_1 + best_2$$
+
 - Đường kính của toàn bộ cây sẽ là giá trị lớn nhất của đường kính cục bộ qua mọi đỉnh $u$:
-  $$\text{Diameter} = \max_{u \in V} \text{local\_diameter}(u)$$
+
+    $$\text{Diameter} = \max_{u \in V} \text{local\_diameter}(u)$$
 
 ### Chứng minh tính đúng đắn
 Bất kỳ đường đi đơn nào trên cây cũng đều có một đỉnh có độ sâu nhỏ nhất trên đường đi đó, gọi là đỉnh tổ tiên chung thấp nhất (LCA) của hai đầu mút đường đi. 
+
 - Giả sử đường đi dài nhất trên cây có LCA là $u$. Khi đó, hai nhánh của đường đi này đi xuống hai cây con khác nhau của $u$ (hoặc một nhánh bắt đầu từ $u$ nếu $u$ là một đầu mút).
 - Độ dài của hai nhánh này lần lượt là độ dài đường đi dài nhất đi xuống từ $u$ qua hai con khác nhau, chính là hai giá trị $dp[v] + 1$ lớn nhất. Do đó, việc duyệt qua mọi đỉnh $u$ và tính $best_1 + best_2$ đảm bảo ta không bỏ sót bất kỳ đường đi ứng viên nào.
 
@@ -376,6 +392,7 @@ Bất kỳ đường đi đơn nào trên cây cũng đều có một đỉnh c�
     ```
 
 **Độ phức tạp:**
+
 - **Thời gian:** $O(N)$
 - **Không gian:** $O(N)$
 
@@ -389,18 +406,23 @@ Bất kỳ đường đi đơn nào trên cây cũng đều có một đỉnh c�
 Một đường đi giữa $x$ và $y$ nằm hoàn toàn trong cây con gốc $u$ khi và chỉ khi cả $x$ và $y$ đều thuộc cây con gốc $u$.
 Do đó, số lượng cặp đỉnh thỏa mãn chính là số cách chọn ra $2$ đỉnh phân biệt từ tập hợp các đỉnh thuộc cây con gốc $u$.
 Gọi $sz[u]$ là kích thước (số lượng đỉnh) của cây con gốc $u$. Số cách chọn $2$ đỉnh bất kỳ từ cây con gốc $u$ là:
+
 $$\text{Pairs}(u) = \binom{sz[u]}{2} = \frac{sz[u] \cdot (sz[u] - 1)}{2}$$
 
 Ta định nghĩa quy hoạch động:
+
 - $sz[u]$: Số lượng đỉnh trong cây con gốc $u$.
 - $dp[u]$: Số lượng cặp đỉnh có đường đi nằm hoàn toàn trong cây con gốc $u$.
 
 ### Công thức quy hoạch động
 - Với đỉnh lá $u$:
-  $$sz[u] = 1, \quad dp[u] = 0$$
+
+    $$sz[u] = 1, \quad dp[u] = 0$$
+
 - Với đỉnh $u$ bất kỳ:
-  $$sz[u] = 1 + \sum_{v \in \text{children}(u)} sz[v]$$
-  $$dp[u] = \frac{sz[u] \cdot (sz[u] - 1)}{2}$$
+
+    $$sz[u] = 1 + \sum_{v \in \text{children}(u)} sz[v]$$
+    $$dp[u] = \frac{sz[u] \cdot (sz[u] - 1)}{2}$$
 
 Công thức trên tính toán trực tiếp kết quả cho mỗi đỉnh trong $O(1)$ sau khi đã biết kích thước cây con của các con.
 
@@ -503,11 +525,14 @@ Kỹ thuật **Rerooting DP** cho phép chuyển đổi gốc của cây từ đ
 ### Ví dụ: Tổng khoảng cách từ mọi đỉnh
 
 **Bài toán:** Cho một cây $T$ gồm $N$ đỉnh. Với mỗi đỉnh $u$, ta cần tính:
+
 $$dist\_sum[u] = \sum_{x \in V} \text{dist}(u, x)$$
+
 Trong đó $\text{dist}(u, x)$ là số cạnh trên đường đi ngắn nhất giữa $u$ và $x$.
 
 #### Giai đoạn 1: Duyệt Bottom-up ( DFS lần 1 )
 Ta cố định gốc là đỉnh $1$. Tính kích thước cây con $sz[u]$ và tổng khoảng cách từ $u$ tới các đỉnh trong cây con của nó, gọi là $dp\_down[u]$:
+
 $$sz[u] = 1 + \sum_{v \in \text{children}(u)} sz[v]$$
 $$dp\_down[u] = \sum_{v \in \text{children}(u)} (dp\_down[v] + sz[v])$$
 
@@ -531,10 +556,12 @@ graph LR
 ```
 
 **Phân tích sự thay đổi khoảng cách khi chuyển gốc từ $u$ sang $v$:**
+
 - Đối với tất cả các đỉnh nằm trong cây con $T_v$ của $v$: Khoảng cách tới gốc mới $v$ giảm đi $1$ so với gốc cũ $u$. Số lượng đỉnh này là $sz[v]$.
 - Đối với tất cả các đỉnh nằm ngoài cây con $T_v$: Khoảng cách tới gốc mới $v$ tăng thêm $1$ so với gốc cũ $u$. Số lượng đỉnh này là $N - sz[v]$.
 
 Từ đó, ta thiết lập mối quan hệ toán học:
+
 $$dist\_sum[v] = dist\_sum[u] - sz[v] + (N - sz[v])$$
 $$dist\_sum[v] = dist\_sum[u] + N - 2 \cdot sz[v]$$
 
@@ -666,6 +693,7 @@ Công thức chuyển đổi này cho phép ta tính $dist\_sum[v]$ từ $dist\_
 Khi hàm gộp trạng thái của các con không có phép toán nghịch đảo (như phép nhân modulo không nguyên tố cùng nhau, phép lấy lớn nhất $\max$), ta không thể dễ dàng "trừ đi" phần đóng góp của con $v$ khỏi cha $u$ như bài toán tổng khoảng cách.
 
 Để giải quyết, ta sử dụng mảng dồn tiền tố (prefix) và hậu tố (suffix) của các đỉnh con:
+
 1. Với đỉnh $u$ có danh sách các đỉnh con là $v_1, v_2, \dots, v_k$.
 2. Ta tính mảng tiền tố $pref[i]$ đại diện cho phép gộp kết quả của $v_1, \dots, v_i$.
 3. Ta tính mảng hậu tố $suff[i]$ đại diện cho phép gộp kết quả của $v_i, \dots, v_k$.
@@ -680,15 +708,19 @@ Cho một cây $T$ gồm $N$ đỉnh. Mỗi đỉnh $u$ có trọng lượng $w[
 
 ### Thiết lập trạng thái DP
 Ta định nghĩa:
+
 - $dp[u][j]$: Giá trị lớn nhất chọn được trong cây con gốc $u$ với tổng trọng lượng sử dụng không vượt quá $j$.
 
 ### Công thức chuyển trạng thái và thuật toán gộp túi
 Khi khởi tạo tại $u$, nếu ta chọn $u$, ta tiêu tốn $w[u]$ trọng lượng và nhận về $val[u]$ giá trị:
+
 - Với $j \ge w[u]$: $dp[u][j] = val[u]$.
 - Với $j < w[u]$: $dp[u][j] = -\infty$ (không hợp lệ vì bắt buộc phải chọn $u$).
 
 Khi gộp thông tin từ đỉnh con $v$ vào cha $u$:
+
 $$dp[u][j] = \max_{0 \le k \le j} (dp[u][j - k] + dp[v][k])$$
+
 *Chú ý quan trọng:* Ta phải duyệt ngược $j$ từ $K$ xuống $0$ để tránh việc thông tin của $dp[v]$ được nhân bản và sử dụng nhiều lần trong quá trình cập nhật trạng thái của $u$.
 
 ---
@@ -700,6 +732,7 @@ Ta có thể tối ưu hóa độ phức tạp về $O(N \cdot K)$ bằng cách 
 
 #### Thuật toán tối ưu
 Khi gộp cây con $v$ vào $u$, ta chỉ duyệt giá trị $j$ lên tới giới hạn tối đa có thể đạt được của cây con tích lũy cho đến lúc đó:
+
 - Gọi $sz[u]$ là số đỉnh đã duyệt qua trong cây con gốc $u$.
 - Khi merge con $v$:
   - Vòng lặp $j$ chạy từ $\min(K, sz[u] + sz[v])$ xuống $0$.
@@ -707,6 +740,7 @@ Khi gộp cây con $v$ vào $u$, ta chỉ duyệt giá trị $j$ lên tới gi�
 
 #### Chứng minh toán học độ phức tạp $O(N \cdot K)$
 Với thuật toán tối ưu hóa trên, số lượng phép tính tại mỗi bước gộp hai cây con gốc $u$ và $v$ tỉ lệ thuận với số cặp đỉnh $(x, y)$ sao cho $x$ thuộc subtree đã duyệt của $u$ và $y$ thuộc subtree của $v$.
+
 - Mỗi cặp đỉnh $(x, y)$ bất kỳ trên cây có tổ tiên chung thấp nhất duy nhất là đỉnh $LCA(x, y)$.
 - Cặp đỉnh này chỉ được xét đúng một lần duy nhất tại bước gộp hai nhánh con kề cận của $LCA(x, y)$.
 - Do đó, nếu không có giới hạn dung lượng $K$, tổng số bước lặp trên toàn bộ thuật toán là số cách chọn $2$ đỉnh từ $N$ đỉnh, tức là $O(N^2)$.
@@ -871,6 +905,7 @@ Với thuật toán tối ưu hóa trên, số lượng phép tính tại mỗi 
 
 ### 7.1. Tìm tâm cây (Tree Center)
 Tâm cây là tập hợp các đỉnh (tối đa là $2$ đỉnh trên bất kỳ cây nào) mà từ đó khoảng cách lớn nhất đến bất kỳ lá nào khác là nhỏ nhất.
+
 - Một cách giải quyết là dùng quy hoạch động đổi gốc để tìm bán kính lớn nhất đi xuống từ mọi gốc.
 - Một cách tiếp cận thực tế khác là liên tục loại bỏ các đỉnh lá (đỉnh có bậc $\le 1$) bằng cấu trúc dữ liệu hàng đợi (Queue), tương tự như sắp xếp topo.
 

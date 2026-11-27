@@ -2,10 +2,12 @@
 **Nguồn:** [wcipeg](http://wcipeg.com/wiki/Topological_sort)
 
 **Biên soạn:**
+
 - Nguyễn Châu Khanh - VNU University of Engineering and Technology (VNU-UET)
 - Bùi Minh Hoạt - VNU University of Engineering and Technology (VNU-UET)
 
 **Reviewer:**
+
 - Hoàng Xuân Nhật
 
 ## Mở đầu
@@ -114,6 +116,7 @@ Cho đồ thị có hướng không chu trình *(Directed Acyclic Graph - DAG)* 
 ### **Cài đặt**
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 110` .
 - Mảng `ans[]` - Mảng đánh số lại các đỉnh.
 - Mảng `indegree[]` - Lưu số lượng cung vào của mỗi đỉnh.
@@ -206,6 +209,7 @@ else:
 ```
 
 **Mô tả quá trình**
+
 - Thứ tự Tô-pô **không phải** là duy nhất. Quá trình sau chỉ mô tả lại quá trình xác định $1$ thứ tự Tô-pô theo như code mẫu.
 
 <img src="/uploads/topological_sort_gif1.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -220,6 +224,7 @@ else:
 - Thứ tự Tô-pô sẽ là duy nhất khi và chỉ khi `listSource` chứa chính xác một đỉnh ở đầu mỗi lần lặp của vòng lặp *while*.
 
 **Độ phức tạp**
+
 - Ở vòng lặp *while* để duyệt các đỉnh trong `listSource`, ta mất độ phức tạp $O(n)$ vì mỗi đỉnh chỉ được thêm vào nhiều nhất $1$ lần *(ở ban đầu hoặc ngay sau khi cạnh vào cuối cùng của nó bị loại bỏ)*. Và ta sẽ mất thêm độ phức tạp $O(m)$ để duyệt các cạnh vì mỗi cạnh chỉ được kiểm tra nhiều nhất $1$ lần trong vòng lặp while *(khi đỉnh nối với nó được lấy ra)*. 
 - Nhìn chung, độ phức tạp của thuật toán này là $O(n+m)$.
 
@@ -250,6 +255,7 @@ else:
 ### **Cài đặt**
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 110` .
 - Mảng `ans[]` - Mảng đánh số lại các đỉnh.
 - Mảng `visit[]` - Mảng lưu trạng thái của mỗi đỉnh.
@@ -340,6 +346,7 @@ print(' '.join(map(str, ans[1:])))
 ```
 
 **Mô tả quá trình**
+
 - Thứ tự Tô-pô **không phải** là duy nhất. Quá trình sau chỉ mô tả lại quá trình xác định $1$ thứ tự Tô-pô theo như code mẫu.
 
 <img src="/uploads/topological_sort_gif2.gif" style="max-width: 700px; display: block; margin: 0 auto;" />
@@ -354,6 +361,7 @@ print(' '.join(map(str, ans[1:])))
 - Nếu đồ thị **không phải** là $DAG$ thì thông báo lỗi sẽ được in ra.
 
 **Độ phức tạp**
+
 - Ở hàm $DFS$, ta mất độ phức tạp $O(n)$ vì mỗi đỉnh chỉ được duyệt nhiều nhất $1$ lần và ta sẽ mất thêm độ phức tạp $O(m)$ để duyệt tất cả các cạnh của đồ thị.
 - Nhìn chung, độ phức tạp của thuật toán này là $O(n + m)$.
 
@@ -394,6 +402,7 @@ Tìm độ dài lớn nhất của đường đi có hướng trong $G$. Ở đ�
 ```
 
 **Note**
+
 - Con đường có độ dài lớn nhất là : $1 \rightarrow 2 \rightarrow 3$.
 
 ## Thuật toán
@@ -407,6 +416,7 @@ Tìm độ dài lớn nhất của đường đi có hướng trong $G$. Ở đ�
 ### Cài đặt
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 100007` .
 - Mảng `dp[]` - Mảng quy hoạch động.
 - Mảng `visit[]` - Mảng lưu trạng thái của mỗi đỉnh.
@@ -493,6 +503,7 @@ print(ans)
 - Với $DAG$, quy hoạch động trên thứ tự Tô-pô **có thể giải được** trong $O(n + m)$, kể cả với trọng số dương/âm, kể cả tìm đường đi ngắn nhất/dài nhất.
  
 **Độ phức tạp**
+
 - Độ phức tạp của thuật toán là $O(n + m)$.
 
 ## Bài toán 3 - Fox And Names
@@ -569,6 +580,7 @@ Impossible
 ### Cài đặt
 
 **Cấu trúc dữ liệu:**
+
 - Hằng số `maxN = 110` .
 - Mảng `visit[]` - Mảng lưu trạng thái của mỗi đỉnh.
 - Vector `g[]` - Danh sách cạnh kề của mỗi đỉnh.
@@ -687,6 +699,7 @@ print(''.join(chr(x + ord('a')) for x in topo))
 - Để **tối ưu độ phức tạp**, với mỗi chuỗi kí tự ta không cần phải *so sánh* nó với tất cả các chuỗi còn lại. Mà ta chỉ cần *so sánh* $2$ chuỗi kí tự liên tiếp. Vì nó sẽ luôn đúng theo **tính chất bắc cầu**: Nếu $s < x$ và $x < t$ thì $s < t$.
  
 **Độ phức tạp**
+
 - Ở vòng *for* đầu tiên để xây dựng các cạnh của đồ thị, ta mất độ phức tạp $O(n * \|name\|)$.
 - Ở vòng *for* thứ hai để xác định thứ tự Tô-pô, ta mất độ phức tạp $O(26 + m)$. Với $m$ là số cạnh của đồ thị. Trong **trường hợp xấu nhất**, với mỗi cặp kí tự liên tiếp đều tạo ra $1$ cạnh thì số lượng cạnh lớn nhất có thể tạo ra là $n-1$ cạnh.
 - Nhìn chung, độ phức tạp của thuật toán này là $O(n * \|name\|)$.

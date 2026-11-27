@@ -206,6 +206,7 @@ Xét lưới $3 \times 4$ với các ô trống (`.`) và tường (`#`). Đi qu
     **Giải thích:** Đi từ `(0,0)` xuống $(1,0)$ rồi xuống $(2,0)$ (chi phí $0$). Từ $(2,0)$ qua $(2,1)$ (chi phí $0$), phá tường ở $(1,1)$ (chi phí $1$). Tuy nhiên đường đi tối ưu là: $(0,0) \rightarrow (0,1)$ (0), $\rightarrow$ phá tường $(0,2)$ (1), $\rightarrow (0,3)$ (0). Tổng $= 1$! Cần chạy BFS 0-1 để kiểm tra chính xác.
 
     **Quy ước trên lưới:**
+
     - Ô trống `.`: trọng số $0$ khi di chuyển từ ô lân cận sang
     - Tường `#`: trọng số $1$ khi đi qua (phá tường)
     - 4 hướng di chuyển: lên, xuống, trái, phải

@@ -107,6 +107,7 @@ def factorial_2():
 
 ## Tính số Fibonacci
 Dãy Fibonacci là dãy số được định nghĩa theo công thức truy hồi sau:
+
 $$
 f_n =
 \begin{cases}
@@ -115,6 +116,7 @@ f_n =
 f_{n - 2} + f_{n - 1} & \text{với } n > 1
 \end{cases}
 $$
+
 Văn vẻ hơn thì trong dãy này, mỗi số hạng bằng tổng của hai số hạng liền trước nó. Các giá trị $f_0$, $f_1$ có thể khác một chút tuỳ tài liệu.
 
 **Bài toán:** Tìm số Fibonacci thứ $n$ ($n \leq 20$).
@@ -161,6 +163,7 @@ Tóm gọn lại, chúng ta đang xây dựng một danh sách gồm tất cả 
 - Xét mọi trường hợp ký tự thứ nhất. Ta được `0` hoặc `1`.
 - Với mỗi trường hợp của ký tự thứ nhất, xét tiếp mọi trường hợp ký tự thứ hai. Ta được `00`, `01` từ `0` ở bước trước và `10`, `11` từ `1` ở bước trước.
 - Tương tự, với mỗi trường hợp của ký tự thứ hai, ta xét nốt mọi trường hợp ở ký tự thứ ba. Các dãy nhận được là `000`, `001`, `010`, `011`, `100`, `101`, `110`, `111`
+
 Nếu bạn vẫn chưa hiểu các dãy này được tạo dựng theo thứ tự như thế nào, hãy xem sơ đồ ở phần dưới.
  
 Trên phương diện quy nạp, nếu cần dựng danh sách các tập hợp mà mỗi tập có dạng $\{x_1, x_2, ..., x_n\}$, ta xét mọi giá trị của $x_1$, rồi sau đó duyệt tiếp $\{x_2, x_3, ..., x_n\}$, tiếp tục xét mọi giá trị $x_2$, rồi lại duyệt $\{x_3, x_4, ..., x_n\}$, ..., cho đến khi nào tất cả các giá trị đều đã xác định. Lúc này, ta lưu tập vừa tạo lại vào danh sách và tiếp tục chuyển sang tập khác từ các giá trị khác của các $x_i$

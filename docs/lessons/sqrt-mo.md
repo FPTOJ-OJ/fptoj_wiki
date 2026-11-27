@@ -18,6 +18,7 @@
 ### 1.1. Tại sao cần chia căn?
 
 Xét bài toán: cho mảng `A[0..N-1]`, có `Q` truy vấn:
+
 - **Truy vấn 1:** Cập nhật `A[i] = val`
 - **Truy vấn 2:** Tính tổng đoạn `[l, r]`
 
@@ -235,6 +236,7 @@ Cho mảng `A[0..N-1]`, truy vấn: đếm số lần giá trị `x` xuất hi�
 ### 2.2. Ý tưởng
 
 Mỗi khối lưu một **bảng tần suất** (`map` hoặc mảng nếu giá trị nhỏ). Khi truy vấn:
+
 - Các khối đầy đủ: tra bảng tần suất → `O(1)` mỗi khối
 - Phần lẻ: đếm trực tiếp → `O(√N)`
 
@@ -497,6 +499,7 @@ Tổng di chuyển của L: O(Q × √N) vì mỗi truy vấn L di chuyển tố
 ### 4.1. Ví dụ minh họa chi tiết
 
 Cho mảng `A = [1, 2, 1, 3, 2, 1]`, `N = 6`, và 3 truy vấn:
+
 - Q0: `[0, 2]` → đếm số phần tử khác nhau
 - Q1: `[1, 4]`
 - Q2: `[0, 5]`
@@ -731,6 +734,7 @@ Với truy vấn đường đi `(u, v)`, giả sử `in[u] ≤ in[v]`:
 - Ngược lại: xét đoạn `[out[u], in[v]]` (hoặc `[in[u], in[v]]` tùy cách cài đặt) cộng thêm LCA
 
 **XOR Trick:** Dùng mảng `visited[]` để đánh dấu. Khi thêm/xóa đỉnh, XOR bit visited:
+
 - Nếu đỉnh xuất hiện 2 lần trong đoạn → hủy nhau (tương đương không nằm trên đường đi)
 - Nếu xuất hiện 1 lần → nằm trên đường đi
 
@@ -1223,12 +1227,14 @@ sort(queries.begin(), queries.end(),
 ```
 
 **Khi nào dùng Sqrt Decomposition?**
+
 - Cần cập nhật điểm + truy vấn đoạn → Sqrt Decomposition
 - Nhiều truy vấn offline, không cập nhật → Mo's Algorithm
 - Nhiều truy vấn offline + có cập nhật → Mo's 3D
 - Truy vấn trên đường đi cây → Mo's on Trees
 
 **Khi nào KHÔNG dùng?**
+
 - Cần `O(log N)` mỗi truy vấn → dùng Segment Tree / BIT
 - Có cập nhật đoạn → dùng Segment Tree với lazy propagation
 - Dữ liệu nhỏ → dùng cách trực tiếp, không cần phức tạp hóa

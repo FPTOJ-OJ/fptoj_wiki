@@ -1348,6 +1348,7 @@ Toàn bộ 30 bài tập BFS/DFS dưới đây được thiết kế riêng, t�
     ```
 ??? tip "graph-cycle-dir — Chu Trình Có Hướng"
     **Ý tưởng:** Sử dụng thuật toán DFS kết hợp tô màu các đỉnh để phát hiện chu trình có hướng.
+
     - Màu 0 (Trắng): Chưa được thăm.
     - Màu 1 (Xám): Đang được thăm (nằm trong ngăn xếp đệ quy hiện tại).
     - Màu 2 (Đen): Đã hoàn thành thăm và kết thúc đệ quy cho đỉnh này.
@@ -1394,6 +1395,7 @@ Toàn bộ 30 bài tập BFS/DFS dưới đây được thiết kế riêng, t�
     ```
 ??? tip "graph-bipartite — Đồ Thị Hai Phía"
     **Ý tưởng:** Đồ thị hai phía (Bipartite Graph) là đồ thị có thể tô màu các đỉnh bằng 2 màu sao cho không có 2 đỉnh kề nhau nào cùng màu. Ta thực hiện BFS hoặc DFS. Khi đi từ đỉnh $u$ sang đỉnh kề $v$:
+
     - Nếu $v$ chưa tô màu: ta tô màu $v$ ngược màu với $u$.
     - Nếu $v$ đã tô màu: ta so sánh màu của $v$ và $u$. Nếu chúng trùng màu thì đồ thị không phải đồ thị hai phía.
 
@@ -1627,6 +1629,7 @@ Toàn bộ 30 bài tập BFS/DFS dưới đây được thiết kế riêng, t�
     ```
 ??? tip "graph-water-flow — Nước Chảy Hai Đại Dương"
     **Ý tưởng:** Tránh sử dụng DFS đệ quy sâu để loại bỏ nguy cơ tràn stack. Ta sử dụng thuật toán **BFS đa nguồn (Multi-source BFS)** xuất phát từ hai bờ đại dương ngược vào đất liền:
+
     - Bờ Pacific (biên bắc và biên tây) là tập nguồn thứ nhất.
     - Bờ Atlantic (biên nam và biên đông) là tập nguồn thứ hai.
     Duyệt ngược chiều cao: nước chỉ chảy từ ô thấp lên ô cao hơn hoặc bằng ($heights[nr][nc] >= heights[r][c]$). Kết quả cuối cùng là số lượng ô đất được đánh dấu là có thể chạm tới bởi cả hai lượt BFS.
@@ -1779,6 +1782,7 @@ Toàn bộ 30 bài tập BFS/DFS dưới đây được thiết kế riêng, t�
     ```
 ??? tip "graph-tree-diameter — Đường Kính Của Cây"
     **Ý tưởng:** **Hai lần BFS:**
+
     1. BFS từ bất kỳ → tìm đỉnh xa nhất `A`
     2. BFS từ `A` → tìm đỉnh xa nhất `B` và khoảng cách = đường kính
 
@@ -2059,6 +2063,7 @@ Toàn bộ 30 bài tập BFS/DFS dưới đây được thiết kế riêng, t�
 
 ??? tip "graph-cut-vertices — Tìm Khớp Của Đồ Thị"
     **Ý tưởng:** Đỉnh $u$ là khớp (articulation point) của đồ thị vô hướng liên thông khi ta xây dựng cây DFS xuất phát từ một đỉnh bất kỳ và:
+
     1. Đỉnh $u$ là gốc của cây DFS và có từ 2 con trở lên trong cây đệ quy DFS.
     2. Đỉnh $u$ không phải là gốc và tồn tại đỉnh con $v$ trực tiếp của $u$ thỏa mãn: $low[v] \ge dfn[u]$. Nghĩa là không có cạnh ngược nào đi từ cây con của $v$ lên phía trên tổ tiên của $u$.
 
