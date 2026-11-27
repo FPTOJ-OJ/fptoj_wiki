@@ -3,7 +3,7 @@ mkdocs-material
 pymdown-extensions
 pygments
 pyyaml
-zensical
+zensical==0.1.3 # pre-1.0, pin exact — CI must use the verified version
 matplotlib
 seaborn
 numpy
