@@ -165,17 +165,22 @@ Since v4 there is **no compile server**: code runs locally via WebAssembly, noth
 |------|------|
 | `docs/js/cp-compiler.js` | Public facade (`window.CPCompiler`), queueing, timeouts, timing |
 | `docs/js/cp-runner-worker.js` | Web Worker that owns both runtimes (lazy-loaded) |
+| `docs/js/clang-wasm.global.js` | Clang/LLVM runtime bundle (vendored, 296 KB) |
+| `docs/clang/` | Clang/lld/memfs/sysroot assets, self-hosted (~29 MB) |
+| `docs/pyodide/` | Pyodide core: loader, `pyodide.asm.mjs`, `pyodide.asm.wasm`, `python_stdlib.zip`, `pyodide-lock.json` (~13.6 MB) |
 
 | Language | Engine | First load |
 |----------|--------|-----------|
-| C++ | Clang 22 → WASM (`@live-codes/clang-wasm`), ships `<bits/stdc++.h>`, `<bits/extc++.h>`, pb_ds, `ext/rope` | ~29 MB (cached by browser) |
-| Python 3 | CPython → WASM (Pyodide) | ~12 MB (cached by browser) |
+| C++ | Clang 22 → WASM (`@live-codes/clang-wasm`), ships `<bits/stdc++.h>`, `<bits/extc++.h>`, pb_ds, `ext/rope` | ~29 MB, same origin |
+| Python 3 | CPython 3.14 → WASM (Pyodide 314.0.8) | ~13.6 MB, same origin |
 
-- Both runtimes are fetched lazily on the first **▶ Chạy**, inside a Worker so the page never freezes, then kept warm for later runs (warm C++ compile ≈1–2 s, Python run ≈5 ms).
-- Assets come from jsDelivr by default; override with `CPCompiler.configure({ cpp: { assetsUrl, runtimeUrl }, python: { indexUrl } })` to self-host.
+- Both runtimes are **self-hosted** (no CDN needed): the worker resolves `clang/`, `pyodide/` relative to itself, so nothing breaks if jsDelivr/unpkg is unreachable. The CDN URLs in the config are only a fallback for a missing/incomplete deploy.
+- Both are fetched lazily on the first **▶ Chạy**, inside a Worker so the page never freezes, then kept warm for later runs (warm C++ compile ≈1–2 s, Python run ≈5 ms).
 - `CPCompiler.preload('cpp' | 'python')` warms a runtime ahead of time; `onStatus` / `CPCompiler.on('status')` reports load/compile/run phases.
 - Timeouts kill the worker (`timeout`, default 45 s, covers compile+run; `loadTimeout` covers the first download). The next run recreates it.
 - Behaviour to keep in mind: no C++ exceptions (`try/catch`/`throw` do not link), and it is Clang pretending to be GNU (`gnu++17`, `__GNUC__` defined), so `#include <bits/stdc++.h>` works but `bits/stdc++.h` content is a curated subset, not GCC's exact header.
+
+When bumping a runtime version, update the files under `docs/clang/` + `docs/js/clang-wasm.global.js` (from `@live-codes/clang-wasm`) or `docs/pyodide/` (from the `pyodide` npm package) **and** `CLANG_WASM_VERSION` / `PYODIDE_VERSION` in `cp-compiler.js` — those constants only drive the fallback URLs.
 
 
 ### Matplotlib Visualizations

@@ -54,18 +54,22 @@
     // Vị trí worker (mặc định lấy theo đường dẫn của cp-compiler.js)
     workerUrl: null,
 
-    // Bộ công cụ C++ (Clang → WASM). Đổi sang bản tự host nếu muốn.
+    // Bộ công cụ C++ (Clang → WASM) — tự host trong repo.
+    //   runtimeUrl: null  → js/clang-wasm.global.js cùng origin
+    //   assetsUrl : null  → thư mục clang/ cùng origin
+    // Fallback chỉ dùng khi bản tự host lỗi (thiếu file, deploy sót...).
     cpp: {
-      runtimeUrl: 'https://cdn.jsdelivr.net/npm/@live-codes/clang-wasm@' + CLANG_WASM_VERSION + '/dist/clang-wasm.global.js',
-      assetsUrl: 'https://cdn.jsdelivr.net/npm/@live-codes/clang-wasm@' + CLANG_WASM_VERSION + '/assets/',
-      // Dùng khi CDN chính không tải được (29 MB nên đáng có phương án hai)
-      runtimeFallbackUrl: 'https://unpkg.com/@live-codes/clang-wasm@' + CLANG_WASM_VERSION + '/dist/clang-wasm.global.js',
-      assetsFallbackUrl: 'https://unpkg.com/@live-codes/clang-wasm@' + CLANG_WASM_VERSION + '/assets/',
+      runtimeUrl: null,
+      assetsUrl: null,
+      runtimeFallbackUrl: 'https://cdn.jsdelivr.net/npm/@live-codes/clang-wasm@' + CLANG_WASM_VERSION + '/dist/clang-wasm.global.js',
+      assetsFallbackUrl: 'https://cdn.jsdelivr.net/npm/@live-codes/clang-wasm@' + CLANG_WASM_VERSION + '/assets/',
     },
 
-    // Python (Pyodide)
+    // Python (Pyodide) — tự host trong repo.
+    //   indexUrl: null → thư mục pyodide/ cùng origin
     python: {
-      indexUrl: 'https://cdn.jsdelivr.net/pyodide/v' + PYODIDE_VERSION + '/full/',
+      indexUrl: null,
+      fallbackIndexUrl: 'https://cdn.jsdelivr.net/pyodide/v' + PYODIDE_VERSION + '/full/',
     },
 
     // Giữ cho tương thích với v3 (không còn dùng)

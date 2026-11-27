@@ -67,6 +67,19 @@ function messageOf(err) {
   return msg;
 }
 
+/**
+ * Tài nguyên tự host nằm cạnh worker: worker ở `<root>/js/`, clang ở `<root>/clang/`,
+ * pyodide ở `<root>/pyodide/`. Cấu hình `null` nghĩa là "dùng bản cùng origin",
+ * nhờ vậy site chạy được cả khi deploy dưới sub-path.
+ */
+function sameOrigin(relative) {
+  try {
+    return new URL(relative, self.location.href).href;
+  } catch (e) {
+    return relative;
+  }
+}
+
 function handle(job) {
   if (job.type === 'warm') {
     return (job.language === 'python' ? loadPython(job) : loadCpp(job)).then(function () {
@@ -91,13 +104,15 @@ function handle(job) {
 function loadCpp(job) {
   var cfg = job.cpp || {};
   var args = job.compileArgs || [];
-  var key = [cfg.runtimeUrl, cfg.assetsUrl, job.std, args.join(' ')].join('|');
+  var runtimeUrl = cfg.runtimeUrl || sameOrigin('clang-wasm.global.js');
+  var assetsUrl = cfg.assetsUrl || sameOrigin('../clang/');
+  var key = [runtimeUrl, assetsUrl, job.std, args.join(' ')].join('|');
   if (state.cpp[key]) return state.cpp[key];
 
   var promise = Promise.resolve().then(function () {
     if (typeof self.clangWasm === 'undefined' && typeof clangWasm === 'undefined') {
       postStatus(job, 'load', 0, 'Đang tải trình biên dịch C++ (≈29 MB, chỉ lần đầu)…');
-      importWithFallback(cfg.runtimeUrl, cfg.runtimeFallbackUrl);
+      importWithFallback(runtimeUrl, cfg.runtimeFallbackUrl);
     }
     var lib = self.clangWasm || (typeof clangWasm !== 'undefined' ? clangWasm : null);
     if (!lib || typeof lib.createCompiler !== 'function') {
@@ -118,8 +133,8 @@ function loadCpp(job) {
       });
     }
 
-    return create(cfg.assetsUrl).catch(function (err) {
-      if (!cfg.assetsFallbackUrl || cfg.assetsFallbackUrl === cfg.assetsUrl) throw err;
+    return create(assetsUrl).catch(function (err) {
+      if (!cfg.assetsFallbackUrl || cfg.assetsFallbackUrl === assetsUrl) throw err;
       postStatus(job, 'load', 0.02, 'Nguồn tải chính bị lỗi, đang thử nguồn dự phòng…');
       return create(cfg.assetsFallbackUrl);
     });
@@ -209,22 +224,31 @@ function mapCppResult(res, wallMs) {
 
 function loadPython(job) {
   var cfg = job.python || {};
-  var indexUrl = cfg.indexUrl;
+  var indexUrl = cfg.indexUrl || sameOrigin('../pyodide/');
   if (state.python && state.pythonIndexUrl === indexUrl) return Promise.resolve(state.python);
 
   return Promise.resolve().then(function () {
-    postStatus(job, 'load', 0, 'Đang tải Python 3 (≈12 MB, chỉ lần đầu)…');
-    if (typeof self.loadPyodide === 'undefined') {
-      importScripts(indexUrl + 'pyodide.js');
+    function boot(url) {
+      postStatus(job, 'load', 0, 'Đang tải Python 3 (≈13 MB, chỉ lần đầu)…');
+      if (typeof self.loadPyodide === 'undefined') {
+        importWithFallback(url + 'pyodide.js', cfg.fallbackIndexUrl ? cfg.fallbackIndexUrl + 'pyodide.js' : null);
+      }
+      if (typeof self.loadPyodide !== 'function') {
+        throw new Error('Không nạp được Python (Pyodide). Thiếu file trong thư mục pyodide/.');
+      }
+      return self.loadPyodide({ indexURL: url }).then(function (py) {
+        postStatus(job, 'load', 0.9, 'Đang khởi động Python…');
+        state.python = py;
+        state.pythonIndexUrl = url;
+        return py;
+      });
     }
-    if (typeof self.loadPyodide !== 'function') {
-      throw new Error('Không nạp được Python (Pyodide). Kiểm tra kết nối mạng rồi thử lại.');
-    }
-    return self.loadPyodide({ indexURL: indexUrl }).then(function (py) {
-      postStatus(job, 'load', 0.9, 'Đang khởi động Python…');
-      state.python = py;
-      state.pythonIndexUrl = indexUrl;
-      return py;
+
+    return boot(indexUrl).catch(function (err) {
+      var fallback = cfg.fallbackIndexUrl;
+      if (!fallback || fallback === indexUrl) throw err;
+      postStatus(job, 'load', 0.05, 'Nguồn chính bị lỗi, đang thử nguồn dự phòng…');
+      return boot(fallback);
     });
   });
 }
