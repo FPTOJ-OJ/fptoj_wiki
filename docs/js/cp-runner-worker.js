@@ -4,7 +4,9 @@
  *
  * Worker này được cp-compiler.js khởi tạo. Giao thức:
  *   vào : { id, type: 'run'|'warm', language, code, input, std, compileArgs,
- *           cpp: { runtimeUrl, assetsUrl }, python: { indexUrl } }
+ *           cpp: { runtimeUrl, assetsUrl, runtimeFallbackUrl, assetsFallbackUrl },
+ *           python: { indexUrl, fallbackIndexUrl, unpkgIndexUrl } }
+ *           (indexUrl/assetsUrl/runtimeUrl = null nghĩa là "dùng bản tự host cùng origin")
  *   ra  : { id, type: 'status', phase: 'load'|'compile'|'run', progress, text }
  *         { id, type: 'result', result: {...} }
  *         { id, type: 'failure', message }
@@ -61,16 +63,12 @@ function importWithFallback(url, fallbackUrl) {
 }
 
 /**
- * Nạp một script JS cổ điển trong worker.
- * Classic worker: importScripts đồng bộ. Module worker (Pyodide 314 bắt buộc,
- * vì nó từ chối classic worker): fetch rồi eval trong global scope.
- * Trang không đặt Content-Security-Policy nên eval chạy được.
+ * Nạp pyodide.js: luôn fetch + eval, chạy được trong cả classic lẫn module worker.
+ * KHÔNG dùng importScripts ở đây: Chrome vẫn expose hàm đó trong module worker
+ * (typeof vẫn là 'function') nhưng gọi là ném "Module scripts don't support
+ * importScripts()". Trang không đặt Content-Security-Policy nên eval chạy được.
  */
 function loadScript(url) {
-  if (typeof self.importScripts === 'function') {
-    importScripts(url);
-    return Promise.resolve();
-  }
   return fetch(url).then(function (r) {
     if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + url);
     return r.text();

@@ -109,7 +109,7 @@ $(document).ready(function () {
   if (document.querySelector('.cp-pg')) {
     // Đổi số này mỗi khi sửa cp-compiler.js / cp-runner-worker.js / cp-playground.js
     // để trình duyệt bỏ cache cũ (giữ đồng bộ với VERSION trong cp-compiler.js).
-    var CP_ASSET_V = '4.1.0';
+    var CP_ASSET_V = '4.1.1';
     var cmCSS = [
       'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css',
       'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.css',
