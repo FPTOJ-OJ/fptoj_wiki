@@ -3,7 +3,7 @@ mkdocs-material
 pymdown-extensions
 pygments
 pyyaml
-mkdocs-mermaid2-plugin
+zensical
 matplotlib
 seaborn
 numpy

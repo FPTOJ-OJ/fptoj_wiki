@@ -1,21 +1,36 @@
 @echo off
-:: Thiết lập bảng mã UTF-8 để tránh lỗi font chữ
+:: Zensical dev server (production cũng build bằng Zensical).
+:: Chạy: serve.bat [port]
 chcp 65001 > nul
+setlocal
 
-:: Bật chế độ không buffer của Python để log hiện ra ngay lập tức
+set PORT=%1
+if "%PORT%"=="" set PORT=8000
+
 set PYTHONUNBUFFERED=1
 
 echo ======================================================
-echo   MkDocs Server is starting on http://localhost:8000
-echo   Logs are being saved to log.txt
+echo   Zensical server: http://localhost:%PORT%
+echo   Log: log.txt
+echo   Bam Ctrl+C de dung
 echo ======================================================
 echo.
 
-:: Sử dụng cmd.exe để gộp stdout và stderr trước, sau đó truyền vào Tee-Object
-powershell -NoProfile -Command "cmd.exe /c `"python -m mkdocs serve -a localhost:8000 2>&1`" | Tee-Object -FilePath 'log.txt'"
+echo [1/2] Chuan bi noi dung (matplotlib + mermaid)...
+conda run python scripts\prepare_zensical.py
+if errorlevel 1 (
+    echo [ERROR] prepare_zensical.py that bai
+    pause
+    exit /b 1
+)
+
+echo [2/2] Theo doi docs/ va chay server...
+start "" /b conda run python scripts\prepare_zensical.py --watch
+
+powershell -NoProfile -Command "cmd.exe /c `"conda run zensical serve -f zensical.generated.yml -a localhost:%PORT% 2>&1`" | Tee-Object -FilePath 'log.txt'"
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
-    echo [ERROR] MkDocs gap loi khi chay. Vui long kiem tra log.txt
+    echo [ERROR] Zensical gap loi khi chay. Vui long kiem tra log.txt
 )
 pause

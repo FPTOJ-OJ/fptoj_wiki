@@ -30,7 +30,11 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: pip install -r requirements.txt
-      - run: mkdocs build
+      # Zensical không hỗ trợ `hooks:` nên phải chuẩn bị nội dung trước
+      # (matplotlib → WebP, mermaid → <pre>). Xem scripts/prepare_zensical.py.
+      - run: python scripts/prepare_zensical.py
+      - run: zensical build -f zensical.generated.yml
+      # Bản dự phòng nếu cần quay lại: mkdocs build
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v4
         with:

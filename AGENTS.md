@@ -18,15 +18,31 @@ MkDocs + Material theme wiki for competitive programming education (Vietnamese).
 # Install dependencies (once)
 conda run pip install -r requirements.txt
 
-# Start dev server
-conda run python -m mkdocs serve
+# Prepare content (matplotlib → WebP, mermaid → <pre>) and serve
+conda run python scripts/prepare_zensical.py
+conda run zensical serve -f zensical.generated.yml
 ```
 
-Platform-specific helpers:
-- **Windows**: `serve.bat` — sets UTF-8 codepage, logs to `log.txt`
+Platform-specific helpers (both call the two commands above):
+- **Windows**: `serve.bat` — sets UTF-8 codepage, starts a watcher, logs to `log.txt`
 - **Linux/macOS**: `serve.sh [port]` — auto-installs deps if missing, logs to `log.txt`
 
-Visit `http://localhost:8000`. Pages auto-reload on file changes.
+Visit `http://localhost:8000`.
+
+> Sửa file trong `docs/` thì watcher (`prepare_zensical.py --watch`) tự cập nhật
+> `build/docs/` để Zensical rebuild. Nếu chạy tay, phải chạy lại `prepare_zensical.py`
+> sau mỗi lần sửa — Zensical đọc bản sao trong `build/docs/`, không đọc `docs/`.
+
+**Zensical** is the production builder (`zensical build -f zensical.generated.yml`).
+MkDocs is kept as a fallback (`mkdocs build`) and still works, but the deploy workflow
+uses Zensical. Zensical does **not** support `hooks:` yet, which is why
+`scripts/prepare_zensical.py` does the hook's work up front:
+- ```matplotlib ``` blocks → WebP light/dark (reusing `overrides/hooks.py`)
+- ```mermaid ``` blocks → `<pre class="mermaid">`
+- writes `zensical.generated.yml` (drops `hooks:`, adds `theme.variant: classic`,
+  points `docs_dir` at `build/docs`)
+
+`build/` and `zensical.generated.yml` are generated and gitignored.
 
 ### Dependencies
 
@@ -288,13 +304,16 @@ When adding a new lesson group:
 
 Push to `master` or `main` triggers the `deploy` workflow:
 
-1. `actions/checkout@v4`
-2. `actions/setup-python@v5` (Python 3.x)
+1. `actions/checkout@v7`
+2. `actions/setup-python@v7` (Python 3.x) + `actions/setup-node@v7`
 3. `pip install -r requirements.txt`
-4. `mkdocs build`
-5. Deploy `site/` to Cloudflare Pages (`fptoj-wiki` project)
+4. `python scripts/prepare_zensical.py` (matplotlib + mermaid + generated config)
+5. `zensical build -f zensical.generated.yml`
+6. Deploy `site/` to Cloudflare Pages (`fptoj-wiki` project)
 
 Requires secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+
+To roll back to MkDocs, change steps 4–5 to `mkdocs build` (the workflow comments this).
 
 ---
 
@@ -303,19 +322,23 @@ Requires secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
 ### Run a quick build check (no server)
 
 ```bash
-python -m mkdocs build --strict
+python scripts/prepare_zensical.py
+zensical build -f zensical.generated.yml
 ```
 
-`--strict` treats warnings as errors — useful for CI and catching broken links.
+There is no `--strict` equivalent in Zensical yet; unresolved link references are
+reported as warnings. To run the old strict check (MkDocs fallback):
+
+```bash
+python -m mkdocs build --strict
+```
 
 ### Clean matplotlib cache and rebuild
 
 ```bash
-# Windows PowerShell
-$env:MKDOCS_CLEAN_MPL = '1'; python -m mkdocs build --strict
-
-# Linux/macOS
-MKDOCS_CLEAN_MPL=1 python -m mkdocs build --strict
+# Renders all charts again (Zensical pipeline)
+python scripts/prepare_zensical.py --clean
+zensical build -f zensical.generated.yml
 
 # Or use the helper script (Windows)
 clean-build.bat
@@ -326,6 +349,7 @@ This deletes all cached matplotlib images in `docs/uploads/matplotlib/` and reco
 ### Find broken internal links
 
 ```bash
+# MkDocs reports them with file:line context
 python -m mkdocs build --strict 2>&1 | grep -i "warning"
 ```
 

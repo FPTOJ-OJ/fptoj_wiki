@@ -16,3 +16,6 @@ GuideToCompetitiveProgramming_output
 _test_*
 desktop.ini
 Thumbs.db
+
+build/
+zensical.generated.yml

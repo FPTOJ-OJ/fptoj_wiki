@@ -28,9 +28,18 @@ def load_env():
 
 
 def build():
-    print("[1/2] Building site...")
+    print("[1/2] Preparing content (matplotlib + mermaid)...")
     result = subprocess.run(
-        [sys.executable, "-m", "mkdocs", "build"],
+        [sys.executable, str(ROOT / "scripts" / "prepare_zensical.py")],
+        cwd=ROOT,
+    )
+    if result.returncode != 0:
+        print("[ERROR] prepare_zensical.py failed.")
+        sys.exit(1)
+
+    print("[2/2] Building site with Zensical...")
+    result = subprocess.run(
+        [sys.executable, "-m", "zensical", "build", "-f", "zensical.generated.yml"],
         cwd=ROOT,
     )
     if result.returncode != 0:
@@ -42,7 +51,7 @@ def build():
 
 
 def deploy():
-    print("[2/2] Deploying to Cloudflare Pages...")
+    print("[3/3] Deploying to Cloudflare Pages...")
     result = subprocess.run(
         f"npx --yes wrangler pages deploy site --project-name={PROJECT_NAME} --commit-dirty=true",
         cwd=ROOT,
