@@ -150,20 +150,22 @@ cin.tie(NULL);
 !!! warning "Lưu ý khi tắt sync"
     - **Không** dùng chung `cin`/`cout` với `scanf`/`printf`
     - **Không** dùng `puts`/`gets` với `cout`/`cin`
+    - **Dùng `'\n'` thay cho `endl`**: `endl` ép xả bộ đệm (flush) sau mỗi lần in, làm mất tác dụng tăng tốc của `sync_with_stdio(false)`
 
 ### Fast Input với getchar
 
 Đọc số nguyên nhanh — độ phức tạp $O(\log_{10} n)$ vì xử lý từng chữ số một (số $n$ có $\lfloor \log_{10} n \rfloor + 1$ chữ số).
 
 ```cpp
-// Đọc số nguyên nhanh
+// Đọc số nguyên nhanh (kiểm tra EOF để tránh lặp vô hạn)
 int readInt() {
     int x = 0, sign = 1;
-    char c = getchar();
-    while (c < '0' || c > '9') {
+    int c = getchar();
+    while (c != EOF && (c < '0' || c > '9')) {
         if (c == '-') sign = -1;
         c = getchar();
     }
+    if (c == EOF) return 0;
     while (c >= '0' && c <= '9') {
         x = x * 10 + (c - '0');
         c = getchar();
@@ -255,7 +257,7 @@ Viết chương trình đọc $n$ số nguyên và in tổng của chúng. Dùng
             cin >> x;
             sum += x;
         }
-        cout << sum << endl;
+        cout << sum << "\n";
         return 0;
     }
     ```
@@ -310,12 +312,4 @@ Dùng hàm `readInt()` bằng `getchar` để đọc $n$ rồi đọc $n$ số n
 
 ---
 
-## Bài viết liên quan
-
-- [C06: Hàm trong C++ ←](C06-ham.md)
-- [C08: Reference & Pointer →](C08-reference-pointer.md)
-
----
-
-**Bài trước:** [C06: Hàm trong C++](C06-ham.md)<br>
-**Bài tiếp theo:** [C08: Reference & Pointer →](C08-reference-pointer.md)
+**Bài trước:** [C06: Hàm trong C++](C06-ham.md) | **Bài tiếp theo:** [C08: Reference & Pointer →](C08-reference-pointer.md)

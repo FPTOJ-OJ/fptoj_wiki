@@ -496,12 +496,4 @@ if n or not n:  # Luôn True với MỌI giá trị của n (tautology)
 
 ---
 
-## Bài viết liên quan
-
-- [← P04: Toán tử & Biểu thức](P04-toan-tu.md)
-- [P06: Vòng lặp — Cơ bản →](P06-vong-lap-co-ban.md)
-
----
-
-**Bài trước:** [P04: Toán tử & Biểu thức](P04-toan-tu.md)<br>
-**Bài tiếp theo:** [P06: Vòng lặp — Cơ bản →](P06-vong-lap-co-ban.md)
+**Bài trước:** [P04: Toán tử & Biểu thức](P04-toan-tu.md) | **Bài tiếp theo:** [P06: Vòng lặp — Cơ bản →](P06-vong-lap-co-ban.md)

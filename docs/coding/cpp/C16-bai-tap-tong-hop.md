@@ -54,7 +54,7 @@ Viết chương trình in "Hello World!".
         
         int a, b;
         cin >> a >> b;
-        cout << a + b << endl;
+        cout << a + b << "\n";
         
         return 0;
     }
@@ -537,12 +537,4 @@ gantt
 
 ---
 
-## Bài viết liên quan
-
-- [C15: Mẹo thi đấu C++ ←](C15-meo-thi-dau-cpp.md)
-- [C17: Thuật toán STL & Số học →](C17-thuat-toan-stl.md)
-
----
-
-**Bài trước:** [C15: Mẹo thi đấu C++](C15-meo-thi-dau-cpp.md)<br>
-**Bài tiếp theo:** [C17: Thuật toán STL & Số học →](C17-thuat-toan-stl.md)
+**Bài trước:** [C15: Mẹo thi đấu C++](C15-meo-thi-dau-cpp.md) | **Bài tiếp theo:** [C17: Thuật toán STL & Số học →](C17-thuat-toan-stl.md)

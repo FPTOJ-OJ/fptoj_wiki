@@ -401,12 +401,4 @@ An 8" data-hint="Dùng sort với key=lambda x: (-x[1], x[0])"></div>
 
 ---
 
-## Bài viết liên quan
-
-- [← P11: Dict & Set](P11-dict-set.md)
-- [P13: Hàm →](P13-ham.md)
-
----
-
-**Bài trước:** [P11: Dict & Set](P11-dict-set.md)<br>
-**Bài tiếp theo:** [P13: Hàm →](P13-ham.md)
+**Bài trước:** [P11: Dict & Set](P11-dict-set.md) | **Bài tiếp theo:** [P13: Hàm →](P13-ham.md)

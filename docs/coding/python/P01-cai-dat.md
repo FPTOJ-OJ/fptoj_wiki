@@ -358,11 +358,4 @@ Viết chương trình tính và in ra kết quả của: `2 + 3 * 4`
 
 ---
 
-## Bài viết liên quan
-
-- [P02: Biến & Kiểu dữ liệu →](P02-bien-kieu-du-lieu.md)
-- [Tổng quan Chương 1: Python](index.md)
-
----
-
 **Bài tiếp theo:** [P02: Biến & Kiểu dữ liệu →](P02-bien-kieu-du-lieu.md)

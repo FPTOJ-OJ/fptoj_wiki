@@ -324,12 +324,4 @@ arr = list(map(int, input().split()))" data-input="10 9 2 5 3 7 101 18" data-exp
 
 ---
 
-## Bài viết liên quan
-
-- [← P16: itertools](P16-itertools.md)
-- [P18: math & Built-in →](P18-math-builtins.md)
-
----
-
-**Bài trước:** [P16: itertools](P16-itertools.md)<br>
-**Bài tiếp theo:** [P18: math & Built-in →](P18-math-builtins.md)
+**Bài trước:** [P16: itertools](P16-itertools.md) | **Bài tiếp theo:** [P18: math & Built-in →](P18-math-builtins.md)

@@ -672,9 +672,7 @@ Cho số nguyên dương n. In tam giác số như ví dụ.
     ```python
     n = int(input())
     for i in range(1, n + 1):
-        for j in range(1, i + 1):
-            print(j, end=" ")
-        print()
+        print(*range(1, i + 1))
     ```
 
 ### Bài 10: Tìm ước số
@@ -692,12 +690,4 @@ Cho số nguyên dương n. In ra tất cả các ước của n theo thứ tự
 
 ---
 
-## Bài viết liên quan
-
-- [← P05: Câu lệnh điều kiện](P05-dieu-kien.md)
-- [P07: Vòng lặp — Nâng cao →](P07-vong-lap-nang-cao.md)
-
----
-
-**Bài trước:** [P05: Câu lệnh điều kiện](P05-dieu-kien.md)<br>
-**Bài tiếp theo:** [P07: Vòng lặp — Nâng cao →](P07-vong-lap-nang-cao.md)
+**Bài trước:** [P05: Câu lệnh điều kiện](P05-dieu-kien.md) | **Bài tiếp theo:** [P07: Vòng lặp — Nâng cao →](P07-vong-lap-nang-cao.md)

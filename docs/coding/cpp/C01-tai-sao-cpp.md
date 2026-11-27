@@ -309,7 +309,7 @@ int main() {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Quên `#include`
 
@@ -537,13 +537,6 @@ Viết chương trình in "Hello World!".
 | **Hello World** | `cout << "Hello" << endl;` |
 | **Template thi đấu** | `#include <bits/stdc++.h>` + `ios_base::sync_with_stdio(false)` + `cin.tie(NULL)` |
 | **Nhập/xuất** | `cin >> x` / `cout << x << endl` |
-
----
-
-## Bài viết liên quan
-
-- [index.md](index.md) — Tổng quan C++ cho Thi Đấu
-- [C02: Biến & Kiểu dữ liệu →](C02-cu-phap-co-ban.md)
 
 ---
 

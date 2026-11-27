@@ -250,6 +250,8 @@ k = int(input())" data-input="3 1 4 1 5 9 2 6
 ??? tip "Lời giải"
     ```python
     import heapq
+    arr = list(map(int, input().split()))
+    k = int(input())
     print(heapq.nlargest(k, arr))
     ```
 
@@ -265,6 +267,8 @@ lists = [list(map(int, input().split())) for _ in range(k)]" data-input="3
 ??? tip "Lời giải"
     ```python
     import heapq
+    k = int(input())
+    lists = [list(map(int, input().split())) for _ in range(k)]
     result = list(heapq.merge(*lists))
     print(result)
     ```
@@ -327,12 +331,4 @@ start = int(input())
 
 ---
 
-## Bài viết liên quan
-
-- [← P14: collections](P14-collections.md)
-- [P16: itertools →](P16-itertools.md)
-
----
-
-**Bài trước:** [P14: collections](P14-collections.md)<br>
-**Bài tiếp theo:** [P16: itertools →](P16-itertools.md)
+**Bài trước:** [P14: collections](P14-collections.md) | **Bài tiếp theo:** [P16: itertools →](P16-itertools.md)

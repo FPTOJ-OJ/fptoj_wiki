@@ -548,12 +548,4 @@ if abs(0.1 + 0.2 - 0.3) < 1e-9:
 
 ---
 
-## Bài viết liên quan
-
-- [← P03: Nhập/Xuất dữ liệu](P03-nhap-xuat.md)
-- [P05: Câu lệnh điều kiện →](P05-dieu-kien.md)
-
----
-
-**Bài trước:** [P03: Nhập/Xuất dữ liệu](P03-nhap-xuat.md)<br>
-**Bài tiếp theo:** [P05: Câu lệnh điều kiện →](P05-dieu-kien.md)
+**Bài trước:** [P03: Nhập/Xuất dữ liệu](P03-nhap-xuat.md) | **Bài tiếp theo:** [P05: Câu lệnh điều kiện →](P05-dieu-kien.md)

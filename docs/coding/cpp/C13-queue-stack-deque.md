@@ -291,7 +291,7 @@ vector<int> topK(vector<int>& nums, int k) {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Quên kiểm tra rỗng
 
@@ -413,12 +413,4 @@ cout << minPQ.top() << endl;  // 1
 
 ---
 
-## Bài viết liên quan
-
-- [C12: Set & Map ←](C12-set-map.md)
-- [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)
-
----
-
-**Bài trước:** [C12: Set & Map](C12-set-map.md)<br>
-**Bài tiếp theo:** [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)
+**Bài trước:** [C12: Set & Map](C12-set-map.md) | **Bài tiếp theo:** [C14: Algorithm nâng cao →](C14-algorithm-nang-cao.md)

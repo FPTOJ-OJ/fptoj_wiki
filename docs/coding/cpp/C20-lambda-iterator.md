@@ -654,12 +654,4 @@ Cho mảng $n$ số nguyên và số $k$. Tìm $k$ phần tử xuất hiện nhi
 
 ---
 
-## Bài viết liên quan
-
-- [C19: Matrix & Grid Pattern ←](C19-matrix-pattern.md)
-- [C21: Tham chiếu nhanh →](C21-tham-chieu-nhanh.md)
-
----
-
-**Bài trước:** [C19: Matrix & Grid Pattern](C19-matrix-pattern.md)<br>
-**Bài tiếp theo:** [C21: Tham chiếu nhanh →](C21-tham-chieu-nhanh.md)
+**Bài trước:** [C19: Matrix & Grid Pattern](C19-matrix-pattern.md) | **Bài tiếp theo:** [C21: Tham chiếu nhanh →](C21-tham-chieu-nhanh.md)

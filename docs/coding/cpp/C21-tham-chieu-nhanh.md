@@ -543,11 +543,11 @@ assert(n < 0);  // CRASH! Chương trình dừng và báo lỗi
     ```
 
 ### Bài 2: Khởi tạo mảng bằng `memset`
-Cho `n` (`n <= 100`) và `n` cặp `(idx, val)`. Khởi tạo mảng `a` kích thước `100` toàn `-1` bằng `memset`, gán `a[idx] = val`, rồi in tổng các phần tử từ `0` đến `n - 1`.
+Cho `n` (`n <= 100`) và `m` cặp `(idx, val)`. Khởi tạo mảng `a` kích thước `100` toàn `-1` bằng `memset`, gán `a[idx] = val`, rồi in tổng các phần tử từ `0` đến `n - 1`.
 
-<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="4 2
 0 10
-2 20" data-expected="28" data-hint="memset(a, -1, sizeof(a)), sau đó đọc 2 cặp hoặc đến hết input rồi cộng 0..n-1"></div>
+2 20" data-expected="28" data-hint="memset(a, -1, sizeof(a)), đọc m cặp rồi cộng các phần tử từ 0 đến n - 1"></div>
 
 ??? tip "Lời giải"
     ```cpp
@@ -555,12 +555,13 @@ Cho `n` (`n <= 100`) và `n` cặp `(idx, val)`. Khởi tạo mảng `a` kích t
     using namespace std;
 
     int main() {
-        int n;
-        cin >> n;
+        int n, m;
+        cin >> n >> m;
         int a[100];
         memset(a, -1, sizeof(a));
-        int idx, val;
-        while (cin >> idx >> val) {
+        for (int i = 0; i < m; i++) {
+            int idx, val;
+            cin >> idx >> val;
             a[idx] = val;
         }
         int sum = 0;
@@ -572,12 +573,4 @@ Cho `n` (`n <= 100`) và `n` cặp `(idx, val)`. Khởi tạo mảng `a` kích t
 
 ---
 
-## Bài viết liên quan
-
-- [C20: Lambda & Iterator ←](C20-lambda-iterator.md)
-- [C22: Struct & Operator Overloading →](C22-struct-operator-overloading.md)
-
----
-
-**Bài trước:** [C20: Lambda & Iterator](C20-lambda-iterator.md)<br>
-**Bài tiếp theo:** [C22: Struct & Operator Overloading →](C22-struct-operator-overloading.md)
+**Bài trước:** [C20: Lambda & Iterator](C20-lambda-iterator.md) | **Bài tiếp theo:** [C22: Struct & Operator Overloading →](C22-struct-operator-overloading.md)

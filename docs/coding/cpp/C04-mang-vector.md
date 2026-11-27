@@ -302,7 +302,7 @@ cout << sum << endl;
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Truy cập ngoài mảng
 
@@ -454,13 +454,6 @@ for (auto it = a.begin(); it != a.end(); ) {
 | **Duyệt** | `for (int i = 0; i < n; i++)` hoặc `for (int x : a)` |
 | **Thao tác** | `push_back()`, `pop_back()`, `size()`, `empty()` |
 | **Sắp xếp** | `sort(a.begin(), a.end())` |
-
----
-
-## Bài viết liên quan
-
-- [C03: Điều kiện & Vòng lặp ←](C03-dieu-kien-vong-lap.md)
-- [C05: String →](C05-string.md)
 
 ---
 

@@ -70,6 +70,11 @@ for line in sys.stdin:
     print(a + b)
 ```
 
+!!! warning "Cẩn thận khi dùng `input = sys.stdin.readline` với xâu ký tự"
+    Khác với `input()` mặc định, `sys.stdin.readline()` **giữ nguyên ký tự xuống dòng `'\n'`** ở cuối dòng. Vì vậy:
+    - Với số (`int(input())`, `map(int, input().split())`): tự bỏ khoảng trắng và `\n` nên an toàn.
+    - Với xâu (`s = input()`): **luôn phải viết `s = input().strip()`** (hoặc `.rstrip('\n')`), nếu không `len(s)` sẽ dư 1 ký tự `\n` và mọi phép so sánh `s == "YES"` đều sai!
+
 ---
 
 ## 4. In output nhanh
@@ -450,6 +455,14 @@ comb(n, k)
 
 ---
 
+## Lưu ý / Cạm bẫy hay gặp khi thi Python
+
+- **Quên `.strip()` sau `sys.stdin.readline`:** Làm `len(s)` bị dư `'\n'`, rất dễ gây WA âm thầm ở bài xử lý xâu.
+- **Đệ quy quá sâu:** Python mặc định chỉ cho 1000 tầng đệ quy. Khi DFS trên cây $N = 10^5$, phải bật `sys.setrecursionlimit(10**6)` (nhưng vẫn có thể tốn RAM/TLE — nên ưu tiên BFS/DFS lặp bằng `stack` nếu $N \ge 2\cdot 10^5$).
+- **Ghép chuỗi bằng `+=` trong vòng lặp:** Tạo xâu mới tốn $O(N^2)$ — luôn gom vào `list` rồi dùng `"".join(res)` để đạt $O(N)$.
+
+---
+
 ## 9. Bài tập thực hành
 
 ### Bài 1: Template
@@ -526,12 +539,4 @@ l, r = map(int, input().split())" data-input="1 2 3 4 5
 
 ---
 
-## Bài viết liên quan
-
-- [← P18: math & Built-in](P18-math-builtins.md)
-- [P20: Bài tập tổng hợp →](P20-bai-tap-tong-hop.md)
-
----
-
-**Bài trước:** [P18: math & Built-in](P18-math-builtins.md)<br>
-**Bài tiếp theo:** [P20: Bài tập tổng hợp →](P20-bai-tap-tong-hop.md)
+**Bài trước:** [P18: math & Built-in](P18-math-builtins.md) | **Bài tiếp theo:** [P20: Bài tập tổng hợp →](P20-bai-tap-tong-hop.md)

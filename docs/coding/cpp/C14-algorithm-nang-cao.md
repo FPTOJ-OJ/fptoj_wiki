@@ -155,7 +155,7 @@ if (!binary_search(a.begin(), a.end(), 25)) {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Quên mảng phải sắp xếp
 
@@ -256,12 +256,4 @@ else cout << "Khong tim thay";
 
 ---
 
-## Bài viết liên quan
-
-- [C13: Queue, Stack, Deque ←](C13-queue-stack-deque.md)
-- [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
-
----
-
-**Bài trước:** [C13: Queue, Stack, Deque](C13-queue-stack-deque.md)<br>
-**Bài tiếp theo:** [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)
+**Bài trước:** [C13: Queue, Stack, Deque](C13-queue-stack-deque.md) | **Bài tiếp theo:** [C15: Mẹo thi đấu C++ →](C15-meo-thi-dau-cpp.md)

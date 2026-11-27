@@ -599,12 +599,4 @@ Tạo ma trận đơn vị kích thước n × n.
 
 ---
 
-## Bài viết liên quan
-
-- [← P06: Vòng lặp — Cơ bản](P06-vong-lap-co-ban.md)
-- [P08: String →](P08-string.md)
-
----
-
-**Bài trước:** [P06: Vòng lặp — Cơ bản](P06-vong-lap-co-ban.md)<br>
-**Bài tiếp theo:** [P08: String →](P08-string.md)
+**Bài trước:** [P06: Vòng lặp — Cơ bản](P06-vong-lap-co-ban.md) | **Bài tiếp theo:** [P08: String →](P08-string.md)

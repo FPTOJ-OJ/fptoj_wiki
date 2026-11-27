@@ -509,6 +509,7 @@ Cho mảng arr. Đếm tần suất xuất hiện của mỗi phần tử.
 ??? tip "Lời giải"
     ```python
     from collections import Counter
+    arr = list(map(int, input().split()))
     cnt = Counter(arr)
     for key, value in sorted(cnt.items()):
         print(f"{key}: {value}")
@@ -522,6 +523,7 @@ Cho mảng arr. Tìm phần tử xuất hiện nhiều nhất.
 ??? tip "Lời giải"
     ```python
     from collections import Counter
+    arr = list(map(int, input().split()))
     cnt = Counter(arr)
     print(cnt.most_common(1)[0][0])
     ```
@@ -533,6 +535,7 @@ Cho mảng arr. Kiểm tra có phần tử trùng không.
 
 ??? tip "Lời giải"
     ```python
+    arr = list(map(int, input().split()))
     if len(arr) != len(set(arr)):
         print("Co phan tu trung")
     else:
@@ -547,6 +550,8 @@ Cho mảng arr và target. Tìm 2 số có tổng bằng target.
 
 ??? tip "Lời giải"
     ```python
+    arr = list(map(int, input().split()))
+    target = int(input())
     seen = {}
     for i, x in enumerate(arr):
         complement = target - x
@@ -566,6 +571,7 @@ c: ['cherry']" data-hint="Dùng defaultdict(list), thêm từ vào groups[word[0
 ??? tip "Lời giải"
     ```python
     from collections import defaultdict
+    words = input().split()
     groups = defaultdict(list)
     for word in words:
         groups[word[0]].append(word)
@@ -585,12 +591,4 @@ c: ['cherry']" data-hint="Dùng defaultdict(list), thêm từ vào groups[word[0
 
 ---
 
-## Bài viết liên quan
-
-- [← P10: Array 2D & Matrix](P10-array-2d.md)
-- [P12: Tuple →](P12-tuple.md)
-
----
-
-**Bài trước:** [P10: Array 2D & Matrix](P10-array-2d.md)<br>
-**Bài tiếp theo:** [P12: Tuple →](P12-tuple.md)
+**Bài trước:** [P10: Array 2D & Matrix](P10-array-2d.md) | **Bài tiếp theo:** [P12: Tuple →](P12-tuple.md)

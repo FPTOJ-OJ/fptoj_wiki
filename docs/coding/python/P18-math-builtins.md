@@ -490,12 +490,4 @@ n = int(input())" data-input="17" data-expected="SNT" data-hint="Duyệt từ 2 
 
 ---
 
-## Bài viết liên quan
-
-- [← P17: bisect](P17-bisect.md)
-- [P19: Kỹ thuật thi đấu Python →](P19-ky-thuat-thi-dau.md)
-
----
-
-**Bài trước:** [P17: bisect](P17-bisect.md)<br>
-**Bài tiếp theo:** [P19: Kỹ thuật thi đấu Python →](P19-ky-thuat-thi-dau.md)
+**Bài trước:** [P17: bisect](P17-bisect.md) | **Bài tiếp theo:** [P19: Kỹ thuật thi đấu Python →](P19-ky-thuat-thi-dau.md)

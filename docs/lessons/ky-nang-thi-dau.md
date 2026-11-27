@@ -389,6 +389,17 @@ for(int test = 0; test < 1000; test++) {
 
 ## 10. Bài tập luyện tập
 
+### Bài tập thực chiến trên FPTOJ
+
+| Mã bài | Tên bài | Chủ đề | Độ khó |
+|---|---|---|---|
+| `fptat1-pair` | [Perfect Pair](https://fptoj.com/problem/fptat1-pair) | Kỹ thuật hai con trỏ | ⭐ |
+| `fptat1-stair` | [Magic Staircase](https://fptoj.com/problem/fptat1-stair) | Quy hoạch động | ⭐ |
+| `fptat1-treasure` | [Treasure Subarray](https://fptoj.com/problem/fptat1-treasure) | Tìm kiếm nhị phân | ⭐ |
+| `fptat1-tree` | [Planting Trees](https://fptoj.com/problem/fptat1-tree) | Cấu trúc dữ liệu | ⭐ |
+
+### Nguồn luyện đề tổng hợp
+
 | Bài | Nền tảng | Mục đích |
 |-----|----------|----------|
 | [CSES Problem Set](https://cses.fi/problemset/) | CSES | Luyện tốc độ làm bài |

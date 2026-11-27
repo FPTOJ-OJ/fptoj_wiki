@@ -562,12 +562,4 @@ Cho số lượng testcase T. Mỗi testcase đọc 2 số a, b. In ra a + b.
 
 ---
 
-## Bài viết liên quan
-
-- [← P02: Biến & Kiểu dữ liệu](P02-bien-kieu-du-lieu.md)
-- [P04: Toán tử & Biểu thức →](P04-toan-tu.md)
-
----
-
-**Bài trước:** [P02: Biến & Kiểu dữ liệu](P02-bien-kieu-du-lieu.md)<br>
-**Bài tiếp theo:** [P04: Toán tử & Biểu thức →](P04-toan-tu.md)
+**Bài trước:** [P02: Biến & Kiểu dữ liệu](P02-bien-kieu-du-lieu.md) | **Bài tiếp theo:** [P04: Toán tử & Biểu thức →](P04-toan-tu.md)

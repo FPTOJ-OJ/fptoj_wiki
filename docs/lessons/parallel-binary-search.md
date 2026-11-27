@@ -231,6 +231,16 @@ flowchart LR
 
 ## 5. Bài tập luyện tập
 
+### Bài tập trên FPTOJ
+
+| Mã bài | Tên bài tập | Độ khó | Ý tưởng |
+| :--- | :--- | :---: | :--- |
+| `pbs-connect-time` | [Thời điểm liên thông (Parallel Binary Search)](https://fptoj.com/problem/pbs-connect-time) | ⭐⭐⭐ | Thêm lần lượt $M$ cạnh vào đồ thị $N$ đỉnh. Với $Q$ truy vấn $(u, v)$, tìm thời điểm sớm nhất hai đỉnh liên thông (DSU + PBS). |
+| `pbs-meteors` | [Mưa sao băng (Parallel Binary Search)](https://fptoj.com/problem/pbs-meteors) | ⭐⭐⭐⭐ | $N$ quốc gia sở hữu $M$ trạm trên vòng tròn, $K$ đợt mưa sao băng trên $[l, r]$. Tìm đợt sớm nhất mỗi quốc gia đủ $p_i$ thiên thạch (BIT + PBS). |
+| `pbs-stamp-rally` | [Hành trình thu thập tem (Stamp Rally)](https://fptoj.com/problem/pbs-stamp-rally) | ⭐⭐⭐⭐ | Hai người xuất phát từ $x, y$, đi qua các cạnh có chỉ số $\le T$. Tìm $T$ nhỏ nhất để tổng số đỉnh phân biệt đi tới được $\ge z$ (DSU + PBS). |
+
+### Bài tập tham khảo thêm
+
 | Bài toán | Nền tảng | Độ khó | Ý tưởng |
 | :--- | :--- | :---: | :--- |
 | [SPOJ - METEORS](https://www.spoj.com/problems/METEORS/) | SPOJ | ⭐⭐⭐⭐ | Bài kinh điển: Fenwick Tree + Parallel Binary Search |

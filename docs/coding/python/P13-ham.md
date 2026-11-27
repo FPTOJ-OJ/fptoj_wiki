@@ -605,12 +605,4 @@ Viết hàm tính C(n, k).
 
 ---
 
-## Bài viết liên quan
-
-- [← P12: Tuple](P12-tuple.md)
-- [P14: collections →](P14-collections.md)
-
----
-
-**Bài trước:** [P12: Tuple](P12-tuple.md)<br>
-**Bài tiếp theo:** [P14: collections →](P14-collections.md)
+**Bài trước:** [P12: Tuple](P12-tuple.md) | **Bài tiếp theo:** [P14: collections →](P14-collections.md)

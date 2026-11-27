@@ -182,7 +182,7 @@ for (auto &[x, y] : v) {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Quên first/second
 
@@ -246,6 +246,39 @@ struct Data {
     }
     ```
 
+### Bài 2: Sắp xếp danh sách với `tuple`
+Đọc `n` bản ghi `(ten, diem, tuoi)`. Sắp xếp theo `diem` giảm dần; nếu bằng điểm thì theo `tuoi` tăng dần; nếu vẫn bằng thì theo `ten` tăng dần. In ra danh sách sau khi sắp xếp.
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Dùng vector&lt;tuple&lt;int, int, string&gt;&gt; hoặc struct\n    return 0;\n}" data-input="3
+Binh 8 20
+An 9 19
+Cuong 8 18" data-expected="An 9 19
+Cuong 8 18
+Binh 8 20" data-hint="Lưu tuple(-score, age, name) để tận dụng thứ tự từ điển mặc định của tuple"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        int n;
+        cin >> n;
+        vector<tuple<int, int, string>> v;
+        for (int i = 0; i < n; i++) {
+            string name;
+            int score, age;
+            cin >> name >> score >> age;
+            v.emplace_back(-score, age, name);
+        }
+        sort(v.begin(), v.end());
+        for (auto &[neg_score, age, name] : v) {
+            cout << name << " " << -neg_score << " " << age << "\n";
+        }
+        return 0;
+    }
+    ```
+
 ---
 
 ## Tóm tắt bài học
@@ -260,12 +293,4 @@ struct Data {
 
 ---
 
-## Bài viết liên quan
-
-- [C08: Reference & Pointer ←](C08-reference-pointer.md)
-- [C10: Vector nâng cao →](C10-vector-nang-cao.md)
-
----
-
-**Bài trước:** [C08: Reference & Pointer](C08-reference-pointer.md)<br>
-**Bài tiếp theo:** [C10: Vector nâng cao →](C10-vector-nang-cao.md)
+**Bài trước:** [C08: Reference & Pointer](C08-reference-pointer.md) | **Bài tiếp theo:** [C10: Vector nâng cao →](C10-vector-nang-cao.md)

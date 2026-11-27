@@ -681,12 +681,4 @@ Cho 2 mảng đã sắp xếp. Trộn thành 1 mảng đã sắp xếp.
 
 ---
 
-## Bài viết liên quan
-
-- [← P08: String](P08-string.md)
-- [P10: Array 2D & Matrix →](P10-array-2d.md)
-
----
-
-**Bài trước:** [P08: String](P08-string.md)<br>
-**Bài tiếp theo:** [P10: Array 2D & Matrix →](P10-array-2d.md)
+**Bài trước:** [P08: String](P08-string.md) | **Bài tiếp theo:** [P10: Array 2D & Matrix →](P10-array-2d.md)

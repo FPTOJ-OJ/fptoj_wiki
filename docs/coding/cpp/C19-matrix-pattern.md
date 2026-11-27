@@ -706,12 +706,4 @@ Cho $n$ điểm trên lưới. Tìm cặp điểm có khoảng cách Manhattan n
 
 ---
 
-## Bài viết liên quan
-
-- [C18: Xử lý xâu nâng cao ←](C18-xu-ly-xau-nang-cao.md)
-- [C20: Lambda & Iterator Pattern →](C20-lambda-iterator.md)
-
----
-
-**Bài trước:** [C18: Xử lý xâu nâng cao](C18-xu-ly-xau-nang-cao.md)<br>
-**Bài tiếp theo:** [C20: Lambda & Iterator Pattern →](C20-lambda-iterator.md)
+**Bài trước:** [C18: Xử lý xâu nâng cao](C18-xu-ly-xau-nang-cao.md) | **Bài tiếp theo:** [C20: Lambda & Iterator Pattern →](C20-lambda-iterator.md)

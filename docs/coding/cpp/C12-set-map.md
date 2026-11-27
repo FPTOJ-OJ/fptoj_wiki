@@ -213,7 +213,7 @@ cout << um["Nam"] << endl;
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Map tự tạo key mới
 
@@ -243,6 +243,23 @@ for (auto it = s.begin(); it != s.end(); ) {
     else it++;
 }
 ```
+
+### Lỗi 3: `multiset::erase(val)` xóa sạch tất cả bản sao
+
+```cpp
+multiset<int> ms = {1, 2, 2, 3};
+
+// ❌ SAI: Xóa toàn bộ số 2 khỏi multiset → mất cả hai số 2!
+ms.erase(2);  // Còn {1, 3}
+
+// ✅ ĐÚNG: Chỉ xóa đúng 1 phần tử qua iterator
+auto it = ms.find(2);
+if (it != ms.end()) ms.erase(it);  // Còn {1, 2, 3}
+```
+
+### Lỗi 4: Dùng `unordered_map` / `unordered_set` mà không cảnh giác TLE
+
+`unordered_map` trung bình là $O(1)$, nhưng ở một số bài trên Codeforces có bộ test cố tình gây đụng độ hàm băm khiến độ phức tạp tụt xuống $O(N^2)$ -> TLE. Nếu không cần $O(1)$ gắt gao, hãy ưu tiên `map`/`set` ($O(\log N)$ ổn định) hoặc dùng `custom_hash` (`splitmix64`).
 
 ---
 
@@ -317,12 +334,4 @@ for (auto it = s.begin(); it != s.end(); ) {
 
 ---
 
-## Bài viết liên quan
-
-- [C11: sort & &lt;algorithm&gt; ←](C11-sort-algorithm.md)
-- [C13: Queue, Stack, Deque →](C13-queue-stack-deque.md)
-
----
-
-**Bài trước:** [C11: sort & &lt;algorithm&gt;](C11-sort-algorithm.md)<br>
-**Bài tiếp theo:** [C13: Queue, Stack, Deque →](C13-queue-stack-deque.md)
+**Bài trước:** [C11: sort & &lt;algorithm&gt;](C11-sort-algorithm.md) | **Bài tiếp theo:** [C13: Queue, Stack, Deque →](C13-queue-stack-deque.md)

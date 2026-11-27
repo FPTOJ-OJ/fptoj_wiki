@@ -94,6 +94,9 @@ Tài liệu này là mục lục chuẩn học thuật cho toàn bộ hệ thố
 | `ts-find-max` | [Tìm max đơn](https://fptoj.com/problem/ts-find-max) | ⭐⭐⭐⭐⭐ | Toán học | [Tìm kiếm nhị phân](tim-kiem-nhi-phan.md) |
 | `ts-parabola` | [Parabol](https://fptoj.com/problem/ts-parabola) | ⭐⭐ | Toán học | [Tìm kiếm nhị phân](tim-kiem-nhi-phan.md) |
 | `ts-peak` | [Đỉnh núi](https://fptoj.com/problem/ts-peak) | ⭐⭐ | Toán học | [Tìm kiếm nhị phân](tim-kiem-nhi-phan.md) |
+| `pbs-connect-time` | [Thời điểm liên thông (Parallel Binary Search)](https://fptoj.com/problem/pbs-connect-time) | ⭐⭐⭐ | Tìm kiếm nhị phân | [Parallel Binary Search](parallel-binary-search.md) |
+| `pbs-meteors` | [Mưa sao băng (Parallel Binary Search)](https://fptoj.com/problem/pbs-meteors) | ⭐⭐⭐⭐ | Tìm kiếm nhị phân | [Parallel Binary Search](parallel-binary-search.md) |
+| `pbs-stamp-rally` | [Hành trình thu thập tem (Stamp Rally)](https://fptoj.com/problem/pbs-stamp-rally) | ⭐⭐⭐⭐ | Tìm kiếm nhị phân | [Parallel Binary Search](parallel-binary-search.md) |
 
 ---
 
@@ -384,6 +387,9 @@ Tài liệu này là mục lục chuẩn học thuật cho toàn bộ hệ thố
 | `sl-pred-succ` | [Tìm Số Kế Cận](https://fptoj.com/problem/sl-pred-succ) | ⭐⭐ | Cấu trúc dữ liệu | [Skip list](skip-list.md) |
 | `sl-range-sum` | [Tổng Trong Khoảng](https://fptoj.com/problem/sl-range-sum) | ⭐⭐ | Cấu trúc dữ liệu | [Skip list](skip-list.md) |
 | `sl-sliding-median` | [Trung Vị Trượt](https://fptoj.com/problem/sl-sliding-median) | ⭐⭐⭐ | Cấu trúc dữ liệu | [Skip list](skip-list.md) |
+| `treap-ordered-set` | [Tập hợp động (Ordered Set)](https://fptoj.com/problem/treap-ordered-set) | ⭐⭐⭐ | Cấu trúc dữ liệu | [Treap & PBDS](treap-pbds.md) |
+| `treap-cut-paste` | [Cắt và Dán xâu (Implicit Treap)](https://fptoj.com/problem/treap-cut-paste) | ⭐⭐⭐⭐ | Cấu trúc dữ liệu | [Treap & PBDS](treap-pbds.md) |
+| `treap-rev-sum` | [Đảo đoạn và Tính tổng (Implicit Treap)](https://fptoj.com/problem/treap-rev-sum) | ⭐⭐⭐⭐ | Cấu trúc dữ liệu | [Treap & PBDS](treap-pbds.md) |
 
 ---
 
@@ -635,14 +641,14 @@ Tài liệu này là mục lục chuẩn học thuật cho toàn bộ hệ thố
 | `dsu-query-size` | [Truy vấn kích thước](https://fptoj.com/problem/dsu-query-size) | ⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
 | `dsu-same` | [Quan hệ tương đương](https://fptoj.com/problem/dsu-same) | ⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
 | `dsu-size` | [Kích thước tập hợp](https://fptoj.com/problem/dsu-size) | ⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-basic` | [Hệ Thống Quản Lý Nhóm Nghiên Cứu](https://fptoj.com/problem/dsur-basic) | ⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-bipartite` | [Đồ Thị Hai Phía Động](https://fptoj.com/problem/dsur-bipartite) | ⭐⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-connect` | [Số Vùng Kết Nối](https://fptoj.com/problem/dsur-connect) | ⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-mst` | [Cây Khung Động](https://fptoj.com/problem/dsur-mst) | ⭐⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-online` | [Đồ Thị Động](https://fptoj.com/problem/dsur-online) | ⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-persistence` | [Lưu Trữ Phiên Bản Dữ Liệu](https://fptoj.com/problem/dsur-persistence) | ⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-sum` | [Ngân Hàng Dữ Liệu Phân Tán](https://fptoj.com/problem/dsur-sum) | ⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
-| `dsur-timeline` | [Dòng Thời Gian Kết Nối](https://fptoj.com/problem/dsur-timeline) | ⭐⭐ | Cấu trúc dữ liệu | [Disjoint Set Union](dsu.md) |
+| `dsur-basic` | [Hệ Thống Quản Lý Nhóm Nghiên Cứu](https://fptoj.com/problem/dsur-basic) | ⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
+| `dsur-bipartite` | [Đồ Thị Hai Phía Động](https://fptoj.com/problem/dsur-bipartite) | ⭐⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
+| `dsur-connect` | [Số Vùng Kết Nối](https://fptoj.com/problem/dsur-connect) | ⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
+| `dsur-mst` | [Cây Khung Động](https://fptoj.com/problem/dsur-mst) | ⭐⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
+| `dsur-online` | [Đồ Thị Động](https://fptoj.com/problem/dsur-online) | ⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
+| `dsur-persistence` | [Lưu Trữ Phiên Bản Dữ Liệu](https://fptoj.com/problem/dsur-persistence) | ⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
+| `dsur-sum` | [Ngân Hàng Dữ Liệu Phân Tán](https://fptoj.com/problem/dsur-sum) | ⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
+| `dsur-timeline` | [Dòng Thời Gian Kết Nối](https://fptoj.com/problem/dsur-timeline) | ⭐⭐ | Cấu trúc dữ liệu | [DSU Rollback](dsu-rollback.md) |
 
 ---
 
@@ -969,6 +975,9 @@ Tài liệu này là mục lục chuẩn học thuật cho toàn bộ hệ thố
 | `dpt-tree-indset` | [Tập độc lập](https://fptoj.com/problem/dpt-tree-indset) | ⭐⭐⭐⭐⭐ | Quy hoạch động | [Quy hoạch động trên cây](dp-on-trees.md) |
 | `dpt-tree-knapsack` | [Ba lô trên cây](https://fptoj.com/problem/dpt-tree-knapsack) | ⭐⭐⭐⭐⭐ | Quy hoạch động | [Quy hoạch động trên cây](dp-on-trees.md) |
 | `dpt-tree-matching` | [Ghép cặp trên cây](https://fptoj.com/problem/dpt-tree-matching) | ⭐⭐⭐⭐⭐ | Quy hoạch động | [Quy hoạch động trên cây](dp-on-trees.md) |
+| `stl-distinct-colors` | [Đếm màu phân biệt trên cây](https://fptoj.com/problem/stl-distinct-colors) | ⭐⭐⭐ | Cây | [Small-to-Large](small-to-large.md) |
+| `stl-dominant-color` | [Tổng màu chiếm đa số](https://fptoj.com/problem/stl-dominant-color) | ⭐⭐⭐⭐ | Cây | [Small-to-Large](small-to-large.md) |
+| `stl-tree-palindrome` | [Cây con Palindrome theo độ sâu](https://fptoj.com/problem/stl-tree-palindrome) | ⭐⭐⭐⭐ | Cây | [Small-to-Large](small-to-large.md) |
 
 ---
 
@@ -1032,6 +1041,9 @@ Tài liệu này là mục lục chuẩn học thuật cho toàn bộ hệ thố
 | Mã bài | Tên bài tập | Độ khó | Phân loại chủ đề | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |
 | `bit-assign` | [Phân công công việc](https://fptoj.com/problem/bit-assign) | ⭐⭐⭐ | Quy hoạch động | [Bitmask DP](bitmask-dp.md) |
+| `bp-domino-tiling` | [Lát gạch Domino (Broken Profile)](https://fptoj.com/problem/bp-domino-tiling) | ⭐⭐⭐ | Quy hoạch động | [DP on Broken Profile](dp-broken-profile.md) |
+| `bp-broken-grid` | [Lát gạch trên bảng có ô hỏng](https://fptoj.com/problem/bp-broken-grid) | ⭐⭐⭐⭐ | Quy hoạch động | [DP on Broken Profile](dp-broken-profile.md) |
+| `bp-l-tiling` | [Lát gạch chữ L (Tromino)](https://fptoj.com/problem/bp-l-tiling) | ⭐⭐⭐⭐⭐ | Quy hoạch động | [DP on Broken Profile](dp-broken-profile.md) |
 
 ---
 
@@ -1080,6 +1092,8 @@ Tài liệu này là mục lục chuẩn học thuật cho toàn bộ hệ thố
 | `opt-dc-xor` | [Mã hóa XOR](https://fptoj.com/problem/opt-dc-xor) | ⭐⭐ | Quy hoạch động | [Tối ưu hóa quy hoạch động](dp-optimization.md) |
 | `opt-knuth-basic` | [Trộn đoạn](https://fptoj.com/problem/opt-knuth-basic) | ⭐⭐ | Quy hoạch động | [Tối ưu hóa quy hoạch động](dp-optimization.md) |
 | `opt-knuth-merge` | [Trộn đá](https://fptoj.com/problem/opt-knuth-merge) | ⭐⭐ | Quy hoạch động | [Tối ưu hóa quy hoạch động](dp-optimization.md) |
+| `opt-slope-nondec` | [Biến đổi dãy không giảm (Slope Trick)](https://fptoj.com/problem/opt-slope-nondec) | ⭐⭐⭐ | Quy hoạch động | [Tối ưu hóa quy hoạch động](dp-optimization.md) |
+| `opt-slope-inc` | [Biến đổi dãy tăng nghiêm ngặt (Slope Trick)](https://fptoj.com/problem/opt-slope-inc) | ⭐⭐⭐⭐ | Quy hoạch động | [Tối ưu hóa quy hoạch động](dp-optimization.md) |
 
 ---
 

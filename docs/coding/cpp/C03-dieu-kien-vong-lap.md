@@ -399,7 +399,7 @@ switch (day) {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Dùng `=` thay vì `==`
 
@@ -569,13 +569,6 @@ for (int i = 1; i <= 1000000; i++) sum += i;
 | **break** | Thoát khỏi vòng lặp |
 | **continue** | Bỏ qua lần lặp hiện tại |
 | **switch** | Chọn theo giá trị |
-
----
-
-## Bài viết liên quan
-
-- [C02: Biến & Kiểu dữ liệu ←](C02-cu-phap-co-ban.md)
-- [C04: Mảng & Vector →](C04-mang-vector.md)
 
 ---
 

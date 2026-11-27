@@ -627,12 +627,4 @@ int main() {
 
 ---
 
-## Bài viết liên quan
-
-- [C16: Bài tập tổng hợp ←](C16-bai-tap-tong-hop.md)
-- [C18: Xử lý xâu nâng cao →](C18-xu-ly-xau-nang-cao.md)
-
----
-
-**Bài trước:** [C16: Bài tập tổng hợp](C16-bai-tap-tong-hop.md)<br>
-**Bài tiếp theo:** [C18: Xử lý xâu nâng cao →](C18-xu-ly-xau-nang-cao.md)
+**Bài trước:** [C16: Bài tập tổng hợp](C16-bai-tap-tong-hop.md) | **Bài tiếp theo:** [C18: Xử lý xâu nâng cao →](C18-xu-ly-xau-nang-cao.md)

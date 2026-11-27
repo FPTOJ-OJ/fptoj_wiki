@@ -595,12 +595,4 @@ Cho xâu s. Tìm độ dài xâu con dài nhất mà không có ký tự lặp l
 
 ---
 
-## Bài viết liên quan
-
-- [← P07: Vòng lặp — Nâng cao](P07-vong-lap-nang-cao.md)
-- [P09: List & Array 1D →](P09-list-array-1d.md)
-
----
-
-**Bài trước:** [P07: Vòng lặp — Nâng cao](P07-vong-lap-nang-cao.md)<br>
-**Bài tiếp theo:** [P09: List & Array 1D →](P09-list-array-1d.md)
+**Bài trước:** [P07: Vòng lặp — Nâng cao](P07-vong-lap-nang-cao.md) | **Bài tiếp theo:** [P09: List & Array 1D →](P09-list-array-1d.md)

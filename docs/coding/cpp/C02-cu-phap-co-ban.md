@@ -472,7 +472,7 @@ if (isEqual(a, b)) cout << "Bang";  // ✅ Đúng!
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Tràn số
 
@@ -608,13 +608,6 @@ if (abs(a - b) < 1e-9) { ... }
 | **Nhập/xuất** | `cin >> x` / `cout << x << endl` |
 | **Toán tử** | `+`, `-`, `*`, `/`, `%`, `==`, `!=`, `<`, `>` |
 | **So sánh double** | Luôn dùng epsilon: `abs(a - b) < 1e-9` |
-
----
-
-## Bài viết liên quan
-
-- [C01: Cài đặt & Hello World ←](C01-tai-sao-cpp.md)
-- [C03: Điều kiện & Vòng lặp →](C03-dieu-kien-vong-lap.md)
 
 ---
 

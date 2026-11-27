@@ -250,6 +250,16 @@ void mergeRight(set<int>& a, set<int>& b) {
 
 ## 6. Bài tập luyện tập
 
+### Bài tập trên FPTOJ
+
+| Mã bài | Tên bài tập | Độ khó | Ý tưởng áp dụng |
+| :--- | :--- | :---: | :--- |
+| `stl-distinct-colors` | [Đếm màu phân biệt trên cây](https://fptoj.com/problem/stl-distinct-colors) | ⭐⭐⭐ | Cho cây $N \le 2 \cdot 10^5$ đỉnh, mỗi đỉnh có màu $c_i$. Đếm số màu phân biệt trong từng cây con gốc $u$. |
+| `stl-dominant-color` | [Tổng màu chiếm đa số](https://fptoj.com/problem/stl-dominant-color) | ⭐⭐⭐⭐ | Cho cây $N \le 10^5$ đỉnh, mỗi đỉnh có màu $c_i$. Tính tổng giá trị các màu xuất hiện nhiều nhất trong từng cây con gốc $u$. |
+| `stl-tree-palindrome` | [Cây con Palindrome theo độ sâu](https://fptoj.com/problem/stl-tree-palindrome) | ⭐⭐⭐⭐ | Trả lời $Q$ truy vấn $(v, h)$: tập ký tự ở độ sâu $h$ trong cây con $v$ có xếp thành palindrome được không (Sack + bitmask). |
+
+### Bài tập tham khảo thêm
+
 | Bài toán | Nền tảng | Độ khó | Ý tưởng áp dụng |
 | :--- | :--- | :---: | :--- |
 | [CSES - Distinct Colors](https://cses.fi/problemset/task/1139) | CSES | ⭐⭐⭐ | Đếm màu khác nhau trong mỗi cây con (bài mẫu) |

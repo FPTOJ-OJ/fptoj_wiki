@@ -389,12 +389,4 @@ Bài 16-20 (CSES)
 
 ---
 
-## Bài viết liên quan
-
-- [← P19: Kỹ thuật thi đấu Python](P19-ky-thuat-thi-dau.md)
-- [Chương 2: C++ cho Thi Đấu →](../cpp/index.md)
-
----
-
-**Bài trước:** [P19: Kỹ thuật thi đấu Python](P19-ky-thuat-thi-dau.md)<br>
-**Bài tiếp theo:** [Chương 2: C++ cho Thi Đấu →](../cpp/index.md)
+**Bài trước:** [P19: Kỹ thuật thi đấu Python](P19-ky-thuat-thi-dau.md) | **Bài tiếp theo:** [Chương 2: C++ cho Thi Đấu →](../cpp/index.md)

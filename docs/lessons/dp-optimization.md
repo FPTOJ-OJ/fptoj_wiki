@@ -866,8 +866,19 @@ $$dp_i(x) = \min_{y \le x} \{ dp_{i-1}(y) \} + |x - a_i|$$
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |
-| `opt-dc-basic` | [Chia Để Trị Cơ Bản](https://fptoj.com/problem/opt-dc-basic) | ⭐⭐⭐⭐ | Chia để trị trong DP | [Tối ưu DP](dp-optimization.md) |
+| `opt-knuth-basic` | [Trộn đoạn](https://fptoj.com/problem/opt-knuth-basic) | ⭐⭐ | Knuth's Optimization cơ bản | [Tối ưu DP](dp-optimization.md) |
+| `opt-knuth-merge` | [Trộn đá](https://fptoj.com/problem/opt-knuth-merge) | ⭐⭐⭐ | Knuth's Optimization trên đoạn | [Tối ưu DP](dp-optimization.md) |
+| `opt-dc-basic` | [Chia Để Trị Cơ Bản](https://fptoj.com/problem/opt-dc-basic) | ⭐⭐⭐⭐ | Divide & Conquer DP cơ bản | [Tối ưu DP](dp-optimization.md) |
+| `opt-dc-factory` | [Xây nhà máy](https://fptoj.com/problem/opt-dc-factory) | ⭐⭐⭐ | Divide & Conquer DP | [Tối ưu DP](dp-optimization.md) |
+| `opt-dc-xor` | [Mã hóa XOR](https://fptoj.com/problem/opt-dc-xor) | ⭐⭐⭐ | Divide & Conquer DP với XOR | [Tối ưu DP](dp-optimization.md) |
+| `opt-cht-basic` | [Sản xuất dây chuyền](https://fptoj.com/problem/opt-cht-basic) | ⭐⭐ | Convex Hull Trick cơ bản | [Tối ưu DP](dp-optimization.md) |
+| `opt-cht-fence` | [Hàng rào](https://fptoj.com/problem/opt-cht-fence) | ⭐⭐⭐ | Convex Hull Trick | [Tối ưu DP](dp-optimization.md) |
+| `opt-cht-land` | [Mua đất](https://fptoj.com/problem/opt-cht-land) | ⭐⭐⭐ | Convex Hull Trick | [Tối ưu DP](dp-optimization.md) |
+| `opt-bookshelf` | [Kệ sách](https://fptoj.com/problem/opt-bookshelf) | ⭐⭐ | Tối ưu DP theo phân hoạch | [Tối ưu DP](dp-optimization.md) |
+| `opt-alien` | [Chia việc](https://fptoj.com/problem/opt-alien) | ⭐⭐⭐ | Alien's Trick cơ bản | [Tối ưu DP](dp-optimization.md) |
 | `opt-alien-pro` | [Alien Nâng Cao](https://fptoj.com/problem/opt-alien-pro) | ⭐⭐⭐⭐⭐ | Alien's Trick nâng cao | [Tối ưu DP](dp-optimization.md) |
+| `opt-slope-nondec` | [Biến đổi dãy không giảm (Slope Trick)](https://fptoj.com/problem/opt-slope-nondec) | ⭐⭐⭐ | Slope Trick cơ bản ($b_1 \le \dots \le b_N$) | [Tối ưu DP](dp-optimization.md) |
+| `opt-slope-inc` | [Biến đổi dãy tăng nghiêm ngặt (Slope Trick)](https://fptoj.com/problem/opt-slope-inc) | ⭐⭐⭐⭐ | Slope Trick + biến đổi $a'_i = a_i - i$ | [Tối ưu DP](dp-optimization.md) |
 
 ---
 

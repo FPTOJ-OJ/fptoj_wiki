@@ -342,12 +342,4 @@ Viết hàm `minMax` nhận mảng và trả về min, max qua tham chiếu.
 
 ---
 
-## Bài viết liên quan
-
-- [C07: Template & Fast I/O ←](C07-template-fast-io.md)
-- [C09: pair & tuple →](C09-pair-tuple.md)
-
----
-
-**Bài trước:** [C07: Template & Fast I/O](C07-template-fast-io.md)<br>
-**Bài tiếp theo:** [C09: pair & tuple →](C09-pair-tuple.md)
+**Bài trước:** [C07: Template & Fast I/O](C07-template-fast-io.md) | **Bài tiếp theo:** [C09: pair & tuple →](C09-pair-tuple.md)

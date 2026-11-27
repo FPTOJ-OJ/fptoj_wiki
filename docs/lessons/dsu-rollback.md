@@ -367,7 +367,7 @@ while ((int)dsu.history.size() > snap) dsu.rollback();
 
 Dưới đây là các bài tập giúp bạn rèn luyện kỹ thuật DSU Rollback, từ cơ bản đến nâng cao. Các mã bài đều có dạng `dsur-*` và được liệt kê trong [Problem Set](cses.md#42-cau-truc-tap-hop-roi-nhau-dsu-dsu-rollback).
 
-### 7.1. Rollback cơ bản (`dsur-basic`)
+### 7.1. Rollback cơ bản ([`dsur-basic`](https://fptoj.com/problem/dsur-basic))
 
 Trong một buổi thực hành cấu trúc dữ liệu, bạn được yêu cầu mô phỏng hệ thống quản lý nhóm. Ban đầu có **N** phần tử, mỗi phần tử là một nhóm riêng biệt. Có **Q** thao tác:
 
@@ -377,7 +377,7 @@ Trong một buổi thực hành cấu trúc dữ liệu, bạn được yêu c�
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 7.2. Tổng nhóm có rollback (`dsur-sum`)
+### 7.2. Tổng nhóm có rollback ([`dsur-sum`](https://fptoj.com/problem/dsur-sum))
 
 Trong ngân hàng dữ liệu, mỗi tài khoản có số dư **a[i]**. Hệ thống có thể gộp các tài khoản thành nhóm (tổng số dư cộng dồn) và hoàn tác việc gộp. Có **Q** thao tác:
 
@@ -387,7 +387,7 @@ Trong ngân hàng dữ liệu, mỗi tài khoản có số dư **a[i]**. Hệ th
 
 *Ràng buộc:* N, Q ≤ 10⁵, |a[i]| ≤ 10⁹. Yêu cầu lưu thêm thông tin tổng và khôi phục khi rollback.
 
-### 7.3. Dòng thời gian — Timeline (`dsur-timeline`)
+### 7.3. Dòng thời gian — Timeline ([`dsur-timeline`](https://fptoj.com/problem/dsur-timeline))
 
 Một thí nghiệm theo dõi sự kết nối giữa **N** nút mạng theo thời gian. Có **Q** sự kiện:
 
@@ -399,7 +399,7 @@ Xử lý offline bằng **Chia để trị trên thời gian (Divide and Conquer
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 7.4. Đồ thị động — Dynamic Connectivity (`dsur-online`)
+### 7.4. Đồ thị động — Dynamic Connectivity ([`dsur-online`](https://fptoj.com/problem/dsur-online))
 
 Cho đồ thị vô hướng **N** đỉnh, ban đầu rỗng. Có **Q** truy vấn:
 
@@ -411,7 +411,7 @@ Giải bài toán **Dynamic Connectivity** offline bằng Segment Tree trên th�
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 7.5. Lưu trữ trạng thái — Persistent DSU (`dsur-persistence`)
+### 7.5. Lưu trữ trạng thái — Persistent DSU ([`dsur-persistence`](https://fptoj.com/problem/dsur-persistence))
 
 Hệ thống quản lý phiên bản dữ liệu, mỗi thao tác gộp tạo một snapshot mới. Có **Q** thao tác:
 
@@ -423,7 +423,7 @@ Không thể dùng rollback đơn thuần vì có thể quay lại phiên bản 
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 7.6. Số vùng kết nối qua thời gian (`dsur-connect`)
+### 7.6. Số vùng kết nối qua thời gian ([`dsur-connect`](https://fptoj.com/problem/dsur-connect))
 
 Trong mạng lưới giao thông **N** nút, các tuyến đường được xây và phá theo thời gian. Có **Q** sự kiện:
 
@@ -435,7 +435,7 @@ Dùng DSU Rollback mở rộng để lưu thêm biến `components`, khôi phụ
 
 *Ràng buộc:* N, Q ≤ 10⁵.
 
-### 7.7. Đồ thị hai phía động — Dynamic Bipartite (`dsur-bipartite`)
+### 7.7. Đồ thị hai phía động — Dynamic Bipartite ([`dsur-bipartite`](https://fptoj.com/problem/dsur-bipartite))
 
 Đồ thị **N** đỉnh, ban đầu rỗng. Có **Q** thao tác:
 
@@ -447,7 +447,7 @@ Sử dụng DSU Rollback mở rộng với **parity DSU**: ngoài parent và siz
 
 *Ràng buộc:* N, Q ≤ 10⁵. Bài tập khó, yêu cầu hiểu sâu về DSU rollback và đồ thị hai phía.
 
-### 7.8. Cây khung động — Dynamic MST (`dsur-mst`)
+### 7.8. Cây khung động — Dynamic MST ([`dsur-mst`](https://fptoj.com/problem/dsur-mst))
 
 Cho đồ thị **N** đỉnh, ban đầu không cạnh. Có **Q** thao tác:
 

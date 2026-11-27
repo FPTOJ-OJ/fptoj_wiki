@@ -419,6 +419,40 @@ Nam 8" data-hint="Dùng sort với lambda: so sánh score trước, nếu bằng
     }
     ```
 
+### Bài 2: Nạp chồng toán tử `<` cho `struct Interval`
+Đọc `n` đoạn `[l, r]`. Nạp chồng `operator<` sao cho khi `sort`, các đoạn xếp theo `l` tăng dần; nếu `l` bằng nhau thì `r` giảm dần (đoạn dài hơn đứng trước).
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nstruct Interval {\n    int l, r;\n    bool operator&lt;(const Interval &amp;other) const {\n        // Viết điều kiện so sánh\n        return false;\n    }\n};\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="3
+2 5
+1 3
+1 7" data-expected="1 7
+1 3
+2 5" data-hint="if (l != other.l) return l &lt; other.l; return r &gt; other.r;"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    struct Interval {
+        int l, r;
+        bool operator<(const Interval &other) const {
+            if (l != other.l) return l < other.l;
+            return r > other.r;
+        }
+    };
+
+    int main() {
+        int n;
+        cin >> n;
+        vector<Interval> v(n);
+        for (int i = 0; i < n; i++) cin >> v[i].l >> v[i].r;
+        sort(v.begin(), v.end());
+        for (auto &seg : v) cout << seg.l << " " << seg.r << "\n";
+        return 0;
+    }
+    ```
+
 ## Bài tập luyện tập trên CSES
 
 | Bài | Độ khó | Gợi ý |
@@ -431,12 +465,4 @@ Nam 8" data-hint="Dùng sort với lambda: so sánh score trước, nếu bằng
 
 ---
 
-## Bài viết liên quan
-
-- [C21: Tham chiếu nhanh ←](C21-tham-chieu-nhanh.md)
-- [Chương 2: C++ cho Thi Đấu](index.md)
-
----
-
-**Bài trước:** [C21: Tham chiếu nhanh](C21-tham-chieu-nhanh.md)<br>
-**Quay lại:** [Chương 2: C++ cho Thi Đấu](index.md)
+**Bài trước:** [C21: Tham chiếu nhanh](C21-tham-chieu-nhanh.md) | **Quay lại:** [Chương 2: C++ cho Thi Đấu](index.md)

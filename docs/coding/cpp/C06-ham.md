@@ -297,7 +297,7 @@ sort(a.begin(), a.end(), [](int x, int y) {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Quên return
 
@@ -441,13 +441,6 @@ Viết hàm `daoMang(vector<int> &a)` đảo ngược mảng tại chỗ.
 | **Overload** | Nhiều hàm cùng tên, khác tham số |
 | **Đệ quy** | Hàm gọi chính mình |
 | **Lambda** | `auto f = [](int x) { return x * 2; };` |
-
----
-
-## Bài viết liên quan
-
-- [C05: String ←](C05-string.md)
-- [C07: Template & Fast I/O →](C07-template-fast-io.md)
 
 ---
 

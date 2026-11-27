@@ -415,7 +415,17 @@ return (long long)((__int128)sum * sum % MOD); // nếu cần mod
 
 | Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
 | :--- | :--- | :---: | :--- | :--- |
+| `d1d-basic-split` | [Chia Mảng](https://fptoj.com/problem/d1d-basic-split) | ⭐⭐⭐⭐⭐ | Phân hoạch mảng 1D1D cơ bản | [DP 1D1D](dp-1d1d.md) |
+| `d1d-attach` | [Ghép Cặp Thiết Bị](https://fptoj.com/problem/d1d-attach) | ⭐⭐⭐⭐⭐ | Tối ưu 1D1D ghép cặp | [DP 1D1D](dp-1d1d.md) |
 | `d1d-cost-k` | [Chi Phí K](https://fptoj.com/problem/d1d-cost-k) | ⭐⭐⭐⭐⭐ | DP 1D1D - Chi phí đoạn K | [DP 1D1D](dp-1d1d.md) |
+| `d1d-factory` | [Xây Nhà Máy](https://fptoj.com/problem/d1d-factory) | ⭐⭐⭐⭐⭐ | Đặt nhà máy tối ưu 1D1D | [DP 1D1D](dp-1d1d.md) |
+| `d1d-hat` | [Phát Nón](https://fptoj.com/problem/d1d-hat) | ⭐⭐⭐⭐⭐ | Quy hoạch động 1D1D | [DP 1D1D](dp-1d1d.md) |
+| `d1d-letter` | [Gửi Thư Hàng Loạt](https://fptoj.com/problem/d1d-letter) | ⭐⭐⭐⭐⭐ | Quy hoạch động 1D1D | [DP 1D1D](dp-1d1d.md) |
+| `d1d-linear-fill` | [Điền Số Vào Bảng](https://fptoj.com/problem/d1d-linear-fill) | ⭐⭐⭐⭐⭐ | Quy hoạch động 1D1D | [DP 1D1D](dp-1d1d.md) |
+| `d1d-painting` | [Tô Màu Hàng Rào](https://fptoj.com/problem/d1d-painting) | ⭐⭐⭐⭐⭐ | Quy hoạch động 1D1D | [DP 1D1D](dp-1d1d.md) |
+| `d1d-park` | [Trạm Dừng Chân](https://fptoj.com/problem/d1d-park) | ⭐⭐⭐⭐⭐ | Quy hoạch động 1D1D | [DP 1D1D](dp-1d1d.md) |
+| `d1d-post-office` | [Đặt Bưu Điện](https://fptoj.com/problem/d1d-post-office) | ⭐⭐⭐⭐⭐ | Bài toán bưu điện 1D1D | [DP 1D1D](dp-1d1d.md) |
+| `d1d-warehouse` | [Xây Kho Hàng](https://fptoj.com/problem/d1d-warehouse) | ⭐⭐⭐⭐⭐ | Xây kho hàng tối ưu 1D1D | [DP 1D1D](dp-1d1d.md) |
 
 ---
 

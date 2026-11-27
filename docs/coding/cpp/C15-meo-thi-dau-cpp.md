@@ -368,11 +368,4 @@ for (int i = 0; i < v.size(); i++) {
 
 ---
 
-## Bài viết liên quan
-
-- [C14: Algorithm nâng cao ←](C14-algorithm-nang-cao.md)
-- [C16: Bài tập tổng hợp →](C16-bai-tap-tong-hop.md)
-
----
-
 **Bài tiếp theo:** [C16: Bài tập tổng hợp →](C16-bai-tap-tong-hop.md)

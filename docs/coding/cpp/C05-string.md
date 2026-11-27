@@ -271,7 +271,7 @@ if (s.find(sub) != string::npos) {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Truy cập ngoài chuỗi
 
@@ -407,13 +407,6 @@ if (s3 == s4) cout << "Sai!";  // So sánh địa chỉ, không phải nội dun
 | **Tìm kiếm** | `s.find(sub)` |
 | **Nhập dòng** | `getline(cin, s)` |
 | **Duyệt** | `for (char c : s)` |
-
----
-
-## Bài viết liên quan
-
-- [C04: Mảng & Vector ←](C04-mang-vector.md)
-- [C06: Hàm trong C++ →](C06-ham.md)
 
 ---
 

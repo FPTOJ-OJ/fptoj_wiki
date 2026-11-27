@@ -368,7 +368,10 @@ b = 10" data-input="" data-expected="10 5" data-hint="Dùng a, b = b, a"></div>
 
 ??? tip "Lời giải"
     ```python
+    a = 5
+    b = 10
     a, b = b, a
+    print(a, b)
     ```
 
 ### Bài 2: Tính diện tích hình tròn
@@ -403,6 +406,7 @@ Cho biến `x`. In ra kiểu dữ liệu của `x`.
 
 ??? tip "Lời giải"
     ```python
+    x = 42
     print(type(x).__name__)  # int
     ```
 
@@ -417,12 +421,4 @@ Cho biến `x`. In ra kiểu dữ liệu của `x`.
 
 ---
 
-## Bài viết liên quan
-
-- [← P01: Cài đặt & Hello World](P01-cai-dat.md)
-- [P03: Nhập/Xuất dữ liệu →](P03-nhap-xuat.md)
-
----
-
-**Bài trước:** [P01: Cài đặt & Hello World](P01-cai-dat.md)<br>
-**Bài tiếp theo:** [P03: Nhập/Xuất dữ liệu →](P03-nhap-xuat.md)
+**Bài trước:** [P01: Cài đặt & Hello World](P01-cai-dat.md) | **Bài tiếp theo:** [P03: Nhập/Xuất dữ liệu →](P03-nhap-xuat.md)

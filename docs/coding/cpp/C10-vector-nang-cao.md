@@ -196,7 +196,7 @@ a.insert(a.begin(), 3, 7);
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Iterator invalidated
 
@@ -262,10 +262,40 @@ for (int i = 0; i < 3; i++) {
         // In ma trận chuyển vị
         for (int j = 0; j < n; j++) {
             for (int i = 0; i < m; i++) {
-                cout << a[i][j] << " ";
+                cout << a[i][j] << (i + 1 < m ? " " : "");
             }
-            cout << endl;
+            cout << '\n';
         }
+        return 0;
+    }
+    ```
+
+### Bài 2: Xoá số chẵn khỏi `vector`
+Đọc `n` và `n` số nguyên. Xóa toàn bộ số chẵn khỏi `vector` rồi in ra các phần tử còn lại trên một dòng (đảm bảo luôn có ít nhất 1 số lẻ).
+
+<div class="cp-pg" data-language="cpp" data-starter="#include &lt;bits/stdc++.h&gt;\nusing namespace std;\n\nint main() {\n    // Viết code ở đây\n    return 0;\n}" data-input="6
+1 2 3 4 5 6" data-expected="1 3 5" data-hint="Dùng erase-remove idiom hoặc it = a.erase(it) để không bị iterator invalidated"></div>
+
+??? tip "Lời giải"
+    ```cpp
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    int main() {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+
+        for (auto it = a.begin(); it != a.end(); ) {
+            if (*it % 2 == 0) it = a.erase(it);
+            else ++it;
+        }
+        for (int i = 0; i < (int)a.size(); i++) {
+            if (i) cout << " ";
+            cout << a[i];
+        }
+        cout << "\n";
         return 0;
     }
     ```
@@ -285,12 +315,4 @@ for (int i = 0; i < 3; i++) {
 
 ---
 
-## Bài viết liên quan
-
-- [C09: pair & tuple ←](C09-pair-tuple.md)
-- [C11: sort & &lt;algorithm&gt; →](C11-sort-algorithm.md)
-
----
-
-**Bài trước:** [C09: pair & tuple](C09-pair-tuple.md)<br>
-**Bài tiếp theo:** [C11: sort & &lt;algorithm&gt; →](C11-sort-algorithm.md)
+**Bài trước:** [C09: pair & tuple](C09-pair-tuple.md) | **Bài tiếp theo:** [C11: sort & &lt;algorithm&gt; →](C11-sort-algorithm.md)

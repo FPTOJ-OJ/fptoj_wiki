@@ -338,28 +338,37 @@ Cho xâu s. Tìm ký tự xuất hiện nhiều nhất.
 ??? tip "Lời giải"
     ```python
     from collections import Counter
+    s = input().strip()
     cnt = Counter(s)
     print(cnt.most_common(1)[0])
     ```
 
 ### Bài 2: BFS
-Cho đồ thị. Duyệt BFS từ đỉnh start.
+Cho đồ thị vô hướng $n$ đỉnh ($0 \dots n-1$), $m$ cạnh và đỉnh xuất phát `start`. Duyệt BFS từ `start`.
 
 <div class="cp-pg" data-language="python" data-starter="# Viết code ở đây" data-input="4 4
 0 1
 0 2
 1 2
 2 3
-0" data-expected="0 1 2 3" data-hint="Dùng deque, duyệt hàng xóm và đánh dấu visited"></div>
+0" data-expected="0 1 2 3" data-hint="Đọc n, m và m cạnh vào danh sách kề, đọc start, rồi dùng deque để BFS"></div>
 
 ??? tip "Lời giải"
     ```python
     from collections import deque
-    
-    visited = set([start])
+
+    n, m = map(int, input().split())
+    graph = [[] for _ in range(n)]
+    for _ in range(m):
+        u, v = map(int, input().split())
+        graph[u].append(v)
+        graph[v].append(u)
+    start = int(input())
+
+    visited = {start}
     queue = deque([start])
     result = []
-    
+
     while queue:
         node = queue.popleft()
         result.append(node)
@@ -367,7 +376,7 @@ Cho đồ thị. Duyệt BFS từ đỉnh start.
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append(neighbor)
-    
+
     print(*result)
     ```
 
@@ -381,12 +390,13 @@ Cho list từ. Nhóm các từ có cùng ký tự khi sắp xếp.
 ??? tip "Lời giải"
     ```python
     from collections import defaultdict
-    
+
+    words = input().split()
     groups = defaultdict(list)
     for word in words:
         key = ''.join(sorted(word))
         groups[key].append(word)
-    
+
     for group in groups.values():
         print(group)
     ```
@@ -403,7 +413,8 @@ Cho xâu s gồm nhiều từ cách nhau bởi khoảng trắng. Tìm từ xuấ
 ??? tip "Lời giải"
     ```python
     from collections import Counter
-    
+
+    s = input()
     words = s.split()
     cnt = Counter(words)
     most = cnt.most_common(1)[0]
@@ -420,7 +431,9 @@ silent" data-expected="La hoan vi" data-hint="So sánh Counter(s1) == Counter(s2
 ??? tip "Lời giải"
     ```python
     from collections import Counter
-    
+
+    s1 = input().strip()
+    s2 = input().strip()
     if Counter(s1) == Counter(s2):
         print("La hoan vi")
     else:
@@ -459,8 +472,8 @@ Cho xâu s. Tìm ký tự xuất hiện nhiều nhất (không tính khoảng tr
 ??? tip "Lời giải"
     ```python
     from collections import Counter
-    
-    s = s.replace(" ", "")
+
+    s = input().replace(" ", "")
     cnt = Counter(s)
     most = cnt.most_common(1)[0]
     print(most[0], most[1])
@@ -468,12 +481,4 @@ Cho xâu s. Tìm ký tự xuất hiện nhiều nhất (không tính khoảng tr
 
 ---
 
-## Bài viết liên quan
-
-- [← P13: Hàm](P13-ham.md)
-- [P15: heapq →](P15-heapq.md)
-
----
-
-**Bài trước:** [P13: Hàm](P13-ham.md)<br>
-**Bài tiếp theo:** [P15: heapq →](P15-heapq.md)
+**Bài trước:** [P13: Hàm](P13-ham.md) | **Bài tiếp theo:** [P15: heapq →](P15-heapq.md)

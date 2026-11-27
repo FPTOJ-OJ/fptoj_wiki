@@ -257,7 +257,7 @@ if (it != a.end()) {
 
 ---
 
-## Common Mistakes — Lỗi thường gặp
+## Lỗi thường gặp
 
 ### Lỗi 1: Quên sắp xếp trước khi dùng unique
 
@@ -371,12 +371,4 @@ long long sum = accumulate(a.begin(), a.end(), 0LL);
 
 ---
 
-## Bài viết liên quan
-
-- [C10: Vector nâng cao ←](C10-vector-nang-cao.md)
-- [C12: Set & Map →](C12-set-map.md)
-
----
-
-**Bài trước:** [C10: Vector nâng cao](C10-vector-nang-cao.md)<br>
-**Bài tiếp theo:** [C12: Set & Map →](C12-set-map.md)
+**Bài trước:** [C10: Vector nâng cao](C10-vector-nang-cao.md) | **Bài tiếp theo:** [C12: Set & Map →](C12-set-map.md)

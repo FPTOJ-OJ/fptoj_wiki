@@ -586,12 +586,4 @@ bool match(const string &s, const string &pattern) {
 
 ---
 
-## Bài viết liên quan
-
-- [C17: Thuật toán STL & Số học ←](C17-thuat-toan-stl.md)
-- [C19: Matrix & Grid Pattern →](C19-matrix-pattern.md)
-
----
-
-**Bài trước:** [C17: Thuật toán STL & Số học](C17-thuat-toan-stl.md)<br>
-**Bài tiếp theo:** [C19: Matrix & Grid Pattern →](C19-matrix-pattern.md)
+**Bài trước:** [C17: Thuật toán STL & Số học](C17-thuat-toan-stl.md) | **Bài tiếp theo:** [C19: Matrix & Grid Pattern →](C19-matrix-pattern.md)

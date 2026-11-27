@@ -610,12 +610,4 @@ Cho grid n × m. Tìm đường đi ngắn nhất từ (0,0) đến (n-1,m-1). '
 
 ---
 
-## Bài viết liên quan
-
-- [← P09: List & Array 1D](P09-list-array-1d.md)
-- [P11: Dict & Set →](P11-dict-set.md)
-
----
-
-**Bài trước:** [P09: List & Array 1D](P09-list-array-1d.md)<br>
-**Bài tiếp theo:** [P11: Dict & Set →](P11-dict-set.md)
+**Bài trước:** [P09: List & Array 1D](P09-list-array-1d.md) | **Bài tiếp theo:** [P11: Dict & Set →](P11-dict-set.md)

@@ -389,12 +389,4 @@ arr = list(map(int, input().split()))" data-input="1 2 3 4 5" data-expected="[1,
 
 ---
 
-## Bài viết liên quan
-
-- [← P15: heapq](P15-heapq.md)
-- [P17: bisect →](P17-bisect.md)
-
----
-
-**Bài trước:** [P15: heapq](P15-heapq.md)<br>
-**Bài tiếp theo:** [P17: bisect →](P17-bisect.md)
+**Bài trước:** [P15: heapq](P15-heapq.md) | **Bài tiếp theo:** [P17: bisect →](P17-bisect.md)
