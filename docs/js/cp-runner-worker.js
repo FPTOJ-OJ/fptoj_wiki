@@ -60,6 +60,25 @@ function importWithFallback(url, fallbackUrl) {
   }
 }
 
+/**
+ * Nạp một script JS cổ điển trong worker.
+ * Classic worker: importScripts đồng bộ. Module worker (Pyodide 314 bắt buộc,
+ * vì nó từ chối classic worker): fetch rồi eval trong global scope.
+ * Trang không đặt Content-Security-Policy nên eval chạy được.
+ */
+function loadScript(url) {
+  if (typeof self.importScripts === 'function') {
+    importScripts(url);
+    return Promise.resolve();
+  }
+  return fetch(url).then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + url);
+    return r.text();
+  }).then(function (code) {
+    (0, eval)(code + '\n//# sourceURL=' + url);
+  });
+}
+
 function messageOf(err) {
   if (!err) return 'Lỗi không xác định';
   var msg = err.message || String(err);
@@ -224,32 +243,41 @@ function mapCppResult(res, wallMs) {
 
 function loadPython(job) {
   var cfg = job.python || {};
-  var indexUrl = cfg.indexUrl || sameOrigin('../pyodide/');
-  if (state.python && state.pythonIndexUrl === indexUrl) return Promise.resolve(state.python);
+  // Nguồn 1 (tự host) → nguồn 2 (jsDelivr) → nguồn 3 (unpkg, layout gói npm).
+  var bases = [cfg.indexUrl || sameOrigin('../pyodide/')];
+  if (cfg.fallbackIndexUrl) bases.push(cfg.fallbackIndexUrl);
+  if (cfg.unpkgIndexUrl) bases.push(cfg.unpkgIndexUrl);
+  var key = bases.join('|');
+  if (state.python && state.pythonIndexUrl === key) return Promise.resolve(state.python);
 
   return Promise.resolve().then(function () {
-    function boot(url) {
-      postStatus(job, 'load', 0, 'Đang tải Python 3 (≈13 MB, chỉ lần đầu)…');
-      if (typeof self.loadPyodide === 'undefined') {
-        importWithFallback(url + 'pyodide.js', cfg.fallbackIndexUrl ? cfg.fallbackIndexUrl + 'pyodide.js' : null);
+    postStatus(job, 'load', 0, 'Đang tải Python 3 (≈13 MB, chỉ lần đầu)…');
+    var tried = [];
+    function attempt(i) {
+      if (i >= bases.length) {
+        throw new Error('Không tải được Python (đã thử: ' + tried.join(' | ') + ')');
       }
-      if (typeof self.loadPyodide !== 'function') {
-        throw new Error('Không nạp được Python (Pyodide). Thiếu file trong thư mục pyodide/.');
-      }
-      return self.loadPyodide({ indexURL: url }).then(function (py) {
+      var base = bases[i];
+      return loadScript(base + 'pyodide.js').then(function () {
+        if (typeof self.loadPyodide !== 'function') {
+          throw new Error('không thấy loadPyodide trong ' + base + 'pyodide.js');
+        }
+        return self.loadPyodide({ indexURL: base });
+      }).then(function (py) {
         postStatus(job, 'load', 0.9, 'Đang khởi động Python…');
         state.python = py;
-        state.pythonIndexUrl = url;
+        state.pythonIndexUrl = key;
         return py;
+      }).catch(function (err) {
+        tried.push(base + ' ← ' + messageOf(err));
+        try { self.loadPyodide = undefined; } catch (e) {}
+        if (i + 1 < bases.length) {
+          postStatus(job, 'load', 0.05, 'Nguồn tải bị lỗi, đang thử nguồn dự phòng…');
+        }
+        return attempt(i + 1);
       });
     }
-
-    return boot(indexUrl).catch(function (err) {
-      var fallback = cfg.fallbackIndexUrl;
-      if (!fallback || fallback === indexUrl) throw err;
-      postStatus(job, 'load', 0.05, 'Nguồn chính bị lỗi, đang thử nguồn dự phòng…');
-      return boot(fallback);
-    });
+    return attempt(0);
   });
 }
 

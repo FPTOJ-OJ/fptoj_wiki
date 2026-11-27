@@ -195,6 +195,7 @@ Since v4 there is **no compile server**: code runs locally via WebAssembly, noth
 - `CPCompiler.preload('cpp' | 'python')` warms a runtime ahead of time; `onStatus` / `CPCompiler.on('status')` reports load/compile/run phases.
 - Timeouts kill the worker (`timeout`, default 45 s, covers compile+run; `loadTimeout` covers the first download). The next run recreates it.
 - Behaviour to keep in mind: no C++ exceptions (`try/catch`/`throw` do not link), and it is Clang pretending to be GNU (`gnu++17`, `__GNUC__` defined), so `#include <bits/stdc++.h>` works but `bits/stdc++.h` content is a curated subset, not GCC's exact header.
+- Python worker is `{ type: 'module' }` (Pyodide 314 throws in classic workers); C++ worker stays classic. After editing any `docs/js/cp-*.js` or `webjs.js`, bump `VERSION` in `cp-compiler.js` **and** `CP_ASSET_V` in `webjs.js` together so browsers drop the cached copy.
 
 When bumping a runtime version, update the files under `docs/clang/` + `docs/js/clang-wasm.global.js` (from `@live-codes/clang-wasm`) or `docs/pyodide/` (from the `pyodide` npm package) **and** `CLANG_WASM_VERSION` / `PYODIDE_VERSION` in `cp-compiler.js` — those constants only drive the fallback URLs.
 

@@ -107,6 +107,9 @@ $(document).ready(function () {
 
   // 4. Lazy-load CodeMirror only when .cp-pg exists on page
   if (document.querySelector('.cp-pg')) {
+    // Đổi số này mỗi khi sửa cp-compiler.js / cp-runner-worker.js / cp-playground.js
+    // để trình duyệt bỏ cache cũ (giữ đồng bộ với VERSION trong cp-compiler.js).
+    var CP_ASSET_V = '4.1.0';
     var cmCSS = [
       'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css',
       'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.css',
@@ -121,8 +124,8 @@ $(document).ready(function () {
       'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/show-hint.min.js',
       'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/hint/anyword-hint.min.js',
       'https://cdn.jsdelivr.net/npm/codemirror@5.65.18/addon/selection/active-line.min.js',
-      '/js/cp-compiler.js',
-      '/js/cp-playground.js'
+      '/js/cp-compiler.js?v=' + CP_ASSET_V,
+      '/js/cp-playground.js?v=' + CP_ASSET_V
     ];
 
     function loadCSS(href) {

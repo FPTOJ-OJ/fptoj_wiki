@@ -30,6 +30,9 @@
   // ============================================================
   var CLANG_WASM_VERSION = '0.3.0';
   var PYODIDE_VERSION = '314.0.8';
+  // Đổi số này mỗi khi sửa cp-compiler.js / cp-runner-worker.js / cp-playground.js
+  // để trình duyệt bỏ cache cũ (xem webjs.js CP_ASSET_V — giữ 2 số đồng bộ).
+  var VERSION = '4.1.0';
 
   var DEFAULT_CONFIG = {
     // Ngôn ngữ mặc định: 'cpp' | 'python'
@@ -70,6 +73,7 @@
     python: {
       indexUrl: null,
       fallbackIndexUrl: 'https://cdn.jsdelivr.net/pyodide/v' + PYODIDE_VERSION + '/full/',
+      unpkgIndexUrl: 'https://unpkg.com/pyodide@' + PYODIDE_VERSION + '/',
     },
 
     // Giữ cho tương thích với v3 (không còn dùng)
@@ -207,9 +211,11 @@
   }());
 
   function workerUrl() {
-    if (_config.workerUrl) return _config.workerUrl;
-    if (SCRIPT_URL) return SCRIPT_URL.replace(/[^/]*(\?.*)?$/, 'cp-runner-worker.js');
-    return '/js/cp-runner-worker.js';
+    var base;
+    if (_config.workerUrl) base = _config.workerUrl;
+    else if (SCRIPT_URL) base = SCRIPT_URL.replace(/[^/]*(\?.*)?$/, 'cp-runner-worker.js');
+    else base = '/js/cp-runner-worker.js';
+    return base.split('?')[0] + '?v=' + VERSION;
   }
 
   var _runners = { cpp: null, python: null }; // { worker, warm }
@@ -236,7 +242,12 @@
     }
 
     var url = workerUrl();
-    var worker = new Worker(url);
+    // Python chạy module worker: Pyodide 314 ném lỗi
+    // "Classic web workers are not supported" trong classic worker.
+    // C++ giữ classic worker (clang-wasm là bundle IIFE, cần importScripts).
+    var worker = (language === 'python')
+      ? new Worker(url, { type: 'module' })
+      : new Worker(url);
     var runner = { worker: worker, warm: false, url: url };
 
     worker.onmessage = function (ev) {
@@ -446,7 +457,7 @@
   };
 
   CPCompiler.init = function () {
-    log('info', 'CPCompiler v4.0.0 — C++ (Clang/WASM) & Python 3 (Pyodide), chạy cục bộ trong trình duyệt');
+    log('info', 'CPCompiler v' + VERSION + ' — C++ (Clang/WASM) & Python 3 (Pyodide), chạy cục bộ trong trình duyệt');
     return Promise.resolve();
   };
 
@@ -644,7 +655,7 @@
       });
   };
 
-  CPCompiler.version = '4.0.0';
+  CPCompiler.version = VERSION;
 
   return CPCompiler;
 }));
