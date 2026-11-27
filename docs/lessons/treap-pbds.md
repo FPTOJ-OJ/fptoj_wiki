@@ -298,11 +298,11 @@ int main() {
 
 ### Bài tập trên FPTOJ
 
-| Mã bài | Tên bài tập | Độ khó | Kỹ thuật |
-| :--- | :--- | :---: | :--- |
-| `treap-ordered-set` | [Tập hợp động (Ordered Set)](https://fptoj.com/problem/treap-ordered-set) | ⭐⭐⭐ | Hỗ trợ $Q \le 2 \cdot 10^5$ truy vấn thêm, xóa, tìm phần tử nhỏ thứ $k$ (`find_by_order`), đếm số phần tử $< x$ (`order_of_key`). |
-| `treap-cut-paste` | [Cắt và Dán xâu (Implicit Treap)](https://fptoj.com/problem/treap-cut-paste) | ⭐⭐⭐⭐ | Cho xâu độ dài $N \le 2 \cdot 10^5$ và $Q$ thao tác cắt đoạn $[l, r]$ dán vào cuối xâu. |
-| `treap-rev-sum` | [Đảo đoạn và Tính tổng (Implicit Treap)](https://fptoj.com/problem/treap-rev-sum) | ⭐⭐⭐⭐ | Cho mảng $N \le 2 \cdot 10^5$ phần tử, hỗ trợ $Q$ truy vấn đảo ngược đoạn $[l, r]$ và tính tổng đoạn $[l, r]$. |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `treap-ordered-set` | [Tập hợp động (Ordered Set)](https://fptoj.com/problem/treap-ordered-set) | ⭐⭐⭐ | PBDS (`find_by_order`, `order_of_key`) | [Treap & PBDS](treap-pbds.md) |
+| `treap-cut-paste` | [Cắt và Dán xâu (Implicit Treap)](https://fptoj.com/problem/treap-cut-paste) | ⭐⭐⭐⭐ | Implicit Treap (`split` + `merge`) | [Treap & PBDS](treap-pbds.md) |
+| `treap-rev-sum` | [Đảo đoạn và Tính tổng (Implicit Treap)](https://fptoj.com/problem/treap-rev-sum) | ⭐⭐⭐⭐ | Implicit Treap + Lazy Reverse & Sum | [Treap & PBDS](treap-pbds.md) |
 
 ### Bài tập tham khảo thêm
 

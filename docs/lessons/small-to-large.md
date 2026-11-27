@@ -252,11 +252,11 @@ void mergeRight(set<int>& a, set<int>& b) {
 
 ### Bài tập trên FPTOJ
 
-| Mã bài | Tên bài tập | Độ khó | Ý tưởng áp dụng |
-| :--- | :--- | :---: | :--- |
-| `stl-distinct-colors` | [Đếm màu phân biệt trên cây](https://fptoj.com/problem/stl-distinct-colors) | ⭐⭐⭐ | Cho cây $N \le 2 \cdot 10^5$ đỉnh, mỗi đỉnh có màu $c_i$. Đếm số màu phân biệt trong từng cây con gốc $u$. |
-| `stl-dominant-color` | [Tổng màu chiếm đa số](https://fptoj.com/problem/stl-dominant-color) | ⭐⭐⭐⭐ | Cho cây $N \le 10^5$ đỉnh, mỗi đỉnh có màu $c_i$. Tính tổng giá trị các màu xuất hiện nhiều nhất trong từng cây con gốc $u$. |
-| `stl-tree-palindrome` | [Cây con Palindrome theo độ sâu](https://fptoj.com/problem/stl-tree-palindrome) | ⭐⭐⭐⭐ | Trả lời $Q$ truy vấn $(v, h)$: tập ký tự ở độ sâu $h$ trong cây con $v$ có xếp thành palindrome được không (Sack + bitmask). |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `stl-distinct-colors` | [Đếm màu phân biệt trên cây](https://fptoj.com/problem/stl-distinct-colors) | ⭐⭐⭐ | Đếm giá trị phân biệt mỗi cây con | [Small-to-Large](small-to-large.md) |
+| `stl-dominant-color` | [Tổng màu chiếm đa số](https://fptoj.com/problem/stl-dominant-color) | ⭐⭐⭐⭐ | DSU on Tree + thống kê tần suất cực đại | [Small-to-Large](small-to-large.md) |
+| `stl-tree-palindrome` | [Cây con Palindrome theo độ sâu](https://fptoj.com/problem/stl-tree-palindrome) | ⭐⭐⭐⭐ | Sack + bitmask theo độ sâu | [Small-to-Large](small-to-large.md) |
 
 ### Bài tập tham khảo thêm
 

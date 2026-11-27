@@ -166,11 +166,11 @@ Nếu $N$ lên tới $15$ hoặc $16$ và ta không muốn sinh đệ quy từng
 
 ### Bài tập trên FPTOJ
 
-| Mã bài | Tên bài tập | Độ khó | Yêu cầu |
-| :--- | :--- | :---: | :--- |
-| `bp-domino-tiling` | [Lát gạch Domino (Broken Profile)](https://fptoj.com/problem/bp-domino-tiling) | ⭐⭐⭐ | Đếm số cách lát kín bảng $N \times M$ ($N \le 10, M \le 1000$) bằng domino $1 \times 2, 2 \times 1$, mod $10^9 + 7$. |
-| `bp-broken-grid` | [Lát gạch trên bảng có ô hỏng](https://fptoj.com/problem/bp-broken-grid) | ⭐⭐⭐⭐ | Đếm số cách lát kín các ô trống (`.`) trên bảng $N \times M$ ($N \le 10, M \le 100$) có ô hỏng (`#`), mod $10^9 + 7$. |
-| `bp-l-tiling` | [Lát gạch chữ L (Tromino)](https://fptoj.com/problem/bp-l-tiling) | ⭐⭐⭐⭐⭐ | Đếm số cách lát kín bảng $N \times M$ ($N \le 8, M \le 100$) bằng gạch chữ L (3 ô, xoay 4 hướng), mod $10^9 + 7$. |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `bp-domino-tiling` | [Lát gạch Domino (Broken Profile)](https://fptoj.com/problem/bp-domino-tiling) | ⭐⭐⭐ | Lát domino $1 \times 2, 2 \times 1$ cơ bản | [DP on Broken Profile](dp-broken-profile.md) |
+| `bp-broken-grid` | [Lát gạch trên bảng có ô hỏng](https://fptoj.com/problem/bp-broken-grid) | ⭐⭐⭐⭐ | Broken Profile trên lưới có vật cản | [DP on Broken Profile](dp-broken-profile.md) |
+| `bp-l-tiling` | [Lát gạch chữ L (Tromino)](https://fptoj.com/problem/bp-l-tiling) | ⭐⭐⭐⭐⭐ | Broken Profile nhiều trạng thái gạch xoay | [DP on Broken Profile](dp-broken-profile.md) |
 
 ### Bài tập tham khảo thêm
 

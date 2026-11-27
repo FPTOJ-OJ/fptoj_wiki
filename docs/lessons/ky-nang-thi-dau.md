@@ -391,12 +391,12 @@ for(int test = 0; test < 1000; test++) {
 
 ### Bài tập thực chiến trên FPTOJ
 
-| Mã bài | Tên bài | Chủ đề | Độ khó |
-|---|---|---|---|
-| `fptat1-pair` | [Perfect Pair](https://fptoj.com/problem/fptat1-pair) | Kỹ thuật hai con trỏ | ⭐ |
-| `fptat1-stair` | [Magic Staircase](https://fptoj.com/problem/fptat1-stair) | Quy hoạch động | ⭐ |
-| `fptat1-treasure` | [Treasure Subarray](https://fptoj.com/problem/fptat1-treasure) | Tìm kiếm nhị phân | ⭐ |
-| `fptat1-tree` | [Planting Trees](https://fptoj.com/problem/fptat1-tree) | Cấu trúc dữ liệu | ⭐ |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `fptat1-pair` | [Perfect Pair](https://fptoj.com/problem/fptat1-pair) | ⭐ | Kỹ thuật hai con trỏ | [Kỹ năng thi đấu](ky-nang-thi-dau.md) |
+| `fptat1-stair` | [Magic Staircase](https://fptoj.com/problem/fptat1-stair) | ⭐ | Quy hoạch động cơ bản | [Kỹ năng thi đấu](ky-nang-thi-dau.md) |
+| `fptat1-treasure` | [Treasure Subarray](https://fptoj.com/problem/fptat1-treasure) | ⭐ | Tìm kiếm nhị phân | [Kỹ năng thi đấu](ky-nang-thi-dau.md) |
+| `fptat1-tree` | [Planting Trees](https://fptoj.com/problem/fptat1-tree) | ⭐ | Cấu trúc dữ liệu cơ bản | [Kỹ năng thi đấu](ky-nang-thi-dau.md) |
 
 ### Nguồn luyện đề tổng hợp
 

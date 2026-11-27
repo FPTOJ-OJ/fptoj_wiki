@@ -233,11 +233,11 @@ flowchart LR
 
 ### Bài tập trên FPTOJ
 
-| Mã bài | Tên bài tập | Độ khó | Ý tưởng |
-| :--- | :--- | :---: | :--- |
-| `pbs-connect-time` | [Thời điểm liên thông (Parallel Binary Search)](https://fptoj.com/problem/pbs-connect-time) | ⭐⭐⭐ | Thêm lần lượt $M$ cạnh vào đồ thị $N$ đỉnh. Với $Q$ truy vấn $(u, v)$, tìm thời điểm sớm nhất hai đỉnh liên thông (DSU + PBS). |
-| `pbs-meteors` | [Mưa sao băng (Parallel Binary Search)](https://fptoj.com/problem/pbs-meteors) | ⭐⭐⭐⭐ | $N$ quốc gia sở hữu $M$ trạm trên vòng tròn, $K$ đợt mưa sao băng trên $[l, r]$. Tìm đợt sớm nhất mỗi quốc gia đủ $p_i$ thiên thạch (BIT + PBS). |
-| `pbs-stamp-rally` | [Hành trình thu thập tem (Stamp Rally)](https://fptoj.com/problem/pbs-stamp-rally) | ⭐⭐⭐⭐ | Hai người xuất phát từ $x, y$, đi qua các cạnh có chỉ số $\le T$. Tìm $T$ nhỏ nhất để tổng số đỉnh phân biệt đi tới được $\ge z$ (DSU + PBS). |
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `pbs-connect-time` | [Thời điểm liên thông (Parallel Binary Search)](https://fptoj.com/problem/pbs-connect-time) | ⭐⭐⭐ | Parallel BS + DSU cơ bản | [Parallel Binary Search](parallel-binary-search.md) |
+| `pbs-meteors` | [Mưa sao băng (Parallel Binary Search)](https://fptoj.com/problem/pbs-meteors) | ⭐⭐⭐⭐ | Parallel BS + Fenwick Tree (BIT) | [Parallel Binary Search](parallel-binary-search.md) |
+| `pbs-stamp-rally` | [Hành trình thu thập tem (Stamp Rally)](https://fptoj.com/problem/pbs-stamp-rally) | ⭐⭐⭐⭐ | Parallel BS + DSU đếm kích thước | [Parallel Binary Search](parallel-binary-search.md) |
 
 ### Bài tập tham khảo thêm
 

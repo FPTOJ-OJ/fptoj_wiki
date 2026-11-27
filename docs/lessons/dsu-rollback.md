@@ -363,101 +363,18 @@ while ((int)dsu.history.size() > snap) dsu.rollback();
 
 ---
 
-## 7. Bài tập luyện tập trên FPTOJ
+## 7. Bài tập luyện tập
 
-Dưới đây là các bài tập giúp bạn rèn luyện kỹ thuật DSU Rollback, từ cơ bản đến nâng cao. Các mã bài đều có dạng `dsur-*` và được liệt kê trong [Problem Set](cses.md#42-cau-truc-tap-hop-roi-nhau-dsu-dsu-rollback).
-
-### 7.1. Rollback cơ bản ([`dsur-basic`](https://fptoj.com/problem/dsur-basic))
-
-Trong một buổi thực hành cấu trúc dữ liệu, bạn được yêu cầu mô phỏng hệ thống quản lý nhóm. Ban đầu có **N** phần tử, mỗi phần tử là một nhóm riêng biệt. Có **Q** thao tác:
-
-- **1 u v**: Gộp nhóm chứa u và nhóm chứa v.
-- **2**: Hoàn tác thao tác gộp gần nhất. Nếu không có thao tác nào để hoàn tác thì bỏ qua.
-- **3 u v**: Hỏi u và v có đang cùng nhóm không?
-
-*Ràng buộc:* N, Q ≤ 10⁵.
-
-### 7.2. Tổng nhóm có rollback ([`dsur-sum`](https://fptoj.com/problem/dsur-sum))
-
-Trong ngân hàng dữ liệu, mỗi tài khoản có số dư **a[i]**. Hệ thống có thể gộp các tài khoản thành nhóm (tổng số dư cộng dồn) và hoàn tác việc gộp. Có **Q** thao tác:
-
-- **1 u v**: Gộp nhóm chứa u và nhóm chứa v.
-- **2**: Hoàn tác thao tác gộp gần nhất.
-- **3 u**: In tổng số dư của nhóm chứa u.
-
-*Ràng buộc:* N, Q ≤ 10⁵, |a[i]| ≤ 10⁹. Yêu cầu lưu thêm thông tin tổng và khôi phục khi rollback.
-
-### 7.3. Dòng thời gian — Timeline ([`dsur-timeline`](https://fptoj.com/problem/dsur-timeline))
-
-Một thí nghiệm theo dõi sự kết nối giữa **N** nút mạng theo thời gian. Có **Q** sự kiện:
-
-- **1 u v**: Nút u và v kết nối với nhau.
-- **2 u v**: Kết nối giữa u và v bị đứt (đảm bảo đã tồn tại).
-- **3 u v**: Hỏi u và v có kết nối không?
-
-Xử lý offline bằng **Chia để trị trên thời gian (Divide and Conquer on Time)** kết hợp DSU Rollback. Đây là bài tập kinh điển để hiểu cách áp dụng D&C vào bài toán dynamic connectivity.
-
-*Ràng buộc:* N, Q ≤ 10⁵.
-
-### 7.4. Đồ thị động — Dynamic Connectivity ([`dsur-online`](https://fptoj.com/problem/dsur-online))
-
-Cho đồ thị vô hướng **N** đỉnh, ban đầu rỗng. Có **Q** truy vấn:
-
-- `add u v`: Thêm cạnh (u, v).
-- `remove u v`: Xoá cạnh (u, v).
-- `query u v`: Hỏi u và v có liên thông không?
-
-Giải bài toán **Dynamic Connectivity** offline bằng Segment Tree trên thời gian kết hợp DSU Rollback: mỗi cạnh tồn tại trong một khoảng thời gian, thêm vào node Segment Tree tương ứng, sau đó DFS để xử lý.
-
-*Ràng buộc:* N, Q ≤ 10⁵.
-
-### 7.5. Lưu trữ trạng thái — Persistent DSU ([`dsur-persistence`](https://fptoj.com/problem/dsur-persistence))
-
-Hệ thống quản lý phiên bản dữ liệu, mỗi thao tác gộp tạo một snapshot mới. Có **Q** thao tác:
-
-- **1 u v**: Gộp hai nhóm, tạo phiên bản mới.
-- **2 k**: Quay lại phiên bản thứ k (đánh số từ 0).
-- **3 u v**: Hỏi ở phiên bản hiện tại, u và v có cùng nhóm không?
-
-Không thể dùng rollback đơn thuần vì có thể quay lại phiên bản bất kỳ. Cần duy trì mảng lịch sử kích thước tại mỗi phiên bản, dùng `rollbackTo(targetSize)`.
-
-*Ràng buộc:* N, Q ≤ 10⁵.
-
-### 7.6. Số vùng kết nối qua thời gian ([`dsur-connect`](https://fptoj.com/problem/dsur-connect))
-
-Trong mạng lưới giao thông **N** nút, các tuyến đường được xây và phá theo thời gian. Có **Q** sự kiện:
-
-- `connect u v`: Xây đường nối u và v.
-- `disconnect u v`: Phá đường (đảm bảo tồn tại).
-- `count`: In số thành phần liên thông hiện tại.
-
-Dùng DSU Rollback mở rộng để lưu thêm biến `components`, khôi phục khi rollback. Kết hợp với Segment Tree trên thời gian để xử lý.
-
-*Ràng buộc:* N, Q ≤ 10⁵.
-
-### 7.7. Đồ thị hai phía động — Dynamic Bipartite ([`dsur-bipartite`](https://fptoj.com/problem/dsur-bipartite))
-
-Đồ thị **N** đỉnh, ban đầu rỗng. Có **Q** thao tác:
-
-- `add u v`: Thêm cạnh.
-- `remove u v`: Xoá cạnh (đảm bảo tồn tại).
-- `query`: Hỏi đồ thị hiện tại có hai phía không?
-
-Sử dụng DSU Rollback mở rộng với **parity DSU**: ngoài parent và size, lưu thêm parity (chẵn lẻ) để kiểm tra tính hai phía. Khi thêm cạnh nối hai đỉnh cùng parity trong cùng tập → vi phạm.
-
-*Ràng buộc:* N, Q ≤ 10⁵. Bài tập khó, yêu cầu hiểu sâu về DSU rollback và đồ thị hai phía.
-
-### 7.8. Cây khung động — Dynamic MST ([`dsur-mst`](https://fptoj.com/problem/dsur-mst))
-
-Cho đồ thị **N** đỉnh, ban đầu không cạnh. Có **Q** thao tác:
-
-- `add u v w`: Thêm cạnh (u, v) trọng số w.
-- `remove u v`: Xoá cạnh (u, v) — đảm bảo tồn tại.
-- `query`: In tổng trọng số MST hiện tại. Nếu đồ thị không liên thông, in -1.
-
-Kết hợp D&C trên thời gian với DSU Rollback. Trong mỗi đoạn thời gian, chỉ giữ các cạnh tồn tại suốt đoạn đó, thực hiện Kruskal với các cạnh còn lại.
-
-*Ràng buộc:* N ≤ 10⁴, Q ≤ 5 × 10⁴. Bài tập khó nhất trong nhóm, yêu cầu thành thạo cả DSU Rollback, Kruskal và D&C trên thời gian.
+| Mã bài | Tên bài tập | Độ khó | Kiểu bài tập (Bản chất) | Bài học lý thuyết |
+| :--- | :--- | :---: | :--- | :--- |
+| `dsur-basic` | [Hệ Thống Quản Lý Nhóm Nghiên Cứu](https://fptoj.com/problem/dsur-basic) | ⭐⭐ | DSU Rollback cơ bản (`unite`, `rollback`, `query`) | [DSU Rollback](dsu-rollback.md) |
+| `dsur-sum` | [Ngân Hàng Dữ Liệu Phân Tán](https://fptoj.com/problem/dsur-sum) | ⭐⭐ | DSU Rollback + duy trì tổng thành phần | [DSU Rollback](dsu-rollback.md) |
+| `dsur-timeline` | [Dòng Thời Gian Kết Nối](https://fptoj.com/problem/dsur-timeline) | ⭐⭐ | Dynamic Connectivity + D&C trên thời gian | [DSU Rollback](dsu-rollback.md) |
+| `dsur-online` | [Đồ Thị Động](https://fptoj.com/problem/dsur-online) | ⭐⭐ | Dynamic Connectivity + Segment Tree trên thời gian | [DSU Rollback](dsu-rollback.md) |
+| `dsur-persistence` | [Lưu Trữ Phiên Bản Dữ Liệu](https://fptoj.com/problem/dsur-persistence) | ⭐⭐ | Persistent DSU (quay lui theo phiên bản) | [DSU Rollback](dsu-rollback.md) |
+| `dsur-connect` | [Số Vùng Kết Nối](https://fptoj.com/problem/dsur-connect) | ⭐⭐ | Đếm số thành phần liên thông động | [DSU Rollback](dsu-rollback.md) |
+| `dsur-bipartite` | [Đồ Thị Hai Phía Động](https://fptoj.com/problem/dsur-bipartite) | ⭐⭐⭐ | Parity DSU + kiểm tra đồ thị hai phía động | [DSU Rollback](dsu-rollback.md) |
+| `dsur-mst` | [Cây Khung Động](https://fptoj.com/problem/dsur-mst) | ⭐⭐⭐ | Dynamic MST (D&C trên thời gian + Kruskal) | [DSU Rollback](dsu-rollback.md) |
 
 ---
 
