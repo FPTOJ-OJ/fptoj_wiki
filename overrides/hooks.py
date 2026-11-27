@@ -28,6 +28,11 @@ _mpl_image_dir = os.path.normpath(
 _used_images = set()
 _mpl_ctx = None
 
+# JetBrains Mono (OFL-1.1, có hỗ trợ tiếng Việt) cho charts — commit trong repo
+# nên build offline/deterministic, không phụ thuộc mạng lúc build.
+_FONTS_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), 'fonts'))
+_CHART_FONT = 'JetBrains Mono'
+
 FIG_DPI = 150
 MAX_FIG_W, MAX_FIG_H = 16.0, 10.0  # inches
 
@@ -168,9 +173,9 @@ def _check_ast(code):
 # Matplotlib styles — optimized for WebP rendering
 # ---------------------------------------------------------------------------
 _LIGHT_STYLE = {
-    # Font
-    'font.family': 'sans-serif',
-    'font.sans-serif': ['DejaVu Sans', 'Arial', 'Helvetica', 'sans-serif'],
+    # Font — JetBrains Mono cho toàn bộ chart (DejaVu dự phòng)
+    'font.family': 'monospace',
+    'font.monospace': [_CHART_FONT, 'DejaVu Sans Mono', 'DejaVu Sans', 'monospace'],
     'font.size': 11,
     'mathtext.fontset': 'dejavusans',
     # Figure
@@ -220,9 +225,9 @@ _LIGHT_STYLE = {
 }
 
 _DARK_STYLE = {
-    # Font
-    'font.family': 'sans-serif',
-    'font.sans-serif': ['DejaVu Sans', 'Arial', 'Helvetica', 'sans-serif'],
+    # Font — JetBrains Mono cho toàn bộ chart (DejaVu dự phòng)
+    'font.family': 'monospace',
+    'font.monospace': [_CHART_FONT, 'DejaVu Sans Mono', 'DejaVu Sans', 'monospace'],
     'font.size': 11,
     'mathtext.fontset': 'dejavusans',
     # Figure
@@ -277,8 +282,21 @@ def _init_mpl():
     global _mpl_ctx
     if _mpl_ctx is not None:
         return _mpl_ctx
+    # Quét font hệ thống (đặc biệt trên CI) hay phàn nàn về font bitmap như
+    # NotoColorEmoji rồi tự bỏ qua — charts của mình dùng DejaVu Sans đi kèm
+    # matplotlib nên tắt bớt logger này, lỗi render thật vẫn báo riêng.
+    logging.getLogger('matplotlib.font_manager').setLevel(logging.ERROR)
     import matplotlib
     matplotlib.use('Agg')
+    # Đăng ký font tự host trước khi render (có Regular/Bold/Italic).
+    try:
+        from matplotlib import font_manager
+        if os.path.isdir(_FONTS_DIR):
+            for fname in sorted(os.listdir(_FONTS_DIR)):
+                if fname.lower().endswith('.ttf'):
+                    font_manager.fontManager.addfont(os.path.join(_FONTS_DIR, fname))
+    except Exception as e:
+        log.warning('Could not register bundled chart fonts, using fallback: %s', e)
     import matplotlib.pyplot as plt
     import seaborn as sns
     sns.set_theme(style='whitegrid')

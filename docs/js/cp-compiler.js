@@ -32,7 +32,7 @@
   var PYODIDE_VERSION = '314.0.8';
   // Đổi số này mỗi khi sửa cp-compiler.js / cp-runner-worker.js / cp-playground.js
   // để trình duyệt bỏ cache cũ (xem webjs.js CP_ASSET_V — giữ 2 số đồng bộ).
-  var VERSION = '4.1.1';
+  var VERSION = '4.1.2';
 
   var DEFAULT_CONFIG = {
     // Ngôn ngữ mặc định: 'cpp' | 'python'

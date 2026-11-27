@@ -35,7 +35,7 @@
     '.cp-pg-bar .cp-info { margin-left: auto; font-size: 11px; color: var(--md-default-fg-color--light, #999); display: flex; align-items: center; gap: 4px; }\n' +
     
     /* FIX DOUBLE SCROLLBAR: Không dùng overflow: auto ở .CodeMirror, quản lý max-height ở .CodeMirror-scroll */
-    '.cp-pg .CodeMirror { height: auto; font-size: 14px; line-height: 1.5; border: none; }\n' +
+    '.cp-pg .CodeMirror { height: auto; font-size: 14px; line-height: 1.5; border: none; font-family: var(--md-code-font, monospace); }\n' +
     '.cp-pg .CodeMirror-scroll { min-height: 120px; max-height: 450px; }\n' +
     
     /* Responsive I/O Grid */

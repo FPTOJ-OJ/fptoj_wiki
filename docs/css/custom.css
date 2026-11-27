@@ -1,3 +1,31 @@
+/* JetBrains Mono — self-hosted code font (SIL OFL 1.1, v2.304, fonts/).
+ * Dùng cho mọi khối code (<pre>, <code>) thay cho Roboto Mono mặc định. */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --md-code-font: "JetBrains Mono", "Roboto Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
 /* Matplotlib chart styling — width based on container, not browser edge */
 img.mpl-plot {
   width: 100%;

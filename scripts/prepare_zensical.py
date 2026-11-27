@@ -93,12 +93,13 @@ def load_hooks():
     return hooks
 
 
-def convert_markdown(hooks, path: Path) -> tuple[int, int]:
+def convert_markdown(hooks, path: Path) -> tuple[int, int, set[str]]:
     text = path.read_text(encoding="utf-8")
     n_mermaid = len(MERMAID_RE.findall(text))
     n_mpl = len(MPL_RE.findall(text))
     if not n_mermaid and not n_mpl:
-        return 0, 0
+        return 0, 0, set()
+    used: set[str] = set()
 
     def _mermaid(m: re.Match) -> str:
         code = m.group(1).rstrip("\n")
@@ -125,21 +126,41 @@ def convert_markdown(hooks, path: Path) -> tuple[int, int]:
         for f in (light_file, dark_file):
             if not (dest / f).exists():
                 shutil.copy2(CACHE / f, dest / f)
+            used.add(f)
         light_url, dark_url = f"/uploads/matplotlib/{light_file}", f"/uploads/matplotlib/{dark_file}"
         return f'<img class="mpl-plot" src="{light_url}" data-light="{light_url}" data-dark="{dark_url}" loading="lazy">'
 
-    path.write_text(MERMAID_RE.sub(_mermaid, MPL_RE.sub(_mpl, text)), encoding="utf-8")
-    return n_mermaid, n_mpl
+    text = MERMAID_RE.sub(_mermaid, text)
+    try:
+        text = MPL_RE.sub(_mpl, text)
+    except Exception as exc:  # noqa: BLE001 - matplotlib hiếm khi chết cả file
+        log.warning("Matplotlib pass failed for %s: %s", path.name, exc)
+
+    path.write_text(text, encoding="utf-8")
+    return n_mermaid, n_mpl, used
 
 
 def convert_all(hooks) -> tuple[int, int, int]:
     n_mermaid = n_mpl = pages = 0
+    used: set[str] = set()
     for path in STAGE.rglob("*.md"):
-        m, p = convert_markdown(hooks, path)
+        m, p, u = convert_markdown(hooks, path)
         if m or p:
             pages += 1
             n_mermaid += m
             n_mpl += p
+            used |= u
+    # Xóa ảnh thừa trong bản staged (đổi code chart / xóa block): chỉ giữ file
+    # đang được tham chiếu. Cache trong docs/ giữ nguyên.
+    dest = STAGE / "uploads" / "matplotlib"
+    swept = 0
+    if dest.is_dir():
+        for f in dest.glob("*.webp"):
+            if f.name not in used:
+                f.unlink()
+                swept += 1
+    if swept:
+        log.info("Swept %d orphaned image(s) from staged copy", swept)
     return n_mermaid, n_mpl, pages
 
 
