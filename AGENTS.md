@@ -157,6 +157,27 @@ Problem description.
 - Solution code is indented 4 spaces (inside the tip block)
 - Both `??? tip` and `??? tip` are valid — match existing file style
 
+#### Runtime: WASM, chạy hoàn toàn trong trình duyệt (v4)
+
+Since v4 there is **no compile server**: code runs locally via WebAssembly, nothing is uploaded.
+
+| File | Role |
+|------|------|
+| `docs/js/cp-compiler.js` | Public facade (`window.CPCompiler`), queueing, timeouts, timing |
+| `docs/js/cp-runner-worker.js` | Web Worker that owns both runtimes (lazy-loaded) |
+
+| Language | Engine | First load |
+|----------|--------|-----------|
+| C++ | Clang 22 → WASM (`@live-codes/clang-wasm`), ships `<bits/stdc++.h>`, `<bits/extc++.h>`, pb_ds, `ext/rope` | ~29 MB (cached by browser) |
+| Python 3 | CPython → WASM (Pyodide) | ~12 MB (cached by browser) |
+
+- Both runtimes are fetched lazily on the first **▶ Chạy**, inside a Worker so the page never freezes, then kept warm for later runs (warm C++ compile ≈1–2 s, Python run ≈5 ms).
+- Assets come from jsDelivr by default; override with `CPCompiler.configure({ cpp: { assetsUrl, runtimeUrl }, python: { indexUrl } })` to self-host.
+- `CPCompiler.preload('cpp' | 'python')` warms a runtime ahead of time; `onStatus` / `CPCompiler.on('status')` reports load/compile/run phases.
+- Timeouts kill the worker (`timeout`, default 45 s, covers compile+run; `loadTimeout` covers the first download). The next run recreates it.
+- Behaviour to keep in mind: no C++ exceptions (`try/catch`/`throw` do not link), and it is Clang pretending to be GNU (`gnu++17`, `__GNUC__` defined), so `#include <bits/stdc++.h>` works but `bits/stdc++.h` content is a curated subset, not GCC's exact header.
+
+
 ### Matplotlib Visualizations
 
 Advanced lessons use custom ` ```matplotlib ` blocks to render graphs, plots, and geometric diagrams.

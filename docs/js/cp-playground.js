@@ -5,6 +5,22 @@
 (function() {
   'use strict';
 
+  // Tải ngầm runtime WASM khi người dùng có ý định chạy code (focus/gõ phím),
+  // không tải ngay khi mở trang: mỗi lượt tải C++ là ~29 MB.
+  // Muốn tải ngay từ đầu thì gọi thẳng: CPCompiler.preload('cpp').
+  var PRELOADED = {};
+
+  function preloadRuntime(lang) {
+    if (PRELOADED[lang]) return;
+    PRELOADED[lang] = true;
+    if (typeof CPCompiler === 'undefined' || !CPCompiler.preload) return;
+    var conn = (typeof navigator !== 'undefined' &&
+      (navigator.connection || navigator.mozConnection || navigator.webkitConnection)) || null;
+    if (conn && conn.saveData) return;                            // người dùng bật tiết kiệm dữ liệu
+    if (conn && /(^|-)2g$/.test(conn.effectiveType || '')) return; // mạng quá chậm
+    CPCompiler.preload(lang).catch(function() { /* để lúc bấm Chạy báo lỗi cụ thể */ });
+  }
+
   // Chuyển CSS sang dạng chuỗi nối để dễ đọc và bảo trì hơn
   var CSS = 
     '.cp-pg { border: 1px solid var(--md-default-fg-color--lightest, #ddd); border-radius: 8px; margin: 1.5em 0; overflow: hidden; font-family: var(--md-code-font, monospace); background: var(--md-default-bg-color, #fff); box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: box-shadow 0.2s; }\n' +
@@ -206,7 +222,17 @@
     // SetSize được điều chỉnh để không fix cứng height gây ra thanh cuộn kép. Chiều cao tối đa sẽ do CSS quản lý.
     ed.setSize(null, 'auto');
 
+    function currentLang() {
+      var sel = c.querySelector('.cp-lang');
+      return sel && sel.value === 'python' ? 'python' : 'cpp';
+    }
+
+    ed.on('focus', function() {
+      preloadRuntime(currentLang());
+    });
+
     ed.on('inputRead', function(cm, ch) {
+      preloadRuntime(currentLang());
       if (ch.origin === '+input' || ch.origin === 'paste') {
         var t = ch.text[0];
         if (t && /[a-zA-Z_.#]/.test(t)) cm.showHint({ hint: function(cm2) { return hintFn(kwList, cm2); }, completeSingle: false });
@@ -239,6 +265,7 @@
     langSel.addEventListener('change', function() {
       ed.setOption('mode', this.value);
       kwList = this.value === 'python' ? KW_PY : KW_CPP;
+      preloadRuntime(currentLang());
     });
 
     var runBtn = c.querySelector('.cp-run');
@@ -267,7 +294,20 @@
       if (br) br.style.display = 'inline-block';
       rpre.textContent = ''; rpre.className = 'cp-rpre'; timeEl.textContent = '';
 
-      CPCompiler.compileAndRun({ code: code, language: lang, input: inpEl.value, std: 'c++17', optimize: 'O2' }).then(function(r) {
+      CPCompiler.compileAndRun({
+        code: code,
+        language: lang,
+        input: inpEl.value,
+        std: 'gnu++17',
+        optimize: 'O2',
+        // Trạng thái nạp/biên dịch WASM (lần đầu có thể tải ~29 MB cho C++).
+        onStatus: function(s) {
+          if (!s) return;
+          if (s.phase === 'load') rmsg.textContent = s.text || 'Đang tải bộ công cụ...';
+          else if (s.phase === 'compile') rmsg.textContent = 'Đang biên dịch...';
+          else if (s.phase === 'run') rmsg.textContent = 'Đang chạy...';
+        },
+      }).then(function(r) {
         runBtn.disabled = false; runBtn.textContent = '▶ Chạy'; rmsg.textContent = '';
         if (br) br.style.display = 'none';
 
@@ -290,17 +330,17 @@
             rpre.textContent = '✅ Chạy thành công!';
           }
         } else {
-          outEl.value = '';
+          outEl.value = (r.output || '').replace(/\r\n/g, '\n').trimEnd();
           if (be) be.style.display = 'inline-block';
           rpre.className = 'cp-rpre err';
-          rpre.textContent = '❌ ' + (r.compilerOutput && r.compilerOutput.trim() ? r.compilerOutput.trim() : r.error || 'Unknown error');
+          rpre.textContent = '❌ ' + (((r.compilerOutput && r.compilerOutput.trim()) || r.error || 'Lỗi không xác định'));
         }
         if (r.timing) timeEl.textContent = r.timing.summary;
       }).catch(function(e) {
         runBtn.disabled = false; runBtn.textContent = '▶ Chạy'; rmsg.textContent = ''; hideB();
         if (be) be.style.display = 'inline-block';
         rpre.className = 'cp-rpre err';
-        rpre.textContent = '❌ Lỗi mạng: ' + e.message;
+        rpre.textContent = '❌ ' + (e && e.message ? e.message : 'Không chạy được code.');
       });
     });
 
