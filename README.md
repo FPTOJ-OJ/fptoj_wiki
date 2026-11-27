@@ -7,8 +7,6 @@ A competitive programming and algorithms wiki for students and enthusiasts. All 
 
 > **FPTOJ Wiki** is a fork of [VNOI Wiki](https://wiki.vnoi.info/), maintained and customized by the FPTOJ community.
 
----
-
 ## Content
 
 ### Basic Programming
@@ -44,21 +42,30 @@ In-depth articles from the VNOI library and other sources. See the [VNOI Roadmap
 
 🔗 **[Full table of contents →](docs/index.md)**
 
----
-
 ## Tech Stack
 
 | Tool | Purpose |
 |------|---------|
-| [MkDocs](https://www.mkdocs.org/) | Static site generator |
+| [Zensical](https://zensical.org/) | Static site generator (reads `mkdocs.yml`) |
 | [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) | Responsive theme with dark mode |
 | [KaTeX](https://katex.org/) | Math rendering |
-| [Isso-comments](https://isso-comments.de/) | Self-hosted comment system |
+| [Pyodide](https://pyodide.org/) + [Clang/WASM](https://github.com/live-codes/clang-wasm) | In-browser C++ & Python playground (self-hosted, no compile server) |
+| [Isso](https://isso-comments.de/) | Self-hosted comment system |
 | Cloudflare Pages | Hosting & auto-deploy |
 
----
+## Getting Started
 
-## Configuration
+Requires Python 3.8+. Conda is recommended (see `AGENTS.md`).
+
+```bash
+git clone https://github.com/FPTOJ-OJ/fptoj_wiki.git
+cd fptoj_wiki
+conda run pip install -r requirements.txt
+conda run python scripts/prepare_zensical.py
+conda run zensical serve -f zensical.generated.yml
+```
+
+Or run `serve.bat` (Windows) / `./serve.sh` (macOS/Linux). Visit `http://localhost:8000`.
 
 ### Change Isso Comments Domain
 
@@ -71,19 +78,6 @@ extra:
 
 The value must end with `/`. The JS embed script is loaded from `{isso_host}js/embed.min.js`.
 
-Requires Python 3.8+
-
-```bash
-git clone https://github.com/FPTOJ-OJ/fptoj_wiki.git
-cd fptoj_wiki
-pip install -r requirements.txt
-python -m mkdocs serve
-```
-
-Or run `serve.bat` on Windows. Visit `http://127.0.0.1:8000`.
-
----
-
 ## Contributing
 
 Contributions are welcome:
@@ -91,18 +85,14 @@ Contributions are welcome:
 - **Pull Request** — fix bugs or add content
 - **Issue** — report problems or suggest new articles
 
----
+See [CONTRIBUTING.md](CONTRIBUTING.md) and `AGENTS.md` for conventions.
 
 ## Credits
 
 Built on top of content from the **VNOI** community. Special thanks to [VNOI Wiki](https://wiki.vnoi.info/) for their invaluable contributions to Vietnamese CS education.
 
----
-
 ## License
 
 This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
-
----
 
 Made with ❤️ by **Ha Tri Kien** and **FPTOJ Team**.

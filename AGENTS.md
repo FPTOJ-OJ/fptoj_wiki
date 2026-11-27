@@ -339,9 +339,6 @@ python -m mkdocs build --strict
 # Renders all charts again (Zensical pipeline)
 python scripts/prepare_zensical.py --clean
 zensical build -f zensical.generated.yml
-
-# Or use the helper script (Windows)
-clean-build.bat
 ```
 
 This deletes all cached matplotlib images in `docs/uploads/matplotlib/` and recompiles them from scratch. Useful after changing chart styles or fixing rendering issues.
